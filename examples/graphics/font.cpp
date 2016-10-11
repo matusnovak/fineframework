@@ -13,8 +13,7 @@ public:
 		std::cout << "Window setup!" << std::endl;
 
 		for(int i = 0; i < 8; i++){
-			if(!freesans[i].CreateFromFile(this, "FreeSans.ttf", 14 + i*2, 72)){
-				system("ls");
+			if(!freesans[i].CreateFromData(this, ffw::defaultFont, ffw::defaultFontSize, 14 + i*2, 72)){
 				std::cerr << "Failed to create font from: \'FreeSans.ttf\' File is missing?" << std::endl;
 				return false;
 			}

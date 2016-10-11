@@ -31,7 +31,7 @@ public:
 		gui.SetSize(GetSize().x, GetSize().y);
 		gui.SetPos(0, 0);
 
-		font = gui.CreateFontFromFile("FreeSans.ttf", 12, 72);
+		font = gui.CreateFontFromData(ffw::defaultFont, ffw::defaultFontSize, 12, 72);
 		if(font == NULL){
 			std::cout << "Failed to create GUI font!" << std::endl;
 		} else {
