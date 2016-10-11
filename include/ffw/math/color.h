@@ -3,6 +3,9 @@
 #define FFW_COLOR
 
 namespace ffw {
+	/**
+	 * @ingroup math
+	 */
     class Color {
 	public:
         float r;
@@ -24,9 +27,21 @@ namespace ffw {
         Color& Clamp();
         Color& Normalize();
     };
+	/**
+	 * @ingroup math
+	 */
 	Color Rgb(unsigned long hex);
+	/**
+	 * @ingroup math
+	 */
 	Color Rgb(unsigned char red, unsigned char green, unsigned char blue);
+	/**
+	 * @ingroup math
+	 */
 	Color Rgba(unsigned long hex);
+	/**
+	 * @ingroup math
+	 */
 	Color Rgba(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
 };
 #include "Color.inl"

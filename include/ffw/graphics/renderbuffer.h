@@ -21,6 +21,9 @@
 namespace ffw {
 	class RenderContext;
 	class GlextStruct;
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API Renderbuffer {
     public:
         Renderbuffer();

@@ -1,4 +1,6 @@
-/*** This file is part of FineFramework project ***/
+/**
+ * \defgroup math math - Math functions and types
+ */
 #ifndef FFW_MATH_MODULE
 #define FFW_MATH_MODULE
 #include "config.h"

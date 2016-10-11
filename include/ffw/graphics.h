@@ -1,5 +1,5 @@
 /**
- * \defgroup graphics Graphics Module
+ * \defgroup graphics graphics - OpenGL drawing and window handling
  */
 #ifndef FFW_GRAPHICS_MODULE
 #define FFW_GRAPHICS_MODULE

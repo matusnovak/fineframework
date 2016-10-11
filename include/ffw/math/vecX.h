@@ -7,6 +7,9 @@
 #include "Vec4.h"
 
 namespace ffw{
+	/**
+	 * @ingroup math
+	 */
 	template<size_t S, class T> class Vec {
 	public:
 		std::array<T, S> val;

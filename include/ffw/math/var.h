@@ -4,6 +4,9 @@
 
 namespace ffw {
     struct Var;
+	/**
+	 * @ingroup math
+	 */
     struct VarArray {
     public:
         VarArray();
@@ -43,7 +46,9 @@ namespace ffw {
     protected:
         std::vector<Var> VarVec;
     };
-    
+    /**
+	 * @ingroup math
+	 */
     struct VarObject {
     public:
         VarObject();
@@ -77,7 +82,9 @@ namespace ffw {
     protected:
         std::map<std::string, Var> VarMap;
     };
-    
+    /**
+	 * @ingroup math
+	 */
     struct Var {
     public:
         enum Type {

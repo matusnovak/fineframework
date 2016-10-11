@@ -9,6 +9,9 @@
 
 namespace ffw {
     class RenderContext;
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API Framebuffer {
     public:
         static bool CheckCompability(const RenderContext* Renderer);

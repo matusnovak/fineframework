@@ -5,6 +5,9 @@
 #include "../math.h"
 namespace ffw {
 	class GuiFont;
+	/**
+	 * @ingroup gui
+	 */
 	class GuiBackend {
 	public:
 		virtual void Resize(int width, int height) = 0;

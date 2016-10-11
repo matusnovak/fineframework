@@ -3,6 +3,9 @@
 #define FFW_GUI_PROGRESSBAR
 #include "guiwidget.h"
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiProgressBar: public GuiWidget {
 	public:
 		GuiProgressBar(GuiWindow* context, const std::string& label);

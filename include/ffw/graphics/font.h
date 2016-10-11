@@ -10,6 +10,9 @@
 
 namespace ffw {
     class RenderContext;
+	/**
+	 * @ingroup graphics
+	 */
     class FFW_API Font {
     public:
 		struct CharStruct{

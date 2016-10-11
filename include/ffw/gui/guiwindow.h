@@ -7,6 +7,9 @@
 #include <queue>
 #include <functional>
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiWindow {
 	public:
 		GuiWindow();

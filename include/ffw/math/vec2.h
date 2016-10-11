@@ -3,6 +3,9 @@
 #define FFW_VEC2
 
 namespace ffw {
+	/**
+	 * @ingroup math
+	 */
     template <class T> struct Vec2 {
     public:
         T x;
@@ -45,8 +48,17 @@ namespace ffw {
         T LengthSqrd() const;
 		template <class S> explicit operator Vec2<S>() const;
     };
+	/**
+	 * @ingroup math
+	 */
     typedef Vec2<float> Vec2f;
+	/**
+	 * @ingroup math
+	 */
     typedef Vec2<int> Vec2i;
+	/**
+	 * @ingroup math
+	 */
     typedef Vec2<double> Vec2d;
 };
 #include "Vec2.inl"

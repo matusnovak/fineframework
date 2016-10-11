@@ -3,6 +3,9 @@
 #define FFW_Quat
 
 namespace ffw {
+	/**
+	 * @ingroup math
+	 */
     template <class T> struct Quat {
     public:
         T x;
@@ -35,7 +38,13 @@ namespace ffw {
 		Quat getInversed() const;
 		Quat& inverse();
     };
+	/**
+	 * @ingroup math
+	 */
 	typedef Quat<float> Quatf;
+	/**
+	 * @ingroup math
+	 */
 	typedef Quat<double> Quatd;
 };
 #include "quaternion.inl"

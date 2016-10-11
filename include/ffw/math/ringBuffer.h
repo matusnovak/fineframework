@@ -3,6 +3,9 @@
 #define FFW_RING_BUFFER
 
 namespace ffw{
+	/**
+	 * @ingroup math
+	 */
 	template<class T> class RingBuffer {
 	public:
 		RingBuffer();

@@ -23,6 +23,9 @@
 namespace ffw {
     class RenderContext;
 	class GlextStruct;
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API Shader {
     public:
         static bool CheckCompability(const RenderContext* renderer);

@@ -3,6 +3,9 @@
 #define FFW_GUI_TEXT_EDIT
 #include "guiwidget.h"
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiTextEdit: public GuiWidget {
 	public:
 		GuiTextEdit(GuiWindow* context, const std::string& str, bool multiline = false, bool editable = true);
@@ -26,10 +29,16 @@ namespace ffw {
 		size_t start;
 		bool multi;
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class GuiTextArea: public GuiTextEdit {
 	public:
 		GuiTextArea(GuiWindow* context, const std::string& str, bool editable = true):GuiTextEdit(context, str, true, editable){}
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class GuiTextInput: public GuiTextEdit {
 	public:
 		GuiTextInput(GuiWindow* context, const std::string& str, bool editable = true):GuiTextEdit(context, str, false, editable){}

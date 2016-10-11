@@ -4,6 +4,9 @@
 #include "texture.h"
 
 namespace ffw {
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API Texture2DArrayMS: public Texture {
     public:
         static bool CheckCompability(const RenderContext* renderer);

@@ -22,6 +22,9 @@
 #endif
 
 namespace ffw{
+	/**
+	 * @ingroup graphics
+	 */
 	class GlextStruct{
     public:
 		typedef void* (*glextLoader)(const char*);

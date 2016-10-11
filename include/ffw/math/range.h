@@ -3,6 +3,9 @@
 #define FFW_RANGE
 
 namespace ffw{
+	/**
+	 * @ingroup math
+	 */
     template <class T> class RangeIterator{
     public:
         RangeIterator(T Value);
@@ -12,7 +15,9 @@ namespace ffw{
     private:
         T value;
     };
-    
+    /**
+	 * @ingroup math
+	 */
 	template <class T> class Range{
     public:
         Range(T Min, T Max);

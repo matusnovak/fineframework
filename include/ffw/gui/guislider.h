@@ -3,6 +3,9 @@
 #define FFW_GUI_SLIDER
 #include "guiwidget.h"
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiSlider: public GuiWidget {
 	public:
 		GuiSlider(GuiWindow* context, bool vertical);

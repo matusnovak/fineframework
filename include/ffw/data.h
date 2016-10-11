@@ -1,3 +1,6 @@
+/**
+ * \defgroup data data - XML and JSON loaders
+ */
 #ifndef FFW_DATA_MODULE
 #define FFW_DATA_MODULE
 #include "config.h"

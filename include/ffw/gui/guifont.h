@@ -4,6 +4,9 @@
 #include "../config.h"
 #include "../math.h"
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class GuiFont{
 	public:
 		virtual bool IsCreated() const = 0;

@@ -3,6 +3,9 @@
 #define FFW_Mat4x4
 
 namespace ffw {
+	/**
+	 * @ingroup math
+	 */
     template <class T> struct Mat4x4 {
     public:
 		T ptr[16];
@@ -29,6 +32,9 @@ namespace ffw {
 		Mat4x4<T>& Transpose();
 		Mat4x4<T>& Inverse();
     };
+	/**
+	 * @ingroup math
+	 */
 	typedef Mat4x4<float> Mat4x4f;
 };
 #include "mat4.inl"

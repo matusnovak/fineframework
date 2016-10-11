@@ -5,6 +5,9 @@
 #ifdef FFW_GRAPHICS_MODULE
 #include "guifontopengl.h"
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class GuiBackendOpenGL: public GuiBackend {
 	private:
 		const RenderContext* context;

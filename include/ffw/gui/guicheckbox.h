@@ -29,6 +29,9 @@ namespace ffw {
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		std::function<void(GuiEvent)> onclickcallback;
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiCheckbox: public GuiWidget {
 	public:
 		GuiCheckbox(GuiWindow* context, const std::string& label);

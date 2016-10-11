@@ -4,6 +4,9 @@
 #include "guiwidget.h"
 #include <functional>
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiButton: public GuiWidget {
 	public:
 		GuiButton(GuiWindow* context, const std::string& label);

@@ -5,6 +5,9 @@
 #include <functional>
 namespace ffw {
 	class GuiRadio;
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiRadioValue {
 	public:
 		GuiRadioValue();
@@ -44,6 +47,9 @@ namespace ffw {
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		std::function<void(GuiEvent)> onclickcallback;
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiRadio: public GuiWidget {
 	public:
 		GuiRadio(GuiWindow* context, const std::string& label, int base, GuiRadio* other = NULL);

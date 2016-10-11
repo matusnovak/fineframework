@@ -32,3 +32,6 @@ build/
 
 # Ignore html docs created by doxygen
 html/
+
+# Dependencies
+dependencies/

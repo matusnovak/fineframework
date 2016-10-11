@@ -5,6 +5,9 @@
 
 namespace ffw {
 	class RenderContext;
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API Renderbuffer2DMS: public Renderbuffer {
     public:
         static bool CheckCompability(const RenderContext* Renderer);

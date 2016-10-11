@@ -1,3 +1,6 @@
+/**
+ * \defgroup gui gui - Graphical User Interface
+ */
 #ifndef FFW_GUI_MODULE
 #define FFW_GUI_MODULE
 #include "gui/guibackend.h"

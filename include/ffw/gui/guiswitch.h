@@ -4,6 +4,9 @@
 #include "guilabel.h"
 #include <functional>
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiSwitch: public GuiWidget {
 	public:
 		GuiSwitch(GuiWindow* context);

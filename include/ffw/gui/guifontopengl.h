@@ -3,6 +3,9 @@
 #define FFW_GUI_FONT_OPENGL
 #include "guifont.h"
 namespace ffw {
+	/**
+	 * @ingroup gui
+	 */
 	class GuiFontOpenGL: public GuiFont{
 	private:
 		ffw::Font font;

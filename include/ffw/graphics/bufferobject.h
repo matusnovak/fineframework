@@ -21,6 +21,9 @@
 namespace ffw {
 	class RenderContext;
 	class GlextStruct;
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API BufferObject {
     public:
 		static bool CheckCompability(const RenderContext* renderer);
@@ -57,10 +60,16 @@ namespace ffw {
         int size_;
         const GlextStruct* gl_;
     };
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API Vbo: public BufferObject {
 	public:
 		Vbo():BufferObject(GL_ARRAY_BUFFER){}
 	};
+	/**
+	 * @ingroup graphics
+	 */
 	class FFW_API Ibo: public BufferObject {
 	public:
 		Ibo():BufferObject(GL_ELEMENT_ARRAY_BUFFER){}

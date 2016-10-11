@@ -9,15 +9,24 @@
 namespace ffw {
 	class GuiWindow;
 	class GuiWidget;
+	/**
+	 * @ingroup gui
+	 */
 	enum class GuiEventType {
 		CLICKED = 0,
 		SELECTED,
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class GuiEvent {
 	public:
 		GuiWidget* widget;
 		GuiEventType type;
 	};
+	/**
+	 * @ingroup gui
+	 */
 	enum class GuiAlign {
 		LEFT = 0,
 		CENTER,
@@ -29,6 +38,9 @@ namespace ffw {
 		BOTTOM_CENTER,
 		BOTTOM_RIGHT,
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class GuiUserInput {
 	public:
 		ffw::Vec2i mousepos;
@@ -38,6 +50,9 @@ namespace ffw {
 		ffw::Key key;
 		ffw::Mode keymode;
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class GuiUnits {
 	public:
 		static GuiUnits Pixels(int Px){
@@ -62,6 +77,9 @@ namespace ffw {
 			return os;
 		}
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class GuiStyle {
 	public:
 		GuiStyle(){
@@ -110,12 +128,18 @@ namespace ffw {
 		ffw::Color backgroundcolor;
 		ffw::Color textcolor;
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class GuiStyleGroup {
 	public:
 		GuiStyle normal;
 		GuiStyle hover;
 		GuiStyle active;
 	};
+	/**
+	 * @ingroup gui
+	 */
 	class FFW_API GuiWidget {
 	public:
 		enum class Orientation {

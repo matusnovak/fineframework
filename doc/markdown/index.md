@@ -11,6 +11,9 @@ Contains functions for drawing various shapes with OpenGL, including Window mana
 * **[GUI Module](group__gui.html)** - Graphical User Interface
 This module allows creation of user interfaces (GUIs). It takes care of widget layout, automatic spacing when resized, spacing, callbacks, etc. This module provides several widgets (buttons, check boxes, text edits, radios, sliders, etc..) however has a functionality to add custom made widgets. All widgets can be arranged in linear layouts, similarly how HTML works and can be also styled.
 
+* **[Data Module](group__data.html)** - XML and JSON loaders
+Provides a way to load and save XML and JSON data files. Uses third party library [tinyxml-2](https://github.com/leethomason/tinyxml2)
+
 * **[Math Module](group__math.html)** - Math functions and types 
 This module is header only (meaning, it does not need to be compiled) and is used by all modules listed here. Contains various math functions (calculating angles, creating model-view-projection matrices, colour management, UTF-8 to wide string conversion) and also provides several new types (2D, 3D, and 4D vectors, matrices, ring buffers, quaternions, and more).
 
