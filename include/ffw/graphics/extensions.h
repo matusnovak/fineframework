@@ -10,14 +10,14 @@
 #endif
 #ifdef FFW_OSX
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
-#include "gl3.h"
-#include "glext.h"
-#include "gl.h"
+#include <OpenGL/gl3.h>
+#include <OpenGL/glext.h>
+#include <OpenGL/gl.h>
 #else
 #include "GL/gl.h"
 #include "GL/glext.h"
 #endif
-#if GL_GLEXT_VERSION < 20150623
+#if GL_GLEXT_VERSION < 20150623 && !defined(FFW_OSX)
 #error Outdated glext.h! Expected version 20150623 or newer!
 #endif
 
@@ -1068,7 +1068,7 @@ namespace ffw{
         PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB;
         PFNGLGETBUFFERSUBDATAARBPROC glGetHandleSubDataARB;
         PFNGLMAPBUFFERARBPROC glMapBufferARB;
-        PFNGLUNMAPBUFFERARBPROC glUnMapBufferARB;
+        PFNGLUNMAPBUFFERARBPROC glUnmapBufferARB;
         PFNGLGETBUFFERPARAMETERIVARBPROC glGetHandleParameterivARB;
         PFNGLGETBUFFERPOINTERVARBPROC glGetHandlePointervARB;
         #endif
@@ -3250,7 +3250,7 @@ namespace ffw{
 		PFNGLBUFFERSUBDATAPROC glBufferSubData;
 		PFNGLGETBUFFERSUBDATAPROC glGetHandleSubData;
 		PFNGLMAPBUFFERPROC glMapBuffer;
-		PFNGLUNMAPBUFFERPROC glUnMapBuffer;
+		PFNGLUNMAPBUFFERPROC glUnmapBuffer;
 		PFNGLGETBUFFERPARAMETERIVPROC glGetHandleParameteriv;
 		PFNGLGETBUFFERPOINTERVPROC glGetHandlePointerv;
 		#endif
@@ -3442,7 +3442,7 @@ namespace ffw{
 		#endif
 		#if GL_ARB_depth_buffer_float == 1
 		#endif
-		#if GL_ARB_Framebuffer_object == 1
+		//#if GL_ARB_Framebuffer_object == 1
 		PFNGLISRENDERBUFFERPROC glIsRenderbuffer;
 		PFNGLBINDRENDERBUFFERPROC glBindRenderbuffer;
 		PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers;
@@ -3463,7 +3463,7 @@ namespace ffw{
 		PFNGLBLITFRAMEBUFFERPROC glBlitFramebuffer;
 		PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC glRenderbufferStorageMultisample;
 		PFNGLFRAMEBUFFERTEXTURELAYERPROC glFramebufferTextureLayer;
-		#endif
+		//#endif
 		#if GL_ARB_Framebuffer_sRGB == 1
 		#endif
 		#if GL_ARB_half_float_vertex == 1

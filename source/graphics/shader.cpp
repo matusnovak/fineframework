@@ -1,7 +1,7 @@
 /*** This file is part of FineFramework project ***/
 
-#include "ffw/graphics/Shader.h"
-#include "ffw/graphics/RenderContext.h"
+#include "ffw/graphics/shader.h"
+#include "ffw/graphics/rendercontext.h"
 #include "ffw/graphics/extensions.h"
 #include <fstream>
 
@@ -220,7 +220,11 @@ bool ffw::Shader::CompileShader(GLuint& thisshader, const GLchar* data, GLenum s
 
         // Save error log
 		if (errorlogstr_.size() != 0)errorlogstr_ += "\n";
+        #ifdef FFW_OSX
+        if      (shadertype == GL_GEOMETRY_SHADER)  errorlogstr_ += "Geometry Shader:\n" + errorstr;
+        #else
         if      (shadertype == GL_GEOMETRY_SHADER_ARB)  errorlogstr_ += "Geometry Shader:\n" + errorstr;
+        #endif
         else if (shadertype == GL_VERTEX_SHADER)        errorlogstr_ += "Vertex Shader:\n" + errorstr;
 		else if (shadertype == GL_FRAGMENT_SHADER)      errorlogstr_ += "Fragment Shader:\n" + errorstr;
         return false;

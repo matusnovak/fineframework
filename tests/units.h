@@ -5,14 +5,34 @@
 #ifndef FFW_TESTS
 #define FFW_TESTS
 
+// Is noexcept supported?
+
+// OSX
+#if defined(__clang__)
+#if __has_feature(cxx_noexcept)
+#define NOEXCEPT noexcept
+#endif // __has_feature
+
+// GCC
+#elif defined(__GXX_EXPERIMENTAL_CXX0X__) && __GNUC__ * 10 + __GNUC_MINOR__ >= 46
+#define NOEXCEPT noexcept
+
+// MSVC
+#elif defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 180021114
+#define NOEXCEPT noexcept
+
+#else
+#define NOEXCEPT
+#endif
+
 namespace ffw {
 	class tests {
 	public:
 
 	    class TestException : public std::exception {
         public:
-          TestException(std::string const &message) : msg_(message) { }
-          virtual char const *what() const noexcept { return msg_.c_str(); }
+            TestException(std::string const &message) : msg_(message) { }
+            virtual char const *what() const NOEXCEPT { return msg_.c_str(); }
 
         private:
           std::string msg_;
@@ -27,6 +47,8 @@ namespace ffw {
 			instance(const char* CaseName, const char* TestName):caseName(CaseName),testName(TestName){
 				ffw::tests::add(this);
 			}
+                       virtual ~instance(){
+                       }
 
 			const char* getCaseName(){ return caseName; }
 			const char* getTestName(){ return testName; }
@@ -57,7 +79,7 @@ namespace ffw {
 		}
 
 		static void TestEqual(float a, float b, const char* file, int line, const char* astr, const char* bstr){
-			if(std::abs(a - b) > 0.001){
+			if(fabs(a - b) > 0.001){
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_EQUAL(" + std::string(astr) + ", " + std::string(bstr) + ")\n";

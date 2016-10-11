@@ -187,15 +187,15 @@ inline bool ffw::Vec2<T>::operator == (const Vec2<T>& V) const{
 namespace ffw {
     template <>
     inline bool ffw::Vec2<float>::operator == (const Vec2<float>& V) const{
-        if(std::abs(x - V.x) > std::numeric_limits<float>::epsilon())return false;
-        if(std::abs(y - V.y) > std::numeric_limits<float>::epsilon())return false;
+        if(fabs(x - V.x) > std::numeric_limits<float>::epsilon())return false;
+        if(fabs(y - V.y) > std::numeric_limits<float>::epsilon())return false;
         return true;
     }
 
     template <>
     inline bool ffw::Vec2<double>::operator == (const Vec2<double>& V) const{
-        if(std::abs(x - V.x) > std::numeric_limits<double>::epsilon())return false;
-        if(std::abs(y - V.y) > std::numeric_limits<double>::epsilon())return false;
+        if(fabs(x - V.x) > std::numeric_limits<double>::epsilon())return false;
+        if(fabs(y - V.y) > std::numeric_limits<double>::epsilon())return false;
         return true;
     }
 };

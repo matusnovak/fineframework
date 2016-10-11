@@ -23,6 +23,5 @@ else()
 endif()
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
-#target_compile_features(${PROJECT_NAME} PRIVATE cxx_range_for)
   
 INSTALL(TARGETS ${PROJECT_NAME} ARCHIVE DESTINATION lib LIBRARY DESTINATION lib COMPONENT library)

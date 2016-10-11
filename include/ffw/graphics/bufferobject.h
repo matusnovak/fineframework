@@ -10,9 +10,9 @@
 #endif
 #ifdef FFW_OSX
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
-#include "gl3.h"
-#include "glext.h"
-#include "gl.h"
+#include <OpenGL/gl3.h>
+#include <OpenGL/glext.h>
+#include <OpenGL/gl.h>
 #else
 #include "GL/gl.h"
 #include "GL/glext.h"

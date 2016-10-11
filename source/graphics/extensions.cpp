@@ -1131,7 +1131,7 @@ void ffw::GlextStruct::Init(ffw::GlextStruct::glextLoader Loader){
         GET_GL_EXT_FUNC(PFNGLBUFFERSUBDATAARBPROC, glBufferSubDataARB);
         GET_GL_EXT_FUNC(PFNGLGETBUFFERSUBDATAARBPROC, glGetHandleSubDataARB);
         GET_GL_EXT_FUNC(PFNGLMAPBUFFERARBPROC, glMapBufferARB);
-        GET_GL_EXT_FUNC(PFNGLUNMAPBUFFERARBPROC, glUnMapBufferARB);
+        GET_GL_EXT_FUNC(PFNGLUNMAPBUFFERARBPROC, glUnmapBufferARB);
         GET_GL_EXT_FUNC(PFNGLGETBUFFERPARAMETERIVARBPROC, glGetHandleParameterivARB);
         GET_GL_EXT_FUNC(PFNGLGETBUFFERPOINTERVARBPROC, glGetHandlePointervARB);
     //}
@@ -3684,7 +3684,7 @@ void ffw::GlextStruct::Init(ffw::GlextStruct::glextLoader Loader){
 		GET_GL_EXT_FUNC(PFNGLBUFFERSUBDATAPROC, glBufferSubData);
 		GET_GL_EXT_FUNC(PFNGLGETBUFFERSUBDATAPROC, glGetHandleSubData);
 		GET_GL_EXT_FUNC(PFNGLMAPBUFFERPROC, glMapBuffer);
-		GET_GL_EXT_FUNC(PFNGLUNMAPBUFFERPROC, glUnMapBuffer);
+		GET_GL_EXT_FUNC(PFNGLUNMAPBUFFERPROC, glUnmapBuffer);
 		GET_GL_EXT_FUNC(PFNGLGETBUFFERPARAMETERIVPROC, glGetHandleParameteriv);
 		GET_GL_EXT_FUNC(PFNGLGETBUFFERPOINTERVPROC, glGetHandlePointerv);
 		#endif
@@ -3880,7 +3880,7 @@ void ffw::GlextStruct::Init(ffw::GlextStruct::glextLoader Loader){
 		GET_GL_EXT_FUNC(PFNGLBLENDFUNCSEPARATEIPROC, glBlendFuncSeparatei);
 		#endif
 
-		#if GL_ARB_Framebuffer_object == 1
+		//#if GL_ARB_Framebuffer_object == 1
 		GET_GL_EXT_FUNC(PFNGLISRENDERBUFFERPROC, glIsRenderbuffer);
 		GET_GL_EXT_FUNC(PFNGLBINDRENDERBUFFERPROC, glBindRenderbuffer);
 		GET_GL_EXT_FUNC(PFNGLDELETERENDERBUFFERSPROC, glDeleteRenderbuffers);
@@ -3901,7 +3901,7 @@ void ffw::GlextStruct::Init(ffw::GlextStruct::glextLoader Loader){
 		GET_GL_EXT_FUNC(PFNGLBLITFRAMEBUFFERPROC, glBlitFramebuffer);
 		GET_GL_EXT_FUNC(PFNGLRENDERBUFFERSTORAGEMULTISAMPLEPROC, glRenderbufferStorageMultisample);
 		GET_GL_EXT_FUNC(PFNGLFRAMEBUFFERTEXTURELAYERPROC, glFramebufferTextureLayer);
-		#endif
+		//#endif
 
 		#if GL_ARB_map_buffer_range == 1
 		GET_GL_EXT_FUNC(PFNGLMAPBUFFERRANGEPROC, glMapBufferRange);

@@ -232,7 +232,7 @@ bool ffw::Framebuffer::Destroy(){
 ///=============================================================================
 void ffw::Framebuffer::Bind() const {
 	#ifdef FFW_OSX
-		if(created_)gl_->glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+		if(created_)gl_->glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
 	#else
 		if(created_)gl_->glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo_);
 	#endif

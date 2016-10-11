@@ -228,19 +228,19 @@ inline bool ffw::Vec4<T>::operator == (const Vec4<T>& V) const{
 namespace ffw {
     template <>
     inline bool ffw::Vec4<float>::operator == (const Vec4<float>& V) const{
-        if(std::abs(x - V.x) > std::numeric_limits<float>::epsilon())return false;
-        if(std::abs(y - V.y) > std::numeric_limits<float>::epsilon())return false;
-        if(std::abs(z - V.z) > std::numeric_limits<float>::epsilon())return false;
-        if(std::abs(w - V.w) > std::numeric_limits<float>::epsilon())return false;
+        if(fabs(x - V.x) > std::numeric_limits<float>::epsilon())return false;
+        if(fabs(y - V.y) > std::numeric_limits<float>::epsilon())return false;
+        if(fabs(z - V.z) > std::numeric_limits<float>::epsilon())return false;
+        if(fabs(w - V.w) > std::numeric_limits<float>::epsilon())return false;
         return true;
     }
 
     template <>
     inline bool ffw::Vec4<double>::operator == (const Vec4<double>& V) const{
-        if(std::abs(x - V.x) > std::numeric_limits<double>::epsilon())return false;
-        if(std::abs(y - V.y) > std::numeric_limits<double>::epsilon())return false;
-        if(std::abs(z - V.z) > std::numeric_limits<double>::epsilon())return false;
-        if(std::abs(w - V.w) > std::numeric_limits<double>::epsilon())return false;
+        if(fabs(x - V.x) > std::numeric_limits<double>::epsilon())return false;
+        if(fabs(y - V.y) > std::numeric_limits<double>::epsilon())return false;
+        if(fabs(z - V.z) > std::numeric_limits<double>::epsilon())return false;
+        if(fabs(w - V.w) > std::numeric_limits<double>::epsilon())return false;
         return true;
     }
 };

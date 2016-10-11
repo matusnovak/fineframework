@@ -31,17 +31,17 @@
 #ifdef __ANDROID__
 #define FFW_ANDROID_NDK 1
 #define FFW_ANDROID 1
-#endif
+#endif*/
 // Using MAX OS X
-#ifdef __APPLE__
+#if defined(__APPLE__) && defined(__MACH__)
 #define FFW_OSX_GCC 1
 #define FFW_OSX 1
 #define FFW_USE_PTHREADS 1
-#endif*/
-#if !defined(FFW_WINDOWS_MSVC) && !defined(FFW_WINDOWS_MINGW) && !defined(FFW_LINUX_GCC)
-#error Please use Visual Studio, MinGW, or Linux GCC to compile FineFramework!
 #endif
-#if !defined(FFW_WINDOWS) && !defined(FFW_LINUX)
+#if !defined(FFW_WINDOWS_MSVC) && !defined(FFW_WINDOWS_MINGW) && !defined(FFW_LINUX_GCC) && !defined(FFW_OSX_GCC)
+#error Please use Visual Studio, MinGW, Linux GCC, or OS X Clang to compile FineFramework!
+#endif
+#if !defined(FFW_WINDOWS) && !defined(FFW_LINUX) && !defined(FFW_OSX)
 #error Target platform not selected!
 #endif
 // FineFramework export for Windows
