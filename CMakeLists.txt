@@ -1,0 +1,62 @@
+cmake_minimum_required(VERSION 3.0)
+project (fineframework)
+
+include(CheckCXXCompilerFlag)
+CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
+if(COMPILER_SUPPORTS_CXX11)
+    message(STATUS "${COMPILER_SUPPORTS_CXX11}")
+else(COMPILER_SUPPORTS_CXX11)
+    message(FATAL_ERROR "${COMPILER_SUPPORTS_CXX11}")
+endif(COMPILER_SUPPORTS_CXX11)
+
+if (CMAKE_VERSION VERSION_LESS "3.1")
+  if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set (CMAKE_CXX_FLAGS "--std=gnu++11 ${CMAKE_CXX_FLAGS}")
+  endif ()
+else ()
+  set (CMAKE_CXX_STANDARD 11)
+endif ()
+
+if(UNIX)
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath -Wl,$ORIGIN")
+endif()
+
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
+set(CMAKE_DEBUG_POSTFIX _d CACHE STRING "Postfix added to debug version of the library")
+
+set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR})
+
+option(BUILD_SHARED_LIBS "Build Shared Libraries" ON)
+option(BUILD_MODULE_GRAPHICS "Build OpenGL graphics module" ON)
+option(BUILD_MODULE_DATA "Build data module" ON)
+option(BUILD_MODULE_GUI "Build GUI module" ON)
+option(BUILD_EXAMPLES "Build examples" ON)
+option(BUILD_TESTS "Build tests" ON)
+
+if(BUILD_TESTS)
+  add_subdirectory(tests/math)
+endif()
+
+if(BUILD_MODULE_GRAPHICS)
+  add_subdirectory(source/graphics)
+  if(BUILD_EXAMPLES)
+    add_subdirectory(examples/graphics)
+  endif()
+endif()
+
+if(BUILD_MODULE_DATA)
+  add_subdirectory(source/data)
+  if(BUILD_EXAMPLES)
+    add_subdirectory(examples/data)
+  endif()
+endif()
+
+if(BUILD_MODULE_GUI)
+  add_subdirectory(source/gui)
+  if(BUILD_EXAMPLES)
+    add_subdirectory(examples/gui)
+  endif()
+endif()

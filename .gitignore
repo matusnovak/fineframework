@@ -26,3 +26,9 @@
 *.exe
 *.out
 *.app
+
+# Ignore build directory
+build/
+
+# Ignore html docs created by doxygen
+html/

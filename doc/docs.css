@@ -1,0 +1,151 @@
+body {
+	font-size: 12pt;
+}
+
+.memSeparator {
+	display: none;
+}
+
+.memberdecls td {
+	padding: 5px 5px 5px 5px;
+}
+
+.memberdecls tr {
+	/*border-bottom: 1px solid #EEE;*/
+}
+
+.memTemplItemLeft,
+.memTemplItemRight,
+.memItemLeft,
+.memItemRight {
+	border-bottom: 1px solid #EEE;
+}
+
+.groupheader {
+	font-size: 24pt;
+}
+
+.memtitle {
+	font-size: 16pt;
+}
+
+.memitem {
+	border: 1px solid #DDD;
+	padding: 10px;
+}
+
+.memproto tbody,
+.memproto tr {
+	/*display: block;*/
+	/*width: 100%;*/
+}
+
+div.memproto {
+	padding: 10px;
+	background-color: #EEE;
+}
+
+table.mlabels {
+	display: block;
+	width: 100%;
+}
+
+table.mlabels {
+	position: relative;
+}
+
+table.mlabels td.mlabels-right {
+	text-align: right;
+	margin-top: 10px;
+	position: absolute;
+	z-index: 99;
+	right: 0px;
+	margin-top: 0px;
+}
+
+.mlabel {
+	font-size: 10pt;
+	vertical-align: top;
+	color: #FFF;
+	background-color: #2196f3;
+	padding: 5px;
+	margin-left: 5px;
+}
+
+.headertitle {
+	font-size: 24pt;
+	border-bottom: 1px solid #EEE;
+	margin-bottom: 10px;
+}
+
+.headertitle .mlabel {
+	vertical-align: middle;
+}
+
+table.memname > tbody > tr:first-child > td:nth-child(3) {
+	/*display: block;*/
+	/*float: left;*/
+	/*padding-left: 50px;*/
+    /*clear: both;*/
+    /*width: 100%;*/
+}
+
+table.memname > tbody > tr:not(:first-child):not(:last-child) {
+	/*padding-left: 50px;*/
+}
+
+table.params td {
+	padding: 0 5px 5px 5px;
+}
+
+table.params td.paramname {
+	font-weight: bold;
+}
+
+.memdoc p {
+	font-size: 12pt;
+}
+
+.navpath {
+	background-color: #EEE;
+}
+
+.navpath ul {
+	list-style: none;
+	padding: 5px;
+}
+
+.navpath li {
+	display: inline-block;
+	font-size: 12pt;
+}
+
+.navpath li:not(:last-child)::after {
+	content: ">";
+}
+
+.navpath li > a {
+	padding: 0 5px 0 5px;
+}
+
+.fragment {
+	/*display: table;*/
+}
+
+.fragment .line {
+	/*display: table-row;*/
+	background-color: #EEE;
+	/*text-align: left;*/
+	white-space: pre;
+	font-family: "Lucida Console", Monaco, monospace;
+}
+
+.fragment .line .lineno {
+	/*display: table-cell;*/
+	display: inline-block;
+	width: 50px;
+	text-align: right;
+	border-right: 1px solid #CCC;
+	padding-right: 10px;
+	margin-right: 10px;
+}
