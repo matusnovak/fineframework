@@ -8,7 +8,7 @@ PROJECT_NAME           = FineFramework
 PROJECT_NUMBER         = 
 PROJECT_BRIEF          = 
 PROJECT_LOGO           = 
-OUTPUT_DIRECTORY       = .
+OUTPUT_DIRECTORY       = ../../fineframework-gh-pages
 CREATE_SUBDIRS         = NO
 ALLOW_UNICODE_NAMES    = NO
 OUTPUT_LANGUAGE        = English
@@ -112,7 +112,7 @@ WARN_LOGFILE           =
 #---------------------------------------------------------------------------
 # Configuration options related to the input files
 #---------------------------------------------------------------------------
-INPUT                  = ..\include\ffw .\markdown
+INPUT                  = ../include/ffw ./markdown empty.cpp
 INPUT_ENCODING         = UTF-8
 FILE_PATTERNS          = *.h *.md
 RECURSIVE              = YES
@@ -120,7 +120,7 @@ EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = 
 EXCLUDE_SYMBOLS        = 
-EXAMPLE_PATH           = ..\examples
+EXAMPLE_PATH           = ../examples/graphics
 EXAMPLE_PATTERNS       = *.cpp
 EXAMPLE_RECURSIVE      = YES
 IMAGE_PATH             = 
@@ -153,13 +153,13 @@ IGNORE_PREFIX          =
 # Configuration options related to the HTML output
 #---------------------------------------------------------------------------
 GENERATE_HTML          = YES
-HTML_OUTPUT            = ../../fineframework-gh-pages
+HTML_OUTPUT            = .
 HTML_FILE_EXTENSION    = .html
 HTML_HEADER            = header.html
 HTML_FOOTER            = footer.html
 HTML_STYLESHEET        = bootstrap.min.css
 HTML_EXTRA_STYLESHEET  = docs.css
-HTML_EXTRA_FILES       = logo.png
+HTML_EXTRA_FILES       = logo.png images/
 HTML_COLORSTYLE_HUE    = 359
 HTML_COLORSTYLE_SAT    = 100
 HTML_COLORSTYLE_GAMMA  = 80

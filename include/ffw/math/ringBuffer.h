@@ -31,5 +31,5 @@ namespace ffw{
 		size_t size;
 	};
 };
-#include "ringBuffrt.inl"
+#include "ringbuffer.inl"
 #endif

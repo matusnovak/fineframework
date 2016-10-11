@@ -68,5 +68,5 @@ namespace ffw {
 	 */
     typedef Vec3<double> Vec3d;
 };
-#include "Vec3.inl"
+#include "vec3.inl"
 #endif

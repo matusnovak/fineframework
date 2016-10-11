@@ -29,5 +29,5 @@ namespace ffw{
         T max;
     };
 };
-#include "Range.inl"
+#include "range.inl"
 #endif

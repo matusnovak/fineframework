@@ -77,5 +77,5 @@ namespace ffw{
 	 */
 	size_t FFW_API Utf8ToWstrSize(const std::string& Str);
 };
-#include "stringMath.inl"
+#include "stringmath.inl"
 #endif

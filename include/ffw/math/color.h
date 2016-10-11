@@ -44,5 +44,5 @@ namespace ffw {
 	 */
 	Color Rgba(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
 };
-#include "Color.inl"
+#include "color.inl"
 #endif

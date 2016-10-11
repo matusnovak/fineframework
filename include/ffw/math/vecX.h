@@ -2,9 +2,9 @@
 #ifndef FFW_VEC_X
 #define FFW_VEC_X
 #include <array>
-#include "Vec2.h"
-#include "Vec3.h"
-#include "Vec4.h"
+#include "vec2.h"
+#include "vec3.h"
+#include "vec4.h"
 
 namespace ffw{
 	/**
@@ -61,5 +61,5 @@ namespace ffw{
 		}
 	};
 };
-#include "VecX.inl"
+#include "vecx.inl"
 #endif

@@ -130,11 +130,14 @@ table.params td.paramname {
 
 .fragment {
 	/*display: table;*/
+	font-size: 9pt;
+	background-color: #EEE;
+	padding: 10px;
+	line-height: 1.25;
 }
 
 .fragment .line {
 	/*display: table-row;*/
-	background-color: #EEE;
 	/*text-align: left;*/
 	white-space: pre;
 	font-family: "Lucida Console", Monaco, monospace;
@@ -148,4 +151,24 @@ table.params td.paramname {
 	border-right: 1px solid #CCC;
 	padding-right: 10px;
 	margin-right: 10px;
+}
+
+.fragment span.keyword {
+	color: #A71D5D;
+}
+
+.fragment span.keywordflow {
+	color: #A71D5D;
+}
+
+.fragment span.keywordtype {
+	color: #A71D5D;
+}
+
+.fragment span.stringliteral {
+	color: #183691;
+}
+
+.fragment span.comment {
+	color: #969896;
 }

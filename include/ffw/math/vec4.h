@@ -61,5 +61,5 @@ namespace ffw {
 	 */
     typedef Vec4<double> Vec4d;
 };
-#include "Vec4.inl"
+#include "vec4.inl"
 #endif
