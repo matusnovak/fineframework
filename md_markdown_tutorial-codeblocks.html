@@ -27,6 +27,8 @@
 			<li><a href="index.html">Home</a></li>
 			<li><a href="modules.html">Documentation</a></li>
 			<li><a href="md_markdown_tutorials.html">Tutorials</a></li>
+			<li><a href="md_markdown_download.html">Download</a></li>
+			<li><a href="https://github.com/matusnovak/fineframework">GitHub</a></li>
 		  </ul>
 		</div><!-- /.navbar-collapse -->
 	  </div>
@@ -51,18 +53,17 @@ $(function() {
 <div class="contents">
 <div class="textblock"><p>This tutorial will explain how to include any FFW module into your C++ project. You will need Code::Blocks which comes in two versions, with MinGW compiler and without it. It is highly recommended to use MinGW-w64 which supports much more features than original MinGW. MinGW-w64 can be downloaded from <a href="https://sourceforge.net/projects/mingw-w64/">https://sourceforge.net/projects/mingw-w64/</a> and download CodeBlocks <b>without MinGW</b> from <a href="http://www.codeblocks.org/downloads/26">http://www.codeblocks.org/downloads/26</a></p>
 <h3>Installing MinGW-w64</h3>
-<p>When installing MinGW-w64, make sure you use <b>i686</b> architecture and not x86_64. FFW is not fully supported on x86_64 architecture. (i686 = 32-bit and x86_64 = 64-bit)</p>
-<p>The version of the compiler must be <b>4.9.3 or newer!</b></p>
+<p>When installing MinGW-w64, <b>use either i686 architecture or x86_64</b>. (i686 = 32-bit and x86_64 = 64-bit) The version of the compiler must be <b>4.9.3 or newer!</b></p>
 <div class="image">
 <img src="images/tutorial-cb-01.png" alt="Alt"/>
 </div>
-<p>Next, when you install CodeBlocks, run it and go to <b>Settings (main top menu bar) -&gt; Compiler -&gt; Toolchain Executables</b> and set the compiler installation directory to the compiler's bin path. For example: <code>C:\mingw-w64\i686-4.9.2-posix-dwarf-rt_v3-rev1\mingw32\bin</code></p>
+<p>Next, when you install CodeBlocks, run it and go to <b>Settings (main top menu bar) -&gt; Compiler -&gt; Toolchain Executables</b> and set the compiler installation directory to the compiler's bin path. For example: <code>C:\Program Files (x86)\mingw-w64\i686-5.4.0-posix-dwarf-rt_v5-rev0\mingw32\bin</code></p>
 <div class="image">
 <img src="images/tutorial-cb-02.png" alt="Alt"/>
 </div>
 <h3>Installing FFW</h3>
-<p>First, you will need to download glext.h (this is only necessary if using Graphics Module). Glext is an OpenGL extension header file which is updated regularly several times per year and can be downloaded from: <a href="https://www.opengl.org/registry/api/GL/glext.h">https://www.opengl.org/registry/api/GL/glext.h</a> The easiest way for MinGW to know about the glext header is to put it into <code>C:\mingw-w64\i686-x.x.x-posix-dwarf-rt_vxxx-revxxx\mingw32\i686-w64-mingw32\include\GL</code> The folder might already contain an old glext.h file!</p>
-<p>Next, download the pre-built FineFramework DLLs from <a href="https://github.com/matusnovak/fineframework/releases">GitHub Release Page</a>. Look for the most recent release and download the <b>ffw-i686-w64-mingw32.zip</b> zip file! You do not need to download the source code! You can unpack the zip wherever you like, it does not matter.</p>
+<p>First, you will need to download glext.h (this is only necessary if using Graphics Module). Glext is an OpenGL extension header file which is updated regularly several times per year and can be downloaded from: <a href="https://www.opengl.org/registry/api/GL/glext.h">https://www.opengl.org/registry/api/GL/glext.h</a> The easiest way for MinGW to know about the glext header is to put it into <code>C:\path\to\mingw\install\folder\mingw32\XXX-w64-mingw32\include\GL</code> The folder might already contain an old glext.h file!</p>
+<p>Next, download the pre-built FineFramework DLLs from <a href="https://github.com/matusnovak/fineframework/releases">GitHub Release Page</a>. Look for the most recent release and download the <b>ffw-XXX-w64-mingw32.zip</b> zip file! <b>Make sure you download correct one! Either i686 or x84_64 depending on your compiler!</b> You do not need to download the source code! You can unpack the zip wherever you like, it does not matter.</p>
 <p>The zip contains the following folders:</p>
 <ul>
 <li><b>bin</b> - You can find DLLs files here, they are needed when running your C++ project executable. When distributing your executable, you must also include these DLLs next to your exe file!</li>
@@ -71,16 +72,15 @@ $(function() {
 </ul>
 <h3>Configuring FFW project</h3>
 <p>Create a CodeBlocks console application project. You will need to let the compiler know where to find FFW headers and library files. The DLLs are not needed for the compiler itself, instead the DLLs must be copied into the folder where your executable is, we will get into that later.</p>
-<p>In the Project Workspace, right click on your project name and select <b>Build Options</b>. Next, add the following properties listed below to <b>both Release and Debug</b> configuration.</p>
-<p>Go to <b>Compiler Settings -&gt; Compiler Flags</b> and enable <b>Have g++ follow the C++11 ISO</b> alternatively, go to #defines and add -std=c++11 flag.</p>
+<p>In the Project Workspace, right click on your project name and select <b>Build Options</b>. Next, add the following properties listed below to <b>both Release and Debug</b> configuration. Go to <b>Compiler Settings -&gt; Compiler Flags</b> and enable <b>Have g++ follow the C++11 ISO</b> alternatively, go to #defines and add -std=c++11 flag.</p>
 <div class="image">
 <img src="images/tutorial-cb-03.png" alt="Alt"/>
 </div>
-<p>Now, go to <b>Search Directories -&gt; Compiler</b> and add a new path to include folder of your downloaded copy of pre-build FFW, for example: <code>C:\ffw-i686-w64-mingw32\include</code></p>
+<p>Now, go to <b>Search Directories -&gt; Compiler</b> and add a new path to include folder of your downloaded copy of pre-build FFW, for example: <code>C:\ffw-XXX-w64-mingw32\include</code></p>
 <div class="image">
 <img src="images/tutorial-cb-04.png" alt="Alt"/>
 </div>
-<p>For the library files, go to <b>Search Directories -&gt; Linker</b> and add a new path to <code>C:\ffw-i686-w64-mingw32\lib</code></p>
+<p>For the library files, go to <b>Search Directories -&gt; Linker</b> and add a new path to <code>C:\ffw-XXX-w64-mingw32\lib</code></p>
 <div class="image">
 <img src="images/tutorial-cb-05.png" alt="Alt"/>
 </div>
@@ -96,7 +96,7 @@ $(function() {
 <img src="images/tutorial-cb-07.png" alt="Alt"/>
 </div>
 <p>This is where DLL files comes...</p>
-<p>Simply copy all DLLs files from <code>C:\path\to\ffw-i686-w64-mingw32\bin</code> into <code>C:\path\to\your\codeblocks\project\bin\Debug</code> as well into Release folder. (this folder contains your executable file!)</p>
+<p>Simply copy all DLLs files from <code>C:\path\to\ffw-XXX-w64-mingw32\bin</code> into <code>C:\path\to\your\codeblocks\project\bin\Debug</code> as well into Release folder. (this folder contains your executable file!)</p>
 <p>Alternatively (not recommended!) you can put all DLLs into your MinGW bin folder. The folder is the same folder listed in the compiler's bin path located in: Settings (main top menu bar) -&gt; Compiler -&gt; Toolchain Executables.</p>
 <p>When done, try to run the example again. This should show up:</p>
 <div class="image">
