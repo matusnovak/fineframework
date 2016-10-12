@@ -5,57 +5,57 @@ This tutorial will explain how to include any FFW module into your C++ project. 
 
 ### Installing FFW
 
-First, you will need to install `xorg`, `libglu1-mesa`, `mesa-common`, and `freetype` into your linux. The third party libraries needed are already installed on most linux distributions as shared objects (*.so). However to use them in a C++ project, we need header files as well. To get them, execute the following code:
+First, you will need to install X11, OpenGL development files into your linux. You can do that by executing the following code:
 
 ```
-sudo apt-get update
-sudo apt-get install build-essentials xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype-dev
+$ sudo apt-get update
+$ sudo apt-get install build-essentials xorg-dev libglu1-mesa-dev mesa-common-dev
 ```
 
-There are two options to install FineFramework:
+**There are two options to install FineFramework:**
 
-* **Download precompiled library files** - Tested and working with Ubuntu and Debian.
-* **Compile it by yourself** - Requires more work but ensures that the FFW will work best on your linux distribution.
+You can either download precompiled library files from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent release and download the **ffw-x86_64-linux-gnu.zip** zip file! All necessary third party libraries were statically linked, therefore there is no need to download them.
 
-In this tutorial, we will follow the first option.
+(recommended) Or, you can download the source code and build it by yourself.
 
-Next, download the pre-built FineFramework *.so files and headers from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent release and download the **ffw-x86_64-linux-gnu.zip** zip file! You do not need to download the source code!
+### Installing FFW using precompiled library files
 
-* **include** - Header files needed by the compiler.
-* **lib** - *.so files also needed by the by the linker.
+Download the most recent **ffw-x86_64-linux-gnu.zip** zip file from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases) and extract it anywhere in your system.
 
-You will need to extract the contents of the zip file (folders: **include** and **lib**) somewhere on your linux. For the purpose of this tutorial, we will extract the zip file into our home directory: `/home/username` so we get: `/home/username/ffw-x86_64-linux-gnu/lib` and `/home/username/ffw-x86_64-linux-gnu/include` You might need to ensure that the library files are executable and visible to the compiler. You can do that by executing the following code:
+Now, you will need to copy contents of the `lib` folder inside the extracted zip file into `/usr/local/lib` and contents of the `include` folder into `/usr/local/include`
+
+The easiest way to do it is to run GUI File Manager as root, you can do that by executing `gksu nautilus` or `sudo -i nautilus`. **Don't forget to check permissions** of `/usr/local/include/ffw` folder that everyone can access and read files inside it. The same goes for all FFW *.so files inside `/usr/local/lib`. 
+
+If you don't set the permissions for everyone to read the file, g++ will complain that the necessary header file or \*.so file was not found.
+
+When done, run `sudo ldconfig` which will rebuild its cache. You can check if FFW \*.so files were found by ldconfig by typing `ldconfig -v | grep fine` which will list all \*.so files with "fine" in their file name.
+
+Normally, when compiling a library from source using makefile, it offers you an option `sudo make install` which will do all the necessary steps for you.
+
+### Installing FFW by building it from the source code
+
+Compiling the source code requires third party libraries (dependencies). You can either compile them by yourself or you can download them if your linux allows it by typing:
 
 ```
-cd /home/username/ffw-x86_64-linux-gnu/
-
-sudo chmod -v a+x lib/libfinegraphics.so
-sudo chmod -v a+x lib/libfinegui.so
-sudo chmod -v a+x lib/libfinedata.so
-
-sudo chmod -v a+r lib/libfinegraphics.so
-sudo chmod -v a+r lib/libfinegui.so
-sudo chmod -v a+r lib/libfinedata.so
-
-dir="$PWD"
-sudo echo "$dir/lib" > /etc/ld.so.conf.d/ffw.conf
-sudo ldconfig
+$ sudo apt-get install libglfw-dev libfreetype6-dev
 ```
 
-The last three lines will ensure that the ldconfig expands its search path to `/home/username/ffw-x86_64-linux-gnu/lib` and executing `sudo ldconfig` will rebuild its cache. You can check if the libraries are visible to the compiler and executables by running `ldconfig -v | grep fine` If no FFW libraries are listed, there was an error.
+Note that the library names might differ depending on your linux distribution.
+
+Download source code from [GitHub as ZIP](https://github.com/matusnovak/fineframework/archive/master.zip) and extract it anywhere in your system. Use CMake to cofigure the project and then compile it using make. To install it, simply run `sudo make install` Don't forget to use `sudo` when installing, the `/usr/local` folder requires sudo permissions.
 
 ### Your first code
 
-Your installation is done, now test the project to make sure everything works. Copy paste the following example into an empty cpp file:
+Your configuration is done, now test the project to make sure everything works. Copy paste the following example into empty cpp file:
 
 @include ../examples/graphics/empty.cpp
 
-Compile and execute with:
+Now compile it using g++
 
 ```
-g++ -c example.cpp -o example.o -std=c++11 -I/home/username/ffw-x86_64-linux-gnu/include
-g++ -o example example.o -lfinegraphics -L/home/username/ffw-x86_64-linux-gnu/lib
-./example
+$ g++ -c example.cpp -o example.o -std=c++11
+$ g++ -o example example.o -lfinegraphics
+$ ./example
 ```
 
-If you wish to make the executable more portable (lets say you are trying to deploy your project) you can add <code>-Wl,-rpath '-Wl,$ORIGIN'</code> to the linker, for example: <code>g++ -o example example.o -Wl,-rpath '-Wl,$ORIGIN' -lfinegraphics -L/home/username/ffw-x86_64-linux-gnu/lib</code> This makes sure that the libraries are also searched inside the folder, where the executable is located. This way you can copy all necessary FFW modules (*.so files) into the executable's folder and not worry about portability.
+If you want your executable to be portable (for example, distributing it on other systems) you might want to add <code>-Wl,-rpath '-Wl,$ORIGIN'</code> to the linker and copy necessary FFW *.so files into the executable's folder. This will make sure that the executable looks for its dependencies inside its folder.
