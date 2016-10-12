@@ -5,21 +5,19 @@ This tutorial will explain how to include any FFW module into your C++ project. 
 
 ### Installing MinGW-w64
 
-When installing MinGW-w64, make sure you use **i686** architecture and not x86\_64. FFW is not fully supported on x86\_64 architecture. (i686 = 32-bit and x86_64 = 64-bit)
-
-The version of the compiler must be **4.9.3 or newer!**
+When installing MinGW-w64, **use either i686 architecture or x86_64**. (i686 = 32-bit and x86_64 = 64-bit) The version of the compiler must be **4.9.3 or newer!**
 
 ![Alt](images/tutorial-cb-01.png)
 
-Next, when you install CodeBlocks, run it and go to **Settings (main top menu bar) -> Compiler -> Toolchain Executables** and set the compiler installation directory to the compiler's bin path. For example: `C:\mingw-w64\i686-4.9.2-posix-dwarf-rt_v3-rev1\mingw32\bin`
+Next, when you install CodeBlocks, run it and go to **Settings (main top menu bar) -> Compiler -> Toolchain Executables** and set the compiler installation directory to the compiler's bin path. For example: `C:\Program Files (x86)\mingw-w64\i686-5.4.0-posix-dwarf-rt_v5-rev0\mingw32\bin`
 
 ![Alt](images/tutorial-cb-02.png)
 
 ### Installing FFW
 
-First, you will need to download glext.h (this is only necessary if using Graphics Module). Glext is an OpenGL extension header file which is updated regularly several times per year and can be downloaded from: <https://www.opengl.org/registry/api/GL/glext.h> The easiest way for MinGW to know about the glext header is to put it into `C:\mingw-w64\i686-x.x.x-posix-dwarf-rt_vxxx-revxxx\mingw32\i686-w64-mingw32\include\GL` The folder might already contain an old glext.h file!
+First, you will need to download glext.h (this is only necessary if using Graphics Module). Glext is an OpenGL extension header file which is updated regularly several times per year and can be downloaded from: <https://www.opengl.org/registry/api/GL/glext.h> The easiest way for MinGW to know about the glext header is to put it into `C:\path\to\mingw\install\folder\mingw32\XXX-w64-mingw32\include\GL` The folder might already contain an old glext.h file!
 
-Next, download the pre-built FineFramework DLLs from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent release and download the **ffw-i686-w64-mingw32.zip** zip file! You do not need to download the source code! You can unpack the zip wherever you like, it does not matter.
+Next, download the pre-built FineFramework DLLs from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent release and download the **ffw-XXX-w64-mingw32.zip** zip file! **Make sure you download correct one! Either i686 or x84_64 depending on your compiler!** You do not need to download the source code! You can unpack the zip wherever you like, it does not matter.
 
 The zip contains the following folders:
 
@@ -31,17 +29,15 @@ The zip contains the following folders:
 
 Create a CodeBlocks console application project. You will need to let the compiler know where to find FFW headers and library files. The DLLs are not needed for the compiler itself,  instead the DLLs must be copied into the folder where your executable is, we will get into that later.
 
-In the Project Workspace, right click on your project name and select **Build Options**. Next, add the following properties listed below to **both Release and Debug** configuration.
-
-Go to **Compiler Settings -> Compiler Flags** and enable **Have g++ follow the C++11 ISO** alternatively, go to #defines and add -std=c++11 flag.
+In the Project Workspace, right click on your project name and select **Build Options**. Next, add the following properties listed below to **both Release and Debug** configuration. Go to **Compiler Settings -> Compiler Flags** and enable **Have g++ follow the C++11 ISO** alternatively, go to #defines and add -std=c++11 flag.
 
 ![Alt](images/tutorial-cb-03.png)
 
-Now, go to **Search Directories -> Compiler** and add a new path to include folder of your downloaded copy of pre-build FFW, for example: `C:\ffw-i686-w64-mingw32\include`
+Now, go to **Search Directories -> Compiler** and add a new path to include folder of your downloaded copy of pre-build FFW, for example: `C:\ffw-XXX-w64-mingw32\include`
 
 ![Alt](images/tutorial-cb-04.png)
 
-For the library files, go to **Search Directories -> Linker** and add a new path to `C:\ffw-i686-w64-mingw32\lib`
+For the library files, go to **Search Directories -> Linker** and add a new path to `C:\ffw-XXX-w64-mingw32\lib`
 
 ![Alt](images/tutorial-cb-05.png)
 
@@ -63,7 +59,7 @@ Now compile it and run it! You might see the following message:
 
 This is where DLL files comes...
 
-Simply copy all DLLs files from `C:\path\to\ffw-i686-w64-mingw32\bin` into `C:\path\to\your\codeblocks\project\bin\Debug` as well into Release folder. (this folder contains your executable file!)
+Simply copy all DLLs files from `C:\path\to\ffw-XXX-w64-mingw32\bin` into `C:\path\to\your\codeblocks\project\bin\Debug` as well into Release folder. (this folder contains your executable file!)
 
 Alternatively (not recommended!) you can put all DLLs into your MinGW bin folder. The folder is the same folder listed in the compiler's bin path located in: Settings (main top menu bar) -> Compiler -> Toolchain Executables.
 

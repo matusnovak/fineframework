@@ -172,3 +172,22 @@ table.params td.paramname {
 .fragment span.comment {
 	color: #969896;
 }
+
+.doxtable {
+	margin-bottom: 25px;
+	width: 100%;
+}
+
+.doxtable tr:not(:last-child) {
+	border-bottom: 1px solid #DDD;
+}
+
+.doxtable th {
+	line-height: 1.8;
+	padding: 8px;
+}
+
+.doxtable td {
+	line-height: 1.8;
+	padding: 8px;
+}
