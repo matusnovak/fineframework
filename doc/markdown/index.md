@@ -1,8 +1,6 @@
 FineFramework
 -------------
 
-@ref gui
-
 FineFramework (FFW) is an open source framework written in C++ designed for developing applications. This framework provides basic simple structure to write things easily with less code. Anyone can use this framework without greater knowledge of programming. This framework provides functions which can be used as a building blocks for applications of any kind. The core functions should provide sufficient exploitation for the most of problems.
 
 FineFramework contains several modules, each module has a specific use and is compiled separately. If you wish to use only one module, you don't need to compile and link them all, except math module (header files only) which is needed by all modules.
