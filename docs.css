@@ -173,24 +173,20 @@ table.params td.paramname {
 	color: #969896;
 }
 
-.directory,
 .doxtable {
 	margin-bottom: 25px;
 	width: 100%;
 }
 
-.directory tr:not(:last-child),
 .doxtable tr:not(:last-child) {
 	border-bottom: 1px solid #DDD;
 }
 
-.directory th,
 .doxtable th {
 	line-height: 1.8;
 	padding: 8px;
 }
 
-.directory td,
 .doxtable td {
 	line-height: 1.8;
 	padding: 8px;
