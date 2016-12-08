@@ -10,21 +10,18 @@ ffw::GuiCheckboxBtn::GuiCheckboxBtn(GuiWindow* context):GuiWidget(context){
 
 	style.normal.background = true;
 	style.normal.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.normal.border = true;
 	style.normal.bordersize = 1;
 	style.normal.bordercolor = ffw::Rgb(0x222222);
 	style.normal.textcolor = ffw::Rgba(0x22222200);
 
 	style.hover.background = true;
 	style.hover.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.hover.border = true;
 	style.hover.bordersize = 1;
 	style.hover.bordercolor = ffw::Rgb(0x0078D7);
 	style.hover.textcolor = ffw::Rgba(0x22222280);
 
 	style.active.background = true;
 	style.active.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.active.border = true;
 	style.active.bordersize = 1;
 	style.active.bordercolor = ffw::Rgb(0x222222);
 	style.active.textcolor = ffw::Rgb(0x222222);
@@ -60,7 +57,9 @@ void ffw::GuiCheckboxBtn::EventHover(bool gained){
 void ffw::GuiCheckboxBtn::EventFocus(bool gained){
 	Redraw();
 
-	context->PushEvent(onclickcallback, {parentcheckbox, GuiEventType::CLICKED});
+	GuiEventData dat;
+	dat.clicked.value = gained;
+	context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEventType::CLICKED, dat});
 }
 
 ///=============================================================================
@@ -85,7 +84,11 @@ ffw::Vec2i ffw::GuiCheckboxBtn::GetMinimumWrapSize() const {
 }
 
 ///=============================================================================
-ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::string& label_):GuiWidget(context),label(label_){
+ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::string& label_):GuiCheckbox(context, Utf8ToWstr(label_)){
+}
+
+///=============================================================================
+ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_):GuiWidget(context),label(label_){
 	SetOrientation(Orientation::HORIZONTAL);
 	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
 	SetMargin(0, 0, 5, 0);
@@ -123,13 +126,34 @@ ffw::GuiCheckbox::~GuiCheckbox(){
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::SetLabel(const std::string& label_){
+void ffw::GuiCheckbox::SetIndent(int indent_){
+	indent = indent_;
+	Invalidate();
+}
+
+///=============================================================================
+void ffw::GuiCheckbox::SetButtonSize(int width){
+	widgetbutton->SetSize(width, width);
+}
+
+///=============================================================================
+ffw::GuiStyleGroup& ffw::GuiCheckbox::ButtonStyle() {
+	return widgetbutton->Style();
+}
+
+///=============================================================================
+const ffw::GuiStyleGroup& ffw::GuiCheckbox::ButtonStyle() const {
+	return widgetbutton->Style();
+}
+
+///=============================================================================
+void ffw::GuiCheckbox::SetLabel(const std::wstring& label_){
 	label = label_;
 	Redraw();
 }
 
 ///=============================================================================
-const std::string& ffw::GuiCheckbox::GetLabel() const {
+const std::wstring& ffw::GuiCheckbox::GetLabel() const {
 	return label;
 }
 

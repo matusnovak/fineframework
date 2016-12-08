@@ -63,21 +63,18 @@ ffw::GuiRadioBtn::GuiRadioBtn(GuiWindow* context):GuiWidget(context){
 
 	style.normal.background = true;
 	style.normal.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.normal.border = true;
 	style.normal.bordersize = 1;
 	style.normal.bordercolor = ffw::Rgb(0x222222);
 	style.normal.textcolor = ffw::Rgba(0x22222200);
 
 	style.hover.background = true;
 	style.hover.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.hover.border = true;
 	style.hover.bordersize = 1;
 	style.hover.bordercolor = ffw::Rgb(0x0078D7);
 	style.hover.textcolor = ffw::Rgba(0x22222280);
 
 	style.active.background = true;
 	style.active.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.active.border = true;
 	style.active.bordersize = 1;
 	style.active.bordercolor = ffw::Rgb(0x222222);
 	style.active.textcolor = ffw::Rgb(0x222222);
@@ -102,9 +99,10 @@ void ffw::GuiRadioBtn::EventPos(const ffw::Vec2i& pos){
 
 ///=============================================================================
 void ffw::GuiRadioBtn::EventSize(const ffw::Vec2i& size){
-	style.normal.borderradius = std::min(size.x, size.y) / 2;
-	style.hover.borderradius = std::min(size.x, size.y) / 2;
-	style.active.borderradius = std::min(size.x, size.y) / 2;
+	style.normal.borderradius = std::min(size.x, size.y) / 2 +2;
+	style.hover.borderradius = std::min(size.x, size.y) / 2 +2;
+	style.active.borderradius = std::min(size.x, size.y) / 2 +2;
+	Redraw();
 }
 
 ///=============================================================================
@@ -116,7 +114,9 @@ void ffw::GuiRadioBtn::EventHover(bool gained){
 void ffw::GuiRadioBtn::EventFocus(bool gained){
 	if(gained){
 		group->ClearAllExcept(parentradio);
-		context->PushEvent(onclickcallback, {parentradio, GuiEventType::CLICKED});
+		GuiEventData dat;
+		dat.clicked.value = gained;
+		context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEventType::CLICKED, dat});
 		Redraw();
 	}
 }
@@ -143,7 +143,11 @@ ffw::Vec2i ffw::GuiRadioBtn::GetMinimumWrapSize() const {
 }
 
 ///=============================================================================
-ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::string& label_, int base, GuiRadio* other):GuiWidget(context),label(label_){
+ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::string& label_, int base, GuiRadio* other):GuiRadio(context, Utf8ToWstr(label_), base, other){
+}
+
+///=============================================================================
+ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base, GuiRadio* other):GuiWidget(context),label(label_){
 	basevalue = base;
 	SetOrientation(Orientation::HORIZONTAL);
 	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
@@ -195,13 +199,34 @@ ffw::GuiRadio::~GuiRadio(){
 }
 
 ///=============================================================================
-void ffw::GuiRadio::SetLabel(const std::string& label_){
+void ffw::GuiRadio::SetIndent(int indent_){
+	indent = indent_;
+	Invalidate();
+}
+
+///=============================================================================
+void ffw::GuiRadio::SetButtonSize(int width){
+	widgetbutton->SetSize(width, width);
+}
+
+///=============================================================================
+ffw::GuiStyleGroup& ffw::GuiRadio::ButtonStyle() {
+	return widgetbutton->Style();
+}
+
+///=============================================================================
+const ffw::GuiStyleGroup& ffw::GuiRadio::ButtonStyle() const {
+	return widgetbutton->Style();
+}
+
+///=============================================================================
+void ffw::GuiRadio::SetLabel(const std::wstring& label_){
 	label = label_;
 	Redraw();
 }
 
 ///=============================================================================
-const std::string& ffw::GuiRadio::GetLabel() const {
+const std::wstring& ffw::GuiRadio::GetLabel() const {
 	return label;
 }
 

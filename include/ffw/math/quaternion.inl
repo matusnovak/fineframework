@@ -17,11 +17,11 @@ inline ffw::Quat<T>::Quat(T X, T Y, T Z, T W){
 }
 //==============================================================================
 template <class T>
-inline ffw::Quat<T>::Quat(const Quat& Quat){
-    x = Quat.x;
-    y = Quat.y;
-    z = Quat.z;
-    w = Quat.w;
+inline ffw::Quat<T>::Quat(const Quat& q){
+    x = q.x;
+    y = q.y;
+    z = q.z;
+    w = q.w;
 }
 //==============================================================================
 template <class T>
@@ -33,11 +33,11 @@ inline void ffw::Quat<T>::Set(T X, T Y, T Z, T W){
 }
 //==============================================================================
 template <class T>
-inline void ffw::Quat<T>::Set(const Quat& Quat){
-    x = Quat.x;
-    y = Quat.y;
-    z = Quat.z;
-    w = Quat.w;
+inline void ffw::Quat<T>::Set(const Quat& q){
+    x = q.x;
+    y = q.y;
+    z = q.z;
+    w = q.w;
 }
 //==============================================================================
 template <class T>

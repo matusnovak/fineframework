@@ -3,6 +3,7 @@
 #define FFW_CONSTANTS
 namespace ffw {
 	enum ImageType {
+		INVALID = 0,
         BITMAP_1 = 1,
         GRAYSCALE_4 = 2,
         GRAYSCALE_ALPHA_4 = 3,

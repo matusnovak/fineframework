@@ -4,6 +4,9 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 link_directories(${CMAKE_BINARY_DIR}/Debug)
 link_directories(${CMAKE_BINARY_DIR}/Release)
 
+file(COPY FreeSans.ttf DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY FreeSans.ttf DESTINATION ${CMAKE_BINARY_DIR}/examples/graphics)
+
 # All examples
 add_executable(ExampleEmpty empty.cpp)
 add_executable(ExampleFont font.cpp)

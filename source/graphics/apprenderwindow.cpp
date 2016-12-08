@@ -34,39 +34,6 @@ ffw::AppWindowIcon::~AppWindowIcon(){
 	Destroy();
 }
 
-/*///=============================================================================
-bool ffw::AppWindowIcon::CreateFromFile(const std::string& Path){
-	auto file = ffw::getImageLoader(Path);
-	if(file == NULL){
-		//std::cout << "cannot open file" << std::endl;
-		return false;
-	}
-
-	if(file->getImageType() != imageType::RGB_ALPHA_8888 || file->getWidth() != file->getHeight()){
-		delete file;
-		//std::cout << "invalid properties" << std::endl;
-		return false;
-	}
-
-	pixels = new unsigned char[file->getWidth() * file->getHeight() * 4];
-	width = file->getWidth();
-	height = file->getHeight();
-
-	for(int i = 0; i < height; i++){
-		unsigned char* offset = NULL;
-		
-		if(file->firstRowIsTop()){
-			offset = &pixels[i * width * 4];
-		} else {
-			offset = &pixels[(height - i - 1) * width * 4];
-		}
-
-        if(!file->readRow(offset))return false;
-    }
-
-	return true;
-}*/
-
 ///=============================================================================
 bool ffw::AppWindowIcon::CreateFromData(const unsigned char* Pixels, int Width, int Height){
 	pixels = new unsigned char[Width * Height * 4];
@@ -316,7 +283,9 @@ bool ffw::AppRenderWindow::Create(const ffw::AppRenderWindowArgs& args, ffw::App
 		image.height = args.icon.getHeight();
 		image.pixels = (unsigned char*)args.icon.getPixels();
 
+#ifdef FFW_WINDOWS
 		glfwSetWindowIcon(newWindowContext, 1, &image);
+#endif
 	}
 
 	glfwSetWindowUserPointer    (newWindowContext, this);
@@ -346,25 +315,31 @@ bool ffw::AppRenderWindow::Create(const ffw::AppRenderWindowArgs& args, ffw::App
 
 ///=============================================================================
 void ffw::AppRenderWindow::SetWindowedMode(){
+#ifdef FFW_WINDOWS
 	if(pimpl->initialized){
 		const auto& s = pimpl->sizeBeforeFillscreen;
 		glfwSetWindowMonitor(pimpl->windowHandle, NULL, s.x, s.y, s.z, s.w, GLFW_DONT_CARE);
 	}
+#endif
 }
 
 ///=============================================================================
 void ffw::AppRenderWindow::SetWindowedMode(int posx, int posy, int width, int height){
+#ifdef FFW_WINDOWS
 	if(pimpl->initialized){
 		glfwSetWindowMonitor(pimpl->windowHandle, NULL, posx, posy, width, height, GLFW_DONT_CARE);
 	}
+#endif
 }
 
 ///=============================================================================
 void ffw::AppRenderWindow::SetFullscreen(const Monitor& monitor){
+#ifdef FFW_WINDOWS
 	if(pimpl->initialized){
 		pimpl->sizeBeforeFillscreen.Set(GetPos().x, GetPos().y, GetSize().x, GetSize().y);
 		glfwSetWindowMonitor(pimpl->windowHandle, NULL, 0, 0, monitor.resolution.x, monitor.resolution.y, monitor.refreshRate);
 	}
+#endif
 }
 
 ///=============================================================================
@@ -475,47 +450,10 @@ void ffw::AppRenderWindow::Restore(){
 
 ///=============================================================================
 void ffw::AppRenderWindow::Maximize(){
+#ifdef FFW_WINDOWS
 	glfwMaximizeWindow(pimpl->windowHandle);
+#endif
 }
-
-/*///=============================================================================
-void ffw::AppRenderWindow::SetViewport(int PosX, int PosY, int Width, int Height) const {
-	auto& viewport = pimpl->viewport;
-	
-	if(PosX == viewport.x && PosY == viewport.y && Width == viewport.z && Height == viewport.w)return;
-    glViewport(PosX, PosY, Width, Height);
-    viewport.x = PosX;
-    viewport.y = PosY;
-    viewport.z = Width;
-    viewport.w = Height;
-
-	auto& viewportMat = pimpl->viewportMat;
-
-	viewportMat[0] = 1.0f/float(viewport.z)*2.0f; viewportMat[4] = 0;                            viewportMat[8] = 0;   viewportMat[12] = -1;
-    viewportMat[1] = 0;                           viewportMat[5] = -1.0f/float(viewport.w)*2.0f; viewportMat[9] = 0;   viewportMat[13] = 1;
-    viewportMat[2] = 0;                           viewportMat[6] = 0;                            viewportMat[10] = 1;  viewportMat[14] = 0;
-    viewportMat[3] = 0;                           viewportMat[7] = 0;                            viewportMat[11] = 0;  viewportMat[15] = 1;
-}
-
-///=============================================================================
-const ffw::mat4x4f& ffw::AppRenderWindow::GetViewMatrix() const {
-	return pimpl->viewportMat;
-}
-
-///=============================================================================
-void ffw::AppRenderWindow::GetViewport(int *PosX, int *PosY, int *Width, int *Height) const {
-	auto& viewport = pimpl->viewport;
-	
-	if(PosX != NULL)*PosX = viewport.x;
-	if(PosY != NULL)*PosY = viewport.y;
-	if(Width != NULL)*Width = viewport.z;
-	if(Height != NULL)*Height = viewport.w;
-}
-
-///=============================================================================
-const ffw::Vec4i& ffw::AppRenderWindow::GetViewport() const {
-	return pimpl->viewport;
-}*/
 
 ///=============================================================================
 void* ffw::AppRenderWindow::GetGlextFunc(const std::string& FunctionName) const {

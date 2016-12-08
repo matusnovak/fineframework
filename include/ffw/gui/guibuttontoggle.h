@@ -10,9 +10,10 @@ namespace ffw {
 	class FFW_API GuiButtonToggle: public GuiWidget {
 	public:
 		GuiButtonToggle(GuiWindow* context, const std::string& label);
+		GuiButtonToggle(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButtonToggle();
-		void SetLabel(const std::string& label);
-		const std::string& GetLabel() const;
+		void SetLabel(const std::wstring& label);
+		const std::wstring& GetLabel() const;
 		void SetValue(bool value);
 		bool GetValue() const;
 		template <typename T>
@@ -30,7 +31,7 @@ namespace ffw {
 		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		std::string label;
+		std::wstring label;
 		std::function<void(GuiEvent)> onclickcallback;
 	};
 }

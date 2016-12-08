@@ -2,6 +2,7 @@
 #ifndef FFW_GUI_SLIDER
 #define FFW_GUI_SLIDER
 #include "guiwidget.h"
+#include <functional>
 namespace ffw {
 	/**
 	 * @ingroup gui
@@ -10,51 +11,40 @@ namespace ffw {
 	public:
 		GuiSlider(GuiWindow* context, bool vertical);
 		virtual ~GuiSlider();
-		inline void SetColor(const ffw::Color& c){
-			color = c;
-			Redraw();
-		}
-		inline const ffw::Color& GetColor() const {
-			return color;
-		}
-		inline void SetValue(int val){
-			value = val;
-			Redraw();
-		}
-		inline int GetValue() const {
-			return value;
-		}
-		inline const ffw::Vec2i& GetRange() const {
-			return range;
-		}
-		inline void SetRange(int min, int max){
-			range.Set(min, max);
-			Redraw();
-		}
-		inline void SetButtonSize(int size){
-			buttonsize = size;
-			Redraw();
-		}
-		inline int GetButtonSize() const {
-			return buttonsize;
-		}
-		inline void SetThickness(int val){
-			thickness = val;
-			Redraw();
-		}
-		inline int GetThickness() const {
-			return thickness;
-		}
-		inline void SetInversed(bool inversed){
-			inverse = inversed;
-			Redraw();
-		}
-		inline bool GetInversed() const {
-			return inverse;
-		}
+		bool IsVertical() const;
+		void SetColor(const ffw::Color& c);
+		const ffw::Color& GetColor() const;
+		void SetValue(int val);
+		int GetValue() const;
+		const ffw::Vec2i& GetRange() const;
+		void SetRange(int min, int max);
+		void SetButtonSize(int size);
+		int GetButtonSize() const;
+		void SetThickness(int val);
+		int GetThickness() const;
+		void SetInversed(bool inversed);
+		bool GetInversed() const;
 		ffw::Vec2i GetMinimumWrapSize() const override;
-		GuiStyleGroup stylebutton;
-		GuiStyleGroup stylebar;
+		inline GuiStyleGroup& StyleBar(){
+			return stylebar;
+		}
+		inline const GuiStyleGroup& StyleBar() const {
+			return stylebar;
+		}
+		inline GuiStyleGroup& StyleButton(){
+			return stylebutton;
+		}
+		inline const GuiStyleGroup& StyleButton() const {
+			return stylebutton;
+		}
+		template<class T>
+		void SetOnValueChangedCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
+			onvaluechangedcallback = std::bind(memfuncptr, instance, std::placeholders::_1);
+		}
+		template<class T>
+		void SetOnClickCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
+			onclickcallback = std::bind(memfuncptr, instance, std::placeholders::_1);
+		}
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 		void EventPos(const ffw::Vec2i& pos) override;
@@ -72,6 +62,10 @@ namespace ffw {
 		int buttonsize;
 		int thickness;
 		bool inverse;
+		std::function<void(GuiEvent)> onvaluechangedcallback;
+		std::function<void(GuiEvent)> onclickcallback;
+		GuiStyleGroup stylebutton;
+		GuiStyleGroup stylebar;
 	};
 }
 #endif

@@ -9,35 +9,16 @@ namespace ffw {
 	class FFW_API GuiProgressBar: public GuiWidget {
 	public:
 		GuiProgressBar(GuiWindow* context, const std::string& label);
+		GuiProgressBar(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiProgressBar();
-		inline void SetLabel(const std::string& str){
-			label = str;
-			Redraw();
-		}
-		inline const std::string& GetLabel() const {
-			return label;
-		}
-		inline void SetColor(const ffw::Color& c){
-			color = c;
-			Redraw();
-		}
-		inline const ffw::Color& GetColor() const {
-			return color;
-		}
-		inline void SetValue(int val){
-			value = val;
-			Redraw();
-		}
-		inline int GetValue() const {
-			return value;
-		}
-		inline const ffw::Vec2i& GetRange() const {
-			return range;
-		}
-		inline void SetRange(int min, int max){
-			range.Set(min, max);
-			Redraw();
-		}
+		void SetLabel(const std::wstring& str);
+		const std::wstring& GetLabel() const;
+		void SetColor(const ffw::Color& c);
+		const ffw::Color& GetColor() const;
+		void SetValue(int val);
+		int GetValue() const;
+		const ffw::Vec2i& GetRange() const;
+		void SetRange(int min, int max);
 		ffw::Vec2i GetMinimumWrapSize() const override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
@@ -49,7 +30,7 @@ namespace ffw {
 		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		std::string label;
+		std::wstring label;
 		ffw::Color color;
 		ffw::Vec2i range;
 		int value;

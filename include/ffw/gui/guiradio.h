@@ -53,26 +53,18 @@ namespace ffw {
 	class FFW_API GuiRadio: public GuiWidget {
 	public:
 		GuiRadio(GuiWindow* context, const std::string& label, int base, GuiRadio* other = NULL);
+		GuiRadio(GuiWindow* context, const std::wstring& label, int base, GuiRadio* other = NULL);
 		virtual ~GuiRadio();
-		void SetLabel(const std::string& label);
-		const std::string& GetLabel() const;
+		void SetLabel(const std::wstring& label);
+		const std::wstring& GetLabel() const;
 		int GetBaseValue() const;
 		void SetValue(int value);
 		int GetValue() const;
 		void AssignValue(bool value);
-		inline void SetIndent(int indent_){
-			indent = indent_;
-			Invalidate();
-		}
-		inline void SetButtonSize(int width){
-			widgetbutton->SetSize(width, width);
-		}
-		inline GuiStyleGroup& ButtonStyle() {
-			return widgetbutton->style;
-		}
-		inline const GuiStyleGroup& ButtonStyle() const {
-			return widgetbutton->style;
-		}
+		void SetIndent(int indent_);
+		void SetButtonSize(int width);
+		GuiStyleGroup& ButtonStyle();
+		const GuiStyleGroup& ButtonStyle() const;
 		template <typename T>
 		void SetOnClickCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
 			widgetbutton->SetOnClickCallback(memfuncptr, instance);
@@ -89,7 +81,7 @@ namespace ffw {
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		GuiRadioBtn* widgetbutton;
-		std::string label;
+		std::wstring label;
 		int indent;
 		int basevalue;
 		GuiRadioValue* group;

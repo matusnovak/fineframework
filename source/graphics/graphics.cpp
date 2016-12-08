@@ -288,6 +288,16 @@ void ffw::DrawString(int posx, int posy, const Font* font, const char* str, size
 }
 
 ///=============================================================================
+void ffw::DrawString(int posx, int posy, const Font* font, const wchar_t* str){
+	DrawStringFunc(posx, posy, font, str, wcslen(str));
+}
+
+///=============================================================================
+void ffw::DrawString(int posx, int posy, const Font* font, const wchar_t* str, size_t length){
+	DrawStringFunc(posx, posy, font, str, length);
+}
+
+///=============================================================================
 void ffw::DrawBezier(int startx, int starty, int cp0x, int cp0y, int cp1x, int cp1y, int endx, int endy, int steps){
 }
 
@@ -355,4 +365,53 @@ ffw::Vec4i ffw::CoverImage(int imgwidth, int imgheight, int maxwidth, int maxhei
 	ret.x = (ret.z - maxwidth)/-2;
 	ret.y = (ret.w - maxheight)/-2;
 	return ret;
+}
+
+///=============================================================================
+ffw::OpenGLImageType ffw::GetOpenGLImageType(ffw::ImageType type){
+	switch(type){
+		case ffw::ImageType::GRAYSCALE_8:{
+			return OpenGLImageType(GL_LUMINANCE8, GL_LUMINANCE, GL_UNSIGNED_BYTE);
+		};
+		case ffw::ImageType::GRAYSCALE_16:{
+			return OpenGLImageType(GL_LUMINANCE16, GL_LUMINANCE, GL_UNSIGNED_SHORT);
+		};
+		case ffw::ImageType::GRAYSCALE_32:{
+			return OpenGLImageType(GL_RED, GL_RED, GL_FLOAT);
+		};
+		case ffw::ImageType::GRAYSCALE_ALPHA_8:{
+			return OpenGLImageType(GL_LUMINANCE8_ALPHA8, GL_LUMINANCE_ALPHA, GL_UNSIGNED_BYTE);
+		};
+		case ffw::ImageType::GRAYSCALE_ALPHA_16:{
+			return OpenGLImageType(GL_LUMINANCE16_ALPHA16, GL_LUMINANCE_ALPHA, GL_UNSIGNED_SHORT);
+		};
+		case ffw::ImageType::RGB_ALPHA_5551:{
+			return OpenGLImageType(GL_RGB5_A1, GL_RGBA, GL_UNSIGNED_SHORT_5_5_5_1);
+		};
+		case ffw::ImageType::RGB_ALPHA_4444:{
+			return OpenGLImageType(GL_RGBA4, GL_RGBA, GL_UNSIGNED_SHORT_4_4_4_4);
+		};
+		case ffw::ImageType::RGB_565:{
+			return OpenGLImageType(GL_RGB565, GL_RGB, GL_UNSIGNED_SHORT_5_6_5);
+		};
+		case ffw::ImageType::RGB_888:{
+			return OpenGLImageType(GL_RGB8, GL_RGB, GL_UNSIGNED_BYTE);
+		};
+		case ffw::ImageType::RGB_161616:{
+			return OpenGLImageType(GL_RGB16, GL_RGB, GL_UNSIGNED_SHORT);
+		};
+		case ffw::ImageType::RGB_323232:{
+			return OpenGLImageType(GL_RGB32F, GL_RGB, GL_FLOAT);
+		};
+		case ffw::ImageType::RGB_ALPHA_8888:{
+			return OpenGLImageType(GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE);
+		};
+		case ffw::ImageType::RGB_ALPHA_16161616:{
+			return OpenGLImageType(GL_RGBA16, GL_RGBA, GL_UNSIGNED_SHORT);
+		};
+		case ffw::ImageType::RGB_ALPHA_32323232:{
+			return OpenGLImageType(GL_RGBA32F, GL_RGBA, GL_FLOAT);
+		};
+		default: return OpenGLImageType();
+	};
 }

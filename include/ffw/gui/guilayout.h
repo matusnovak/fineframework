@@ -13,6 +13,8 @@ namespace ffw {
 		virtual ~GuiLayout();
 		void AddWidget(GuiWidget* widget);
 		void DeleteWidgets();
+		bool DeleteSingleWidget(GuiWidget* widget);
+		void SetOrientation(Orientation orient);
 		ffw::Vec2i GetMinimumWrapSize() const override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;

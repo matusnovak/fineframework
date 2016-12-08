@@ -4,7 +4,9 @@
 #include "../config.h"
 #include "../math.h"
 #include "guifont.h"
+#include "guisymbol.h"
 #include <typeinfo>
+#include <functional>
 
 namespace ffw {
 	class GuiWindow;
@@ -15,6 +17,42 @@ namespace ffw {
 	enum class GuiEventType {
 		CLICKED = 0,
 		SELECTED,
+		CHANGED,
+		SIZE,
+		POSITION,
+		HOVER,
+		FOCUS,
+	};
+	union GuiEventData {
+		struct ClickedData {
+			bool value;
+		} clicked;
+
+		struct SelectedData {
+			unsigned int index;
+		} selected;
+
+		struct ChangedData {
+			int value;
+		} changed;
+
+		struct SizeData {
+			int width;
+			int height;
+		} size;
+
+		struct PosData {
+			int x;
+			int y;
+		} pos;
+
+		struct HoverData {
+			bool gained;
+		} hover;
+
+		struct FocusData {
+			bool gained;
+		} focus;
 	};
 	/**
 	 * @ingroup gui
@@ -23,6 +61,7 @@ namespace ffw {
 	public:
 		GuiWidget* widget;
 		GuiEventType type;
+		GuiEventData data;
 	};
 	/**
 	 * @ingroup gui
@@ -49,6 +88,7 @@ namespace ffw {
 		wchar_t chr;
 		ffw::Key key;
 		ffw::Mode keymode;
+		bool mouseout;
 	};
 	/**
 	 * @ingroup gui
@@ -67,7 +107,7 @@ namespace ffw {
 		GuiUnits():value(0),inPercent(0){}
 		GuiUnits(int Value, bool InPercent):value(Value),inPercent(InPercent){}
 		GuiUnits(int Value):value(Value),inPercent(false){}
-		bool operator == (const GuiUnits& Other) const {
+		inline bool operator == (const GuiUnits& Other) const {
 			return (value == Other.value && inPercent == Other.inPercent);
 		}
 		int value;
@@ -76,6 +116,21 @@ namespace ffw {
 			os << V.value << (V.inPercent ? "%" : "px");
 			return os;
 		}
+		inline int ToReal(const int val){
+			if(inPercent){
+				return int((value / 100.0) * val);
+			} else {
+				return value;
+			}
+		}
+		inline void SetPixels(int px){
+			inPercent = false;
+			value = px;
+		}
+		inline void SetPercent(int pc){
+			inPercent = true;
+			value = pc;
+		}
 	};
 	/**
 	 * @ingroup gui
@@ -83,8 +138,7 @@ namespace ffw {
 	class GuiStyle {
 	public:
 		GuiStyle(){
-			border[0] = border[1] = border[2] = border[3] = false;
-			bordersize[0] = bordersize[1] = bordersize[2] = bordersize[3] = 1;
+			bordersize[0] = bordersize[1] = bordersize[2] = bordersize[3] = 0;
 			bordercolor[0] = bordercolor[1] = bordercolor[2] = bordercolor[3] = ffw::Rgb(0xFFFFFF);
 			borderradius[0] = borderradius[1] = borderradius[2] = borderradius[3] = 0;
 			background = false;
@@ -116,11 +170,9 @@ namespace ffw {
 			}
 			T val[4];
 		};
-		typedef StyleStruct<bool> BorderStruct;
 		typedef StyleStruct<int> BorderSizeStruct;
 		typedef StyleStruct<ffw::Color> BorderColorStruct;
 		typedef StyleStruct<int> BorderRadiusStruct;
-		BorderStruct border;
 		BorderSizeStruct bordersize;
 		BorderColorStruct bordercolor;
 		BorderRadiusStruct borderradius;
@@ -155,18 +207,11 @@ namespace ffw {
 		const ffw::Vec2<GuiUnits>& GetSize() const;
 		const ffw::Vec2i& GetRealSize() const;
 		const ffw::Vec2i& GetRealPos() const;
-		const ffw::Vec2i GetVisibleContentSize() const;
-		const ffw::Vec2i GetVisibleContentPos() const;
-		inline const ffw::Vec2i GetContentSize() const {
-			return totalsize;
-		}
-		inline const ffw::Vec2i GetContentPos() const {
-			return GetVisibleContentPos() + offset;
-		}
-		inline const ffw::Vec2i GetAbsolutePos() const {
-			// TOOD
-			return 0;
-		}
+		ffw::Vec2i GetVisibleContentSize() const;
+		ffw::Vec2i GetVisibleContentPos() const;
+		ffw::Vec2i GetContentSize() const;
+		ffw::Vec2i GetContentPos() const;
+		ffw::Vec2i GetAbsolutePos() const;
 		void SetOffset(const ffw::Vec2i off);
 		const ffw::Vec2i& GetOffset() const;
 		void SetPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left);
@@ -179,9 +224,13 @@ namespace ffw {
 		int GetMarginInPixels(int side) const;
 		void SetAlign(GuiAlign align);
 		GuiAlign GetAlign() const;
+		void SetWrap(bool wrap);
+		inline bool GetWrap() const {
+			return wrapWidgets;
+		}
 		void SetID(unsigned long id);
 		unsigned long GetID() const;
-		void Update(const GuiUserInput& input);
+		void Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const GuiUserInput& input);
 		void Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsize, const ffw::Vec2i& off, bool clear);
 		bool ShouldRedraw() const;
 		void Redraw();
@@ -198,7 +247,12 @@ namespace ffw {
 		inline const ffw::Vec2i GetMousePos() const {
 			return mouseold;
 		}
-		GuiStyleGroup style;
+		inline const GuiStyleGroup& Style() const {
+			return style;
+		}
+		inline GuiStyleGroup& Style(){
+			return style;
+		}
 		virtual ffw::Vec2i GetMinimumWrapSize() const = 0;
 		template<class T>
 		T* FindByID(unsigned long id_){
@@ -211,9 +265,28 @@ namespace ffw {
 			}
 			return NULL;
 		}
+		template<class T>
+		void SetOnSizeEventCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
+			onsizeeventcallback = std::bind(memfuncptr, instance, std::placeholders::_1);
+		}
+		template<class T>
+		void SetOnPosEventCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
+			onposeventcallback = std::bind(memfuncptr, instance, std::placeholders::_1);
+		}
+		template<class T>
+		void SetOnHoverEventCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
+			onhovereventcallback = std::bind(memfuncptr, instance, std::placeholders::_1);
+		}
+		template<class T>
+		void SetOnFocusEventCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
+			onfocuseventcallback = std::bind(memfuncptr, instance, std::placeholders::_1);
+		}
+		void SetCallbackPtr(GuiWidget* ptr);
+		GuiWidget* GetCallbackPtr() const;
 	protected:
 		void AddWidget(GuiWidget* widget);
 		void DeleteWidgets();
+		bool DeleteSingleWidget(GuiWidget* widget);
 		void SetOrientation(Orientation orientation);
 		virtual void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) = 0;
 		virtual void EventPos(const ffw::Vec2i& pos) = 0;
@@ -237,6 +310,7 @@ namespace ffw {
 		bool ignoreinputflag;
 		bool togglefocusflag;
 		bool stickyfocusflag;
+		GuiStyleGroup style;
 	private:
 		void TraverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size);
 		void RecalculatePos();
@@ -253,6 +327,7 @@ namespace ffw {
 		std::vector<GuiWidget*> widgets;
 		GuiUnits margin[4];
 		GuiUnits padding[4];
+		bool wrapWidgets;
 		bool updateflag;
 		bool calleventsize;
 		bool calleventpos;
@@ -263,6 +338,12 @@ namespace ffw {
 		const GuiFont* widgetfont;
 		GuiAlign align;
 		unsigned long id;
+		GuiWidget* callbackPtr;
+
+		std::function<void(GuiEvent)> onsizeeventcallback;
+		std::function<void(GuiEvent)> onposeventcallback;
+		std::function<void(GuiEvent)> onhovereventcallback;
+		std::function<void(GuiEvent)> onfocuseventcallback;
 	};
 }
 #endif

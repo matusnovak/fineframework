@@ -9,9 +9,10 @@ namespace ffw {
 	class FFW_API GuiLabel: public GuiWidget {
 	public:
 		GuiLabel(GuiWindow* context, const std::string& label);
+		GuiLabel(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiLabel();
-		void SetLabel(const std::string& label);
-		const std::string& GetLabel() const;
+		void SetLabel(const std::wstring& label);
+		const std::wstring& GetLabel() const;
 		ffw::Vec2i GetMinimumWrapSize() const override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
@@ -23,7 +24,7 @@ namespace ffw {
 		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		std::string label;
+		std::wstring label;
 	};
 }
 #endif

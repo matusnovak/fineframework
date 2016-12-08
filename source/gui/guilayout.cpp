@@ -30,6 +30,16 @@ void ffw::GuiLayout::DeleteWidgets(){
 }
 
 ///=============================================================================
+bool ffw::GuiLayout::DeleteSingleWidget(GuiWidget* widget){
+	return GuiWidget::DeleteSingleWidget(widget);
+}
+
+///=============================================================================
+void ffw::GuiLayout::SetOrientation(Orientation orient){
+	GuiWidget::SetOrientation(orient);
+}
+
+///=============================================================================
 void ffw::GuiLayout::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
 }
 

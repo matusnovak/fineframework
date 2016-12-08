@@ -18,9 +18,8 @@
 #define NOEXCEPT noexcept
 
 // MSVC
-#elif defined(_MSC_FULL_VER) && _MSC_FULL_VER >= 180021114
-#define NOEXCEPT noexcept
-
+#elif defined(_MSC_FULL_VER)
+#define NOEXCEPT
 #else
 #define NOEXCEPT
 #endif
@@ -35,7 +34,7 @@ namespace ffw {
             virtual char const *what() const NOEXCEPT { return msg_.c_str(); }
 
         private:
-          std::string msg_;
+			std::string msg_;
         };
 
 		class instance;
@@ -47,8 +46,8 @@ namespace ffw {
 			instance(const char* CaseName, const char* TestName):caseName(CaseName),testName(TestName){
 				ffw::tests::add(this);
 			}
-                       virtual ~instance(){
-                       }
+            virtual ~instance(){
+            }
 
 			const char* getCaseName(){ return caseName; }
 			const char* getTestName(){ return testName; }
@@ -72,8 +71,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_EQUAL(" + std::string(astr) + ", " + std::string(bstr) + ")\n";
-				msg += "   Expected: " + ffw::ValToString(a) + "\n";
-				msg += "        Got: " + ffw::ValToString(b);
+				msg += "       Left: " + ffw::ValToString(a) + "\n";
+				msg += "      Right: " + ffw::ValToString(b);
 				throw TestException(msg);
 			}
 		}
@@ -83,8 +82,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_EQUAL(" + std::string(astr) + ", " + std::string(bstr) + ")\n";
-				msg += "   Expected: " + ffw::ValToString(a) + "\n";
-				msg += "        Got: " + ffw::ValToString(b);
+				msg += "       Left: " + ffw::ValToString(a) + "\n";
+				msg += "      Right: " + ffw::ValToString(b);
 				throw TestException(msg);
 			}
 		}
@@ -94,8 +93,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_EQUAL(" + std::string(astr) + ", " + std::string(bstr) + ")\n";
-				msg += "   Expected: \"" + std::string(a) + "\"\n";
-				msg += "        Got: \"" + std::string(b) + "\"";
+				msg += "       Left: \"" + std::string(a) + "\"\n";
+				msg += "      Right: \"" + std::string(b) + "\"";
 				throw TestException(msg);
 			}
 		}
@@ -106,8 +105,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_EQUAL(" + std::string(astr) + ", " + std::string(bstr) + ")\n";
-				msg += "   Expected: \"" + ffw::ValToString(a.x, 2) + ", " + ffw::ValToString(a.y, 2) + "\"\n";
-				msg += "        Got: \"" + ffw::ValToString(b.x, 2) + ", " + ffw::ValToString(b.y, 2) + "\"";
+				msg += "       Left: \"" + ffw::ValToString(a.x, 2) + ", " + ffw::ValToString(a.y, 2) + "\"\n";
+				msg += "      Right: \"" + ffw::ValToString(b.x, 2) + ", " + ffw::ValToString(b.y, 2) + "\"";
 				throw TestException(msg);
 			}
 		}
@@ -118,8 +117,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_EQUAL(" + std::string(astr) + ", " + std::string(bstr) + ")\n";
-				msg += "   Expected: \"" + ffw::ValToString(a.x, 2) + ", " + ffw::ValToString(a.y, 2) + ", " + ffw::ValToString(a.z, 2) + "\"\n";
-				msg += "        Got: \"" + ffw::ValToString(b.x, 2) + ", " + ffw::ValToString(b.y, 2) + ", " + ffw::ValToString(b.z, 2) + "\"";
+				msg += "       Left: \"" + ffw::ValToString(a.x, 2) + ", " + ffw::ValToString(a.y, 2) + ", " + ffw::ValToString(a.z, 2) + "\"\n";
+				msg += "      Right: \"" + ffw::ValToString(b.x, 2) + ", " + ffw::ValToString(b.y, 2) + ", " + ffw::ValToString(b.z, 2) + "\"";
 				throw TestException(msg);
 			}
 		}
@@ -130,8 +129,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_EQUAL(" + std::string(astr) + ", " + std::string(bstr) + ")\n";
-				msg += "   Expected: \"" + ffw::ValToString(a.x, 2) + ", " + ffw::ValToString(a.y, 2) + ", " + ffw::ValToString(a.z, 2) + ", " + ffw::ValToString(a.w, 2) + "\"\n";
-				msg += "        Got: \"" + ffw::ValToString(b.x, 2) + ", " + ffw::ValToString(b.y, 2) + ", " + ffw::ValToString(b.z, 2) + ", " + ffw::ValToString(b.w, 2) + "\"";
+				msg += "       Left: \"" + ffw::ValToString(a.x, 2) + ", " + ffw::ValToString(a.y, 2) + ", " + ffw::ValToString(a.z, 2) + ", " + ffw::ValToString(a.w, 2) + "\"\n";
+				msg += "      Right: \"" + ffw::ValToString(b.x, 2) + ", " + ffw::ValToString(b.y, 2) + ", " + ffw::ValToString(b.z, 2) + ", " + ffw::ValToString(b.w, 2) + "\"";
 				throw TestException(msg);
 			}
 		}
@@ -141,8 +140,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_TRUE(" + std::string(astr) + ")\n";
-				msg += "   Expected: True\n";
-				msg += "        Got: False";
+				msg += "       Left: True\n";
+				msg += "      Right: False";
 				throw TestException(msg);
 			}
 		}
@@ -152,8 +151,8 @@ namespace ffw {
 				std::string msg = "";
 				msg += "      Where: " + std::string(file) + ":" + ffw::ValToString(line) + "\n";
 				msg += "       What: TEST_FALSE(" + std::string(astr) + ")\n";
-				msg += "   Expected: False\n";
-				msg += "        Got: True";
+				msg += "       Left: False\n";
+				msg += "      Right: True";
 				throw TestException(msg);
 			}
 		}
@@ -170,6 +169,9 @@ namespace ffw {
 
 #define TEST_FALSE(A)\
 	ffw::tests::TestFalse(A, __FILE__, __LINE__, STRINGIFY(A));
+
+#define TEST_FAIL \
+	throw ffw::tests::TestException("TEST_FAIL called!\nWhere: " + std::string(__FILE__) + ":" + ffw::ValToString(__LINE__));
 
 #define RUN_ALL_TESTS\
 	ffw::tests::run
@@ -241,6 +243,7 @@ int ffw::tests::run(){
 			std::cerr << e.what() << std::endl;
         }
 		//auto t2 = std::chrono::steady_clock::now();
+		t1 = std::chrono::steady_clock::now();
 	}
 
 	std::cout << "[ RESULT  ] Success: " << ffw::ValToString(instancesSize - total) << " Failed: " << ffw::ValToString(total) << std::endl;

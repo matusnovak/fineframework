@@ -37,7 +37,7 @@ Normally, when compiling a library from source using makefile, it offers you an 
 Compiling the source code requires third party libraries (dependencies). You can either compile them by yourself or you can download them if your linux allows it by typing:
 
 ```
-$ sudo apt-get install libglfw-dev libfreetype6-dev
+$ sudo apt-get install libglfw3-dev libfreetype6-dev
 ```
 
 Note that the library names might differ depending on your linux distribution.

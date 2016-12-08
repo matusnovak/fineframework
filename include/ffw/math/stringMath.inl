@@ -28,7 +28,7 @@ template <> inline unsigned long long   ffw::StringToVal<unsigned long long> (co
 #endif
 //==============================================================================
 template <class T>
-inline std::string ffw::ValToString(const T& Value){
+inline std::string ffw::ValToString(T Value){
 #ifdef FFW_ANDROID
     std::ostringstream ostr;
     ostr << Value;
@@ -44,6 +44,16 @@ inline std::string ffw::ValToString(T Value, unsigned int Dec){
     ostr.precision(Dec);
     ostr << std::fixed << Value;
     return ostr.str();
+}
+//==============================================================================
+template <class T> 
+inline std::wstring ffw::ValToWstring(T Value){
+	return Utf8ToWstr(ValToString(Value));
+}
+//==============================================================================
+template <class T> 
+inline std::wstring ffw::ValToWstring(T Value, unsigned int Dec){
+	return Utf8ToWstr(ValToString(Value, Dec));
 }
 //==============================================================================
 template<typename T>
@@ -294,4 +304,82 @@ inline std::wstring ffw::Utf8ToWstr(const std::string& Str){
 //==============================================================================
 inline size_t ffw::Utf8ToWstrSize(const std::string& Str){
 	return Utf8ToWstrFunc(NULL, Str);
+}
+
+//==============================================================================
+ffw::FileInfo ffw::GetFileInfo(const std::string& path){
+	if(path.size() == 0)return ffw::FileInfo();
+
+	std::string basename;
+	std::string dirname;
+	std::string extension;
+
+	size_t slash = std::min(path.find_last_of('\\'), path.find_last_of('/'));
+	if(slash == std::string::npos){
+		// Check if drive
+		if(path.size() == 2 && path[1] == ':'){
+			dirname = path;
+		} else {
+			// Split name only
+			size_t dot = path.find_last_of('.');
+
+			if(dot == std::string::npos){
+				basename = path;
+
+			} else {
+				basename = path.substr(0, dot);
+				extension = path.substr(dot + 1, path.size() - dot - 1);
+			}
+		}
+	} else {
+		// Split dir and name
+		dirname = path.substr(0, slash+1);
+		size_t dot = path.find_last_of('.');
+
+		if(dot != std::string::npos && dot > slash){
+			if(dot == slash+1){
+				basename = path.substr(slash+1, path.size() - slash -1);
+			} else {
+				basename = path.substr(slash+1, path.size() - slash -1 - (path.size() - dot - 1) -1);
+				extension = path.substr(dot + 1, path.size() - dot -1);
+			}
+		} else {
+			basename = path.substr(slash+1, path.size() - slash -1);
+		}
+	}
+
+	return ffw::FileInfo(basename, dirname, extension);
+}
+
+//==============================================================================
+inline std::string ffw::Basename(const std::string& path){
+	return GetFileInfo(path).basename;
+}
+
+//==============================================================================
+inline std::string ffw::Dirname(const std::string& path){
+	return GetFileInfo(path).dirname;
+}
+
+//==============================================================================
+inline std::string ffw::Extension(const std::string& path){
+	return GetFileInfo(path).extension;
+}
+
+//==============================================================================
+inline std::string ffw::ToUpper(const std::string& str){
+	std::string copy(str);
+	for(auto& c : copy){
+		c = toupper(c);
+	}
+	return copy;
+}
+
+//==============================================================================
+inline std::string ffw::ToLower(const std::string& str){
+	std::string copy(str);
+	for(auto& c : copy){
+		c = tolower(c);
+	}
+	return copy;
 }

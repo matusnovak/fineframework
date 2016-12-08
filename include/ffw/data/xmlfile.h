@@ -8,19 +8,27 @@ namespace ffw{
 	/**
 	 * @ingroup data
 	 */
-	bool FFW_API DecodeXml(const std::string& Str, ffw::Var* Output);
+	ffw::Var FFW_API DecodeXml(const std::string& input);
 	/**
 	 * @ingroup data
 	 */
-	void FFW_API EncodeXml(std::string* Output, ffw::Var* Var, bool Formated, bool EscapeUnicode);
+	bool FFW_API DecodeXml(const std::string& input, ffw::Var& output);
 	/**
 	 * @ingroup data
 	 */
-	bool FFW_API LoadXml(const std::string& Path, ffw::Var* Output);
+	std::string FFW_API EncodeXml(const ffw::Var& input, bool formated = false, bool escape = true);
 	/**
 	 * @ingroup data
 	 */
-	bool FFW_API SaveXml(const std::string& Path, ffw::Var* Input, bool Formated, bool EscapeUnicode);
+	void FFW_API EncodeXml(const ffw::Var& input, std::string& output, bool formated = false, bool escape = true);
+	/**
+	 * @ingroup data
+	 */
+	bool FFW_API LoadXml(const std::string& path, ffw::Var& output);
+	/**
+	 * @ingroup data
+	 */
+	bool FFW_API SaveXml(const std::string& path, const ffw::Var& input, bool formated = false, bool escape = true);
 };
 #endif
 

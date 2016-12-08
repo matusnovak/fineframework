@@ -235,7 +235,7 @@ inline ffw::Vec2<T>& ffw::Vec2<T>::Scale(const T Val){
 //==============================================================================
 template <class T>
 inline float ffw::Vec2<T>::Length() const{
-    return sqrtf(x*x + y*y);
+    return sqrtf(float(x*x + y*y));
 }
 //==============================================================================
 template <class T>

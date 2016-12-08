@@ -4,7 +4,11 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label_):GuiWidget(context),label(label_){
+ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label_):GuiButtonToggle(context, Utf8ToWstr(label_)){
+}
+
+///=============================================================================
+ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::wstring& label_):GuiWidget(context),label(label_){
 	togglefocusflag = true;
 	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
 	SetAlign(GuiAlign::CENTER);
@@ -13,21 +17,18 @@ ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& lab
 
 	style.normal.background = true;
 	style.normal.backgroundcolor = ffw::Rgb(0xE1E1E1);
-	style.normal.border = true;
 	style.normal.bordersize = 1;
 	style.normal.bordercolor = ffw::Rgb(0xADADAD);
 	style.normal.textcolor = ffw::Rgb(0x222222);
 
 	style.hover.background = true;
 	style.hover.backgroundcolor = ffw::Rgb(0xE5F1FB);
-	style.hover.border = true;
 	style.hover.bordersize = 1;
 	style.hover.bordercolor = ffw::Rgb(0x0078D7);
 	style.hover.textcolor = ffw::Rgb(0x222222);
 
 	style.active.background = true;
 	style.active.backgroundcolor = ffw::Rgb(0xCCE4F7);
-	style.active.border = true;
 	style.active.bordersize = 1;
 	style.active.bordercolor = ffw::Rgb(0x005499);
 	style.active.textcolor = ffw::Rgb(0x222222);
@@ -40,13 +41,13 @@ ffw::GuiButtonToggle::~GuiButtonToggle(){
 }
 
 ///=============================================================================
-void ffw::GuiButtonToggle::SetLabel(const std::string& label_){
+void ffw::GuiButtonToggle::SetLabel(const std::wstring& label_){
 	label = label_;
 	Redraw();
 }
 
 ///=============================================================================
-const std::string& ffw::GuiButtonToggle::GetLabel() const {
+const std::wstring& ffw::GuiButtonToggle::GetLabel() const {
 	return label;
 }
 
@@ -84,9 +85,9 @@ void ffw::GuiButtonToggle::EventHover(bool gained){
 void ffw::GuiButtonToggle::EventFocus(bool gained){
 	Redraw();
 
-	if(!gained){
-		context->PushEvent(onclickcallback, {this, GuiEventType::CLICKED});
-	}
+	GuiEventData dat;
+	dat.clicked.value = gained;
+	context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEventType::CLICKED, dat});
 }
 
 ///=============================================================================

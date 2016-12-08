@@ -86,7 +86,7 @@ inline float ffw::Angle(const ffw::Vec2<T>& V1, const ffw::Vec2<T>& V2){
     float dot = (V1.x*V2.x + V1.y*V2.y);
     float V1Length = sqrtf(V1.x*V1.x + V1.y*V1.y);
     float V2Length = sqrtf(V2.x*V2.x + V2.y*V2.y);
-    return acos(dot / (V1Length*V2Length))*57.29577951;
+    return (T)(acos(dot / (V1Length*V2Length))*57.29577951);
 }
 //==============================================================================
 template <class T>

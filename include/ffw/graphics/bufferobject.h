@@ -36,8 +36,8 @@ namespace ffw {
 		bool SetData(const void* data, int offset, int size);
         bool MapBuffer(void** pointer, unsigned int access) const;
         bool UnMapBuffer() const;
-		bool Destroy();
-		bool Bind() const;
+		void Destroy();
+		void Bind() const;
 		void Unbind() const;
 		inline unsigned int GetHandle() const {
 			return buffer_;

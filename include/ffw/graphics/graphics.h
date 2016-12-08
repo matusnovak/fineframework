@@ -90,6 +90,14 @@ namespace ffw{
 	/**
 	 * @ingroup graphics
 	 */
+	void FFW_API DrawString(int posx, int posy, const Font* font, const wchar_t* str);
+	/**
+	 * @ingroup graphics
+	 */
+	void FFW_API DrawString(int posx, int posy, const Font* font, const wchar_t* str, size_t length);
+	/**
+	 * @ingroup graphics
+	 */
 	void FFW_API DrawBezier(int startx, int starty, int cp0x, int cp0y, int cp1x, int cp1y, int endx, int endy, int steps);
 	/**
 	 * @ingroup graphics
@@ -103,5 +111,31 @@ namespace ffw{
 	 * @ingroup graphics
 	 */
 	ffw::Vec4i FFW_API CoverImage(int imgwidth, int imgheight, int maxwidth, int maxheight);
+	/**
+	 * @ingroup graphics
+	 */
+	class FFW_API OpenGLImageType {
+	public:
+		OpenGLImageType():
+			internalFormat(0),
+			format(0),
+			type(0){
+		}
+		OpenGLImageType(GLint inter, GLenum form, GLenum typ):
+			internalFormat(inter),
+			format(form),
+			type(typ){
+		}
+		const GLint internalFormat;
+		const GLenum format;
+		const GLenum type;
+		operator bool () const {
+			return (internalFormat != 0 && format != 0 && type != 0);
+		}
+	};
+	/**
+	 * @ingroup graphics
+	 */
+	ffw::OpenGLImageType FFW_API GetOpenGLImageType(ffw::ImageType type);
 };
 #endif

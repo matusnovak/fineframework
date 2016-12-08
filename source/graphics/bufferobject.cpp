@@ -122,24 +122,19 @@ bool ffw::BufferObject::UnMapBuffer() const {
 }
 
 ///=============================================================================
-bool ffw::BufferObject::Destroy(){
-    // Do not continue if buffer was not loaded
-    if(!loaded_)return true;
+void ffw::BufferObject::Destroy(){
     // Delete buffer
-    gl_->glDeleteBuffers(1, &buffer_);
+    if(loaded_)gl_->glDeleteBuffers(1, &buffer_);
     loaded_ = false;
     //initialized = false;
     size_ = 0;
     type_ = GL_FALSE;
-    return true;
 }
 
 ///=============================================================================
-bool ffw::BufferObject::Bind() const {
-    if(!loaded_)return false;
+void ffw::BufferObject::Bind() const {
     // Bind buffer
-    gl_->glBindBuffer(objecttype_, buffer_);
-    return true;
+    if(loaded_)gl_->glBindBuffer(objecttype_, buffer_);
 }
 
 ///=============================================================================

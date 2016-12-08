@@ -8,18 +8,26 @@ namespace ffw{
 	/**
 	 * @ingroup data
 	 */
-	bool FFW_API DecodeJson(const std::string& Str, ffw::Var* Output);
+	ffw::Var FFW_API DecodeJson(const std::string& input);
 	/**
 	 * @ingroup data
 	 */
-	void FFW_API EncodeJson(std::string* Output, ffw::Var* Var, bool Formated, bool EscapeUnicode);
+	void FFW_API DecodeJson(const std::string& input, ffw::Var& output);
 	/**
 	 * @ingroup data
 	 */
-	bool FFW_API LoadJson(const std::string& Path, ffw::Var* Output);
+	std::string FFW_API EncodeJson(const ffw::Var& input, bool formated = false, bool escape = true);
 	/**
 	 * @ingroup data
 	 */
-	bool FFW_API SaveJson(const std::string& Path, ffw::Var* Input, bool Formated, bool EscapeUnicode);
+	void FFW_API EncodeJson(const ffw::Var& input, std::string& output, bool formated = false, bool escape = true);
+	/**
+	 * @ingroup data
+	 */
+	bool FFW_API LoadJson(const std::string& path, ffw::Var& output);
+	/**
+	 * @ingroup data
+	 */
+	bool FFW_API SaveJson(const std::string& path, const ffw::Var& input, bool formated = false, bool escape = true);
 };
 #endif

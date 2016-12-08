@@ -117,7 +117,11 @@ bool ffw::Shader::CreateFromFile(const ffw::RenderContext* renderer, const std::
     }
 
     // Now we have sources data, load them into program
-    if(CreateFromData(renderer, geomdata.c_str(), vertdata.c_str(), fragdata.c_str())){
+    if(CreateFromData(renderer,
+		(geomdata.size() > 0 ? geomdata.c_str() : NULL),
+		(vertdata.size() > 0 ? vertdata.c_str() : NULL),
+		(fragdata.size() > 0 ? fragdata.c_str() : NULL))
+		){
         return true;
     }
     return false;
@@ -299,11 +303,16 @@ void ffw::Shader::Bind() const {
 
 ///=============================================================================
 void ffw::Shader::Unbind() const {
-    if(!loaded_)gl_->glUseProgram(0);
+    if(loaded_){
+		// We need to disable attrib array
+		// Otherwise this will mess up any old pipeline draw calls 
+		gl_->glDisableVertexAttribArray(0);
+		gl_->glUseProgram(0);
+	}
 }
 
 ///=============================================================================
-void ffw::Shader::SetAttributePointer(GLint Location, GLint Size, GLsizei Stride, const GLvoid* offset) const {
+void ffw::Shader::SetAttributePointerf(GLint Location, GLint Size, GLsizei Stride, const GLvoid* offset) const {
     // Enable attribute
     gl_->glEnableVertexAttribArray(Location);
     // Set the pointer of the attribute

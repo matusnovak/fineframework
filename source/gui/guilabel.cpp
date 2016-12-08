@@ -4,11 +4,16 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::string& label_):GuiWidget(context),label(label_){
+ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::string& label_):GuiLabel(context, Utf8ToWstr(label_)){
+}
+
+///=============================================================================
+ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::wstring& label_):GuiWidget(context),label(label_){
 	ignoreinputflag = true;
 	SetAlign(GuiAlign::TOP_LEFT);
 	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
 	SetMargin(0, 0, 5, 0);
+	SetPadding(0, 0, 5, 0);
 
 	style.normal.background = false;
 	//style.normal.border = true;
@@ -34,13 +39,13 @@ ffw::GuiLabel::~GuiLabel(){
 }
 
 ///=============================================================================
-void ffw::GuiLabel::SetLabel(const std::string& label_){
+void ffw::GuiLabel::SetLabel(const std::wstring& label_){
 	label = label_;
 	Redraw();
 }
 
 ///=============================================================================
-const std::string& ffw::GuiLabel::GetLabel() const {
+const std::wstring& ffw::GuiLabel::GetLabel() const {
 	return label;
 }
 

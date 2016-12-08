@@ -381,7 +381,8 @@ void ffw::Font::GetCharTexCoords(unsigned short c, ffw::Vec2f& t0, ffw::Vec2f& t
 
 ///=============================================================================
 template<class T> ffw::Vec2i getStringSizeTemplate(const ffw::Font* font, const T& str){
-    ffw::Vec2i size(0, font->GetSize());
+    if(str.size() == 0)return 0;
+	ffw::Vec2i size(0, font->GetSize());
     int width = 0;
     for(const auto& chr : str){
         if(chr == '\n'){

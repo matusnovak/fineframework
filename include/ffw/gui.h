@@ -14,6 +14,8 @@
 #include "gui/guilayout.h"
 #include "gui/guiprogressbar.h"
 #include "gui/guiradio.h"
+#include "gui/guiscrollable.h"
+#include "gui/guiscrollbar.h"
 #include "gui/guislider.h"
 #include "gui/guiswitch.h"
 #include "gui/guitextedit.h"

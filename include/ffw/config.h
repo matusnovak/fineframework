@@ -34,11 +34,11 @@
 #endif*/
 // Using MAX OS X
 #if defined(__APPLE__) && defined(__MACH__)
-#define FFW_OSX_GCC 1
+#define FFW_OSX_CLANG 1
 #define FFW_OSX 1
 #define FFW_USE_PTHREADS 1
 #endif
-#if !defined(FFW_WINDOWS_MSVC) && !defined(FFW_WINDOWS_MINGW) && !defined(FFW_LINUX_GCC) && !defined(FFW_OSX_GCC)
+#if !defined(FFW_WINDOWS_MSVC) && !defined(FFW_WINDOWS_MINGW) && !defined(FFW_LINUX_GCC) && !defined(FFW_OSX_CLANG)
 #error Please use Visual Studio, MinGW, Linux GCC, or OS X Clang to compile FineFramework!
 #endif
 #if !defined(FFW_WINDOWS) && !defined(FFW_LINUX) && !defined(FFW_OSX)

@@ -44,7 +44,7 @@ namespace ffw {
         inline unsigned int GetHandle() const {
 			return program_;
 		}
-        void SetAttributePointer(int location, int size, int stride, const GLvoid* offset) const;
+        void SetAttributePointerf(int location, int size, int stride, const GLvoid* offset) const;
         void SetAttributeDivisor(unsigned int index, unsigned int divisor) const;
         void DrawArrays(unsigned int mode, int first, int count) const;
         void DrawArraysInstanced(unsigned int mode, int First, int Count, int instancecount) const;
