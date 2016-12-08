@@ -12,6 +12,7 @@
 #include "gui/guifontopengl.h"
 #include "gui/guilabel.h"
 #include "gui/guilayout.h"
+#include "gui/guilist.h"
 #include "gui/guiprogressbar.h"
 #include "gui/guiradio.h"
 #include "gui/guiscrollable.h"
