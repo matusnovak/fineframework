@@ -27,6 +27,8 @@
 *.out
 *.app
 
+!monkey.obj
+
 # Ignore build directory
 build/
 
