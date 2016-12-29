@@ -9,9 +9,11 @@ namespace ffw {
 	class FFW_API GuiLayout: public GuiWidget {
 	public:
 		typedef GuiWidget::Orientation Orientation;
-		GuiLayout(GuiWindow* context, Orientation orientation);
+		GuiLayout(GuiWindow* context, Orientation orientation, const std::type_info& type = typeid(GuiLayout));
 		virtual ~GuiLayout();
 		void AddWidget(GuiWidget* widget);
+		void AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget);
+		void AddWidgetBefore(const GuiWidget* next, GuiWidget* widget);
 		void DeleteWidgets();
 		bool DeleteSingleWidget(GuiWidget* widget);
 		void SetOrientation(Orientation orient);
@@ -32,7 +34,8 @@ namespace ffw {
 	 */
 	class GuiVerticalLayout: public GuiLayout {
 	public:
-		GuiVerticalLayout(GuiWindow* context):GuiLayout(context, ffw::GuiWidget::Orientation::VERTICAL){}
+		GuiVerticalLayout(GuiWindow* context, const std::type_info& type = typeid(GuiLayout)):
+			GuiLayout(context, ffw::GuiWidget::Orientation::VERTICAL, type){}
 		virtual ~GuiVerticalLayout(){}
 	};
 	/**
@@ -40,7 +43,8 @@ namespace ffw {
 	 */
 	class GuiHorizontalLayout: public GuiLayout {
 	public:
-		GuiHorizontalLayout(GuiWindow* context):GuiLayout(context, ffw::GuiWidget::Orientation::HORIZONTAL){}
+		GuiHorizontalLayout(GuiWindow* context, const std::type_info& type = typeid(GuiLayout)):
+			GuiLayout(context, ffw::GuiWidget::Orientation::HORIZONTAL, type){}
 		virtual ~GuiHorizontalLayout(){}
 	};
 	/**
@@ -48,7 +52,8 @@ namespace ffw {
 	 */
 	class GuiFixedLayout: public GuiLayout {
 	public:
-		GuiFixedLayout(GuiWindow* context):GuiLayout(context, ffw::GuiWidget::Orientation::FIXED){}
+		GuiFixedLayout(GuiWindow* context, const std::type_info& type = typeid(GuiLayout)):
+			GuiLayout(context, ffw::GuiWidget::Orientation::FIXED, type){}
 		virtual ~GuiFixedLayout(){}
 	};
 }

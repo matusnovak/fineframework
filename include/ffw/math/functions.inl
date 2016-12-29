@@ -4,7 +4,7 @@
 //==============================================================================
 template <class T>
 inline T ffw::Lerp(const T& A, const T& B, float Weight) {
-    return (1-Weight)*A + Weight*B;
+    return T((1-Weight)*A + Weight*B);
 }
 //==============================================================================
 template <class T>
@@ -24,6 +24,30 @@ inline ffw::Vec3<T> ffw::Cross(const ffw::Vec3<T>& V1, const ffw::Vec3<T>& V2){
     product.y = V1.z*V2.x - V1.x*V2.z;
     product.z = V1.x*V2.y - V1.y*V2.x;
     return product;
+}
+//==============================================================================
+template <class T> 
+inline T ffw::Distance(const Vec2<T>& v1, const Vec2<T>& v2) {
+	auto v = v2 - v1;
+	return T(v.Length());
+}
+//==============================================================================
+template <class T> 
+inline T ffw::Distance(const Vec3<T>& v1, const Vec3<T>& v2) {
+	auto v = v2 - v1;
+	return v.Length();
+}
+//==============================================================================
+template <class T> 
+inline T ffw::Distance(const Vec4<T>& v1, const Vec4<T>& v2) {
+	auto v = v2 - v1;
+	return v.Length();
+}
+//==============================================================================
+template <class Vec> 
+inline Vec Middle(const Vec& v1, const Vec& v2) {
+	auto v = (v2 - v1) / 2.0;
+	return v1 + v;
 }
 //==============================================================================
 template <class T>

@@ -4,34 +4,16 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::string& label_):GuiLabel(context, Utf8ToWstr(label_)){
+ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::string& label_, const std::type_info& type):GuiLabel(context, Utf8ToWstr(label_), type){
 }
 
 ///=============================================================================
-ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::wstring& label_):GuiWidget(context),label(label_){
+ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::wstring& label_, const std::type_info& type):GuiWidget(context, type),label(label_){
 	ignoreinputflag = true;
 	SetAlign(GuiAlign::TOP_LEFT);
-	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
+	SetSize(GuiPercent(100), GuiWrap());
 	SetMargin(0, 0, 5, 0);
 	SetPadding(0, 0, 5, 0);
-
-	style.normal.background = false;
-	//style.normal.border = true;
-	//style.normal.borderSize = 1;
-	//style.normal.borderColor = ffw::Rgb(0xFF0000);
-	style.normal.textcolor = ffw::Rgb(0x222222);
-
-	style.hover.background = false;
-	//style.hover.border = true;
-	//style.hover.borderSize = 1;
-	//style.hover.borderColor = ffw::Rgb(0xFF0000);
-	style.hover.textcolor = ffw::Rgb(0x222222);
-
-	style.active.background = false;
-	//style.active.border = true;
-	//style.active.borderSize = 1;
-	//style.active.borderColor = ffw::Rgb(0xFF0000);
-	style.active.textcolor = ffw::Rgb(0x222222);
 }
 
 ///=============================================================================
@@ -51,9 +33,7 @@ const std::wstring& ffw::GuiLabel::GetLabel() const {
 
 ///=============================================================================
 void ffw::GuiLabel::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	const auto& stl = GetCurrentStyle();
-	context->SetDrawColor(stl.textcolor);
-	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label);
+	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle().text);
 }
 
 ///=============================================================================

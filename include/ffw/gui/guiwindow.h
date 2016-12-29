@@ -10,32 +10,20 @@ namespace ffw {
 	/**
 	 * @ingroup gui
 	 */
-	class FFW_API GuiWindow {
+	class FFW_API GuiWindow: public GuiBackend {
 	public:
+		class FFW_API GuiBody: public GuiLayout {
+		public:
+			GuiBody(GuiWindow* context, GuiLayout::Orientation orient);
+			virtual ~GuiBody();
+		};
 		GuiWindow();
 		virtual ~GuiWindow();
 		void SetSize(int width, int height);
 		void SetPos(int posx, int posy);
 		void Destroy();
-		void SetBackend(GuiBackend* backend);
 		const ffw::Vec2i& GetSize() const;
 		const ffw::Vec2i& GetPos() const;
-		GuiFont* CreateFontFromData(const unsigned char* buffer, size_t length, int points, int dpi, int start = 0x00, int end = 0xFF) const;
-		GuiFont* CreateFontFromFile(const std::string& path, int points, int dpi, int start = 0x00, int end = 0xFF) const;
-		void SetScissors(const ffw::Vec2i& pos, const ffw::Vec2i& size) const;
-		void ClearWithColor(const ffw::Color& color) const;
-		void SetDrawColor(const ffw::Color& color) const;
-		void DrawQuad(const ffw::Vec2i& p0, const ffw::Vec2i& p1, const ffw::Vec2i& p2, const ffw::Vec2i& p3) const;
-		void DrawRectangle(const ffw::Vec2i& pos, const ffw::Vec2i& size) const;
-		void DrawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring& str, size_t beg = 0, size_t len = -1) const;
-		void DrawLine(const ffw::Vec2i& start, const ffw::Vec2i& end, int thickness) const;
-		void DrawCircle(const ffw::Vec2i& pos, int radius, int steps) const;
-		void DrawArc(const ffw::Vec2i& pos, int inner, int outer, float start, float end, int steps) const;
-		void DrawTriangleFan(const ffw::Vec2i* arr, int num) const;
-		void DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiFont* font, GuiAlign align, const std::wstring& str) const;
-		void DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, const GuiStyle& style) const;
-		void DrawBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size, const GuiStyle& style) const;
-		void DrawSymbol(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiSymbol& symbol) const;
 		void SetDefaultFont(const GuiFont* font);
 		const GuiFont* GetDefaultFont() const;
 		void InjectMousePos(int posx, int posy);
@@ -47,18 +35,39 @@ namespace ffw {
 		void Render();
 		void Redraw();
 		void Invalidate();
-		void DeleteWidgets();
-		void AddWidget(GuiWidget* widget);
-		void PushEvent(std::function<void(GuiEvent)> callback, GuiEvent e);
+		inline void AddWidget(GuiWidget* widget) {
+			body->AddWidget(widget);
+		}
+		inline void AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
+			body->AddWidgetAfter(previous, widget);
+		}
+		inline void AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
+			body->AddWidgetBefore(next, widget);
+		}
+		inline void DeleteWidgets() {
+			body->DeleteWidgets();
+		}
+		inline bool DeleteSingleWidget(GuiWidget* widget) {
+			return body->DeleteSingleWidget(widget);
+		}
+		inline void SetWrap(bool wrap) {
+			body->SetWrap(wrap);
+		}
+		inline void SetOrientation(GuiLayout::Orientation orientation) {
+			body->SetOrientation(orientation);
+		}
+		void PushEvent(GuiCallback& callback, GuiEvent e);
 		void SetPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left);
 		void SetPadding(GuiUnits all);
+		void SetTheme(const GuiTheme* thm);
+		const GuiTheme* GetTheme() const;
 		template<class T>
 		T* FindByID(unsigned long id){
 			return body->FindByID<T>(id);
 		}
 	private:
-		GuiLayout* body;
-		GuiBackend* backend;
+		GuiBody* body;
+		const GuiTheme* theme;
 		ffw::Vec2i size;
 		ffw::Vec2i pos;
 		GuiUserInput input;

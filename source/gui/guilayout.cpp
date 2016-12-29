@@ -4,14 +4,10 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiLayout::GuiLayout(GuiWindow* context, Orientation Orientation):GuiWidget(context){
+ffw::GuiLayout::GuiLayout(GuiWindow* context, Orientation Orientation, const std::type_info& type):GuiWidget(context, type){
 	GuiWidget::SetOrientation(Orientation);
-	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
+	SetSize(GuiPercent(100), GuiWrap());
 	ignoreinputflag = true;
-
-	//style.normal.border = false;
-	//style.normal.borderSize = 2;
-	//style.normal.borderColor = ffw::Rgb(0xFF0000);
 }
 
 ///=============================================================================
@@ -22,6 +18,16 @@ ffw::GuiLayout::~GuiLayout(){
 ///=============================================================================
 void ffw::GuiLayout::AddWidget(GuiWidget* widget){
 	GuiWidget::AddWidget(widget);
+}
+
+///=============================================================================
+void ffw::GuiLayout::AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
+	GuiWidget::AddWidgetAfter(previous, widget);
+}
+
+///=============================================================================
+void ffw::GuiLayout::AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
+	GuiWidget::AddWidgetBefore(next, widget);
 }
 
 ///=============================================================================

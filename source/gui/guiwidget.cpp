@@ -2,7 +2,6 @@
 
 #include "ffw/gui/guiwidget.h"
 #include "ffw/gui/guiwindow.h"
-#include "ffw/gui/guiscrollable.h"
 
 ///=============================================================================
 static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const ffw::Vec2i& childpos, const ffw::Vec2i& childsize){
@@ -55,11 +54,9 @@ static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i
 }
 
 ///=============================================================================
-ffw::GuiWidget::GuiWidget(GuiWindow* con):context(con){
+ffw::GuiWidget::GuiWidget(GuiWindow* ctx, const std::type_info& type):GuiRenderable(ctx, type){
 	size.Set(0, 0);
 	pos.Set(0, 0);
-	posreal.Set(0, 0);
-	sizereal.Set(0, 0);
 	updateflag = true;
 	parent = NULL;
 	calleventpos = false;
@@ -79,35 +76,15 @@ ffw::GuiWidget::GuiWidget(GuiWindow* con):context(con){
 	SetMargin(0);
 	SetPadding(0);
 	id = -1;
-	onsizeeventcallback = nullptr;
-	onposeventcallback = nullptr;
-	onhovereventcallback = nullptr;
-	onfocuseventcallback = nullptr;
 	callbackPtr = this;
+	shouldhideflag = 0;
+	hidden = false;
+	disableflag = false;
 }
 
 ///=============================================================================
 ffw::GuiWidget::~GuiWidget(){
 	DeleteWidgets();
-}
-
-///=============================================================================
-void ffw::GuiWidget::DeleteWidgets(){
-	for(auto& w : widgets){
-		delete w;
-	}
-	widgets.clear();
-	SetSize(size.x, size.y);
-}
-
-///=============================================================================
-bool ffw::GuiWidget::DeleteSingleWidget(GuiWidget* widget){
-	auto it = std::find(widgets.begin(), widgets.end(), widget);
-	if(it == widgets.end())return false;
-
-	widgets.erase(it);
-	SetSize(size.x, size.y);
-	return true;
 }
 
 ///=============================================================================
@@ -132,11 +109,8 @@ void ffw::GuiWidget::RecalculatePos(){
 void ffw::GuiWidget::RecalculateSize(){
 	invalidateflag = false;
 
-	/*if(dynamic_cast<GuiScrollable*>(this)){
-		std::cout << "RecalculateSize" << std::endl;
-	}*/
-
 	ffw::Vec2i oldsizereal = sizereal;
+	ffw::Vec2i oldtotalsize = totalsize;
 
 	if(parent != NULL){
 		// X set to wrap?
@@ -178,6 +152,7 @@ void ffw::GuiWidget::RecalculateSize(){
 	int top = 0;
 	if(orientation == Orientation::HORIZONTAL){
 		for(auto& w : widgets){
+			if (w->IsHidden())continue;
 			// Recalculate widget size...
 			w->RecalculateSize();
 
@@ -205,7 +180,7 @@ void ffw::GuiWidget::RecalculateSize(){
 			}
 
 			//w->SetPos(left + realmargin[3], top + realmargin[0]);
-			w->pos.Set(GuiUnits::Pixels(left + realmargin[3]), GuiUnits::Pixels(top + realmargin[0]));
+			w->pos.Set(GuiPixels(left + realmargin[3]), GuiPixels(top + realmargin[0]));
 			w->RecalculatePos();
 			//w->absolutepos = this->absolutepos + w->posreal;
 			left += w->GetRealSize().x + realmargin[3] + realmargin[1];
@@ -220,6 +195,7 @@ void ffw::GuiWidget::RecalculateSize(){
 		}
 	} else if(orientation == Orientation::VERTICAL){
 		for(auto& w : widgets){
+			if (w->IsHidden())continue;
 			// Recalculate widget size...
 			w->RecalculateSize();
 
@@ -247,7 +223,7 @@ void ffw::GuiWidget::RecalculateSize(){
 			}
 
 			//w->SetPos(left + realmargin[3], top + realmargin[0]);
-			w->pos.Set(GuiUnits::Pixels(left + realmargin[3]), GuiUnits::Pixels(top + realmargin[0]));
+			w->pos.Set(GuiPixels(left + realmargin[3]), GuiPixels(top + realmargin[0]));
 			w->RecalculatePos();
 			//w->absolutepos = this->absolutepos + w->posreal;
 			top += w->GetRealSize().y + realmargin[0] + realmargin[2];
@@ -287,18 +263,24 @@ void ffw::GuiWidget::RecalculateSize(){
 	if(sizereal.x < min.x)sizereal.x = min.x;
 	if(sizereal.y < min.y)sizereal.y = min.y;
 
-	//std::cout << "recalculate size sizereal: " << sizereal << std::endl;
+	//std::cout << "RecalculateSize() size: " << sizereal << " total: " << totalsize << std::endl;
 
-	//std::cout << std::endl;
-
-	if(oldsizereal.x != sizereal.x || oldsizereal.y != sizereal.y){
-		if(!first && parent != NULL && (parent->GetSize().x == ffw::GuiUnits::Wrap() || parent->GetSize().y == ffw::GuiUnits::Wrap())){
+	if(oldsizereal != sizereal){
+		if(!first && parent != NULL && (parent->GetSize().x == ffw::GuiWrap() || parent->GetSize().y == ffw::GuiWrap())){
 			//std::cout << "================================" << std::endl;
 			//std::cout << "recalculating size of the parent..." << std::endl;
 			//std::cout << "previous size: " << oldsizereal << " new size: " << sizereal << std::endl;
 			parent->RecalculateSize();
 		}
 
+		if(parent != NULL) {
+			parent->Redraw();
+		}
+
+		calleventsize = true;
+	}
+
+	if(oldtotalsize != totalsize) {
 		calleventsize = true;
 	}
 
@@ -326,26 +308,47 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		//ffw::Vec2i childclippos(cliparea.x, cliparea.y);
 		//ffw::Vec2i childclipsize(cliparea.z, cliparea.w);
 
-		if(calleventpos){
-			calleventpos = false;
-			updateflag = true;
-			EventPos(posreal);
-			GuiEventData dat;
-			dat.pos.x = posreal.x;
-			dat.pos.y = posreal.y;
-			context->PushEvent(onposeventcallback, {GetCallbackPtr(), GuiEventType::POSITION, dat});
+	if (shouldhideflag != 0) {
+		if (shouldhideflag == -1) {
+			hidden = false;
 		}
+		else if (shouldhideflag == 1) {
+			hidden = true;
+		}
+		if (parent != NULL) {
+			parent->Invalidate();
+			parent->RecalculateSize();
+			parent->Redraw();
+		}
+		shouldhideflag = 0;
+	}
 
-		if(calleventsize){
-			calleventsize = false;
-			updateflag = true;
-			const auto s = GetVisibleContentSize();
-			EventSize(s);
-			GuiEventData dat;
-			dat.size.width = s.x;
-			dat.size.height = s.y;
-			context->PushEvent(onsizeeventcallback, {GetCallbackPtr(), GuiEventType::SIZE, dat});
-		}
+	if (hidden)return;
+
+	if(calleventpos){
+		calleventpos = false;
+		//updateflag = true;
+		EventPos(posreal);
+		GuiEvent::Data dat;
+		dat.pos.x = posreal.x;
+		dat.pos.y = posreal.y;
+		context->PushEvent(onposeventcallback, {GetCallbackPtr(), GuiEvent::Type::POSITION, dat});
+	}
+
+	if(calleventsize){
+		calleventsize = false;
+		//updateflag = true;
+		const auto s = GetVisibleContentSize();
+		EventSize(s);
+		GuiEvent::Data dat;
+		dat.size.width = s.x;
+		dat.size.height = s.y;
+		context->PushEvent(onsizeeventcallback, {GetCallbackPtr(), GuiEvent::Type::SIZE, dat});
+	}
+
+	if (invalidateflag) {
+		RecalculateSize();
+	}
 
 	if(!ignoreinputflag){
 		if(input.mousepos.x > posreal.x && input.mousepos.x < posreal.x + sizereal.x &&
@@ -355,9 +358,9 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 				hoverflag = true;
 				//updateFlag = true;
 				EventHover(true);
-				GuiEventData dat;
+				GuiEvent::Data dat;
 				dat.hover.gained = true;
-				context->PushEvent(onhovereventcallback, {GetCallbackPtr(), GuiEventType::HOVER, dat});
+				context->PushEvent(onhovereventcallback, {GetCallbackPtr(), GuiEvent::Type::HOVER, dat});
 				//std::cout << "widget hover gained!" << std::endl;
 
 			}
@@ -365,9 +368,9 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 			hoverflag = false;
 			//updateFlag = true;
 			EventHover(false);
-			GuiEventData dat;
+			GuiEvent::Data dat;
 			dat.hover.gained = false;
-			context->PushEvent(onhovereventcallback, {GetCallbackPtr(), GuiEventType::HOVER, dat});
+			context->PushEvent(onhovereventcallback, {GetCallbackPtr(), GuiEvent::Type::HOVER, dat});
 			//std::cout << "widget hover lost!" << std::endl;
 		}
 
@@ -377,32 +380,32 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 				if(togglefocusflag){
 					focusflag = !focusflag;
 					EventFocus(focusflag);
-					GuiEventData dat;
+					GuiEvent::Data dat;
 					dat.focus.gained = focusflag;
-					context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEventType::FOCUS, dat});
+					context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
 				} else if(!focusflag){
 					focusflag = true;
 					EventFocus(true);
-					GuiEventData dat;
+					GuiEvent::Data dat;
 					dat.focus.gained = true;
-					context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEventType::FOCUS, dat});
+					context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
 				}
 
 			} else if(!togglefocusflag && focusflag && !hoverflag && !stickyfocusflag){
 				focusflag = false;
 				EventFocus(false);
-				GuiEventData dat;
+				GuiEvent::Data dat;
 				dat.focus.gained = false;
-				context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEventType::FOCUS, dat});
+				context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
 			}
 		}
 
 		if(dropfocusflag && focusflag && input.mousemode == ffw::Mode::RELEASED && !stickyfocusflag){
 			focusflag = false;
 			EventFocus(false);
-			GuiEventData dat;
+			GuiEvent::Data dat;
 			dat.focus.gained = false;
-			context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEventType::FOCUS, dat});
+			context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
 		}
 
 		if(focusflag && input.mousemode != ffw::Mode::NONE){
@@ -453,8 +456,105 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 }
 
 ///=============================================================================
+void ffw::GuiWidget::TraverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size){
+	const auto& style = GetCurrentStyle();
+	if(style.background && style.background.color.a >= 1.0f) {
+		context->DrawBackground(pos, size, style.background);
+	}
+	
+	if(parent != NULL){
+		parent->TraverseBackground(pos, size);
+	}
+
+	if(style.background){
+		context->DrawBackground(pos, size, style.background);
+	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsize, const ffw::Vec2i& off, bool clear){
+	if (sizereal.x <= 0 || sizereal.y <= 0)return;
+	if (hidden)return;
+	
+	auto posRealOffset = off + posreal;
+	ffw::Vec4i cliparea = RectangleBoolean(clippos, clipsize, posRealOffset, sizereal);
+	//std::cout << "clip region: " << cliparea.x << "x" << cliparea.y << " / " << cliparea.z << "x" << cliparea.w << std::endl;
+	ffw::Vec2i childclippos(cliparea.x, cliparea.y);
+	ffw::Vec2i childclipsize(cliparea.z, cliparea.w);
+
+	if(childclipsize.x > 0 && childclipsize.y > 0){
+	
+		if(updateflag){
+			updateflag = false;
+
+			//auto posRealOffset = off + posreal;
+
+			/*// Clip region
+			ffw::Vec4i cliparea;
+			if(parent != NULL){
+				//auto parentPos = parent->GetVisibleContentPos();
+
+				std::cout << ">>> rendering: " << typeid(*this).name() << std::endl;
+				std::cout << "parent pos: " << clippos << std::endl;
+				std::cout << "current pos: " << posRealOffset << std::endl;
+				cliparea = RectangleBoolean(clippos, parent->GetVisibleContentSize(), posRealOffset, sizereal);
+			} else {
+				cliparea.Set(posRealOffset.x, posRealOffset.y, sizereal.x, sizereal.y);
+			}*/
+
+			//std::cout << "clip region: " << cliparea.x << "x" << cliparea.y << " / " << cliparea.z << "x" << cliparea.w << std::endl;
+		
+			context->SetScissors(childclippos, childclipsize);
+		
+			if(clear){
+				context->ClearWithColor(Rgba(0x000000FF));
+
+				// Go up through every parent and draw its background
+				if(parent != NULL){
+					parent->TraverseBackground(posRealOffset, sizereal);
+				}
+
+				/*for (auto& w : widgets) {
+					w->Redraw();
+				}*/
+			}
+
+			const auto& style = GetCurrentStyle();
+
+			// Draw background
+			if(style.background){
+				//context->SetDrawColor(stly.backgroundcolor);
+				//context->DrawRectangle(posRealOffset, sizereal);
+				context->DrawBackground(posRealOffset, sizereal, style.background);
+			}
+
+			// Border
+			context->DrawBorder(posRealOffset, sizereal, style.border);
+
+			const auto& contentpos = off + GetVisibleContentPos() + offset;
+			EventRender(contentpos, GetVisibleContentSize());
+
+			//const auto parentpos = off + GetVisibleContentPos();
+			for(auto& w : widgets){
+				w->Render(childclippos, childclipsize, contentpos, false);
+			}
+		} else {
+			//std::cout << "ffw::GuiWidget::render" << std::endl;
+			const auto contentpos = off + GetVisibleContentPos() + offset;
+			//const auto parentpos = off + GetVisibleContentPos();
+			for(auto& w : widgets){
+				w->Render(childclippos, childclipsize, contentpos, true);
+			}
+		}
+	} else {
+		//std::cout << "clippos: " << clippos << " clipsize: " << clipsize << " posRealOffset: " << posRealOffset << " sizereal: " << sizereal << std::endl;
+		//std::cout << "clip too small" << std::endl;
+	}
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiWidget::GetAbsolutePos() const {
-	if(parent == NULL)return posreal;
+	if (parent == NULL)return posreal;
 	auto parentpos = parent->GetAbsolutePos();
 	parentpos.x += parent->GetPaddingInPixels(3);
 	parentpos.y += parent->GetPaddingInPixels(0);
@@ -494,109 +594,14 @@ ffw::Vec2i ffw::GuiWidget::GetVisibleContentPos() const {
 	ffw::Vec2i contentPos = posreal;
 
 	// Top
-	if(padding[0].inPercent)contentPos.y += static_cast<int>((padding[0].value / 100.0f) * sizereal.y);
+	if (padding[0].inPercent)contentPos.y += static_cast<int>((padding[0].value / 100.0f) * sizereal.y);
 	else contentPos.y += padding[0].value;
 
 	// Left
-	if(padding[3].inPercent)contentPos.x += static_cast<int>((padding[3].value / 100.0f) * sizereal.x);
+	if (padding[3].inPercent)contentPos.x += static_cast<int>((padding[3].value / 100.0f) * sizereal.x);
 	else contentPos.x += padding[3].value;
 
 	return contentPos;
-}
-
-///=============================================================================
-void ffw::GuiWidget::TraverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size){
-	if(GetCurrentStyle().background && GetCurrentStyle().backgroundcolor.a >= 1.0f){
-		context->SetDrawColor(GetCurrentStyle().backgroundcolor);
-		context->DrawRectangle(pos, size);
-		return;
-	}
-	
-	if(parent != NULL){
-		parent->TraverseBackground(pos, size);
-	}
-
-	if(GetCurrentStyle().background){
-		context->SetDrawColor(GetCurrentStyle().backgroundcolor);
-		context->DrawRectangle(pos, size);
-	}
-}
-
-///=============================================================================
-void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsize, const ffw::Vec2i& off, bool clear){
-	if(invalidateflag){
-		RecalculateSize();
-	}
-	
-	auto posRealOffset = off + posreal;
-	ffw::Vec4i cliparea = RectangleBoolean(clippos, clipsize, posRealOffset, sizereal);
-	//std::cout << "clip region: " << cliparea.x << "x" << cliparea.y << " / " << cliparea.z << "x" << cliparea.w << std::endl;
-	ffw::Vec2i childclippos(cliparea.x, cliparea.y);
-	ffw::Vec2i childclipsize(cliparea.z, cliparea.w);
-
-	if(childclipsize.x > 0 && childclipsize.y > 0){
-	
-		if(updateflag){
-			updateflag = false;
-
-			auto posRealOffset = off + posreal;
-
-			//std::cout << ">>> rendering: " << typeid(*this).name() << " abs pos: " << absolutepos << std::endl;
-
-			/*// Clip region
-			ffw::Vec4i cliparea;
-			if(parent != NULL){
-				//auto parentPos = parent->GetVisibleContentPos();
-
-				std::cout << ">>> rendering: " << typeid(*this).name() << std::endl;
-				std::cout << "parent pos: " << clippos << std::endl;
-				std::cout << "current pos: " << posRealOffset << std::endl;
-				cliparea = RectangleBoolean(clippos, parent->GetVisibleContentSize(), posRealOffset, sizereal);
-			} else {
-				cliparea.Set(posRealOffset.x, posRealOffset.y, sizereal.x, sizereal.y);
-			}*/
-
-			//std::cout << "clip region: " << cliparea.x << "x" << cliparea.y << " / " << cliparea.z << "x" << cliparea.w << std::endl;
-		
-			context->SetScissors(childclippos, childclipsize);
-		
-			if(clear){
-				context->ClearWithColor(Rgba(0x000000FF));
-
-				// Go up through every parent and draw its background
-				if(parent != NULL){
-					parent->TraverseBackground(posRealOffset, sizereal);
-				}
-			}
-
-			const auto& stly = GetCurrentStyle();
-
-			// Draw background
-			if(stly.background){
-				//context->SetDrawColor(stly.backgroundcolor);
-				//context->DrawRectangle(posRealOffset, sizereal);
-				context->DrawBackground(posRealOffset, sizereal, stly);
-			}
-
-			// Border
-			context->DrawBorder(posRealOffset, sizereal, stly);
-
-			const auto& contentpos = off + GetVisibleContentPos() + offset;
-			EventRender(contentpos, GetVisibleContentSize());
-
-			const auto parentpos = off + GetVisibleContentPos();
-			for(auto& w : widgets){
-				w->Render(childclippos, childclipsize, contentpos, false);
-			}
-		} else {
-			//std::cout << "ffw::GuiWidget::render" << std::endl;
-			const auto contentpos = off + GetVisibleContentPos() + offset;
-			//const auto parentpos = off + GetVisibleContentPos();
-			for(auto& w : widgets){
-				w->Render(childclippos, childclipsize, contentpos, true);
-			}
-		}
-	}
 }
 
 ///=============================================================================
@@ -628,8 +633,61 @@ void ffw::GuiWidget::AddWidget(GuiWidget* widget){
 	if(widget != NULL){
 		widgets.push_back(widget);
 		widgets.back()->SetParent(this);
-		SetSize(size.x, size.y);
+		//SetSize(size.x, size.y);
+		Invalidate();
+		Redraw();
 	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
+	if (widget == NULL || previous == NULL)return;
+	auto it = std::find(widgets.begin(), widgets.end(), previous);
+	if (it == widgets.end()) {
+		widgets.push_back(widget);
+	}
+	else {
+		widgets.insert(it + 1, widget);
+	}
+	Invalidate();
+	Redraw();
+}
+
+///=============================================================================
+void ffw::GuiWidget::AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
+	if (widget == NULL || next == NULL)return;
+	auto it = std::find(widgets.begin(), widgets.end(), next);
+	if (it == widgets.end()) {
+		widgets.push_back(widget);
+	}
+	else {
+		widgets.insert(it, widget);
+	}
+	Invalidate();
+	Redraw();
+}
+
+///=============================================================================
+void ffw::GuiWidget::DeleteWidgets() {
+	for (auto& w : widgets) {
+		delete w;
+	}
+	widgets.clear();
+	//SetSize(size.x, size.y);
+	Invalidate();
+	Redraw();
+}
+
+///=============================================================================
+bool ffw::GuiWidget::DeleteSingleWidget(GuiWidget* widget) {
+	auto it = std::find(widgets.begin(), widgets.end(), widget);
+	if (it == widgets.end())return false;
+
+	widgets.erase(it);
+	//SetSize(size.x, size.y);
+	Invalidate();
+	Redraw();
+	return true;
 }
 
 ///=============================================================================
@@ -642,7 +700,7 @@ void ffw::GuiWidget::SetSize(GuiUnits width, GuiUnits height){
 	calleventsize = true;
 
 	if(parent != NULL){
-		parent->invalidateflag = true;
+		parent->Invalidate();
 	}
 }
 
@@ -733,19 +791,19 @@ int ffw::GuiWidget::GetPaddingInPixels(int side) const {
 int ffw::GuiWidget::GetMarginInPixels(int side) const {
 	if(side == 1 || side == 3){
 		if(parent != NULL){
-			if(padding[side].inPercent)return static_cast<int>((padding[side].value / 100.0f) * parent->GetVisibleContentSize().x);
-			else return padding[side].value;
+			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * parent->GetVisibleContentSize().x);
+			else return margin[side].value;
 		} else {
-			if(padding[side].inPercent)return static_cast<int>((padding[side].value / 100.0f) * sizereal.x);
-			else return padding[side].value;
+			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * sizereal.x);
+			else return margin[side].value;
 		}
 	} else if(side == 0 || side == 2){
 		if(parent != NULL){
-			if(padding[side].inPercent)return static_cast<int>((padding[side].value / 100.0f) * parent->GetVisibleContentSize().y);
-			else return padding[side].value;
+			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * parent->GetVisibleContentSize().y);
+			else return margin[side].value;
 		} else {
-			if(padding[side].inPercent)return static_cast<int>((padding[side].value / 100.0f) * sizereal.x);
-			else return padding[side].value;
+			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * sizereal.x);
+			else return margin[side].value;
 		}
 	}
 	return 0;
@@ -764,6 +822,32 @@ ffw::GuiAlign ffw::GuiWidget::GetAlign() const {
 }
 
 ///=============================================================================
+void ffw::GuiWidget::SetHidden(bool h) {
+	if(hidden != h) {
+		shouldhideflag = (h ? 1 : -1);
+	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::Hide() {
+	if (!hidden) {
+		shouldhideflag = 1;
+	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::Show() {
+	if (hidden) {
+		shouldhideflag = -1;
+	}
+}
+
+///=============================================================================
+bool ffw::GuiWidget::IsHidden() const {
+	return hidden;
+}
+
+///=============================================================================
 const ffw::Vec2<ffw::GuiUnits>& ffw::GuiWidget::GetPos() const {
 	return pos;
 }
@@ -771,16 +855,6 @@ const ffw::Vec2<ffw::GuiUnits>& ffw::GuiWidget::GetPos() const {
 ///=============================================================================
 const ffw::Vec2<ffw::GuiUnits>& ffw::GuiWidget::GetSize() const {
 	return size;
-}
-
-///=============================================================================
-const ffw::Vec2i& ffw::GuiWidget::GetRealSize() const {
-	return sizereal;
-}
-
-///=============================================================================
-const ffw::Vec2i& ffw::GuiWidget::GetRealPos() const {
-	return posreal;
 }
 
 ///=============================================================================
@@ -853,20 +927,6 @@ ffw::Vec2i ffw::GuiWidget::GetContentSize() const {
 ///=============================================================================
 ffw::Vec2i ffw::GuiWidget::GetContentPos() const {
 	return GetVisibleContentPos() + offset;
-}
-
-///=============================================================================
-ffw::GuiStyle& ffw::GuiWidget::GetCurrentStyle(GuiStyleGroup& group){
-	if(focusflag)return group.active;
-	else if(hoverflag)return group.hover;
-	else return group.normal;
-}
-
-///=============================================================================
-const ffw::GuiStyle& ffw::GuiWidget::GetCurrentStyle(const GuiStyleGroup& group) const {
-	if(focusflag)return group.active;
-	else if(hoverflag)return group.hover;
-	else return group.normal;
 }
 
 ///=============================================================================

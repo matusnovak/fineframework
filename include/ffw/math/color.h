@@ -24,6 +24,7 @@ namespace ffw {
         Color& operator += (const Color &color);
         Color  operator -  (const Color &color) const;
         Color& operator -= (const Color &color);
+		bool operator == (const Color& other) const;
         Color& Clamp();
         Color& Normalize();
     };

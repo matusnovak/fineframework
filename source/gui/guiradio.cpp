@@ -4,16 +4,16 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiRadioValue::GuiRadioValue(){
+ffw::GuiRadio::Value::Value(){
 	value = 0;
 }
 
 ///=============================================================================
-ffw::GuiRadioValue::~GuiRadioValue(){
+ffw::GuiRadio::Value::~Value(){
 }
 
 ///=============================================================================
-void ffw::GuiRadioValue::SetValue(int val){
+void ffw::GuiRadio::Value::SetValue(int val){
 	value = val;
 	for(auto r : radios){
 		if(r->GetBaseValue() == value)r->AssignValue(true);
@@ -22,19 +22,19 @@ void ffw::GuiRadioValue::SetValue(int val){
 }
 
 ///=============================================================================
-int ffw::GuiRadioValue::GetValue() const{
+int ffw::GuiRadio::Value::GetValue() const{
 	return value;
 }
 
 ///=============================================================================
-void ffw::GuiRadioValue::Assign(GuiRadio* radio){
+void ffw::GuiRadio::Value::Assign(GuiRadio* radio){
 	if(radio != NULL && std::find(radios.begin(), radios.end(), radio) == radios.end()){
 		radios.push_back(radio);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiRadioValue::Remove(GuiRadio* radio){
+void ffw::GuiRadio::Value::Remove(GuiRadio* radio){
 	auto it = std::find(radios.begin(), radios.end(), radio);
 	if(it != radios.end()){
 		radios.erase(it);
@@ -42,145 +42,108 @@ void ffw::GuiRadioValue::Remove(GuiRadio* radio){
 }
 
 ///=============================================================================
-void ffw::GuiRadioValue::ClearAllExcept(const GuiRadio* radio){
+void ffw::GuiRadio::Value::ClearAllExcept(const GuiRadio* radio){
 	for(auto r : radios){
 		if(r == radio){
 			value = r->GetBaseValue();
+			break;
 		}
-		else r->AssignValue(false);
+	}
+
+	for (auto r : radios) {
+		r->AssignValue(r == radio);
 	}
 }
 
 ///=============================================================================
-size_t ffw::GuiRadioValue::GetNumOfAssigned() const {
+size_t ffw::GuiRadio::Value::GetNumOfAssigned() const {
 	return radios.size();
 }
 
 ///=============================================================================
-ffw::GuiRadioBtn::GuiRadioBtn(GuiWindow* context):GuiWidget(context){
+ffw::GuiRadio::Button::Button(GuiWindow* context, const std::type_info& type):GuiWidget(context, type){
 	stickyfocusflag = true;
-	SetPadding(GuiUnits::Percent(20));
-
-	style.normal.background = true;
-	style.normal.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.normal.bordersize = 1;
-	style.normal.bordercolor = ffw::Rgb(0x222222);
-	style.normal.textcolor = ffw::Rgba(0x22222200);
-
-	style.hover.background = true;
-	style.hover.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.hover.bordersize = 1;
-	style.hover.bordercolor = ffw::Rgb(0x0078D7);
-	style.hover.textcolor = ffw::Rgba(0x22222280);
-
-	style.active.background = true;
-	style.active.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.active.bordersize = 1;
-	style.active.bordercolor = ffw::Rgb(0x222222);
-	style.active.textcolor = ffw::Rgb(0x222222);
-
-	onclickcallback = nullptr;
+	SetPadding(GuiPercent(20));
 }
 
 ///=============================================================================
-ffw::GuiRadioBtn::~GuiRadioBtn(){
+ffw::GuiRadio::Button::~Button(){
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	const auto& stl = GetCurrentStyle();
-	context->SetDrawColor(stl.textcolor);
-	context->DrawCircle(contentoffset + contentsize / 2, std::min(contentsize.x, contentsize.y) / 2, 16);
+void ffw::GuiRadio::Button::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
+	context->DrawCircle(contentoffset + contentsize / 2, std::min(contentsize.x, contentsize.y) / 2, GetCurrentStyle().function.color);
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventPos(const ffw::Vec2i& pos){
+void ffw::GuiRadio::Button::EventPos(const ffw::Vec2i& pos){
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventSize(const ffw::Vec2i& size){
-	style.normal.borderradius = std::min(size.x, size.y) / 2 +2;
-	style.hover.borderradius = std::min(size.x, size.y) / 2 +2;
-	style.active.borderradius = std::min(size.x, size.y) / 2 +2;
+void ffw::GuiRadio::Button::EventSize(const ffw::Vec2i& size){
+}
+
+///=============================================================================
+void ffw::GuiRadio::Button::EventHover(bool gained){
 	Redraw();
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventHover(bool gained){
-	Redraw();
-}
-
-///=============================================================================
-void ffw::GuiRadioBtn::EventFocus(bool gained){
+void ffw::GuiRadio::Button::EventFocus(bool gained){
 	if(gained){
 		group->ClearAllExcept(parentradio);
-		GuiEventData dat;
+		GuiEvent::Data dat;
 		dat.clicked.value = gained;
-		context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEventType::CLICKED, dat});
+		context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEvent::Type::CLICKED, dat});
 		Redraw();
 	}
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventMouse(const ffw::Vec2i& pos){
+void ffw::GuiRadio::Button::EventMouse(const ffw::Vec2i& pos){
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventMouseButton(ffw::MouseButton button, ffw::Mode mode){
+void ffw::GuiRadio::Button::EventMouseButton(ffw::MouseButton button, ffw::Mode mode){
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventText(wchar_t chr){
+void ffw::GuiRadio::Button::EventText(wchar_t chr){
 }
 
 ///=============================================================================
-void ffw::GuiRadioBtn::EventKey(ffw::Key key, ffw::Mode mode){
+void ffw::GuiRadio::Button::EventKey(ffw::Key key, ffw::Mode mode){
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiRadioBtn::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiRadio::Button::GetMinimumWrapSize() const {
 	return 0;
 }
 
 ///=============================================================================
-ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::string& label_, int base, GuiRadio* other):GuiRadio(context, Utf8ToWstr(label_), base, other){
+ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::string& label_, int base, GuiRadio* other, const std::type_info& type):GuiRadio(context, Utf8ToWstr(label_), base, other, type){
 }
 
 ///=============================================================================
-ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base, GuiRadio* other):GuiWidget(context),label(label_){
+ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base, GuiRadio* other, const std::type_info& type):GuiWidget(context, type),label(label_){
 	basevalue = base;
 	SetOrientation(Orientation::HORIZONTAL);
-	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
+	SetSize(GuiPercent(100), GuiWrap());
 	SetMargin(0, 0, 5, 0);
 	SetAlign(GuiAlign::LEFT);
 	ignoreinputflag = true;
 
-	widgetbutton = new GuiRadioBtn(context);
+	widgetbutton = new GuiRadio::Button(context);
 	widgetbutton->SetSize(16, 16);
-	indent = int(16 * 0.2);
 	widgetbutton->SetMargin(0, 5, 0, 0);
+	widgetbutton->SetCallbackPtr(this);
 
 	AddWidget(widgetbutton);
-
-	//style.normal.border = true;
-	//style.normal.bordersize = 1;
-	style.normal.bordercolor = ffw::Rgb(0xFF0000);
-	style.normal.textcolor = ffw::Rgb(0x222222);
-
-	//style.hover.border = true;
-	//style.hover.bordersize = 1;
-	style.hover.bordercolor = ffw::Rgb(0xFF0000);
-	style.hover.textcolor = ffw::Rgb(0x222222);
-
-	//style.active.border = true;
-	//style.active.bordersize = 1;
-	style.active.bordercolor = ffw::Rgb(0xFF0000);
-	style.active.textcolor = ffw::Rgb(0x222222);
 
 	if(other != NULL){
 		group = other->group;
 	} else {
-		group = new GuiRadioValue();
+		group = new GuiRadio::Value();
 	}
 
 	group->Assign(this);
@@ -199,24 +162,8 @@ ffw::GuiRadio::~GuiRadio(){
 }
 
 ///=============================================================================
-void ffw::GuiRadio::SetIndent(int indent_){
-	indent = indent_;
-	Invalidate();
-}
-
-///=============================================================================
 void ffw::GuiRadio::SetButtonSize(int width){
 	widgetbutton->SetSize(width, width);
-}
-
-///=============================================================================
-ffw::GuiStyleGroup& ffw::GuiRadio::ButtonStyle() {
-	return widgetbutton->Style();
-}
-
-///=============================================================================
-const ffw::GuiStyleGroup& ffw::GuiRadio::ButtonStyle() const {
-	return widgetbutton->Style();
 }
 
 ///=============================================================================
@@ -233,6 +180,10 @@ const std::wstring& ffw::GuiRadio::GetLabel() const {
 ///=============================================================================
 void ffw::GuiRadio::AssignValue(bool value){
 	(value == true ? widgetbutton->SetFocus() : widgetbutton->ResetFocus());
+
+	GuiEvent::Data dat;
+	dat.changed.value = GetValue();
+	context->PushEvent(onvaluechanedcallback, { GetCallbackPtr(), GuiEvent::Type::CHANGED, dat });
 }
 
 ///=============================================================================
@@ -253,11 +204,11 @@ void ffw::GuiRadio::SetValue(int value){
 ///=============================================================================
 void ffw::GuiRadio::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
 	auto size = widgetbutton->GetRealSize();
-	size.x += indent;
+	size.x += widgetbutton->GetMarginInPixels(1);
+	std::cout << "margin: " << widgetbutton->GetMarginInPixels(1) << std::endl;
 	size.y = 0;
 	const auto& stl = GetCurrentStyle();
-	context->SetDrawColor(stl.textcolor);
-	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label);
+	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle().text);
 }
 
 ///=============================================================================

@@ -13,6 +13,15 @@ else()
 endif()
 
 add_definitions(-DFFW_EXPORTS)
+
+if(BUILD_MODULE_GUI_OPENGL)
+add_definitions(-DFFW_GUI_BACKEND_OPENGL)
+endif(BUILD_MODULE_GUI_OPENGL)
+
+if(BUILD_MODULE_GUI_OPENGL3)
+add_definitions(-DFFW_GUI_BACKEND_OPENGL3)
+endif(BUILD_MODULE_GUI_OPENGL3)
+
 add_library(${PROJECT_NAME} ${BUILD_TYPE} ${SOURCES} ${HEADERS})
   
 # Dependencies

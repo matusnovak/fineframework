@@ -173,6 +173,9 @@ namespace ffw {
 #define TEST_FAIL \
 	throw ffw::tests::TestException("TEST_FAIL called!\nWhere: " + std::string(__FILE__) + ":" + ffw::ValToString(__LINE__));
 
+#define TEST_FAIL_MSG(msg) \
+	throw ffw::tests::TestException(std::string(msg) + "\nWhere: " + std::string(__FILE__) + ":" + ffw::ValToString(__LINE__));
+
 #define RUN_ALL_TESTS\
 	ffw::tests::run
 

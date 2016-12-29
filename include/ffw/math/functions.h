@@ -13,6 +13,16 @@ namespace ffw{
 	 */
     template <class T> float Dot(const Vec2<T>& v1, const Vec2<T>& v2);
 	/**
+	* @ingroup math
+	*/
+	template <class T> T Distance(const Vec2<T>& v1, const Vec2<T>& v2);
+	template <class T> T Distance(const Vec3<T>& v1, const Vec3<T>& v2);
+	template <class T> T Distance(const Vec4<T>& v1, const Vec4<T>& v2);
+	/**
+	* @ingroup math
+	*/
+	template <class Vec> Vec Middle(const Vec& v1, const Vec& v2);
+	/**
 	 * @ingroup math
 	 */
     template <class T>  float Dot(const Vec3<T>& v1, const Vec3<T>& v2);

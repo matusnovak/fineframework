@@ -8,8 +8,8 @@ namespace ffw {
 	 */
 	class FFW_API GuiLabel: public GuiWidget {
 	public:
-		GuiLabel(GuiWindow* context, const std::string& label);
-		GuiLabel(GuiWindow* context, const std::wstring& label);
+		GuiLabel(GuiWindow* context, const std::string& label, const std::type_info& type = typeid(GuiLabel));
+		GuiLabel(GuiWindow* context, const std::wstring& label, const std::type_info& type = typeid(GuiLabel));
 		virtual ~GuiLabel();
 		void SetLabel(const std::wstring& label);
 		const std::wstring& GetLabel() const;

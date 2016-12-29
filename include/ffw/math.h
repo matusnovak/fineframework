@@ -12,6 +12,7 @@
 #include <atomic>
 #include <sstream>
 #include <string>
+#include <limits>
 #include "math/mathconstants.h"
 #include "math/quaternion.h"
 #include "math/vec2.h"

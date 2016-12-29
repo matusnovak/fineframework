@@ -63,22 +63,22 @@ namespace ffw {
 			}
 			~Data(){
 			}
-			Data* CreateCopy(){
+			Data* CreateCopy() override  {
 				return new Data(value);
 			}
-			const std::type_info& Typeid() const {
+			const std::type_info& Typeid() const override {
 				return typeid(T);
 			}
-			void* Get(){
+			void* Get() override  {
 				return &value;
 			}
-			bool Bool() const {
+			bool Bool() const override  {
                 return false;
 			}
-			bool IsInteger() const {
+			bool IsInteger() const override {
 				return false;
 			}
-			int GetInteger() const {
+			int GetInteger() const override  {
 				return 0;
 			}
 		private:
@@ -92,22 +92,22 @@ namespace ffw {
 			}
 			~Data(){
 			}
-			Data* CreateCopy(){
+			Data* CreateCopy() override  {
 				return new Data(value);
 			}
-			const std::type_info& Typeid() const {
+			const std::type_info& Typeid() const override  {
 				return typeid(T);
 			}
-			void* Get(){
+			void* Get() override  {
 				return &value;
 			}
-			bool Bool() const {
+			bool Bool() const override {
                 return value != 0;
 			}
-			bool IsInteger() const {
+			bool IsInteger() const override  {
 				return true;
 			}
-			int GetInteger() const {
+			int GetInteger() const override {
 				return static_cast<int>(value);
 			}
 		private:

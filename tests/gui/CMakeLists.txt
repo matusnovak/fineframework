@@ -1,0 +1,35 @@
+cmake_minimum_required(VERSION 3.0)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
+link_directories(${CMAKE_BINARY_DIR}/Debug)
+link_directories(${CMAKE_BINARY_DIR}/Release)
+
+# All examples
+add_executable(TestsGuiBorders borders.cpp)
+add_executable(TestsGuiOrientation orientation.cpp)
+add_executable(TestsGuiAlign align.cpp)
+add_executable(TestsGuiButtons buttons.cpp)
+add_executable(TestsGuiRadios radios.cpp)
+add_executable(TestsGuiCheckboxes checkboxes.cpp)
+
+set(GUI_TESTS TestsGuiBorders TestsGuiOrientation TestsGuiAlign TestsGuiButtons TestsGuiRadios TestsGuiCheckboxes)
+
+# Dependencies
+foreach(exmpl ${GUI_TESTS})
+  if(APPLE)
+    #target_link_libraries(${exmpl})
+    target_link_libraries(${exmpl} debug finegraphics${CMAKE_DEBUG_POSTFIX} debug finegui${CMAKE_DEBUG_POSTFIX})
+    target_link_libraries(${exmpl} optimized finegraphics optimized finegui)
+  elseif(UNIX)
+    target_link_libraries(${exmpl} GL X11 Xrandr Xi Xxf86vm Xcursor Xinerama)
+    target_link_libraries(${exmpl} debug finegraphics${CMAKE_DEBUG_POSTFIX} debug finegui${CMAKE_DEBUG_POSTFIX})
+	target_link_libraries(${exmpl} optimized finegraphics optimized finegui)
+  else()
+    target_link_libraries(${exmpl} opengl32)
+    target_link_libraries(${exmpl} debug finegraphics${CMAKE_DEBUG_POSTFIX} debug finegui${CMAKE_DEBUG_POSTFIX})
+	target_link_libraries(${exmpl} optimized finegraphics optimized finegui)
+	if(MSVC)
+	  set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+	endif()
+  endif()
+endforeach(exmpl)

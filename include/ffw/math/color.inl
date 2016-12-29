@@ -81,6 +81,14 @@ inline ffw::Color& ffw::Color::operator -= (const Color &Col){
     return *this;
 }
 //==============================================================================
+inline bool ffw::Color::operator == (const Color& other) const {
+	if (fabs(r - other.r) > std::numeric_limits<float>::epsilon())return false;
+	if (fabs(g - other.g) > std::numeric_limits<float>::epsilon())return false;
+	if (fabs(b - other.b) > std::numeric_limits<float>::epsilon())return false;
+	if (fabs(a - other.a) > std::numeric_limits<float>::epsilon())return false;
+	return true;
+}
+//==============================================================================
 inline ffw::Color& ffw::Color::Clamp(){
     if(r > 1.0f)r = 1.0f;
     if(r < 0.0f)r = 0.0f;

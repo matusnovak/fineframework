@@ -9,17 +9,16 @@ namespace ffw {
 	 */
 	class FFW_API GuiButton: public GuiWidget {
 	public:
-		GuiButton(GuiWindow* context, const std::string& label);
-		GuiButton(GuiWindow* context, const std::wstring& label);
+		GuiButton(GuiWindow* context, const std::string& label, const std::type_info& type = typeid(GuiButton));
+		GuiButton(GuiWindow* context, const std::wstring& label, const std::type_info& type = typeid(GuiButton));
 		virtual ~GuiButton();
 		void SetLabel(const std::wstring& label);
 		const std::wstring& GetLabel() const;
 		template <typename T>
-		void SetOnClickCallback(void (T::*memfuncptr)(GuiEvent), T* instance){
-			onclickcallback = std::bind(memfuncptr, instance, std::placeholders::_1);
+		void SetOnClickCallback(void (T::*memfuncptr)(GuiEvent), T* instance, bool now = false){
+			onclickcallback.Add(memfuncptr, instance, now);
 		}
 		ffw::Vec2i GetMinimumWrapSize() const override;
-		void SetSymbol(const ffw::GuiSymbol* sym);
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 		void EventPos(const ffw::Vec2i& pos) override;
@@ -31,8 +30,7 @@ namespace ffw {
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		std::wstring label;
-		std::function<void(GuiEvent)> onclickcallback;
-		const ffw::GuiSymbol* symbol;
+		GuiCallback onclickcallback;
 	};
 }
 #endif

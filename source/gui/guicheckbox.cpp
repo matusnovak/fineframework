@@ -4,120 +4,81 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiCheckboxBtn::GuiCheckboxBtn(GuiWindow* context):GuiWidget(context){
+ffw::GuiCheckbox::Button::Button(GuiWindow* context, const std::type_info& type):GuiWidget(context, type){
 	togglefocusflag = true;
-	SetPadding(GuiUnits::Percent(20));
-
-	style.normal.background = true;
-	style.normal.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.normal.bordersize = 1;
-	style.normal.bordercolor = ffw::Rgb(0x222222);
-	style.normal.textcolor = ffw::Rgba(0x22222200);
-
-	style.hover.background = true;
-	style.hover.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.hover.bordersize = 1;
-	style.hover.bordercolor = ffw::Rgb(0x0078D7);
-	style.hover.textcolor = ffw::Rgba(0x22222280);
-
-	style.active.background = true;
-	style.active.backgroundcolor = ffw::Rgb(0xFFFFFF);
-	style.active.bordersize = 1;
-	style.active.bordercolor = ffw::Rgb(0x222222);
-	style.active.textcolor = ffw::Rgb(0x222222);
-
-	onclickcallback = nullptr;
+	SetPadding(GuiPercent(20));
 }
 
 ///=============================================================================
-ffw::GuiCheckboxBtn::~GuiCheckboxBtn(){
+ffw::GuiCheckbox::Button::~Button(){
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	const auto& stl = GetCurrentStyle();
-	context->SetDrawColor(stl.textcolor);
-	context->DrawRectangle(contentoffset, contentsize);
+void ffw::GuiCheckbox::Button::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
+	context->DrawRectangle(contentoffset, contentsize, GetCurrentStyle().function.color);
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventPos(const ffw::Vec2i& pos){
+void ffw::GuiCheckbox::Button::EventPos(const ffw::Vec2i& pos){
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventSize(const ffw::Vec2i& size){
+void ffw::GuiCheckbox::Button::EventSize(const ffw::Vec2i& size){
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventHover(bool gained){
+void ffw::GuiCheckbox::Button::EventHover(bool gained){
 	Redraw();
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventFocus(bool gained){
+void ffw::GuiCheckbox::Button::EventFocus(bool gained){
 	Redraw();
 
-	GuiEventData dat;
+	GuiEvent::Data dat;
 	dat.clicked.value = gained;
-	context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEventType::CLICKED, dat});
+	context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEvent::Type::CLICKED, dat});
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventMouse(const ffw::Vec2i& pos){
+void ffw::GuiCheckbox::Button::EventMouse(const ffw::Vec2i& pos){
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventMouseButton(ffw::MouseButton button, ffw::Mode mode){
+void ffw::GuiCheckbox::Button::EventMouseButton(ffw::MouseButton button, ffw::Mode mode){
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventText(wchar_t chr){
+void ffw::GuiCheckbox::Button::EventText(wchar_t chr){
 }
 
 ///=============================================================================
-void ffw::GuiCheckboxBtn::EventKey(ffw::Key key, ffw::Mode mode){
+void ffw::GuiCheckbox::Button::EventKey(ffw::Key key, ffw::Mode mode){
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiCheckboxBtn::GetMinimumWrapSize() const {
-	return 0;
+ffw::Vec2i ffw::GuiCheckbox::Button::GetMinimumWrapSize() const {
+	return 8;
 }
 
 ///=============================================================================
-ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::string& label_):GuiCheckbox(context, Utf8ToWstr(label_)){
+ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::string& label_, const std::type_info& type):GuiCheckbox(context, Utf8ToWstr(label_), type){
 }
 
 ///=============================================================================
-ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_):GuiWidget(context),label(label_){
+ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_, const std::type_info& type):GuiWidget(context, type),label(label_){
 	SetOrientation(Orientation::HORIZONTAL);
-	SetSize(GuiUnits::Percent(100), GuiUnits::Wrap());
+	SetSize(GuiPercent(100), GuiWrap());
 	SetMargin(0, 0, 5, 0);
 	SetAlign(GuiAlign::LEFT);
 	ignoreinputflag = true;
 
-	widgetbutton = new GuiCheckboxBtn(context);
+	widgetbutton = new GuiCheckbox::Button(context);
 	widgetbutton->SetSize(16, 16);
-	indent = int(16 * 0.2);
 	widgetbutton->SetMargin(0, 5, 0, 0);
+	widgetbutton->SetCallbackPtr(this);
 
 	AddWidget(widgetbutton);
-
-	//style.normal.border = true;
-	//style.normal.bordersize = 1;
-	style.normal.bordercolor = ffw::Rgb(0xFF0000);
-	style.normal.textcolor = ffw::Rgb(0x222222);
-
-	//style.hover.border = true;
-	//style.hover.bordersize = 1;
-	style.hover.bordercolor = ffw::Rgb(0xFF0000);
-	style.hover.textcolor = ffw::Rgb(0x222222);
-
-	//style.active.border = true;
-	//style.active.bordersize = 1;
-	style.active.bordercolor = ffw::Rgb(0xFF0000);
-	style.active.textcolor = ffw::Rgb(0x222222);
-
-	widgetbutton->parentcheckbox = this;
 }
 
 ///=============================================================================
@@ -134,16 +95,6 @@ void ffw::GuiCheckbox::SetIndent(int indent_){
 ///=============================================================================
 void ffw::GuiCheckbox::SetButtonSize(int width){
 	widgetbutton->SetSize(width, width);
-}
-
-///=============================================================================
-ffw::GuiStyleGroup& ffw::GuiCheckbox::ButtonStyle() {
-	return widgetbutton->Style();
-}
-
-///=============================================================================
-const ffw::GuiStyleGroup& ffw::GuiCheckbox::ButtonStyle() const {
-	return widgetbutton->Style();
 }
 
 ///=============================================================================
@@ -170,11 +121,9 @@ bool ffw::GuiCheckbox::GetValue() const {
 ///=============================================================================
 void ffw::GuiCheckbox::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
 	auto size = widgetbutton->GetRealSize();
-	size.x += indent;
+	size.x += widgetbutton->GetMarginInPixels(1);
 	size.y = 0;
-	const auto& stl = GetCurrentStyle();
-	context->SetDrawColor(stl.textcolor);
-	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label);
+	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle().text);
 }
 
 ///=============================================================================
