@@ -30,7 +30,7 @@
 !monkey.obj
 
 # Ignore build directory
-build/
+build*/
 
 # Ignore html docs created by doxygen
 html/

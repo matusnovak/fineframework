@@ -59,7 +59,7 @@ void ffw::GuiButton::EventFocus(bool gained){
 		GuiEvent::Data dat;
 		if(dropfocusflag)dat.clicked.value = true;
 		else dat.clicked.value = gained;
-		context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEvent::Type::CLICKED, dat});
+		PushEvent(GuiEvent::Type::CLICKED, dat);
 	}
 }
 
@@ -77,6 +77,10 @@ void ffw::GuiButton::EventText(wchar_t chr){
 
 ///=============================================================================
 void ffw::GuiButton::EventKey(ffw::Key key, ffw::Mode mode){
+}
+
+///=============================================================================
+void ffw::GuiButton::EventDisabled(bool disabled) {
 }
 
 ///=============================================================================

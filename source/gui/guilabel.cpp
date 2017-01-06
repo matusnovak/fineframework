@@ -69,6 +69,10 @@ void ffw::GuiLabel::EventKey(ffw::Key key, ffw::Mode mode){
 }
 
 ///=============================================================================
+void ffw::GuiLabel::EventDisabled(bool disabled) {
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiLabel::GetMinimumWrapSize() const {
 	if(GetCurrentFont() == NULL)return 0;
 	return GetCurrentFont()->GetStringSize(label);

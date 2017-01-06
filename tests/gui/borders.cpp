@@ -194,7 +194,7 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Data, EncodeJson) {
+TEST(Gui, Borders) {
 	if (!ffw::InitGraphics()) {
 		TEST_FAIL_MSG("Failed to initialize graphics!");
 	}

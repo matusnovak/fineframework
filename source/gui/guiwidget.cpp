@@ -54,13 +54,21 @@ static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i
 }
 
 ///=============================================================================
-ffw::GuiWidget::GuiWidget(GuiWindow* ctx, const std::type_info& type):GuiRenderable(ctx, type){
+ffw::GuiWidget::GuiWidget(GuiWindow* ctx, const std::type_info& type):context(ctx),info(type) {
+	assert(context != NULL);
+	assert(context->GetTheme() != NULL);
+	SetTheme(context->GetTheme());
+	posreal.Set(0, 0);
+	sizereal.Set(0, 0);
 	size.Set(0, 0);
 	pos.Set(0, 0);
 	updateflag = true;
 	parent = NULL;
 	calleventpos = false;
 	calleventsize = false;
+	calleventdisabled = false;
+	calleventfocus = false;
+	calleventhover = false;
 	invalidateflag = true;
 	orientation = Orientation::VERTICAL;
 	hoverflag = false;
@@ -332,7 +340,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		GuiEvent::Data dat;
 		dat.pos.x = posreal.x;
 		dat.pos.y = posreal.y;
-		context->PushEvent(onposeventcallback, {GetCallbackPtr(), GuiEvent::Type::POSITION, dat});
+		PushEvent(GuiEvent::Type::POSITION, dat);
 	}
 
 	if(calleventsize){
@@ -343,14 +351,38 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		GuiEvent::Data dat;
 		dat.size.width = s.x;
 		dat.size.height = s.y;
-		context->PushEvent(onsizeeventcallback, {GetCallbackPtr(), GuiEvent::Type::SIZE, dat});
+		PushEvent(GuiEvent::Type::SIZE, dat);
+	}
+
+	if (calleventdisabled) {
+		calleventdisabled = false;
+		EventDisabled(disableflag);
+		GuiEvent::Data dat;
+		dat.state.disabled = disableflag;
+		PushEvent(GuiEvent::Type::STATE, dat);
+	}
+
+	if (calleventfocus) {
+		calleventfocus = false;
+		EventFocus(focusflag);
+		GuiEvent::Data dat;
+		dat.focus.gained = focusflag;
+		PushEvent(GuiEvent::Type::FOCUS, dat);
+	}
+
+	if (calleventhover) {
+		calleventhover = false;
+		EventHover(hoverflag);
+		GuiEvent::Data dat;
+		dat.hover.gained = hoverflag;
+		PushEvent(GuiEvent::Type::HOVER, dat);
 	}
 
 	if (invalidateflag) {
 		RecalculateSize();
 	}
 
-	if(!ignoreinputflag){
+	if(!ignoreinputflag && !disableflag){
 		if(input.mousepos.x > posreal.x && input.mousepos.x < posreal.x + sizereal.x &&
 		   input.mousepos.y > posreal.y && input.mousepos.y < posreal.y + sizereal.y && !input.mouseout){
 			
@@ -360,7 +392,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 				EventHover(true);
 				GuiEvent::Data dat;
 				dat.hover.gained = true;
-				context->PushEvent(onhovereventcallback, {GetCallbackPtr(), GuiEvent::Type::HOVER, dat});
+				PushEvent(GuiEvent::Type::HOVER, dat);
 				//std::cout << "widget hover gained!" << std::endl;
 
 			}
@@ -370,7 +402,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 			EventHover(false);
 			GuiEvent::Data dat;
 			dat.hover.gained = false;
-			context->PushEvent(onhovereventcallback, {GetCallbackPtr(), GuiEvent::Type::HOVER, dat});
+			PushEvent(GuiEvent::Type::HOVER, dat);
 			//std::cout << "widget hover lost!" << std::endl;
 		}
 
@@ -382,13 +414,13 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 					EventFocus(focusflag);
 					GuiEvent::Data dat;
 					dat.focus.gained = focusflag;
-					context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
+					PushEvent(GuiEvent::Type::FOCUS, dat);
 				} else if(!focusflag){
 					focusflag = true;
 					EventFocus(true);
 					GuiEvent::Data dat;
 					dat.focus.gained = true;
-					context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
+					PushEvent(GuiEvent::Type::FOCUS, dat);
 				}
 
 			} else if(!togglefocusflag && focusflag && !hoverflag && !stickyfocusflag){
@@ -396,7 +428,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 				EventFocus(false);
 				GuiEvent::Data dat;
 				dat.focus.gained = false;
-				context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
+				PushEvent(GuiEvent::Type::FOCUS, dat);
 			}
 		}
 
@@ -405,7 +437,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 			EventFocus(false);
 			GuiEvent::Data dat;
 			dat.focus.gained = false;
-			context->PushEvent(onfocuseventcallback, {GetCallbackPtr(), GuiEvent::Type::FOCUS, dat});
+			PushEvent(GuiEvent::Type::FOCUS, dat);
 		}
 
 		if(focusflag && input.mousemode != ffw::Mode::NONE){
@@ -809,6 +841,32 @@ int ffw::GuiWidget::GetMarginInPixels(int side) const {
 	return 0;
 }
 
+
+///=============================================================================
+void ffw::GuiWidget::SetTheme(const GuiTheme* theme) {
+	if (theme == NULL)return;
+	widgetStyle = &theme->GetByType(info);
+	updateflag = true;
+	for (auto& w : widgets) {
+		w->SetTheme(theme);
+	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::SetStyleGroup(const GuiStyleGroup* style) {
+	if (style == NULL)return;
+	widgetStyle = style;
+	updateflag = true;
+}
+
+///=============================================================================
+const ffw::GuiStyle& ffw::GuiWidget::GetCurrentStyle() const {
+	if (disableflag)return widgetStyle->disabled;
+	if (focusflag)return widgetStyle->active;
+	if (hoverflag)return widgetStyle->hover;
+	return widgetStyle->normal;
+}
+
 ///=============================================================================
 void ffw::GuiWidget::SetAlign(GuiAlign a) {
 	align = a;
@@ -879,6 +937,11 @@ const ffw::GuiFont* ffw::GuiWidget::GetFont() const {
 }
 
 ///=============================================================================
+void ffw::GuiWidget::PushEvent(GuiEvent::Type type, GuiEvent::Data data) {
+	context->PushEvent(eventCallbacks, { GetCallbackPtr(), type, data });
+}
+
+///=============================================================================
 bool ffw::GuiWidget::ShouldRedraw() const {
 	return updateflag;
 }
@@ -898,6 +961,12 @@ void ffw::GuiWidget::Invalidate(){
 }
 
 ///=============================================================================
+void ffw::GuiWidget::SetIgnoreUserInput(bool d) {
+	ignoreinputflag = d;
+	for (auto& w : widgets)w->SetIgnoreUserInput(d);
+}
+
+///=============================================================================
 bool ffw::GuiWidget::HasHover() const {
 	return hoverflag;
 }
@@ -908,15 +977,33 @@ bool ffw::GuiWidget::HasFocus() const {
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetFocus(){
-	focusflag = true;
-	updateflag = true;
+void ffw::GuiWidget::SetFocus(bool f){
+	if (focusflag != f) {
+		calleventfocus = true;
+		updateflag = true;
+	}
+	focusflag = f;
+	for (auto& w : widgets)w->SetFocus(f);
 }
 
 ///=============================================================================
-void ffw::GuiWidget::ResetFocus(){
-	focusflag = false;
-	updateflag = true;
+void ffw::GuiWidget::SetDisabled(bool d) {
+	if (ignoreinputflag != d) {
+		calleventdisabled = true;
+		updateflag = true;
+	}
+	disableflag = d;
+	for (auto& w : widgets)w->SetDisabled(d);
+}
+
+///=============================================================================
+void ffw::GuiWidget::SetHover(bool h){
+	if (hoverflag != h) {
+		calleventhover = true;
+		updateflag = true;
+	}
+	hoverflag = h;
+	for (auto& w : widgets)w->SetHover(h);
 }
 
 ///=============================================================================

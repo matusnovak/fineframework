@@ -94,7 +94,7 @@ void ffw::GuiRadio::Button::EventFocus(bool gained){
 		group->ClearAllExcept(parentradio);
 		GuiEvent::Data dat;
 		dat.clicked.value = gained;
-		context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEvent::Type::CLICKED, dat});
+		PushEvent(GuiEvent::Type::CLICKED, dat);
 		Redraw();
 	}
 }
@@ -116,6 +116,10 @@ void ffw::GuiRadio::Button::EventKey(ffw::Key key, ffw::Mode mode){
 }
 
 ///=============================================================================
+void ffw::GuiRadio::Button::EventDisabled(bool disabled) {
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiRadio::Button::GetMinimumWrapSize() const {
 	return 0;
 }
@@ -130,7 +134,7 @@ ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base
 	SetOrientation(Orientation::HORIZONTAL);
 	SetSize(GuiPercent(100), GuiWrap());
 	SetMargin(0, 0, 5, 0);
-	SetAlign(GuiAlign::LEFT);
+	SetAlign(GuiAlign::TOP_LEFT);
 	ignoreinputflag = true;
 
 	widgetbutton = new GuiRadio::Button(context);
@@ -179,11 +183,11 @@ const std::wstring& ffw::GuiRadio::GetLabel() const {
 
 ///=============================================================================
 void ffw::GuiRadio::AssignValue(bool value){
-	(value == true ? widgetbutton->SetFocus() : widgetbutton->ResetFocus());
+	widgetbutton->SetFocus(value);
 
 	GuiEvent::Data dat;
 	dat.changed.value = GetValue();
-	context->PushEvent(onvaluechanedcallback, { GetCallbackPtr(), GuiEvent::Type::CHANGED, dat });
+	PushEvent(GuiEvent::Type::CHANGED, dat);
 }
 
 ///=============================================================================
@@ -244,6 +248,11 @@ void ffw::GuiRadio::EventText(wchar_t chr){
 
 ///=============================================================================
 void ffw::GuiRadio::EventKey(ffw::Key key, ffw::Mode mode){
+}
+
+///=============================================================================
+void ffw::GuiRadio::EventDisabled(bool disabled) {
+	widgetbutton->SetDisabled(disabled);
 }
 
 ///=============================================================================

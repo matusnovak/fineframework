@@ -17,14 +17,14 @@ add_library(${PROJECT_NAME} ${BUILD_TYPE} ${SOURCES} ${HEADERS})
   
 # Dependencies
 if(APPLE)
-  target_link_libraries(${PROJECT_NAME} png jpeg tiff ogg vorbis z)
+  target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
 elseif(UNIX)
-  target_link_libraries(${PROJECT_NAME} png jpeg tiff ogg vorbis z)
+  target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
 else()
   if(MSVC)
-    target_link_libraries(${PROJECT_NAME} png jpeg debug tiffd optimized tiff ogg vorbis z)
+    target_link_libraries(${PROJECT_NAME} png jpeg debug tiffd optimized tiff z)
   else(MSVC)
-    target_link_libraries(${PROJECT_NAME} png jpeg tiff ogg vorbis z)
+    target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
   endif(MSVC)
 endif()
   

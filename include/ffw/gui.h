@@ -12,6 +12,7 @@
 #include "gui/guilabel.h"
 #include "gui/guilayout.h"
 #include "gui/guiradio.h"
+#include "gui/guislider.h"
 #include "gui/guiwidget.h"
 #include "gui/guiwindow.h"
 #include "gui/guiwindowopengl.h"

@@ -24,6 +24,7 @@ namespace ffw {
 		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
+		void EventDisabled(bool disabled) override;
 		std::wstring label;
 	};
 }

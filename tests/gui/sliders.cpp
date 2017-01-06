@@ -35,34 +35,36 @@ public:
 			gui.SetDefaultFont(font);
 		}
 
+		std::cout << "typeid: " << typeid(uint32_t).name() << std::endl;
+
 		gui.SetPadding(10);
 		gui.SetOrientation(ffw::GuiLayout::Orientation::VERTICAL);
 		gui.SetWrap(false);
 
-		auto button = new ffw::GuiButton(&gui, "Normal");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		gui.AddWidget(button);
+		auto slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		gui.AddWidget(slider);
 
-		button = new ffw::GuiButton(&gui, "Hover");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetHover(true);
-		gui.AddWidget(button);
+		slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetHover(true);
+		gui.AddWidget(slider);
 
-		button = new ffw::GuiButton(&gui, "Active");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetFocus(true);
-		gui.AddWidget(button);
+		slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetFocus(true);
+		gui.AddWidget(slider);
 
-		button = new ffw::GuiButton(&gui, "Disabled");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetDisabled(true);
-		gui.AddWidget(button);
+		slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetDisabled(true);
+		gui.AddWidget(slider);
 
 		return true;
 	}
@@ -108,7 +110,7 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Buttons) {
+TEST(Gui, Sliders) {
 	if (!ffw::InitGraphics()) {
 		TEST_FAIL_MSG("Failed to initialize graphics!");
 	}
@@ -119,7 +121,7 @@ TEST(Gui, Buttons) {
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
 	args.size.Set(200, 180);
-	args.title = "Test Gui Buttons";
+	args.title = "Test Gui Sliders";
 	args.samples = 4;
 
 	// Create window

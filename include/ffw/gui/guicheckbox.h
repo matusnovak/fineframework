@@ -13,12 +13,6 @@ namespace ffw {
 		public:
 			Button(GuiWindow* context, const std::type_info& type = typeid(GuiCheckbox::Button));
 			virtual ~Button();
-			void SetLabel(const std::string& label);
-			const std::string& GetLabel() const;
-			template <typename T>
-			void SetOnClickCallback(void (T::*memfuncptr)(GuiEvent), T* instance, bool now = false) {
-				onclickcallback.Add(memfuncptr, instance, now);
-			}
 			ffw::Vec2i GetMinimumWrapSize() const override;
 		private:
 			void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
@@ -30,6 +24,7 @@ namespace ffw {
 			void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 			void EventText(wchar_t chr) override;
 			void EventKey(ffw::Key key, ffw::Mode mode) override;
+			void EventDisabled(bool disabled) override;
 			GuiCallback onclickcallback;
 		};
 
@@ -48,10 +43,6 @@ namespace ffw {
 		const GuiCheckbox::Button* GetButton(){
 			return widgetbutton;
 		}
-		template <typename T>
-		void SetOnClickCallback(void (T::*memfuncptr)(GuiEvent), T* instance, bool now = false){
-			widgetbutton->SetOnClickCallback(memfuncptr, instance, now);
-		}
 		ffw::Vec2i GetMinimumWrapSize() const override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
@@ -63,6 +54,7 @@ namespace ffw {
 		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
+		void EventDisabled(bool disabled) override;
 		GuiCheckbox::Button* widgetbutton;
 		std::wstring label;
 		int indent;

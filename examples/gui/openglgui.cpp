@@ -67,12 +67,12 @@ public:
 
 		auto button = new ffw::GuiButton(&gui, "Button #1");
 		button->SetAlign(ffw::GuiAlign::LEFT);
-		button->SetOnClickCallback(&App::WidgetEvent, this);
+		button->AddEventCallback(&App::WidgetEvent, this);
 		column->AddWidget(button);
 
 		button = new ffw::GuiButton(&gui, "Button #2");
 		button->SetAlign(ffw::GuiAlign::CENTER);
-		button->SetOnClickCallback(&App::WidgetEvent, this);
+		button->AddEventCallback(&App::WidgetEvent, this);
 		column->AddWidget(button);
 
 		button = new ffw::GuiButton(&gui, "Button #3");
@@ -134,7 +134,7 @@ public:
 		// only to one radio from the group.
 		// The callback will be internally linked between all radios.
 		// This does not apply for SetOnClickCallback!
-		radio->SetOnValueChangedCallback(&App::WidgetEvent, this);
+		radio->AddEventCallback(&App::WidgetEvent, this);
 		myRadio = radio;
 		column->AddWidget(radio);
 

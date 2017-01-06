@@ -30,7 +30,6 @@ endif()
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-set(CMAKE_BINARY_DIR ${CMAKE_SOURCE_DIR}/build)
 set(CMAKE_DEBUG_POSTFIX _d CACHE STRING "Postfix added to debug version of the library")
 
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR})

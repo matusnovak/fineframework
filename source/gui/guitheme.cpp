@@ -7,6 +7,42 @@
 #include "ffw/gui/guicheckbox.h"
 #include "ffw/gui/guiradio.h"
 #include "ffw/gui/guilabel.h"
+#include "ffw/gui/guislider.h"
+
+static ffw::GuiStyleGroup errorGroup(
+	// Normal
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0xFF0000)),
+		ffw::GuiStyle::Function(ffw::Rgb(0xFF0000))
+	),
+	// Hover
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0x00FF00)),
+		ffw::GuiStyle::Function(ffw::Rgb(0x00FF00))
+	),
+	// Active
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0x0000FF)),
+		ffw::GuiStyle::Function(ffw::Rgb(0x0000FF))
+	),
+	// Disabled
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Function(ffw::Rgb(0x000000))
+	)
+);
 
 ///=============================================================================
 ffw::GuiTheme::GuiTheme(const std::initializer_list<std::pair<size_t, GuiStyleGroup>>& list) {
@@ -27,16 +63,20 @@ void ffw::GuiTheme::Add(const std::pair<size_t, GuiStyleGroup>& sty) {
 ///=============================================================================
 const ffw::GuiStyleGroup& ffw::GuiTheme::GetByType(const std::type_info& type) const  {
 	auto hash = type.hash_code();
-	if (styles.find(hash) == styles.end())std::cerr << "No style found for: " << type.name() << std::endl;
-	assert(styles.find(hash) != styles.end());
+	if (styles.find(hash) == styles.end()) {
+		std::cerr << "No style found for: \"" << type.name() << "\"" << std::endl;
+		return errorGroup;
+	}
 	return styles.at(hash);
 }
 
 ///=============================================================================
-ffw::GuiStyleGroup& ffw::GuiTheme::GetByType(const std::type_info& type){
+ffw::GuiStyleGroup& ffw::GuiTheme::GetByType(const std::type_info& type) {
 	auto hash = type.hash_code();
-	if (styles.find(hash) == styles.end())std::cerr << "No style found for: " << type.name() << std::endl;
-	assert(styles.find(hash) != styles.end());
+	if (styles.find(hash) == styles.end()) {
+		std::cerr << "No style found for: \"" << type.name() << "\"" << std::endl;
+		return errorGroup;
+	}
 	return styles.at(hash);
 }
 
@@ -186,10 +226,10 @@ ffw::GuiTheme ffw::GuiTheme::Windows({
 			),
 			// Disabled
 			ffw::GuiStyle(
-				ffw::GuiStyle::Background(0, ffw::Rgb(0xECECEC), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
-				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xD5D5D5)),
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xCACACA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xBEBEBE)),
 				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
-				ffw::GuiStyle::Text(ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x828282)),
 				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
 			)
 		)
@@ -227,7 +267,7 @@ ffw::GuiTheme ffw::GuiTheme::Windows({
 				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
 				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
 				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
-				ffw::GuiStyle::Text(ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x828282)),
 				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
 			)
 		)
@@ -262,11 +302,11 @@ ffw::GuiTheme ffw::GuiTheme::Windows({
 			),
 			// Disabled
 			ffw::GuiStyle(
-				ffw::GuiStyle::Background(0, ffw::Rgb(0xECECEC), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
-				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xCACACA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xBEBEBE)),
 				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
 				ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
-				ffw::GuiStyle::Function(ffw::Rgb(0xADADAD))
+				ffw::GuiStyle::Function(ffw::Rgb(0xCACACA))
 			)
 		)
 	},
@@ -303,7 +343,7 @@ ffw::GuiTheme ffw::GuiTheme::Windows({
 				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
 				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
 				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
-				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x828282)),
 				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
 			)
 		)
@@ -338,13 +378,51 @@ ffw::GuiTheme ffw::GuiTheme::Windows({
 			),
 			// Disabled
 			ffw::GuiStyle(
-				ffw::GuiStyle::Background(8, ffw::Rgb(0xECECEC), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
-				ffw::GuiStyle::Border(1, 8, ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Background(8, ffw::Rgb(0xCACACA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 8, ffw::Rgb(0xBEBEBE)),
 				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
 				ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
-				ffw::GuiStyle::Function(ffw::Rgb(0xADADAD))
+				ffw::GuiStyle::Function(ffw::Rgb(0xCACACA))
 			)
 		)
-	}
+	},
+	// GUI SLIDER
+	{
+		typeid(ffw::GuiSlider).hash_code(),
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xE7EAEA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xD6D6D6)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xE7EAEA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xD6D6D6)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xE7EAEA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xD6D6D6)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xCACACA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xBEBEBE)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0x666666))
+			)
+		)
+	},
 
 });

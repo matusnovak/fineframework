@@ -1,7 +1,7 @@
 /*** This file is part of FineFramework project ***/
 
-#include "ffw/graphics/renderbuffer2DMS.h"
-#include "ffw/graphics/RenderContext.h"
+#include "ffw/graphics/renderbuffer2dms.h"
+#include "ffw/graphics/rendercontext.h"
 #include "ffw/graphics/extensions.h"
 
 

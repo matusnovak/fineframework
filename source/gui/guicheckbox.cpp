@@ -37,7 +37,7 @@ void ffw::GuiCheckbox::Button::EventFocus(bool gained){
 
 	GuiEvent::Data dat;
 	dat.clicked.value = gained;
-	context->PushEvent(onclickcallback, {GetCallbackPtr(), GuiEvent::Type::CLICKED, dat});
+	PushEvent(GuiEvent::Type::CLICKED, dat);
 }
 
 ///=============================================================================
@@ -57,6 +57,10 @@ void ffw::GuiCheckbox::Button::EventKey(ffw::Key key, ffw::Mode mode){
 }
 
 ///=============================================================================
+void ffw::GuiCheckbox::Button::EventDisabled(bool disabled) {
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiCheckbox::Button::GetMinimumWrapSize() const {
 	return 8;
 }
@@ -70,7 +74,7 @@ ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_, co
 	SetOrientation(Orientation::HORIZONTAL);
 	SetSize(GuiPercent(100), GuiWrap());
 	SetMargin(0, 0, 5, 0);
-	SetAlign(GuiAlign::LEFT);
+	SetAlign(GuiAlign::TOP_LEFT);
 	ignoreinputflag = true;
 
 	widgetbutton = new GuiCheckbox::Button(context);
@@ -110,7 +114,7 @@ const std::wstring& ffw::GuiCheckbox::GetLabel() const {
 
 ///=============================================================================
 void ffw::GuiCheckbox::SetValue(bool value){
-	(value == true ? widgetbutton->SetFocus() : widgetbutton->ResetFocus());
+	widgetbutton->SetFocus(value);
 }
 
 ///=============================================================================
@@ -137,12 +141,10 @@ void ffw::GuiCheckbox::EventSize(const ffw::Vec2i& size){
 
 ///=============================================================================
 void ffw::GuiCheckbox::EventHover(bool gained){
-	// Do nothing
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::EventFocus(bool gained){
-	// Do nothing
 }
 
 ///=============================================================================
@@ -159,6 +161,10 @@ void ffw::GuiCheckbox::EventText(wchar_t chr){
 
 ///=============================================================================
 void ffw::GuiCheckbox::EventKey(ffw::Key key, ffw::Mode mode){
+}
+
+///=============================================================================
+void ffw::GuiCheckbox::EventDisabled(bool disabled) {
 }
 
 ///=============================================================================

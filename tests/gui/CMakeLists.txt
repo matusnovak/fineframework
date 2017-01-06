@@ -11,8 +11,10 @@ add_executable(TestsGuiAlign align.cpp)
 add_executable(TestsGuiButtons buttons.cpp)
 add_executable(TestsGuiRadios radios.cpp)
 add_executable(TestsGuiCheckboxes checkboxes.cpp)
+add_executable(TestsGuiSliders sliders.cpp)
 
-set(GUI_TESTS TestsGuiBorders TestsGuiOrientation TestsGuiAlign TestsGuiButtons TestsGuiRadios TestsGuiCheckboxes)
+set(GUI_TESTS TestsGuiBorders TestsGuiOrientation TestsGuiAlign TestsGuiButtons TestsGuiRadios TestsGuiCheckboxes TestsGuiSliders)
+file(COPY FreeSans.ttf DESTINATION ${CMAKE_BINARY_DIR}/tests/gui)
 
 # Dependencies
 foreach(exmpl ${GUI_TESTS})

@@ -86,6 +86,10 @@ void ffw::GuiLayout::EventKey(ffw::Key key, ffw::Mode mode){
 }
 
 ///=============================================================================
+void ffw::GuiLayout::EventDisabled(bool disabled) {
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiLayout::GetMinimumWrapSize() const {
 	return 0;
 }
