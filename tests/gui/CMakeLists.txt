@@ -4,7 +4,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 link_directories(${CMAKE_BINARY_DIR}/Debug)
 link_directories(${CMAKE_BINARY_DIR}/Release)
 
-# All examples
+# All tests
 add_executable(TestsGuiBorders borders.cpp)
 add_executable(TestsGuiOrientation orientation.cpp)
 add_executable(TestsGuiAlign align.cpp)
@@ -12,8 +12,14 @@ add_executable(TestsGuiButtons buttons.cpp)
 add_executable(TestsGuiRadios radios.cpp)
 add_executable(TestsGuiCheckboxes checkboxes.cpp)
 add_executable(TestsGuiSliders sliders.cpp)
+add_executable(TestsGuiLists lists.cpp)
+add_executable(TestsGuiScrollbars scrollbars.cpp)
+add_executable(TestsGuiScrollables scrollables.cpp)
+add_executable(TestsGuiSwitches switches.cpp)
+add_executable(TestsGuiTabs tabs.cpp)
+add_executable(TestsGuiTextEdits textedits.cpp)
 
-set(GUI_TESTS TestsGuiBorders TestsGuiOrientation TestsGuiAlign TestsGuiButtons TestsGuiRadios TestsGuiCheckboxes TestsGuiSliders)
+set(GUI_TESTS TestsGuiBorders TestsGuiOrientation TestsGuiAlign TestsGuiButtons TestsGuiRadios TestsGuiCheckboxes TestsGuiSliders TestsGuiLists TestsGuiScrollbars TestsGuiScrollables TestsGuiSwitches TestsGuiTabs TestsGuiTextEdits)
 file(COPY FreeSans.ttf DESTINATION ${CMAKE_BINARY_DIR}/tests/gui)
 
 # Dependencies

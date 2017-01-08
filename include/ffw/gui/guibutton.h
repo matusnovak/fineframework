@@ -9,8 +9,8 @@ namespace ffw {
 	 */
 	class FFW_API GuiButton: public GuiWidget {
 	public:
-		GuiButton(GuiWindow* context, const std::string& label, const std::type_info& type = typeid(GuiButton));
-		GuiButton(GuiWindow* context, const std::wstring& label, const std::type_info& type = typeid(GuiButton));
+		GuiButton(GuiWindow* context, const std::string& label);
+		GuiButton(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButton();
 		void SetLabel(const std::wstring& label);
 		const std::wstring& GetLabel() const;
@@ -26,6 +26,7 @@ namespace ffw {
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		void EventDisabled(bool disabled) override;
+		virtual void EventThemeChanged(const GuiTheme* theme) override;
 		std::wstring label;
 	};
 }

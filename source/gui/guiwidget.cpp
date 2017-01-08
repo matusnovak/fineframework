@@ -3,6 +3,41 @@
 #include "ffw/gui/guiwidget.h"
 #include "ffw/gui/guiwindow.h"
 
+static const ffw::GuiStyleGroup ErrorStyle(
+	// Normal
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0xFF0000)),
+		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+	),
+	// Hover
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0x00FF00)),
+		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+	),
+	// Active
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0x0000FF)),
+		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+	),
+	// Disabled
+	ffw::GuiStyle(
+		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
+		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+	)
+);
+
 ///=============================================================================
 static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const ffw::Vec2i& childpos, const ffw::Vec2i& childsize){
 	ffw::Vec4i out;
@@ -54,10 +89,10 @@ static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i
 }
 
 ///=============================================================================
-ffw::GuiWidget::GuiWidget(GuiWindow* ctx, const std::type_info& type):context(ctx),info(type) {
-	assert(context != NULL);
-	assert(context->GetTheme() != NULL);
-	SetTheme(context->GetTheme());
+ffw::GuiWidget::GuiWidget(GuiWindow* ctx):context(ctx){
+	assert(context != NULL && "The context (GuiWindow) must not be NULL!");
+	assert(context->GetTheme() != NULL && "The context (GuiWindow) has to have a valid theme!");
+	widgetStyle = NULL;
 	posreal.Set(0, 0);
 	sizereal.Set(0, 0);
 	size.Set(0, 0);
@@ -80,7 +115,7 @@ ffw::GuiWidget::GuiWidget(GuiWindow* ctx, const std::type_info& type):context(ct
 	wrapWidgets = false;
 	first = true;
 	widgetfont = NULL;
-	align = GuiAlign::LEFT;
+	align = GuiStyle::Align::LEFT;
 	SetMargin(0);
 	SetPadding(0);
 	id = -1;
@@ -165,7 +200,7 @@ void ffw::GuiWidget::RecalculateSize(){
 			w->RecalculateSize();
 
 			// Get its margin
-			const GuiUnits (&widgetmargin)[4] = w->margin;
+			const auto& widgetmargin = w->margin;
 			int realmargin[4];
 
 			// Calculate margin
@@ -208,7 +243,7 @@ void ffw::GuiWidget::RecalculateSize(){
 			w->RecalculateSize();
 
 			// Get its margin
-			const GuiUnits (&widgetmargin)[4] = w->margin;
+			const auto& widgetmargin = w->margin;
 			int realmargin[4];
 
 			// Calculate margin
@@ -245,8 +280,26 @@ void ffw::GuiWidget::RecalculateSize(){
 			totalsize.y = std::max(totalsize.y, top);
 		}
 	}
+	else if (orientation == Orientation::FIXED) {
+		for (auto& w : widgets) {
+			if (w->IsHidden())continue;
+			// Recalculate widget size...
+			w->RecalculateSize();
+
+			w->RecalculatePos();
+
+			ffw::Vec2i test;
+			test = w->GetRealPos() + w->GetRealSize();
+			totalsize.x = std::max(totalsize.x, test.x);
+			totalsize.y = std::max(totalsize.y, test.y);
+		}
+	}
 
 	//std::cout << "total: " << totalsize << std::endl;
+
+	auto min = GetMinimumWrapSize();
+	min.x += GetPaddingInPixels(1) + GetPaddingInPixels(3);
+	min.y += GetPaddingInPixels(0) + GetPaddingInPixels(2);
 
 	// Wrap X
 	if(size.x.inPercent && size.x.value == -1){
@@ -254,6 +307,7 @@ void ffw::GuiWidget::RecalculateSize(){
 		sizereal.x = totalsize.x;
 		if(!padding[1].inPercent)sizereal.x += padding[1].value;
 		if(!padding[3].inPercent)sizereal.x += padding[3].value;
+		if (sizereal.x < min.x)sizereal.x = min.x;
 	}
 
 	// Wrap Y
@@ -262,16 +316,10 @@ void ffw::GuiWidget::RecalculateSize(){
 		sizereal.y = totalsize.y;
 		if(!padding[0].inPercent)sizereal.y += padding[0].value;
 		if(!padding[2].inPercent)sizereal.y += padding[2].value;
+		if (sizereal.y < min.y)sizereal.y = min.y;
 	}
 
-	auto min = GetMinimumWrapSize();
-	min.x += GetPaddingInPixels(1) + GetPaddingInPixels(3);
-	min.y += GetPaddingInPixels(0) + GetPaddingInPixels(2);
-
-	if(sizereal.x < min.x)sizereal.x = min.x;
-	if(sizereal.y < min.y)sizereal.y = min.y;
-
-	//std::cout << "RecalculateSize() size: " << sizereal << " total: " << totalsize << std::endl;
+	//std::cout << "RecalculateSize() " << typeid(*this).name() << " sizereal: " << sizereal << " total: " << totalsize << std::endl;
 
 	if(oldsizereal != sizereal){
 		if(!first && parent != NULL && (parent->GetSize().x == ffw::GuiWrap() || parent->GetSize().y == ffw::GuiWrap())){
@@ -306,6 +354,10 @@ const ffw::GuiFont* ffw::GuiWidget::GetCurrentFont() const {
 
 ///=============================================================================
 void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const GuiUserInput& input){
+	if (widgetStyle == NULL && context->GetTheme() != NULL) {
+		EventThemeChanged(context->GetTheme());
+	}
+	
 	if(invalidateflag){
 		RecalculateSize();
 	}
@@ -489,17 +541,33 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 
 ///=============================================================================
 void ffw::GuiWidget::TraverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size){
-	const auto& style = GetCurrentStyle();
-	if(style.background && style.background.color.a >= 1.0f) {
-		context->DrawBackground(pos, size, style.background);
+	const auto* style = GetCurrentStyle();
+
+	if(style != NULL && style->background && style->background.color.a >= 1.0f) {
+		context->DrawBackground(pos, size, style->background);
 	}
 	
 	if(parent != NULL){
 		parent->TraverseBackground(pos, size);
 	}
 
-	if(style.background){
-		context->DrawBackground(pos, size, style.background);
+	if(style != NULL && style->background){
+		context->DrawBackground(pos, size, style->background);
+	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::RenderComponent(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle* style) {
+	if (style == NULL)return;
+
+	// Draw background
+	if (style->background) {
+		context->DrawBackground(pos, size, style->background);
+	}
+
+	// Draw border
+	if (style->border) {
+		context->DrawBorder(pos, size, style->border);
 	}
 }
 
@@ -551,20 +619,16 @@ void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsiz
 				}*/
 			}
 
-			const auto& style = GetCurrentStyle();
-
-			// Draw background
-			if(style.background){
-				//context->SetDrawColor(stly.backgroundcolor);
-				//context->DrawRectangle(posRealOffset, sizereal);
-				context->DrawBackground(posRealOffset, sizereal, style.background);
-			}
-
-			// Border
-			context->DrawBorder(posRealOffset, sizereal, style.border);
-
+			const auto* style = GetCurrentStyle();
 			const auto& contentpos = off + GetVisibleContentPos() + offset;
-			EventRender(contentpos, GetVisibleContentSize());
+
+			if (style != NULL) {
+				// Render the base for the widget
+				RenderComponent(posRealOffset, sizereal, style);
+				
+				// Render derived class specific components
+				EventRender(contentpos, GetVisibleContentSize());
+			}
 
 			//const auto parentpos = off + GetVisibleContentPos();
 			for(auto& w : widgets){
@@ -597,22 +661,6 @@ ffw::Vec2i ffw::GuiWidget::GetAbsolutePos() const {
 ///=============================================================================
 ffw::Vec2i ffw::GuiWidget::GetVisibleContentSize() const {
 	ffw::Vec2i contentSize = sizereal;
-
-	/*// Top - size
-	if(padding[0].inPercent)contentSize.y -= static_cast<int>((padding[0].value / 100.0f) * sizereal.y);
-	else contentSize.y -= padding[0].value;
-
-	// Right - size
-	if(padding[1].inPercent)contentSize.x -= static_cast<int>((padding[1].value / 100.0f) * sizereal.x);
-	else contentSize.x -= padding[1].value;
-
-	// Bottom - size
-	if(padding[2].inPercent)contentSize.y -= static_cast<int>((padding[2].value / 100.0f) * sizereal.y);
-	else contentSize.y -= padding[2].value;
-
-	// Left - size
-	if(padding[3].inPercent)contentSize.x -= static_cast<int>((padding[3].value / 100.0f) * sizereal.x);
-	else contentSize.x -= padding[3].value;*/
 	contentSize.y -= GetPaddingInPixels(0);
 	contentSize.x -= GetPaddingInPixels(1);
 	contentSize.y -= GetPaddingInPixels(2);
@@ -723,10 +771,10 @@ bool ffw::GuiWidget::DeleteSingleWidget(GuiWidget* widget) {
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetSize(GuiUnits width, GuiUnits height){
-	if(size.x == width && size.y == height)return;
+void ffw::GuiWidget::SetSize(const ffw::Vec2<GuiUnits>& s){
+	if(size.x == s.x && size.y == s.y)return;
 
-	size.Set(width, height);
+	size = s;
 	invalidateflag = true;
 	updateflag = true;
 	calleventsize = true;
@@ -845,7 +893,7 @@ int ffw::GuiWidget::GetMarginInPixels(int side) const {
 ///=============================================================================
 void ffw::GuiWidget::SetTheme(const GuiTheme* theme) {
 	if (theme == NULL)return;
-	widgetStyle = &theme->GetByType(info);
+	EventThemeChanged(theme);
 	updateflag = true;
 	for (auto& w : widgets) {
 		w->SetTheme(theme);
@@ -860,22 +908,23 @@ void ffw::GuiWidget::SetStyleGroup(const GuiStyleGroup* style) {
 }
 
 ///=============================================================================
-const ffw::GuiStyle& ffw::GuiWidget::GetCurrentStyle() const {
-	if (disableflag)return widgetStyle->disabled;
-	if (focusflag)return widgetStyle->active;
-	if (hoverflag)return widgetStyle->hover;
-	return widgetStyle->normal;
+const ffw::GuiStyle* ffw::GuiWidget::GetCurrentStyle(const GuiStyleGroup* group) const {
+	if (group == NULL)return NULL;
+	if (disableflag)return &group->disabled;
+	if (focusflag)return &group->active;
+	if (hoverflag)return &group->hover;
+	return &group->normal;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetAlign(GuiAlign a) {
+void ffw::GuiWidget::SetAlign(GuiStyle::Align a) {
 	align = a;
 	invalidateflag = true;
 	Redraw();
 }
 
 ///=============================================================================
-ffw::GuiAlign ffw::GuiWidget::GetAlign() const {
+ffw::GuiStyle::Align ffw::GuiWidget::GetAlign() const {
 	return align;
 }
 
@@ -938,7 +987,7 @@ const ffw::GuiFont* ffw::GuiWidget::GetFont() const {
 
 ///=============================================================================
 void ffw::GuiWidget::PushEvent(GuiEvent::Type type, GuiEvent::Data data) {
-	context->PushEvent(eventCallbacks, { GetCallbackPtr(), type, data });
+	context->PushEvent(GetCallbackPtr()->eventCallbacks, { GetCallbackPtr(), type, data });
 }
 
 ///=============================================================================
@@ -1007,21 +1056,16 @@ void ffw::GuiWidget::SetHover(bool h){
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiWidget::GetContentSize() const {
+ffw::Vec2i ffw::GuiWidget::GetTotalContentSize() const {
 	return totalsize;
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiWidget::GetContentPos() const {
+ffw::Vec2i ffw::GuiWidget::GetTotalContentPos() const {
 	return GetVisibleContentPos() + offset;
 }
 
 ///=============================================================================
 void ffw::GuiWidget::SetCallbackPtr(GuiWidget* ptr){
 	callbackPtr = ptr;
-}
-
-///=============================================================================
-ffw::GuiWidget* ffw::GuiWidget::GetCallbackPtr() const {
-	return callbackPtr;
 }

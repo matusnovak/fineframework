@@ -11,7 +11,7 @@ namespace ffw {
 	public:
 		class FFW_API Button : public GuiWidget {
 		public:
-			Button(GuiWindow* context, const std::type_info& type = typeid(GuiCheckbox::Button));
+			Button(GuiWindow* context);
 			virtual ~Button();
 			ffw::Vec2i GetMinimumWrapSize() const override;
 		private:
@@ -25,22 +25,20 @@ namespace ffw {
 			void EventText(wchar_t chr) override;
 			void EventKey(ffw::Key key, ffw::Mode mode) override;
 			void EventDisabled(bool disabled) override;
-			GuiCallback onclickcallback;
+			virtual void EventThemeChanged(const GuiTheme* theme) override;
 		};
 
-		GuiCheckbox(GuiWindow* context, const std::string& label, const std::type_info& type = typeid(GuiCheckbox));
-		GuiCheckbox(GuiWindow* context, const std::wstring& label, const std::type_info& type = typeid(GuiCheckbox));
+		GuiCheckbox(GuiWindow* context, const std::string& label);
+		GuiCheckbox(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiCheckbox();
 		void SetLabel(const std::wstring& label);
 		const std::wstring& GetLabel() const;
 		void SetValue(bool value);
 		bool GetValue() const;
-		void SetIndent(int indent_);
-		void SetButtonSize(int width);
 		inline const GuiCheckbox::Button* GetButton() const {
 			return widgetbutton;
 		}
-		const GuiCheckbox::Button* GetButton(){
+		GuiCheckbox::Button* GetButton(){
 			return widgetbutton;
 		}
 		ffw::Vec2i GetMinimumWrapSize() const override;
@@ -55,9 +53,9 @@ namespace ffw {
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		void EventDisabled(bool disabled) override;
+		virtual void EventThemeChanged(const GuiTheme* theme) override;
 		GuiCheckbox::Button* widgetbutton;
 		std::wstring label;
-		int indent;
 	};
 }
 #endif

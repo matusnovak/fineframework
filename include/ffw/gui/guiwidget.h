@@ -99,29 +99,38 @@ namespace ffw {
 			VERTICAL,
 			HORIZONTAL
 		};
-		GuiWidget(GuiWindow* context, const std::type_info& type);
+		GuiWidget(GuiWindow* context);
 		virtual ~GuiWidget();
-		void SetSize(GuiUnits width, GuiUnits height);
+		inline void SetSize(GuiUnits width, GuiUnits height) {
+			SetSize(ffw::Vec2<GuiUnits>(width, height));
+		}
+		void SetSize(const ffw::Vec2<GuiUnits>& s);
 		void SetPos(GuiUnits posx, GuiUnits posy);
 		const ffw::Vec2<GuiUnits>& GetPos() const;
 		const ffw::Vec2<GuiUnits>& GetSize() const;
 		ffw::Vec2i GetVisibleContentSize() const;
 		ffw::Vec2i GetVisibleContentPos() const;
-		ffw::Vec2i GetContentSize() const;
-		ffw::Vec2i GetContentPos() const;
+		ffw::Vec2i GetTotalContentSize() const;
+		ffw::Vec2i GetTotalContentPos() const;
 		ffw::Vec2i GetAbsolutePos() const;
 		void SetOffset(const ffw::Vec2i off);
 		const ffw::Vec2i& GetOffset() const;
 		void SetPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left);
 		void SetPadding(GuiUnits all);
+		inline void SetPadding(const GuiStyle::Padding& pad) {
+			SetPadding(pad[0], pad[1], pad[2], pad[3]);
+		}
 		void SetMargin(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left);
 		void SetMargin(GuiUnits all);
+		inline void SetMargin(const GuiStyle::Margin& mar) {
+			SetMargin(mar[0], mar[1], mar[2], mar[3]);
+		}
 		GuiUnits GetPadding(int side) const;
 		GuiUnits GetMargin(int side) const;
 		int GetPaddingInPixels(int side) const;
 		int GetMarginInPixels(int side) const;
-		void SetAlign(GuiAlign align);
-		GuiAlign GetAlign() const;
+		void SetAlign(GuiStyle::Align align);
+		GuiStyle::Align GetAlign() const;
 		void SetWrap(bool wrap);
 		inline bool GetWrap() const {
 			return wrapWidgets;
@@ -168,15 +177,37 @@ namespace ffw {
 			eventCallbacks.Add(memfuncptr, instance, now);
 		}
 		void SetCallbackPtr(GuiWidget* ptr);
-		GuiWidget* GetCallbackPtr() const;
+		inline GuiWidget* GetCallbackPtr() const {
+			return callbackPtr;
+		}
 		void SetTheme(const GuiTheme* theme);
 		void SetStyleGroup(const GuiStyleGroup* style);
-		const ffw::GuiStyle& GetCurrentStyle() const;
+		inline const GuiStyleGroup* GetStyleGroup() {
+			return widgetStyle;
+		}
+		inline const ffw::GuiStyle* GetCurrentStyle() const {
+			return GetCurrentStyle(widgetStyle);
+		}
+		const ffw::GuiStyle* GetCurrentStyle(const GuiStyleGroup* group) const;
 		inline const ffw::Vec2i& GetRealSize() const {
 			return sizereal;
 		}
+		inline ffw::Vec2i GetRealSizeWithMargin() const {
+			return ffw::Vec2i(
+				sizereal.x + GetMarginInPixels(1) + GetMarginInPixels(3),
+				sizereal.y + GetMarginInPixels(0) + GetMarginInPixels(2)
+			);
+		}
 		inline const ffw::Vec2i& GetRealPos() const {
 			return posreal;
+		}
+		inline void SetDefaults(const ffw::GuiDefaults* def) {
+			if (def != NULL) {
+				size = def->size;
+				padding = def->padding;
+				margin = def->margin;
+				align = def->align;
+			}
 		}
 	protected:
 		void TraverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size);
@@ -189,6 +220,7 @@ namespace ffw {
 		void PushEvent(GuiEvent::Type type, GuiEvent::Data data);
 		void RecalculatePos();
 		void RecalculateSize();
+		void RenderComponent(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle* group);
 		virtual void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) = 0;
 		virtual void EventPos(const ffw::Vec2i& pos) = 0;
 		virtual void EventSize(const ffw::Vec2i& size) = 0;
@@ -199,6 +231,7 @@ namespace ffw {
 		virtual void EventText(wchar_t chr) = 0;
 		virtual void EventKey(ffw::Key key, ffw::Mode mode) = 0;
 		virtual void EventDisabled(bool disabled) = 0;
+		virtual void EventThemeChanged(const GuiTheme* theme) = 0;
 		bool dropfocusflag;
 		bool ignoreinputflag;
 		bool togglefocusflag;
@@ -210,6 +243,9 @@ namespace ffw {
 		bool focusflag;
 		bool disableflag;
 		const GuiStyleGroup* widgetStyle;
+		GuiWidget* callbackPtr;
+		GuiWidget* parent;
+		GuiCallback eventCallbacks;
 	private:
 		ffw::Vec2<GuiUnits> size;
 		ffw::Vec2<GuiUnits> pos;
@@ -218,8 +254,8 @@ namespace ffw {
 		ffw::Vec2i totalsize;
 		Orientation orientation;
 		std::vector<GuiWidget*> widgets;
-		GuiUnits margin[4];
-		GuiUnits padding[4];
+		GuiStyle::Margin margin;
+		GuiStyle::Padding padding;
 		bool wrapWidgets;
 		bool updateflag;
 		bool calleventsize;
@@ -232,12 +268,8 @@ namespace ffw {
 		bool hidden;
 		int shouldhideflag;
 		const GuiFont* widgetfont;
-		GuiAlign align;
+		GuiStyle::Align align;
 		unsigned long id;
-		GuiWidget* callbackPtr;
-		GuiWidget* parent;
-		GuiCallback eventCallbacks;
-		const std::type_info& info;
 	};
 }
 #endif

@@ -4,9 +4,12 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiCheckbox::Button::Button(GuiWindow* context, const std::type_info& type):GuiWidget(context, type){
+ffw::GuiCheckbox::Button::Button(GuiWindow* context):GuiWidget(context){
 	togglefocusflag = true;
-	SetPadding(GuiPercent(20));
+
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_CHECKBOX_BUTTON");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -15,7 +18,7 @@ ffw::GuiCheckbox::Button::~Button(){
 
 ///=============================================================================
 void ffw::GuiCheckbox::Button::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	context->DrawRectangle(contentoffset, contentsize, GetCurrentStyle().function.color);
+	context->DrawRectangle(contentoffset, contentsize, GetCurrentStyle()->function.color);
 }
 
 ///=============================================================================
@@ -61,25 +64,30 @@ void ffw::GuiCheckbox::Button::EventDisabled(bool disabled) {
 }
 
 ///=============================================================================
+void ffw::GuiCheckbox::Button::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_CHECKBOX_BUTTON");
+	SetDefaults(&widgetStyle->defaults);
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiCheckbox::Button::GetMinimumWrapSize() const {
 	return 8;
 }
 
 ///=============================================================================
-ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::string& label_, const std::type_info& type):GuiCheckbox(context, Utf8ToWstr(label_), type){
+ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::string& label_):GuiCheckbox(context, Utf8ToWstr(label_)){
 }
 
 ///=============================================================================
-ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_, const std::type_info& type):GuiWidget(context, type),label(label_){
+ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_):GuiWidget(context),label(label_){
 	SetOrientation(Orientation::HORIZONTAL);
-	SetSize(GuiPercent(100), GuiWrap());
-	SetMargin(0, 0, 5, 0);
-	SetAlign(GuiAlign::TOP_LEFT);
 	ignoreinputflag = true;
 
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_CHECKBOX");
+	SetDefaults(&widgetStyle->defaults);
+
 	widgetbutton = new GuiCheckbox::Button(context);
-	widgetbutton->SetSize(16, 16);
-	widgetbutton->SetMargin(0, 5, 0, 0);
 	widgetbutton->SetCallbackPtr(this);
 
 	AddWidget(widgetbutton);
@@ -88,17 +96,6 @@ ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_, co
 ///=============================================================================
 ffw::GuiCheckbox::~GuiCheckbox(){
 	DeleteWidgets();
-}
-
-///=============================================================================
-void ffw::GuiCheckbox::SetIndent(int indent_){
-	indent = indent_;
-	Invalidate();
-}
-
-///=============================================================================
-void ffw::GuiCheckbox::SetButtonSize(int width){
-	widgetbutton->SetSize(width, width);
 }
 
 ///=============================================================================
@@ -127,7 +124,7 @@ void ffw::GuiCheckbox::EventRender(const ffw::Vec2i& contentoffset, const ffw::V
 	auto size = widgetbutton->GetRealSize();
 	size.x += widgetbutton->GetMarginInPixels(1);
 	size.y = 0;
-	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle().text);
+	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
 }
 
 ///=============================================================================
@@ -168,10 +165,18 @@ void ffw::GuiCheckbox::EventDisabled(bool disabled) {
 }
 
 ///=============================================================================
+void ffw::GuiCheckbox::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_CHECKBOX");
+	SetDefaults(&widgetStyle->defaults);
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiCheckbox::GetMinimumWrapSize() const {
 	if(GetCurrentFont() == NULL)return 0;
 	auto strsize = GetCurrentFont()->GetStringSize(label);
-	strsize.x += widgetbutton->GetSize().x.value + indent;
-	strsize.y = std::max(strsize.y, widgetbutton->GetSize().y.value);
+	const auto& buttonSize = widgetbutton->GetRealSizeWithMargin();
+	strsize.x += buttonSize.x;
+	strsize.y = std::max(strsize.y, buttonSize.y);
+
 	return strsize;
 }

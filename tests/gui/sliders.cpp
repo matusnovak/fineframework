@@ -12,6 +12,7 @@ public:
 	}
 
 	void WidgetEvent(ffw::GuiEvent e) {
+		std::cout << "Event type: " << (int)e.type << std::endl;
 	}
 
 	bool Setup() override {
@@ -22,7 +23,7 @@ public:
 		gui.SetSize(GetSize().x, GetSize().y);
 		gui.SetPos(0, 0);
 
-		// The last two characters indicate start and the end of the unicode
+		// The last two values indicate start and the end of the unicode
 		// table to load.
 		// To load ASCII only characters, enter 0 - 0x100
 		// To load ASCII and Latin Extended-A, enter 0 - 0x17F
@@ -35,36 +36,83 @@ public:
 			gui.SetDefaultFont(font);
 		}
 
-		std::cout << "typeid: " << typeid(uint32_t).name() << std::endl;
-
 		gui.SetPadding(10);
-		gui.SetOrientation(ffw::GuiLayout::Orientation::VERTICAL);
+		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
 		gui.SetWrap(false);
+
+		auto vlayout = new ffw::GuiVerticalLayout(&gui);
+		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+		gui.AddWidget(vlayout);
 
 		auto slider = new ffw::GuiSlider(&gui, false);
 		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		gui.AddWidget(slider);
+		slider->SetMargin(0, 0, 0, 0);
+		slider->AddEventCallback(&App::WidgetEvent, this);
+		vlayout->AddWidget(slider);
 
 		slider = new ffw::GuiSlider(&gui, false);
 		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetMargin(0, 0, 0, 0);
+		slider->SetInversed(true);
+		slider->AddEventCallback(&App::WidgetEvent, this);
+		vlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, 0, 0);
 		slider->SetIgnoreUserInput(true);
 		slider->SetHover(true);
-		gui.AddWidget(slider);
+		vlayout->AddWidget(slider);
 
 		slider = new ffw::GuiSlider(&gui, false);
 		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetMargin(0, 0, 0, 0);
 		slider->SetIgnoreUserInput(true);
 		slider->SetFocus(true);
-		gui.AddWidget(slider);
+		vlayout->AddWidget(slider);
 
 		slider = new ffw::GuiSlider(&gui, false);
 		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetMargin(0, 0, 0, 0);
 		slider->SetDisabled(true);
-		gui.AddWidget(slider);
+		vlayout->AddWidget(slider);
+
+		auto hlayout = new ffw::GuiHorizontalLayout(&gui);
+		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+		gui.AddWidget(hlayout);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, 0, 0, 0);
+		slider->AddEventCallback(&App::WidgetEvent, this);
+		hlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, 0, 0, 0);
+		slider->SetInversed(true);
+		slider->AddEventCallback(&App::WidgetEvent, this);
+		hlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, 0, 0, 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetHover(true);
+		hlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, 0, 0, 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetFocus(true);
+		hlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, 0, 0, 0);
+		slider->SetDisabled(true);
+		hlayout->AddWidget(slider);
 
 		return true;
 	}
@@ -120,7 +168,7 @@ TEST(Gui, Sliders) {
 
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
-	args.size.Set(200, 180);
+	args.size.Set(400, 180);
 	args.title = "Test Gui Sliders";
 	args.samples = 4;
 

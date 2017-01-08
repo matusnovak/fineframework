@@ -8,8 +8,8 @@ namespace ffw {
 	 */
 	class FFW_API GuiButtonToggle: public GuiButton {
 	public:
-		GuiButtonToggle(GuiWindow* context, const std::string& label, const std::type_info& type = typeid(GuiButton));
-		GuiButtonToggle(GuiWindow* context, const std::wstring& label, const std::type_info& type = typeid(GuiButton));
+		GuiButtonToggle(GuiWindow* context, const std::string& label);
+		GuiButtonToggle(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButtonToggle();
 	};
 }

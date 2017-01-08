@@ -22,7 +22,7 @@ public:
 		gui.SetSize(GetSize().x, GetSize().y);
 		gui.SetPos(0, 0);
 
-		// The last two characters indicate start and the end of the unicode
+		// The last two values indicate start and the end of the unicode
 		// table to load.
 		// To load ASCII only characters, enter 0 - 0x100
 		// To load ASCII and Latin Extended-A, enter 0 - 0x17F

@@ -1,6 +1,7 @@
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
-
+#include <chrono>
+#include <thread>
 ///=============================================================================
 class App: public ffw::AppRenderWindow {
 public:
@@ -25,7 +26,7 @@ public:
 		gui.SetSize(GetSize().x, GetSize().y);
 		gui.SetPos(0, 0);
 
-		// The last two characters indicate start and the end of the unicode
+		// The last two values indicate start and the end of the unicode
 		// table to load.
 		// To load ASCII only characters, enter 0 - 0x100
 		// To load ASCII and Latin Extended-A, enter 0 - 0x17F
@@ -51,7 +52,7 @@ public:
 		gui.AddWidget(bottomLayout);
 
 		// Copy default style from window for GuiLayout widget
-		static ffw::GuiStyleGroup customStyle = gui.GetTheme()->GetByWidget<ffw::GuiLayout>();
+		static ffw::GuiStyleGroup customStyle = gui.GetTheme()->GetStyleGroup("GUI_LAYOUT");
 		customStyle.normal.border.size = 1;
 		customStyle.normal.border.color = ffw::Rgba(0xADADAD80);
 
@@ -66,17 +67,17 @@ public:
 		column->AddWidget(label);
 
 		auto button = new ffw::GuiButton(&gui, "Button #1");
-		button->SetAlign(ffw::GuiAlign::LEFT);
+		button->SetAlign(ffw::GuiStyle::Align::LEFT);
 		button->AddEventCallback(&App::WidgetEvent, this);
 		column->AddWidget(button);
 
 		button = new ffw::GuiButton(&gui, "Button #2");
-		button->SetAlign(ffw::GuiAlign::CENTER);
+		button->SetAlign(ffw::GuiStyle::Align::CENTER);
 		button->AddEventCallback(&App::WidgetEvent, this);
 		column->AddWidget(button);
 
 		button = new ffw::GuiButton(&gui, "Button #3");
-		button->SetAlign(ffw::GuiAlign::RIGHT);
+		button->SetAlign(ffw::GuiStyle::Align::RIGHT);
 		column->AddWidget(button);
 
 		label = new ffw::GuiLabel(&gui, "Toggle Buttons:");
@@ -123,7 +124,7 @@ public:
 		column->AddWidget(checkbox);
 
 		checkbox = new ffw::GuiCheckbox(&gui, "Checkbox #3");
-		button->SetAlign(ffw::GuiAlign::RIGHT);
+		button->SetAlign(ffw::GuiStyle::Align::RIGHT);
 		column->AddWidget(checkbox);
 
 		label = new ffw::GuiLabel(&gui, "Radios:");
@@ -151,7 +152,7 @@ public:
 
 		label = new ffw::GuiLabel(&gui, "Label #1");
 		label->SetSize(ffw::GuiPercent(100), ffw::GuiPixels(30));
-		label->SetAlign(ffw::GuiAlign::BOTTOM_CENTER);
+		label->SetAlign(ffw::GuiStyle::Align::BOTTOM_CENTER);
 		//label->Style().normal.textcolor = ffw::Rgb(0xCC4444);
 		//label->Style().normal.backgroundcolor = ffw::Rgba(0xCC44441F);
 		//label->Style().normal.background = true;
@@ -289,6 +290,7 @@ int main(int argc, char *argv[]){
 	while(app.ShouldRender()){
 		app.RenderFrame();
 		app.WaitForEvents();
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 
 	// Destroy window, this will delete all graphics data used by the window.

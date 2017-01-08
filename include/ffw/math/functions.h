@@ -141,6 +141,14 @@ namespace ffw{
 	/**
 	 * @ingroup math
 	 */
+	Vec4i ContainImage(int imgwidth, int imgheight, int maxwidth, int maxheight);
+	/**
+	 * @ingroup math
+	 */
+	Vec4i CoverImage(int imgwidth, int imgheight, int maxwidth, int maxheight);
+	/**
+	 * @ingroup math
+	 */
     template <class T> std::ostream& operator << (std::ostream& os, const Vec2<T>& v);
 	/**
 	 * @ingroup math

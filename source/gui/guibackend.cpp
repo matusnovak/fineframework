@@ -231,49 +231,49 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 }
 
 ///=============================================================================
-void ffw::GuiBackend::DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiFont* font, ffw::GuiAlign align, const std::wstring& str, const ffw::GuiStyle::Text& text) const {
+void ffw::GuiBackend::DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiFont* font, ffw::GuiStyle::Align align, const std::wstring& str, const ffw::GuiStyle::Text& text) const {
 	if(font == NULL)return;
 
 	const ffw::Vec2i& strsize = font->GetStringSize(str);
 	ffw::Vec2i offset = 0;
 
 	switch (align){
-	case GuiAlign::LEFT:
+	case GuiStyle::Align::LEFT:
 		offset.y = size.y/2 - strsize.y/2;
 		break;
 
-	case GuiAlign::RIGHT:
+	case GuiStyle::Align::RIGHT:
 		offset.x = size.x - strsize.x;
 		offset.y = size.y/2 - strsize.y/2;
 		break;
 
-	case GuiAlign::CENTER:
+	case GuiStyle::Align::CENTER:
 		offset = size/2 - strsize/2;
 		break;
 
-	case GuiAlign::TOP_CENTER:
+	case GuiStyle::Align::TOP_CENTER:
 		offset.x = size.x/2 - strsize.x/2;
 		break;
 
-	case GuiAlign::TOP_RIGHT:
+	case GuiStyle::Align::TOP_RIGHT:
 		offset.x = size.x - strsize.x;
 		break;
 
-	case GuiAlign::BOTTOM_LEFT:
+	case GuiStyle::Align::BOTTOM_LEFT:
 		offset.y = size.y - strsize.y;
 		break;
 
-	case GuiAlign::BOTTOM_CENTER:
+	case GuiStyle::Align::BOTTOM_CENTER:
 		offset.x = size.x/2 - strsize.x/2;
 		offset.y = size.y - strsize.y;
 		break;
 
-	case GuiAlign::BOTTOM_RIGHT:
+	case GuiStyle::Align::BOTTOM_RIGHT:
 		offset.x = size.x - strsize.x;
 		offset.y = size.y - strsize.y;
 		break;
 
-	case GuiAlign::TOP_LEFT:
+	case GuiStyle::Align::TOP_LEFT:
 	default:
 		break;
 	}

@@ -27,7 +27,7 @@ namespace ffw {
 		
 		class FFW_API Button : public GuiWidget {
 		public:
-			Button(GuiWindow* context, const std::type_info& type = typeid(GuiRadio::Button));
+			Button(GuiWindow* context);
 			virtual ~Button();
 			void SetLabel(const std::string& label);
 			const std::string& GetLabel() const;
@@ -45,11 +45,12 @@ namespace ffw {
 			void EventText(wchar_t chr) override;
 			void EventKey(ffw::Key key, ffw::Mode mode) override;
 			void EventDisabled(bool disabled) override;
+			virtual void EventThemeChanged(const GuiTheme* theme) override;
 			GuiCallback onclickcallback;
 		};
 		
-		GuiRadio(GuiWindow* context, const std::string& label, int base, GuiRadio* other = NULL, const std::type_info& type = typeid(GuiRadio));
-		GuiRadio(GuiWindow* context, const std::wstring& label, int base, GuiRadio* other = NULL, const std::type_info& type = typeid(GuiRadio));
+		GuiRadio(GuiWindow* context, const std::string& label, int base, GuiRadio* other = NULL);
+		GuiRadio(GuiWindow* context, const std::wstring& label, int base, GuiRadio* other = NULL);
 		virtual ~GuiRadio();
 		void SetLabel(const std::wstring& label);
 		const std::wstring& GetLabel() const;
@@ -57,7 +58,6 @@ namespace ffw {
 		void SetValue(int value);
 		int GetValue() const;
 		void AssignValue(bool value);
-		void SetIndent(int indent_);
 		void SetButtonSize(int width);
 		inline const GuiRadio::Button* GetButton() const {
 			return widgetbutton;
@@ -77,6 +77,7 @@ namespace ffw {
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		void EventDisabled(bool disabled) override;
+		virtual void EventThemeChanged(const GuiTheme* theme) override;
 		GuiRadio::Button* widgetbutton;
 		std::wstring label;
 		int indent;

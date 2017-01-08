@@ -219,8 +219,11 @@ static void DrawStringFunc(int posx, int posy, const ffw::Font* font, const T* s
 	int advance = posx;
     int height = posy;
 	int lineHeight = font->GetLineHeight();
-	for(size_t i = 0; i < length; i++){
-		auto chr = str[i];
+	size_t count = 0;
+	while(*str != '\0' && count < length){
+		auto chr = *str;
+		str++;
+		count++;
 
 		if(chr == 32 || chr == 9){
             advance += font->GetCharAdvance(chr);
@@ -269,31 +272,31 @@ static void DrawStringFunc(int posx, int posy, const ffw::Font* font, const T* s
 
 ///=============================================================================
 void ffw::DrawString(int posx, int posy, const ffw::Font* font, const std::string& str){
-	DrawStringFunc(posx, posy, font, str.c_str(), str.size());
+	DrawStringFunc(posx, posy, font, &str[0], str.size());
 }
 
 ///=============================================================================
 void ffw::DrawString(int posx, int posy, const ffw::Font* font, const std::wstring& str){
-	DrawStringFunc(posx, posy, font, str.c_str(), str.size());
+	DrawStringFunc(posx, posy, font, &str[0], str.size());
 }
 
 ///=============================================================================
-void ffw::DrawString(int posx, int posy, const Font* font, const char* str){
-	DrawStringFunc(posx, posy, font, str, strlen(str));
+void ffw::DrawString(int posx, int posy, const ffw::Font* font, const char* str){
+	DrawStringFunc(posx, posy, font, str, SIZE_MAX);
 }
 
 ///=============================================================================
-void ffw::DrawString(int posx, int posy, const Font* font, const char* str, size_t length){
+void ffw::DrawString(int posx, int posy, const ffw::Font* font, const char* str, size_t length){
 	DrawStringFunc(posx, posy, font, str, length);
 }
 
 ///=============================================================================
-void ffw::DrawString(int posx, int posy, const Font* font, const wchar_t* str){
-	DrawStringFunc(posx, posy, font, str, wcslen(str));
+void ffw::DrawString(int posx, int posy, const ffw::Font* font, const wchar_t* str){
+	DrawStringFunc(posx, posy, font, str, SIZE_MAX);
 }
 
 ///=============================================================================
-void ffw::DrawString(int posx, int posy, const Font* font, const wchar_t* str, size_t length){
+void ffw::DrawString(int posx, int posy, const ffw::Font* font, const wchar_t* str, size_t length){
 	DrawStringFunc(posx, posy, font, str, length);
 }
 
@@ -303,68 +306,6 @@ void ffw::DrawBezier(int startx, int starty, int cp0x, int cp0y, int cp1x, int c
 
 ///=============================================================================
 void ffw::DrawBezierThick(int startx, int starty, int cp0x, int cp0y, int cp1x, int cp1y, int endx, int endy, int thickness, int steps){
-}
-
-///=============================================================================
-ffw::Vec4i ffw::ContainImage(int imgwidth, int imgheight, int maxwidth, int maxheight){
-    float frameAspect = imgheight / float(imgwidth);
-	ffw::Vec4i ret;
-
-    if(maxwidth*frameAspect <= maxheight){
-        ret.z = maxwidth;
-        ret.w = int(maxwidth*frameAspect);
-		ret.x = 0;
-		ret.y = (maxheight - ret.w)/2;
-
-    } else {
-        ret.z = int(maxheight/frameAspect);
-        ret.w = maxheight;
-		ret.x = (maxwidth - ret.z)/2;
-		ret.y = 0;
-    }
-
-	return ret;
-}
-
-///=============================================================================
-ffw::Vec4i ffw::CoverImage(int imgwidth, int imgheight, int maxwidth, int maxheight){
-    float imgAspect = imgheight / float(imgwidth);
-	ffw::Vec4i ret;
-
-	// Target area is vertical
-    if(maxheight / float(maxwidth) >= 1.0f){
-		// Image is vertical
-		if(imgAspect >= 1.0f){
-			ret.z = int(maxheight/imgAspect);
-			ret.w = maxheight;
-			if(ret.z < maxwidth){
-				ret.z = maxwidth;
-				ret.w = int(maxwidth*imgAspect);
-			}
-		// Image is horizontal
-		} else {
-			ret.z = int(maxheight/imgAspect);
-			ret.w = maxheight;
-		}
-	// Target area is horizontal
-	} else {
-		// Image is vertical
-		if(imgAspect >= 1.0f){
-			ret.z = maxwidth;
-			ret.w = int(maxwidth*imgAspect);
-		// Image is horizontal
-		} else {
-			ret.z = maxwidth;
-			ret.w = int(maxwidth*imgAspect);
-			if(ret.w < maxheight){
-				ret.z = int(maxheight/imgAspect);
-				ret.w = maxheight;
-			}
-		}
-	}
-	ret.x = (ret.z - maxwidth)/-2;
-	ret.y = (ret.w - maxheight)/-2;
-	return ret;
 }
 
 ///=============================================================================

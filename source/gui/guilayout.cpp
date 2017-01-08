@@ -4,10 +4,13 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiLayout::GuiLayout(GuiWindow* context, Orientation Orientation, const std::type_info& type):GuiWidget(context, type){
+ffw::GuiLayout::GuiLayout(GuiWindow* context, Orientation Orientation):GuiWidget(context){
 	GuiWidget::SetOrientation(Orientation);
-	SetSize(GuiPercent(100), GuiWrap());
 	ignoreinputflag = true;
+
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_LAYOUT");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -87,6 +90,12 @@ void ffw::GuiLayout::EventKey(ffw::Key key, ffw::Mode mode){
 
 ///=============================================================================
 void ffw::GuiLayout::EventDisabled(bool disabled) {
+}
+
+///=============================================================================
+void ffw::GuiLayout::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_LAYOUT");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================

@@ -3,22 +3,7 @@
 #define FFW_GUI_THEME
 #include "../config.h"
 #include "../math.h"
-#include <typeinfo>
 namespace ffw {
-	/**
-	* @ingroup gui
-	*/
-	enum class GuiAlign {
-		LEFT = 0,
-		CENTER,
-		RIGHT,
-		TOP_LEFT,
-		TOP_CENTER,
-		TOP_RIGHT,
-		BOTTOM_LEFT,
-		BOTTOM_CENTER,
-		BOTTOM_RIGHT,
-	};
 	/**
 	* @ingroup gui
 	*/
@@ -27,8 +12,11 @@ namespace ffw {
 		GuiUnits() :value(0), inPercent(0) {}
 		GuiUnits(int Value, bool InPercent) :value(Value), inPercent(InPercent) {}
 		GuiUnits(int Value) :value(Value), inPercent(false) {}
-		inline bool operator == (const GuiUnits& Other) const {
-			return (value == Other.value && inPercent == Other.inPercent);
+		inline bool operator == (const GuiUnits& other) const {
+			return (value == other.value && inPercent == other.inPercent);
+		}
+		inline bool operator == (int v) const {
+			return (value == v && inPercent == false);
 		}
 		int value;
 		bool inPercent;
@@ -36,7 +24,7 @@ namespace ffw {
 			os << V.value << (V.inPercent ? "%" : "px");
 			return os;
 		}
-		inline int ToReal(const int val) {
+		inline int ToReal(const int val) const {
 			if (inPercent) {
 				return int((value / 100.0) * val);
 			}
@@ -64,6 +52,17 @@ namespace ffw {
 	}
 	class GuiStyle {
 	public:
+		enum class Align {
+			LEFT = 0,
+			CENTER,
+			RIGHT,
+			TOP_LEFT,
+			TOP_CENTER,
+			TOP_RIGHT,
+			BOTTOM_LEFT,
+			BOTTOM_CENTER,
+			BOTTOM_RIGHT,
+		};
 		template <class T>
 		class Attribute {
 		public:
@@ -118,12 +117,17 @@ namespace ffw {
 				size(s),radius(r),color(c) {
 				
 			}
+			inline operator bool() const {
+				return (size[0] > 0 && size[1] > 0 && size[2] > 0 && size[3] > 0);
+			}
 			Attribute<int> size;
 			Attribute<int> radius;
 			Attribute<ffw::Color> color;
 		};
 
 		typedef Border Outline;
+		typedef GuiStyle::Attribute<GuiUnits> Padding;
+		typedef GuiStyle::Attribute<GuiUnits> Margin;
 
 		class Background {
 		public:
@@ -189,44 +193,59 @@ namespace ffw {
 		Function function;
 	};
 
+	inline GuiStyle::Background GuiSimpleBackground(const ffw::Color& color) {
+		return GuiStyle::Background(0, color, ffw::Rgb(0x000000), GuiStyle::Background::Type::SIMPLE);
+	}
+	inline GuiStyle::Background GuiVGradientBackground(const ffw::Color& top, const ffw::Color& bottom) {
+		return GuiStyle::Background(0, top, bottom, GuiStyle::Background::Type::VGRADIENT);
+	}
+	inline GuiStyle::Background GuiHGradientBackground(const ffw::Color& left, const ffw::Color& right) {
+		return GuiStyle::Background(0, left, right, GuiStyle::Background::Type::HGRADIENT);
+	}
+	inline GuiStyle::Background GuiNoBackground() {
+		return GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), GuiStyle::Background::Type::NONE);
+	}
+
+	class GuiDefaults {
+	public:
+		inline GuiDefaults() :
+			margin(0), padding(0), align(GuiStyle::Align::TOP_LEFT), size(ffw::Vec2<GuiUnits>(GuiPercent(100), GuiWrap())) {
+		}
+		inline GuiDefaults(const GuiStyle::Margin& m, const GuiStyle::Padding& p, GuiStyle::Align a, const ffw::Vec2<GuiUnits>& s):
+			margin(m),padding(p),align(a),size(s){
+		}
+		GuiStyle::Margin margin;
+		GuiStyle::Padding padding;
+		GuiStyle::Align align;
+		ffw::Vec2<GuiUnits> size;
+	};
+
 	class GuiStyleGroup {
 	public:
 		inline GuiStyleGroup() {
 			
 		}
-		inline GuiStyleGroup(const GuiStyle& n, const GuiStyle& h, const GuiStyle& a, const GuiStyle& d):
-			normal(n),hover(h),active(a),disabled(d) {
+		inline GuiStyleGroup(const GuiStyle& n, const GuiStyle& h, const GuiStyle& a, const GuiStyle& d, const GuiDefaults& def = GuiDefaults()):
+			normal(n),hover(h),active(a),disabled(d),defaults(def) {
 		}
 		GuiStyle normal;
 		GuiStyle hover;
 		GuiStyle active;
 		GuiStyle disabled;
+		GuiDefaults defaults;
 	};
 
 	class FFW_API GuiTheme {
 	public:
-		static GuiTheme Windows;
+		static const GuiTheme Windows;
 
-		GuiTheme(const std::initializer_list<std::pair<size_t, GuiStyleGroup>>& list);
+		GuiTheme(const std::initializer_list<std::pair<std::string, GuiStyleGroup>>& list);
 		virtual ~GuiTheme();
-
-		template<class T>
-		inline const GuiStyleGroup& GetByWidget() const  {
-			const auto& type = typeid(T);
-			return GetByType(type);
-		}
-
-		template<class T>
-		inline GuiStyleGroup& GetByWidget() {
-			const auto& type = typeid(T);
-			return GetByType(type);
-		}
-
-		void Add(const std::pair<size_t, GuiStyleGroup>& sty);
-		const GuiStyleGroup& GetByType(const std::type_info& type) const;
-		GuiStyleGroup& GetByType(const std::type_info& type);
+		void Add(const std::pair<std::string, GuiStyleGroup>& sty);
+		const GuiStyleGroup& GetStyleGroup(const std::string& type) const;
+		GuiStyleGroup& GetStyleGroup(const std::string& type);
 	private:
-		std::map<size_t, GuiStyleGroup> styles;
+		std::map<std::string, GuiStyleGroup> styles;
 	};
 };
 #endif

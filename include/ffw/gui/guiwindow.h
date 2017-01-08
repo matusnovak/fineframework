@@ -15,6 +15,7 @@ namespace ffw {
 		class FFW_API GuiBody: public GuiLayout {
 		public:
 			GuiBody(GuiWindow* context, GuiLayout::Orientation orient);
+			void EventThemeChanged(const GuiTheme* theme) override;
 			virtual ~GuiBody();
 		};
 		GuiWindow();

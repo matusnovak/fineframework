@@ -61,9 +61,12 @@ size_t ffw::GuiRadio::Value::GetNumOfAssigned() const {
 }
 
 ///=============================================================================
-ffw::GuiRadio::Button::Button(GuiWindow* context, const std::type_info& type):GuiWidget(context, type){
+ffw::GuiRadio::Button::Button(GuiWindow* context):GuiWidget(context){
 	stickyfocusflag = true;
-	SetPadding(GuiPercent(20));
+	
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_RADIO_BUTTON");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -72,7 +75,7 @@ ffw::GuiRadio::Button::~Button(){
 
 ///=============================================================================
 void ffw::GuiRadio::Button::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	context->DrawCircle(contentoffset + contentsize / 2, std::min(contentsize.x, contentsize.y) / 2, GetCurrentStyle().function.color);
+	context->DrawCircle(contentoffset + contentsize / 2, std::min(contentsize.x, contentsize.y) / 2, GetCurrentStyle()->function.color);
 }
 
 ///=============================================================================
@@ -120,26 +123,31 @@ void ffw::GuiRadio::Button::EventDisabled(bool disabled) {
 }
 
 ///=============================================================================
+void ffw::GuiRadio::Button::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_RADIO_BUTTON");
+	SetDefaults(&widgetStyle->defaults);
+}
+
+///=============================================================================
 ffw::Vec2i ffw::GuiRadio::Button::GetMinimumWrapSize() const {
 	return 0;
 }
 
 ///=============================================================================
-ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::string& label_, int base, GuiRadio* other, const std::type_info& type):GuiRadio(context, Utf8ToWstr(label_), base, other, type){
+ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::string& label_, int base, GuiRadio* other):GuiRadio(context, Utf8ToWstr(label_), base, other){
 }
 
 ///=============================================================================
-ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base, GuiRadio* other, const std::type_info& type):GuiWidget(context, type),label(label_){
+ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base, GuiRadio* other):GuiWidget(context),label(label_){
 	basevalue = base;
 	SetOrientation(Orientation::HORIZONTAL);
-	SetSize(GuiPercent(100), GuiWrap());
-	SetMargin(0, 0, 5, 0);
-	SetAlign(GuiAlign::TOP_LEFT);
 	ignoreinputflag = true;
 
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_RADIO");
+	SetDefaults(&widgetStyle->defaults);
+
 	widgetbutton = new GuiRadio::Button(context);
-	widgetbutton->SetSize(16, 16);
-	widgetbutton->SetMargin(0, 5, 0, 0);
 	widgetbutton->SetCallbackPtr(this);
 
 	AddWidget(widgetbutton);
@@ -209,10 +217,9 @@ void ffw::GuiRadio::SetValue(int value){
 void ffw::GuiRadio::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
 	auto size = widgetbutton->GetRealSize();
 	size.x += widgetbutton->GetMarginInPixels(1);
-	std::cout << "margin: " << widgetbutton->GetMarginInPixels(1) << std::endl;
 	size.y = 0;
 	const auto& stl = GetCurrentStyle();
-	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle().text);
+	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
 }
 
 ///=============================================================================
@@ -252,7 +259,12 @@ void ffw::GuiRadio::EventKey(ffw::Key key, ffw::Mode mode){
 
 ///=============================================================================
 void ffw::GuiRadio::EventDisabled(bool disabled) {
-	widgetbutton->SetDisabled(disabled);
+}
+
+///=============================================================================
+void ffw::GuiRadio::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_RADIO");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================

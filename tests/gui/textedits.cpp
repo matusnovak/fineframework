@@ -36,33 +36,66 @@ public:
 		}
 
 		gui.SetPadding(10);
-		gui.SetOrientation(ffw::GuiLayout::Orientation::VERTICAL);
+		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
 		gui.SetWrap(false);
 
-		auto button = new ffw::GuiButton(&gui, "Normal");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		gui.AddWidget(button);
+		auto vlayout = new ffw::GuiVerticalLayout(&gui);
+		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+		gui.AddWidget(vlayout);
 
-		button = new ffw::GuiButton(&gui, "Hover");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetHover(true);
-		gui.AddWidget(button);
+		auto slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		vlayout->AddWidget(slider);
 
-		button = new ffw::GuiButton(&gui, "Active");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetFocus(true);
-		gui.AddWidget(button);
+		slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetHover(true);
+		vlayout->AddWidget(slider);
 
-		button = new ffw::GuiButton(&gui, "Disabled");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetDisabled(true);
-		gui.AddWidget(button);
+		slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetFocus(true);
+		vlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, false);
+		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		slider->SetDisabled(true);
+		vlayout->AddWidget(slider);
+
+		auto hlayout = new ffw::GuiHorizontalLayout(&gui);
+		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+		gui.AddWidget(hlayout);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		hlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetHover(true);
+		hlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		slider->SetIgnoreUserInput(true);
+		slider->SetFocus(true);
+		hlayout->AddWidget(slider);
+
+		slider = new ffw::GuiSlider(&gui, true);
+		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
+		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		slider->SetDisabled(true);
+		hlayout->AddWidget(slider);
 
 		return true;
 	}
@@ -108,7 +141,7 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Buttons) {
+TEST(Gui, Sliders) {
 	if (!ffw::InitGraphics()) {
 		TEST_FAIL_MSG("Failed to initialize graphics!");
 	}
@@ -118,8 +151,8 @@ TEST(Gui, Buttons) {
 
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
-	args.size.Set(200, 180);
-	args.title = "Test Gui Buttons";
+	args.size.Set(400, 180);
+	args.title = "Test Gui Sliders";
 	args.samples = 4;
 
 	// Create window

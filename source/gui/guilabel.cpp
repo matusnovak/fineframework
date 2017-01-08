@@ -4,16 +4,15 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::string& label_, const std::type_info& type):GuiLabel(context, Utf8ToWstr(label_), type){
+ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::string& label_):GuiLabel(context, Utf8ToWstr(label_)){
 }
 
 ///=============================================================================
-ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::wstring& label_, const std::type_info& type):GuiWidget(context, type),label(label_){
+ffw::GuiLabel::GuiLabel(GuiWindow* context, const std::wstring& label_):GuiWidget(context),label(label_){
 	ignoreinputflag = true;
-	SetAlign(GuiAlign::TOP_LEFT);
-	SetSize(GuiPercent(100), GuiWrap());
-	SetMargin(0, 0, 5, 0);
-	SetPadding(0, 0, 5, 0);
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_LABEL");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -33,7 +32,7 @@ const std::wstring& ffw::GuiLabel::GetLabel() const {
 
 ///=============================================================================
 void ffw::GuiLabel::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle().text);
+	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
 }
 
 ///=============================================================================
@@ -70,6 +69,12 @@ void ffw::GuiLabel::EventKey(ffw::Key key, ffw::Mode mode){
 
 ///=============================================================================
 void ffw::GuiLabel::EventDisabled(bool disabled) {
+}
+
+///=============================================================================
+void ffw::GuiLabel::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_LABEL");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================

@@ -22,7 +22,7 @@ public:
 		gui.SetSize(GetSize().x, GetSize().y);
 		gui.SetPos(0, 0);
 
-		// The last two characters indicate start and the end of the unicode
+		// The last two values indicate start and the end of the unicode
 		// table to load.
 		// To load ASCII only characters, enter 0 - 0x100
 		// To load ASCII and Latin Extended-A, enter 0 - 0x17F
@@ -39,7 +39,7 @@ public:
 		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
 		gui.SetWrap(true);
 
-		static ffw::GuiStyleGroup style1 = ffw::GuiTheme::Windows.GetByWidget<ffw::GuiLayout>();
+		static ffw::GuiStyleGroup style1 = ffw::GuiTheme::Windows.GetStyleGroup("GUI_LAYOUT");
 		style1.normal.background.color = ffw::Rgba(0x00000080);
 		style1.normal.background.type = ffw::GuiStyle::Background::Type::SIMPLE;
 		style1.normal.border.size = 10;

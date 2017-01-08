@@ -31,7 +31,7 @@ namespace ffw {
 		// The following can be overriden
 		virtual void DrawBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle::Background& background, bool ignore = false) const;
 		virtual void DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle::Border& border) const;
-		virtual void DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiFont* font, ffw::GuiAlign align, const std::wstring& str, const ffw::GuiStyle::Text& text) const;
+		virtual void DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiFont* font, ffw::GuiStyle::Align align, const std::wstring& str, const ffw::GuiStyle::Text& text) const;
 	};
 }
 #endif

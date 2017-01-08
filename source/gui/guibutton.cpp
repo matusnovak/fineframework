@@ -4,18 +4,18 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiButton::GuiButton(GuiWindow* context, const std::string& label_, const std::type_info& type):
-	GuiButton(context, Utf8ToWstr(label_), type){
+ffw::GuiButton::GuiButton(GuiWindow* context, const std::string& label_):
+	GuiButton(context, Utf8ToWstr(label_)){
 }
 
 ///=============================================================================
-ffw::GuiButton::GuiButton(GuiWindow* context, const std::wstring& label_, const std::type_info& type):
-	GuiWidget(context, type),label(label_){
+ffw::GuiButton::GuiButton(GuiWindow* context, const std::wstring& label_):
+	GuiWidget(context),label(label_){
 	dropfocusflag = true;
-	SetSize(GuiPercent(100), GuiWrap());
-	SetAlign(GuiAlign::CENTER);
-	SetMargin(0, 0, 5, 0);
-	SetPadding(5);
+
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_BUTTON");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -35,7 +35,7 @@ const std::wstring& ffw::GuiButton::GetLabel() const {
 
 ///=============================================================================
 void ffw::GuiButton::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle().text);
+	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
 }
 
 ///=============================================================================
@@ -81,6 +81,12 @@ void ffw::GuiButton::EventKey(ffw::Key key, ffw::Mode mode){
 
 ///=============================================================================
 void ffw::GuiButton::EventDisabled(bool disabled) {
+}
+
+///=============================================================================
+void ffw::GuiButton::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_BUTTON");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================

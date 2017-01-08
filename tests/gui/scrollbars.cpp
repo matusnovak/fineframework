@@ -12,6 +12,7 @@ public:
 	}
 
 	void WidgetEvent(ffw::GuiEvent e) {
+		std::cout << "Event type: " << (int)e.type << std::endl;
 	}
 
 	bool Setup() override {
@@ -36,33 +37,68 @@ public:
 		}
 
 		gui.SetPadding(10);
-		gui.SetOrientation(ffw::GuiLayout::Orientation::VERTICAL);
+		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
 		gui.SetWrap(false);
 
-		auto button = new ffw::GuiButton(&gui, "Normal");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		gui.AddWidget(button);
+		auto vlayout = new ffw::GuiVerticalLayout(&gui);
+		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+		gui.AddWidget(vlayout);
 
-		button = new ffw::GuiButton(&gui, "Hover");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetHover(true);
-		gui.AddWidget(button);
+		auto scrollbar = new ffw::GuiScrollbar(&gui, false);
+		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
+		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		scrollbar->AddEventCallback(&App::WidgetEvent, this);
+		vlayout->AddWidget(scrollbar);
 
-		button = new ffw::GuiButton(&gui, "Active");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetFocus(true);
-		gui.AddWidget(button);
+		scrollbar = new ffw::GuiScrollbar(&gui, false);
+		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
+		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		scrollbar->SetIgnoreUserInput(true);
+		scrollbar->SetHover(true);
+		vlayout->AddWidget(scrollbar);
 
-		button = new ffw::GuiButton(&gui, "Disabled");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetDisabled(true);
-		gui.AddWidget(button);
+		scrollbar = new ffw::GuiScrollbar(&gui, false);
+		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
+		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		scrollbar->SetIgnoreUserInput(true);
+		scrollbar->SetFocus(true);
+		vlayout->AddWidget(scrollbar);
+
+		scrollbar = new ffw::GuiScrollbar(&gui, false);
+		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
+		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+		scrollbar->SetDisabled(true);
+		vlayout->AddWidget(scrollbar);
+
+		auto hlayout = new ffw::GuiHorizontalLayout(&gui);
+		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+		gui.AddWidget(hlayout);
+
+		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
+		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		scrollbar->AddEventCallback(&App::WidgetEvent, this);
+		hlayout->AddWidget(scrollbar);
+
+		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
+		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		scrollbar->SetIgnoreUserInput(true);
+		scrollbar->SetHover(true);
+		hlayout->AddWidget(scrollbar);
+
+		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
+		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		scrollbar->SetIgnoreUserInput(true);
+		scrollbar->SetFocus(true);
+		hlayout->AddWidget(scrollbar);
+
+		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
+		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
+		scrollbar->SetDisabled(true);
+		hlayout->AddWidget(scrollbar);
 
 		return true;
 	}
@@ -108,7 +144,7 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Buttons) {
+TEST(Gui, scrollbars) {
 	if (!ffw::InitGraphics()) {
 		TEST_FAIL_MSG("Failed to initialize graphics!");
 	}
@@ -118,8 +154,8 @@ TEST(Gui, Buttons) {
 
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
-	args.size.Set(200, 180);
-	args.title = "Test Gui Buttons";
+	args.size.Set(400, 180);
+	args.title = "Test Gui scrollbars";
 	args.samples = 4;
 
 	// Create window

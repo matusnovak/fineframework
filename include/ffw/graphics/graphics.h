@@ -106,22 +106,14 @@ namespace ffw{
 	/**
 	 * @ingroup graphics
 	 */
-	ffw::Vec4i FFW_API ContainImage(int imgwidth, int imgheight, int maxwidth, int maxheight);
-	/**
-	 * @ingroup graphics
-	 */
-	ffw::Vec4i FFW_API CoverImage(int imgwidth, int imgheight, int maxwidth, int maxheight);
-	/**
-	 * @ingroup graphics
-	 */
 	class FFW_API OpenGLImageType {
 	public:
-		OpenGLImageType():
+		inline OpenGLImageType():
 			internalFormat(0),
 			format(0),
 			type(0){
 		}
-		OpenGLImageType(GLint inter, GLenum form, GLenum typ):
+		inline OpenGLImageType(GLint inter, GLenum form, GLenum typ):
 			internalFormat(inter),
 			format(form),
 			type(typ){
@@ -129,7 +121,7 @@ namespace ffw{
 		const GLint internalFormat;
 		const GLenum format;
 		const GLenum type;
-		operator bool () const {
+		inline operator bool () const {
 			return (internalFormat != 0 && format != 0 && type != 0);
 		}
 	};

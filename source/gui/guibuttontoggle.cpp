@@ -4,11 +4,11 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label, const std::type_info& type):GuiButtonToggle(context, Utf8ToWstr(label), type){
+ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label):GuiButtonToggle(context, Utf8ToWstr(label)){
 }
 
 ///=============================================================================
-ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::wstring& label, const std::type_info& type):GuiButton(context, label, type){
+ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::wstring& label):GuiButton(context, label){
 	togglefocusflag = true;
 	dropfocusflag = false;
 }

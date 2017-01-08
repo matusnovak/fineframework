@@ -22,7 +22,7 @@ public:
 		gui.SetSize(GetSize().x, GetSize().y);
 		gui.SetPos(0, 0);
 
-		// The last two characters indicate start and the end of the unicode
+		// The last two values indicate start and the end of the unicode
 		// table to load.
 		// To load ASCII only characters, enter 0 - 0x100
 		// To load ASCII and Latin Extended-A, enter 0 - 0x17F
@@ -33,6 +33,48 @@ public:
 		}
 		else {
 			gui.SetDefaultFont(font);
+		}
+
+		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
+		gui.SetWrap(true);
+
+		static ffw::GuiStyleGroup customStyle = gui.GetTheme()->GetStyleGroup("GUI_LABEL");
+		customStyle.normal.background = ffw::GuiSimpleBackground(ffw::Rgb(0xAAAAAA));
+
+		auto vlayout = new ffw::GuiVerticalLayout(&gui);
+		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(50));
+		vlayout->SetWrap(true);
+		gui.AddWidget(vlayout);
+
+		for (int i = 0; i < 20; i++) {
+			auto label = new ffw::GuiLabel(&gui, "Hello World!");
+			label->SetSize(ffw::GuiWrap(), ffw::GuiWrap());
+			label->SetStyleGroup(&customStyle);
+			vlayout->AddWidget(label);
+		}
+
+		auto hlayout = new ffw::GuiHorizontalLayout(&gui);
+		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(50));
+		hlayout->SetWrap(true);
+		gui.AddWidget(hlayout);
+
+		for (int i = 0; i < 20; i++) {
+			auto label = new ffw::GuiLabel(&gui, "Hello World!");
+			label->SetSize(ffw::GuiWrap(), ffw::GuiWrap());
+			label->SetStyleGroup(&customStyle);
+			hlayout->AddWidget(label);
+		}
+
+		auto flayout = new ffw::GuiFixedLayout(&gui);
+		flayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(50));
+		gui.AddWidget(flayout);
+
+		for (int i = 0; i < 5; i++) {
+			auto label = new ffw::GuiLabel(&gui, "Hello World!");
+			label->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(20));
+			label->SetPos(ffw::GuiPercent(i * 20), ffw::GuiPercent(i * 20));
+			label->SetStyleGroup(&customStyle);
+			flayout->AddWidget(label);
 		}
 
 		return true;
@@ -89,7 +131,7 @@ TEST(Gui, Orientation) {
 
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
-	args.size.Set(200, 180);
+	args.size.Set(600, 600);
 	args.title = "Test Gui Orientation";
 	args.samples = 4;
 

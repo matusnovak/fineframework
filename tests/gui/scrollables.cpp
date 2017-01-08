@@ -36,33 +36,58 @@ public:
 		}
 
 		gui.SetPadding(10);
-		gui.SetOrientation(ffw::GuiLayout::Orientation::VERTICAL);
-		gui.SetWrap(false);
+		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
+		gui.SetWrap(true);
 
-		auto button = new ffw::GuiButton(&gui, "Normal");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		gui.AddWidget(button);
+		auto scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		scrollable->SetMargin(ffw::GuiPercent(2));
+		gui.AddWidget(scrollable);
 
-		button = new ffw::GuiButton(&gui, "Hover");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetHover(true);
-		gui.AddWidget(button);
+		for (int i = 0; i < 20; i++) {
+			auto button = new ffw::GuiButtonToggle(&gui, "Button");
+			scrollable->GetInner()->AddWidget(button);
+		}
 
-		button = new ffw::GuiButton(&gui, "Active");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetFocus(true);
-		gui.AddWidget(button);
+		scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		scrollable->SetMargin(ffw::GuiPercent(2));
+		scrollable->GetHscroll()->SetIgnoreUserInput(true);
+		scrollable->GetVscroll()->SetIgnoreUserInput(true);
+		scrollable->GetHscroll()->SetHover(true);
+		scrollable->GetVscroll()->SetHover(true);
+		gui.AddWidget(scrollable);
 
-		button = new ffw::GuiButton(&gui, "Disabled");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetDisabled(true);
-		gui.AddWidget(button);
+		for (int i = 0; i < 20; i++) {
+			auto button = new ffw::GuiButtonToggle(&gui, "Button");
+			scrollable->GetInner()->AddWidget(button);
+		}
+
+		scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		scrollable->SetMargin(ffw::GuiPercent(2));
+		scrollable->GetHscroll()->SetIgnoreUserInput(true);
+		scrollable->GetVscroll()->SetIgnoreUserInput(true);
+		scrollable->GetHscroll()->SetFocus(true);
+		scrollable->GetVscroll()->SetFocus(true);
+		gui.AddWidget(scrollable);
+
+		for (int i = 0; i < 20; i++) {
+			auto button = new ffw::GuiButtonToggle(&gui, "Button");
+			scrollable->GetInner()->AddWidget(button);
+		}
+
+		scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		scrollable->SetMargin(ffw::GuiPercent(2));
+		scrollable->GetHscroll()->SetDisabled(true);
+		scrollable->GetVscroll()->SetDisabled(true);
+		gui.AddWidget(scrollable);
+
+		for (int i = 0; i < 20; i++) {
+			auto button = new ffw::GuiButtonToggle(&gui, "Button");
+			scrollable->GetInner()->AddWidget(button);
+		}
 
 		return true;
 	}
@@ -108,7 +133,7 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Buttons) {
+TEST(Gui, Scrollables) {
 	if (!ffw::InitGraphics()) {
 		TEST_FAIL_MSG("Failed to initialize graphics!");
 	}
@@ -118,8 +143,8 @@ TEST(Gui, Buttons) {
 
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
-	args.size.Set(200, 180);
-	args.title = "Test Gui Buttons";
+	args.size.Set(400, 400);
+	args.title = "Test Gui Scrollables";
 	args.samples = 4;
 
 	// Create window

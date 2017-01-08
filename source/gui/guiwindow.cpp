@@ -3,12 +3,21 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiWindow::GuiBody::GuiBody(GuiWindow* context, GuiLayout::Orientation orient):GuiLayout(context, orient, typeid(GuiBody)) {
+ffw::GuiWindow::GuiBody::GuiBody(GuiWindow* context, GuiLayout::Orientation orient):GuiLayout(context, orient) {
+	// At this point, we are sure that the context and GetTheme() are not NULL
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_WINDOW_BODY");
+	SetDefaults(&widgetStyle->defaults);
+}
+
+///=============================================================================
+ffw::GuiWindow::GuiBody::~GuiBody() {
 	
 }
 
-ffw::GuiWindow::GuiBody::~GuiBody() {
-	
+///=============================================================================
+void ffw::GuiWindow::GuiBody::EventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->GetStyleGroup("GUI_WINDOW_BODY");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -61,6 +70,7 @@ void ffw::GuiWindow::SetPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, G
 ///=============================================================================
 void ffw::GuiWindow::SetTheme(const GuiTheme* thm) {
 	theme = thm;
+	body->SetTheme(thm);
 }
 
 ///=============================================================================

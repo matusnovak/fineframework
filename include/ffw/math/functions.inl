@@ -263,6 +263,72 @@ inline ffw::Mat4x4f ffw::MakeProjectionMatrix(float FieldOfView, float Aspect, f
     mat.ptr[14] = (2.0f * Far * Near) / (Near - Far);
     return mat;
 }
+
+///=============================================================================
+inline ffw::Vec4i ffw::ContainImage(int imgwidth, int imgheight, int maxwidth, int maxheight) {
+	float frameAspect = imgheight / float(imgwidth);
+	ffw::Vec4i ret;
+
+	if (maxwidth*frameAspect <= maxheight) {
+		ret.z = maxwidth;
+		ret.w = int(maxwidth*frameAspect);
+		ret.x = 0;
+		ret.y = (maxheight - ret.w) / 2;
+
+	}
+	else {
+		ret.z = int(maxheight / frameAspect);
+		ret.w = maxheight;
+		ret.x = (maxwidth - ret.z) / 2;
+		ret.y = 0;
+	}
+
+	return ret;
+}
+
+///=============================================================================
+inline ffw::Vec4i ffw::CoverImage(int imgwidth, int imgheight, int maxwidth, int maxheight) {
+	float imgAspect = imgheight / float(imgwidth);
+	ffw::Vec4i ret;
+
+	// Target area is vertical
+	if (maxheight / float(maxwidth) >= 1.0f) {
+		// Image is vertical
+		if (imgAspect >= 1.0f) {
+			ret.z = int(maxheight / imgAspect);
+			ret.w = maxheight;
+			if (ret.z < maxwidth) {
+				ret.z = maxwidth;
+				ret.w = int(maxwidth*imgAspect);
+			}
+			// Image is horizontal
+		}
+		else {
+			ret.z = int(maxheight / imgAspect);
+			ret.w = maxheight;
+		}
+		// Target area is horizontal
+	}
+	else {
+		// Image is vertical
+		if (imgAspect >= 1.0f) {
+			ret.z = maxwidth;
+			ret.w = int(maxwidth*imgAspect);
+			// Image is horizontal
+		}
+		else {
+			ret.z = maxwidth;
+			ret.w = int(maxwidth*imgAspect);
+			if (ret.w < maxheight) {
+				ret.z = int(maxheight / imgAspect);
+				ret.w = maxheight;
+			}
+		}
+	}
+	ret.x = (ret.z - maxwidth) / -2;
+	ret.y = (ret.w - maxheight) / -2;
+	return ret;
+}
 //==============================================================================
 inline ffw::Mat4x4f ffw::MakeLookAtMatrix(const ffw::Vec3f& Eyes, const ffw::Vec3f& Target, const ffw::Vec3f& UpVector){
     ffw::Mat4x4f mat;
