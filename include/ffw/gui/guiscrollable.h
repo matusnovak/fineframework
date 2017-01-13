@@ -10,7 +10,7 @@ namespace ffw {
 	*/
 	class FFW_API GuiScrollable : public GuiWidget {
 	public:
-		GuiScrollable(GuiWindow* context, GuiLayout::Orientation orient, bool hori, bool vert);
+		GuiScrollable(GuiWindow* context, GuiWidget* widget, bool hori, bool vert);
 		virtual ~GuiScrollable();
 		ffw::Vec2i GetMinimumWrapSize() const override;
 		void SetScrollbarThickness(int px);
@@ -24,12 +24,6 @@ namespace ffw {
 		inline int GetScrollbarThickness() const {
 			return thickness;
 		}
-		inline ffw::GuiLayout* GetInner() {
-			return inner;
-		}
-		inline const ffw::GuiLayout* GetInner() const {
-			return inner;
-		}
 		inline ffw::GuiScrollbar* GetVscroll() {
 			return vscroll;
 		}
@@ -41,6 +35,13 @@ namespace ffw {
 		}
 		inline const ffw::GuiScrollbar* GetHscroll() const {
 			return hscroll;
+		}
+	protected:
+		inline ffw::GuiWidget* GetInnerAsWidget() {
+			return inner;
+		}
+		inline const ffw::GuiWidget* GetInnerAsWidget() const {
+			return inner;
 		}
 	private:
 		void WidgetEvent(GuiEvent e);
@@ -57,8 +58,22 @@ namespace ffw {
 		void EventThemeChanged(const GuiTheme* theme) override;
 		ffw::GuiScrollbar* vscroll;
 		ffw::GuiScrollbar* hscroll;
-		ffw::GuiLayout* inner;
+		ffw::GuiWidget* inner;
 		int thickness;
+	};
+	/**
+	* @ingroup gui
+	*/
+	class FFW_API GuiScrollableLayout : public GuiScrollable {
+	public:
+		GuiScrollableLayout(GuiWindow* context, GuiLayout::Orientation orientation, bool hori, bool vert);
+		virtual ~GuiScrollableLayout();
+		inline GuiLayout* GetInner(){
+			return dynamic_cast<ffw::GuiLayout*>(GetInnerAsWidget());
+		}
+		inline const GuiLayout* GetInner() const{
+			return dynamic_cast<const ffw::GuiLayout*>(GetInnerAsWidget());
+		}
 	};
 }
 #endif

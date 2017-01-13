@@ -90,12 +90,12 @@ ffw::GuiCheckbox::GuiCheckbox(GuiWindow* context, const std::wstring& label_):Gu
 	widgetbutton = new GuiCheckbox::Button(context);
 	widgetbutton->SetCallbackPtr(this);
 
-	AddWidget(widgetbutton);
+	AddWidgetInternal(widgetbutton);
 }
 
 ///=============================================================================
 ffw::GuiCheckbox::~GuiCheckbox(){
-	DeleteWidgets();
+	DeleteWidgetsInternal();
 }
 
 ///=============================================================================

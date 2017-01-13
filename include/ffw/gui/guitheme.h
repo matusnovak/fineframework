@@ -107,22 +107,28 @@ namespace ffw {
 				return !(*this == other);
 			}
 			T val[4];
+			inline friend std::ostream& operator << (std::ostream& os, const Attribute& a) {
+				os << a.val[0] << ", " << a.val[1] << ", " << a.val[2] << ", " << a.val[3] << std::endl;
+				return os;
+			}
 		};
 		class Border {
 		public:
+			typedef Attribute<int> Size;
+			typedef Attribute<int> Radius;
+			typedef Attribute<ffw::Color> Color;
 			inline Border():
 				size(0),radius(0),color(ffw::Rgb(0xFFFFFF)) {
 			}
 			inline Border(const Attribute<int>& s, const Attribute<int>& r, const Attribute<ffw::Color>& c):
 				size(s),radius(r),color(c) {
-				
 			}
 			inline operator bool() const {
-				return (size[0] > 0 && size[1] > 0 && size[2] > 0 && size[3] > 0);
+				return (size[0] > 0 || size[1] > 0 || size[2] > 0 || size[3] > 0);
 			}
-			Attribute<int> size;
-			Attribute<int> radius;
-			Attribute<ffw::Color> color;
+			Size size;
+			Radius radius;
+			Color color;
 		};
 
 		typedef Border Outline;
@@ -131,6 +137,7 @@ namespace ffw {
 
 		class Background {
 		public:
+			typedef Attribute<int> Radius;
 			enum class Type {
 				NONE = 0,
 				SIMPLE,

@@ -63,7 +63,8 @@ namespace ffw{
 			else return objects[i].vtCount > 0;
 		}
 		inline const std::string& GetObjectName(unsigned int i) const {
-			if(i >= objects.size())return "";
+			static const std::string empty = "";
+			if(i >= objects.size())return empty;
 			else return objects[i].name;
 		}
 		size_t CalculateObjectPolyCount();

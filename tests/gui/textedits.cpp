@@ -1,6 +1,7 @@
-#include "../units.h"
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
+#define CATCH_CONFIG_MAIN
+#include "../catch.hpp"
 
 ///=============================================================================
 class App : public ffw::AppRenderWindow {
@@ -12,6 +13,12 @@ public:
 	}
 
 	void WidgetEvent(ffw::GuiEvent e) {
+		if (e.type == ffw::GuiEvent::Type::INPUT) {
+			std::cout << "Character was added: " << (char)e.data.input.chr << std::endl;
+		}
+		if (e.type == ffw::GuiEvent::Type::CLICKED) {
+			std::cout << "Widget was selected: " << e.widget << std::endl;
+		}
 	}
 
 	bool Setup() override {
@@ -39,63 +46,30 @@ public:
 		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
 		gui.SetWrap(false);
 
-		auto vlayout = new ffw::GuiVerticalLayout(&gui);
-		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
-		gui.AddWidget(vlayout);
+		{
+			auto layout = new ffw::GuiVerticalLayout(&gui);
+			layout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+			gui.AddWidget(layout);
 
-		auto slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		vlayout->AddWidget(slider);
+			auto textinput = new ffw::GuiTextInput(&gui);
+			textinput->AddEventCallback(&App::WidgetEvent, this);
+			textinput->SetValue(L"Hello World!");
+			layout->AddWidget(textinput);
 
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetHover(true);
-		vlayout->AddWidget(slider);
+			textinput = new ffw::GuiTextInput(&gui);
+			textinput->AddEventCallback(&App::WidgetEvent, this);
+			textinput->AddRangeLimit('0', '9');
+			textinput->AddListOfLimits({ '.', '-', '+' });
+			textinput->SetValue(L"01234");
+			layout->AddWidget(textinput);
 
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetFocus(true);
-		vlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetDisabled(true);
-		vlayout->AddWidget(slider);
-
-		auto hlayout = new ffw::GuiHorizontalLayout(&gui);
-		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
-		gui.AddWidget(hlayout);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		hlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetHover(true);
-		hlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetFocus(true);
-		hlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetDisabled(true);
-		hlayout->AddWidget(slider);
+			textinput = new ffw::GuiTextInput(&gui);
+			textinput->AddEventCallback(&App::WidgetEvent, this);
+			textinput->AddRangeLimit('A', 'Z');
+			textinput->SetValue(L"UPPER CASE ONLY");
+			textinput->AddListOfLimits({ ' ' });
+			layout->AddWidget(textinput);
+		}
 
 		return true;
 	}
@@ -141,10 +115,9 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Sliders) {
-	if (!ffw::InitGraphics()) {
-		TEST_FAIL_MSG("Failed to initialize graphics!");
-	}
+
+TEST_CASE("Gui Text Edits") {
+	REQUIRE(ffw::InitGraphics());
 
 	// Instance to our app class
 	App app;
@@ -152,20 +125,14 @@ TEST(Gui, Sliders) {
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
 	args.size.Set(400, 180);
-	args.title = "Test Gui Sliders";
+	args.title = "Test Gui";
 	args.samples = 4;
 
 	// Create window
-	if (!app.Create(args, NULL)) {
-		TEST_FAIL_MSG("Failed to create window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Create(args, NULL));
 
 	// Run setup
-	if (!app.Setup()) {
-		TEST_FAIL_MSG("Failed to setup window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Setup());
 
 	app.SetSingleBufferMode(true);
 

@@ -1,6 +1,7 @@
-#include "../units.h"
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
+#define CATCH_CONFIG_MAIN
+#include "../catch.hpp"
 
 ///=============================================================================
 class App : public ffw::AppRenderWindow {
@@ -36,66 +37,23 @@ public:
 		}
 
 		gui.SetPadding(10);
-		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
+		gui.SetOrientation(ffw::GuiLayout::Orientation::VERTICAL);
 		gui.SetWrap(false);
 
-		auto vlayout = new ffw::GuiVerticalLayout(&gui);
-		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
-		gui.AddWidget(vlayout);
+		auto tabs = new ffw::GuiTabs(&gui);
+		gui.AddWidget(tabs);
 
-		auto slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		vlayout->AddWidget(slider);
+		static const std::string days[7] = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" };
 
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetHover(true);
-		vlayout->AddWidget(slider);
+		for (const auto& day : days) {
+			auto label = new ffw::GuiLabel(&gui, "This is a tab for: " + day + (day == days[1] ? "\n\nWith extra Line!" : ""));
+			auto layout = new ffw::GuiVerticalLayout(&gui);
+			layout->AddWidget(label);
+			tabs->AddTab(day, layout);
+		}
 
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetFocus(true);
-		vlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetDisabled(true);
-		vlayout->AddWidget(slider);
-
-		auto hlayout = new ffw::GuiHorizontalLayout(&gui);
-		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
-		gui.AddWidget(hlayout);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		hlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetHover(true);
-		hlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetFocus(true);
-		hlayout->AddWidget(slider);
-
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetDisabled(true);
-		hlayout->AddWidget(slider);
+		auto button = new ffw::GuiButtonToggle(&gui, "Button");
+		gui.AddWidget(button);
 
 		return true;
 	}
@@ -117,6 +75,9 @@ public:
 
 	void KeyPressedEvent(ffw::Key key, ffw::Mode mode) override {
 		gui.InjectKey(key, mode);
+		if (key == ffw::Key::A && mode == ffw::Mode::PRESSED) {
+			std::cout << std::endl << std::endl;
+		}
 	}
 
 	void MouseMovedEvent(int mousex, int mousey) override {
@@ -141,31 +102,24 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Sliders) {
-	if (!ffw::InitGraphics()) {
-		TEST_FAIL_MSG("Failed to initialize graphics!");
-	}
+
+TEST_CASE("Gui Tabs") {
+	REQUIRE(ffw::InitGraphics());
 
 	// Instance to our app class
 	App app;
 
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
-	args.size.Set(400, 180);
-	args.title = "Test Gui Sliders";
+	args.size.Set(600, 600);
+	args.title = "Test Gui";
 	args.samples = 4;
 
 	// Create window
-	if (!app.Create(args, NULL)) {
-		TEST_FAIL_MSG("Failed to create window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Create(args, NULL));
 
 	// Run setup
-	if (!app.Setup()) {
-		TEST_FAIL_MSG("Failed to setup window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Setup());
 
 	app.SetSingleBufferMode(true);
 

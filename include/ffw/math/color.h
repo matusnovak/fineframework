@@ -1,49 +1,303 @@
-/* This file is part of FineFramework project */
+/* floathis file is part of FineFramework project */
 #ifndef FFW_COLOR
 #define FFW_COLOR
-
+#include <math.h>
 namespace ffw {
 	/**
-	 * @ingroup math
-	 */
-    class Color {
+	* @ingroup math
+	*/
+	struct Color {
 	public:
-        float r;
-        float g;
-        float b;
-        float a;
-        Color(float R, float G, float B, float A);
-        Color(float R, float G, float B);
-        Color(float Grey);
-        Color();
-        void Set(float R, float G, float B, float A);
-        void Set(float R, float G, float B);
-        void Set(float Grey);
-        Color& operator =  (const Color &color);
-        Color  operator +  (const Color &color) const;
-        Color& operator += (const Color &color);
-        Color  operator -  (const Color &color) const;
-        Color& operator -= (const Color &color);
-		bool operator == (const Color& other) const;
-        Color& Clamp();
-        Color& Normalize();
-    };
+		float x;
+		float y;
+		float z;
+		float w;
+		float& r = x;
+		float& g = y;
+		float& b = z;
+		float& a = w;
+		inline Color() {
+			x = 0;
+			y = 0;
+			z = 0;
+			w = 0;
+		}
+
+		inline Color(float compx, float compy, float compz, float compw) {
+			x = compx;
+			y = compy;
+			z = compz;
+			w = compw;
+		}
+
+		inline Color(float val) {
+			x = val;
+			y = val;
+			z = val;
+			w = val;
+		}
+
+		inline Color(const Color& vec) {
+			x = vec.x;
+			y = vec.y;
+			z = vec.z;
+			w = vec.w;
+		}
+
+		inline Color(const std::initializer_list<float>& list) {
+			if (list.size() != 4) {
+				x = 0;
+				y = 0;
+				z = 0;
+				w = 0;
+				return;
+			}
+			x = *(list.begin());
+			y = *(list.begin() + 1);
+			z = *(list.begin() + 2);
+			w = *(list.begin() + 3);
+		}
+
+		inline void Set(float compx, float compy, float compz, float compw) {
+			x = compx;
+			y = compy;
+			z = compz;
+			w = compw;
+		}
+
+		inline void Set(float val) {
+			x = val;
+			y = val;
+			z = val;
+			w = val;
+		}
+
+		inline void Set(const Color& vec) {
+			x = vec.x;
+			y = vec.y;
+			z = vec.z;
+			w = vec.w;
+		}
+
+		inline void Set(const std::initializer_list<float>& list) {
+			if (list.size() != 4)return;
+			x = *(list.begin());
+			y = *(list.begin() + 1);
+			z = *(list.begin() + 2);
+			w = *(list.begin() + 3);
+		}
+
+		inline ffw::Color  operator - () const {
+			return Color(-x, -y, -z, -w);
+		}
+
+		inline ffw::Color& operator =  (const Color& vec) {
+			x = vec.x;
+			y = vec.y;
+			z = vec.z;
+			w = vec.w;
+			return *this;
+		}
+
+		inline ffw::Color  operator +  (const Color& vec) const {
+			return Color(x + vec.x, y + vec.y, z + vec.z, w + vec.w);
+		}
+
+		inline ffw::Color& operator += (const Color& vec) {
+			x += vec.x;
+			y += vec.y;
+			z += vec.z;
+			w += vec.w;
+			return *this;
+		}
+
+		inline ffw::Color  operator -  (const Color& vec) const {
+			return Color(x - vec.x, y - vec.y, z - vec.z, w - vec.w);
+		}
+
+		inline ffw::Color& operator -= (const Color& vec) {
+			x -= vec.x;
+			y -= vec.y;
+			z -= vec.z;
+			w -= vec.w;
+			return *this;
+		}
+
+		inline ffw::Color  operator /  (const Color& vec) const {
+			return Color(x / vec.x, y / vec.y, z / vec.z, w / vec.w);
+		}
+
+		inline ffw::Color& operator /= (const Color& vec) {
+			x /= vec.x;
+			y /= vec.y;
+			z /= vec.z;
+			w /= vec.w;
+			return *this;
+		}
+
+		inline ffw::Color  operator *  (const Color& vec) const {
+			return Color(x * vec.x, y * vec.y, z * vec.z, w * vec.w);
+		}
+
+		inline ffw::Color& operator *= (const Color& vec) {
+			x *= vec.x;
+			y *= vec.y;
+			z *= vec.z;
+			w *= vec.w;
+			return *this;
+		}
+
+		inline ffw::Color& operator =  (const float& val) {
+			x = val;
+			y = val;
+			z = val;
+			w = val;
+			return *this;
+		}
+
+		inline ffw::Color  operator +  (const float& val) const {
+			return Color(x + val, y + val, z + val, w + val);
+		}
+
+		inline ffw::Color& operator += (const float& val) {
+			x += val;
+			y += val;
+			z += val;
+			w += val;
+			return *this;
+		}
+
+		inline ffw::Color  operator -  (const float& val) const {
+			return Color(x - val, y - val, z - val, w - val);
+		}
+
+		inline ffw::Color& operator -= (const float& val) {
+			x -= val;
+			y -= val;
+			z -= val;
+			w -= val;
+			return *this;
+		}
+
+		inline ffw::Color  operator /  (const float& val) const {
+			return Color(x / val, y / val, z / val, w / val);
+		}
+
+		inline ffw::Color& operator /= (const float& val) {
+			x /= val;
+			y /= val;
+			z /= val;
+			w /= val;
+			return *this;
+		}
+
+		inline ffw::Color  operator *  (const float& val) const {
+			return Color(x * val, y * val, z * val, w * val);
+		}
+
+		inline ffw::Color& operator *= (const float& val) {
+			x *= val;
+			y *= val;
+			z *= val;
+			w *= val;
+			return *this;
+		}
+
+		inline bool operator != (const Color& vec) const {
+			return !(*this == vec);
+		}
+
+		inline bool operator == (const Color& vec) const {
+			if (fabs(x - vec.x) > std::numeric_limits<float>::epsilon())return false;
+			if (fabs(y - vec.y) > std::numeric_limits<float>::epsilon())return false;
+			if (fabs(z - vec.z) > std::numeric_limits<float>::epsilon())return false;
+			if (fabs(w - vec.w) > std::numeric_limits<float>::epsilon())return false;
+			return true;
+		}
+
+		inline ffw::Color& Clamp() {
+			x = std::max(0.0f, std::min(x, 1.0f));
+			y = std::max(0.0f, std::min(x, 1.0f));
+			z = std::max(0.0f, std::min(x, 1.0f));
+			w = std::max(0.0f, std::min(x, 1.0f));
+			return *this;
+		}
+
+		inline ffw::Color& Normalize() {
+			float l = sqrtf(x*x + y*y + z*z + w*w);
+			if (l > 0) {
+				x = x / l;
+				y = y / l;
+				z = z / l;
+				if (w > 1.0f)w = 1.0f;
+				if (w < 0.0f)w = 0.0f;
+			}
+			return *this;
+		}
+
+		inline ffw::Color& Scale(const float val) {
+			x = x*val;
+			y = y*val;
+			z = z*val;
+			w = w*val;
+			return *this;
+		}
+
+		inline double Length() const {
+			return sqrt(static_cast<double>(x*x + y*y + z*z + w*w));
+		}
+
+		inline float Lengthf() const {
+			return sqrtf(static_cast<float>(x*x + y*y + z*z + w*w));
+		}
+
+		inline float LengthSqrd() const {
+			return (x*x + y*y + z*z + w*w);
+		}
+	};
 	/**
-	 * @ingroup math
-	 */
-	Color Rgb(unsigned long hex);
+	* @ingroup math
+	*/
+	inline Color Rgb(unsigned long Hex) {
+		return Color(
+			((Hex & 0xFF0000) >> 16) / 255.0f,
+			((Hex & 0x00FF00) >> 8) / 255.0f,
+			(Hex & 0x0000FF) / 255.0f,
+			1.0f
+		);
+	}
 	/**
-	 * @ingroup math
-	 */
-	Color Rgb(unsigned char red, unsigned char green, unsigned char blue);
+	* @ingroup math
+	*/
+	inline Color Rgb(unsigned char Red, unsigned char Green, unsigned char Blue) {
+		return Color(
+			Red / 255.0f,
+			Green / 255.0f,
+			Blue / 255.0f,
+			1.0f
+		);
+	}
 	/**
-	 * @ingroup math
-	 */
-	Color Rgba(unsigned long hex);
+	* @ingroup math
+	*/
+	inline Color Rgba(unsigned long Hex) {
+		return Color(
+			((Hex & 0xFF000000) >> 24) / 255.0f,
+			((Hex & 0x00FF0000) >> 16) / 255.0f,
+			((Hex & 0x0000FF00) >> 8) / 255.0f,
+			(Hex & 0x000000FF) / 255.0f
+		);
+	}
 	/**
-	 * @ingroup math
-	 */
-	Color Rgba(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha);
+	* @ingroup math
+	*/
+	inline Color Rgba(unsigned char Red, unsigned char Green, unsigned char Blue, unsigned char Alpha) {
+		return Color(
+			Red / 255.0f,
+			Green / 255.0f,
+			Blue / 255.0f,
+			Alpha / 255.0f
+		);
+	}
 };
-#include "color.inl"
 #endif

@@ -4,8 +4,11 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiScrollable::GuiScrollable(GuiWindow* context, GuiLayout::Orientation orient, bool hori, bool vert) :GuiWidget(context) {
+ffw::GuiScrollable::GuiScrollable(GuiWindow* context, GuiWidget* widget, bool hori, bool vert) :GuiWidget(context) {
 	ignoreinputflag = true;
+
+	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLABLE");
+	SetDefaults(&widgetStyle->defaults);
 
 	SetSize(ffw::GuiPercent(100), ffw::GuiPixels(100));
 	SetMargin(0, 0, 5, 0);
@@ -15,18 +18,18 @@ ffw::GuiScrollable::GuiScrollable(GuiWindow* context, GuiLayout::Orientation ori
 
 	thickness = 14;
 
-	inner = new ffw::GuiLayout(context, orient);
+	inner = widget;
 	inner->SetMargin(0);
 	inner->AddEventCallback(&GuiScrollable::WidgetEvent, this, true);
 	inner->SetPadding(2);
 
-	GuiWidget::AddWidget(inner);
+	GuiWidget::AddWidgetInternal(inner);
 	if (vert) {
 		vscroll = new ffw::GuiScrollbar(context, true);
 		vscroll->SetMargin(0);
 		vscroll->AddEventCallback(&GuiScrollable::WidgetEvent, this, true);
 		vscroll->SetValue(0);
-		GuiWidget::AddWidget(vscroll);
+		GuiWidget::AddWidgetInternal(vscroll);
 	}
 	else {
 		vscroll = NULL;
@@ -36,7 +39,7 @@ ffw::GuiScrollable::GuiScrollable(GuiWindow* context, GuiLayout::Orientation ori
 		hscroll->SetMargin(0);
 		hscroll->AddEventCallback(&GuiScrollable::WidgetEvent, this, true);
 		hscroll->SetValue(0);
-		GuiWidget::AddWidget(hscroll);
+		GuiWidget::AddWidgetInternal(hscroll);
 	}
 	else {
 		hscroll = NULL;
@@ -159,6 +162,7 @@ void ffw::GuiScrollable::EventDisabled(bool disabled) {
 ///=============================================================================
 void ffw::GuiScrollable::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLABLE");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -173,4 +177,13 @@ ffw::Vec2i ffw::GuiScrollable::GetMinimumWrapSize() const {
 	}
 
 	return s;
+}
+
+ffw::GuiScrollableLayout::GuiScrollableLayout(GuiWindow* context, GuiLayout::Orientation orientation, bool hori, bool vert):
+	GuiScrollable(context, new ffw::GuiLayout(context, orientation), hori, vert){
+
+}
+
+ffw::GuiScrollableLayout::~GuiScrollableLayout() {
+
 }

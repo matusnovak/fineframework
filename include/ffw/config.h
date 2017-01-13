@@ -46,6 +46,16 @@
 #endif
 // FineFramework export for Windows
 #if defined(FFW_WINDOWS)
+
+#ifndef NOMINMAX
+#define NOMINMAX
+#include <Windows.h>
+#undef NOMINMAX
+#else
+#include <Windows.h>
+#endif
+
+#undef NOMINMAX
 #ifdef FFW_EXPORTS
 #define FFW_API __declspec(dllexport)
 #else

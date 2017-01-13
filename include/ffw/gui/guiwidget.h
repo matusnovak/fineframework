@@ -21,6 +21,7 @@ namespace ffw {
 			HOVER,
 			FOCUS,
 			STATE,
+			INPUT
 		};
 		union Data {
 			struct ClickedData {
@@ -56,6 +57,10 @@ namespace ffw {
 			struct StateData {
 				bool disabled;
 			} state;
+
+			struct InputData {
+				wchar_t chr;
+			} input;
 		};
 		GuiWidget* widget;
 		Type type;
@@ -144,8 +149,12 @@ namespace ffw {
 		void Invalidate();
 		void SetParent(GuiWidget* parent);
 		const GuiWidget* GetParent() const;
-		bool HasHover() const;
-		bool HasFocus() const;
+		inline bool HasHover() const {
+			return hoverflag;
+		}
+		inline bool HasFocus() const {
+			return focusflag;
+		}
 		void SetFocus(bool f);
 		void SetHover(bool h);
 		void SetDisabled(bool d);
@@ -153,7 +162,12 @@ namespace ffw {
 		void SetIgnoreUserInput(bool d);
 		void Hide();
 		void Show();
-		bool IsHidden() const;
+		inline bool IsHidden() const {
+			return hidden;
+		}
+		inline bool IsDisabled() const {
+			return disableflag;
+		}
 		void SetFont(const GuiFont* font);
 		const GuiFont* GetFont() const;
 		const GuiFont* GetCurrentFont() const;
@@ -211,13 +225,16 @@ namespace ffw {
 		}
 	protected:
 		void TraverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size);
-		void AddWidget(GuiWidget* widget);
-		void AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget);
-		void AddWidgetBefore(const GuiWidget* next, GuiWidget* widget);
-		void DeleteWidgets();
-		bool DeleteSingleWidget(GuiWidget* widget);
+		GuiWidget* AddWidgetInternal(GuiWidget* widget);
+		GuiWidget* AddWidgetAfterInternal(const GuiWidget* previous, GuiWidget* widget);
+		GuiWidget* AddWidgetBeforeInternal(const GuiWidget* next, GuiWidget* widget);
+		void DeleteWidgetsInternal();
+		bool DeleteSingleWidgetInternal(const GuiWidget* widget);
 		void SetOrientation(Orientation orientation);
 		void PushEvent(GuiEvent::Type type, GuiEvent::Data data);
+		inline const std::vector<GuiWidget*>& GetAllWidgets() const {
+			return widgets;
+		}
 		void RecalculatePos();
 		void RecalculateSize();
 		void RenderComponent(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle* group);
@@ -237,16 +254,14 @@ namespace ffw {
 		bool togglefocusflag;
 		bool stickyfocusflag;
 		GuiWindow* context;
+		const GuiStyleGroup* widgetStyle;
+	private:
+		void InvalidateAll();
 		ffw::Vec2i sizereal;
 		ffw::Vec2i posreal;
 		bool hoverflag;
 		bool focusflag;
 		bool disableflag;
-		const GuiStyleGroup* widgetStyle;
-		GuiWidget* callbackPtr;
-		GuiWidget* parent;
-		GuiCallback eventCallbacks;
-	private:
 		ffw::Vec2<GuiUnits> size;
 		ffw::Vec2<GuiUnits> pos;
 		ffw::Vec2i mouseold;
@@ -270,6 +285,9 @@ namespace ffw {
 		const GuiFont* widgetfont;
 		GuiStyle::Align align;
 		unsigned long id;
+		GuiWidget* callbackPtr;
+		GuiWidget* parent;
+		GuiCallback eventCallbacks;
 	};
 }
 #endif

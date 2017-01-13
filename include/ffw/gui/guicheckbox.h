@@ -2,7 +2,6 @@
 #ifndef FFW_GUI_CHECKBOX
 #define FFW_GUI_CHECKBOX
 #include "guilabel.h"
-#include <functional>
 namespace ffw {
 	/**
 	 * @ingroup gui

@@ -2,7 +2,6 @@
 #ifndef FFW_GUI_RADIO
 #define FFW_GUI_RADIO
 #include "guilabel.h"
-#include <functional>
 
 namespace ffw {
 	/**
@@ -29,8 +28,6 @@ namespace ffw {
 		public:
 			Button(GuiWindow* context);
 			virtual ~Button();
-			void SetLabel(const std::string& label);
-			const std::string& GetLabel() const;
 			ffw::Vec2i GetMinimumWrapSize() const override;
 			GuiRadio::Value* group;
 			GuiRadio* parentradio;
@@ -46,7 +43,6 @@ namespace ffw {
 			void EventKey(ffw::Key key, ffw::Mode mode) override;
 			void EventDisabled(bool disabled) override;
 			virtual void EventThemeChanged(const GuiTheme* theme) override;
-			GuiCallback onclickcallback;
 		};
 		
 		GuiRadio(GuiWindow* context, const std::string& label, int base, GuiRadio* other = NULL);

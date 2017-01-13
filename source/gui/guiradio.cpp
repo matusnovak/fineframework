@@ -150,7 +150,7 @@ ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base
 	widgetbutton = new GuiRadio::Button(context);
 	widgetbutton->SetCallbackPtr(this);
 
-	AddWidget(widgetbutton);
+	AddWidgetInternal(widgetbutton);
 
 	if(other != NULL){
 		group = other->group;
@@ -165,7 +165,7 @@ ffw::GuiRadio::GuiRadio(GuiWindow* context, const std::wstring& label_, int base
 
 ///=============================================================================
 ffw::GuiRadio::~GuiRadio(){
-	DeleteWidgets();
+	DeleteWidgetsInternal();
 
 	group->Remove(this);
 	if(group->GetNumOfAssigned() == 0){

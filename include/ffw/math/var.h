@@ -616,6 +616,18 @@ namespace ffw {
             }
         }
 
+		inline bool exists(const std::string& key) {
+			return map.find(key) != map.end();
+		}
+
+		inline bool contains(const std::string& key) {
+			return map.find(key) != map.end();
+		}
+
+		inline bool has_key(const std::string& key) {
+			return map.find(key) != map.end();
+		}
+
         inline void swap(Object& other){
             std::swap(map, other.map);
         }
@@ -844,19 +856,19 @@ namespace ffw {
     }
 
     inline Var& Var::operator [] (const std::string& key){
-        return GetAs<Object>()[key];
+        return GetAs<Object>().at(key);
     }
 
     inline const Var& Var::operator [] (const std::string& key) const {
-        return GetAs<Object>()[key];
+        return GetAs<Object>().at(key);
     }
 
     inline Var& Var::operator [] (size_t n){
-        return GetAs<Array>()[n];
+        return GetAs<Array>().at(n);
     }
 
     inline const Var& Var::operator [] (size_t n) const {
-        return GetAs<Array>()[n];
+        return GetAs<Array>().at(n);
     }
 }
 

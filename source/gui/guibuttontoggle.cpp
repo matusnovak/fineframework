@@ -16,3 +16,13 @@ ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::wstring& la
 ///=============================================================================
 ffw::GuiButtonToggle::~GuiButtonToggle(){
 }
+
+///=============================================================================
+void ffw::GuiButtonToggle::SetValue(bool value) {
+	SetFocus(value);
+}
+
+///=============================================================================
+bool ffw::GuiButtonToggle::GetValue() const {
+	return HasFocus();
+}

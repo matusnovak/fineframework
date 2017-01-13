@@ -1,6 +1,7 @@
-#include "../units.h"
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
+#define CATCH_CONFIG_MAIN
+#include "../catch.hpp"
 
 ///=============================================================================
 class App : public ffw::AppRenderWindow {
@@ -12,6 +13,12 @@ public:
 	}
 
 	void WidgetEvent(ffw::GuiEvent e) {
+		if (e.type == ffw::GuiEvent::Type::CHANGED) {
+			std::cout << "Selected changed to: " << e.data.changed.value << std::endl;
+		}
+		if (e.type == ffw::GuiEvent::Type::CLICKED) {
+			std::cout << "Widget was selected: " << e.widget << std::endl;
+		}
 	}
 
 	bool Setup() override {
@@ -37,65 +44,60 @@ public:
 
 		gui.SetPadding(10);
 		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
-		gui.SetWrap(false);
+		gui.SetWrap(true);
 
-		auto vlayout = new ffw::GuiVerticalLayout(&gui);
-		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
-		gui.AddWidget(vlayout);
+		auto list = new ffw::GuiList(&gui);
+		list->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		list->SetMargin(ffw::GuiPercent(2));
+		list->AddEventCallback(&App::WidgetEvent, this);
+		gui.AddWidget(list);
 
-		auto slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		vlayout->AddWidget(slider);
+		for (int i = 0; i < 20; i++) {
+			auto item = list->AddItem("Item #" + ffw::ValToString(i));
+			item->AddEventCallback(&App::WidgetEvent, this);
+		}
 
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetHover(true);
-		vlayout->AddWidget(slider);
+		list->SetSelected(5);
 
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetFocus(true);
-		vlayout->AddWidget(slider);
+		list = new ffw::GuiList(&gui);
+		list->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		list->SetMargin(ffw::GuiPercent(2));
+		list->AddEventCallback(&App::WidgetEvent, this);
+		list->GetVscroll()->SetIgnoreUserInput(true);
+		list->GetVscroll()->SetHover(true);
+		gui.AddWidget(list);
 
-		slider = new ffw::GuiSlider(&gui, false);
-		slider->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		slider->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		slider->SetDisabled(true);
-		vlayout->AddWidget(slider);
+		for (int i = 0; i < 20; i++) {
+			auto item = list->AddItem("Item #" + ffw::ValToString(i));
+			item->AddEventCallback(&App::WidgetEvent, this);
+		}
 
-		auto hlayout = new ffw::GuiHorizontalLayout(&gui);
-		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
-		gui.AddWidget(hlayout);
+		list = new ffw::GuiList(&gui);
+		list->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		list->SetMargin(ffw::GuiPercent(2));
+		list->AddEventCallback(&App::WidgetEvent, this);
+		list->GetVscroll()->SetIgnoreUserInput(true);
+		list->GetVscroll()->SetFocus(true);
+		gui.AddWidget(list);
 
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		hlayout->AddWidget(slider);
+		for (int i = 0; i < 20; i++) {
+			auto item = list->AddItem("Item #" + ffw::ValToString(i));
+			item->AddEventCallback(&App::WidgetEvent, this);
+		}
 
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetHover(true);
-		hlayout->AddWidget(slider);
+		list = new ffw::GuiList(&gui);
+		list->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
+		list->SetMargin(ffw::GuiPercent(2));
+		list->AddEventCallback(&App::WidgetEvent, this);
+		list->GetVscroll()->SetDisabled(true);
+		gui.AddWidget(list);
 
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetIgnoreUserInput(true);
-		slider->SetFocus(true);
-		hlayout->AddWidget(slider);
+		for (int i = 0; i < 20; i++) {
+			auto item = list->AddItem("Item #" + ffw::ValToString(i));
+			item->AddEventCallback(&App::WidgetEvent, this);
+		}
 
-		slider = new ffw::GuiSlider(&gui, true);
-		slider->SetSize(ffw::GuiPercent(20), ffw::GuiPercent(100));
-		slider->SetMargin(0, ffw::GuiPercent(5), 0, 0);
-		slider->SetDisabled(true);
-		hlayout->AddWidget(slider);
+		list->SetDisabled(true);
 
 		return true;
 	}
@@ -141,31 +143,24 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Sliders) {
-	if (!ffw::InitGraphics()) {
-		TEST_FAIL_MSG("Failed to initialize graphics!");
-	}
+
+TEST_CASE("Gui Lists") {
+	REQUIRE(ffw::InitGraphics());
 
 	// Instance to our app class
 	App app;
 
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
-	args.size.Set(400, 180);
-	args.title = "Test Gui Sliders";
+	args.size.Set(400, 400);
+	args.title = "Test Gui";
 	args.samples = 4;
 
 	// Create window
-	if (!app.Create(args, NULL)) {
-		TEST_FAIL_MSG("Failed to create window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Create(args, NULL));
 
 	// Run setup
-	if (!app.Setup()) {
-		TEST_FAIL_MSG("Failed to setup window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Setup());
 
 	app.SetSingleBufferMode(true);
 

@@ -784,7 +784,394 @@ const ffw::GuiTheme ffw::GuiTheme::Windows({
 				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
 				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
 				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 0, 0),
+				ffw::GuiStyle::Padding(1),
+				ffw::GuiStyle::Align::TOP_LEFT,
+				ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), ffw::GuiWrap())
 			)
 		)
 	},
+	{
+		"GUI_LIST",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 0, 0),
+				ffw::GuiStyle::Padding(1),
+				ffw::GuiStyle::Align::TOP_LEFT,
+				ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), ffw::GuiWrap())
+			)
+		)
+	},
+	{
+		"GUI_LIST_ITEM",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xCCE4FF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x3397FE), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 0, 0),
+				ffw::GuiStyle::Padding(5, 5, 5, 5),
+				ffw::GuiStyle::Align::TOP_LEFT,
+				ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), ffw::GuiWrap())
+			)
+		)
+	},
+	{
+		"GUI_SWITCH",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 5, 0),
+				ffw::GuiStyle::Padding(2),
+				ffw::GuiStyle::Align::CENTER,
+				ffw::Vec2<GuiUnits>(ffw::GuiPixels(32), ffw::GuiPixels(16))
+			)
+		)
+	},
+	{
+		"GUI_SWITCH_BUTTON",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xE1E1E1), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xE5F1FB), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0x0078D7)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x00AB1C), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0x005499)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xCACACA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xBEBEBE)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x828282)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			)
+		)
+	},
+	{
+		"GUI_TABS",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 5, 0),
+				ffw::GuiStyle::Padding(0),
+				ffw::GuiStyle::Align::TOP_LEFT,
+				ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), ffw::GuiWrap())
+			)
+		)
+	},
+	{
+		"GUI_TABS_BAR",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::NONE),
+				ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 0, 0),
+				ffw::GuiStyle::Padding(0),
+				ffw::GuiStyle::Align::TOP_LEFT,
+				ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), ffw::GuiWrap())
+			)
+		)
+	},
+	{
+		"GUI_TABS_CONTENT",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0xFFFFFF)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 0, 0),
+				ffw::GuiStyle::Padding(10),
+				ffw::GuiStyle::Align::TOP_LEFT,
+				ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), ffw::GuiWrap())
+			)
+		)
+	},
+	{
+		"GUI_TABS_BUTTON",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xE1E1E1), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(ffw::GuiStyle::Border::Size(1, 1, 0, 1), 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xE5F1FB), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(ffw::GuiStyle::Border::Size(1, 1, 0, 1), 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(ffw::GuiStyle::Border::Size(1, 1, 0, 1), 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xCACACA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(ffw::GuiStyle::Border::Size(1, 1, 0, 1), 0, ffw::Rgb(0xBEBEBE)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x828282)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 0, 0),
+				ffw::GuiStyle::Padding(5),
+				ffw::GuiStyle::Align::CENTER,
+				ffw::Vec2<GuiUnits>(ffw::GuiWrap(), ffw::GuiWrap())
+			)
+		)
+	},
+	{
+		"GUI_TEXT_INPUT",
+		ffw::GuiStyleGroup(
+			// Normal
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xADADAD)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xCCE4FF))
+			),
+			// Hover
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0x0078D7)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xCCE4FF))
+			),
+			// Active
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xFFFFFF), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0x005499)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x222222)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xCCE4FF))
+			),
+			// Disabled
+			ffw::GuiStyle(
+				ffw::GuiStyle::Background(0, ffw::Rgb(0xCACACA), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
+				ffw::GuiStyle::Border(1, 0, ffw::Rgb(0xBEBEBE)),
+				ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
+				ffw::GuiStyle::Text(ffw::Rgb(0x828282)),
+				ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
+			),
+			ffw::GuiDefaults(
+				ffw::GuiStyle::Margin(0, 0, 5, 0),
+				ffw::GuiStyle::Padding(2),
+				ffw::GuiStyle::Align::TOP_LEFT,
+				ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), ffw::GuiWrap())
+			)
+		)
+	}
 });

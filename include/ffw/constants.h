@@ -36,8 +36,8 @@ namespace ffw {
 		LEFT = 0,
 		RIGHT = 1,
 		MIDDLE = 2,
-		XBUTTON1 = 3,
-		XBUTTON2 = 4,
+		EXTRA1 = 3,
+		EXTRA2 = 4,
 	};
 	enum Mode {
 		RELEASED = 0,

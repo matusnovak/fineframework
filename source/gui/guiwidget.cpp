@@ -127,7 +127,7 @@ ffw::GuiWidget::GuiWidget(GuiWindow* ctx):context(ctx){
 
 ///=============================================================================
 ffw::GuiWidget::~GuiWidget(){
-	DeleteWidgets();
+	DeleteWidgetsInternal();
 }
 
 ///=============================================================================
@@ -150,6 +150,9 @@ void ffw::GuiWidget::RecalculatePos(){
 
 ///=============================================================================
 void ffw::GuiWidget::RecalculateSize(){
+	// Do not recalculate when called from the parent directly
+	// without setting the flag first
+	if (!invalidateflag)return;
 	invalidateflag = false;
 
 	ffw::Vec2i oldsizereal = sizereal;
@@ -188,6 +191,7 @@ void ffw::GuiWidget::RecalculateSize(){
 
 	//std::cout << ">>> recalculating" << std::endl;
 	//if(parent != NULL)std::cout << "parent size: " << parent->sizereal << std::endl;
+	//std::cout << "RecalculateSize for: " << typeid(*this).name() << " BEGIN" << std::endl;
 
 	int maxheight = 0;
 	int maxwidth = 0;
@@ -232,9 +236,8 @@ void ffw::GuiWidget::RecalculateSize(){
 			maxheight = std::max(maxheight, testheight);
 
 			//std::cout << "widget: " << typeid(*w).name() << " put at: " << w->GetAbsolutePos() << " parent size: " << this->GetRealSize() << std::endl;
-
 			totalsize.x = std::max(totalsize.x, left);
-			totalsize.y = std::max(totalsize.y, maxheight);
+			totalsize.y = std::max(totalsize.y, std::max(top + testheight, maxheight));
 		}
 	} else if(orientation == Orientation::VERTICAL){
 		for(auto& w : widgets){
@@ -275,14 +278,16 @@ void ffw::GuiWidget::RecalculateSize(){
 			maxwidth = std::max(maxwidth, testwidth);
 
 			//std::cout << "widget: " << typeid(*w).name() << " put at: " << w->GetAbsolutePos() << " parent size: " << this->GetRealSize() << std::endl;
-
-			totalsize.x = std::max(totalsize.x, maxwidth);
+			totalsize.x = std::max(totalsize.x, std::max(maxwidth, left + testwidth));
 			totalsize.y = std::max(totalsize.y, top);
 		}
 	}
 	else if (orientation == Orientation::FIXED) {
 		for (auto& w : widgets) {
-			if (w->IsHidden())continue;
+			if (w->IsHidden()) {
+				//std::cout << "test for: " << typeid(*w).name() << " IS HIDDEN!" << std::endl;
+				continue;
+			}
 			// Recalculate widget size...
 			w->RecalculateSize();
 
@@ -290,19 +295,18 @@ void ffw::GuiWidget::RecalculateSize(){
 
 			ffw::Vec2i test;
 			test = w->GetRealPos() + w->GetRealSize();
+
 			totalsize.x = std::max(totalsize.x, test.x);
 			totalsize.y = std::max(totalsize.y, test.y);
 		}
 	}
-
-	//std::cout << "total: " << totalsize << std::endl;
 
 	auto min = GetMinimumWrapSize();
 	min.x += GetPaddingInPixels(1) + GetPaddingInPixels(3);
 	min.y += GetPaddingInPixels(0) + GetPaddingInPixels(2);
 
 	// Wrap X
-	if(size.x.inPercent && size.x.value == -1){
+	if(size.x == ffw::GuiWrap()){
 		//std::cout << "wrap X" << std::endl;
 		sizereal.x = totalsize.x;
 		if(!padding[1].inPercent)sizereal.x += padding[1].value;
@@ -311,7 +315,7 @@ void ffw::GuiWidget::RecalculateSize(){
 	}
 
 	// Wrap Y
-	if(size.y.inPercent && size.y.value == -1){
+	if(size.y == ffw::GuiWrap()){
 		//std::cout << "wrap Y" << std::endl;
 		sizereal.y = totalsize.y;
 		if(!padding[0].inPercent)sizereal.y += padding[0].value;
@@ -319,13 +323,15 @@ void ffw::GuiWidget::RecalculateSize(){
 		if (sizereal.y < min.y)sizereal.y = min.y;
 	}
 
-	//std::cout << "RecalculateSize() " << typeid(*this).name() << " sizereal: " << sizereal << " total: " << totalsize << std::endl;
-
+	//std::cout << "RecalculateSize for: " << typeid(*this).name() << " END sizereal: " << sizereal << " total: " << totalsize << " this size: " << size << std::endl;
+	//std::cout << "old: " << oldsizereal << " current: " << sizereal << std::endl;
 	if(oldsizereal != sizereal){
-		if(!first && parent != NULL && (parent->GetSize().x == ffw::GuiWrap() || parent->GetSize().y == ffw::GuiWrap())){
+		//std::cout << "OLD SIZE IS NOT SAME!!!" << std::endl;
+		if(!first && parent != NULL /*&& (parent->GetSize().x == ffw::GuiWrap() || parent->GetSize().y == ffw::GuiWrap())*/){
 			//std::cout << "================================" << std::endl;
 			//std::cout << "recalculating size of the parent..." << std::endl;
 			//std::cout << "previous size: " << oldsizereal << " new size: " << sizereal << std::endl;
+			parent->invalidateflag = true;
 			parent->RecalculateSize();
 		}
 
@@ -359,6 +365,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 	}
 	
 	if(invalidateflag){
+		//std::cout << "invalidateflag #1" << std::endl;
 		RecalculateSize();
 	}
 
@@ -377,6 +384,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		}
 		if (parent != NULL) {
 			parent->Invalidate();
+			//std::cout << "invalidateflag #3 called from: " << typeid(*this).name() << std::endl;
 			parent->RecalculateSize();
 			parent->Redraw();
 		}
@@ -431,6 +439,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 	}
 
 	if (invalidateflag) {
+		//std::cout << "invalidateflag #2" << std::endl;
 		RecalculateSize();
 	}
 
@@ -709,7 +718,7 @@ unsigned long ffw::GuiWidget::GetID() const {
 }
 
 ///=============================================================================
-void ffw::GuiWidget::AddWidget(GuiWidget* widget){
+ffw::GuiWidget* ffw::GuiWidget::AddWidgetInternal(GuiWidget* widget){
 	if(widget != NULL){
 		widgets.push_back(widget);
 		widgets.back()->SetParent(this);
@@ -717,11 +726,12 @@ void ffw::GuiWidget::AddWidget(GuiWidget* widget){
 		Invalidate();
 		Redraw();
 	}
+	return widget;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
-	if (widget == NULL || previous == NULL)return;
+ffw::GuiWidget* ffw::GuiWidget::AddWidgetAfterInternal(const GuiWidget* previous, GuiWidget* widget) {
+	if (widget == NULL || previous == NULL)return NULL;
 	auto it = std::find(widgets.begin(), widgets.end(), previous);
 	if (it == widgets.end()) {
 		widgets.push_back(widget);
@@ -731,11 +741,12 @@ void ffw::GuiWidget::AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget
 	}
 	Invalidate();
 	Redraw();
+	return widget;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
-	if (widget == NULL || next == NULL)return;
+ffw::GuiWidget* ffw::GuiWidget::AddWidgetBeforeInternal(const GuiWidget* next, GuiWidget* widget) {
+	if (widget == NULL || next == NULL)return NULL;
 	auto it = std::find(widgets.begin(), widgets.end(), next);
 	if (it == widgets.end()) {
 		widgets.push_back(widget);
@@ -745,10 +756,11 @@ void ffw::GuiWidget::AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
 	}
 	Invalidate();
 	Redraw();
+	return widget;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::DeleteWidgets() {
+void ffw::GuiWidget::DeleteWidgetsInternal() {
 	for (auto& w : widgets) {
 		delete w;
 	}
@@ -759,7 +771,7 @@ void ffw::GuiWidget::DeleteWidgets() {
 }
 
 ///=============================================================================
-bool ffw::GuiWidget::DeleteSingleWidget(GuiWidget* widget) {
+bool ffw::GuiWidget::DeleteSingleWidgetInternal(const GuiWidget* widget) {
 	auto it = std::find(widgets.begin(), widgets.end(), widget);
 	if (it == widgets.end())return false;
 
@@ -771,6 +783,12 @@ bool ffw::GuiWidget::DeleteSingleWidget(GuiWidget* widget) {
 }
 
 ///=============================================================================
+void ffw::GuiWidget::InvalidateAll() {
+	invalidateflag = true;
+	for (auto& w : widgets)w->InvalidateAll();
+}
+
+///=============================================================================
 void ffw::GuiWidget::SetSize(const ffw::Vec2<GuiUnits>& s){
 	if(size.x == s.x && size.y == s.y)return;
 
@@ -778,6 +796,8 @@ void ffw::GuiWidget::SetSize(const ffw::Vec2<GuiUnits>& s){
 	invalidateflag = true;
 	updateflag = true;
 	calleventsize = true;
+
+	InvalidateAll();
 
 	if(parent != NULL){
 		parent->Invalidate();
@@ -931,6 +951,7 @@ ffw::GuiStyle::Align ffw::GuiWidget::GetAlign() const {
 ///=============================================================================
 void ffw::GuiWidget::SetHidden(bool h) {
 	if(hidden != h) {
+		hidden = h;
 		shouldhideflag = (h ? 1 : -1);
 	}
 }
@@ -939,6 +960,7 @@ void ffw::GuiWidget::SetHidden(bool h) {
 void ffw::GuiWidget::Hide() {
 	if (!hidden) {
 		shouldhideflag = 1;
+		hidden = true;
 	}
 }
 
@@ -946,12 +968,8 @@ void ffw::GuiWidget::Hide() {
 void ffw::GuiWidget::Show() {
 	if (hidden) {
 		shouldhideflag = -1;
+		hidden = false;
 	}
-}
-
-///=============================================================================
-bool ffw::GuiWidget::IsHidden() const {
-	return hidden;
 }
 
 ///=============================================================================
@@ -1013,16 +1031,6 @@ void ffw::GuiWidget::Invalidate(){
 void ffw::GuiWidget::SetIgnoreUserInput(bool d) {
 	ignoreinputflag = d;
 	for (auto& w : widgets)w->SetIgnoreUserInput(d);
-}
-
-///=============================================================================
-bool ffw::GuiWidget::HasHover() const {
-	return hoverflag;
-}
-
-///=============================================================================
-bool ffw::GuiWidget::HasFocus() const {
-	return focusflag;
 }
 
 ///=============================================================================

@@ -1,6 +1,7 @@
-#include "../units.h"
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
+#define CATCH_CONFIG_MAIN
+#include "../catch.hpp"
 
 ///=============================================================================
 class App : public ffw::AppRenderWindow {
@@ -39,7 +40,7 @@ public:
 		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
 		gui.SetWrap(true);
 
-		auto scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		auto scrollable = new ffw::GuiScrollableLayout(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
 		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
 		scrollable->SetMargin(ffw::GuiPercent(2));
 		gui.AddWidget(scrollable);
@@ -49,7 +50,7 @@ public:
 			scrollable->GetInner()->AddWidget(button);
 		}
 
-		scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		scrollable = new ffw::GuiScrollableLayout(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
 		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
 		scrollable->SetMargin(ffw::GuiPercent(2));
 		scrollable->GetHscroll()->SetIgnoreUserInput(true);
@@ -63,7 +64,7 @@ public:
 			scrollable->GetInner()->AddWidget(button);
 		}
 
-		scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		scrollable = new ffw::GuiScrollableLayout(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
 		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
 		scrollable->SetMargin(ffw::GuiPercent(2));
 		scrollable->GetHscroll()->SetIgnoreUserInput(true);
@@ -77,7 +78,7 @@ public:
 			scrollable->GetInner()->AddWidget(button);
 		}
 
-		scrollable = new ffw::GuiScrollable(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
+		scrollable = new ffw::GuiScrollableLayout(&gui, ffw::GuiLayout::Orientation::VERTICAL, true, true);
 		scrollable->SetSize(ffw::GuiPercent(46), ffw::GuiPercent(46));
 		scrollable->SetMargin(ffw::GuiPercent(2));
 		scrollable->GetHscroll()->SetDisabled(true);
@@ -88,6 +89,8 @@ public:
 			auto button = new ffw::GuiButtonToggle(&gui, "Button");
 			scrollable->GetInner()->AddWidget(button);
 		}
+
+		scrollable->SetDisabled(true);
 
 		return true;
 	}
@@ -133,10 +136,9 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Scrollables) {
-	if (!ffw::InitGraphics()) {
-		TEST_FAIL_MSG("Failed to initialize graphics!");
-	}
+
+TEST_CASE("Gui Scrollables") {
+	REQUIRE(ffw::InitGraphics());
 
 	// Instance to our app class
 	App app;
@@ -144,20 +146,14 @@ TEST(Gui, Scrollables) {
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
 	args.size.Set(400, 400);
-	args.title = "Test Gui Scrollables";
+	args.title = "Test Gui";
 	args.samples = 4;
 
 	// Create window
-	if (!app.Create(args, NULL)) {
-		TEST_FAIL_MSG("Failed to create window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Create(args, NULL));
 
 	// Run setup
-	if (!app.Setup()) {
-		TEST_FAIL_MSG("Failed to setup window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Setup());
 
 	app.SetSingleBufferMode(true);
 

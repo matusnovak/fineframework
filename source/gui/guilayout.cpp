@@ -19,28 +19,28 @@ ffw::GuiLayout::~GuiLayout(){
 }
 
 ///=============================================================================
-void ffw::GuiLayout::AddWidget(GuiWidget* widget){
-	GuiWidget::AddWidget(widget);
+ffw::GuiWidget* ffw::GuiLayout::AddWidget(GuiWidget* widget){
+	return GuiWidget::AddWidgetInternal(widget);
 }
 
 ///=============================================================================
-void ffw::GuiLayout::AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
-	GuiWidget::AddWidgetAfter(previous, widget);
+ffw::GuiWidget* ffw::GuiLayout::AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
+	return GuiWidget::AddWidgetAfterInternal(previous, widget);
 }
 
 ///=============================================================================
-void ffw::GuiLayout::AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
-	GuiWidget::AddWidgetBefore(next, widget);
+ffw::GuiWidget* ffw::GuiLayout::AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
+	return GuiWidget::AddWidgetBeforeInternal(next, widget);
 }
 
 ///=============================================================================
 void ffw::GuiLayout::DeleteWidgets(){
-	GuiWidget::DeleteWidgets();
+	GuiWidget::DeleteWidgetsInternal();
 }
 
 ///=============================================================================
-bool ffw::GuiLayout::DeleteSingleWidget(GuiWidget* widget){
-	return GuiWidget::DeleteSingleWidget(widget);
+bool ffw::GuiLayout::DeleteSingleWidget(const GuiWidget* widget){
+	return GuiWidget::DeleteSingleWidgetInternal(widget);
 }
 
 ///=============================================================================

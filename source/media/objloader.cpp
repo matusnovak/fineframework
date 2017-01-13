@@ -174,7 +174,7 @@ bool ffw::ObjLoader::Open(const std::string& path){
 		std::string line;
 		lineNum++;
 
-		size_t pos = input.tellg();
+		size_t pos = (size_t)input.tellg();
 		std::getline(input, line);
 
 		// New set of vertices, must be a new object

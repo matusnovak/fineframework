@@ -12,41 +12,238 @@ namespace ffw {
         T y;
         T z;
         T w;
-        Vec4();
-        Vec4(T X, T Y, T Z, T W);
-        Vec4(T Value);
-        Vec4(const Vec4<T>& V);
-        Vec4(std::initializer_list<T> List);
-        void Set(T X, T Y, T Z, T W);
-        void Set(T Value);
-        void Set(const Vec4<T>& V);
-        void Set(std::initializer_list<T> List);
-        Vec4<T>  operator - () const;
-        Vec4<T>& operator =  (const Vec4<T>& V);
-        Vec4<T>  operator +  (const Vec4<T>& V) const;
-        Vec4<T>& operator += (const Vec4<T>& V);
-        Vec4<T>  operator -  (const Vec4<T>& V) const;
-        Vec4<T>& operator -= (const Vec4<T>& V);
-        Vec4<T>  operator /  (const Vec4<T>& V) const;
-        Vec4<T>& operator /= (const Vec4<T>& V);
-        Vec4<T>  operator *  (const Vec4<T>& V) const;
-        Vec4<T>& operator *= (const Vec4<T>& V);
-        Vec4<T>& operator =  (const T& Val);
-        Vec4<T>  operator +  (const T& Val) const;
-        Vec4<T>& operator += (const T& Val);
-        Vec4<T>  operator -  (const T& Val) const;
-        Vec4<T>& operator -= (const T& Val);
-        Vec4<T>  operator /  (const T& Val) const;
-        Vec4<T>& operator /= (const T& Val);
-        Vec4<T>  operator *  (const T& Val) const;
-        Vec4<T>& operator *= (const T& Val);
-        bool operator != (const Vec4<T>& V) const;
-        bool operator == (const Vec4<T>& V) const;
-        Vec4<T>& Normalize();
-        Vec4<T>& Scale(const T Val);
-        float Length() const;
-        T LengthSqrd() const;
-		template <class S> explicit operator Vec4<S>() const;
+
+		inline Vec4() {
+			x = 0;
+			y = 0;
+			z = 0;
+			w = 0;
+		}
+
+		inline Vec4(T compx, T compy, T compz, T compw) {
+			x = compx;
+			y = compy;
+			z = compz;
+			w = compw;
+		}
+
+		inline Vec4(T val) {
+			x = val;
+			y = val;
+			z = val;
+			w = val;
+		}
+
+		inline Vec4(const Vec4<T>& vec) {
+			x = vec.x;
+			y = vec.y;
+			z = vec.z;
+			w = vec.w;
+		}
+
+		inline Vec4(const std::initializer_list<T>& list) {
+			if (list.size() != 4) {
+				x = 0;
+				y = 0;
+				z = 0;
+				w = 0;
+				return;
+			}
+			x = *(list.begin());
+			y = *(list.begin() + 1);
+			z = *(list.begin() + 2);
+			w = *(list.begin() + 3);
+		}
+
+		inline void Set(T compx, T compy, T compz, T compw) {
+			x = compx;
+			y = compy;
+			z = compz;
+			w = compw;
+		}
+
+		inline void Set(T val) {
+			x = val;
+			y = val;
+			z = val;
+			w = val;
+		}
+
+		inline void Set(const Vec4<T>& vec) {
+			x = vec.x;
+			y = vec.y;
+			z = vec.z;
+			w = vec.w;
+		}
+
+		inline void Set(const std::initializer_list<T>& list) {
+			if (list.size() != 4)return;
+			x = *(list.begin());
+			y = *(list.begin() + 1);
+			z = *(list.begin() + 2);
+			w = *(list.begin() + 3);
+		}
+
+		inline ffw::Vec4<T>  operator - () const {
+			return Vec4<T>(-x, -y, -z, -w);
+		}
+
+		inline ffw::Vec4<T>& operator =  (const Vec4<T>& vec) {
+			x = vec.x;
+			y = vec.y;
+			z = vec.z;
+			w = vec.w;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator +  (const Vec4<T>& vec) const {
+			return Vec4<T>(x + vec.x, y + vec.y, z + vec.z, w + vec.w);
+		}
+
+		inline ffw::Vec4<T>& operator += (const Vec4<T>& vec) {
+			x += vec.x;
+			y += vec.y;
+			z += vec.z;
+			w += vec.w;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator -  (const Vec4<T>& vec) const {
+			return Vec4<T>(x - vec.x, y - vec.y, z - vec.z, w - vec.w);
+		}
+
+		inline ffw::Vec4<T>& operator -= (const Vec4<T>& vec) {
+			x -= vec.x;
+			y -= vec.y;
+			z -= vec.z;
+			w -= vec.w;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator /  (const Vec4<T>& vec) const {
+			return Vec4<T>(x / vec.x, y / vec.y, z / vec.z, w / vec.w);
+		}
+
+		inline ffw::Vec4<T>& operator /= (const Vec4<T>& vec) {
+			x /= vec.x;
+			y /= vec.y;
+			z /= vec.z;
+			w /= vec.w;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator *  (const Vec4<T>& vec) const {
+			return Vec4<T>(x * vec.x, y * vec.y, z * vec.z, w * vec.w);
+		}
+
+		inline ffw::Vec4<T>& operator *= (const Vec4<T>& vec) {
+			x *= vec.x;
+			y *= vec.y;
+			z *= vec.z;
+			w *= vec.w;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>& operator =  (const T& val) {
+			x = val;
+			y = val;
+			z = val;
+			w = val;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator +  (const T& val) const {
+			return Vec4<T>(x + val, y + val, z + val, w + val);
+		}
+
+		inline ffw::Vec4<T>& operator += (const T& val) {
+			x += val;
+			y += val;
+			z += val;
+			w += val;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator -  (const T& val) const {
+			return Vec4<T>(x - val, y - val, z - val, w - val);
+		}
+
+		inline ffw::Vec4<T>& operator -= (const T& val) {
+			x -= val;
+			y -= val;
+			z -= val;
+			w -= val;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator /  (const T& val) const {
+			return Vec4<T>(x / val, y / val, z / val, w / val);
+		}
+
+		inline ffw::Vec4<T>& operator /= (const T& val) {
+			x /= val;
+			y /= val;
+			z /= val;
+			w /= val;
+			return *this;
+		}
+
+		inline ffw::Vec4<T>  operator *  (const T& val) const {
+			return Vec4<T>(x * val, y * val, z * val, w * val);
+		}
+
+		inline ffw::Vec4<T>& operator *= (const T& val) {
+			x *= val;
+			y *= val;
+			z *= val;
+			w *= val;
+			return *this;
+		}
+
+		inline bool operator != (const Vec4<T>& vec) const {
+			return !(*this == vec);
+		}
+
+		inline bool operator == (const Vec4<T>& vec) const {
+			return (x == vec.x && y == vec.y && z == vec.z && w == vec.w);
+		}
+
+		inline ffw::Vec4<T>& Normalize() {
+			float l = sqrtf(x*x + y*y + z*z + w*w);
+			if (l > 0) {
+				x = x / l;
+				y = y / l;
+				z = z / l;
+				w = w / l;
+			}
+			return *this;
+		}
+
+		inline ffw::Vec4<T>& Scale(const T val) {
+			x = x*val;
+			y = y*val;
+			z = z*val;
+			w = w*val;
+			return *this;
+		}
+
+		inline double Length() const {
+			return sqrt(static_cast<double>(x*x + y*y + z*z + w*w));
+		}
+
+		inline float Lengthf() const {
+			return sqrtf(static_cast<float>(x*x + y*y + z*z + w*w));
+		}
+
+		inline T LengthSqrd() const {
+			return (x*x + y*y + z*z + w*w);
+		}
+
+		template <class S>
+		inline operator ffw::Vec4<S>() const {
+			return ffw::Vec4<S>((S)x, (S)y, (S)z, (S)w);
+		}
+
     };
 	/**
 	 * @ingroup math
@@ -57,9 +254,35 @@ namespace ffw {
 	 */
     typedef Vec4<int> Vec4i;
 	/**
+	* @ingroup math
+	*/
+	typedef Vec4<short> Vec4s;
+	/**
+	* @ingroup math
+	*/
+	typedef Vec4<long long> Vec4ll;
+	/**
 	 * @ingroup math
 	 */
     typedef Vec4<double> Vec4d;
 };
-#include "vec4.inl"
+namespace ffw {
+	template <>
+	inline bool ffw::Vec4<float>::operator == (const Vec4<float>& vec) const {
+		if (fabs(x - vec.x) > std::numeric_limits<float>::epsilon())return false;
+		if (fabs(y - vec.y) > std::numeric_limits<float>::epsilon())return false;
+		if (fabs(z - vec.z) > std::numeric_limits<float>::epsilon())return false;
+		if (fabs(w - vec.w) > std::numeric_limits<float>::epsilon())return false;
+		return true;
+	}
+
+	template <>
+	inline bool ffw::Vec4<double>::operator == (const Vec4<double>& vec) const {
+		if (fabs(x - vec.x) > std::numeric_limits<double>::epsilon())return false;
+		if (fabs(y - vec.y) > std::numeric_limits<double>::epsilon())return false;
+		if (fabs(z - vec.z) > std::numeric_limits<double>::epsilon())return false;
+		if (fabs(w - vec.w) > std::numeric_limits<double>::epsilon())return false;
+		return true;
+	}
+};
 #endif

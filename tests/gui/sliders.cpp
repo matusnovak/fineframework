@@ -1,6 +1,7 @@
-#include "../units.h"
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
+#define CATCH_CONFIG_MAIN
+#include "../catch.hpp"
 
 ///=============================================================================
 class App : public ffw::AppRenderWindow {
@@ -158,10 +159,9 @@ private:
 	ffw::GuiFont* font;
 };
 
-TEST(Gui, Sliders) {
-	if (!ffw::InitGraphics()) {
-		TEST_FAIL_MSG("Failed to initialize graphics!");
-	}
+
+TEST_CASE("Gui Sliders") {
+	REQUIRE(ffw::InitGraphics());
 
 	// Instance to our app class
 	App app;
@@ -169,20 +169,14 @@ TEST(Gui, Sliders) {
 	// Set arguments
 	ffw::AppRenderWindowArgs args;
 	args.size.Set(400, 180);
-	args.title = "Test Gui Sliders";
+	args.title = "Test Gui";
 	args.samples = 4;
 
 	// Create window
-	if (!app.Create(args, NULL)) {
-		TEST_FAIL_MSG("Failed to create window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Create(args, NULL));
 
 	// Run setup
-	if (!app.Setup()) {
-		TEST_FAIL_MSG("Failed to setup window!");
-		ffw::TerminateGraphics();
-	}
+	REQUIRE(app.Setup());
 
 	app.SetSingleBufferMode(true);
 

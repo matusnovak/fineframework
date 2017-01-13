@@ -2,7 +2,6 @@
 #ifndef FFW_GUI_SLIDER
 #define FFW_GUI_SLIDER
 #include "guiwidget.h"
-#include <functional>
 namespace ffw {
 	/**
 	 * @ingroup gui
@@ -27,6 +26,7 @@ namespace ffw {
 		void SetInversed(bool inversed);
 		bool GetInversed() const;
 		ffw::Vec2i GetMinimumWrapSize() const override;
+	protected:
 		const GuiStyleGroup* styleButton;
 		const GuiStyleGroup* styleBar;
 	private:

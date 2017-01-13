@@ -11,6 +11,8 @@ namespace ffw {
 		GuiButtonToggle(GuiWindow* context, const std::string& label);
 		GuiButtonToggle(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButtonToggle();
+		void SetValue(bool value);
+		bool GetValue() const;
 	};
 }
 #endif

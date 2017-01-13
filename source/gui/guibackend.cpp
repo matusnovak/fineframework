@@ -113,7 +113,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 			auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p2 - p0), ffw::Vec2f(-1.0f, 0.0f));
 
 			auto len = ffw::Distance(p2, p0);
-			DrawArc(p0, len - border.size[3], len, 180.f + offset, 180.0f + offset + angle*2, border.color[3]);
+			DrawArc(p0, len - border.size[3], len, float(180.f + offset), float(180.0f + offset + angle*2), border.color[3]);
 		} 
 		else {
 			if (border.size[0]) {
@@ -121,7 +121,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), ffw::Vec2f(0.0f, -1.0f));
 
 				auto len = ffw::Distance(p1, p0);
-				DrawArc(p0, len - border.size[0], len, 270.f - offset - angle, 270.0f - offset, border.color[0]);
+				DrawArc(p0, len - border.size[0], len, float(270.f - offset - angle), float(270.0f - offset), border.color[0]);
 			}
 
 			if (border.size[3]) {
@@ -129,7 +129,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p2 - p0), ffw::Vec2f(-1.0f, 0.0f));
 
 				auto len = ffw::Distance(p2, p0);
-				DrawArc(p0, len - border.size[3], len, 180.f + offset, 180.0f + offset + angle, border.color[3]);
+				DrawArc(p0, len - border.size[3], len, float(180.f + offset), float(180.0f + offset + angle), border.color[3]);
 			}
 		}
 	}
@@ -144,7 +144,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 			auto angle = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), static_cast<ffw::Vec2f>(c - p0));
 			auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), ffw::Vec2f(0.0f, -1.0f));
 			auto len = ffw::Distance(p1, p0);
-			DrawArc(p0, len - border.size[0], len, 270.f + offset, 270.0f + offset + angle*2, border.color[0]);
+			DrawArc(p0, len - border.size[0], len, float(270.f + offset), float(270.0f + offset + angle*2), border.color[0]);
 		}
 		else {
 			if (border.size[0] > 0) {
@@ -152,7 +152,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), ffw::Vec2f(0.0f, -1.0f));
 
 				auto len = ffw::Distance(p1, p0);
-				DrawArc(p0, len - border.size[0], len, 270.f + offset, 270.0f + offset + angle, border.color[0]);
+				DrawArc(p0, len - border.size[0], len, float(270.f + offset), float(270.0f + offset + angle), border.color[0]);
 			}
 
 			if (border.size[1] > 0) {
@@ -160,7 +160,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p2 - p0), ffw::Vec2f(1.0f, 0.0f));
 
 				auto len = ffw::Distance(p2, p0);
-				DrawArc(p0, len - border.size[1], len, 360.0f - offset - angle, 360.0f - offset, border.color[1]);
+				DrawArc(p0, len - border.size[1], len, float(360.0f - offset - angle), float(360.0f - offset), border.color[1]);
 			}
 		}
 	}
@@ -176,7 +176,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 			auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), ffw::Vec2f(1.0f, 0.0f));
 
 			auto len = ffw::Distance(p1, p0);
-			DrawArc(p0, len - border.size[1], len, offset, offset + angle*2, border.color[1]);
+			DrawArc(p0, len - border.size[1], len, float(offset), float(offset + angle*2), border.color[1]);
 		}
 		else {
 			if (border.size[1] > 0) {
@@ -184,7 +184,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), ffw::Vec2f(1.0f, 0.0f));
 
 				auto len = ffw::Distance(p1, p0);
-				DrawArc(p0, len - border.size[1], len, offset, offset + angle, border.color[1]);
+				DrawArc(p0, len - border.size[1], len, float(offset), float(offset + angle), border.color[1]);
 			}
 
 			if (border.size[2] > 0) {
@@ -192,7 +192,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p2 - p0), ffw::Vec2f(0.0f, 1.0f));
 
 				auto len = ffw::Distance(p2, p0);
-				DrawArc(p0, len - border.size[2], len, 90.0f - offset - angle, 90.0f - offset, border.color[2]);
+				DrawArc(p0, len - border.size[2], len, float(90.0f - offset - angle), float(90.0f - offset), border.color[2]);
 			}
 		}
 	}
@@ -208,7 +208,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 			auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), ffw::Vec2f(0.0f, 1.0f));
 
 			auto len = ffw::Distance(p1, p0);
-			DrawArc(p0, len - border.size[2], len, 90.0f + offset, 90.0f + offset + angle*2, border.color[2]);
+			DrawArc(p0, len - border.size[2], len, float(90.0f + offset), float(90.0f + offset + angle*2), border.color[2]);
 		}
 		else {
 			if (border.size[2] > 0) {
@@ -216,7 +216,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p1 - p0), ffw::Vec2f(0.0f, 1.0f));
 
 				auto len = ffw::Distance(p1, p0);
-				DrawArc(p0, len - border.size[2], len, 90.0f + offset, 90.0f + offset + angle, border.color[2]);
+				DrawArc(p0, len - border.size[2], len, float(90.0f + offset), float(90.0f + offset + angle), border.color[2]);
 			}
 
 			if (border.size[3] > 0) {
@@ -224,7 +224,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 				auto offset = ffw::Angle(static_cast<ffw::Vec2f>(p2 - p0), ffw::Vec2f(-1.0f, 0.0f));
 
 				auto len = ffw::Distance(p2, p0);
-				DrawArc(p0, len - border.size[3], len, 180.0f - offset - angle, 180.0f - offset, border.color[3]);
+				DrawArc(p0, len - border.size[3], len, float(180.0f - offset - angle), float(180.0f - offset), border.color[3]);
 			}
 		}
 	}

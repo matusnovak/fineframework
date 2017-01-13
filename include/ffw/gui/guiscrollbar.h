@@ -4,7 +4,6 @@
 #include "guiwidget.h"
 #include "guibutton.h"
 #include "guislider.h"
-#include <functional>
 namespace ffw {
 	/**
 	* @ingroup gui
@@ -47,6 +46,8 @@ namespace ffw {
 		}
 		inline void SetRange(int min, int max) {
 			slider->SetRange(min, max);
+			if(!IsDisabled())
+				SetDisabled(std::abs(max - min) == 0);
 		}
 		inline void SetInversed(bool inversed) {
 			slider->SetInversed(inversed);

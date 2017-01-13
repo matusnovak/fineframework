@@ -46,6 +46,10 @@ namespace ffw {
 			ffw::SetDrawColor(color);
 			ffw::DrawRectangle(pos.x, pos.y, size.x, size.y);
 		}
+		inline void DrawLine(const ffw::Vec2i& start, const ffw::Vec2i& end, const ffw::Color& color) const override  {
+			ffw::SetDrawColor(color);
+			ffw::DrawLine(start.x, start.y, end.x, end.y);
+		}
 		inline void DrawCircle(const ffw::Vec2i& pos, int radius, const ffw::Color& color) const override {
 			ffw::SetDrawColor(color);
 			ffw::DrawCircle(pos.x, pos.y, radius, 16);
@@ -58,9 +62,9 @@ namespace ffw {
 			ffw::SetDrawColor(color);
 			ffw::DrawQuad(p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 		}
-		void DrawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring& str, const ffw::Color& color) const override {
+		void DrawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring::value_type* str, size_t length, const ffw::Color& color) const override {
 			ffw::SetDrawColor(color);
-			ffw::DrawString(pos.x, pos.y, &dynamic_cast<const ffw::GuiFontOpenGL*>(font)->Get(), str);
+			ffw::DrawString(pos.x, pos.y, &dynamic_cast<const ffw::GuiFontOpenGL*>(font)->Get(), str, length);
 		}
 		inline void StartRender() override {
 			glEnable(GL_SCISSOR_TEST);

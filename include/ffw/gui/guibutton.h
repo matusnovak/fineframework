@@ -2,7 +2,6 @@
 #ifndef FFW_GUI_BUTTON
 #define FFW_GUI_BUTTON
 #include "guiwidget.h"
-#include <functional>
 namespace ffw {
 	/**
 	 * @ingroup gui
@@ -26,7 +25,7 @@ namespace ffw {
 		void EventText(wchar_t chr) override;
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		void EventDisabled(bool disabled) override;
-		virtual void EventThemeChanged(const GuiTheme* theme) override;
+		void EventThemeChanged(const GuiTheme* theme) override;
 		std::wstring label;
 	};
 }

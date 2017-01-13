@@ -11,11 +11,11 @@ namespace ffw {
 		typedef GuiWidget::Orientation Orientation;
 		GuiLayout(GuiWindow* context, Orientation orientation);
 		virtual ~GuiLayout();
-		void AddWidget(GuiWidget* widget);
-		void AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget);
-		void AddWidgetBefore(const GuiWidget* next, GuiWidget* widget);
+		GuiWidget* AddWidget(GuiWidget* widget);
+		GuiWidget* AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget);
+		GuiWidget* AddWidgetBefore(const GuiWidget* next, GuiWidget* widget);
 		void DeleteWidgets();
-		bool DeleteSingleWidget(GuiWidget* widget);
+		bool DeleteSingleWidget(const GuiWidget* widget);
 		void SetOrientation(Orientation orient);
 		ffw::Vec2i GetMinimumWrapSize() const override;
 	private:

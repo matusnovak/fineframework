@@ -23,10 +23,15 @@ namespace ffw {
 
 		// The following basic drawing functions must be implemented!
 		virtual void DrawRectangle(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::Color& color) const = 0;
+		virtual void DrawLine(const ffw::Vec2i& start, const ffw::Vec2i& end, const ffw::Color& color) const = 0;
 		virtual void DrawCircle(const ffw::Vec2i& pos, int radius, const ffw::Color& color) const = 0;
 		virtual void DrawArc(const ffw::Vec2i& pos, int inner, int outer, float start, float end, const ffw::Color& color) const = 0;
 		virtual void DrawQuad(const ffw::Vec2i& p0, const ffw::Vec2i& p1, const ffw::Vec2i& p2, const ffw::Vec2i& p3, const ffw::Color& color) const = 0;
-		virtual void DrawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring& str, const ffw::Color& color) const = 0;
+		virtual void DrawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring::value_type* str, size_t length, const ffw::Color& color) const = 0;
+
+		inline void DrawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring& str, const ffw::Color& color) const {
+			DrawString(pos, font, &str[0], str.size(), color);
+		}
 
 		// The following can be overriden
 		virtual void DrawBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle::Background& background, bool ignore = false) const;

@@ -6,6 +6,7 @@
 ///=============================================================================
 ffw::GuiScrollbar::ButtonLeft::ButtonLeft(GuiWindow* context):GuiButton(context, "") {
 	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_BUTTON_LEFT");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -16,11 +17,13 @@ ffw::GuiScrollbar::ButtonLeft::~ButtonLeft() {
 ///=============================================================================
 void ffw::GuiScrollbar::ButtonLeft::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLBAR_BUTTON_LEFT");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::GuiScrollbar::ButtonRight::ButtonRight(GuiWindow* context):GuiButton(context, "") {
 	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_BUTTON_RIGHT");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -31,11 +34,13 @@ ffw::GuiScrollbar::ButtonRight::~ButtonRight() {
 ///=============================================================================
 void ffw::GuiScrollbar::ButtonRight::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLBAR_BUTTON_RIGHT");
+	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::GuiScrollbar::Scroll::Scroll(GuiWindow* context, bool vertical):GuiSlider(context, vertical) {
 	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_SLIDER");
+	SetDefaults(&widgetStyle->defaults);
 	styleBar = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BAR");
 	styleButton = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BUTTON");
 }
@@ -48,6 +53,7 @@ ffw::GuiScrollbar::Scroll::~Scroll() {
 ///=============================================================================
 void ffw::GuiScrollbar::Scroll::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLBAR_SLIDER");
+	SetDefaults(&widgetStyle->defaults);
 	styleBar = &theme->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BAR");
 	styleButton = &theme->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BUTTON");
 }
@@ -101,9 +107,9 @@ ffw::GuiScrollbar::GuiScrollbar(GuiWindow* context, bool vertical) :
 	left->AddEventCallback(&GuiScrollbar::ButtonCallback, this, true);
 	right->AddEventCallback(&GuiScrollbar::ButtonCallback, this, true);
 
-	this->AddWidget(left);
-	this->AddWidget(slider);
-	this->AddWidget(right);
+	this->AddWidgetInternal(left);
+	this->AddWidgetInternal(slider);
+	this->AddWidgetInternal(right);
 }
 
 ///=============================================================================
