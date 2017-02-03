@@ -101,6 +101,34 @@ void ffw::GuiTabs::HideAllExcept(GuiWidget* widget) {
 }
 
 ///=============================================================================
+void ffw::GuiTabs::ShowTabByIndex(size_t index) {
+	for (size_t i = 0; i < tabs.size(); i++) {
+		if (i == index) {
+			tabs[i].first->SetValue(true);
+			tabs[i].second->SetHidden(false);
+		}
+		else {
+			tabs[i].first->SetValue(false);
+			tabs[i].second->SetHidden(true);
+		}
+	}
+}
+
+///=============================================================================
+void ffw::GuiTabs::ShowTabByWidget(const GuiWidget *widget) {
+	for (auto& pair : tabs) {
+		if (pair.second == widget) {
+			pair.first->SetValue(true);
+			pair.second->SetHidden(false);
+		}
+		else {
+			pair.first->SetValue(false);
+			pair.second->SetHidden(true);
+		}
+	}
+}
+
+///=============================================================================
 void ffw::GuiTabs::AddWidgetPair(GuiButtonToggle* button, GuiWidget* widget) {
 	//widget->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(100));
 	button->AddEventCallback(&GuiTabs::WidgetEvent, this, true);
@@ -181,6 +209,6 @@ void ffw::GuiTabs::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiTabs::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiTabs::GetMinimumWrapSize() {
 	return 0;
 }

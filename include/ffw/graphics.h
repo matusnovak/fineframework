@@ -21,8 +21,5 @@
 #include "graphics/texture2darrayms.h"
 #include "graphics/texture2dms.h"
 #include "graphics/texture3d.h"
-#include "graphics/rendercontext.h"
-#include "graphics/extensions.h"
-#include "graphics/apprenderwindow.h"
-#include "graphics/extensions.h"
+#include "graphics/glfwrenderwindow.h"
 #endif

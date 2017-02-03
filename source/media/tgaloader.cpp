@@ -36,18 +36,18 @@ bool ffw::TgaLoader::Open(const std::string& path){
 	if(loaded)return false;
 
 #ifdef FFW_WINDOWS
-	input.open(WstrToAnsi(Utf8ToWstr(path)), std::ios::in | std::ios::binary);
+	input->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::in | std::ios::binary);
 #else
-	input.open(path, std::ios::in | std::ios::binary);
+	input->open(path, std::ios::in | std::ios::binary);
 #endif
 
-	if(!input){
+	if(!input->is_open()){
 		return false;
 	}
 
-	input.seekg(0, std::ios::end);
-	size_t size = (size_t)input.tellg();
-	input.seekg(0, std::ios::beg);
+	input->seekg(0, std::ios::end);
+	size_t size = (size_t)input->tellg();
+	input->seekg(0, std::ios::beg);
 
 	if(size < 18){
 		Close();
@@ -69,18 +69,18 @@ bool ffw::TgaLoader::Open(const std::string& path){
     //ffw::imageType type;
 
     // Read header
-    input.read((char*)&idLength,           sizeof(uint8_t));
-    input.read((char*)&colorMapType,       sizeof(uint8_t));
-    input.read((char*)&imageType,          sizeof(uint8_t));
-    input.read((char*)&colorMapEntry,      sizeof(uint16_t));
-    input.read((char*)&colorMapLength,     sizeof(uint16_t));
-    input.read((char*)&colorMapSize,       sizeof(uint8_t));
-    input.read((char*)&originX,            sizeof(uint16_t));
-    input.read((char*)&originY,            sizeof(uint16_t));
-    input.read((char*)&w,                  sizeof(uint16_t));
-    input.read((char*)&h,                  sizeof(uint16_t));
-    input.read((char*)&bits,               sizeof(uint8_t));
-    input.read((char*)&imageDescriptor,    sizeof(uint8_t));
+    input->read((char*)&idLength,           sizeof(uint8_t));
+    input->read((char*)&colorMapType,       sizeof(uint8_t));
+    input->read((char*)&imageType,          sizeof(uint8_t));
+    input->read((char*)&colorMapEntry,      sizeof(uint16_t));
+    input->read((char*)&colorMapLength,     sizeof(uint16_t));
+    input->read((char*)&colorMapSize,       sizeof(uint8_t));
+    input->read((char*)&originX,            sizeof(uint16_t));
+    input->read((char*)&originY,            sizeof(uint16_t));
+    input->read((char*)&w,                  sizeof(uint16_t));
+    input->read((char*)&h,                  sizeof(uint16_t));
+    input->read((char*)&bits,               sizeof(uint8_t));
+    input->read((char*)&imageDescriptor,    sizeof(uint8_t));
 
 	width = w;
 	height = h;
@@ -89,7 +89,7 @@ bool ffw::TgaLoader::Open(const std::string& path){
     if(idLength > 0){
 		char data;
 		for(uint8_t i = 0; i < idLength; i++){
-			input.read(&data, 1);
+			input->read(&data, 1);
 		}
     }
 
@@ -128,7 +128,7 @@ bool ffw::TgaLoader::Open(const std::string& path){
 		return false;
 	}
 
-	pixelsOffset = (size_t)input.tellg();
+	pixelsOffset = (size_t)input->tellg();
 
 	row = 0;
 	loaded = true;
@@ -137,7 +137,7 @@ bool ffw::TgaLoader::Open(const std::string& path){
 
 ///=============================================================================
 void ffw::TgaLoader::Close(){
-	input.close();
+	input->close();
 	width = 0;
 	height = 0;
 	loaded = 0;
@@ -151,15 +151,15 @@ size_t ffw::TgaLoader::ReadRow(void* dest){
     if(row >= height)return 0;
     if(dest == NULL)return 0;
 
-	input.seekg(pixelsOffset + (height - row - 1) * GetStrideSize());
+	input->seekg(pixelsOffset + (height - row - 1) * GetStrideSize());
 	
 	switch(format){
 		case ffw::ImageType::GRAYSCALE_8: {
-			input.read((char*)dest, width);
+			input->read((char*)dest, width);
 			break;
 		}
 		case ffw::ImageType::RGB_ALPHA_5551: {
-			input.read((char*)dest, width*2);
+			input->read((char*)dest, width*2);
 
 			unsigned char* ptr = (unsigned char*)dest;
 			for(size_t i = 0; i < (size_t)width*2; i += 2){
@@ -168,7 +168,7 @@ size_t ffw::TgaLoader::ReadRow(void* dest){
 			break;
 		}
 		case ffw::ImageType::RGB_888: {
-			input.read((char*)dest, width*3);
+			input->read((char*)dest, width*3);
 
 			unsigned char* ptr = (unsigned char*)dest;
 			for(size_t i = 0; i < (size_t)width*3; i += 3){
@@ -177,7 +177,7 @@ size_t ffw::TgaLoader::ReadRow(void* dest){
 			break;
 		}
 		case ffw::ImageType::RGB_ALPHA_8888: {
-			input.read((char*)dest, width*4);
+			input->read((char*)dest, width*4);
 
 			unsigned char* ptr = (unsigned char*)dest;
 			for(size_t i = 0; i < (size_t)width*4; i += 4){

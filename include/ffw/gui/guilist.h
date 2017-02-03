@@ -6,7 +6,7 @@ namespace ffw {
 	/**
 	* @ingroup gui
 	*/
-	class FFW_API GuiList : public GuiScrollable {
+	class FFW_API GuiList : public GuiScrollableLayout {
 	public:
 		class Item;
 		class FFW_API Value {
@@ -37,7 +37,7 @@ namespace ffw {
 			}
 			bool IsSelected() const;
 			void AssignValue(bool value);
-			ffw::Vec2i GetMinimumWrapSize() const override;
+			ffw::Vec2i GetMinimumWrapSize() override;
 		private:
 			void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 			void EventPos(const ffw::Vec2i& pos) override;

@@ -4,7 +4,7 @@
 #include "../catch.hpp"
 
 ///=============================================================================
-class App : public ffw::AppRenderWindow {
+class App : public ffw::GLFWRenderWindow {
 public:
 	App() {
 	}
@@ -48,6 +48,7 @@ public:
 
 		{
 			auto layout = new ffw::GuiVerticalLayout(&gui);
+			layout->SetPadding(5);
 			layout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
 			gui.AddWidget(layout);
 
@@ -68,6 +69,19 @@ public:
 			textinput->AddRangeLimit('A', 'Z');
 			textinput->SetValue(L"UPPER CASE ONLY");
 			textinput->AddListOfLimits({ ' ' });
+			layout->AddWidget(textinput);
+		}
+
+		{
+			auto layout = new ffw::GuiVerticalLayout(&gui);
+			layout->SetPadding(5);
+			layout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+			gui.AddWidget(layout);
+
+			auto textinput = new ffw::GuiTextArea(&gui);
+			textinput->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(100));
+			textinput->AddEventCallback(&App::WidgetEvent, this);
+			textinput->SetValue(L"Hello World!");
 			layout->AddWidget(textinput);
 		}
 
@@ -117,13 +131,11 @@ private:
 
 
 TEST_CASE("Gui Text Edits") {
-	REQUIRE(ffw::InitGraphics());
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
+	ffw::GLFWRenderWindowArgs args;
 	args.size.Set(400, 180);
 	args.title = "Test Gui";
 	args.samples = 4;
@@ -146,7 +158,4 @@ TEST_CASE("Gui Text Edits") {
 	// Must be called after the setup and before the graphics
 	// is terminated
 	app.Destroy();
-
-	// Needs to be called at the end of the program if ffw::initGraphics() succeeds
-	ffw::TerminateGraphics();
 }

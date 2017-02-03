@@ -144,8 +144,8 @@ void ffw::ObjLoader::swap(ObjLoader& other){
 bool ffw::ObjLoader::Open(const std::string& path){
 	if(loaded)Close();
 
-	input.open(path, std::ios::binary | std::ios::in);
-	if(!input)return false;
+	input->open(path, std::ios::binary | std::ios::in);
+	if(!input->is_open())return false;
 
 	size_t lineNum = 0;
 	ObjectInfo* currentObject = NULL;
@@ -170,12 +170,12 @@ bool ffw::ObjLoader::Open(const std::string& path){
 
 	bool gotFaces = false;
 
-	while(!input.eof()){
+	while(!input->eof()){
 		std::string line;
 		lineNum++;
 
-		size_t pos = (size_t)input.tellg();
-		std::getline(input, line);
+		size_t pos = (size_t)input->tellg();
+		std::getline(*input, line);
 
 		// New set of vertices, must be a new object
 		if(((line[0] == 'v' && line[1] == ' ') || (line[0] == 'o' && line[1] == ' ')) && gotFaces){
@@ -251,8 +251,8 @@ bool ffw::ObjLoader::Open(const std::string& path){
 		}
 	}
 
-	input.clear();
-	input.seekg(0, std::ios::beg);
+	input->clear();
+	input->seekg(0, std::ios::beg);
 	fRead = 0;
 	gotLine = false;
 	eos = true;
@@ -265,18 +265,18 @@ bool ffw::ObjLoader::Open(const std::string& path){
 bool ffw::ObjLoader::LoadObject(unsigned int i){
 	if(i >= objects.size())return false;
 	activeObject = &objects[i];
-	input.clear();
-	input.seekg(0, std::ios::beg);
+	input->clear();
+	input->seekg(0, std::ios::beg);
 
 	bool result =
-	LoadVertices(input, *activeObject, activeObjectMesh) &&
-	LoadNormals(input, *activeObject, activeObjectMesh) &&
-	LoadTexpos(input, *activeObject, activeObjectMesh);
+	LoadVertices(*input, *activeObject, activeObjectMesh) &&
+	LoadNormals(*input, *activeObject, activeObjectMesh) &&
+	LoadTexpos(*input, *activeObject, activeObjectMesh);
 
 	//std::cout << "done loadgin!" << std::endl;
-	input.clear();
-	input.seekg(0, std::ios::beg);
-	if(result)input.seekg(activeObject->fPos);
+	input->clear();
+	input->seekg(0, std::ios::beg);
+	if(result)input->seekg(activeObject->fPos);
 	gotLine = false;
 	eos = false;
 	currentLineNum = 0;
@@ -296,10 +296,10 @@ size_t ffw::ObjLoader::CalculateObjectPolyCount(){
 	size_t total = 0;
 
 	//std::cout << "CalculateObjectPolyCount" << std::endl;
-	while(input.tellg() < activeObject->fEnd){
-		//std::cout << "tellg: " << input.tellg() << " end: " << activeObject->fEnd << std::endl;
+	while(input->tellg() < activeObject->fEnd){
+		//std::cout << "tellg: " << input->tellg() << " end: " << activeObject->fEnd << std::endl;
 		std::string line;
-		std::getline(input, line);
+		std::getline(*input, line);
 		if(line[0] != 'f' || line[1] != ' '){
 			//std::cout << "continue" << std::endl;
 			continue;
@@ -314,9 +314,9 @@ size_t ffw::ObjLoader::CalculateObjectPolyCount(){
 	}
 
 	//std::cout << "CalculateObjectPolyCount done" << std::endl;
-	input.clear();
-	input.seekg(0, std::ios::beg);
-	input.seekg(activeObject->fPos);
+	input->clear();
+	input->seekg(0, std::ios::beg);
+	input->seekg(activeObject->fPos);
 
 	return total;
 }
@@ -338,8 +338,8 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 	if(activeObject == NULL)return false;
 
 	std::string line;
-	while(!gotLine && input.tellg() <= activeObject->fEnd){
-		std::getline(input, line);
+	while(!gotLine && input->tellg() <= activeObject->fEnd){
+		std::getline(*input, line);
 		currentLineNum++;
 
 		if(line[0] != 'f' || line[1] != ' ')continue;
@@ -609,7 +609,7 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 ///=============================================================================
 void ffw::ObjLoader::Close(){
 	loaded = false;
-	input.close();
+	input->close();
 	objects.clear();
 	activeObjectMesh.vertices.clear();
 	activeObjectMesh.normals.clear();

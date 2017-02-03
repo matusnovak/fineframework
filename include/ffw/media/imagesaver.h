@@ -1,7 +1,8 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_MEDIA_IMAGE_SAVER
 #define FFW_MEDIA_IMAGE_SAVER
-#include "imagebuffer.h"
+#include "../config.h"
+#include "../math.h"
 
 namespace ffw{
 	/**

@@ -40,7 +40,7 @@ namespace ffw {
         bool created_;
         unsigned int fbo_;
 		int colorcount_;
-        const GlextStruct* gl_;
+        const RenderExtensions* gl_;
     };
 };
 #endif

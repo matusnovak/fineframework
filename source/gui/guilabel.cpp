@@ -32,7 +32,7 @@ const std::wstring& ffw::GuiLabel::GetLabel() const {
 
 ///=============================================================================
 void ffw::GuiLabel::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
+	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text, GetLineHeight());
 }
 
 ///=============================================================================
@@ -78,7 +78,7 @@ void ffw::GuiLabel::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiLabel::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiLabel::GetMinimumWrapSize() {
 	if(GetCurrentFont() == NULL)return 0;
-	return GetCurrentFont()->GetStringSize(label);
+	return GetCurrentFont()->GetStringSize(label, GetLineHeight());
 }

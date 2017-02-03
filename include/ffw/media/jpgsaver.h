@@ -31,4 +31,8 @@ namespace ffw {
 	};
 }
 
+inline void swap(ffw::JpgSaver& first, ffw::JpgSaver& second){
+	first.swap(second);
+}
+
 #endif

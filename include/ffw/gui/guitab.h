@@ -31,9 +31,11 @@ namespace ffw {
 		};
 		GuiTabs(GuiWindow* context);
 		virtual ~GuiTabs();
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		ffw::Vec2i GetMinimumWrapSize() override;
 		GuiWidget* AddTab(const std::string& label, GuiWidget* widget);
 		GuiWidget* AddTab(const std::wstring& label, GuiWidget* widget);
+		void ShowTabByIndex(size_t index);
+		void ShowTabByWidget(const GuiWidget *widget);
 	private:
 		void WidgetEvent(GuiEvent e);
 		void HideAllExcept(GuiWidget* widget);

@@ -2,7 +2,6 @@
 
 #include "ffw/graphics/renderbuffer.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
 
 
 ///=============================================================================

@@ -12,7 +12,7 @@ namespace ffw {
 		public:
 			Button(GuiWindow* context);
 			virtual ~Button();
-			ffw::Vec2i GetMinimumWrapSize() const override;
+			ffw::Vec2i GetMinimumWrapSize() override;
 		private:
 			void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 			void EventPos(const ffw::Vec2i& pos) override;
@@ -40,7 +40,7 @@ namespace ffw {
 		GuiCheckbox::Button* GetButton(){
 			return widgetbutton;
 		}
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		ffw::Vec2i GetMinimumWrapSize() override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 		void EventPos(const ffw::Vec2i& pos) override;

@@ -4,7 +4,7 @@
 #include "../catch.hpp"
 
 ///=============================================================================
-class App : public ffw::AppRenderWindow {
+class App : public ffw::GLFWRenderWindow {
 public:
 	App() {
 	}
@@ -45,27 +45,27 @@ public:
 		vlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
 		gui.AddWidget(vlayout);
 
-		auto scrollbar = new ffw::GuiScrollbar(&gui, false);
+		auto scrollbar = new ffw::GuiScrollBar(&gui, false);
 		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
 		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
 		scrollbar->AddEventCallback(&App::WidgetEvent, this);
 		vlayout->AddWidget(scrollbar);
 
-		scrollbar = new ffw::GuiScrollbar(&gui, false);
+		scrollbar = new ffw::GuiScrollBar(&gui, false);
 		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
 		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
 		scrollbar->SetIgnoreUserInput(true);
 		scrollbar->SetHover(true);
 		vlayout->AddWidget(scrollbar);
 
-		scrollbar = new ffw::GuiScrollbar(&gui, false);
+		scrollbar = new ffw::GuiScrollBar(&gui, false);
 		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
 		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
 		scrollbar->SetIgnoreUserInput(true);
 		scrollbar->SetFocus(true);
 		vlayout->AddWidget(scrollbar);
 
-		scrollbar = new ffw::GuiScrollbar(&gui, false);
+		scrollbar = new ffw::GuiScrollBar(&gui, false);
 		scrollbar->SetSize(ffw::GuiPercent(100), ffw::GuiWrap());
 		scrollbar->SetMargin(0, 0, ffw::GuiPercent(5), 0);
 		scrollbar->SetDisabled(true);
@@ -75,27 +75,27 @@ public:
 		hlayout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
 		gui.AddWidget(hlayout);
 
-		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar = new ffw::GuiScrollBar(&gui, true);
 		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
 		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
 		scrollbar->AddEventCallback(&App::WidgetEvent, this);
 		hlayout->AddWidget(scrollbar);
 
-		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar = new ffw::GuiScrollBar(&gui, true);
 		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
 		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
 		scrollbar->SetIgnoreUserInput(true);
 		scrollbar->SetHover(true);
 		hlayout->AddWidget(scrollbar);
 
-		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar = new ffw::GuiScrollBar(&gui, true);
 		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
 		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
 		scrollbar->SetIgnoreUserInput(true);
 		scrollbar->SetFocus(true);
 		hlayout->AddWidget(scrollbar);
 
-		scrollbar = new ffw::GuiScrollbar(&gui, true);
+		scrollbar = new ffw::GuiScrollBar(&gui, true);
 		scrollbar->SetSize(ffw::GuiWrap(), ffw::GuiPercent(100));
 		scrollbar->SetMargin(0, ffw::GuiPercent(5), 0, 0);
 		scrollbar->SetDisabled(true);
@@ -147,13 +147,11 @@ private:
 
 
 TEST_CASE("Gui Scrollbars") {
-	REQUIRE(ffw::InitGraphics());
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
+	ffw::GLFWRenderWindowArgs args;
 	args.size.Set(400, 180);
 	args.title = "Test Gui";
 	args.samples = 4;
@@ -176,7 +174,4 @@ TEST_CASE("Gui Scrollbars") {
 	// Must be called after the setup and before the graphics
 	// is terminated
 	app.Destroy();
-
-	// Needs to be called at the end of the program if ffw::initGraphics() succeeds
-	ffw::TerminateGraphics();
 }

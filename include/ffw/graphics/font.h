@@ -58,12 +58,6 @@ namespace ffw {
 			const auto& chr = GetChar(c);
 			return (GetSize() - chr.height) + (chr.height - chr.bearing);
 		}
-        inline void SetLineHeight(int Height){
-			lineHeight = Height;
-		}
-        inline int GetLineHeight() const {
-			return lineHeight;
-		}
         inline int GetSize() const {
 			return sizePoints;
 		}
@@ -84,8 +78,8 @@ namespace ffw {
 		inline const std::vector<CharStruct>& GetChars() const {
 			return characters;
 		}
-        Vec2i GetStringSize(const std::string& str) const;
-        Vec2i GetStringSize(const std::wstring& str) const;
+        Vec2i GetStringSize(const std::string& str, float lineHeight = 1.25f) const;
+        Vec2i GetStringSize(const std::wstring& str, float lineHeight = 1.25) const;
 		inline const ffw::Texture2D* GetTexture() const {
 			return &texture;
 		}
@@ -108,7 +102,6 @@ namespace ffw {
 		int sizePoints;
 		int sizePixels;
 		int sizeDpi;
-		int lineHeight;
 		bool loaded;
 		int totalWidth;
 		int totalHeight;

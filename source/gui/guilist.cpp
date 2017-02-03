@@ -133,7 +133,7 @@ bool ffw::GuiList::Item::IsSelected() const {
 
 ///=============================================================================
 void ffw::GuiList::Item::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
-	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
+	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text, GetLineHeight());
 }
 
 ///=============================================================================
@@ -184,14 +184,15 @@ void ffw::GuiList::Item::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiList::Item::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiList::Item::GetMinimumWrapSize() {
 	if (GetCurrentFont() == NULL)return 0;
-	return GetCurrentFont()->GetStringSize(label);
+	return GetCurrentFont()->GetStringSize(label, GetLineHeight());
 }
 
 ///=============================================================================
 ffw::GuiList::GuiList(GuiWindow* context):
-	GuiScrollable(context, new ffw::GuiLayout(context, ffw::GuiLayout::Orientation::VERTICAL), false, true),group(this) {
+	GuiScrollableLayout(context, ffw::GuiLayout::Orientation::VERTICAL, false, true),group(this) {
+	GetInner()->SetPadding(0);
 	counter = 0;
 	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_LIST");
 	SetDefaults(&widgetStyle->defaults);
@@ -203,32 +204,28 @@ ffw::GuiList::~GuiList() {
 
 ///=============================================================================
 ffw::GuiList::Item* ffw::GuiList::AddItem(const std::string& label) {
-	auto layout = dynamic_cast<ffw::GuiLayout*>(GetInnerAsWidget());
 	auto item = new GuiList::Item(context, label, counter++, &group);
-	layout->AddWidget(item);
+	GetInner()->AddWidget(item);
 	return item;
 }
 
 ///=============================================================================
 ffw::GuiList::Item* ffw::GuiList::AddItem(const std::wstring& label) {
-	auto layout = dynamic_cast<ffw::GuiLayout*>(GetInnerAsWidget());
 	auto item = new GuiList::Item(context, label, counter++, &group);
-	layout->AddWidget(item);
+	GetInner()->AddWidget(item);
 	return item;
 }
 
 ///=============================================================================
 void ffw::GuiList::DeleteAllItems() {
-	auto layout = dynamic_cast<ffw::GuiLayout*>(GetInnerAsWidget());
-	layout->DeleteWidgets();
+	GetInner()->DeleteWidgets();
 	group.Reset();
 	counter = 0;
 }
 
 ///=============================================================================
 bool ffw::GuiList::DeleteItem(const GuiList::Item* item) {
-	auto layout = dynamic_cast<ffw::GuiLayout*>(GetInnerAsWidget());
-	return layout->DeleteSingleWidget(item);
+	return GetInner()->DeleteSingleWidget(item);
 }
 
 ///=============================================================================

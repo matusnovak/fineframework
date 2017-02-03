@@ -12,7 +12,7 @@ namespace ffw {
 		virtual ~GuiSwitch();
 		void SetValue(bool value);
 		bool GetValue() const;
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		ffw::Vec2i GetMinimumWrapSize() override;
 	protected:
 		const GuiStyleGroup* styleButton;
 	private:

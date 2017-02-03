@@ -157,22 +157,22 @@ HTML_OUTPUT            = .
 HTML_FILE_EXTENSION    = .html
 HTML_HEADER            = header.html
 HTML_FOOTER            = footer.html
-HTML_STYLESHEET        = bootstrap.min.css
+HTML_STYLESHEET        = material.css
 HTML_EXTRA_STYLESHEET  = docs.css
-HTML_EXTRA_FILES       = logo.png bootstrap.min.js jquery.min.js 
-                         images/tutorial-cb-01.png
-						 images/tutorial-cb-02.png
-						 images/tutorial-cb-03.png
-						 images/tutorial-cb-04.png
-						 images/tutorial-cb-05.png
-						 images/tutorial-cb-06.png
-						 images/tutorial-cb-07.png
-						 images/tutorial-cb-08.png
-						 images/tutorial-vs12-01.png
-						 images/tutorial-vs12-02.png
-						 images/tutorial-vs12-03.png
-						 images/tutorial-vs12-04.png
-						 images/tutorial-vs12-05.png
+HTML_EXTRA_FILES       = logo.png ic_menu.png material.min.js \
+                         images/tutorial-cb-01.png \
+						 images/tutorial-cb-02.png \
+						 images/tutorial-cb-03.png \
+						 images/tutorial-cb-04.png \
+						 images/tutorial-cb-05.png \
+						 images/tutorial-cb-06.png \
+						 images/tutorial-cb-07.png \
+						 images/tutorial-cb-08.png \
+						 images/tutorial-vs12-01.png \
+						 images/tutorial-vs12-02.png \
+						 images/tutorial-vs12-03.png \
+						 images/tutorial-vs12-04.png \
+						 images/tutorial-vs12-05.png \
 HTML_COLORSTYLE_HUE    = 359
 HTML_COLORSTYLE_SAT    = 100
 HTML_COLORSTYLE_GAMMA  = 80

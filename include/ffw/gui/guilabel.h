@@ -13,7 +13,7 @@ namespace ffw {
 		virtual ~GuiLabel();
 		void SetLabel(const std::wstring& label);
 		const std::wstring& GetLabel() const;
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		ffw::Vec2i GetMinimumWrapSize() override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 		void EventPos(const ffw::Vec2i& pos) override;

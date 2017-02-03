@@ -14,8 +14,8 @@ set(DATA_TESTS TestsData)
 
 # Dependencies
 foreach(exmpl ${DATA_TESTS})
-  target_link_libraries(${exmpl} optimized finedata)
-  target_link_libraries(${exmpl} debug finedata${CMAKE_DEBUG_POSTFIX})
+  target_link_libraries(${exmpl} optimized finedata optimized finemath)
+  target_link_libraries(${exmpl} debug finedata${CMAKE_DEBUG_POSTFIX} debug finemath${CMAKE_DEBUG_POSTFIX})
 
   if(MSVC)
     set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")

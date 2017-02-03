@@ -207,8 +207,8 @@ namespace ffw {
 
 		inline bool ContainsString() const {
 			return (
-				Contains<const char*>() || 
-				Contains<char*>() || 
+				Contains<const char*>() ||
+				Contains<char*>() ||
 				Contains<std::string>()
 			);
 		}
@@ -280,7 +280,7 @@ namespace ffw {
 		inline const Var& operator [] (const std::string& key) const;
 		inline Var& operator [] (size_t n);
 		inline const Var& operator [] (size_t n) const;
-
+#ifdef FFW_WINDOWS_MSVC
 		inline bool operator == (const char* str){
 			if(content->Typeid() == typeid(std::string)){
 				return GetAs<std::string>().compare(str) == 0;
@@ -314,7 +314,7 @@ namespace ffw {
 
 			return false;
 		}
-
+#endif
 		/*inline bool operator == (bool value) const {
 			if(content->Typeid() == typeid(bool)){
 				return GetAs<bool>() == value;

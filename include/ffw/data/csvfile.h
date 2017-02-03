@@ -7,6 +7,9 @@
 #include <fstream>
 
 namespace ffw{
+	/**
+	* @ingroup data
+	*/
 	class FFW_API CsvLoader{
 	public:
 		CsvLoader();
@@ -31,8 +34,13 @@ namespace ffw{
 		char del;
 		char quot;
 	};
-
+	/**
+	* @ingroup data
+	*/
 	bool FFW_API LoadCsv(const std::string& path, ffw::Array& output);
+	/**
+	* @ingroup data
+	*/
 	ffw::Array FFW_API DecodeCsv(const std::string& input);
 };
 #endif

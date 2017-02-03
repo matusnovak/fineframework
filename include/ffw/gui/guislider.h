@@ -25,10 +25,26 @@ namespace ffw {
 		}
 		void SetInversed(bool inversed);
 		bool GetInversed() const;
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		ffw::Vec2i GetMinimumWrapSize() override;
+		inline void SetBarStyleGroup(const GuiStyleGroup* style) {
+			styleBar = style;
+			Redraw();
+		}
+		inline const GuiStyleGroup* GetBarStyleGroup() const {
+			return styleBar;
+		}
+		inline void SetButtonStyleGroup(const GuiStyleGroup* style) {
+			styleButton = style;
+			Redraw();
+		}
+		inline const GuiStyleGroup* GetButtonStyleGroup() const {
+			return styleButton;
+		}
 	protected:
 		const GuiStyleGroup* styleButton;
 		const GuiStyleGroup* styleBar;
+		ffw::Vec2<GuiUnits> buttonSize;
+		ffw::Vec2<GuiUnits> barSize;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 		void EventPos(const ffw::Vec2i& pos) override;
@@ -44,8 +60,6 @@ namespace ffw {
 		bool vertical;
 		ffw::Vec2i range;
 		int value;
-		ffw::Vec2<GuiUnits> buttonSize;
-		ffw::Vec2<GuiUnits> barSize;
 		bool inverse;
 	};
 }

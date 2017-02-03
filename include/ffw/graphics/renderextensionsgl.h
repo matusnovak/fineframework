@@ -25,7 +25,7 @@ namespace ffw{
 	/**
 	 * @ingroup graphics
 	 */
-	class GlextStruct{
+	class FFW_API RenderExtensions{
     public:
 		typedef void* (*glextLoader)(const char*);
 		void Init(glextLoader Loader);

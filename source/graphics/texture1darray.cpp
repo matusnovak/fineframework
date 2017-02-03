@@ -2,8 +2,6 @@
 
 #include "ffw/graphics/texture1darray.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
-
 
 ///=============================================================================
 bool ffw::Texture1DArray::CheckCompability(const ffw::RenderContext* renderer){

@@ -1,5 +1,12 @@
 /**
- * \defgroup gui gui - Graphical User Interface
+ * @defgroup gui gui - Graphical User Interface
+ * @brief Rendering independent graphic user interface 
+ *
+ * This module provides functions and classes to create and manage
+ * GUI widgets and windows. This module does not use a specific
+ * rendering backend. Instead, it provides an interface, which
+ * can is provided for the user to implement any rendering
+ * engine backend.
  */
 #ifndef FFW_GUI_MODULE
 #define FFW_GUI_MODULE
@@ -12,6 +19,8 @@
 #include "gui/guilabel.h"
 #include "gui/guilayout.h"
 #include "gui/guilist.h"
+#include "gui/guiprogressbar.h"
+#include "gui/guiprogresscircle.h"
 #include "gui/guiradio.h"
 #include "gui/guiscrollable.h"
 #include "gui/guiscrollbar.h"

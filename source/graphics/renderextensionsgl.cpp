@@ -1,11 +1,9 @@
 /*** This file is part of FineFramework project ***/
-
-#include "ffw/graphics/extensions.h"
-
+#include "ffw/graphics/renderextensionsgl.h"
 
 #define GET_GL_EXT_FUNC(X,Y) Y = ( X ) Loader(#Y);
 
-void ffw::GlextStruct::Init(ffw::GlextStruct::glextLoader Loader){
+void ffw::RenderExtensions::Init(glextLoader Loader){
 #if defined(FFW_WINDOWS) || defined(FFW_LINUX)
     #if GL_VERSION_1_2 == 1
     //if(GL_VERSION_1_2){

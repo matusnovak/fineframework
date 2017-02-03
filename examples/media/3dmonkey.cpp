@@ -2,7 +2,7 @@
 #include <ffw/media.h>
 
 ///=============================================================================
-class App: public ffw::AppRenderWindow {
+class App: public ffw::GLFWRenderWindow {
 public:
     App(){
 		mouseDown = false;
@@ -129,8 +129,8 @@ public:
 		glDisable(GL_DEPTH_TEST);
 
 		// Draw debug information
-		ffw::SetDrawColor(ffw::Rgb(0xFFFFFF));
-		ffw::DrawString(10, 10, &font, "Keyboard shortcuts:\n'Q' - Show normals\n'W' - Albedo\n'E' - Lightning");
+		this->Renderer()->SetDrawColor(ffw::Rgb(0xFFFFFF));
+		this->Renderer()->DrawString(10, 10, &font, "Keyboard shortcuts:\n'Q' - Show normals\n'W' - Albedo\n'E' - Lightning");
 	}
 
     void Close() override {
@@ -138,7 +138,6 @@ public:
 		texture.Destroy();
 		shader.Destroy();
 		vbo.Destroy();
-		int viewMode = 2;
 	}
 
     void TextInputEvent(unsigned int c) override {
@@ -150,6 +149,7 @@ public:
 				case ffw::Key::Q: viewMode = 0; break;
 				case ffw::Key::W: viewMode = 1; break;
 				case ffw::Key::E: viewMode = 2; break;
+				default: break;
 			};
 		}
 	}
@@ -213,17 +213,11 @@ private:
 
 ///=============================================================================
 int main(int argc, char *argv[]){
-	// Initialize graphics
-    if(!ffw::InitGraphics()){
-        std::cerr << "Failed to initialize graphics!" << std::endl;
-		return 1;
-	}
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
+	ffw::GLFWRenderWindowArgs args;
 	args.size.Set(800, 400);
 	args.title = "Example Show Image";
 	args.samples = 4;
@@ -231,14 +225,12 @@ int main(int argc, char *argv[]){
 	// Create window
 	if(!app.Create(args, NULL)){
 		std::cerr << "Failed to create window!" << std::endl;
-		ffw::TerminateGraphics();
 		return 1;
 	}
 
 	// Run setup
 	if(!app.Setup()){
 		std::cerr << "Failed to setup window!" << std::endl;
-		ffw::TerminateGraphics();
 		system("pause");
 		return 1;
 	}
@@ -255,8 +247,5 @@ int main(int argc, char *argv[]){
 	// Must be called after the setup and before the graphics
 	// is terminated
 	app.Destroy();
-
-    // Needs to be called at the end of the program if ffw::initGraphics() succeeds
-    ffw::TerminateGraphics();
 	return 0;
 }

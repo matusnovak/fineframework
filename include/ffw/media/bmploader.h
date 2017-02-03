@@ -22,10 +22,14 @@ namespace ffw {
 		size_t ReadRow(void* dest) override;
 		virtual void Close();
 	private:
-		std::fstream input;
+		ffw::SwapWrapper<std::fstream> input;
 		size_t pixelsOffset;
 		bool invertBits;
 	};
+}
+
+inline void swap(ffw::BmpLoader& first, ffw::BmpLoader& second){
+	first.swap(second);
 }
 
 #endif

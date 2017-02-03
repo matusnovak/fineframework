@@ -32,4 +32,8 @@ namespace ffw {
 	};
 }
 
+inline void swap(ffw::TifLoader& first, ffw::TifLoader& second){
+	first.swap(second);
+}
+
 #endif

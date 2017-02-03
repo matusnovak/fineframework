@@ -8,19 +8,19 @@ namespace ffw {
 	/**
 	* @ingroup gui
 	*/
-	class FFW_API GuiScrollbar : public GuiWidget {
+	class FFW_API GuiScrollBar : public GuiWidget {
 	public:
-		class ButtonLeft: public GuiButton {
+		class ButtonFirst: public GuiButton {
 		public:
-			ButtonLeft(GuiWindow* context);
-			virtual ~ButtonLeft();
+			ButtonFirst(GuiWindow* context, bool vertical);
+			virtual ~ButtonFirst();
 			void EventThemeChanged(const GuiTheme* theme) override;
 		};
 
-		class ButtonRight : public GuiButton {
+		class ButtonSecond : public GuiButton {
 		public:
-			ButtonRight(GuiWindow* context);
-			virtual ~ButtonRight();
+			ButtonSecond(GuiWindow* context, bool vertical);
+			virtual ~ButtonSecond();
 			void EventThemeChanged(const GuiTheme* theme) override;
 		};
 
@@ -31,9 +31,27 @@ namespace ffw {
 			void EventThemeChanged(const GuiTheme* theme) override;
 		};
 
-		GuiScrollbar(GuiWindow* context, bool vertical);
+		GuiScrollBar(GuiWindow* context, bool vertical);
 		inline bool IsVertical() const {
 			return slider->IsVertical();
+		}
+		inline GuiButton* GetButtonFirst() {
+			return left;
+		}
+		inline const GuiButton* GetButtonFirst() const {
+			return left;
+		}
+		inline GuiButton* GetButtonSecond() {
+			return right;
+		}
+		inline const GuiButton* GetButtonSecond() const {
+			return right;
+		}
+		inline GuiSlider* GetSlider() {
+			return slider;
+		}
+		inline const GuiSlider* GetSlider() const {
+			return slider;
 		}
 		inline void SetValue(int val) {
 			slider->SetValue(val);
@@ -46,8 +64,6 @@ namespace ffw {
 		}
 		inline void SetRange(int min, int max) {
 			slider->SetRange(min, max);
-			if(!IsDisabled())
-				SetDisabled(std::abs(max - min) == 0);
 		}
 		inline void SetInversed(bool inversed) {
 			slider->SetInversed(inversed);
@@ -55,8 +71,19 @@ namespace ffw {
 		inline bool GetInversed() const {
 			return slider->GetInversed();
 		}
-		virtual ~GuiScrollbar();
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		inline void SetIncrements(int inc) {
+			increments = inc;
+		}
+		inline int GetIncrements() const {
+			return increments;
+		}
+		void SetButtonLength(GuiUnits length);
+		inline GuiUnits GetButtonLength() const {
+			if (slider->IsVertical())return slider->GetButtonSize().y;
+			else return slider->GetButtonSize().x;
+		}
+		virtual ~GuiScrollBar();
+		ffw::Vec2i GetMinimumWrapSize() override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 		void EventPos(const ffw::Vec2i& pos) override;

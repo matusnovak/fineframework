@@ -22,7 +22,7 @@
 
 namespace ffw {
     class RenderContext;
-	class GlextStruct;
+	class RenderExtensions;
 	/**
 	 * @ingroup graphics
 	 */
@@ -102,7 +102,7 @@ namespace ffw {
         bool usingvert_;
         bool usingfrag_;
 		std::string errorlogstr_;
-        const GlextStruct* gl_;
+        const RenderExtensions* gl_;
     };
 };
 #endif

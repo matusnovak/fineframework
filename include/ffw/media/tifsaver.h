@@ -33,4 +33,8 @@ namespace ffw {
 	};
 }
 
+inline void swap(ffw::TifSaver& first, ffw::TifSaver& second){
+	first.swap(second);
+}
+
 #endif

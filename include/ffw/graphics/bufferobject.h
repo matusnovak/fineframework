@@ -20,7 +20,7 @@
 
 namespace ffw {
 	class RenderContext;
-	class GlextStruct;
+	class RenderExtensions;
 	/**
 	 * @ingroup graphics
 	 */
@@ -58,7 +58,7 @@ namespace ffw {
         bool loaded_;
         unsigned int buffer_;
         int size_;
-        const GlextStruct* gl_;
+        const RenderExtensions* gl_;
     };
 	/**
 	 * @ingroup graphics

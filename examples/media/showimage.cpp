@@ -4,7 +4,7 @@
 #define STRING_TO_SHOW "Drop image file here"
 
 ///=============================================================================
-class App: public ffw::AppRenderWindow {
+class App: public ffw::GLFWRenderWindow {
 public:
     App(){
 	}
@@ -43,9 +43,9 @@ public:
     void Render() override {
 		if(imagePath != ""){
 			// Clear the window
-			ffw::SetDrawColor(ffw::Rgb(0x000000));
-			ffw::DrawRectangle(0, 0, this->GetSize().x, this->GetSize().y);
-			ffw::SetDrawColor(ffw::Rgb(0xFFFFFF));
+			this->Renderer()->SetDrawColor(ffw::Rgb(0x000000));
+			this->Renderer()->DrawRectangle(0, 0, this->GetSize().x, this->GetSize().y);
+			this->Renderer()->SetDrawColor(ffw::Rgb(0xFFFFFF));
 			
 			texture.Destroy();
 
@@ -56,6 +56,7 @@ public:
 				std::cerr << "Image: " << imagePath << " failed to load!" << std::endl;
 			}
 			imagePath = "";
+			texture.SetFiltering(ffw::Texture::Filtering::LINEAR);
 		}
 
 		if(texture.IsCreated()){
@@ -74,10 +75,10 @@ public:
 			// Positive Y of texture mapping coordinate system is up.
 			// Positive Y of window coordinate system is down.
 			// Therefore, we need to draw texture mirrored vertically.
-			ffw::DrawTexture2D(ret.x, ret.y, ret.z, ret.w, &texture);
+			this->Renderer()->DrawTexture2D(ret.x, ret.y, ret.z, ret.w, &texture);
 		} else {
 			ffw::Vec2i textPos = this->GetSize()/2 - textSize/2;
-			ffw::DrawString(textPos.x, textPos.y, &font, STRING_TO_SHOW);
+			this->Renderer()->DrawString(textPos.x, textPos.y, &font, STRING_TO_SHOW);
 		}
 	}
 
@@ -128,17 +129,11 @@ private:
 
 ///=============================================================================
 int main(int argc, char *argv[]){
-	// Initialize graphics
-    if(!ffw::InitGraphics()){
-        std::cerr << "Failed to initialize graphics!" << std::endl;
-		return 1;
-	}
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
+	ffw::GLFWRenderWindowArgs args;
 	args.size.Set(800, 400);
 	args.title = "Example Show Image";
 	args.samples = 4;
@@ -146,14 +141,12 @@ int main(int argc, char *argv[]){
 	// Create window
 	if(!app.Create(args, NULL)){
 		std::cerr << "Failed to create window!" << std::endl;
-		ffw::TerminateGraphics();
 		return 1;
 	}
 
 	// Run setup
 	if(!app.Setup()){
 		std::cerr << "Failed to setup window!" << std::endl;
-		ffw::TerminateGraphics();
 		return 1;
 	}
 
@@ -169,8 +162,4 @@ int main(int argc, char *argv[]){
 	// Must be called after the setup and before the graphics
 	// is terminated
 	app.Destroy();
-
-    // Needs to be called at the end of the program if ffw::initGraphics() succeeds
-    ffw::TerminateGraphics();
-	return 0;
 }

@@ -20,12 +20,18 @@
 
 namespace ffw {
 	class RenderContext;
-	class GlextStruct;
+	class RenderExtensions;
 	/**
 	 * @ingroup graphics
 	 */
 	class FFW_API Texture {
     public:
+		enum Filtering {
+			NEAREST,
+			LINEAR,
+			MIPMAP_NEAREST,
+			MIPMAP_LINEAR
+		};
         Texture();
         virtual ~Texture();
         inline bool IsCreated() const {
@@ -71,6 +77,7 @@ namespace ffw {
         void SetTexParamf(unsigned int Name, float Value);
 		void SetTexParamfv(unsigned int Name, float* Values);
         bool GenerateMipmaps();
+		void SetFiltering(Texture::Filtering filtering);
     protected:
         bool loaded_;
         unsigned int textureformat_;
@@ -85,7 +92,7 @@ namespace ffw {
         bool mipmaps_;
         bool initialized_;
 		int samples_;
-        const GlextStruct* gl_;
+        const RenderExtensions* gl_;
     };
 };
 #endif

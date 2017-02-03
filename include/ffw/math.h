@@ -26,4 +26,6 @@
 #include "math/stringmath.h"
 #include "math/ringbuffer.h"
 #include "math/mvp.h"
+#include "math/imagebuffer.h"
+#include "math/swapwrapper.h"
 #endif

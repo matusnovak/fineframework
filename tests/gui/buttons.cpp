@@ -4,7 +4,7 @@
 #include "../catch.hpp"
 
 ///=============================================================================
-class App : public ffw::AppRenderWindow {
+class App : public ffw::GLFWRenderWindow {
 public:
 	App() {
 	}
@@ -37,33 +37,72 @@ public:
 		}
 
 		gui.SetPadding(10);
-		gui.SetOrientation(ffw::GuiLayout::Orientation::VERTICAL);
+		gui.SetOrientation(ffw::GuiLayout::Orientation::HORIZONTAL);
 		gui.SetWrap(false);
 
-		auto button = new ffw::GuiButton(&gui, "Normal");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		gui.AddWidget(button);
+		{
+			auto layout = new ffw::GuiVerticalLayout(&gui);
+			layout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+			layout->SetPadding(5);
+			gui.AddWidget(layout);
 
-		button = new ffw::GuiButton(&gui, "Hover");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetHover(true);
-		gui.AddWidget(button);
+			auto button = new ffw::GuiButton(&gui, "Normal");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			layout->AddWidget(button);
 
-		button = new ffw::GuiButton(&gui, "Active");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetIgnoreUserInput(true);
-		button->SetFocus(true);
-		gui.AddWidget(button);
+			button = new ffw::GuiButton(&gui, "Hover");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			button->SetIgnoreUserInput(true);
+			button->SetHover(true);
+			layout->AddWidget(button);
 
-		button = new ffw::GuiButton(&gui, "Disabled");
-		button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
-		button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
-		button->SetDisabled(true);
-		gui.AddWidget(button);
+			button = new ffw::GuiButton(&gui, "Active");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			button->SetIgnoreUserInput(true);
+			button->SetFocus(true);
+			layout->AddWidget(button);
+
+			button = new ffw::GuiButton(&gui, "Disabled");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			button->SetDisabled(true);
+			layout->AddWidget(button);
+		}
+
+		{
+			auto layout = new ffw::GuiVerticalLayout(&gui);
+			layout->SetSize(ffw::GuiPercent(50), ffw::GuiPercent(100));
+			layout->SetPadding(5);
+			gui.AddWidget(layout);
+
+			auto button = new ffw::GuiButtonPrimary(&gui, "Normal");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			layout->AddWidget(button);
+
+			button = new ffw::GuiButtonPrimary(&gui, "Hover");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			button->SetIgnoreUserInput(true);
+			button->SetHover(true);
+			layout->AddWidget(button);
+
+			button = new ffw::GuiButtonPrimary(&gui, "Active");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			button->SetIgnoreUserInput(true);
+			button->SetFocus(true);
+			layout->AddWidget(button);
+
+			button = new ffw::GuiButtonPrimary(&gui, "Disabled");
+			button->SetSize(ffw::GuiPercent(100), ffw::GuiPercent(20));
+			button->SetMargin(0, 0, ffw::GuiPercent(5), 0);
+			button->SetDisabled(true);
+			layout->AddWidget(button);
+		}
 
 		return true;
 	}
@@ -110,14 +149,12 @@ private:
 };
 
 TEST_CASE("Gui Buttons") {
-	REQUIRE(ffw::InitGraphics());
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
-	args.size.Set(200, 180);
+	ffw::GLFWRenderWindowArgs args;
+	args.size.Set(400, 180);
 	args.title = "Test Gui";
 	args.samples = 4;
 
@@ -139,7 +176,4 @@ TEST_CASE("Gui Buttons") {
 	// Must be called after the setup and before the graphics
 	// is terminated
 	app.Destroy();
-
-	// Needs to be called at the end of the program if ffw::initGraphics() succeeds
-	ffw::TerminateGraphics();
 }

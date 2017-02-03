@@ -4,62 +4,82 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiScrollbar::ButtonLeft::ButtonLeft(GuiWindow* context):GuiButton(context, "") {
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_BUTTON_LEFT");
+ffw::GuiScrollBar::ButtonFirst::ButtonFirst(GuiWindow* context, bool vertical):GuiButton(context, "") {
+	widgetStyle = &context->GetTheme()->GetStyleGroup((vertical ? "GUI_SCROLLBAR_BUTTON_TOP" : "GUI_SCROLLBAR_BUTTON_LEFT"));
 	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::GuiScrollbar::ButtonLeft::~ButtonLeft() {
+ffw::GuiScrollBar::ButtonFirst::~ButtonFirst() {
 
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::ButtonLeft::EventThemeChanged(const GuiTheme* theme) {
+void ffw::GuiScrollBar::ButtonFirst::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLBAR_BUTTON_LEFT");
 	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::GuiScrollbar::ButtonRight::ButtonRight(GuiWindow* context):GuiButton(context, "") {
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_BUTTON_RIGHT");
+ffw::GuiScrollBar::ButtonSecond::ButtonSecond(GuiWindow* context, bool vertical):GuiButton(context, "") {
+	widgetStyle = &context->GetTheme()->GetStyleGroup((vertical ? "GUI_SCROLLBAR_BUTTON_BOTTOM" : "GUI_SCROLLBAR_BUTTON_RIGHT"));
 	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::GuiScrollbar::ButtonRight::~ButtonRight() {
+ffw::GuiScrollBar::ButtonSecond::~ButtonSecond() {
 
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::ButtonRight::EventThemeChanged(const GuiTheme* theme) {
+void ffw::GuiScrollBar::ButtonSecond::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLBAR_BUTTON_RIGHT");
 	SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::GuiScrollbar::Scroll::Scroll(GuiWindow* context, bool vertical):GuiSlider(context, vertical) {
+ffw::GuiScrollBar::Scroll::Scroll(GuiWindow* context, bool vertical):GuiSlider(context, vertical) {
 	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_SLIDER");
 	SetDefaults(&widgetStyle->defaults);
 	styleBar = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BAR");
 	styleButton = &context->GetTheme()->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BUTTON");
+
+	barSize = styleBar->defaults.size;
+	buttonSize = styleButton->defaults.size;
+
+	if (IsVertical()) {
+		auto s = GetSize();
+		SetSize(s.y, s.x);
+		std::swap(buttonSize.x, buttonSize.y);
+		std::swap(barSize.x, barSize.y);
+	}
 }
 
 ///=============================================================================
-ffw::GuiScrollbar::Scroll::~Scroll() {
+ffw::GuiScrollBar::Scroll::~Scroll() {
 
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::Scroll::EventThemeChanged(const GuiTheme* theme) {
+void ffw::GuiScrollBar::Scroll::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLBAR_SLIDER");
 	SetDefaults(&widgetStyle->defaults);
 	styleBar = &theme->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BAR");
 	styleButton = &theme->GetStyleGroup("GUI_SCROLLBAR_SLIDER_BUTTON");
+
+	barSize = styleBar->defaults.size;
+	buttonSize = styleButton->defaults.size;
+
+	if (IsVertical()) {
+		auto s = GetSize();
+		SetSize(s.y, s.x);
+		std::swap(buttonSize.x, buttonSize.y);
+		std::swap(barSize.x, barSize.y);
+	}
 }
 
 ///=============================================================================
-ffw::GuiScrollbar::GuiScrollbar(GuiWindow* context, bool vertical) :
+ffw::GuiScrollBar::GuiScrollBar(GuiWindow* context, bool vertical) :
 	GuiWidget(context){
 	dropfocusflag = true;
 
@@ -71,9 +91,9 @@ ffw::GuiScrollbar::GuiScrollbar(GuiWindow* context, bool vertical) :
 		SetSize(s.y, s.x);
 	}
 
-	right = new GuiScrollbar::ButtonRight(context);
-	left = new GuiScrollbar::ButtonLeft(context);
-	slider = new GuiScrollbar::Scroll(context, vertical);
+	left = new GuiScrollBar::ButtonFirst(context, vertical);
+	right = new GuiScrollBar::ButtonSecond(context, vertical);
+	slider = new GuiScrollBar::Scroll(context, vertical);
 
 	//right->SetSize(0, 0);
 	left->SetPadding(2);
@@ -100,12 +120,12 @@ ffw::GuiScrollbar::GuiScrollbar(GuiWindow* context, bool vertical) :
 
 	slider->SetRange(0, 100);
 	slider->SetValue(50);
-	slider->SetButtonSize(ffw::GuiPixels(12));
+	//slider->SetButtonSize(ffw::GuiPixels(12));
 	slider->SetCallbackPtr(this);
 	increments = 10;
 
-	left->AddEventCallback(&GuiScrollbar::ButtonCallback, this, true);
-	right->AddEventCallback(&GuiScrollbar::ButtonCallback, this, true);
+	left->AddEventCallback(&GuiScrollBar::ButtonCallback, this, true);
+	right->AddEventCallback(&GuiScrollBar::ButtonCallback, this, true);
 
 	this->AddWidgetInternal(left);
 	this->AddWidgetInternal(slider);
@@ -113,11 +133,24 @@ ffw::GuiScrollbar::GuiScrollbar(GuiWindow* context, bool vertical) :
 }
 
 ///=============================================================================
-ffw::GuiScrollbar::~GuiScrollbar() {
+ffw::GuiScrollBar::~GuiScrollBar() {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::ButtonCallback(ffw::GuiEvent e) {
+void ffw::GuiScrollBar::SetButtonLength(GuiUnits length) {
+	auto size = slider->GetButtonSize();
+	if (slider->IsVertical()) {
+		size.y = length;
+		slider->SetButtonSize(size);
+	}
+	else {
+		size.x = length;
+		slider->SetButtonSize(size);
+	}
+}
+
+///=============================================================================
+void ffw::GuiScrollBar::ButtonCallback(ffw::GuiEvent e) {
 	if (e.type == ffw::GuiEvent::Type::CLICKED) {
 		int val = slider->GetValue();
 
@@ -134,67 +167,69 @@ void ffw::GuiScrollbar::ButtonCallback(ffw::GuiEvent e) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::Recalculate(const ffw::Vec2i& size) {
+void ffw::GuiScrollBar::Recalculate(const ffw::Vec2i& size) {
 	if (slider->IsVertical()) {
 		left->SetSize(size.x, size.x);
 		right->SetSize(size.x, size.x);
 		slider->SetSize(size.x, size.y - size.x * 2);
-		slider->SetButtonSize(ffw::GuiPixels(size.x));
+		//slider->SetButtonSize(ffw::GuiPixels(size.x));
+		//slider->SetButtonSize(ffw::Vec2<GuiUnits>(ffw::GuiPercent(100), buttonLength));
 	}
 	else {
 		left->SetSize(size.y, size.y);
 		right->SetSize(size.y, size.y);
 		slider->SetSize(size.x - size.y * 2, size.y);
-		slider->SetButtonSize(ffw::GuiPixels(size.y));
+		//slider->SetButtonSize(ffw::GuiPixels(size.y));
+		//slider->SetButtonSize(ffw::Vec2<GuiUnits>(buttonLength, ffw::GuiPercent(100)));
 	}
 	Invalidate();
 	//RecalculateSize();
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiScrollBar::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventPos(const ffw::Vec2i& pos) {
+void ffw::GuiScrollBar::EventPos(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventSize(const ffw::Vec2i& size) {
+void ffw::GuiScrollBar::EventSize(const ffw::Vec2i& size) {
 	Recalculate(size);
 	Redraw();
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventHover(bool gained) {
+void ffw::GuiScrollBar::EventHover(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventFocus(bool gained) {
+void ffw::GuiScrollBar::EventFocus(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiScrollBar::EventMouse(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+void ffw::GuiScrollBar::EventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventText(wchar_t chr) {
+void ffw::GuiScrollBar::EventText(wchar_t chr) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventKey(ffw::Key key, ffw::Mode mode) {
+void ffw::GuiScrollBar::EventKey(ffw::Key key, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventDisabled(bool disabled) {
+void ffw::GuiScrollBar::EventDisabled(bool disabled) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollbar::EventThemeChanged(const GuiTheme* theme) {
+void ffw::GuiScrollBar::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLBAR");
 	SetDefaults(&widgetStyle->defaults);
 
@@ -205,7 +240,7 @@ void ffw::GuiScrollbar::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiScrollbar::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiScrollBar::GetMinimumWrapSize() {
 	ffw::Vec2i s;
 
 	auto slidermin = slider->GetMinimumWrapSize();

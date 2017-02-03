@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 project (finegraphics)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
+link_directories(${CMAKE_BINARY_DIR}/Debug)
+link_directories(${CMAKE_BINARY_DIR}/Release)
 
 FILE(GLOB SOURCES *.cpp)
 FILE(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ffw/graphics/*.h)
@@ -19,11 +21,13 @@ add_library(${PROJECT_NAME} ${BUILD_TYPE} ${SOURCES} ${HEADERS})
 if(APPLE)
   target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARY} ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY} glfw3 freetype z bz2)
 elseif(UNIX)
-  target_link_libraries(${PROJECT_NAME} GL GLU glfw3 X11 Xxf86vm Xrandr Xcursor Xinerama freetype)
+  target_link_libraries(${PROJECT_NAME} GL GLU glfw3 Xi X11 Xxf86vm Xrandr Xcursor Xinerama freetype)
   include_directories(${PROJECT_NAME} /usr/include/freetype2)
 else()
   target_link_libraries(${PROJECT_NAME} glfw3 opengl32 freetype)
 endif()
+  
+target_link_libraries(${PROJECT_NAME} debug finemath${CMAKE_DEBUG_POSTFIX} optimized finemath)
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   

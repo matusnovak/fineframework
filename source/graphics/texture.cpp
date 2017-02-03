@@ -2,8 +2,6 @@
 
 #include "ffw/graphics/texture.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
-
 
 ///=============================================================================
 ffw::Texture::Texture() {
@@ -63,6 +61,37 @@ void ffw::Texture::SetTexParamiv(GLenum name, GLint* value){
 ///=============================================================================
 void ffw::Texture::SetTexParamfv(GLenum name, GLfloat* value){
     glTexParameterfv(textureformat_, name, value);
+}
+
+///=============================================================================
+void ffw::Texture::SetFiltering(Texture::Filtering filtering) {
+	Bind();
+	switch (filtering) {
+		case Texture::Filtering::NEAREST: {
+			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			break;
+		}
+		case Texture::Filtering::LINEAR: {
+			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			break;
+		}
+		case Texture::Filtering::MIPMAP_NEAREST: {
+			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+			break;
+		}
+		case Texture::Filtering::MIPMAP_LINEAR: {
+			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			break;
+		}
+		default: {
+			break;
+		}
+	}
+	Unbind();
 }
 
 ///=============================================================================

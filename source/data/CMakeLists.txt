@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.0)
 project (finedata)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
+link_directories(${CMAKE_BINARY_DIR}/Debug)
+link_directories(${CMAKE_BINARY_DIR}/Release)
 
 FILE(GLOB SOURCES *.cpp)
 FILE(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ffw/data/*.h)
@@ -21,6 +23,8 @@ if(UNIX OR APPLE)
 else()
   #target_link_libraries(${PROJECT_NAME})
 endif()
+
+target_link_libraries(${PROJECT_NAME} debug finemath${CMAKE_DEBUG_POSTFIX} optimized finemath)
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   

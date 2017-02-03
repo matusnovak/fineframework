@@ -109,6 +109,9 @@ void ffw::GuiSlider::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec
 
 	if (cStyleBar == NULL || cStyleButton == NULL)return;
 
+	auto test = std::abs(range.x - range.y);
+	if (test == 0)return;
+
 	auto buttonSizeReal = ffw::Vec2i(buttonSize.x.ToReal(contentsize.x), buttonSize.y.ToReal(contentsize.y));
 
 	if(vertical){
@@ -298,7 +301,7 @@ void ffw::GuiSlider::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiSlider::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiSlider::GetMinimumWrapSize() {
 	auto realSize = GetRealSize();
 	auto btnSize = ffw::Vec2i(buttonSize.x.ToReal(realSize.x), buttonSize.y.ToReal(realSize.y));
 

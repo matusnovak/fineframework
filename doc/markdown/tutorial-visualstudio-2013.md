@@ -29,9 +29,9 @@ For the library files, go to **Configuration Properties -> Linker -> General -> 
 
 ![Alt](images/tutorial-vs12-02.png)
 
-In the same category, go to **Input -> Additional Dependencies** and add `opengl32.lib`, `finegraphics.lib`, `finegui.lib`, and `finedata.lib` (You don't need to include all modules if you are not going to use them in your project).
+In the same category, go to **Input -> Additional Dependencies** and add `opengl32.lib`, `finegraphics.lib`, `finedata.lib`, `finemedia.lib`, `finegui.lib`, and `finemath.lib` (You don't need to include all modules if you are not going to use them in your project).
 
-Note that you should use the debug version of FFW when using debug configuration, simply, add `finegraphics_d.lib`, `finegui_d.lib`, and `finedata_d.lib` into Additional Dependencies in Debug configutation. (Note the `_d` suffix in the library names!)
+Note that you should use the debug version of FFW when using debug configuration, simply, add `finegraphics_d.lib`, `finedata_d.lib`, `finemedia_d.lib`, `finegui_d.lib`, and `finemath_d.lib`  into Additional Dependencies in Debug configutation. (Note the `_d` suffix in the library names!)
 
 *Note that OpenGL library is needed only when using Graphics Module!*
 

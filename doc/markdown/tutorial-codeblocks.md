@@ -41,7 +41,7 @@ For the library files, go to **Search Directories -> Linker** and add a new path
 
 ![Alt](images/tutorial-cb-05.png)
 
-Now, go to the **Linker Settings** and add the following libraries to the **Link libraries** window on the left side: `opengl32`, `finegraphics`, `finegui`, and `finedata`. (You don't need to include all modules if you are not going to use them in your project).
+Now, go to the **Linker Settings** and add the following libraries to the **Link libraries** window on the left side: `opengl32`, `finegraphics`, `finedata`, `finemedia`, `finegui`, and `finemath`. (You don't need to include all modules if you are not going to use them in your project).
 
 *Note that OpenGL library is needed only when using Graphics Module!*
 

@@ -9,47 +9,91 @@ namespace ffw {
 	*/
 	class GuiUnits {
 	public:
-		GuiUnits() :value(0), inPercent(0) {}
-		GuiUnits(int Value, bool InPercent) :value(Value), inPercent(InPercent) {}
-		GuiUnits(int Value) :value(Value), inPercent(false) {}
+		enum Type {
+			PERCENT,
+			PIXELS,
+			WRAP,
+		};
+		inline GuiUnits() :value(0), type(GuiUnits::Type::PIXELS) {
+			
+		}
+		inline GuiUnits(int Value, bool percentage) :value(Value), type((percentage ? GuiUnits::Type::PERCENT : GuiUnits::Type::PIXELS)) {
+			
+		}
+		inline GuiUnits(int Value) :value(Value), type(GuiUnits::Type::PIXELS) {
+			
+		}
 		inline bool operator == (const GuiUnits& other) const {
-			return (value == other.value && inPercent == other.inPercent);
+			return (value == other.value && type == other.type);
+		}
+		inline bool operator != (const GuiUnits& other) const {
+			return (value != other.value || type != other.type);
 		}
 		inline bool operator == (int v) const {
-			return (value == v && inPercent == false);
+			return (value == v && type != GuiUnits::Type::PERCENT);
 		}
-		int value;
-		bool inPercent;
+		inline bool operator != (int v) const {
+			return (value != v || type == GuiUnits::Type::PERCENT);
+		}
+		inline bool operator == (Type t) const {
+			return (type == t);
+		}
+		inline bool operator != (Type t) const {
+			return (type != t);
+		}
 		inline friend std::ostream& operator << (std::ostream& os, const GuiUnits& V) {
-			os << V.value << (V.inPercent ? "%" : "px");
+			os << V.value << (V.type == GuiUnits::Type::PERCENT ? "%" : "px");
 			return os;
 		}
 		inline int ToReal(const int val) const {
-			if (inPercent) {
-				return int((value / 100.0) * val);
+			if (type == GuiUnits::Type::PERCENT) {
+				return int((value / 100.0f) * val);
 			}
 			else {
 				return value;
 			}
 		}
 		inline void SetPixels(int px) {
-			inPercent = false;
+			type = GuiUnits::Type::PIXELS;
 			value = px;
 		}
 		inline void SetPercent(int pc) {
-			inPercent = true;
+			type = GuiUnits::Type::PERCENT;
 			value = pc;
 		}
+		Type type;
+		int value;
 	};
-	inline GuiUnits GuiPixels(int Px) {
-		return GuiUnits(Px, false);
+	/**
+	* @ingroup gui
+	*/
+	inline GuiUnits GuiPixels(int pixels) {
+		return GuiUnits(pixels, false);
 	}
-	inline GuiUnits GuiPercent(int Pe) {
-		return GuiUnits(Pe, true);
+	/**
+	* @ingroup gui
+	*/
+	inline GuiUnits GuiPercent(int percent) {
+		return GuiUnits(percent, true);
 	}
+	/**
+	* @ingroup gui
+	*/
 	inline GuiUnits GuiWrap() {
 		return GuiUnits(-1, true);
 	}
+	/**
+	* @ingroup gui
+	*/
+	class GuiUnits2D: public ffw::Vec2<GuiUnits> {
+	public:
+		inline ffw::Vec2i ToReal(const ffw::Vec2i& size) {
+			return ffw::Vec2i(x.ToReal(size.x), y.ToReal(size.y));
+		}
+	};
+	/**
+	* @ingroup gui
+	*/
 	class GuiStyle {
 	public:
 		enum class Align {
@@ -106,11 +150,11 @@ namespace ffw {
 			inline bool operator != (const Attribute& other) const {
 				return !(*this == other);
 			}
-			T val[4];
 			inline friend std::ostream& operator << (std::ostream& os, const Attribute& a) {
 				os << a.val[0] << ", " << a.val[1] << ", " << a.val[2] << ", " << a.val[3] << std::endl;
 				return os;
 			}
+			T val[4];
 		};
 		class Border {
 		public:
@@ -179,12 +223,16 @@ namespace ffw {
 		class Function {
 		public:
 			inline Function() :
-				color(ffw::Rgb(0xFFFFFF)) {
+				color(ffw::Rgb(0xFFFFFF)),secondary(ffw::Rgb(0xFFFFFF)) {
 			}
 			inline Function(const ffw::Color& c):
-				color(c) {
+				color(c),secondary(c) {
+			}
+			inline Function(const ffw::Color& c, const ffw::Color& s) :
+				color(c), secondary(s) {
 			}
 			ffw::Color color;
+			ffw::Color secondary;
 		};
 		inline GuiStyle() {
 			
@@ -199,20 +247,33 @@ namespace ffw {
 		Text text;
 		Function function;
 	};
-
+	/**
+	* @ingroup gui
+	*/
 	inline GuiStyle::Background GuiSimpleBackground(const ffw::Color& color) {
 		return GuiStyle::Background(0, color, ffw::Rgb(0x000000), GuiStyle::Background::Type::SIMPLE);
 	}
+	/**
+	* @ingroup gui
+	*/
 	inline GuiStyle::Background GuiVGradientBackground(const ffw::Color& top, const ffw::Color& bottom) {
 		return GuiStyle::Background(0, top, bottom, GuiStyle::Background::Type::VGRADIENT);
 	}
+	/**
+	* @ingroup gui
+	*/
 	inline GuiStyle::Background GuiHGradientBackground(const ffw::Color& left, const ffw::Color& right) {
 		return GuiStyle::Background(0, left, right, GuiStyle::Background::Type::HGRADIENT);
 	}
+	/**
+	* @ingroup gui
+	*/
 	inline GuiStyle::Background GuiNoBackground() {
 		return GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), GuiStyle::Background::Type::NONE);
 	}
-
+	/**
+	* @ingroup gui
+	*/
 	class GuiDefaults {
 	public:
 		inline GuiDefaults() :
@@ -226,7 +287,9 @@ namespace ffw {
 		GuiStyle::Align align;
 		ffw::Vec2<GuiUnits> size;
 	};
-
+	/**
+	* @ingroup gui
+	*/
 	class GuiStyleGroup {
 	public:
 		inline GuiStyleGroup() {
@@ -241,7 +304,9 @@ namespace ffw {
 		GuiStyle disabled;
 		GuiDefaults defaults;
 	};
-
+	/**
+	* @ingroup gui
+	*/
 	class FFW_API GuiTheme {
 	public:
 		static const GuiTheme Windows;

@@ -70,7 +70,7 @@ void ffw::GuiCheckbox::Button::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiCheckbox::Button::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiCheckbox::Button::GetMinimumWrapSize() {
 	return 8;
 }
 
@@ -124,7 +124,7 @@ void ffw::GuiCheckbox::EventRender(const ffw::Vec2i& contentoffset, const ffw::V
 	auto size = widgetbutton->GetRealSize();
 	size.x += widgetbutton->GetMarginInPixels(1);
 	size.y = 0;
-	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
+	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text, GetLineHeight());
 }
 
 ///=============================================================================
@@ -171,9 +171,9 @@ void ffw::GuiCheckbox::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiCheckbox::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiCheckbox::GetMinimumWrapSize() {
 	if(GetCurrentFont() == NULL)return 0;
-	auto strsize = GetCurrentFont()->GetStringSize(label);
+	auto strsize = GetCurrentFont()->GetStringSize(label, GetLineHeight());
 	const auto& buttonSize = widgetbutton->GetRealSizeWithMargin();
 	strsize.x += buttonSize.x;
 	strsize.y = std::max(strsize.y, buttonSize.y);

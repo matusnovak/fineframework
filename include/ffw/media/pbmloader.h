@@ -23,8 +23,12 @@ namespace ffw {
 		virtual void Close();
 
 	private:
-		std::fstream input;
+		ffw::SwapWrapper<std::fstream> input;
 	};
+}
+
+inline void swap(ffw::PbmLoader& first, ffw::PbmLoader& second){
+	first.swap(second);
 }
 
 #endif

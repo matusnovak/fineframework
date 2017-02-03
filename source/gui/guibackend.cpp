@@ -5,7 +5,14 @@
 ///=============================================================================
 void ffw::GuiBackend::DrawBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle::Background& background, bool ignore) const {
 	if (!background)return;
-	DrawRectangle(pos, size, background.color);
+	if (background.radius[0] > 0 || 
+		background.radius[1] > 0 || 
+		background.radius[2] > 0 || 
+		background.radius[3] > 0) {
+		DrawRectangleRounded(pos, size, background.color, background.radius[0], background.radius[1], background.radius[2], background.radius[3]);
+	} else {
+		DrawRectangle(pos, size, background.color);
+	}
 }
 
 ///=============================================================================
@@ -231,7 +238,7 @@ void ffw::GuiBackend::DrawBorder(const ffw::Vec2i& pos, const ffw::Vec2i& size, 
 }
 
 ///=============================================================================
-void ffw::GuiBackend::DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiFont* font, ffw::GuiStyle::Align align, const std::wstring& str, const ffw::GuiStyle::Text& text) const {
+void ffw::GuiBackend::DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiFont* font, ffw::GuiStyle::Align align, const std::wstring& str, const ffw::GuiStyle::Text& text, float lineHeight) const {
 	if(font == NULL)return;
 
 	const ffw::Vec2i& strsize = font->GetStringSize(str);
@@ -278,5 +285,5 @@ void ffw::GuiBackend::DrawStringAligned(const ffw::Vec2i& pos, const ffw::Vec2i&
 		break;
 	}
 
-	DrawString(pos + offset, font, str, text.color);
+	DrawString(pos + offset, font, str, text.color, lineHeight);
 }

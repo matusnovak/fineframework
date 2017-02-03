@@ -2,8 +2,6 @@
 
 #include "ffw/graphics/texture1d.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
-
 
 ///=============================================================================
 bool ffw::Texture1D::CheckCompability(const ffw::RenderContext* Renderer){

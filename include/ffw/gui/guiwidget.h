@@ -66,6 +66,9 @@ namespace ffw {
 		Type type;
 		Data data;
 	};
+	/**
+	* @ingroup gui
+	*/
 	class GuiCallback {
 	public:
 		class Data {
@@ -130,8 +133,42 @@ namespace ffw {
 		inline void SetMargin(const GuiStyle::Margin& mar) {
 			SetMargin(mar[0], mar[1], mar[2], mar[3]);
 		}
-		GuiUnits GetPadding(int side) const;
-		GuiUnits GetMargin(int side) const;
+		inline const GuiStyle::Padding& GetPadding() const {
+			return padding;
+		}
+		inline const GuiStyle::Margin& GetMargin() const {
+			return margin;
+		}
+		inline GuiUnits GetPadding(int side) const {
+			return padding[side];
+		}
+		inline GuiUnits GetMargin(int side) const {
+			return margin[side];
+		}
+		inline void SetMarginTop(GuiUnits val) {
+			margin[0] = val;
+		}
+		inline void SetMarginRight(GuiUnits val) {
+			margin[1] = val;
+		}
+		inline void SetMarginBottom(GuiUnits val) {
+			margin[2] = val;
+		}
+		inline void SetMarginLeft(GuiUnits val) {
+			margin[3] = val;
+		}
+		inline void SetPaddingTop(GuiUnits val) {
+			padding[0] = val;
+		}
+		inline void SetPaddingRight(GuiUnits val) {
+			padding[1] = val;
+		}
+		inline void SetPaddingBottom(GuiUnits val) {
+			padding[2] = val;
+		}
+		inline void SetPaddingLeft(GuiUnits val) {
+			padding[3] = val;
+		}
 		int GetPaddingInPixels(int side) const;
 		int GetMarginInPixels(int side) const;
 		void SetAlign(GuiStyle::Align align);
@@ -174,7 +211,7 @@ namespace ffw {
 		inline const ffw::Vec2i GetMousePos() const {
 			return mouseold;
 		}
-		virtual ffw::Vec2i GetMinimumWrapSize() const = 0;
+		virtual ffw::Vec2i GetMinimumWrapSize() = 0;
 		template<class T>
 		T* FindByID(unsigned long id_){
 			if(typeid(*this).hash_code() == typeid(T).hash_code() && id == id_)return dynamic_cast<T*>(this);
@@ -214,6 +251,13 @@ namespace ffw {
 		}
 		inline const ffw::Vec2i& GetRealPos() const {
 			return posreal;
+		}
+		inline void SetLineHeight(float height) {
+			lineHeight = height;
+			Redraw();
+		}
+		inline float GetLineHeight() const {
+			return lineHeight;
 		}
 		inline void SetDefaults(const ffw::GuiDefaults* def) {
 			if (def != NULL) {
@@ -281,6 +325,7 @@ namespace ffw {
 		bool invalidateflag;
 		bool first;
 		bool hidden;
+		float lineHeight;
 		int shouldhideflag;
 		const GuiFont* widgetfont;
 		GuiStyle::Align align;

@@ -136,22 +136,22 @@ TEST_CASE("Testing Vec2", "[Vec2]") {
 	{
 		ffw::Vec2f vec(3.0f, 4.0f);
 		vec.Normalize();
-		REQUIRE(std::fabsf(vec.x - 3.0f / 5.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 4.0f / 5.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 3.0f / 5.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 4.0f / 5.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec2f vec(1.0f, 0.0f);
 		vec.Rotate(90.0f);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec2f vec(1.0f, 0.0f);
 		vec.RotateRad(90.0f * DEG_TO_RAD);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
 	}
 
 	{
@@ -326,113 +326,113 @@ TEST_CASE("Testing Vec3", "[Vec3]") {
 	{
 		ffw::Vec3f vec(3.0f, 4.0f, 12.0f);
 		vec.Normalize();
-		REQUIRE(std::fabsf(vec.x - 3.0f / 13.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 4.0f / 13.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 12.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 3.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 4.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 12.0f / 13.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(1.0f, 0.0f, 0.0f);
 		vec.RotateZ(90.0f);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(1.0f, 0.0f, 0.0f);
 		vec.RotateZ(30.0f);
-		REQUIRE(std::fabsf(vec.x - 0.866025f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 0.5f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.866025f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 0.5f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(1.0f, 0.0f, 0.0f);
 		vec.RotateZRad(90.0f * DEG_TO_RAD);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(1.0f, 0.0f, 0.0f);
 		vec.RotateZRad(30.0f * DEG_TO_RAD);
-		REQUIRE(std::fabsf(vec.x - 0.866025f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 0.5f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.866025f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 0.5f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateY(90.0f);
-		REQUIRE(std::fabsf(vec.x - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateY(30.0f);
-		REQUIRE(std::fabsf(vec.x - 0.5f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.866025f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.5f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.866025f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateYRad(90.0f * DEG_TO_RAD);
-		REQUIRE(std::fabsf(vec.x - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateYRad(30.0f * DEG_TO_RAD);
-		REQUIRE(std::fabsf(vec.x - 0.5f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 0.866025f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.5f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 0.866025f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateX(90.0f);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - -1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - -1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 1.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateX(30.0f);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 0.366025f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 1.366025f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 0.366025f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 1.366025f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateXRad(90.0f * DEG_TO_RAD);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - -1.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - -1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 1.0f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateXRad(30.0f * DEG_TO_RAD);
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 0.366025f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 1.366025f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 0.366025f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 1.366025f) < 0.01f);
 	}
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
 		vec.RotateByAxis(30.0f, ffw::Vec3f(0.2f, 0.8f, 0.6f));
-		REQUIRE(std::fabsf(vec.x - 0.134128f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 0.912248f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 1.072294f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.134128f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 0.912248f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 1.072294f) < 0.01f);
 	}
 
 	{
@@ -624,10 +624,10 @@ TEST_CASE("Testing Vec4", "[Vec4]") {
 	{
 		ffw::Vec4f vec(0.0f, 4.0f, 12.0f, 3.0f);
 		vec.Normalize();
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 4.0f / 13.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 12.0f / 13.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.w - 3.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 4.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 12.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.w - 3.0f / 13.0f) < 0.01f);
 	}
 
 	{
@@ -818,10 +818,10 @@ TEST_CASE("Testing Color", "[Color]") {
 	{
 		ffw::Color vec(0.0f, 4.0f, 12.0f, 3.0f);
 		vec.Normalize();
-		REQUIRE(std::fabsf(vec.x - 0.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.y - 4.0f / 13.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.z - 12.0f / 13.0f) < 0.01f);
-		REQUIRE(std::fabsf(vec.w - 1.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.x - 0.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.y - 4.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.z - 12.0f / 13.0f) < 0.01f);
+		REQUIRE(std::fabs(vec.w - 1.0f) < 0.01f);
 	}
 
 	{
@@ -939,7 +939,7 @@ TEST_CASE("Testing Var", "[Var]") {
 	b = "hello";
 	REQUIRE(b.Typeid() == typeid(const char*));
 	REQUIRE(strcmp("hello", (const char*)b) == 0);
-	REQUIRE(b == "hello");
+	REQUIRE((b == "hello") == true); // Compile error on GCC because of catch.hpp
 	REQUIRE(b == std::string("hello"));
 
 	b = std::string("hello");
@@ -1390,7 +1390,7 @@ TEST_CASE("Testing RingBuffer", "[RingBuffer]") {
 TEST_CASE("Testing UTF8 To WSTR", "[Unicode]") {
 	// Samples taken from:
 	// http://www.cl.cam.ac.uk/~mgk25/ucs/examples/quickbrown.txt
-	
+
 	{
 		// Danish
 		static const std::string str = "\x51\x75\x69\x7A\x64\x65\x6C\x74\x61\x67\x65\x72\x6E\x65\x20\x73\x70\x69\x73\x74\x65\x20\x6A\x6F\x72\x64\x62\xC3\xA6\x72\x20\x6D\x65\x64\x20\x66\x6C\xC3\xB8\x64\x65\x2C\x20\x6D\x65\x6E\x73\x20\x63\x69\x72\x6B\x75\x73\x6B\x6C\x6F\x76\x6E\x65\x6E\x20\x57\x6F\x6C\x74\x68\x65\x72\x20\x73\x70\x69\x6C\x6C\x65\x64\x65\x20\x70\xC3\xA5\x20\x78\x79\x6C\x6F\x66\x6F\x6E\x2E";
@@ -1405,7 +1405,7 @@ TEST_CASE("Testing UTF8 To WSTR", "[Unicode]") {
 		// German Part 1
 		static const std::string str = "\x46\x61\x6C\x73\x63\x68\x65\x73\x20\xC3\x9C\x62\x65\x6E\x20\x76\x6F\x6E\x20\x58\x79\x6C\x6F\x70\x68\x6F\x6E\x6D\x75\x73\x69\x6B\x20\x71\x75\xC3\xA4\x6C\x74\x20\x6A\x65\x64\x65\x6E\x20\x67\x72\xC3\xB6\xC3\x9F\x65\x72\x65\x6E\x20\x5A\x77\x65\x72\x67\x20";
 		static const std::wstring wstr = L"\x0046\x0061\x006C\x0073\x0063\x0068\x0065\x0073\x0020\x00DC\x0062\x0065\x006E\x0020\x0076\x006F\x006E\x0020\x0058\x0079\x006C\x006F\x0070\x0068\x006F\x006E\x006D\x0075\x0073\x0069\x006B\x0020\x0071\x0075\x00E4\x006C\x0074\x0020\x006A\x0065\x0064\x0065\x006E\x0020\x0067\x0072\x00F6\x00DF\x0065\x0072\x0065\x006E\x0020\x005A\x0077\x0065\x0072\x0067\x0020";
-	
+
 		REQUIRE(ffw::Utf8ToWstr(str) == wstr);
 		REQUIRE(ffw::WstrToUtf8(wstr) == str);
 		REQUIRE(ffw::WstrToUtf8(ffw::Utf8ToWstr(str)) == str);
@@ -1415,7 +1415,7 @@ TEST_CASE("Testing UTF8 To WSTR", "[Unicode]") {
 		// German Part 2
 		static const std::string str = "\x5A\x77\xC3\xB6\x6C\x66\x20\x42\x6F\x78\x6B\xC3\xA4\x6D\x70\x66\x65\x72\x20\x6A\x61\x67\x74\x65\x6E\x20\x45\x76\x61\x20\x71\x75\x65\x72\x20\xC3\xBC\x62\x65\x72\x20\x64\x65\x6E\x20\x53\x79\x6C\x74\x65\x72\x20\x44\x65\x69\x63\x68";
 		static const std::wstring wstr = L"\x005A\x0077\x00F6\x006C\x0066\x0020\x0042\x006F\x0078\x006B\x00E4\x006D\x0070\x0066\x0065\x0072\x0020\x006A\x0061\x0067\x0074\x0065\x006E\x0020\x0045\x0076\x0061\x0020\x0071\x0075\x0065\x0072\x0020\x00FC\x0062\x0065\x0072\x0020\x0064\x0065\x006E\x0020\x0053\x0079\x006C\x0074\x0065\x0072\x0020\x0044\x0065\x0069\x0063\x0068";
-		
+
 		REQUIRE(ffw::Utf8ToWstr(str) == wstr);
 		REQUIRE(ffw::WstrToUtf8(wstr) == str);
 		REQUIRE(ffw::WstrToUtf8(ffw::Utf8ToWstr(str)) == str);

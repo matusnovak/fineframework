@@ -6,6 +6,9 @@
 #include <fstream>
 
 namespace ffw{
+	/**
+	* @ingroup media
+	*/
 	class FFW_API ObjLoader {
 	public:
 		struct ObjectInfo {
@@ -76,7 +79,7 @@ namespace ffw{
 		std::vector<ObjectInfo> objects;
 		ObjectInfo* activeObject;
 		size_t fRead;
-		std::fstream input;
+		ffw::SwapWrapper<std::fstream> input;
 		bool gotLine;
 		size_t tokensRead;
 		size_t tokensTotal;
@@ -91,7 +94,9 @@ namespace ffw{
 		ffw::Vec2f middleVT;
 		bool loaded;
 	};
-
+	/**
+	* @ingroup media
+	*/
 	bool FFW_API ReadObj(const std::string& path, float** vertices, unsigned int* numVertices);
 #ifdef FFW_GRAPHICS_MODULE
 	inline bool ReadObj(const std::string& path, const ffw::RenderContext* context, ffw::Vbo* vbo, GLenum type = GL_STATIC_DRAW){
@@ -113,5 +118,9 @@ namespace ffw{
 	}
 #endif
 };
+
+inline void swap(ffw::ObjLoader& first, ffw::ObjLoader& second){
+	first.swap(second);
+}
 
 #endif

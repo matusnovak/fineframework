@@ -4,16 +4,16 @@
 #include "guiwidget.h"
 namespace ffw {
 	/**
-	 * @ingroup gui
-	 */
-	class FFW_API GuiButton: public GuiWidget {
+	* @ingroup gui
+	*/
+	class FFW_API GuiButton : public GuiWidget {
 	public:
 		GuiButton(GuiWindow* context, const std::string& label);
 		GuiButton(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButton();
 		void SetLabel(const std::wstring& label);
 		const std::wstring& GetLabel() const;
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		ffw::Vec2i GetMinimumWrapSize() override;
 	private:
 		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
 		void EventPos(const ffw::Vec2i& pos) override;
@@ -27,6 +27,14 @@ namespace ffw {
 		void EventDisabled(bool disabled) override;
 		void EventThemeChanged(const GuiTheme* theme) override;
 		std::wstring label;
+	};
+
+	class FFW_API GuiButtonPrimary : public GuiButton {
+	public:
+		GuiButtonPrimary(GuiWindow* context, const std::string& label);
+		GuiButtonPrimary(GuiWindow* context, const std::wstring& label);
+		virtual ~GuiButtonPrimary();
+		void EventThemeChanged(const GuiTheme* theme) override;
 	};
 }
 #endif

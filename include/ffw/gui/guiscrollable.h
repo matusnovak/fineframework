@@ -12,7 +12,7 @@ namespace ffw {
 	public:
 		GuiScrollable(GuiWindow* context, GuiWidget* widget, bool hori, bool vert);
 		virtual ~GuiScrollable();
-		ffw::Vec2i GetMinimumWrapSize() const override;
+		ffw::Vec2i GetMinimumWrapSize() override;
 		void SetScrollbarThickness(int px);
 		void SetScrollValues(int hori, int vert);
 		inline ffw::Vec2i GetScrollValues() const {
@@ -24,16 +24,16 @@ namespace ffw {
 		inline int GetScrollbarThickness() const {
 			return thickness;
 		}
-		inline ffw::GuiScrollbar* GetVscroll() {
+		inline ffw::GuiScrollBar* GetVscroll() {
 			return vscroll;
 		}
-		inline const ffw::GuiScrollbar* GetVscroll() const {
+		inline const ffw::GuiScrollBar* GetVscroll() const {
 			return vscroll;
 		}
-		inline ffw::GuiScrollbar* GetHscroll() {
+		inline ffw::GuiScrollBar* GetHscroll() {
 			return hscroll;
 		}
-		inline const ffw::GuiScrollbar* GetHscroll() const {
+		inline const ffw::GuiScrollBar* GetHscroll() const {
 			return hscroll;
 		}
 	protected:
@@ -56,8 +56,8 @@ namespace ffw {
 		void EventKey(ffw::Key key, ffw::Mode mode) override;
 		void EventDisabled(bool disabled) override;
 		void EventThemeChanged(const GuiTheme* theme) override;
-		ffw::GuiScrollbar* vscroll;
-		ffw::GuiScrollbar* hscroll;
+		ffw::GuiScrollBar* vscroll;
+		ffw::GuiScrollBar* hscroll;
 		ffw::GuiWidget* inner;
 		int thickness;
 	};

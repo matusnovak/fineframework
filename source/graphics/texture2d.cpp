@@ -2,7 +2,6 @@
 
 #include "ffw/graphics/texture2d.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
 
 ///=============================================================================
 bool ffw::Texture2D::CheckCompability(const ffw::RenderContext* renderer){

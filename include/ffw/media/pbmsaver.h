@@ -24,8 +24,12 @@ namespace ffw {
 		virtual void Close();
 
 	private:
-		std::fstream output;
+		ffw::SwapWrapper<std::fstream> output;
 	};
+}
+
+inline void swap(ffw::PbmSaver& first, ffw::PbmSaver& second){
+	first.swap(second);
 }
 
 #endif

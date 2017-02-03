@@ -25,6 +25,15 @@ Compiling the source code requires third party libraries (dependencies). You can
 
 Next, download source code from [GitHub as ZIP](https://github.com/matusnovak/fineframework/archive/master.zip) and extract it anywhere in your system. Use CMake to cofigure the project and then compile it using make. To install it, simply run `sudo make install` Don't forget to use `sudo` when installing, the `/usr/local` folder requires sudo permissions.
 
+```
+cd /path/to/fineframework
+mkdir build
+cd build
+cmake ..
+make all
+sudo make install
+```
+
 ### Your first code
 
 Your configuration is done, now test the project to make sure everything works. Copy paste the following example into empty cpp file:
@@ -35,7 +44,7 @@ Now compile it using g++
 
 ```
 $ g++ -c example.cpp -o example.o -std=c++11 -I/usr/local/include
-$ g++ -o example example.o -lfinegraphics -L/usr/local/lib
+$ g++ -o example example.o -lfinegraphics -lfinemath -L/usr/local/lib
 $ ./example
 ```
 

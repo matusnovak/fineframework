@@ -1,7 +1,7 @@
 #include <ffw/graphics.h>
 
 ///=============================================================================
-class App: public ffw::AppRenderWindow {
+class App: public ffw::GLFWRenderWindow {
 public:
     App(){
 	}
@@ -15,8 +15,8 @@ public:
 	}
 
     void Render() override {
-		ffw::SetDrawColor(ffw::Rgb(0xFF0000)); // Red color
-		ffw::DrawRectangle(10, 10, GetSize().x-20, GetSize().y-20);
+		this->Renderer()->SetDrawColor(ffw::Rgb(0xFF0000)); // Red color
+		this->Renderer()->DrawRectangle(10, 10, GetSize().x-20, GetSize().y-20);
 	}
 
     void Close() override {
@@ -80,31 +80,23 @@ public:
 
 ///=============================================================================
 int main(int argc, char *argv[]){
-	// Initialize graphics
-    if(!ffw::InitGraphics()){
-        std::cerr << "Failed to initialize graphics!" << std::endl;
-		return 1;
-	}
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
+	ffw::GLFWRenderWindowArgs args;
 	args.size.Set(400, 400);
 	args.title = "Empty Example";
 
 	// Create window
 	if(!app.Create(args, NULL)){
 		std::cerr << "Failed to create window!" << std::endl;
-		ffw::TerminateGraphics();
 		return 1;
 	}
 
 	// Run setup
 	if(!app.Setup()){
 		std::cerr << "Failed to setup window!" << std::endl;
-		ffw::TerminateGraphics();
 		return 1;
 	}
 
@@ -118,8 +110,5 @@ int main(int argc, char *argv[]){
 	// Must be called after the setup and before the graphics
 	// is terminated
 	app.Destroy();
-
-    // Needs to be called at the end of the program if ffw::initGraphics() succeeds
-    ffw::TerminateGraphics();
 	return 0;
 }

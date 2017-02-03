@@ -54,7 +54,7 @@ namespace ffw {
 			y = float(Y * result);
 			z = float(Z * result);
 			w = float(cos(angle / 2.0));
-			normalize();
+			Normalize();
 			return *this;
 		}
 
@@ -64,7 +64,7 @@ namespace ffw {
 			y = float(Y * result);
 			z = float(Z * result);
 			w = float(cos(Rad / 2.0));
-			normalize();
+			Normalize();
 			return *this;
 		}
 
@@ -223,11 +223,11 @@ namespace ffw {
 		}
 
 		inline ffw::Quat<T> GetInversed() const {
-			return getConjugate() / LengthSqrd();
+			return GetConjugate() / LengthSqrd();
 		}
 
 		inline ffw::Quat<T>& Inverse() {
-			*this = getConjugate() / LengthSqrd();
+			*this = GetConjugate() / LengthSqrd();
 			return *this;
 		}
     };

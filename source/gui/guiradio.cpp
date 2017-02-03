@@ -129,7 +129,7 @@ void ffw::GuiRadio::Button::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiRadio::Button::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiRadio::Button::GetMinimumWrapSize() {
 	return 0;
 }
 
@@ -219,7 +219,7 @@ void ffw::GuiRadio::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2
 	size.x += widgetbutton->GetMarginInPixels(1);
 	size.y = 0;
 	const auto& stl = GetCurrentStyle();
-	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text);
+	context->DrawStringAligned(contentoffset + size, contentsize - size, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text, GetLineHeight());
 }
 
 ///=============================================================================
@@ -268,9 +268,9 @@ void ffw::GuiRadio::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiRadio::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiRadio::GetMinimumWrapSize() {
 	if(GetCurrentFont() == NULL)return 0;
-	auto strsize = GetCurrentFont()->GetStringSize(label);
+	auto strsize = GetCurrentFont()->GetStringSize(label, GetLineHeight());
 	strsize.x += widgetbutton->GetSize().x.value + indent;
 	strsize.y = std::max(strsize.y, widgetbutton->GetSize().y.value);
 	return strsize;

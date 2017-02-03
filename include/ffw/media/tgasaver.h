@@ -24,9 +24,13 @@ namespace ffw {
 		virtual void Close();
 
 	private:
-		std::fstream output;
+		ffw::SwapWrapper<std::fstream> output;
 		size_t pixelsOffset;
 	};
+}
+
+inline void swap(ffw::TgaSaver& first, ffw::TgaSaver& second){
+	first.swap(second);
 }
 
 #endif

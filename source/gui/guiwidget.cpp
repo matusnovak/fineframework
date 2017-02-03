@@ -42,11 +42,6 @@ static const ffw::GuiStyleGroup ErrorStyle(
 static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const ffw::Vec2i& childpos, const ffw::Vec2i& childsize){
 	ffw::Vec4i out;
 
-	//std::cout << "parentpos: " << parentpos << std::endl;
-	//std::cout << "parentsize: " << parentsize << std::endl;
-	//std::cout << "childpos: " << childpos << std::endl;
-	//std::cout << "childsize: " << childsize << std::endl;
-
 	ffw::Vec2i parentend = parentpos + parentsize;
 	ffw::Vec2i childend = childpos + childsize;
 
@@ -59,31 +54,6 @@ static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i
 
 	if(out.z <= 0)out.z = 0;
 	if(out.w <= 0)out.w = 0;
-	
-	/*// Is child of the parent?
-	out.x = childpos.x;
-	out.y = childpos.y;
-	out.z = childsize.x;
-	out.w = childsize.y;
-
-	if(childpos.x + childsize.x <= parentpos.x)return 0;
-	if(childpos.y + childsize.y <= parentpos.y)return 0;
-	if(childpos.x >= parentpos.x + parentsize.x)return 0;
-	if(childpos.y >= parentpos.y + parentsize.y)return 0;
-
-	if(childpos.x <= parentpos.x)out.z = childsize.x - (parentpos.x - childpos.x);
-	if(childpos.y <= parentpos.y)out.w = childsize.y - (parentpos.y - childpos.y);
-
-	if(childpos.x + childsize.x > parentpos.x + parentsize.x){
-		out.z = parentpos.x + parentsize.x - childpos.x;
-	}
-
-	if(childpos.y + childsize.y > parentpos.y + parentsize.y){
-		out.w = parentpos.y + parentsize.y - childpos.y;
-	}
-
-	out.x = std::max(childpos.x, parentpos.x);
-	out.y = std::max(childpos.y, parentpos.y);*/
 
 	return out;
 }
@@ -123,6 +93,7 @@ ffw::GuiWidget::GuiWidget(GuiWindow* ctx):context(ctx){
 	shouldhideflag = 0;
 	hidden = false;
 	disableflag = false;
+	lineHeight = 1.5f;
 }
 
 ///=============================================================================
@@ -135,13 +106,13 @@ void ffw::GuiWidget::RecalculatePos(){
 	ffw::Vec2i parentsize = sizereal;
 	if(parent != NULL)parentsize = parent->sizereal;
 
-	if(pos.x.inPercent){
+	if(pos.x == GuiUnits::Type::PERCENT){
 		posreal.x = static_cast<int>((pos.x.value / 100.0f) * parentsize.x);
 	} else {
 		posreal.x = pos.x.value;
 	}
 
-	if(pos.y.inPercent){
+	if(pos.y == GuiUnits::Type::PERCENT){
 		posreal.y = static_cast<int>((pos.y.value / 100.0f) * parentsize.y);
 	} else {
 		posreal.y = pos.y.value;
@@ -160,25 +131,17 @@ void ffw::GuiWidget::RecalculateSize(){
 
 	if(parent != NULL){
 		// X set to wrap?
-		if(size.x.inPercent && size.x.value == -1){
+		if(size.x == GuiWrap()){
 			sizereal.x = 0;
 		} else {
-			if(size.x.inPercent){
-				sizereal.x = static_cast<int>((size.x.value / 100.0f) * parent->GetVisibleContentSize().x);
-			} else {
-				sizereal.x = size.x.value;
-			}
+			sizereal.x = size.x.ToReal(parent->GetVisibleContentSize().x);
 		}
 
 		// Y set to wrap?
-		if(size.y.inPercent && size.y.value == -1){
+		if(size.y == GuiWrap()){
 			sizereal.y = 0;
 		} else {
-			if(size.y.inPercent){
-				sizereal.y = static_cast<int>((size.y.value / 100.0f) * parent->GetVisibleContentSize().y);
-			} else {
-				sizereal.y = size.y.value;
-			}
+			sizereal.y = size.y.ToReal(parent->GetVisibleContentSize().y);
 		}
 	} else {
 		sizereal.x = size.x.value;
@@ -186,12 +149,7 @@ void ffw::GuiWidget::RecalculateSize(){
 	}
 
 	ffw::Vec2i contentsize = GetVisibleContentSize();
-	//ffw::Vec2i totalsize = 0;
 	totalsize = 0;
-
-	//std::cout << ">>> recalculating" << std::endl;
-	//if(parent != NULL)std::cout << "parent size: " << parent->sizereal << std::endl;
-	//std::cout << "RecalculateSize for: " << typeid(*this).name() << " BEGIN" << std::endl;
 
 	int maxheight = 0;
 	int maxwidth = 0;
@@ -208,16 +166,12 @@ void ffw::GuiWidget::RecalculateSize(){
 			int realmargin[4];
 
 			// Calculate margin
-			if(widgetmargin[0].inPercent)realmargin[0] = static_cast<int>((widgetmargin[0].value / 100.0f) * contentsize.y);
-			else realmargin[0] = widgetmargin[0].value;
-			if(widgetmargin[1].inPercent)realmargin[1] = static_cast<int>((widgetmargin[1].value / 100.0f) * contentsize.x);
-			else realmargin[1] = widgetmargin[1].value;
-			if(widgetmargin[2].inPercent)realmargin[2] = static_cast<int>((widgetmargin[2].value / 100.0f) * contentsize.y);
-			else realmargin[2] = widgetmargin[2].value;
-			if(widgetmargin[3].inPercent)realmargin[3] = static_cast<int>((widgetmargin[3].value / 100.0f) * contentsize.x);
-			else realmargin[3] = widgetmargin[3].value;
+			realmargin[0] = widgetmargin[0].ToReal(contentsize.y);
+			realmargin[1] = widgetmargin[1].ToReal(contentsize.x);
+			realmargin[2] = widgetmargin[2].ToReal(contentsize.y);
+			realmargin[3] = widgetmargin[3].ToReal(contentsize.x);
 
-			if(wrapWidgets && !(size.x.inPercent && size.x.value == -1)){
+			if(wrapWidgets && size.x != GuiWrap()){
 				int test = left + realmargin[3] + w->GetRealSize().x;
 				if(test > contentsize.x){
 					top += maxheight;
@@ -226,16 +180,13 @@ void ffw::GuiWidget::RecalculateSize(){
 				}
 			}
 
-			//w->SetPos(left + realmargin[3], top + realmargin[0]);
 			w->pos.Set(GuiPixels(left + realmargin[3]), GuiPixels(top + realmargin[0]));
 			w->RecalculatePos();
-			//w->absolutepos = this->absolutepos + w->posreal;
 			left += w->GetRealSize().x + realmargin[3] + realmargin[1];
 
 			int testheight = w->GetRealSize().y + realmargin[0] + realmargin[2];
 			maxheight = std::max(maxheight, testheight);
 
-			//std::cout << "widget: " << typeid(*w).name() << " put at: " << w->GetAbsolutePos() << " parent size: " << this->GetRealSize() << std::endl;
 			totalsize.x = std::max(totalsize.x, left);
 			totalsize.y = std::max(totalsize.y, std::max(top + testheight, maxheight));
 		}
@@ -250,16 +201,12 @@ void ffw::GuiWidget::RecalculateSize(){
 			int realmargin[4];
 
 			// Calculate margin
-			if(widgetmargin[0].inPercent)realmargin[0] = static_cast<int>((widgetmargin[0].value / 100.0f) * contentsize.y);
-			else realmargin[0] = widgetmargin[0].value;
-			if(widgetmargin[1].inPercent)realmargin[1] = static_cast<int>((widgetmargin[1].value / 100.0f) * contentsize.x);
-			else realmargin[1] = widgetmargin[1].value;
-			if(widgetmargin[2].inPercent)realmargin[2] = static_cast<int>((widgetmargin[2].value / 100.0f) * contentsize.y);
-			else realmargin[2] = widgetmargin[2].value;
-			if(widgetmargin[3].inPercent)realmargin[3] = static_cast<int>((widgetmargin[3].value / 100.0f) * contentsize.x);
-			else realmargin[3] = widgetmargin[3].value;
+			realmargin[0] = widgetmargin[0].ToReal(contentsize.y);
+			realmargin[1] = widgetmargin[1].ToReal(contentsize.x);
+			realmargin[2] = widgetmargin[2].ToReal(contentsize.y);
+			realmargin[3] = widgetmargin[3].ToReal(contentsize.x);
 
-			if(wrapWidgets && !(size.y.inPercent && size.y.value == -1)){
+			if(wrapWidgets && size.y != GuiWrap()){
 				int test = top + realmargin[0] + w->GetRealSize().y;
 				if(test > contentsize.y){
 					left += maxwidth;
@@ -268,16 +215,13 @@ void ffw::GuiWidget::RecalculateSize(){
 				}
 			}
 
-			//w->SetPos(left + realmargin[3], top + realmargin[0]);
 			w->pos.Set(GuiPixels(left + realmargin[3]), GuiPixels(top + realmargin[0]));
 			w->RecalculatePos();
-			//w->absolutepos = this->absolutepos + w->posreal;
 			top += w->GetRealSize().y + realmargin[0] + realmargin[2];
 
 			int testwidth = w->GetRealSize().x + realmargin[1] + realmargin[3];
 			maxwidth = std::max(maxwidth, testwidth);
 
-			//std::cout << "widget: " << typeid(*w).name() << " put at: " << w->GetAbsolutePos() << " parent size: " << this->GetRealSize() << std::endl;
 			totalsize.x = std::max(totalsize.x, std::max(maxwidth, left + testwidth));
 			totalsize.y = std::max(totalsize.y, top);
 		}
@@ -285,7 +229,6 @@ void ffw::GuiWidget::RecalculateSize(){
 	else if (orientation == Orientation::FIXED) {
 		for (auto& w : widgets) {
 			if (w->IsHidden()) {
-				//std::cout << "test for: " << typeid(*w).name() << " IS HIDDEN!" << std::endl;
 				continue;
 			}
 			// Recalculate widget size...
@@ -302,35 +245,31 @@ void ffw::GuiWidget::RecalculateSize(){
 	}
 
 	auto min = GetMinimumWrapSize();
+
+	totalsize.x = std::max(totalsize.x, min.x);
+	totalsize.y = std::max(totalsize.y, min.y);
+
 	min.x += GetPaddingInPixels(1) + GetPaddingInPixels(3);
 	min.y += GetPaddingInPixels(0) + GetPaddingInPixels(2);
 
 	// Wrap X
 	if(size.x == ffw::GuiWrap()){
-		//std::cout << "wrap X" << std::endl;
 		sizereal.x = totalsize.x;
-		if(!padding[1].inPercent)sizereal.x += padding[1].value;
-		if(!padding[3].inPercent)sizereal.x += padding[3].value;
+		if(padding[1] != GuiUnits::Type::PERCENT)sizereal.x += padding[1].value;
+		if(padding[3] != GuiUnits::Type::PERCENT)sizereal.x += padding[3].value;
 		if (sizereal.x < min.x)sizereal.x = min.x;
 	}
 
 	// Wrap Y
 	if(size.y == ffw::GuiWrap()){
-		//std::cout << "wrap Y" << std::endl;
 		sizereal.y = totalsize.y;
-		if(!padding[0].inPercent)sizereal.y += padding[0].value;
-		if(!padding[2].inPercent)sizereal.y += padding[2].value;
+		if(padding[0] != GuiUnits::Type::PERCENT)sizereal.y += padding[0].value;
+		if(padding[2] != GuiUnits::Type::PERCENT)sizereal.y += padding[2].value;
 		if (sizereal.y < min.y)sizereal.y = min.y;
 	}
 
-	//std::cout << "RecalculateSize for: " << typeid(*this).name() << " END sizereal: " << sizereal << " total: " << totalsize << " this size: " << size << std::endl;
-	//std::cout << "old: " << oldsizereal << " current: " << sizereal << std::endl;
 	if(oldsizereal != sizereal){
-		//std::cout << "OLD SIZE IS NOT SAME!!!" << std::endl;
 		if(!first && parent != NULL /*&& (parent->GetSize().x == ffw::GuiWrap() || parent->GetSize().y == ffw::GuiWrap())*/){
-			//std::cout << "================================" << std::endl;
-			//std::cout << "recalculating size of the parent..." << std::endl;
-			//std::cout << "previous size: " << oldsizereal << " new size: " << sizereal << std::endl;
 			parent->invalidateflag = true;
 			parent->RecalculateSize();
 		}
@@ -365,15 +304,8 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 	}
 	
 	if(invalidateflag){
-		//std::cout << "invalidateflag #1" << std::endl;
 		RecalculateSize();
 	}
-
-	//if(!ignoreinputflag){
-		//auto posRealOffset = off + posreal;
-		//ffw::Vec4i cliparea = RectangleBoolean(clippos, clipsize, posRealOffset, sizereal);
-		//ffw::Vec2i childclippos(cliparea.x, cliparea.y);
-		//ffw::Vec2i childclipsize(cliparea.z, cliparea.w);
 
 	if (shouldhideflag != 0) {
 		if (shouldhideflag == -1) {
@@ -384,7 +316,6 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		}
 		if (parent != NULL) {
 			parent->Invalidate();
-			//std::cout << "invalidateflag #3 called from: " << typeid(*this).name() << std::endl;
 			parent->RecalculateSize();
 			parent->Redraw();
 		}
@@ -438,11 +369,6 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		PushEvent(GuiEvent::Type::HOVER, dat);
 	}
 
-	if (invalidateflag) {
-		//std::cout << "invalidateflag #2" << std::endl;
-		RecalculateSize();
-	}
-
 	if(!ignoreinputflag && !disableflag){
 		if(input.mousepos.x > posreal.x && input.mousepos.x < posreal.x + sizereal.x &&
 		   input.mousepos.y > posreal.y && input.mousepos.y < posreal.y + sizereal.y && !input.mouseout){
@@ -454,7 +380,6 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 				GuiEvent::Data dat;
 				dat.hover.gained = true;
 				PushEvent(GuiEvent::Type::HOVER, dat);
-				//std::cout << "widget hover gained!" << std::endl;
 
 			}
 		} else if(hoverflag){
@@ -464,7 +389,6 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 			GuiEvent::Data dat;
 			dat.hover.gained = false;
 			PushEvent(GuiEvent::Type::HOVER, dat);
-			//std::cout << "widget hover lost!" << std::endl;
 		}
 
 		if(input.mousebtn == ffw::MouseButton::LEFT && input.mousemode != ffw::Mode::NONE){
@@ -506,7 +430,7 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		}
 
 		if((hoverflag || focusflag) && mouseold != input.mousepos){
-			mouseold = input.mousepos - posreal;
+			mouseold = input.mousepos - posreal - offset;
 			mouseold.x -= GetPaddingInPixels(3);
 			mouseold.y -= GetPaddingInPixels(0);
 			EventMouse(mouseold);
@@ -519,6 +443,10 @@ void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& paren
 		if(focusflag && input.keymode != ffw::Mode::NONE){
 			EventKey(input.key, input.keymode);
 		}
+	}
+
+	if (invalidateflag) {
+		RecalculateSize();
 	}
 
 	if(widgets.size() > 0){
@@ -587,7 +515,6 @@ void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsiz
 	
 	auto posRealOffset = off + posreal;
 	ffw::Vec4i cliparea = RectangleBoolean(clippos, clipsize, posRealOffset, sizereal);
-	//std::cout << "clip region: " << cliparea.x << "x" << cliparea.y << " / " << cliparea.z << "x" << cliparea.w << std::endl;
 	ffw::Vec2i childclippos(cliparea.x, cliparea.y);
 	ffw::Vec2i childclipsize(cliparea.z, cliparea.w);
 
@@ -595,23 +522,6 @@ void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsiz
 	
 		if(updateflag){
 			updateflag = false;
-
-			//auto posRealOffset = off + posreal;
-
-			/*// Clip region
-			ffw::Vec4i cliparea;
-			if(parent != NULL){
-				//auto parentPos = parent->GetVisibleContentPos();
-
-				std::cout << ">>> rendering: " << typeid(*this).name() << std::endl;
-				std::cout << "parent pos: " << clippos << std::endl;
-				std::cout << "current pos: " << posRealOffset << std::endl;
-				cliparea = RectangleBoolean(clippos, parent->GetVisibleContentSize(), posRealOffset, sizereal);
-			} else {
-				cliparea.Set(posRealOffset.x, posRealOffset.y, sizereal.x, sizereal.y);
-			}*/
-
-			//std::cout << "clip region: " << cliparea.x << "x" << cliparea.y << " / " << cliparea.z << "x" << cliparea.w << std::endl;
 		
 			context->SetScissors(childclippos, childclipsize);
 		
@@ -622,10 +532,6 @@ void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsiz
 				if(parent != NULL){
 					parent->TraverseBackground(posRealOffset, sizereal);
 				}
-
-				/*for (auto& w : widgets) {
-					w->Redraw();
-				}*/
 			}
 
 			const auto* style = GetCurrentStyle();
@@ -644,16 +550,11 @@ void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsiz
 				w->Render(childclippos, childclipsize, contentpos, false);
 			}
 		} else {
-			//std::cout << "ffw::GuiWidget::render" << std::endl;
 			const auto contentpos = off + GetVisibleContentPos() + offset;
-			//const auto parentpos = off + GetVisibleContentPos();
 			for(auto& w : widgets){
 				w->Render(childclippos, childclipsize, contentpos, true);
 			}
 		}
-	} else {
-		//std::cout << "clippos: " << clippos << " clipsize: " << clipsize << " posRealOffset: " << posRealOffset << " sizereal: " << sizereal << std::endl;
-		//std::cout << "clip too small" << std::endl;
 	}
 }
 
@@ -683,12 +584,10 @@ ffw::Vec2i ffw::GuiWidget::GetVisibleContentPos() const {
 	ffw::Vec2i contentPos = posreal;
 
 	// Top
-	if (padding[0].inPercent)contentPos.y += static_cast<int>((padding[0].value / 100.0f) * sizereal.y);
-	else contentPos.y += padding[0].value;
+	contentPos.y += padding[0].ToReal(sizereal.y);
 
 	// Left
-	if (padding[3].inPercent)contentPos.x += static_cast<int>((padding[3].value / 100.0f) * sizereal.x);
-	else contentPos.x += padding[3].value;
+	contentPos.x += padding[3].ToReal(sizereal.x);
 
 	return contentPos;
 }
@@ -721,7 +620,7 @@ unsigned long ffw::GuiWidget::GetID() const {
 ffw::GuiWidget* ffw::GuiWidget::AddWidgetInternal(GuiWidget* widget){
 	if(widget != NULL){
 		widgets.push_back(widget);
-		widgets.back()->SetParent(this);
+		widget->SetParent(this);
 		//SetSize(size.x, size.y);
 		Invalidate();
 		Redraw();
@@ -735,9 +634,11 @@ ffw::GuiWidget* ffw::GuiWidget::AddWidgetAfterInternal(const GuiWidget* previous
 	auto it = std::find(widgets.begin(), widgets.end(), previous);
 	if (it == widgets.end()) {
 		widgets.push_back(widget);
+		widget->SetParent(this);
 	}
 	else {
 		widgets.insert(it + 1, widget);
+		widget->SetParent(this);
 	}
 	Invalidate();
 	Redraw();
@@ -750,9 +651,11 @@ ffw::GuiWidget* ffw::GuiWidget::AddWidgetBeforeInternal(const GuiWidget* next, G
 	auto it = std::find(widgets.begin(), widgets.end(), next);
 	if (it == widgets.end()) {
 		widgets.push_back(widget);
+		widget->SetParent(this);
 	}
 	else {
 		widgets.insert(it, widget);
+		widget->SetParent(this);
 	}
 	Invalidate();
 	Redraw();
@@ -864,25 +767,11 @@ void ffw::GuiWidget::SetMargin(GuiUnits all){
 }
 
 ///=============================================================================
-ffw::GuiUnits ffw::GuiWidget::GetPadding(int side) const{
-	if(side >= 0 && side <= 3)return padding[side];
-	return 0;
-}
-
-///=============================================================================
-ffw::GuiUnits ffw::GuiWidget::GetMargin(int side) const{
-	if(side >= 0 && side <= 3)return margin[side];
-	return 0;
-}
-
-///=============================================================================
 int ffw::GuiWidget::GetPaddingInPixels(int side) const {
 	if(side == 1 || side == 3){
-		if(padding[side].inPercent)return static_cast<int>((padding[side].value / 100.0f) * sizereal.x);
-		else return padding[side].value;
+		return padding[side].ToReal(sizereal.x);
 	} else if(side == 0 || side == 2){
-		if(padding[side].inPercent)return static_cast<int>((padding[side].value / 100.0f) * sizereal.y);
-		else return padding[side].value;
+		return padding[side].ToReal(sizereal.y);
 	}
 	return 0;
 }
@@ -891,19 +780,15 @@ int ffw::GuiWidget::GetPaddingInPixels(int side) const {
 int ffw::GuiWidget::GetMarginInPixels(int side) const {
 	if(side == 1 || side == 3){
 		if(parent != NULL){
-			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * parent->GetVisibleContentSize().x);
-			else return margin[side].value;
+			return margin[side].ToReal(parent->GetVisibleContentSize().x);
 		} else {
-			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * sizereal.x);
-			else return margin[side].value;
+			return margin[side].ToReal(sizereal.x);
 		}
 	} else if(side == 0 || side == 2){
 		if(parent != NULL){
-			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * parent->GetVisibleContentSize().y);
-			else return margin[side].value;
+			return margin[side].ToReal(parent->GetVisibleContentSize().y);
 		} else {
-			if(margin[side].inPercent)return static_cast<int>((margin[side].value / 100.0f) * sizereal.x);
-			else return margin[side].value;
+			return margin[side].ToReal(sizereal.y);
 		}
 	}
 	return 0;

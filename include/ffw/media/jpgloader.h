@@ -30,4 +30,8 @@ namespace ffw {
 	};
 }
 
+inline void swap(ffw::JpgLoader& first, ffw::JpgLoader& second){
+	first.swap(second);
+}
+
 #endif

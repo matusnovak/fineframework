@@ -1,7 +1,8 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_MEDIA_IMAGE_LOADER
 #define FFW_MEDIA_IMAGE_LOADER
-#include "imagebuffer.h"
+#include "../config.h"
+#include "../math.h"
 
 namespace ffw{
 	/**

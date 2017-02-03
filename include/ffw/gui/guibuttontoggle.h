@@ -4,15 +4,23 @@
 #include "guibutton.h"
 namespace ffw {
 	/**
-	 * @ingroup gui
-	 */
-	class FFW_API GuiButtonToggle: public GuiButton {
+	* @ingroup gui
+	*/
+	class FFW_API GuiButtonToggle : public GuiButton {
 	public:
 		GuiButtonToggle(GuiWindow* context, const std::string& label);
 		GuiButtonToggle(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButtonToggle();
 		void SetValue(bool value);
 		bool GetValue() const;
+	};
+
+	class FFW_API GuiButtonTogglePrimary : public GuiButton {
+	public:
+		GuiButtonTogglePrimary(GuiWindow* context, const std::string& label);
+		GuiButtonTogglePrimary(GuiWindow* context, const std::wstring& label);
+		virtual ~GuiButtonTogglePrimary();
+		void EventThemeChanged(const GuiTheme* theme) override;
 	};
 }
 #endif

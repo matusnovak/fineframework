@@ -95,10 +95,10 @@ void ffw::GuiLayout::EventDisabled(bool disabled) {
 ///=============================================================================
 void ffw::GuiLayout::EventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->GetStyleGroup("GUI_LAYOUT");
-	SetDefaults(&widgetStyle->defaults);
+	//SetDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiLayout::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiLayout::GetMinimumWrapSize() {
 	return 0;
 }

@@ -21,11 +21,11 @@ namespace ffw {
 		inline void Destroy() override {
 			font.Destroy();
 		}
-		inline ffw::Vec2i GetStringSize(const std::wstring& str) const override {
-			return font.GetStringSize(str);
+		inline ffw::Vec2i GetStringSize(const std::wstring& str, float lineHeight = 1.25) const override {
+			return font.GetStringSize(str, lineHeight);
 		}
-		inline ffw::Vec2i GetStringSize(const std::string& str) const override {
-			return font.GetStringSize(str);
+		inline ffw::Vec2i GetStringSize(const std::string& str, float lineHeight = 1.25) const override {
+			return font.GetStringSize(str, lineHeight);
 		}
 		inline ffw::Font& Get(){
 			return font;
@@ -33,11 +33,11 @@ namespace ffw {
 		inline const ffw::Font& Get() const {
 			return font;
 		}
-		virtual int GetCharAdvance(wchar_t c) const {
+		virtual int GetCharAdvance(wchar_t c) const override {
 			return font.GetCharAdvance(c);
 		}
-		virtual int GetLineHeight() const {
-			return font.GetLineHeight();
+		virtual int GetSizeInPixels() const override  {
+			return font.GetSizeInPixels();
 		}
 	};
 }

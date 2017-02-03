@@ -48,12 +48,12 @@ bool ffw::PbmSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	}
 
 #ifdef FFW_WINDOWS
-	output.open(WstrToAnsi(Utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
+	output->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
 #else
-	output.open(path, std::ios::trunc | std::ios::out | std::ios::binary);
+	output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
 #endif
 
-	if(!output){
+	if(!output->is_open()){
 		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;
         return false;
     }
@@ -100,10 +100,10 @@ bool ffw::PbmSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	width = w;
 	height = h;
 
-	output.write(header[0].c_str(), header[0].size());
-	output.write(header[1].c_str(), header[1].size());
-	output.write(header[2].c_str(), header[2].size());
-	output.write(header[3].c_str(), header[3].size());
+	output->write(header[0].c_str(), header[0].size());
+	output->write(header[1].c_str(), header[1].size());
+	output->write(header[2].c_str(), header[2].size());
+	output->write(header[3].c_str(), header[3].size());
 
 	row = 0;
     loaded = true;
@@ -112,7 +112,7 @@ bool ffw::PbmSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 
 ///=============================================================================
 void ffw::PbmSaver::Close(){
-	output.close();
+	output->close();
 	width = 0;
 	height = 0;
 	loaded = 0;
@@ -128,35 +128,35 @@ size_t ffw::PbmSaver::WriteRow(const void* src){
 	
 	switch(format){
 		case ffw::ImageType::GRAYSCALE_8: {
-			output.write((const char*)src, width);
+			output->write((const char*)src, width);
 			break;
 		}
 		case ffw::ImageType::GRAYSCALE_16: {
 			const unsigned short* ptr = (const unsigned short*)src;
 			for(size_t i = 0; i < (size_t)width; i++){
 				unsigned short pixel = ByteSwap16(ptr[i]);
-				output.write((char*)&pixel, sizeof(unsigned short));
+				output->write((char*)&pixel, sizeof(unsigned short));
 			}
 			break;
 		}
 		case ffw::ImageType::GRAYSCALE_32: {
-			output.write((const char*)src, width*4);
+			output->write((const char*)src, width*4);
 			break;
 		}
 		case ffw::ImageType::RGB_888: {
-			output.write((const char*)src, width*3);
+			output->write((const char*)src, width*3);
 			break;
 		}
 		case ffw::ImageType::RGB_161616: {
 			const unsigned short* ptr = (const unsigned short*)src;
 			for(size_t i = 0; i < (size_t)width*3; i++){
 				unsigned short pixel = ByteSwap16(ptr[i]);
-				output.write((char*)&pixel, sizeof(unsigned short));
+				output->write((char*)&pixel, sizeof(unsigned short));
 			}
 			break;
 		}
 		case ffw::ImageType::RGB_323232: {
-			output.write((const char*)src, width*4*3);
+			output->write((const char*)src, width*4*3);
 			break;
 		}
 	}

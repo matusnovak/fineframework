@@ -4,7 +4,7 @@
 #include "../catch.hpp"
 
 ///=============================================================================
-class App : public ffw::AppRenderWindow {
+class App : public ffw::GLFWRenderWindow {
 public:
 	App() {
 	}
@@ -124,13 +124,11 @@ private:
 
 
 TEST_CASE("Gui Orientation") {
-	REQUIRE(ffw::InitGraphics());
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
+	ffw::GLFWRenderWindowArgs args;
 	args.size.Set(600, 600);
 	args.title = "Test Gui";
 	args.samples = 4;
@@ -153,7 +151,4 @@ TEST_CASE("Gui Orientation") {
 	// Must be called after the setup and before the graphics
 	// is terminated
 	app.Destroy();
-
-	// Needs to be called at the end of the program if ffw::initGraphics() succeeds
-	ffw::TerminateGraphics();
 }

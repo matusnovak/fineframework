@@ -2,12 +2,11 @@
 
 #include "ffw/graphics/framebuffer.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
 
 ///=============================================================================
 bool ffw::Framebuffer::CheckCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::GlextStruct* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = renderer->Glext();
 
 	#ifdef FFW_OSX
 	return (

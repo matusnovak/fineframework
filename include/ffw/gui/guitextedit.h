@@ -2,6 +2,7 @@
 #ifndef FFW_GUI_TEXT_EDIT
 #define FFW_GUI_TEXT_EDIT
 #include "guiwidget.h"
+#include "guiscrollable.h"
 namespace ffw {
 	/**
 	* @ingroup gui
@@ -12,8 +13,8 @@ namespace ffw {
 		virtual ~GuiTextInput();
 		void SetValue(const std::wstring& str);
 		std::wstring GetValue() const;
-		ffw::Vec2i GetMinimumWrapSize() const override;
-
+		ffw::Vec2i GetMinimumWrapSize() override;
+		bool IsEmpty() const;
 		class Limit {
 		public:
 			inline static Limit Range(wchar_t from, wchar_t to) {
@@ -60,6 +61,9 @@ namespace ffw {
 			void InsertAt(size_t pos, wchar_t chr);
 			void RemoveAt(size_t pos);
 			void Append(const std::wstring& str);
+			inline size_t GetNumOfTokens() const {
+				return tokens.size();
+			}
 		private:
 			std::wstring str;
 			std::vector<size_t> tokens;
@@ -82,18 +86,39 @@ namespace ffw {
 		void RemoveAtCurrent(int offset);
 		void SplitAtCurrent();
 		void ReplaceSection(ffw::Vec2i beg, ffw::Vec2i end, const std::wstring& s);
-		int GetLineHeight() const;
 		std::vector<TextLine> lines;
+		int linesLastWidth;
 		bool mousedown;
 		bool multi;
-		int lineHeight;
 		bool ignoreFirst;
 		bool selection;
 		ffw::Vec2i cursorPos;
 		ffw::Vec2i cursorPosEnd;
-		ffw::Vec2i cursorIndex;
-		ffw::Vec2i cursorIndexEnd;
+		ffw::Vec2<size_t> cursorIndex;
+		ffw::Vec2<size_t> cursorIndexEnd;
 		std::vector<GuiTextInput::Limit> limits;
+	};
+
+	class FFW_API GuiTextArea : public GuiScrollable {
+	public:
+		class Inner : public GuiTextInput {
+		public:
+			Inner(GuiWindow* context, bool editable);
+			virtual ~Inner();
+			void EventThemeChanged(const GuiTheme* theme) override;
+		};
+
+		GuiTextArea(GuiWindow* context, bool editable = true);
+		virtual ~GuiTextArea();
+		inline void SetValue(const std::wstring& str) {
+			textinput->SetValue(str);
+		}
+		inline std::wstring GetValue() const {
+			return textinput->GetValue();
+		}
+		void EventThemeChanged(const GuiTheme* theme) override;
+	private:
+		GuiTextInput* textinput;
 	};
 }
 #endif

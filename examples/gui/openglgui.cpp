@@ -3,7 +3,7 @@
 #include <chrono>
 #include <thread>
 ///=============================================================================
-class App: public ffw::AppRenderWindow {
+class App: public ffw::GLFWRenderWindow {
 public:
     App(){
 		font = NULL;
@@ -255,17 +255,11 @@ private:
 
 ///=============================================================================
 int main(int argc, char *argv[]){
-	// Initialize graphics
-    if(!ffw::InitGraphics()){
-        std::cerr << "Failed to initialize graphics!" << std::endl;
-		return 1;
-	}
-
 	// Instance to our app class
 	App app;
 
 	// Set arguments
-	ffw::AppRenderWindowArgs args;
+	ffw::GLFWRenderWindowArgs args;
 	args.size.Set(800, 600);
 	args.title = "Example GUI With OpenGL";
 	args.samples = 4;
@@ -273,14 +267,12 @@ int main(int argc, char *argv[]){
 	// Create window
 	if(!app.Create(args, NULL)){
 		std::cerr << "Failed to create window!" << std::endl;
-		ffw::TerminateGraphics();
 		return 1;
 	}
 
 	// Run setup
 	if(!app.Setup()){
 		std::cerr << "Failed to setup window!" << std::endl;
-		ffw::TerminateGraphics();
 		return 1;
 	}
 
@@ -299,6 +291,5 @@ int main(int argc, char *argv[]){
 	app.Destroy();
 
     // Needs to be called at the end of the program if ffw::initGraphics() succeeds
-    ffw::TerminateGraphics();
 	return 0;
 }

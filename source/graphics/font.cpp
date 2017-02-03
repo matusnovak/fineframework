@@ -2,7 +2,6 @@
 
 #include "ffw/graphics/font.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -124,7 +123,6 @@ bool ffw::Font::LoadFontFace(void* face, int error, int points, int dpi, int sta
 	sizePoints = points;
     sizePixels = int((points/72.0f) * dpi);
     sizeDpi = dpi;
-    lineHeight = int(sizePixels*1.5f);
 	loaded = true;
 
 	if(!RenderGlyph(fontFace, 0, 0)){
@@ -380,13 +378,13 @@ void ffw::Font::GetCharTexCoords(unsigned short c, ffw::Vec2f& t0, ffw::Vec2f& t
 }
 
 ///=============================================================================
-template<class T> ffw::Vec2i getStringSizeTemplate(const ffw::Font* font, const T& str){
+template<class T> ffw::Vec2i getStringSizeTemplate(const ffw::Font* font, const T& str, float lineHeight){
     if(str.size() == 0)return 0;
 	ffw::Vec2i size(0, font->GetSize());
     int width = 0;
     for(const auto& chr : str){
         if(chr == '\n'){
-            size.y += font->GetLineHeight();
+            size.y += int(lineHeight * font->GetSizeInPixels());
             if(size.x < width)size.x = width;
             width = 0;
         } else {
@@ -399,13 +397,13 @@ template<class T> ffw::Vec2i getStringSizeTemplate(const ffw::Font* font, const 
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::Font::GetStringSize(const std::string& str) const {
-	return getStringSizeTemplate(this, str);
+ffw::Vec2i ffw::Font::GetStringSize(const std::string& str, float lineHeight) const {
+	return getStringSizeTemplate(this, str, lineHeight);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::Font::GetStringSize(const std::wstring& str) const {
-	return getStringSizeTemplate(this, str);
+ffw::Vec2i ffw::Font::GetStringSize(const std::wstring& str, float lineHeight) const {
+	return getStringSizeTemplate(this, str, lineHeight);
 }
 
 ///=============================================================================
@@ -428,7 +426,6 @@ void ffw::Font::swap(Font& other){
 		swap(sizePoints, other.sizePoints);
 		swap(sizePixels, other.sizePixels);
 		swap(sizeDpi, other.sizeDpi);
-		swap(lineHeight, other.lineHeight);
 		swap(loaded, other.loaded);
 		swap(totalWidth, other.totalWidth);
 		swap(totalHeight, other.totalHeight);

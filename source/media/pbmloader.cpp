@@ -34,19 +34,19 @@ bool ffw::PbmLoader::Open(const std::string& path){
 	if(loaded)return false;
 
 #ifdef FFW_WINDOWS
-	input.open(WstrToAnsi(Utf8ToWstr(path)), std::ios::in | std::ios::binary);
+	input->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::in | std::ios::binary);
 #else
-	input.open(path, std::ios::in | std::ios::binary);
+	input->open(path, std::ios::in | std::ios::binary);
 #endif
 
-	if(!input){
+	if(!input->is_open()){
 		return false;
 	}
 
 	std::string header[4];
 	
 	for(int i = 0; i < 4; i++){
-		if(!std::getline(input, header[i])){
+		if(!std::getline(*input, header[i])){
 			Close();
 			return false;
 		}
@@ -65,10 +65,10 @@ bool ffw::PbmLoader::Open(const std::string& path){
         return false;
     }
 
-	size_t offset = (size_t)input.tellg();
-	input.seekg(0, std::ios::end);
-	size_t size = (size_t)input.tellg();
-	input.seekg(offset);
+	size_t offset = (size_t)input->tellg();
+	input->seekg(0, std::ios::end);
+	size_t size = (size_t)input->tellg();
+	input->seekg(offset);
     size_t dataLength = 0;
 
     if(header[0] == "P6" && header[3] == "255"){
@@ -112,7 +112,7 @@ bool ffw::PbmLoader::Open(const std::string& path){
 
 ///=============================================================================
 void ffw::PbmLoader::Close(){
-	input.close();
+	input->close();
 	width = 0;
 	height = 0;
 	loaded = 0;
@@ -128,11 +128,11 @@ size_t ffw::PbmLoader::ReadRow(void* dest){
 	
 	switch(format){
 		case ffw::ImageType::GRAYSCALE_8: {
-			input.read((char*)dest, width);
+			input->read((char*)dest, width);
 			break;
 		}
 		case ffw::ImageType::GRAYSCALE_16: {
-			input.read((char*)dest, width*2);
+			input->read((char*)dest, width*2);
 			unsigned short* ptr = (unsigned short*)dest;
 			for(size_t i = 0; i < (size_t)width; i++){
 				ptr[i] = ByteSwap16(ptr[i]);
@@ -140,15 +140,15 @@ size_t ffw::PbmLoader::ReadRow(void* dest){
 			break;
 		}
 		case ffw::ImageType::GRAYSCALE_32: {
-			input.read((char*)dest, width*4);
+			input->read((char*)dest, width*4);
 			break;
 		}
 		case ffw::ImageType::RGB_888: {
-			input.read((char*)dest, width*3);
+			input->read((char*)dest, width*3);
 			break;
 		}
 		case ffw::ImageType::RGB_161616: {
-			input.read((char*)dest, width*2*3);
+			input->read((char*)dest, width*2*3);
 			unsigned short* ptr = (unsigned short*)dest;
 			for(size_t i = 0; i < (size_t)width*3; i++){
 				ptr[i] = ByteSwap16(ptr[i]);
@@ -156,7 +156,7 @@ size_t ffw::PbmLoader::ReadRow(void* dest){
 			break;
 		}
 		case ffw::ImageType::RGB_323232: {
-			input.read((char*)dest, width*4*3);
+			input->read((char*)dest, width*4*3);
 			break;
 		}
 	}

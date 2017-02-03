@@ -2,13 +2,11 @@
 
 #include "ffw/graphics/texture3d.h"
 #include "ffw/graphics/rendercontext.h"
-#include "ffw/graphics/extensions.h"
-
 
 ///=============================================================================
 bool ffw::Texture3D::CheckCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::GlextStruct* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = renderer->Glext();
 
 	return (
 		gl_->glTexImage3D			!= NULL &&

@@ -92,6 +92,6 @@ void ffw::GuiSwitch::EventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiSwitch::GetMinimumWrapSize() const {
+ffw::Vec2i ffw::GuiSwitch::GetMinimumWrapSize() {
 	return ffw::Vec2i(16, 8);
 }

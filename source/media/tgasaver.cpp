@@ -50,12 +50,12 @@ bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	}
 
 #ifdef FFW_WINDOWS
-	output.open(WstrToAnsi(Utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
+	output->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
 #else
-	output.open(path, std::ios::trunc | std::ios::out | std::ios::binary);
+	output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
 #endif
 
-	if(!output){
+	if(!output->is_open()){
 		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;
         return false;
     }
@@ -105,28 +105,28 @@ bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	}
 
 	// Write header
-    output.write((char*)&idLength,           sizeof(uint8_t));
-    output.write((char*)&colorMapType,       sizeof(uint8_t));
-    output.write((char*)&imageType,          sizeof(uint8_t));
-    output.write((char*)&colorMapEntry,      sizeof(uint16_t));
-    output.write((char*)&colorMapLength,     sizeof(uint16_t));
-    output.write((char*)&colorMapSize,       sizeof(uint8_t));
-    output.write((char*)&originX,            sizeof(uint16_t));
-    output.write((char*)&originY,            sizeof(uint16_t));
-    output.write((char*)&ws,                 sizeof(uint16_t));
-    output.write((char*)&hs,                 sizeof(uint16_t));
-    output.write((char*)&bitsPerPixel,       sizeof(uint8_t));
-    output.write((char*)&imageDescriptor,    sizeof(uint8_t));
+    output->write((char*)&idLength,           sizeof(uint8_t));
+    output->write((char*)&colorMapType,       sizeof(uint8_t));
+    output->write((char*)&imageType,          sizeof(uint8_t));
+    output->write((char*)&colorMapEntry,      sizeof(uint16_t));
+    output->write((char*)&colorMapLength,     sizeof(uint16_t));
+    output->write((char*)&colorMapSize,       sizeof(uint8_t));
+    output->write((char*)&originX,            sizeof(uint16_t));
+    output->write((char*)&originY,            sizeof(uint16_t));
+    output->write((char*)&ws,                 sizeof(uint16_t));
+    output->write((char*)&hs,                 sizeof(uint16_t));
+    output->write((char*)&bitsPerPixel,       sizeof(uint8_t));
+    output->write((char*)&imageDescriptor,    sizeof(uint8_t));
 
     format = type;
 	width = w;
 	height = h;
 
-	pixelsOffset = (size_t)output.tellg();
+	pixelsOffset = (size_t)output->tellg();
 
 	for(size_t i = 0; i < height * GetStrideSize(); i++){
 		static const char data = 0x00;
-		output.write(&data, 1);
+		output->write(&data, 1);
 	}
 
 	row = 0;
@@ -136,7 +136,7 @@ bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 
 ///=============================================================================
 void ffw::TgaSaver::Close(){
-	output.close();
+	output->close();
 	width = 0;
 	height = 0;
 	loaded = 0;
@@ -150,19 +150,19 @@ size_t ffw::TgaSaver::WriteRow(const void* src){
     if(row >= height)return 0;
     if(src == NULL)return 0;
 
-	output.seekg(pixelsOffset + (height - row - 1) * GetStrideSize());
+	output->seekg(pixelsOffset + (height - row - 1) * GetStrideSize());
 	
 	switch(format){
 		case ffw::ImageType::GRAYSCALE_8: {
-			output.write((char*)src, width);
+			output->write((char*)src, width);
 			break;
 		}
 		case ffw::ImageType::RGB_ALPHA_5551: {
 
 			const char* ptr = (const char*)src;
 			for(size_t i = 0; i < (size_t)width*2; i += 2){
-				output.write(&ptr[i + 1], 1);
-				output.write(&ptr[i + 0], 1);
+				output->write(&ptr[i + 1], 1);
+				output->write(&ptr[i + 0], 1);
 			}
 			break;
 		}
@@ -170,9 +170,9 @@ size_t ffw::TgaSaver::WriteRow(const void* src){
 
 			const char* ptr = (const char*)src;
 			for(size_t i = 0; i < (size_t)width*3; i += 3){
-				output.write(&ptr[i + 2], 1);
-				output.write(&ptr[i + 1], 1);
-				output.write(&ptr[i + 0], 1);
+				output->write(&ptr[i + 2], 1);
+				output->write(&ptr[i + 1], 1);
+				output->write(&ptr[i + 0], 1);
 			}
 			break;
 		}
@@ -180,10 +180,10 @@ size_t ffw::TgaSaver::WriteRow(const void* src){
 
 			const char* ptr = (const char*)src;
 			for(size_t i = 0; i < (size_t)width*4; i += 4){
-				output.write(&ptr[i + 2], 1);
-				output.write(&ptr[i + 1], 1);
-				output.write(&ptr[i + 0], 1);
-				output.write(&ptr[i + 3], 1);
+				output->write(&ptr[i + 2], 1);
+				output->write(&ptr[i + 1], 1);
+				output->write(&ptr[i + 0], 1);
+				output->write(&ptr[i + 3], 1);
 			}
 			break;
 		}
@@ -198,7 +198,7 @@ bool ffw::TgaSaver::WriteFooter(){
 	if(!loaded)return false;
     if(row != height)return false;
 
-	output.write(&tgaFooter[0], sizeof(tgaFooter));
+	output->write(&tgaFooter[0], sizeof(tgaFooter));
 
     return true;
 }
