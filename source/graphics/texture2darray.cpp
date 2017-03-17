@@ -4,9 +4,9 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-bool ffw::Texture2DArray::CheckCompability(const ffw::RenderContext* renderer){
+bool ffw::Texture2DArray::checkCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::RenderExtensions* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	return (
 		gl_->glTexImage3D			!= NULL &&
@@ -20,15 +20,28 @@ ffw::Texture2DArray::Texture2DArray():Texture(){
 }
 
 ///=============================================================================
+ffw::Texture2DArray::Texture2DArray(Texture2DArray&& second) : Texture2DArray() {
+	Texture::swap(second);
+}
+
+///=============================================================================
+ffw::Texture2DArray& ffw::Texture2DArray::operator = (ffw::Texture2DArray&& other) {
+	if (this != &other) {
+		Texture::swap(other);
+	}
+	return *this;
+}
+
+///=============================================================================
 ffw::Texture2DArray::~Texture2DArray(){
 }
 
 ///=============================================================================
-bool ffw::Texture2DArray::Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat){
+bool ffw::Texture2DArray::create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat){
     if(loaded_)return false;
-	if(!CheckCompability(renderer))return false;
+	if(!checkCompability(renderer))return false;
 	loaded_ = true;
-    gl_ = renderer->Glext();
+    gl_ = static_cast<const RenderExtensions*>(renderer);
 
     glGenTextures(1, &buffer_);
     glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
@@ -47,7 +60,7 @@ bool ffw::Texture2DArray::Create(const ffw::RenderContext* renderer, GLsizei wid
     int test;
     glGetTexLevelParameteriv(GL_TEXTURE_2D_ARRAY, 0, GL_TEXTURE_WIDTH, &test);
     if(test != width){
-        Destroy();
+        destroy();
         return false;
     }
 
@@ -60,7 +73,7 @@ bool ffw::Texture2DArray::Create(const ffw::RenderContext* renderer, GLsizei wid
 }
 
 ///=============================================================================
-bool ffw::Texture2DArray::Resize(GLsizei width, GLsizei height, GLsizei layers){
+bool ffw::Texture2DArray::resize(GLsizei width, GLsizei height, GLsizei layers){
 	if(!loaded_)return false;
 	width_ = width;
 	height_ = height;
@@ -71,7 +84,7 @@ bool ffw::Texture2DArray::Resize(GLsizei width, GLsizei height, GLsizei layers){
 }
 
 ///=============================================================================
-bool ffw::Texture2DArray::SetPixels(GLint level, GLint xoffset, GLint yoffset, GLint loffset, GLsizei width, GLsizei height, const void* pixels){
+bool ffw::Texture2DArray::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint loffset, GLsizei width, GLsizei height, const void* pixels){
     if(!loaded_)return false;
     glEnable(GL_TEXTURE_2D_ARRAY);
     glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
@@ -81,7 +94,7 @@ bool ffw::Texture2DArray::SetPixels(GLint level, GLint xoffset, GLint yoffset, G
 }
 
 ///=============================================================================
-bool ffw::Texture2DArray::GetPixels(void* pixels){
+bool ffw::Texture2DArray::getPixels(void* pixels){
 	if(!loaded_)return false;
 	glGetTexImage(GL_TEXTURE_2D_ARRAY, 0, format_, pixelformat_, pixels);
     return true;

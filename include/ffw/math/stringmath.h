@@ -8,79 +8,80 @@ namespace ffw{
 	/**
 	 * @ingroup math
 	 */
+	template<class T>
 	class FileInfo {
 	public:
-		inline FileInfo(){
+		FileInfo(){
 		}
-		inline FileInfo(const std::string& name, const std::string& dir, const std::string& ext):
-			basename(name),dirname(dir),extension(ext){
+		FileInfo(const T& name, const T& dir, const T& ext):
+			base(name),dir(dir),ext(ext){
 		}
-		const std::string basename;
-		const std::string dirname;
-		const std::string extension;
+		const T base;
+		const T dir;
+		const T ext;
 	};
 	/**
 	* @ingroup math
 	* @exception Throws std::invalid_argument (invalid conversion) 
 	* or std::out_of_range (conversion is out of the range)
 	*/
-	template <class T> inline T StringToVal(const std::string& str);
+	template <class T> inline T stringToVal(const std::string& str);
 	/**
 	* @ingroup math
 	*/
-	template <> inline float                StringToVal<float>(const std::string& Str) { return std::stof(Str); }
+	template <> inline float                stringToVal<float>(const std::string& Str) { return std::stof(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline double               StringToVal<double>(const std::string& Str) { return std::stod(Str); }
+	template <> inline double               stringToVal<double>(const std::string& Str) { return std::stod(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline long double          StringToVal<long double>(const std::string& Str) { return std::stold(Str); }
+	template <> inline long double          stringToVal<long double>(const std::string& Str) { return std::stold(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline short                StringToVal<short>(const std::string& Str) { return static_cast<short>(std::stoi(Str)); }
+	template <> inline short                stringToVal<short>(const std::string& Str) { return static_cast<short>(std::stoi(Str)); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline int                  StringToVal<int>(const std::string& Str) { return std::stoi(Str); }
+	template <> inline int                  stringToVal<int>(const std::string& Str) { return std::stoi(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline long                 StringToVal<long>(const std::string& Str) { return std::stol(Str); }
+	template <> inline long                 stringToVal<long>(const std::string& Str) { return std::stol(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline long long            StringToVal<long long>(const std::string& Str) { return std::stoll(Str); }
+	template <> inline long long            stringToVal<long long>(const std::string& Str) { return std::stoll(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline unsigned short       StringToVal<unsigned short>(const std::string& Str) { return (unsigned short)std::stoul(Str); }
+	template <> inline unsigned short       stringToVal<unsigned short>(const std::string& Str) { return (unsigned short)std::stoul(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline unsigned int         StringToVal<unsigned int>(const std::string& Str) { return std::stoul(Str); }
+	template <> inline unsigned int         stringToVal<unsigned int>(const std::string& Str) { return std::stoul(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline unsigned long        StringToVal<unsigned long>(const std::string& Str) { return std::stoul(Str); }
+	template <> inline unsigned long        stringToVal<unsigned long>(const std::string& Str) { return std::stoul(Str); }
 	/**
 	* @ingroup math
 	*/
-	template <> inline unsigned long long   StringToVal<unsigned long long>(const std::string& Str) { return std::stoull(Str); }
+	template <> inline unsigned long long   stringToVal<unsigned long long>(const std::string& Str) { return std::stoull(Str); }
 	/**
 	* @ingroup math
 	*/
 	template <class T>
-	inline std::string ValToString(T Value) {
+	inline std::string valToString(T Value) {
 		return std::to_string(Value);
 	}
 	/**
 	* @ingroup math
 	*/
 	template <class T>
-	inline std::string ValToString(T Value, unsigned int Dec) {
+	inline std::string valToString(T Value, unsigned int Dec) {
 		std::ostringstream ostr;
 		ostr.precision(Dec);
 		ostr << std::fixed << Value;
@@ -90,7 +91,7 @@ namespace ffw{
 	* @ingroup math
 	*/
 	template<typename T>
-	inline T HexToVal(const std::string& Str) {
+	inline T hexToVal(const std::string& Str) {
 		try {
 			return std::stoul(Str, nullptr, 16);
 		}
@@ -106,7 +107,7 @@ namespace ffw{
 	* @ingroup math
 	*/
 	template<typename T>
-	inline std::string ValToHex(const T& Value) {
+	inline std::string valToHex(const T& Value) {
 		static const char chars[16] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
 		std::string str;
 		str.resize(sizeof(T) * 2);
@@ -121,112 +122,159 @@ namespace ffw{
 	* @ingroup math
 	*/
 	template<class T, typename CharTrait = std::char_traits<T>, typename Allocator = std::allocator<T>>
-	inline size_t GetTokensFunc(
+	size_t getTokensFunc(
 			std::vector<std::basic_string<T, CharTrait, Allocator>>* vec,
 			const std::basic_string<T, CharTrait, Allocator>& str,
 			const std::basic_string<T, CharTrait, Allocator>& delim) {
-		size_t pos = 0;
-		size_t last = 0;
-		size_t count = 0;
-		// Loop until all tokens found
-		while ((pos = str.find(delim, pos)) != std::basic_string<T, CharTrait, Allocator>::npos) {
-			// Do we have non-empty token?
-			if (last < pos && pos - last > 0) {
-				if(vec != NULL)vec->push_back(str.substr(last, pos - last));
-				count++;
+		Tokenizer<T> tokenizer(str, delim);
+		std::basic_string<T, CharTrait, Allocator> temp;
+		size_t cnt = 0;
+		if (vec != NULL) {
+			while (tokenizer.getNext(&temp)) {
+				vec->push_back(temp);
+				cnt++;
 			}
-			pos += delim.size();
-			last = pos;
 		}
-		// Add the last token (will also include a whole string when no delim was found)
-		if (last < str.size()) {
-			if (vec != NULL)vec->push_back(str.substr(last, str.size() - last));
-			count++;
+		else {
+			while (tokenizer.skipNext()) {
+				cnt++;
+			}
 		}
-		return count;
+		return cnt;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline std::vector<std::string> GetTokens(const std::string& str, const std::string& delim) {
+	inline std::vector<std::string> getTokens(const std::string& str, const std::string& delim) {
 		std::vector<std::string> ret;
-		GetTokensFunc(&ret, str, delim);
+		getTokensFunc(&ret, str, delim);
 		return ret;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline std::vector<std::string> GetTokens(const std::string& str, char delim) {
+	inline std::vector<std::string> getTokens(const std::string& str, char delim) {
 		std::vector<std::string> ret;
-		GetTokensFunc(&ret, str, std::string(1, delim));
+		getTokensFunc(&ret, str, std::string(1, delim));
 		return ret;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline std::vector<std::wstring> GetTokens(const std::wstring& str, const std::wstring& delim) {
+	inline std::vector<std::wstring> getTokens(const std::wstring& str, const std::wstring& delim) {
 		std::vector<std::wstring> ret;
-		GetTokensFunc(&ret, str, delim);
+		getTokensFunc(&ret, str, delim);
 		return ret;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline std::vector<std::wstring> GetTokens(const std::wstring& str, wchar_t delim) {
+	inline std::vector<std::wstring> getTokens(const std::wstring& str, wchar_t delim) {
 		std::vector<std::wstring> ret;
-		GetTokensFunc(&ret, str, std::wstring(1, delim));
+		getTokensFunc(&ret, str, std::wstring(1, delim));
 		return ret;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline size_t GetTokensNum(const std::string& str, const std::string& delim) {
-		return GetTokensFunc((std::vector<std::string>*)NULL, str, delim);
+	inline size_t getTokensNum(const std::string& str, const std::string& delim) {
+		return getTokensFunc((std::vector<std::string>*)NULL, str, delim);
 	}
 	/**
 	* @ingroup math
 	*/
-	inline size_t GetTokensNum(const std::string& str, char delim) {
-		return GetTokensFunc((std::vector<std::string>*)NULL, str, std::string(1, delim));
+	inline size_t getTokensNum(const std::string& str, char delim) {
+		return getTokensFunc((std::vector<std::string>*)NULL, str, std::string(1, delim));
 	}
 	/**
 	* @ingroup math
 	*/
-	inline size_t GetTokensNum(const std::wstring& str, const std::wstring& delim) {
-		return GetTokensFunc((std::vector<std::wstring>*)NULL, str, delim);
+	inline size_t getTokensNum(const std::wstring& str, const std::wstring& delim) {
+		return getTokensFunc((std::vector<std::wstring>*)NULL, str, delim);
 	}
 	/**
 	* @ingroup math
 	*/
-	inline size_t GetTokensNum(const std::wstring& str, wchar_t delim) {
-		return GetTokensFunc((std::vector<std::wstring>*)NULL, str, std::wstring(1, delim));
+	inline size_t getTokensNum(const std::wstring& str, wchar_t delim) {
+		return getTokensFunc((std::vector<std::wstring>*)NULL, str, std::wstring(1, delim));
 	}
 	/**
 	* @ingroup math
 	*/
-	FileInfo FFW_API GetFileInfo(const std::string& path);
-	/**
-	* @ingroup math
-	*/
-	inline std::string Basename(const std::string& path) {
-		return GetFileInfo(path).basename;
+	template<class T, typename CharTrait = std::char_traits<T>, typename Allocator = std::allocator<T>>
+	FileInfo<std::basic_string<T, CharTrait, Allocator>> getFileInfo(const std::basic_string<T, CharTrait, Allocator>& path) {
+		if (path.size() == 0)return FileInfo<std::basic_string<T, CharTrait, Allocator>>();
+
+		std::basic_string<T, CharTrait, Allocator> base;
+		std::basic_string<T, CharTrait, Allocator> dir;
+		std::basic_string<T, CharTrait, Allocator> ext;
+
+		size_t slash = std::min(path.find_last_of(T('\\')), path.find_last_of(T('/')));
+		if (slash == std::string::npos) {
+			// Check if drive
+			if (path.size() == 2 && path[1] == T(':')) {
+				dir = path;
+			}
+			else {
+				// Split name only
+				size_t dot = path.find_last_of(T('.'));
+
+				if (dot == std::basic_string<T, CharTrait, Allocator>::npos) {
+					base = path;
+
+				}
+				else {
+					base = path.substr(0, dot);
+					ext = path.substr(dot + 1, path.size() - dot - 1);
+				}
+			}
+		}
+		else {
+			// Split dir and name
+			dir = path.substr(0, slash + 1);
+			size_t dot = path.find_last_of(T('.'));
+
+			if (dot != std::basic_string<T, CharTrait, Allocator>::npos && dot > slash) {
+				if (dot == slash + 1) {
+					base = path.substr(slash + 1, path.size() - slash - 1);
+				}
+				else {
+					base = path.substr(slash + 1, path.size() - slash - 1 - (path.size() - dot - 1) - 1);
+					ext = path.substr(dot + 1, path.size() - dot - 1);
+				}
+			}
+			else {
+				base = path.substr(slash + 1, path.size() - slash - 1);
+			}
+		}
+
+		return FileInfo<std::basic_string<T, CharTrait, Allocator>>(base, dir, ext);
 	}
 	/**
 	* @ingroup math
 	*/
-	inline std::string Dirname(const std::string& path) {
-		return GetFileInfo(path).dirname;
+	template<class T, typename CharTrait = std::char_traits<T>, typename Allocator = std::allocator<T>>
+	std::string basename(const std::basic_string<T, CharTrait, Allocator>& path) {
+		return getFileInfo(path).base;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline std::string Extension(const std::string& path) {
-		return GetFileInfo(path).extension;
+	template<class T, typename CharTrait = std::char_traits<T>, typename Allocator = std::allocator<T>>
+	std::string dirname(const std::basic_string<T, CharTrait, Allocator>& path) {
+		return getFileInfo(path).dir;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline std::string ToUpper(const std::string& str) {
+	template<class T, typename CharTrait = std::char_traits<T>, typename Allocator = std::allocator<T>>
+	std::string extension(const std::basic_string<T, CharTrait, Allocator>& path) {
+		return getFileInfo(path).ext;
+	}
+	/**
+	* @ingroup math
+	*/
+	inline std::string toUpper(const std::string& str) {
 		std::string copy(str);
 		for (auto& c : copy) {
 			c = toupper(c);
@@ -236,7 +284,7 @@ namespace ffw{
 	/**
 	* @ingroup math
 	*/
-	inline std::string ToLower(const std::string& str) {
+	inline std::string toLower(const std::string& str) {
 		std::string copy(str);
 		for (auto& c : copy) {
 			c = tolower(c);
@@ -246,65 +294,211 @@ namespace ffw{
 	/**
 	* @ingroup math
 	*/
-	size_t FFW_API WstrToUtf8(std::string* Str, const std::wstring& Wstr);
+	template<class SS, class WS>
+	size_t wstrToUtf8(SS * Str, const WS& Wstr) {
+		size_t total = 0;
+		for (size_t i = 0; i < Wstr.size(); i++) {
+			const auto& w = Wstr[i];
+			// Only byte sequence
+			if (w <= 0x007F) {
+				if (Str != NULL && Str->size() > total) {
+					(*Str)[total + 0] = char(w & 0x007F);
+				}
+				total += 1;
+			}
+			// Two byte sequence
+			else if (w <= 0x7FF) {
+				if (Str != NULL && Str->size() > total + 1) {
+					(*Str)[total + 0] = 0xC0 | char((w & 0x0FC0) >> 6);
+					(*Str)[total + 1] = 0x80 | char((w & 0x003F));
+				}
+				total += 2;
+			}
+			// Three byte sequence
+			else if (w <= 0xFFFF) {
+				if (Str != NULL && Str->size() > total + 2) {
+					(*Str)[total + 0] = 0xE0 | char((w & 0xF000) >> 12);
+					(*Str)[total + 1] = 0x80 | char((w & 0x0FC0) >> 6);
+					(*Str)[total + 2] = 0x80 | char((w & 0x003F));
+				}
+				total += 3;
+			}
+			// Four byte sequence
+			else if (w <= 0x1FFFFF) {
+				if (Str != NULL && Str->size() > total + 3) {
+					(*Str)[total + 0] = 0xF0 | char((w & 0x1C0000) >> 18);
+					(*Str)[total + 1] = 0x80 | char((w & 0x03F000) >> 12);
+					(*Str)[total + 2] = 0x80 | char((w & 0x000FC0) >> 6);
+					(*Str)[total + 3] = 0x80 | char((w & 0x00003F));
+				}
+				total += 4;
+			}
+			// Five byte sequence
+			else if (w <= 0x3FFFFFF) {
+				if (Str != NULL && Str->size() > total + 3) {
+					(*Str)[total + 0] = 0xF8 | char((w & 0x3000000) >> 24);
+					(*Str)[total + 1] = 0x80 | char((w & 0x0FC0000) >> 18);
+					(*Str)[total + 2] = 0x80 | char((w & 0x003F000) >> 12);
+					(*Str)[total + 3] = 0x80 | char((w & 0x0000FC0) >> 6);
+					(*Str)[total + 4] = 0x80 | char((w & 0x000003F));
+				}
+				total += 5;
+			}
+			// Six byte sequence
+			else if (w <= 0x7FFFFFFF) {
+				if (Str != NULL && Str->size() > total + 3) {
+					(*Str)[total + 0] = 0xFC | char((w & 0x40000000) >> 30);
+					(*Str)[total + 1] = 0x80 | char((w & 0x3F000000) >> 24);
+					(*Str)[total + 2] = 0x80 | char((w & 0x00FC0000) >> 18);
+					(*Str)[total + 3] = 0x80 | char((w & 0x0003F000) >> 12);
+					(*Str)[total + 4] = 0x80 | char((w & 0x00000FC0) >> 6);
+					(*Str)[total + 5] = 0x80 | char((w & 0x0000003F));
+				}
+				total += 6;
+			}
+		}
+		return total;
+	}
 	/**
 	* @ingroup math
 	*/
-	inline std::string WstrToUtf8(const std::wstring& Wstr) {
+	template<class WS, class SS>
+	size_t utf8ToWstr(WS* Wstr, const SS& Str) {
+		size_t total = 0;
+		wchar_t w = 0;
+		unsigned char bytes = 0;
+		unsigned char sequence = 0;
+		for (size_t i = 0; i < Str.size(); i++) {
+			const auto& c = Str[i];
+			// One byte in the sequence...
+			if (!(c & 0x80)) {
+				bytes = 0;
+				sequence = 0;
+				//w = c;
+			}
+			// Multiple bytes in the sequence...
+			else {
+				unsigned char b = 0x80;
+				bytes = 0;
+				while ((c & b) && bytes < 8) {
+					bytes++;
+					b = b >> 1;
+				}
+				if (bytes > 1)sequence = bytes;
+			}
+			// First byte 110x xxxx sequence of two bytes
+			if (bytes == 2 && sequence == 2) {
+				w = (c & 0x1F) << 6;
+				sequence--;
+			}
+			// First byte 1110 xxxx  sequence of three bytes
+			else if (bytes == 3 && sequence == 3) {
+				w = (c & 0x0F) << 12;
+				sequence--;
+			}
+			// First byte 1111 0xxx  sequence of four bytes
+			else if (bytes == 4 && sequence == 4) {
+				w = (c & 0x07) << 18;
+				sequence--;
+			}
+			// First byte 1111 10xx  sequence of five bytes
+			else if (bytes == 5 && sequence == 5) {
+				w = (c & 0x03) << 24;
+				sequence--;
+			}
+			// First byte 1111 110x  sequence of six bytes
+			else if (bytes == 6 && sequence == 6) {
+				w = (c & 0x01) << 30;
+				sequence--;
+			}
+			// Continuing byte 10xx xxxx
+			else if (bytes == 1 && sequence > 0) {
+				w |= (c & 0x3F) << ((sequence - 1) * 6);
+				sequence--;
+				// We have reached the end of the sequence
+				if (sequence == 0) {
+					if (Wstr != NULL && Wstr->size() > total) {
+						(*Wstr)[total] = w;
+					}
+					total++;
+				}
+			}
+			// No sequence
+			else {
+				w = c;
+				if (Wstr != NULL && Wstr->size() > total) {
+					(*Wstr)[total] = w;
+				}
+				total++;
+				//wstr.push_back(w);
+			}
+		}
+		return total;
+	}
+	/**
+	* @ingroup math
+	*/
+	inline std::string wstrToUtf8(const std::wstring& Wstr) {
 		std::string str;
-		str.resize(WstrToUtf8(NULL, Wstr));
-		WstrToUtf8(&str, Wstr);
+		str.resize(wstrToUtf8((std::string*)NULL, Wstr));
+		wstrToUtf8(&str, Wstr);
 		return str;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline size_t WstrToUtf8Size(const std::wstring& Wstr) {
-		return WstrToUtf8(NULL, Wstr);
+	inline size_t wstrToUtf8Size(const std::wstring& Wstr) {
+		return wstrToUtf8((std::string*)NULL, Wstr);
 	}
 	/**
 	* @ingroup math
 	*/
-	size_t FFW_API Utf8ToWstr(std::wstring* Wstr, const std::string& Str);
-	/**
-	* @ingroup math
-	*/
-	inline std::wstring Utf8ToWstr(const std::string& Str) {
+	inline std::wstring utf8ToWstr(const std::string& Str) {
 		std::wstring wstr;
-		wstr.resize(Utf8ToWstr(NULL, Str));
-		Utf8ToWstr(&wstr, Str);
+		wstr.resize(utf8ToWstr((std::wstring*)NULL, Str));
+		utf8ToWstr(&wstr, Str);
 		return wstr;
 	}
 	/**
 	* @ingroup math
 	*/
-	inline size_t Utf8ToWstrSize(const std::string& Str) {
-		return Utf8ToWstr(NULL, Str);
+	inline size_t utf8ToWstrSize(const std::string& Str) {
+		return utf8ToWstr((std::wstring*)NULL, Str);
 	}
 	/**
 	* @ingroup math
 	*/
 	template <class T>
-	inline std::wstring ValToWstring(T Value) {
-		return Utf8ToWstr(ValToString(Value));
+	inline std::wstring valToWstring(T Value) {
+		return utf8ToWstr(valToString(Value));
 	}
 	/**
 	* @ingroup math
 	*/
 	template <class T>
-	inline std::wstring ValToWstring(T Value, unsigned int Dec) {
-		return Utf8ToWstr(ValToString(Value, Dec));
+	inline std::wstring valToWstring(T Value, unsigned int Dec) {
+		return utf8ToWstr(valToString(Value, Dec));
 	}
 
 #if defined(FFW_WINDOWS)
 	/**
 	* @ingroup math
 	*/
-	std::string FFW_API WstrToAnsi(const std::wstring& Str);
+	inline std::string wstrToAnsi(const std::wstring& Str) {
+		int size = WideCharToMultiByte(CP_ACP, 0, Str.c_str(), Str.size(), NULL, 0, NULL, NULL);
+		std::string out(size, ' ');
+		WideCharToMultiByte(CP_ACP, 0, Str.c_str(), Str.size(), &out[0], size, 0, 0);
+		return out;
+	}
 	/**
 	* @ingroup math
 	*/
-	std::wstring FFW_API AnsiToWstr(const std::string& Str);
+	inline std::wstring ansiToWstr(const std::string& Str) {
+		int size = MultiByteToWideChar(CP_ACP, 0, Str.c_str(), Str.size(), NULL, 0);
+		std::wstring out(size, L' ');
+		MultiByteToWideChar(CP_ACP, 0, Str.c_str(), Str.size(), &out[0], size);
+		return out;
+	}
 #endif
 };
 #endif

@@ -3,7 +3,7 @@
 #include "ffw/data/helpers.h"
 
 ///=============================================================================
-bool ffw::StringContainsWhitespace(const char* str, size_t length){
+bool ffw::stringContainsWhitespace(const char* str, size_t length){
 	for(size_t i = 0; i < length; i++){
 		switch(str[i]){
 			case 32: // Space
@@ -19,7 +19,7 @@ bool ffw::StringContainsWhitespace(const char* str, size_t length){
 }
 
 ///=============================================================================
-bool ffw::StringIsInteger(const char* str, size_t length){
+bool ffw::stringisInteger(const char* str, size_t length){
 	bool foundDigit = false;
 	bool enclosingSpace = false;
 
@@ -56,7 +56,7 @@ bool ffw::StringIsInteger(const char* str, size_t length){
 }
 
 ///=============================================================================
-bool ffw::StringIsFloat(const char* str, size_t length){
+bool ffw::stringisFloat(const char* str, size_t length){
 	bool foundDigit = false;
 	bool enclosingSpace = false;
 	bool foundDecimal = false;
@@ -102,7 +102,7 @@ bool ffw::StringIsFloat(const char* str, size_t length){
 }
 
 ///=============================================================================
-bool ffw::StringIsBool(const char* str, size_t length, bool* ptr ){
+bool ffw::stringisBool(const char* str, size_t length, bool* ptr ){
 	if(length == 0)return false;
 
 	size_t end = length;

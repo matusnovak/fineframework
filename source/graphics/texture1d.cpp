@@ -4,7 +4,7 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-bool ffw::Texture1D::CheckCompability(const ffw::RenderContext* Renderer){
+bool ffw::Texture1D::checkCompability(const ffw::RenderContext* Renderer){
 	return true;
 }
 
@@ -14,16 +14,29 @@ ffw::Texture1D::Texture1D():Texture(){
 }
 
 ///=============================================================================
-ffw::Texture1D::~Texture1D(){
-	Destroy();
+ffw::Texture1D::Texture1D(Texture1D&& second) : Texture1D() {
+	Texture::swap(second);
 }
 
 ///=============================================================================
-bool ffw::Texture1D::Create(const ffw::RenderContext* renderer, GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat){
+ffw::Texture1D& ffw::Texture1D::operator = (ffw::Texture1D&& other) {
+	if (this != &other) {
+		Texture::swap(other);
+	}
+	return *this;
+}
+
+///=============================================================================
+ffw::Texture1D::~Texture1D(){
+	destroy();
+}
+
+///=============================================================================
+bool ffw::Texture1D::create(const ffw::RenderContext* renderer, GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat){
     if(loaded_)return false;
-	if(!CheckCompability(renderer))return false;
+	if(!checkCompability(renderer))return false;
 	loaded_ = true;
-    gl_ = renderer->Glext();
+    gl_ = static_cast<const RenderExtensions*>(renderer);
 
     glGenTextures(1, &buffer_);
     glBindTexture(GL_TEXTURE_1D, buffer_);
@@ -42,7 +55,7 @@ bool ffw::Texture1D::Create(const ffw::RenderContext* renderer, GLsizei width, G
     int test;
     glGetTexLevelParameteriv(GL_TEXTURE_1D, 0, GL_TEXTURE_WIDTH, &test);
     if(test != width){
-        Destroy();
+        destroy();
         return false;
     }
 
@@ -55,7 +68,7 @@ bool ffw::Texture1D::Create(const ffw::RenderContext* renderer, GLsizei width, G
 }
 
 ///=============================================================================
-bool ffw::Texture1D::Resize(GLsizei width){
+bool ffw::Texture1D::resize(GLsizei width){
 	if(!loaded_)return false;
 	if(width <= 0)return false;
 	width_ = width;
@@ -65,7 +78,7 @@ bool ffw::Texture1D::Resize(GLsizei width){
 }
 
 ///=============================================================================
-bool ffw::Texture1D::SetPixels(GLint level, GLint xoffset, GLsizei width, const void* pixels){
+bool ffw::Texture1D::setPixels(GLint level, GLint xoffset, GLsizei width, const void* pixels){
     if(!loaded_)return false;
 	if(level < 0)return false;
 	if(width <= 0)return false;
@@ -75,7 +88,7 @@ bool ffw::Texture1D::SetPixels(GLint level, GLint xoffset, GLsizei width, const 
 }
 
 ///=============================================================================
-bool ffw::Texture1D::GetPixels(void* pixels){
+bool ffw::Texture1D::getPixels(void* pixels){
     if(!loaded_)return false;
 	glGetTexImage(GL_TEXTURE_1D, 0, format_, pixelformat_, pixels);
     return true;

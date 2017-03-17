@@ -9,12 +9,12 @@ namespace ffw {
 	 */
 	class GuiFont{
 	public:
-		virtual bool IsCreated() const = 0;
-		virtual void Destroy() = 0;
-		virtual ffw::Vec2i GetStringSize(const std::wstring& str, float lineHeight = 1.25) const = 0;
-		virtual ffw::Vec2i GetStringSize(const std::string& str, float lineHeight = 1.25) const = 0;
-		virtual int GetCharAdvance(wchar_t c) const = 0;
-		virtual int GetSizeInPixels() const = 0;
+		virtual bool isCreated() const = 0;
+		virtual void destroy() = 0;
+		virtual ffw::Vec2i getStringSize(const std::wstring& str, float lineHeight = 1.25) const = 0;
+		virtual ffw::Vec2i getStringSize(const std::string& str, float lineHeight = 1.25) const = 0;
+		virtual int getCharAdvance(wchar_t c) const = 0;
+		virtual int getSizeInPixels() const = 0;
 	};
 }
 #endif

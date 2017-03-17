@@ -25,10 +25,13 @@ namespace ffw{
 	/**
 	 * @ingroup graphics
 	 */
-	class FFW_API RenderExtensions{
-    public:
+	class FFW_API RenderExtensions {
+	public:
 		typedef void* (*glextLoader)(const char*);
-		void Init(glextLoader Loader);
+	protected:
+		void loadExtensions(glextLoader Loader);
+	public:
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(FFW_WINDOWS) || defined(FFW_LINUX)
         // Group GL_VERSION_1_2
         #if GL_VERSION_1_2 == 1
@@ -89,8 +92,8 @@ namespace ffw{
         // Group GL_VERSION_1_4
         #if GL_VERSION_1_4 == 1
         PFNGLBLENDFUNCSEPARATEPROC glBlendFuncSeparate;
-        PFNGLMULTIDRAWARRAYSPROC glMultiDrawArrays;
-        PFNGLMULTIDRAWELEMENTSPROC glMultiDrawElements;
+        PFNGLMULTIDRAWARRAYSPROC glMultidrawArrays;
+        PFNGLMULTIDRAWELEMENTSPROC glMultidrawElements;
         PFNGLPOINTPARAMETERFPROC glPointParameterf;
         PFNGLPOINTPARAMETERFVPROC glPointParameterfv;
         PFNGLPOINTPARAMETERIPROC glPointParameteri;
@@ -140,7 +143,7 @@ namespace ffw{
         #if GL_VERSION_1_5 == 1
         PFNGLGENQUERIESPROC glGenQueries;
         PFNGLDELETEQUERIESPROC glDeleteQueries;
-        PFNGLISQUERYPROC glIsQuery;
+        PFNGLISQUERYPROC glisQuery;
         PFNGLBEGINQUERYPROC glBeginQuery;
         PFNGLENDQUERYPROC glEndQuery;
         PFNGLGETQUERYIVPROC glGetQueryiv;
@@ -149,7 +152,7 @@ namespace ffw{
         PFNGLBINDBUFFERPROC glBindBuffer;
         PFNGLDELETEBUFFERSPROC glDeleteBuffers;
         PFNGLGENBUFFERSPROC glGenBuffers;
-        PFNGLISBUFFERPROC glIsBuffer;
+        PFNGLISBUFFERPROC glisBuffer;
         PFNGLBUFFERDATAPROC glBufferData;
         PFNGLBUFFERSUBDATAPROC glBufferSubData;
         PFNGLGETBUFFERSUBDATAPROC glGetHandleSubData;
@@ -191,8 +194,8 @@ namespace ffw{
         PFNGLGETVERTEXATTRIBFVPROC glGetVertexAttribfv;
         PFNGLGETVERTEXATTRIBIVPROC glGetVertexAttribiv;
         PFNGLGETVERTEXATTRIBPOINTERVPROC glGetVertexAttribPointerv;
-        PFNGLISPROGRAMPROC glIsProgram;
-        PFNGLISSHADERPROC glIsShader;
+        PFNGLISPROGRAMPROC glisProgram;
+        PFNGLISSHADERPROC glisShader;
         PFNGLLINKPROGRAMPROC glLinkProgram;
         PFNGLSHADERSOURCEPROC glShaderSource;
         PFNGLUSEPROGRAMPROC glUseProgram;
@@ -270,7 +273,7 @@ namespace ffw{
         PFNGLGETINTEGERI_VPROC glGetIntegeri_v;
         PFNGLENABLEIPROC glEnablei;
         PFNGLDISABLEIPROC glDisablei;
-        PFNGLISENABLEDIPROC glIsEnabledi;
+        PFNGLISENABLEDIPROC glisEnabledi;
         PFNGLBEGINTRANSFORMFEEDBACKPROC glBeginTransformFeedback;
         PFNGLENDTRANSFORMFEEDBACKPROC glEndTransformFeedback;
         PFNGLBINDBUFFERRANGEPROC glBindBufferRange;
@@ -323,13 +326,13 @@ namespace ffw{
         PFNGLCLEARBUFFERFVPROC glClearBufferfv;
         PFNGLCLEARBUFFERFIPROC glClearBufferfi;
         PFNGLGETSTRINGIPROC glGetStringi;
-        PFNGLISRENDERBUFFERPROC glIsRenderbuffer;
+        PFNGLISRENDERBUFFERPROC glisRenderbuffer;
         PFNGLBINDRENDERBUFFERPROC glBindRenderbuffer;
         PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers;
         PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
         PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
         PFNGLGETRENDERBUFFERPARAMETERIVPROC glGetRenderbufferParameteriv;
-        PFNGLISFRAMEBUFFERPROC glIsFramebuffer;
+        PFNGLISFRAMEBUFFERPROC glisFramebuffer;
         PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
         PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
         PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
@@ -348,7 +351,7 @@ namespace ffw{
         PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
         PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays;
         PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
-        PFNGLISVERTEXARRAYPROC glIsVertexArray;
+        PFNGLISVERTEXARRAYPROC glisVertexArray;
         #endif
         // Group GL_VERSION_3_1
         #if GL_VERSION_3_1 == 1
@@ -370,10 +373,10 @@ namespace ffw{
 		PFNGLDRAWELEMENTSBASEVERTEXPROC glDrawElementsBaseVertex;
 		PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC glDrawRangeElementsBaseVertex;
 		PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC glDrawElementsInstancedBaseVertex;
-		PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC glMultiDrawElementsBaseVertex;
+		PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC glMultidrawElementsBaseVertex;
 		PFNGLPROVOKINGVERTEXPROC glProvokingVertex;
 		PFNGLFENCESYNCPROC glFenceSync;
-		PFNGLISSYNCPROC glIsSync;
+		PFNGLISSYNCPROC glisSync;
 		PFNGLDELETESYNCPROC glDeleteSync;
 		PFNGLCLIENTWAITSYNCPROC glClientWaitSync;
 		PFNGLWAITSYNCPROC glWaitSync;
@@ -393,7 +396,7 @@ namespace ffw{
         PFNGLGETFRAGDATAINDEXPROC glGetFragDataIndex;
         PFNGLGENSAMPLERSPROC glGenSamplers;
         PFNGLDELETESAMPLERSPROC glDeleteSamplers;
-        PFNGLISSAMPLERPROC glIsSampler;
+        PFNGLISSAMPLERPROC glisSampler;
         PFNGLBINDSAMPLERPROC glBindSampler;
         PFNGLSAMPLERPARAMETERIPROC glSamplerParameteri;
         PFNGLSAMPLERPARAMETERIVPROC glSamplerParameteriv;
@@ -488,7 +491,7 @@ namespace ffw{
         PFNGLBINDTRANSFORMFEEDBACKPROC glBindTransformFeedback;
         PFNGLDELETETRANSFORMFEEDBACKSPROC glDeleteTransformFeedbacks;
         PFNGLGENTRANSFORMFEEDBACKSPROC glGenTransformFeedbacks;
-        PFNGLISTRANSFORMFEEDBACKPROC glIsTransformFeedback;
+        PFNGLISTRANSFORMFEEDBACKPROC glisTransformFeedback;
         PFNGLPAUSETRANSFORMFEEDBACKPROC glPauseTransformFeedback;
         PFNGLRESUMETRANSFORMFEEDBACKPROC glResumeTransformFeedback;
         PFNGLDRAWTRANSFORMFEEDBACKPROC glDrawTransformFeedback;
@@ -513,7 +516,7 @@ namespace ffw{
         PFNGLBINDPROGRAMPIPELINEPROC glBindProgramPipeline;
         PFNGLDELETEPROGRAMPIPELINESPROC glDeleteProgramPipelines;
         PFNGLGENPROGRAMPIPELINESPROC glGenProgramPipelines;
-        PFNGLISPROGRAMPIPELINEPROC glIsProgramPipeline;
+        PFNGLISPROGRAMPIPELINEPROC glisProgramPipeline;
         PFNGLGETPROGRAMPIPELINEIVPROC glGetProgramPipelineiv;
         PFNGLPROGRAMUNIFORM1IPROC glProgramUniform1i;
         PFNGLPROGRAMUNIFORM1IVPROC glProgramUniform1iv;
@@ -619,8 +622,8 @@ namespace ffw{
         PFNGLINVALIDATEBUFFERDATAPROC glInvalidateBufferData;
         PFNGLINVALIDATEFRAMEBUFFERPROC glInvalidateFramebuffer;
         PFNGLINVALIDATESUBFRAMEBUFFERPROC glInvalidateSubFramebuffer;
-        PFNGLMULTIDRAWARRAYSINDIRECTPROC glMultiDrawArraysIndirect;
-        PFNGLMULTIDRAWELEMENTSINDIRECTPROC glMultiDrawElementsIndirect;
+        PFNGLMULTIDRAWARRAYSINDIRECTPROC glMultidrawArraysIndirect;
+        PFNGLMULTIDRAWELEMENTSINDIRECTPROC glMultidrawElementsIndirect;
         PFNGLGETPROGRAMINTERFACEIVPROC glGetProgramInterfaceiv;
         PFNGLGETPROGRAMRESOURCEINDEXPROC glGetProgramResourceIndex;
         PFNGLGETPROGRAMRESOURCENAMEPROC glGetProgramResourceName;
@@ -639,7 +642,7 @@ namespace ffw{
         PFNGLVERTEXATTRIBBINDINGPROC glVertexAttribBinding;
         PFNGLVERTEXBINDINGDIVISORPROC glVertexBindingDivisor;
         PFNGLDEBUGMESSAGECONTROLPROC glDebugMessageControl;
-        PFNGLDEBUGMESSAGEINSERTPROC glDebugMessageInsert;
+        PFNGLDEBUGMESSAGEINSERTPROC glDebugMessageinsert;
         PFNGLDEBUGMESSAGECALLBACKPROC glDebugMessageCallback;
         PFNGLGETDEBUGMESSAGELOGPROC glGetDebugMessageLog;
         PFNGLPUSHDEBUGGROUPPROC glPushDebugGroup;
@@ -690,8 +693,8 @@ namespace ffw{
         PFNGLNAMEDFRAMEBUFFERPARAMETERIPROC glNamedFramebufferParameteri;
         PFNGLNAMEDFRAMEBUFFERTEXTUREPROC glNamedFramebufferTexture;
         PFNGLNAMEDFRAMEBUFFERTEXTURELAYERPROC glNamedFramebufferTextureLayer;
-        PFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC glNamedFramebufferDrawBuffer;
-        PFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC glNamedFramebufferDrawBuffers;
+        PFNGLNAMEDFRAMEBUFFERDRAWBUFFERPROC glNamedFramebufferdrawBuffer;
+        PFNGLNAMEDFRAMEBUFFERDRAWBUFFERSPROC glNamedFramebufferdrawBuffers;
         PFNGLNAMEDFRAMEBUFFERREADBUFFERPROC glNamedFramebufferReadBuffer;
         PFNGLINVALIDATENAMEDFRAMEBUFFERDATAPROC glInvalidateNamedFramebufferData;
         PFNGLINVALIDATENAMEDFRAMEBUFFERSUBDATAPROC glInvalidateNamedFramebufferSubData;
@@ -799,8 +802,8 @@ namespace ffw{
         PFNGLUNIFORMHANDLEUI64VARBPROC glUniformHandleui64vARB;
         PFNGLPROGRAMUNIFORMHANDLEUI64ARBPROC glProgramUniformHandleui64ARB;
         PFNGLPROGRAMUNIFORMHANDLEUI64VARBPROC glProgramUniformHandleui64vARB;
-        PFNGLISTEXTUREHANDLERESIDENTARBPROC glIsTextureHandleResidentARB;
-        PFNGLISIMAGEHANDLERESIDENTARBPROC glIsImageHandleResidentARB;
+        PFNGLISTEXTUREHANDLERESIDENTARBPROC glisTextureHandleResidentARB;
+        PFNGLISIMAGEHANDLERESIDENTARBPROC glisImageHandleResidentARB;
         PFNGLVERTEXATTRIBL1UI64ARBPROC glVertexAttribL1ui64ARB;
         PFNGLVERTEXATTRIBL1UI64VARBPROC glVertexAttribL1ui64vARB;
         PFNGLGETVERTEXATTRIBLUI64VARBPROC glGetVertexAttribLui64vARB;
@@ -820,7 +823,7 @@ namespace ffw{
         // Group GL_ARB_debug_output
         #if GL_ARB_debug_output == 1
         PFNGLDEBUGMESSAGECONTROLARBPROC glDebugMessageControlARB;
-        PFNGLDEBUGMESSAGEINSERTARBPROC glDebugMessageInsertARB;
+        PFNGLDEBUGMESSAGEINSERTARBPROC glDebugMessageinsertARB;
         PFNGLDEBUGMESSAGECALLBACKARBPROC glDebugMessageCallbackARB;
         PFNGLGETDEBUGMESSAGELOGARBPROC glGetDebugMessageLogARB;
         #endif
@@ -860,7 +863,7 @@ namespace ffw{
         PFNGLGETPROGRAMLOCALPARAMETERFVARBPROC glGetProgramLocalParameterfvARB;
         PFNGLGETPROGRAMIVARBPROC glGetProgramivARB;
         PFNGLGETPROGRAMSTRINGARBPROC glGetProgramStringARB;
-        PFNGLISPROGRAMARBPROC glIsProgramARB;
+        PFNGLISPROGRAMARBPROC glisProgramARB;
         #endif
         // Group GL_ARB_geometry_Shader4
         #if GL_ARB_geometry_Shader4 == 1
@@ -906,8 +909,8 @@ namespace ffw{
         #endif*/
         // Group GL_ARB_indirect_parameters
         #if GL_ARB_indirect_parameters == 1
-        PFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC glMultiDrawArraysIndirectCountARB;
-        PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC glMultiDrawElementsIndirectCountARB;
+        PFNGLMULTIDRAWARRAYSINDIRECTCOUNTARBPROC glMultidrawArraysIndirectCountARB;
+        PFNGLMULTIDRAWELEMENTSINDIRECTCOUNTARBPROC glMultidrawElementsIndirectCountARB;
         #endif
         // Group GL_ARB_instanced_arrays
         #if GL_ARB_instanced_arrays == 1
@@ -966,7 +969,7 @@ namespace ffw{
         #if GL_ARB_occlusion_query == 1
         PFNGLGENQUERIESARBPROC glGenQueriesARB;
         PFNGLDELETEQUERIESARBPROC glDeleteQueriesARB;
-        PFNGLISQUERYARBPROC glIsQueryARB;
+        PFNGLISQUERYARBPROC glisQueryARB;
         PFNGLBEGINQUERYARBPROC glBeginQueryARB;
         PFNGLENDQUERYARBPROC glEndQueryARB;
         PFNGLGETQUERYIVARBPROC glGetQueryivARB;
@@ -1010,7 +1013,7 @@ namespace ffw{
         PFNGLNAMEDSTRINGARBPROC glNamedStringARB;
         PFNGLDELETENAMEDSTRINGARBPROC glDeleteNamedStringARB;
         PFNGLCOMPILESHADERINCLUDEARBPROC glCompileShaderIncludeARB;
-        PFNGLISNAMEDSTRINGARBPROC glIsNamedStringARB;
+        PFNGLISNAMEDSTRINGARBPROC glisNamedStringARB;
         PFNGLGETNAMEDSTRINGARBPROC glGetNamedStringARB;
         PFNGLGETNAMEDSTRINGIVARBPROC glGetNamedStringivARB;
         #endif
@@ -1063,7 +1066,7 @@ namespace ffw{
         PFNGLBINDBUFFERARBPROC glBindBufferARB;
         PFNGLDELETEBUFFERSARBPROC glDeleteBuffersARB;
         PFNGLGENBUFFERSARBPROC glGenBuffersARB;
-        PFNGLISBUFFERARBPROC glIsBufferARB;
+        PFNGLISBUFFERARBPROC glisBufferARB;
         PFNGLBUFFERDATAARBPROC glBufferDataARB;
         PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB;
         PFNGLGETBUFFERSUBDATAARBPROC glGetHandleSubDataARB;
@@ -1298,7 +1301,7 @@ namespace ffw{
         // Group GL_AMD_debug_output
         #if GL_AMD_debug_output == 1
         PFNGLDEBUGMESSAGEENABLEAMDPROC glDebugMessageEnableAMD;
-        PFNGLDEBUGMESSAGEINSERTAMDPROC glDebugMessageInsertAMD;
+        PFNGLDEBUGMESSAGEINSERTAMDPROC glDebugMessageinsertAMD;
         PFNGLDEBUGMESSAGECALLBACKAMDPROC glDebugMessageCallbackAMD;
         PFNGLGETDEBUGMESSAGELOGAMDPROC glGetDebugMessageLogAMD;
         #endif
@@ -1352,14 +1355,14 @@ namespace ffw{
         #endif
         // Group GL_AMD_multi_draw_indirect
         #if GL_AMD_multi_draw_indirect == 1
-        PFNGLMULTIDRAWARRAYSINDIRECTAMDPROC glMultiDrawArraysIndirectAMD;
-        PFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC glMultiDrawElementsIndirectAMD;
+        PFNGLMULTIDRAWARRAYSINDIRECTAMDPROC glMultidrawArraysIndirectAMD;
+        PFNGLMULTIDRAWELEMENTSINDIRECTAMDPROC glMultidrawElementsIndirectAMD;
         #endif
         // Group GL_AMD_name_gen_delete
         #if GL_AMD_name_gen_delete == 1
         PFNGLGENNAMESAMDPROC glGenNamesAMD;
         PFNGLDELETENAMESAMDPROC glDeleteNamesAMD;
-        PFNGLISNAMEAMDPROC glIsNameAMD;
+        PFNGLISNAMEAMDPROC glisNameAMD;
         #endif
         // Group GL_AMD_occlusion_query_event
         #if GL_AMD_occlusion_query_event == 1
@@ -1381,7 +1384,7 @@ namespace ffw{
         #endif
         // Group GL_AMD_sample_positions
         #if GL_AMD_sample_positions == 1
-        PFNGLSETMULTISAMPLEFVAMDPROC glSetMultisamplefvAMD;
+        PFNGLSETMULTISAMPLEFVAMDPROC glsetMultisamplefvAMD;
         #endif
         // Group GL_AMD_sparse_texture
         #if GL_AMD_sparse_texture == 1
@@ -1402,15 +1405,15 @@ namespace ffw{
         PFNGLELEMENTPOINTERAPPLEPROC glElementPointerAPPLE;
         PFNGLDRAWELEMENTARRAYAPPLEPROC glDrawElementArrayAPPLE;
         PFNGLDRAWRANGEELEMENTARRAYAPPLEPROC glDrawRangeElementArrayAPPLE;
-        PFNGLMULTIDRAWELEMENTARRAYAPPLEPROC glMultiDrawElementArrayAPPLE;
-        PFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC glMultiDrawRangeElementArrayAPPLE;
+        PFNGLMULTIDRAWELEMENTARRAYAPPLEPROC glMultidrawElementArrayAPPLE;
+        PFNGLMULTIDRAWRANGEELEMENTARRAYAPPLEPROC glMultidrawRangeElementArrayAPPLE;
         #endif
         // Group GL_APPLE_fence
         #if GL_APPLE_fence == 1
         PFNGLGENFENCESAPPLEPROC glGenFencesAPPLE;
         PFNGLDELETEFENCESAPPLEPROC glDeleteFencesAPPLE;
-        PFNGLSETFENCEAPPLEPROC glSetFenceAPPLE;
-        PFNGLISFENCEAPPLEPROC glIsFenceAPPLE;
+        PFNGLSETFENCEAPPLEPROC glsetFenceAPPLE;
+        PFNGLISFENCEAPPLEPROC glisFenceAPPLE;
         PFNGLTESTFENCEAPPLEPROC glTestFenceAPPLE;
         PFNGLFINISHFENCEAPPLEPROC glFinishFenceAPPLE;
         PFNGLTESTOBJECTAPPLEPROC glTestObjectAPPLE;
@@ -1437,7 +1440,7 @@ namespace ffw{
         PFNGLBINDVERTEXARRAYAPPLEPROC glBindVertexArrayAPPLE;
         PFNGLDELETEVERTEXARRAYSAPPLEPROC glDeleteVertexArraysAPPLE;
         PFNGLGENVERTEXARRAYSAPPLEPROC glGenVertexArraysAPPLE;
-        PFNGLISVERTEXARRAYAPPLEPROC glIsVertexArrayAPPLE;
+        PFNGLISVERTEXARRAYAPPLEPROC glisVertexArrayAPPLE;
         #endif
         // Group GL_APPLE_vertex_array_range
         #if GL_APPLE_vertex_array_range == 1
@@ -1449,7 +1452,7 @@ namespace ffw{
         #if GL_APPLE_vertex_program_evaluators == 1
         PFNGLENABLEVERTEXATTRIBAPPLEPROC glEnableVertexAttribAPPLE;
         PFNGLDISABLEVERTEXATTRIBAPPLEPROC glDisableVertexAttribAPPLE;
-        PFNGLISVERTEXATTRIBENABLEDAPPLEPROC glIsVertexAttribEnabledAPPLE;
+        PFNGLISVERTEXATTRIBENABLEDAPPLEPROC glisVertexAttribEnabledAPPLE;
         PFNGLMAPVERTEXATTRIB1DAPPLEPROC glMapVertexAttrib1dAPPLE;
         PFNGLMAPVERTEXATTRIB1FAPPLEPROC glMapVertexAttrib1fAPPLE;
         PFNGLMAPVERTEXATTRIB2DAPPLEPROC glMapVertexAttrib2dAPPLE;
@@ -1487,7 +1490,7 @@ namespace ffw{
         PFNGLALPHAFRAGMENTOP1ATIPROC glAlphaFragmentOp1ATI;
         PFNGLALPHAFRAGMENTOP2ATIPROC glAlphaFragmentOp2ATI;
         PFNGLALPHAFRAGMENTOP3ATIPROC glAlphaFragmentOp3ATI;
-        PFNGLSETFRAGMENTSHADERCONSTANTATIPROC glSetFragmentShaderConstantATI;
+        PFNGLSETFRAGMENTSHADERCONSTANTATIPROC glsetFragmentShaderConstantATI;
         #endif
         // Group GL_ATI_map_object_buffer
         #if GL_ATI_map_object_buffer == 1
@@ -1507,7 +1510,7 @@ namespace ffw{
         // Group GL_ATI_vertex_array_object
         #if GL_ATI_vertex_array_object == 1
         PFNGLNEWOBJECTBUFFERATIPROC glNewObjectBufferATI;
-        PFNGLISOBJECTBUFFERATIPROC glIsObjectBufferATI;
+        PFNGLISOBJECTBUFFERATIPROC glisObjectBufferATI;
         PFNGLUPDATEOBJECTBUFFERATIPROC glUpdateObjectBufferATI;
         PFNGLGETOBJECTBUFFERFVATIPROC glGetObjectBufferfvATI;
         PFNGLGETOBJECTBUFFERIVATIPROC glGetObjectBufferivATI;
@@ -1666,7 +1669,7 @@ namespace ffw{
         #endif
         // Group GL_EXT_debug_marker
         #if GL_EXT_debug_marker == 1
-        PFNGLINSERTEVENTMARKEREXTPROC glInsertEventMarkerEXT;
+        PFNGLINSERTEVENTMARKEREXTPROC glinsertEventMarkerEXT;
         PFNGLPUSHGROUPMARKEREXTPROC glPushGroupMarkerEXT;
         PFNGLPOPGROUPMARKEREXTPROC glPopGroupMarkerEXT;
         #endif
@@ -1757,7 +1760,7 @@ namespace ffw{
         PFNGLGETPOINTERINDEXEDVEXTPROC glGetPointerIndexedvEXT;
         PFNGLENABLEINDEXEDEXTPROC glEnableIndexedEXT;
         PFNGLDISABLEINDEXEDEXTPROC glDisableIndexedEXT;
-        PFNGLISENABLEDINDEXEDEXTPROC glIsEnabledIndexedEXT;
+        PFNGLISENABLEDINDEXEDEXTPROC glisEnabledIndexedEXT;
         PFNGLGETINTEGERINDEXEDVEXTPROC glGetIntegerIndexedvEXT;
         PFNGLGETBOOLEANINDEXEDVEXTPROC glGetBooleanIndexedvEXT;
         PFNGLCOMPRESSEDTEXTUREIMAGE3DEXTPROC glCompressedTextureImage3DEXT;
@@ -1863,8 +1866,8 @@ namespace ffw{
         PFNGLGETNAMEDFRAMEBUFFERATTACHMENTPARAMETERIVEXTPROC glGetNamedFramebufferAttachmentParameterivEXT;
         PFNGLGENERATETEXTUREMIPMAPEXTPROC glGenerateTextureMipmapEXT;
         PFNGLGENERATEMULTITEXMIPMAPEXTPROC glGenerateMultiTexMipmapEXT;
-        PFNGLFRAMEBUFFERDRAWBUFFEREXTPROC glFramebufferDrawBufferEXT;
-        PFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC glFramebufferDrawBuffersEXT;
+        PFNGLFRAMEBUFFERDRAWBUFFEREXTPROC glFramebufferdrawBufferEXT;
+        PFNGLFRAMEBUFFERDRAWBUFFERSEXTPROC glFramebufferdrawBuffersEXT;
         PFNGLFRAMEBUFFERREADBUFFEREXTPROC glFramebufferReadBufferEXT;
         PFNGLGETFRAMEBUFFERPARAMETERIVEXTPROC glGetFramebufferParameterivEXT;
         PFNGLNAMEDCOPYBUFFERSUBDATAEXTPROC glNamedCopyBufferSubDataEXT;
@@ -1963,13 +1966,13 @@ namespace ffw{
         #endif
         // Group GL_EXT_Framebuffer_object
         #if GL_EXT_framebuffer_object == 1
-        PFNGLISRENDERBUFFEREXTPROC glIsRenderbufferEXT;
+        PFNGLISRENDERBUFFEREXTPROC glisRenderbufferEXT;
         PFNGLBINDRENDERBUFFEREXTPROC glBindRenderbufferEXT;
         PFNGLDELETERENDERBUFFERSEXTPROC glDeleteRenderbuffersEXT;
         PFNGLGENRENDERBUFFERSEXTPROC glGenRenderbuffersEXT;
         PFNGLRENDERBUFFERSTORAGEEXTPROC glRenderbufferStorageEXT;
         PFNGLGETRENDERBUFFERPARAMETERIVEXTPROC glGetRenderbufferParameterivEXT;
-        PFNGLISFRAMEBUFFEREXTPROC glIsFramebufferEXT;
+        PFNGLISFRAMEBUFFEREXTPROC glisFramebufferEXT;
         PFNGLBINDFRAMEBUFFEREXTPROC glBindFramebufferEXT;
         PFNGLDELETEFRAMEBUFFERSEXTPROC glDeleteFramebuffersEXT;
         PFNGLGENFRAMEBUFFERSEXTPROC glGenFramebuffersEXT;
@@ -2033,8 +2036,8 @@ namespace ffw{
         #endif
         // Group GL_EXT_multi_draw_arrays
         #if GL_EXT_multi_draw_arrays == 1
-        PFNGLMULTIDRAWARRAYSEXTPROC glMultiDrawArraysEXT;
-        PFNGLMULTIDRAWELEMENTSEXTPROC glMultiDrawElementsEXT;
+        PFNGLMULTIDRAWARRAYSEXTPROC glMultidrawArraysEXT;
+        PFNGLMULTIDRAWELEMENTSEXTPROC glMultidrawElementsEXT;
         #endif
         // Group GL_EXT_multisample
         #if GL_EXT_multisample == 1
@@ -2150,7 +2153,7 @@ namespace ffw{
         PFNGLBINDTEXTUREEXTPROC glBindTextureEXT;
         PFNGLDELETETEXTURESEXTPROC glDeleteTexturesEXT;
         PFNGLGENTEXTURESEXTPROC glGenTexturesEXT;
-        PFNGLISTEXTUREEXTPROC glIsTextureEXT;
+        PFNGLISTEXTUREEXTPROC glisTextureEXT;
         PFNGLPRIORITIZETEXTURESEXTPROC glPrioritizeTexturesEXT;
         #endif
         // Group GL_EXT_texture_perturb_normal
@@ -2209,11 +2212,11 @@ namespace ffw{
         PFNGLSHADEROP3EXTPROC glShaderOp3EXT;
         PFNGLSWIZZLEEXTPROC glSwizzleEXT;
         PFNGLWRITEMASKEXTPROC glWriteMaskEXT;
-        PFNGLINSERTCOMPONENTEXTPROC glInsertComponentEXT;
+        PFNGLINSERTCOMPONENTEXTPROC glinsertComponentEXT;
         PFNGLEXTRACTCOMPONENTEXTPROC glExtractComponentEXT;
         PFNGLGENSYMBOLSEXTPROC glGenSymbolsEXT;
-        PFNGLSETINVARIANTEXTPROC glSetInvariantEXT;
-        PFNGLSETLOCALCONSTANTEXTPROC glSetLocalConstantEXT;
+        PFNGLSETINVARIANTEXTPROC glsetInvariantEXT;
+        PFNGLSETLOCALCONSTANTEXTPROC glsetLocalConstantEXT;
         PFNGLVARIANTBVEXTPROC glVariantbvEXT;
         PFNGLVARIANTSVEXTPROC glVariantsvEXT;
         PFNGLVARIANTIVEXTPROC glVariantivEXT;
@@ -2230,7 +2233,7 @@ namespace ffw{
         PFNGLBINDTEXGENPARAMETEREXTPROC glBindTexGenParameterEXT;
         PFNGLBINDTEXTUREUNITPARAMETEREXTPROC glBindTextureUnitParameterEXT;
         PFNGLBINDPARAMETEREXTPROC glBindParameterEXT;
-        PFNGLISVARIANTENABLEDEXTPROC glIsVariantEnabledEXT;
+        PFNGLISVARIANTENABLEDEXTPROC glisVariantEnabledEXT;
         PFNGLGETVARIANTBOOLEANVEXTPROC glGetVariantBooleanvEXT;
         PFNGLGETVARIANTINTEGERVEXTPROC glGetVariantIntegervEXT;
         PFNGLGETVARIANTFLOATVEXTPROC glGetVariantFloatvEXT;
@@ -2271,8 +2274,8 @@ namespace ffw{
         #endif
         // Group GL_IBM_multimode_draw_arrays
         #if GL_IBM_multimode_draw_arrays == 1
-        PFNGLMULTIMODEDRAWARRAYSIBMPROC glMultiModeDrawArraysIBM;
-        PFNGLMULTIMODEDRAWELEMENTSIBMPROC glMultiModeDrawElementsIBM;
+        PFNGLMULTIMODEDRAWARRAYSIBMPROC glMultiModedrawArraysIBM;
+        PFNGLMULTIMODEDRAWELEMENTSIBMPROC glMultiModedrawElementsIBM;
         #endif
         // Group GL_IBM_static_data
         #if GL_IBM_static_data == 1
@@ -2357,13 +2360,13 @@ namespace ffw{
         #endif
         // Group GL_NV_Bindless_multi_draw_indirect
         #if GL_NV_Bindless_multi_draw_indirect == 1
-        PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC glMultiDrawArraysIndirectBindlessNV;
-        PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC glMultiDrawElementsIndirectBindlessNV;
+        PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSNVPROC glMultidrawArraysIndirectBindlessNV;
+        PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSNVPROC glMultidrawElementsIndirectBindlessNV;
         #endif
         // Group GL_NV_Bindless_multi_draw_indirect_count
         #if GL_NV_Bindless_multi_draw_indirect_count == 1
-        PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSCOUNTNVPROC glMultiDrawArraysIndirectBindlessCountNV;
-        PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSCOUNTNVPROC glMultiDrawElementsIndirectBindlessCountNV;
+        PFNGLMULTIDRAWARRAYSINDIRECTBINDLESSCOUNTNVPROC glMultidrawArraysIndirectBindlessCountNV;
+        PFNGLMULTIDRAWELEMENTSINDIRECTBINDLESSCOUNTNVPROC glMultidrawElementsIndirectBindlessCountNV;
         #endif
         // Group GL_NV_Bindless_texture
         #if GL_NV_Bindless_texture == 1
@@ -2378,8 +2381,8 @@ namespace ffw{
         PFNGLUNIFORMHANDLEUI64VNVPROC glUniformHandleui64vNV;
         PFNGLPROGRAMUNIFORMHANDLEUI64NVPROC glProgramUniformHandleui64NV;
         PFNGLPROGRAMUNIFORMHANDLEUI64VNVPROC glProgramUniformHandleui64vNV;
-        PFNGLISTEXTUREHANDLERESIDENTNVPROC glIsTextureHandleResidentNV;
-        PFNGLISIMAGEHANDLERESIDENTNVPROC glIsImageHandleResidentNV;
+        PFNGLISTEXTUREHANDLERESIDENTNVPROC glisTextureHandleResidentNV;
+        PFNGLISIMAGEHANDLERESIDENTNVPROC glisImageHandleResidentNV;
         #endif
         // Group GL_NV_blend_equation_advanced
         #if GL_NV_blend_equation_advanced == 1
@@ -2390,18 +2393,18 @@ namespace ffw{
         #if GL_NV_command_list == 1
         PFNGLCREATESTATESNVPROC glCreateStatesNV;
         PFNGLDELETESTATESNVPROC glDeleteStatesNV;
-        PFNGLISSTATENVPROC glIsStateNV;
+        PFNGLISSTATENVPROC glisStateNV;
         PFNGLSTATECAPTURENVPROC glStateCaptureNV;
         PFNGLGETCOMMANDHEADERNVPROC glGetCommandHeaderNV;
         PFNGLGETSTAGEINDEXNVPROC glGetStageIndexNV;
         PFNGLDRAWCOMMANDSNVPROC glDrawCommandsNV;
-        PFNGLDRAWCOMMANDSADDRESSNVPROC glDrawCommandsAddressNV;
+        PFNGLDRAWCOMMANDSADDRESSNVPROC glDrawCommandsaddressNV;
         PFNGLDRAWCOMMANDSSTATESNVPROC glDrawCommandsStatesNV;
-        PFNGLDRAWCOMMANDSSTATESADDRESSNVPROC glDrawCommandsStatesAddressNV;
+        PFNGLDRAWCOMMANDSSTATESADDRESSNVPROC glDrawCommandsStatesaddressNV;
         PFNGLCREATECOMMANDLISTSNVPROC glCreateCommandListsNV;
         PFNGLDELETECOMMANDLISTSNVPROC glDeleteCommandListsNV;
-        PFNGLISCOMMANDLISTNVPROC glIsCommandListNV;
-        PFNGLLISTDRAWCOMMANDSSTATESCLIENTNVPROC glListDrawCommandsStatesClientNV;
+        PFNGLISCOMMANDLISTNVPROC glisCommandListNV;
+        PFNGLLISTDRAWCOMMANDSSTATESCLIENTNVPROC glListdrawCommandsStatesClientNV;
         PFNGLCOMMANDLISTSEGMENTSNVPROC glCommandListSegmentsNV;
         PFNGLCOMPILECOMMANDLISTNVPROC glCompileCommandListNV;
         PFNGLCALLCOMMANDLISTNVPROC glCallCommandListNV;
@@ -2451,11 +2454,11 @@ namespace ffw{
         #if GL_NV_fence == 1
         PFNGLDELETEFENCESNVPROC glDeleteFencesNV;
         PFNGLGENFENCESNVPROC glGenFencesNV;
-        PFNGLISFENCENVPROC glIsFenceNV;
+        PFNGLISFENCENVPROC glisFenceNV;
         PFNGLTESTFENCENVPROC glTestFenceNV;
         PFNGLGETFENCEIVNVPROC glGetFenceivNV;
         PFNGLFINISHFENCENVPROC glFinishFenceNV;
-        PFNGLSETFENCENVPROC glSetFenceNV;
+        PFNGLSETFENCENVPROC glsetFenceNV;
         #endif
         // Group GL_NV_fragment_coverage_to_color
         #if GL_NV_fragment_coverage_to_color == 1
@@ -2567,7 +2570,7 @@ namespace ffw{
         #if GL_NV_occlusion_query == 1
         PFNGLGENOCCLUSIONQUERIESNVPROC glGenOcclusionQueriesNV;
         PFNGLDELETEOCCLUSIONQUERIESNVPROC glDeleteOcclusionQueriesNV;
-        PFNGLISOCCLUSIONQUERYNVPROC glIsOcclusionQueryNV;
+        PFNGLISOCCLUSIONQUERYNVPROC glisOcclusionQueryNV;
         PFNGLBEGINOCCLUSIONQUERYNVPROC glBeginOcclusionQueryNV;
         PFNGLENDOCCLUSIONQUERYNVPROC glEndOcclusionQueryNV;
         PFNGLGETOCCLUSIONQUERYIVNVPROC glGetOcclusionQueryivNV;
@@ -2583,7 +2586,7 @@ namespace ffw{
         #if GL_NV_path_rendering == 1
         PFNGLGENPATHSNVPROC glGenPathsNV;
         PFNGLDELETEPATHSNVPROC glDeletePathsNV;
-        PFNGLISPATHNVPROC glIsPathNV;
+        PFNGLISPATHNVPROC glisPathNV;
         PFNGLPATHCOMMANDSNVPROC glPathCommandsNV;
         PFNGLPATHCOORDSNVPROC glPathCoordsNV;
         PFNGLPATHSUBCOMMANDSNVPROC glPathSubCommandsNV;
@@ -2619,8 +2622,8 @@ namespace ffw{
         PFNGLGETPATHMETRICSNVPROC glGetPathMetricsNV;
         PFNGLGETPATHMETRICRANGENVPROC glGetPathMetricRangeNV;
         PFNGLGETPATHSPACINGNVPROC glGetPathSpacingNV;
-        PFNGLISPOINTINFILLPATHNVPROC glIsPointInFillPathNV;
-        PFNGLISPOINTINSTROKEPATHNVPROC glIsPointInStrokePathNV;
+        PFNGLISPOINTINFILLPATHNVPROC glisPointInFillPathNV;
+        PFNGLISPOINTINSTROKEPATHNVPROC glisPointInStrokePathNV;
         PFNGLGETPATHLENGTHNVPROC glGetPathLengthNV;
         PFNGLPOINTALONGPATHNVPROC glPointAlongPathNV;
         PFNGLMATRIXLOAD3X2FNVPROC glMatrixLoad3x2fNV;
@@ -2701,10 +2704,10 @@ namespace ffw{
         #if GL_NV_Shader_buffer_load == 1
         PFNGLMAKEBUFFERRESIDENTNVPROC glMakeBufferResidentNV;
         PFNGLMAKEBUFFERNONRESIDENTNVPROC glMakeBufferNonResidentNV;
-        PFNGLISBUFFERRESIDENTNVPROC glIsBufferResidentNV;
+        PFNGLISBUFFERRESIDENTNVPROC glisBufferResidentNV;
         PFNGLMAKENAMEDBUFFERRESIDENTNVPROC glMakeNamedBufferResidentNV;
         PFNGLMAKENAMEDBUFFERNONRESIDENTNVPROC glMakeNamedBufferNonResidentNV;
-        PFNGLISNAMEDBUFFERRESIDENTNVPROC glIsNamedBufferResidentNV;
+        PFNGLISNAMEDBUFFERRESIDENTNVPROC glisNamedBufferResidentNV;
         PFNGLGETBUFFERPARAMETERUI64VNVPROC glGetHandleParameterui64vNV;
         PFNGLGETNAMEDBUFFERPARAMETERUI64VNVPROC glGetNamedBufferParameterui64vNV;
         PFNGLGETINTEGERUI64VNVPROC glGetIntegerui64vNV;
@@ -2746,7 +2749,7 @@ namespace ffw{
         PFNGLBINDTRANSFORMFEEDBACKNVPROC glBindTransformFeedbackNV;
         PFNGLDELETETRANSFORMFEEDBACKSNVPROC glDeleteTransformFeedbacksNV;
         PFNGLGENTRANSFORMFEEDBACKSNVPROC glGenTransformFeedbacksNV;
-        PFNGLISTRANSFORMFEEDBACKNVPROC glIsTransformFeedbackNV;
+        PFNGLISTRANSFORMFEEDBACKNVPROC glisTransformFeedbackNV;
         PFNGLPAUSETRANSFORMFEEDBACKNVPROC glPauseTransformFeedbackNV;
         PFNGLRESUMETRANSFORMFEEDBACKNVPROC glResumeTransformFeedbackNV;
         PFNGLDRAWTRANSFORMFEEDBACKNVPROC glDrawTransformFeedbackNV;
@@ -2757,7 +2760,7 @@ namespace ffw{
         PFNGLVDPAUFININVPROC glVDPAUFiniNV;
         PFNGLVDPAUREGISTERVIDEOSURFACENVPROC glVDPAURegisterVideoSurfaceNV;
         PFNGLVDPAUREGISTEROUTPUTSURFACENVPROC glVDPAURegisterOutputSurfaceNV;
-        PFNGLVDPAUISSURFACENVPROC glVDPAUIsSurfaceNV;
+        PFNGLVDPAUISSURFACENVPROC glVDPAUisSurfaceNV;
         PFNGLVDPAUUNREGISTERSURFACENVPROC glVDPAUUnregisterSurfaceNV;
         PFNGLVDPAUGETSURFACEIVNVPROC glVDPAUGetSurfaceivNV;
         PFNGLVDPAUSURFACEACCESSNVPROC glVDPAUSurfaceAccessNV;
@@ -2793,7 +2796,7 @@ namespace ffw{
         #endif
         // Group GL_NV_vertex_buffer_unified_memory
         #if GL_NV_vertex_buffer_unified_memory == 1
-        PFNGLBUFFERADDRESSRANGENVPROC glBufferAddressRangeNV;
+        PFNGLBUFFERADDRESSRANGENVPROC glBufferaddressRangeNV;
         PFNGLVERTEXFORMATNVPROC glVertexFormatNV;
         PFNGLNORMALFORMATNVPROC glNormalFormatNV;
         PFNGLCOLORFORMATNVPROC glColorFormatNV;
@@ -2822,7 +2825,7 @@ namespace ffw{
         PFNGLGETVERTEXATTRIBFVNVPROC glGetVertexAttribfvNV;
         PFNGLGETVERTEXATTRIBIVNVPROC glGetVertexAttribivNV;
         PFNGLGETVERTEXATTRIBPOINTERVNVPROC glGetVertexAttribPointervNV;
-        PFNGLISPROGRAMNVPROC glIsProgramNV;
+        PFNGLISPROGRAMNVPROC glisProgramNV;
         PFNGLLOADPROGRAMNVPROC glLoadProgramNV;
         PFNGLPROGRAMPARAMETER4DNVPROC glProgramParameter4dNV;
         PFNGLPROGRAMPARAMETER4DVNVPROC glProgramParameter4dvNV;
@@ -2977,7 +2980,7 @@ namespace ffw{
         PFNGLPOLLASYNCSGIXPROC glPollAsyncSGIX;
         PFNGLGENASYNCMARKERSSGIXPROC glGenAsyncMarkersSGIX;
         PFNGLDELETEASYNCMARKERSSGIXPROC glDeleteAsyncMarkersSGIX;
-        PFNGLISASYNCMARKERSGIXPROC glIsAsyncMarkerSGIX;
+        PFNGLISASYNCMARKERSGIXPROC glisAsyncMarkerSGIX;
         #endif
         // Group GL_SGIX_flush_raster
         #if GL_SGIX_flush_raster == 1
@@ -3186,7 +3189,7 @@ namespace ffw{
 		PFNGLGETTEXPARAMETERIVPROC glGetTexParameteriv;
 		PFNGLGETTEXLEVELPARAMETERFVPROC glGetTexLevelParameterfv;
 		PFNGLGETTEXLEVELPARAMETERIVPROC glGetTexLevelParameteriv;
-		PFNGLISENABLEDPROC glIsEnabled;
+		PFNGLISENABLEDPROC glisEnabled;
 		PFNGLDEPTHRANGEPROC glDepthRange;
 		PFNGLVIEWPORTPROC glViewport;
 		#endif
@@ -3203,7 +3206,7 @@ namespace ffw{
 		PFNGLBINDTEXTUREPROC glBindTexture;
 		PFNGLDELETETEXTURESPROC glDeleteTextures;
 		PFNGLGENTEXTURESPROC glGenTextures;
-		PFNGLISTEXTUREPROC glIsTexture;
+		PFNGLISTEXTUREPROC glisTexture;
 		#endif
 		#if GL_VERSION_1_2 == 1
 		PFNGLBLENDCOLORPROC glBlendColor;
@@ -3226,8 +3229,8 @@ namespace ffw{
 		#endif
 		#if GL_VERSION_1_4 == 1
 		PFNGLBLENDFUNCSEPARATEPROC glBlendFuncSeparate;
-		PFNGLMULTIDRAWARRAYSPROC glMultiDrawArrays;
-		PFNGLMULTIDRAWELEMENTSPROC glMultiDrawElements;
+		PFNGLMULTIDRAWARRAYSPROC glMultidrawArrays;
+		PFNGLMULTIDRAWELEMENTSPROC glMultidrawElements;
 		PFNGLPOINTPARAMETERFPROC glPointParameterf;
 		PFNGLPOINTPARAMETERFVPROC glPointParameterfv;
 		PFNGLPOINTPARAMETERIPROC glPointParameteri;
@@ -3236,7 +3239,7 @@ namespace ffw{
 		#if GL_VERSION_1_5 == 1
 		PFNGLGENQUERIESPROC glGenQueries;
 		PFNGLDELETEQUERIESPROC glDeleteQueries;
-		PFNGLISQUERYPROC glIsQuery;
+		PFNGLISQUERYPROC glisQuery;
 		PFNGLBEGINQUERYPROC glBeginQuery;
 		PFNGLENDQUERYPROC glEndQuery;
 		PFNGLGETQUERYIVPROC glGetQueryiv;
@@ -3245,7 +3248,7 @@ namespace ffw{
 		PFNGLBINDBUFFERPROC glBindBuffer;
 		PFNGLDELETEBUFFERSPROC glDeleteBuffers;
 		PFNGLGENBUFFERSPROC glGenBuffers;
-		PFNGLISBUFFERPROC glIsBuffer;
+		PFNGLISBUFFERPROC glisBuffer;
 		PFNGLBUFFERDATAPROC glBufferData;
 		PFNGLBUFFERSUBDATAPROC glBufferSubData;
 		PFNGLGETBUFFERSUBDATAPROC glGetHandleSubData;
@@ -3286,8 +3289,8 @@ namespace ffw{
 		PFNGLGETVERTEXATTRIBFVPROC glGetVertexAttribfv;
 		PFNGLGETVERTEXATTRIBIVPROC glGetVertexAttribiv;
 		PFNGLGETVERTEXATTRIBPOINTERVPROC glGetVertexAttribPointerv;
-		PFNGLISPROGRAMPROC glIsProgram;
-		PFNGLISSHADERPROC glIsShader;
+		PFNGLISPROGRAMPROC glisProgram;
+		PFNGLISSHADERPROC glisShader;
 		PFNGLLINKPROGRAMPROC glLinkProgram;
 		PFNGLSHADERSOURCEPROC glShaderSource;
 		PFNGLUSEPROGRAMPROC glUseProgram;
@@ -3363,7 +3366,7 @@ namespace ffw{
 		PFNGLGETINTEGERI_VPROC glGetIntegeri_v;
 		PFNGLENABLEIPROC glEnablei;
 		PFNGLDISABLEIPROC glDisablei;
-		PFNGLISENABLEDIPROC glIsEnabledi;
+		PFNGLISENABLEDIPROC glisEnabledi;
 		PFNGLBEGINTRANSFORMFEEDBACKPROC glBeginTransformFeedback;
 		PFNGLENDTRANSFORMFEEDBACKPROC glEndTransformFeedback;
 		PFNGLBINDBUFFERRANGEPROC glBindBufferRange;
@@ -3443,13 +3446,13 @@ namespace ffw{
 		#if GL_ARB_depth_buffer_float == 1
 		#endif
 		//#if GL_ARB_Framebuffer_object == 1
-		PFNGLISRENDERBUFFERPROC glIsRenderbuffer;
+		PFNGLISRENDERBUFFERPROC glisRenderbuffer;
 		PFNGLBINDRENDERBUFFERPROC glBindRenderbuffer;
 		PFNGLDELETERENDERBUFFERSPROC glDeleteRenderbuffers;
 		PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
 		PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
 		PFNGLGETRENDERBUFFERPARAMETERIVPROC glGetRenderbufferParameteriv;
-		PFNGLISFRAMEBUFFERPROC glIsFramebuffer;
+		PFNGLISFRAMEBUFFERPROC glisFramebuffer;
 		PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
 		PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
 		PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
@@ -3480,7 +3483,7 @@ namespace ffw{
 		PFNGLBINDVERTEXARRAYPROC glBindVertexArray;
 		PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays;
 		PFNGLGENVERTEXARRAYSPROC glGenVertexArrays;
-		PFNGLISVERTEXARRAYPROC glIsVertexArray;
+		PFNGLISVERTEXARRAYPROC glisVertexArray;
 		#endif
 		#if GL_ARB_uniform_buffer_object == 1
 		PFNGLGETUNIFORMINDICESPROC glGetUniformIndices;
@@ -3500,7 +3503,7 @@ namespace ffw{
 		PFNGLDRAWELEMENTSBASEVERTEXPROC glDrawElementsBaseVertex;
 		PFNGLDRAWRANGEELEMENTSBASEVERTEXPROC glDrawRangeElementsBaseVertex;
 		PFNGLDRAWELEMENTSINSTANCEDBASEVERTEXPROC glDrawElementsInstancedBaseVertex;
-		PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC glMultiDrawElementsBaseVertex;
+		PFNGLMULTIDRAWELEMENTSBASEVERTEXPROC glMultidrawElementsBaseVertex;
 		#endif
 		#if GL_ARB_fragment_coord_conventions == 1
 		#endif
@@ -3511,7 +3514,7 @@ namespace ffw{
 		#endif
 		#if GL_ARB_sync == 1
 		PFNGLFENCESYNCPROC glFenceSync;
-		PFNGLISSYNCPROC glIsSync;
+		PFNGLISSYNCPROC glisSync;
 		PFNGLDELETESYNCPROC glDeleteSync;
 		PFNGLCLIENTWAITSYNCPROC glClientWaitSync;
 		PFNGLWAITSYNCPROC glWaitSync;
@@ -3539,7 +3542,7 @@ namespace ffw{
 		#if GL_ARB_sampler_objects == 1
 		PFNGLGENSAMPLERSPROC glGenSamplers;
 		PFNGLDELETESAMPLERSPROC glDeleteSamplers;
-		PFNGLISSAMPLERPROC glIsSampler;
+		PFNGLISSAMPLERPROC glisSampler;
 		PFNGLBINDSAMPLERPROC glBindSampler;
 		PFNGLSAMPLERPARAMETERIPROC glSamplerParameteri;
 		PFNGLSAMPLERPARAMETERIVPROC glSamplerParameteriv;
@@ -3619,7 +3622,7 @@ namespace ffw{
 		PFNGLBINDTRANSFORMFEEDBACKPROC glBindTransformFeedback;
 		PFNGLDELETETRANSFORMFEEDBACKSPROC glDeleteTransformFeedbacks;
 		PFNGLGENTRANSFORMFEEDBACKSPROC glGenTransformFeedbacks;
-		PFNGLISTRANSFORMFEEDBACKPROC glIsTransformFeedback;
+		PFNGLISTRANSFORMFEEDBACKPROC glisTransformFeedback;
 		PFNGLPAUSETRANSFORMFEEDBACKPROC glPauseTransformFeedback;
 		PFNGLRESUMETRANSFORMFEEDBACKPROC glResumeTransformFeedback;
 		PFNGLDRAWTRANSFORMFEEDBACKPROC glDrawTransformFeedback;
@@ -3649,7 +3652,7 @@ namespace ffw{
 		PFNGLBINDPROGRAMPIPELINEPROC glBindProgramPipeline;
 		PFNGLDELETEPROGRAMPIPELINESPROC glDeleteProgramPipelines;
 		PFNGLGENPROGRAMPIPELINESPROC glGenProgramPipelines;
-		PFNGLISPROGRAMPIPELINEPROC glIsProgramPipeline;
+		PFNGLISPROGRAMPIPELINEPROC glisProgramPipeline;
 		PFNGLGETPROGRAMPIPELINEIVPROC glGetProgramPipelineiv;
 		PFNGLPROGRAMUNIFORM1IPROC glProgramUniform1i;
 		PFNGLPROGRAMUNIFORM1IVPROC glProgramUniform1iv;
@@ -3730,6 +3733,7 @@ namespace ffw{
 		PFNGLGETFLOATI_VPROC glGetFloati_v;
 		PFNGLGETDOUBLEI_VPROC glGetDoublei_v;
 		#endif
+#endif
 #endif
     };
 };

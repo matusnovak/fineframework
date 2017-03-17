@@ -5,15 +5,15 @@
 
 ///=============================================================================
 ffw::GuiSlider::GuiSlider(GuiWindow* context, bool vertical_):GuiWidget(context),vertical(vertical_){
-	dropfocusflag = true;
+	setDropFocus();
 
-	// At this point, we are sure that the context and GetTheme() are not NULL
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SLIDER");
-	styleBar = &context->GetTheme()->GetStyleGroup("GUI_SLIDER_BAR");
-	styleButton = &context->GetTheme()->GetStyleGroup("GUI_SLIDER_BUTTON");
-	SetDefaults(&widgetStyle->defaults);
+	// At this point, we are sure that the context and getTheme() are not NULL
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_SLIDER");
+	styleBar = &context->getTheme()->getStyleGroup("GUI_SLIDER_BAR");
+	styleButton = &context->getTheme()->getStyleGroup("GUI_SLIDER_BUTTON");
+	setDefaults(&widgetStyle->defaults);
 
-	SetMargin(0, 0, 5, 0);
+	setMargin(0, 0, 5, 0);
 
 	barSize = styleBar->defaults.size;
 	buttonSize = styleButton->defaults.size;
@@ -21,14 +21,14 @@ ffw::GuiSlider::GuiSlider(GuiWindow* context, bool vertical_):GuiWidget(context)
 	inverse = false;
 
 	if (vertical) {
-		auto s = GetSize();
-		SetSize(s.y, s.x);
+		auto s = getSize();
+		setSize(s.y, s.x);
 		std::swap(buttonSize.x, buttonSize.y);
 		std::swap(barSize.x, barSize.y);
 	}
 
 	value = 50;
-	range.Set(0, 100);
+	range.set(0, 100);
 }
 
 ///=============================================================================
@@ -36,87 +36,133 @@ ffw::GuiSlider::~GuiSlider(){
 }
 
 ///=============================================================================
-bool ffw::GuiSlider::IsVertical() const {
+bool ffw::GuiSlider::isVertical() const {
 	return vertical;
 }
 
 ///=============================================================================
-void ffw::GuiSlider::SetBarSize(const ffw::Vec2<GuiUnits>& s) {
+void ffw::GuiSlider::setBarSize(const ffw::Vec2<GuiUnits>& s) {
 	barSize = s;
-	Redraw();
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiSlider::SetButtonSize(const ffw::Vec2<GuiUnits>& s) {
+void ffw::GuiSlider::setButtonSize(const ffw::Vec2<GuiUnits>& s) {
 	buttonSize = s;
-	Redraw();
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiSlider::SetValue(int val){
+void ffw::GuiSlider::setValue(int val){
 	if(inverse) {
 		val = (range.y - range.x) - val;
 	}
 	int old = value;
-	value = ffw::Clamp(val, range.x, range.y);
+	value = ffw::clamp(val, range.x, range.y);
 	if(old != value){
 		GuiEvent::Data dat;
-		dat.changed.value = GetValue();
-		PushEvent(GuiEvent::Type::CHANGED, dat);
-		Redraw();
+		dat.changed.value = getValue();
+		pushEvent(GuiEvent::Type::CHANGED, dat);
+		redraw();
 	}
 }
 
 ///=============================================================================
-int ffw::GuiSlider::GetValue() const {
+int ffw::GuiSlider::getValue() const {
 	if (inverse)return (range.y - range.x) - value;
 	return value;
 }
 
 ///=============================================================================
-const ffw::Vec2i& ffw::GuiSlider::GetRange() const {
+const ffw::Vec2i& ffw::GuiSlider::getRange() const {
 	return range;
 }
 
 ///=============================================================================
-void ffw::GuiSlider::SetRange(int min, int max){
-	range.Set(min, max);
+void ffw::GuiSlider::setRange(int min, int max){
+	range.set(min, max);
 	int old = value;
-	value = ffw::Clamp(value, range.x, range.y);
+	value = ffw::clamp(value, range.x, range.y);
 	if(old != value){
 		GuiEvent::Data dat;
-		dat.changed.value = GetValue();
-		PushEvent(GuiEvent::Type::CHANGED, dat);
+		dat.changed.value = getValue();
+		pushEvent(GuiEvent::Type::CHANGED, dat);
 	}
-	Redraw();
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiSlider::SetInversed(bool inversed){
+void ffw::GuiSlider::setInversed(bool inversed){
 	inverse = inversed;
-	Redraw();
+	redraw();
 }
 
 ///=============================================================================
-bool ffw::GuiSlider::GetInversed() const {
+bool ffw::GuiSlider::getInversed() const {
 	return inverse;
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	const auto* cStyleBar = GetCurrentStyle(styleBar);
-	const auto* cStyleButton = GetCurrentStyle(styleButton);
+void ffw::GuiSlider::calculateButtonSize(ffw::Vec2i& pos, ffw::Vec2i& size) const {
+	auto contentsize = getVisibleContentSize();
+	size = ffw::Vec2i(buttonSize.x.toReal(contentsize.x), buttonSize.y.toReal(contentsize.y));
+	const auto thick = ffw::Vec2i(barSize.x.toReal(contentsize.x), barSize.y.toReal(contentsize.y));
+
+	if (vertical) {
+		int height = 0;
+
+		if (inverse) {
+			height = int((1.0f - ((value - range.x) / float(range.y))) * thick.y);
+		}
+		else {
+			height = int(((value - range.x) / float(range.y)) * thick.y);
+		}
+		height = ffw::clamp(height, 0, thick.y);
+
+		height = int(((value - range.x) / float(range.y)) * (contentsize.y - size.y));
+		height = ffw::clamp(height, 0, (contentsize.y - size.y));
+
+		pos.set(0, 0);
+		pos.x += contentsize.x / 2;
+		pos.y += height;
+		pos.x -= size.x / 2;
+	}
+	else {
+		int width = 0;
+
+		if (inverse) {
+			width = int((1.0f - ((value - range.x) / float(range.y))) * thick.x);
+		}
+		else {
+			width = int(((value - range.x) / float(range.y)) * thick.x);
+		}
+		width = ffw::clamp(width, 0, thick.x);
+
+		width = int(((value - range.x) / float(range.y)) * (contentsize.x - size.x));
+		width = ffw::clamp(width, 0, (contentsize.x - size.x));
+
+		pos.set(0, 0);
+		pos.y += contentsize.y / 2;
+		pos.x += width;
+		pos.y -= size.y / 2;
+	}
+}
+
+///=============================================================================
+void ffw::GuiSlider::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
+	const auto* cStyleBar = getCurrentStyle(styleBar);
+	const auto* cStyleButton = getCurrentStyle(styleButton);
 
 	if (cStyleBar == NULL || cStyleButton == NULL)return;
 
 	auto test = std::abs(range.x - range.y);
 	if (test == 0)return;
 
-	auto buttonSizeReal = ffw::Vec2i(buttonSize.x.ToReal(contentsize.x), buttonSize.y.ToReal(contentsize.y));
+	auto buttonSizeReal = ffw::Vec2i(buttonSize.x.toReal(contentsize.x), buttonSize.y.toReal(contentsize.y));
 
 	if(vertical){
 		int height = 0;
-		const auto thick = ffw::Vec2i(barSize.x.ToReal(contentsize.x), barSize.y.ToReal(contentsize.y));
+		const auto thick = ffw::Vec2i(barSize.x.toReal(contentsize.x), barSize.y.toReal(contentsize.y));
 		ffw::Vec2i off(contentsize.x / 2 - thick.x / 2, contentsize.y / 2 - thick.y / 2);
 		ffw::Vec2i pos(contentoffset + off);
 		ffw::Vec2i size(thick.x, thick.y);
@@ -126,9 +172,9 @@ void ffw::GuiSlider::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec
 		} else {
 			height = int(((value - range.x) / float(range.y)) * thick.y);
 		}
-		height = ffw::Clamp(height, 0, thick.y);
+		height = ffw::clamp(height, 0, thick.y);
 
-		RenderComponent(pos, thick, cStyleBar);
+		renderComponent(pos, thick, cStyleBar);
 
 		size.y = height;
 		if(cStyleBar->border.size[0]){
@@ -148,25 +194,25 @@ void ffw::GuiSlider::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec
 
 		if(cStyleBar->function.color.a > 0.0f && size.y > 0){
 			if(inverse){
-				context->DrawRectangle(pos + ffw::Vec2i(0, thick.y - height), size, cStyleBar->function.color);
+				context->drawRectangle(pos + ffw::Vec2i(0, thick.y - height), size, cStyleBar->function.color);
 			} else {
-				context->DrawRectangle(pos, size, cStyleBar->function.color);
+				context->drawRectangle(pos, size, cStyleBar->function.color);
 			}
 		}
 
 		height = int(((value - range.x) / float(range.y)) * (contentsize.y - buttonSizeReal.y));
-		height = ffw::Clamp(height, 0, (contentsize.y - buttonSizeReal.y));
+		height = ffw::clamp(height, 0, (contentsize.y - buttonSizeReal.y));
 
-		pos.Set(contentoffset);
+		pos.set(contentoffset);
 		pos.x += contentsize.x / 2;
 		pos.y += height;
 		pos.x -= buttonSizeReal.x /2;
 
-		RenderComponent(pos, buttonSizeReal, cStyleButton);
+		renderComponent(pos, buttonSizeReal, cStyleButton);
 
 	} else {
 		int width = 0;
-		const auto thick = ffw::Vec2i(barSize.x.ToReal(contentsize.x), barSize.y.ToReal(contentsize.y));
+		const auto thick = ffw::Vec2i(barSize.x.toReal(contentsize.x), barSize.y.toReal(contentsize.y));
 		ffw::Vec2i off(contentsize.x / 2 - thick.x / 2, contentsize.y / 2 - thick.y / 2);
 		ffw::Vec2i pos(contentoffset + off);
 		ffw::Vec2i size(contentsize.x, thick.y);
@@ -176,9 +222,9 @@ void ffw::GuiSlider::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec
 		} else {
 			width = int(((value - range.x) / float(range.y)) * thick.x);
 		}
-		width = ffw::Clamp(width, 0, thick.x);
+		width = ffw::clamp(width, 0, thick.x);
 
-		RenderComponent(pos, thick, cStyleBar);
+		renderComponent(pos, thick, cStyleBar);
 
 		size.x = width;
 		if(cStyleBar->border.size[0]){
@@ -198,112 +244,125 @@ void ffw::GuiSlider::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec
 
 		if(cStyleBar->function.color.a > 0.0f && size.x > 0){
 			if(inverse){
-				context->DrawRectangle(pos + ffw::Vec2i(thick.x - width, 0), size, cStyleBar->function.color);
+				context->drawRectangle(pos + ffw::Vec2i(thick.x - width, 0), size, cStyleBar->function.color);
 			} else {
-				context->DrawRectangle(pos, size, cStyleBar->function.color);
+				context->drawRectangle(pos, size, cStyleBar->function.color);
 			}
 		}
 
 		width = int(((value - range.x) / float(range.y)) * (contentsize.x - buttonSizeReal.x));
-		width = ffw::Clamp(width, 0, (contentsize.x - buttonSizeReal.x));
+		width = ffw::clamp(width, 0, (contentsize.x - buttonSizeReal.x));
 
-		pos.Set(contentoffset);
+		pos.set(contentoffset);
 		pos.y += contentsize.y / 2;
 		pos.x += width;
 		pos.y -= buttonSizeReal.y /2;
 
-		RenderComponent(pos, buttonSizeReal, cStyleButton);
+		renderComponent(pos, buttonSizeReal, cStyleButton);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventPos(const ffw::Vec2i& pos){
+void ffw::GuiSlider::eventPos(const ffw::Vec2i& pos){
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventSize(const ffw::Vec2i& size){
+void ffw::GuiSlider::eventSize(const ffw::Vec2i& size){
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventHover(bool gained){
-	Redraw();
+void ffw::GuiSlider::eventHover(bool gained){
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventFocus(bool gained){
-	Redraw();
+void ffw::GuiSlider::eventFocus(bool gained){
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventMouse(const ffw::Vec2i& pos){
-	if(HasFocus()){
+void ffw::GuiSlider::eventMouse(const ffw::Vec2i& pos){
+	if(hasFocus()){
+		auto newPos = pos - clickedOffset;
 		int newvalue = value;
-		auto realSize = GetRealSize();
-		auto btnSize = ffw::Vec2i(buttonSize.x.ToReal(realSize.x), buttonSize.y.ToReal(realSize.y));
+		auto realSize = getVisibleContentSize();
+		auto btnSize = ffw::Vec2i(buttonSize.x.toReal(realSize.x), buttonSize.y.toReal(realSize.y));
 		if(vertical){
 			int height = realSize.y - btnSize.y;
-			float frac = ffw::Clamp((pos.y - btnSize.y/2) / float(height), 0.0f, 1.0f);
+			float frac = ffw::clamp((newPos.y - btnSize.y/2) / float(height), 0.0f, 1.0f);
 
 			newvalue = int(frac * range.y) + range.x;
 		} else {
 			int width = realSize.x - btnSize.x;
-			float frac = ffw::Clamp((pos.x - btnSize.x/2) / float(width), 0.0f, 1.0f);
+			float frac = ffw::clamp((newPos.x - btnSize.x/2) / float(width), 0.0f, 1.0f);
 
 			newvalue = int(frac * range.y) + range.x;
 		}
 		if(newvalue != value){
 			value = newvalue;
 			GuiEvent::Data dat;
-			dat.changed.value = GetValue();
-			PushEvent(GuiEvent::Type::CHANGED, dat);
-			Redraw();
+			dat.changed.value = getValue();
+			pushEvent(GuiEvent::Type::CHANGED, dat);
+			redraw();
 		}
 	}
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventMouseButton(ffw::MouseButton button, ffw::Mode mode){
+void ffw::GuiSlider::eventMouseButton(ffw::MouseButton button, ffw::Mode mode){
 	if(button == ffw::MouseButton::LEFT && mode == ffw::Mode::PRESSED){
+		auto mouse = getMousePos();
+		ffw::Vec2i buttonPos, buttonSize;
+		calculateButtonSize(buttonPos, buttonSize);
+		clickedOffset = mouse - buttonPos;
+		if (clickedOffset.x < 0 || clickedOffset.x > buttonSize.x ||
+			clickedOffset.y < 0 || clickedOffset.y > buttonSize.y) {
+
+			clickedOffset = 0;
+		} else {
+			clickedOffset -= buttonSize / 2;
+		}
+		
 		GuiEvent::Data dat;
 		dat.clicked.value = true;
-		PushEvent(GuiEvent::Type::CLICKED, dat);
-		EventMouse(GetMousePos());
+		pushEvent(GuiEvent::Type::CLICKED, dat);
+		eventMouse(mouse);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventText(wchar_t chr){
+void ffw::GuiSlider::eventText(wchar_t chr){
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventKey(ffw::Key key, ffw::Mode mode){
+void ffw::GuiSlider::eventKey(ffw::Key key, ffw::Mode mode){
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventDisabled(bool disabled) {
+void ffw::GuiSlider::eventDisabled(bool disabled) {
 }
 
 ///=============================================================================
-void ffw::GuiSlider::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_SLIDER");
-	styleBar = &theme->GetStyleGroup("GUI_SLIDER_BAR");
-	styleButton = &theme->GetStyleGroup("GUI_SLIDER_BUTTON");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiSlider::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_SLIDER");
+	styleBar = &theme->getStyleGroup("GUI_SLIDER_BAR");
+	styleButton = &theme->getStyleGroup("GUI_SLIDER_BUTTON");
+	setDefaults(&widgetStyle->defaults);
 	barSize = styleBar->defaults.size;
 	buttonSize = styleButton->defaults.size;
 
 	if (vertical) {
-		auto s = GetSize();
-		SetSize(s.y, s.x);
+		auto s = getSize();
+		setSize(s.y, s.x);
 		std::swap(buttonSize.x, buttonSize.y);
 		std::swap(barSize.x, barSize.y);
 	}
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiSlider::GetMinimumWrapSize() {
-	auto realSize = GetRealSize();
-	auto btnSize = ffw::Vec2i(buttonSize.x.ToReal(realSize.x), buttonSize.y.ToReal(realSize.y));
+ffw::Vec2i ffw::GuiSlider::getMinimumWrapSize() {
+	auto realSize = getRealSize();
+	auto btnSize = ffw::Vec2i(buttonSize.x.toReal(realSize.x), buttonSize.y.toReal(realSize.y));
 
 	if (vertical)return ffw::Vec2i(btnSize.x, btnSize.y * 2);
 	return ffw::Vec2i(btnSize.x * 2, btnSize.y);

@@ -5,17 +5,17 @@
 
 ///=============================================================================
 ffw::GuiButton::GuiButton(GuiWindow* context, const std::string& label_) :
-	GuiButton(context, Utf8ToWstr(label_)) {
+	GuiButton(context, utf8ToWstr(label_)) {
 }
 
 ///=============================================================================
 ffw::GuiButton::GuiButton(GuiWindow* context, const std::wstring& label_) :
 	GuiWidget(context), label(label_) {
-	dropfocusflag = true;
+	setDropFocus();
 
-	// At this point, we are sure that the context and GetTheme() are not NULL
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_BUTTON");
-	SetDefaults(&widgetStyle->defaults);
+	// At this point, we are sure that the context and getTheme() are not NULL
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_BUTTON");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -23,84 +23,84 @@ ffw::GuiButton::~GuiButton() {
 }
 
 ///=============================================================================
-void ffw::GuiButton::SetLabel(const std::wstring& label_) {
+void ffw::GuiButton::setLabel(const std::wstring& label_) {
 	label = label_;
-	Redraw();
+	redraw();
 }
 
 ///=============================================================================
-const std::wstring& ffw::GuiButton::GetLabel() const {
+const std::wstring& ffw::GuiButton::getLabel() const {
 	return label;
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
-	context->DrawStringAligned(contentoffset, contentsize, GetCurrentFont(), GetAlign(), label, GetCurrentStyle()->text, GetLineHeight());
+void ffw::GuiButton::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+	context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventPos(const ffw::Vec2i& pos) {
+void ffw::GuiButton::eventPos(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventSize(const ffw::Vec2i& size) {
+void ffw::GuiButton::eventSize(const ffw::Vec2i& size) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventHover(bool gained) {
-	Redraw();
+void ffw::GuiButton::eventHover(bool gained) {
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventFocus(bool gained) {
-	Redraw();
+void ffw::GuiButton::eventFocus(bool gained) {
+	redraw();
 
-	if (!gained || !dropfocusflag) {
+	if (!gained || getFlags().focusType != GuiWidget::Focus::DROP) {
 		GuiEvent::Data dat;
-		if (dropfocusflag)dat.clicked.value = true;
+		if (getFlags().focusType == GuiWidget::Focus::DROP)dat.clicked.value = true;
 		else dat.clicked.value = gained;
-		PushEvent(GuiEvent::Type::CLICKED, dat);
+		pushEvent(GuiEvent::Type::CLICKED, dat);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiButton::eventMouse(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+void ffw::GuiButton::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventText(wchar_t chr) {
+void ffw::GuiButton::eventText(wchar_t chr) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventKey(ffw::Key key, ffw::Mode mode) {
+void ffw::GuiButton::eventKey(ffw::Key key, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventDisabled(bool disabled) {
+void ffw::GuiButton::eventDisabled(bool disabled) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_BUTTON");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiButton::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_BUTTON");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiButton::GetMinimumWrapSize() {
-	if (GetCurrentFont() == NULL)return 0;
-	return GetCurrentFont()->GetStringSize(label, GetLineHeight());
+ffw::Vec2i ffw::GuiButton::getMinimumWrapSize() {
+	if (getCurrentFont() == NULL || label.size() == 0)return 0;
+	return getCurrentFont()->getStringSize(label, getLineHeight());
 }
 
 ///=============================================================================
 ffw::GuiButtonPrimary::GuiButtonPrimary(GuiWindow* context, const std::string& label) :
 	GuiButton(context, label) {
-	// At this point, we are sure that the context and GetTheme() are not NULL
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_BUTTON_PRIMARY");
-	SetDefaults(&widgetStyle->defaults);
+	// At this point, we are sure that the context and getTheme() are not NULL
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_BUTTON_PRIMARY");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -113,7 +113,7 @@ ffw::GuiButtonPrimary::~GuiButtonPrimary() {
 }
 
 ///=============================================================================
-void ffw::GuiButtonPrimary::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_BUTTON_PRIMARY");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiButtonPrimary::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_BUTTON_PRIMARY");
+	setDefaults(&widgetStyle->defaults);
 }

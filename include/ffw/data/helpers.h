@@ -9,19 +9,19 @@ namespace ffw {
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API StringContainsWhitespace(const char* str, size_t length);
+	bool FFW_API stringContainsWhitespace(const char* str, size_t length);
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API StringIsInteger(const char* str, size_t length);
+	bool FFW_API stringisInteger(const char* str, size_t length);
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API StringIsFloat(const char* str, size_t length);
+	bool FFW_API stringisFloat(const char* str, size_t length);
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API StringIsBool(const char* str, size_t length, bool* ptr = NULL);
+	bool FFW_API stringisBool(const char* str, size_t length, bool* ptr = NULL);
 };
 
 #endif

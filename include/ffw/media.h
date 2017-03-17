@@ -1,5 +1,7 @@
 /**
- * \defgroup media media - Image and Audio file loaders/savers
+ * @defgroup media media - Image and 3D object file loaders/savers
+ * @brief Provides classes for reading and writing image files and
+ * loadinf of 3D OBJ files.
  */
 #ifndef FFW_GUI_MODULE
 #define FFW_GUI_MODULE

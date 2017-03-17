@@ -14,28 +14,34 @@ namespace ffw {
 	 */
 	class FFW_API Framebuffer {
     public:
-        static bool CheckCompability(const RenderContext* Renderer);
+        static bool checkCompability(const RenderContext* Renderer);
 		Framebuffer();
+		Framebuffer(const Framebuffer& other) = delete;
+		Framebuffer(Framebuffer&& other);
+		void swap(Framebuffer& other);
         ~Framebuffer();
-        inline bool IsCreated() const {
+        inline bool isCreated() const {
 			return created_;
 		}
-        bool Create(const RenderContext* Renderer);
-        bool AddColorTexture(const ffw::Texture2D* DepthTexture);
-        bool AddDepthTexture(const ffw::Texture2D* ColorTexture);
-        bool AddColorTextureMS(const ffw::Texture2DMS* DepthTexture);
-        bool AddDepthTextureMS(const ffw::Texture2DMS* ColorTexture);
-        bool AddColorRenderbuffer(const ffw::Renderbuffer2D* DepthTexture);
-        bool AddDepthRenderbuffer(const ffw::Renderbuffer2D* ColorTexture);
-        bool AddColorRenderbufferMS(const ffw::Renderbuffer2DMS* DepthTexture);
-        bool AddDepthRenderbufferMS(const ffw::Renderbuffer2DMS* ColorTexture);
-		bool CheckStatus();
-		inline unsigned int GetHandle() const {
+        bool create(const RenderContext* Renderer);
+        bool addColorTexture(const ffw::Texture2D* DepthTexture);
+        bool addDepthTexture(const ffw::Texture2D* ColorTexture);
+        bool addColorTextureMS(const ffw::Texture2DMS* DepthTexture);
+        bool addDepthTextureMS(const ffw::Texture2DMS* ColorTexture);
+        bool addColorRenderbuffer(const ffw::Renderbuffer2D* DepthTexture);
+        bool addDepthRenderbuffer(const ffw::Renderbuffer2D* ColorTexture);
+        bool addColorRenderbufferMS(const ffw::Renderbuffer2DMS* DepthTexture);
+        bool addDepthRenderbufferMS(const ffw::Renderbuffer2DMS* ColorTexture);
+		bool checkStatus();
+		inline unsigned int getHandle() const {
 			return fbo_;
 		}
-        bool Destroy();
-        void Bind() const;
-        void Unbind() const;
+        bool destroy();
+        void bind() const;
+        void unbind() const;
+
+		Framebuffer& operator = (const Framebuffer& other) = delete;
+		Framebuffer& operator = (Framebuffer&& other);
     private:
         bool created_;
         unsigned int fbo_;
@@ -43,4 +49,8 @@ namespace ffw {
         const RenderExtensions* gl_;
     };
 };
+
+inline void swap(ffw::Framebuffer& first, ffw::Framebuffer& second) {
+	first.swap(second);
+}
 #endif

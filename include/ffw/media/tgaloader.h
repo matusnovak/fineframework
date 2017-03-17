@@ -18,9 +18,9 @@ namespace ffw {
 		TgaLoader& operator = (TgaLoader&& other);
 		virtual ~TgaLoader();
 
-		bool Open(const std::string& path) override;
-		size_t ReadRow(void* dest) override;
-		virtual void Close();
+		bool open(const std::string& path) override;
+		size_t readRow(void* dest) override;
+		virtual void close();
 
 	private:
 		ffw::SwapWrapper<std::fstream> input;

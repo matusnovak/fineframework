@@ -7,6 +7,7 @@ Documentation
 * @ref graphics
 * @ref gui
 * @ref math
+* @ref media
 
 To view everything that belongs to FineFramework, go to [ffw Namespace Reference](namespaceffw.html)
 

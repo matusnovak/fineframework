@@ -4,7 +4,7 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-ffw::OpenGLImageType ffw::GetOpenGLImageType(ffw::ImageType type){
+ffw::OpenGLImageType ffw::getOpenGLImageType(ffw::ImageType type){
 	switch(type){
 		case ffw::ImageType::GRAYSCALE_8:{
 			return OpenGLImageType(GL_LUMINANCE8, GL_LUMINANCE, GL_UNSIGNED_BYTE);

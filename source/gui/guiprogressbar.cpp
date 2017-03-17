@@ -5,11 +5,11 @@
 
 ///=============================================================================
 ffw::GuiProgressBar::GuiProgressBar(GuiWindow* context) : GuiWidget(context) {
-	ignoreinputflag = true;
-	// At this point, we are sure that the context and GetTheme() are not NULL
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_PROGRESSBAR");
-	innerStyle = &context->GetTheme()->GetStyleGroup("GUI_PROGRESSBAR_INNER");
-	SetDefaults(&widgetStyle->defaults);
+	setIgnoreUserInput(true);
+	// At this point, we are sure that the context and getTheme() are not NULL
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_PROGRESSBAR");
+	innerStyle = &context->getTheme()->getStyleGroup("GUI_PROGRESSBAR_INNER");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -17,57 +17,57 @@ ffw::GuiProgressBar::~GuiProgressBar() {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiProgressBar::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
 	int width = int((percent / 100.0f) * contentsize.x);
 	if(width > 0) {
-		RenderComponent(contentoffset, ffw::Vec2i(width, contentsize.y), GetCurrentStyle(innerStyle));
+		renderComponent(contentoffset, ffw::Vec2i(width, contentsize.y), getCurrentStyle(innerStyle));
 	}
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventPos(const ffw::Vec2i& pos) {
+void ffw::GuiProgressBar::eventPos(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventSize(const ffw::Vec2i& size) {
+void ffw::GuiProgressBar::eventSize(const ffw::Vec2i& size) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventHover(bool gained) {
+void ffw::GuiProgressBar::eventHover(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventFocus(bool gained) {
+void ffw::GuiProgressBar::eventFocus(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiProgressBar::eventMouse(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+void ffw::GuiProgressBar::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventText(wchar_t chr) {
+void ffw::GuiProgressBar::eventText(wchar_t chr) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventKey(ffw::Key key, ffw::Mode mode) {
+void ffw::GuiProgressBar::eventKey(ffw::Key key, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventDisabled(bool disabled) {
+void ffw::GuiProgressBar::eventDisabled(bool disabled) {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_PROGRESSBAR");
-	innerStyle = &context->GetTheme()->GetStyleGroup("GUI_PROGRESSBAR_INNER");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiProgressBar::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_PROGRESSBAR");
+	innerStyle = &context->getTheme()->getStyleGroup("GUI_PROGRESSBAR_INNER");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiProgressBar::GetMinimumWrapSize() {
+ffw::Vec2i ffw::GuiProgressBar::getMinimumWrapSize() {
 	return ffw::Vec2i(16, 8);
 }

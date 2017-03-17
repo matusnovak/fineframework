@@ -2,7 +2,7 @@
 #define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 
-TEST_CASE("Encode Json"){
+TEST_CASE("Encode Json", "[JSON]"){
 	ffw::Var data = ffw::Object({
 		{"string", "\"world\""},
 		{"integer", 123},
@@ -11,36 +11,36 @@ TEST_CASE("Encode Json"){
 		{"array", ffw::Array({"first", "second", "third"})}
 	});
 
-	ffw::Var test = ffw::DecodeJson(ffw::EncodeJson(data));
+	ffw::Var test = ffw::decodeJson(ffw::encodeJson(data));
 
-	REQUIRE(test.Typeid() == typeid(ffw::Object));
-	ffw::Object& obj = test.GetAs<ffw::Object>();
+	REQUIRE(test.is<ffw::Object>());
+	ffw::Object& obj = test.getAs<ffw::Object>();
 	REQUIRE(obj.find("string") != obj.end());
 	REQUIRE(obj.find("integer") != obj.end());
 	REQUIRE(obj.find("float") != obj.end());
 	REQUIRE(obj.find("bool") != obj.end());
 	REQUIRE(obj.find("array") != obj.end());
 
-	REQUIRE(obj["string"].Typeid() == typeid(std::string));
-	REQUIRE(obj["integer"].Typeid() == typeid(int));
-	REQUIRE(obj["float"].Typeid() == typeid(float));
-	REQUIRE(obj["bool"].Typeid() == typeid(bool));
-	REQUIRE(obj["array"].Typeid() == typeid(ffw::Array));
+	REQUIRE(obj["string"].is<std::string>());
+	REQUIRE(obj["integer"].is<int>());
+	REQUIRE(obj["float"].is<float>());
+	REQUIRE(obj["bool"].is<bool>());
+	REQUIRE(obj["array"].is<ffw::Array>());
 
 	//std::string compare = "{\"string\":\"\\\"world\\\"\",\"integer\":123,\"float\":42.419998,\"bool\":true,\"array\":[\"first\",\"second\",\"third\"]}";
     //std::string compare = "{\"string\":\"\\\"world\\\"\",\"bool\":true,\"float\":42.419998,\"integer\":123,\"array\":[\"first\",\"second\",\"third\"]}";
 	//TEST_EQUAL(compare, jsonstr);
 }
 
-TEST_CASE("Decode Json"){
+TEST_CASE("Decode Json", "[JSON]"){
 	ffw::Var data;
 
 	std::string jsonstr = "{\"string\":\"\\\"world\\\"\",\"integer\":123,\"float\":42.419998,\"bool\":true,\"array\":[\"first\",\"second\",\"third\"]}";
-	data = ffw::DecodeJson(jsonstr);
+	data = ffw::decodeJson(jsonstr);
 
-	REQUIRE(data.Typeid() == typeid(ffw::Object));
+	REQUIRE(data.is<ffw::Object>());
 
-	ffw::Object& json = data.GetAs<ffw::Object>();
+	ffw::Object& json = data.getAs<ffw::Object>();
 
 	REQUIRE(json.size() == 5);
 	REQUIRE(json.find("string") != json.end());
@@ -49,23 +49,23 @@ TEST_CASE("Decode Json"){
 	REQUIRE(json.find("bool") != json.end());
 	REQUIRE(json.find("array") != json.end());
 
-	REQUIRE(json["string"].Typeid() == typeid(std::string));
-	REQUIRE(json["integer"].Typeid() == typeid(int));
-	REQUIRE(json["float"].Typeid() == typeid(float));
-	REQUIRE(json["bool"].Typeid() == typeid(bool));
-	REQUIRE(json["array"].Typeid() == typeid(ffw::Array));
+	REQUIRE(json["string"].is<std::string>());
+	REQUIRE(json["integer"].is<int>());
+	REQUIRE(json["float"].is<float>());
+	REQUIRE(json["bool"].is<bool>());
+	REQUIRE(json["array"].is<ffw::Array>());
 
 	REQUIRE("\"world\"" == (std::string)json["string"]);
 	REQUIRE(123 == (int)json["integer"]);
 	REQUIRE(42.42f == (float)json["float"]);
-	REQUIRE(true == json["bool"].Bool());
-	REQUIRE(3 == json["array"].GetAs<ffw::Array>().size());
+	REQUIRE(true == json["bool"].toBool());
+	REQUIRE(3 == json["array"].getAs<ffw::Array>().size());
 	REQUIRE("first" == (std::string)json["array"][0]);
 	REQUIRE("second" == (std::string)json["array"][1]);
 	REQUIRE("third" == (std::string)json["array"][2]);
 }
 
-TEST_CASE("Decode Json #2"){
+TEST_CASE("Decode Json #2", "[JSON]"){
 	static const std::string jsonstr = "\
 	{\"menu\": {\n\
 	  \"id\": \"file\",\n\
@@ -73,37 +73,37 @@ TEST_CASE("Decode Json #2"){
 	  \"popup\": {\n\
 		\"menuitem\": [\n\
 		  {\"value\": \"New\", \"onclick\": \"CreateNewDoc()\"},\n\
-		  {\"value\": \"Open\", \"onclick\": \"OpenDoc()\"},\n\
-		  {\"value\": \"Close\", \"onclick\": \"CloseDoc()\"}\n\
+		  {\"value\": \"open\", \"onclick\": \"OpenDoc()\"},\n\
+		  {\"value\": \"close\", \"onclick\": \"CloseDoc()\"}\n\
 		]\n\
 	  }\n\
 	}}";
 
-	ffw::Var data = ffw::DecodeJson(jsonstr);
+	ffw::Var data = ffw::decodeJson(jsonstr);
 
-	REQUIRE(data.Typeid() == typeid(ffw::Object));
+	REQUIRE(data.is<ffw::Object>());
 
 	ffw::Object& json = (ffw::Object&)data;
 
 	REQUIRE(json.find("menu") != json.end());
 
-	REQUIRE(json["menu"]["id"].Typeid() == typeid(std::string));
-	REQUIRE(json["menu"]["value"].Typeid() == typeid(std::string));
-	REQUIRE(json["menu"]["popup"].Typeid() == typeid(ffw::Object));
+	REQUIRE(json["menu"]["id"].is<std::string>());
+	REQUIRE(json["menu"]["value"].is<std::string>());
+	REQUIRE(json["menu"]["popup"].is<ffw::Object>());
 
 	REQUIRE("file" == (std::string)json["menu"]["id"]);
 	REQUIRE("File" == (std::string)json["menu"]["value"]);
 	REQUIRE(1 == ((ffw::Object)json["menu"]["popup"]).size());
 
-	REQUIRE(json["menu"]["popup"]["menuitem"].Typeid() == typeid(ffw::Array));
+	REQUIRE(json["menu"]["popup"]["menuitem"].is<ffw::Array>());
 
-	auto& arr = json["menu"]["popup"]["menuitem"].GetAs<ffw::Array>();
+	auto& arr = json["menu"]["popup"]["menuitem"].getAs<ffw::Array>();
 
 	REQUIRE(3 == arr.size());
 
-	REQUIRE(arr[0].Typeid() == typeid(ffw::Object));
-	REQUIRE(arr[1].Typeid() == typeid(ffw::Object));
-	REQUIRE(arr[2].Typeid() == typeid(ffw::Object));
+	REQUIRE(arr[0].is<ffw::Object>());
+	REQUIRE(arr[1].is<ffw::Object>());
+	REQUIRE(arr[2].is<ffw::Object>());
 
 	auto& obj0 = (ffw::Object&)arr[0];
 	REQUIRE(obj0.find("value") != obj0.end());
@@ -120,14 +120,14 @@ TEST_CASE("Decode Json #2"){
 	REQUIRE("New" == (std::string)obj0["value"]);
 	REQUIRE("CreateNewDoc()" == (std::string)obj0["onclick"]);
 
-	REQUIRE("Open" == (std::string)obj1["value"]);
+	REQUIRE("open" == (std::string)obj1["value"]);
 	REQUIRE("OpenDoc()" == (std::string)obj1["onclick"]);
 
-	REQUIRE("Close" == (std::string)obj2["value"]);
+	REQUIRE("close" == (std::string)obj2["value"]);
 	REQUIRE("CloseDoc()" == (std::string)obj2["onclick"]);
 }
 
-TEST_CASE("Encode XML"){
+TEST_CASE("Encode XML", "[XML]"){
 	ffw::Var data = ffw::Object({
 		{"string", "\"world\""},
 		{"integer", 123},
@@ -136,40 +136,40 @@ TEST_CASE("Encode XML"){
 		{"array", ffw::Array({"first", "second", "third"})}
 	});
 
-	//std::string xmlstr = ffw::EncodeXml(data);
+	//std::string xmlstr = ffw::encodeXml(data);
 
 	//std::string compare = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><document><string>&quot;world&quot;</string><integer>123</integer><float>42.419998</float><bool>true</bool><array>first</array><array>second</array><array>third</array></document>";
 
 	//TEST_EQUAL(compare, xmlstr);
 
-	ffw::Var test = ffw::DecodeXml(ffw::EncodeXml(data));
+	ffw::Var test = ffw::decodeXml(ffw::encodeXml(data));
 
-	REQUIRE(test.Typeid() == typeid(ffw::Object));
-	ffw::Object& obj = test.GetAs<ffw::Object>()["document"].GetAs<ffw::Object>();
+	REQUIRE(test.is<ffw::Object>());
+	ffw::Object& obj = test.getAs<ffw::Object>()["document"].getAs<ffw::Object>();
 	REQUIRE(obj.find("string") != obj.end());
 	REQUIRE(obj.find("integer") != obj.end());
 	REQUIRE(obj.find("float") != obj.end());
 	REQUIRE(obj.find("bool") != obj.end());
 	REQUIRE(obj.find("array") != obj.end());
 
-	REQUIRE(obj["string"].Typeid() == typeid(std::string));
-	REQUIRE(obj["integer"].Typeid() == typeid(int));
-	REQUIRE(obj["float"].Typeid() == typeid(float));
-	REQUIRE(obj["bool"].Typeid() == typeid(bool));
-	REQUIRE(obj["array"].Typeid() == typeid(ffw::Array));
+	REQUIRE(obj["string"].is<std::string>());
+	REQUIRE(obj["integer"].is<int>());
+	REQUIRE(obj["float"].is<float>());
+	REQUIRE(obj["bool"].is<bool>());
+	REQUIRE(obj["array"].is<ffw::Array>());
 }
 
-TEST_CASE("Decode XML"){
+TEST_CASE("Decode XML", "[XML]"){
 	ffw::Var data;
 
 	std::string xmlstr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><document><string>&quot;world&quot;</string><integer>123</integer><float>42.419998</float><bool>true</bool><array>first</array><array>second</array><array>third</array></document>";
-	data = ffw::DecodeXml(xmlstr);
+	data = ffw::decodeXml(xmlstr);
 
-	REQUIRE(data.Typeid() == typeid(ffw::Object));
+	REQUIRE(data.is<ffw::Object>());
 
-	REQUIRE(data.GetAs<ffw::Object>().size() == 1);
-	REQUIRE(data.GetAs<ffw::Object>().begin()->first == "document");
-	REQUIRE(data.GetAs<ffw::Object>().begin()->second.Typeid() == typeid(ffw::Object));
+	REQUIRE(data.getAs<ffw::Object>().size() == 1);
+	REQUIRE(data.getAs<ffw::Object>().begin()->first == "document");
+	REQUIRE(data.getAs<ffw::Object>().begin()->second.is<ffw::Object>());
 
 	ffw::Object& xml = (ffw::Object&)data["document"];
 
@@ -180,17 +180,17 @@ TEST_CASE("Decode XML"){
 	REQUIRE(xml.find("bool") != xml.end());
 	REQUIRE(xml.find("array") != xml.end());
 
-	REQUIRE(xml["string"].Typeid() == typeid(std::string));
-	REQUIRE(xml["integer"].Typeid() == typeid(int));
-	REQUIRE(xml["float"].Typeid() == typeid(float));
-	REQUIRE(xml["bool"].Typeid() == typeid(bool));
-	REQUIRE(xml["array"].Typeid() == typeid(ffw::Array));
+	REQUIRE(xml["string"].is<std::string>());
+	REQUIRE(xml["integer"].is<int>());
+	REQUIRE(xml["float"].is<float>());
+	REQUIRE(xml["bool"].is<bool>());
+	REQUIRE(xml["array"].is<ffw::Array>());
 
 	REQUIRE("\"world\"" == (std::string)xml["string"]);
 	REQUIRE(123 == (int)xml["integer"]);
 	REQUIRE(42.42f == (float)xml["float"]);
-	REQUIRE(true == xml["bool"].Bool());
-	REQUIRE(3 == xml["array"].GetAs<ffw::Array>().size());
+	REQUIRE(true == xml["bool"].toBool());
+	REQUIRE(3 == xml["array"].getAs<ffw::Array>().size());
 	REQUIRE("first" == (std::string)xml["array"][0]);
 	REQUIRE("second" == (std::string)xml["array"][1]);
 	REQUIRE("third" == (std::string)xml["array"][2]);
@@ -228,50 +228,50 @@ static const std::string csvfile =
 7325 10TH ST,RIO LINDA,95673,CA,3,2,1146,Residential,Wed May 21 00:00:00 EDT 2008,98937,38.700909,-121.442979\n\
 645 MORRISON AVE,SACRAMENTO,95838,CA,3,2,909,Residential,Wed May 21 00:00:00 EDT 2008,100309,38.637663,-121.45152";
 
-TEST_CASE("Open CSV File"){
+TEST_CASE("open CSV File", "[CSV]"){
 	ffw::CsvLoader csv;
 
-	csv.OpenFromFile("sample.csv");
+	csv.openFromFile("sample.csv");
 
 	size_t i = 0;
-	while(!csv.Eof()){
+	while(!csv.eof()){
 		REQUIRE(i < 12);
-		REQUIRE(csvtest[i] == csv.GetRowRaw());
+		REQUIRE(csvtest[i] == csv.getRowRaw());
 		i++;
 	}
 }
 
-TEST_CASE("Open CSV Data"){
+TEST_CASE("open CSV Data", "[CSV]"){
 	ffw::CsvLoader csv;
 
-	csv.OpenFromData(csvfile);
+	csv.openFromData(csvfile);
 
 	size_t i = 0;
-	while(!csv.Eof()){
+	while(!csv.eof()){
 		REQUIRE(i < 12);
-		REQUIRE(csvtest[i] == csv.GetRowRaw());
+		REQUIRE(csvtest[i] == csv.getRowRaw());
 		i++;
 	}
 }
 
-TEST_CASE("CSV Tokenizer"){
+TEST_CASE("CSV Tokenizer", "[CSV]"){
 	static const std::string str0 = "1997,Ford,E350";
-	ffw::Array arr0 = ffw::CsvLoader::Tokenize(str0, 0, str0.size(), true, ',', '\"');
+	ffw::Array arr0 = ffw::CsvLoader::tokenize(str0, 0, str0.size(), true, ',', '\"');
 
-	REQUIRE(arr0[0].Typeid() == typeid(int));
-	REQUIRE(arr0[1].Typeid() == typeid(std::string));
-	REQUIRE(arr0[2].Typeid() == typeid(std::string));
+	REQUIRE(arr0[0].is<int>());
+	REQUIRE(arr0[1].is<std::string>());
+	REQUIRE(arr0[2].is<std::string>());
 
 	REQUIRE(1997 == (int)arr0[0]);
 	REQUIRE("Ford" == (std::string&)arr0[1]);
 	REQUIRE("E350" == (std::string&)arr0[2]);
 
 	static const std::string str1 = "\"1997\",\"Ford\",\"E350\"";
-	ffw::Array arr1 = ffw::CsvLoader::Tokenize(str1, 0, str1.size(), true, ',', '\"');
+	ffw::Array arr1 = ffw::CsvLoader::tokenize(str1, 0, str1.size(), true, ',', '\"');
 
-	REQUIRE(arr1[0].Typeid() == typeid(int));
-	REQUIRE(arr1[1].Typeid() == typeid(std::string));
-	REQUIRE(arr1[2].Typeid() == typeid(std::string));
+	REQUIRE(arr1[0].is<int>());
+	REQUIRE(arr1[1].is<std::string>());
+	REQUIRE(arr1[2].is<std::string>());
 
 	REQUIRE(1997 == (int)arr1[0]);
 	REQUIRE("Ford" == (std::string&)arr1[1]);
@@ -279,33 +279,33 @@ TEST_CASE("CSV Tokenizer"){
 
 	// leading and trailing spaces trimming is forbidden by RFC 4180
 	static const std::string str2 = "1997, Ford, E350";
-	ffw::Array arr2 = ffw::CsvLoader::Tokenize(str2, 0, str2.size(), true, ',', '\"');
+	ffw::Array arr2 = ffw::CsvLoader::tokenize(str2, 0, str2.size(), true, ',', '\"');
 
-	REQUIRE(arr2[0].Typeid() == typeid(int));
-	REQUIRE(arr2[1].Typeid() == typeid(std::string));
-	REQUIRE(arr2[2].Typeid() == typeid(std::string));
+	REQUIRE(arr2[0].is<int>());
+	REQUIRE(arr2[1].is<std::string>());
+	REQUIRE(arr2[2].is<std::string>());
 
 	REQUIRE(1997 == (int)arr2[0]);
 	REQUIRE(" Ford" == (std::string&)arr2[1]);
 	REQUIRE(" E350" == (std::string&)arr2[2]);
 
 	static const std::string str3 = "1997, \"Ford\" ,E350";
-	ffw::Array arr3 = ffw::CsvLoader::Tokenize(str3, 0, str3.size(), true, ',', '\"');
+	ffw::Array arr3 = ffw::CsvLoader::tokenize(str3, 0, str3.size(), true, ',', '\"');
 
-	REQUIRE(arr3[0].Typeid() == typeid(int));
-	REQUIRE(arr3[1].Typeid() == typeid(std::string));
-	REQUIRE(arr3[2].Typeid() == typeid(std::string));
+	REQUIRE(arr3[0].is<int>());
+	REQUIRE(arr3[1].is<std::string>());
+	REQUIRE(arr3[2].is<std::string>());
 
 	REQUIRE(1997 == (int)arr3[0]);
 	REQUIRE("Ford" == (std::string&)arr3[1]);
 	REQUIRE("E350" == (std::string&)arr3[2]);
 
 	static const std::string str4 = "1997,Ford,E350,\" Super luxurious truck \"";
-	ffw::Array arr4 = ffw::CsvLoader::Tokenize(str4, 0, str4.size(), true, ',', '\"');
+	ffw::Array arr4 = ffw::CsvLoader::tokenize(str4, 0, str4.size(), true, ',', '\"');
 
-	REQUIRE(arr4[0].Typeid() == typeid(int));
-	REQUIRE(arr4[1].Typeid() == typeid(std::string));
-	REQUIRE(arr4[2].Typeid() == typeid(std::string));
+	REQUIRE(arr4[0].is<int>());
+	REQUIRE(arr4[1].is<std::string>());
+	REQUIRE(arr4[2].is<std::string>());
 
 	REQUIRE(1997 == (int)arr4[0]);
 	REQUIRE("Ford" == (std::string&)arr4[1]);
@@ -313,47 +313,47 @@ TEST_CASE("CSV Tokenizer"){
 	REQUIRE(" Super luxurious truck " == (std::string&)arr4[3]);
 
 	static const std::string str5 = "";
-	ffw::Array arr5 = ffw::CsvLoader::Tokenize(str5, 0, str5.size(), true, ',', '\"');
+	ffw::Array arr5 = ffw::CsvLoader::tokenize(str5, 0, str5.size(), true, ',', '\"');
 	REQUIRE(1 == arr5.size());
-	REQUIRE(arr5[0].Typeid() == typeid(std::nullptr_t));
+	REQUIRE(arr5[0].empty());
 
 	static const std::string str6 = ",,";
-	ffw::Array arr6 = ffw::CsvLoader::Tokenize(str6, 0, str6.size(), true, ',', '\"');
+	ffw::Array arr6 = ffw::CsvLoader::tokenize(str6, 0, str6.size(), true, ',', '\"');
 	REQUIRE(3 == arr6.size());
-	REQUIRE(arr6[0].Typeid() == typeid(std::nullptr_t));
-	REQUIRE(arr6[1].Typeid() == typeid(std::nullptr_t));
-	REQUIRE(arr6[2].Typeid() == typeid(std::nullptr_t));
+	REQUIRE(arr6[0].empty());
+	REQUIRE(arr6[1].empty());
+	REQUIRE(arr6[2].empty());
 
 	static const std::string str7 = "\"\",\"\",\"\"";
-	ffw::Array arr7 = ffw::CsvLoader::Tokenize(str7, 0, str7.size(), true, ',', '\"');
+	ffw::Array arr7 = ffw::CsvLoader::tokenize(str7, 0, str7.size(), true, ',', '\"');
 	REQUIRE(3 == arr7.size());
-	REQUIRE(arr7[0].Typeid() == typeid(std::string));
-	REQUIRE(arr7[1].Typeid() == typeid(std::string));
-	REQUIRE(arr7[2].Typeid() == typeid(std::string));
+	REQUIRE(arr7[0].is<std::string>());
+	REQUIRE(arr7[1].is<std::string>());
+	REQUIRE(arr7[2].is<std::string>());
 
 	static const std::string str8 = "true,false,\"true\",\"false\"";
-	ffw::Array arr8 = ffw::CsvLoader::Tokenize(str8, 0, str8.size(), true, ',', '\"');
+	ffw::Array arr8 = ffw::CsvLoader::tokenize(str8, 0, str8.size(), true, ',', '\"');
 	REQUIRE(4 == arr8.size());
-	REQUIRE(arr8[0].Typeid() == typeid(bool));
-	REQUIRE(arr8[1].Typeid() == typeid(bool));
-	REQUIRE(arr8[2].Typeid() == typeid(bool));
-	REQUIRE(arr8[3].Typeid() == typeid(bool));
+	REQUIRE(arr8[0].is<bool>());
+	REQUIRE(arr8[1].is<bool>());
+	REQUIRE(arr8[2].is<bool>());
+	REQUIRE(arr8[3].is<bool>());
 
-	REQUIRE(arr8[0].Bool());
-	REQUIRE_FALSE(arr8[1].Bool());
-	REQUIRE(arr8[2].Bool());
-	REQUIRE_FALSE(arr8[3].Bool());
+	REQUIRE(arr8[0].toBool());
+	REQUIRE_FALSE(arr8[1].toBool());
+	REQUIRE(arr8[2].toBool());
+	REQUIRE_FALSE(arr8[3].toBool());
 
 	static const std::string str9 = "1999,Chevy,\"Venture \"\"Extended Edition, Very Large\"\"\",,5000.00";
-	ffw::Array arr9 = ffw::CsvLoader::Tokenize(str9, 0, str9.size(), true, ',', '\"');
+	ffw::Array arr9 = ffw::CsvLoader::tokenize(str9, 0, str9.size(), true, ',', '\"');
 
 	REQUIRE(5 == arr9.size());
 
-	REQUIRE(arr9[0].Typeid() == typeid(int));
-	REQUIRE(arr9[1].Typeid() == typeid(std::string));
-	REQUIRE(arr9[2].Typeid() == typeid(std::string));
-	REQUIRE(arr9[3].Typeid() == typeid(std::nullptr_t));
-	REQUIRE(arr9[4].Typeid() == typeid(float));
+	REQUIRE(arr9[0].is<int>());
+	REQUIRE(arr9[1].is<std::string>());
+	REQUIRE(arr9[2].is<std::string>());
+	REQUIRE(arr9[3].empty());
+	REQUIRE(arr9[4].is<float>());
 
 	REQUIRE(1999 == (int)arr9[0]);
 	REQUIRE("Chevy" == (std::string&)arr9[1]);
@@ -361,21 +361,21 @@ TEST_CASE("CSV Tokenizer"){
 	REQUIRE(5000.00 == (float)arr9[4]);
 }
 
-TEST_CASE("CSV Decode"){
+TEST_CASE("CSV Decode", "[CSV]"){
 	static const std::string str =
-	"Year,Make,Model,Length\n\
+	"Year,Make,Model,length\n\
 	1997,Ford,E350,2.34\n\
 	2000,Mercury,Cougar,2.38";
 
-	ffw::Array arr = ffw::DecodeCsv(str);
+	ffw::Array arr = ffw::decodeCsv(str);
 
 	REQUIRE(3 == arr.size());
 
-	REQUIRE(arr[0].Typeid() == typeid(ffw::Array));
-	REQUIRE(arr[1].Typeid() == typeid(ffw::Array));
-	REQUIRE(arr[2].Typeid() == typeid(ffw::Array));
+	REQUIRE(arr[0].is<ffw::Array>());
+	REQUIRE(arr[1].is<ffw::Array>());
+	REQUIRE(arr[2].is<ffw::Array>());
 
-	REQUIRE(4 == arr[0].GetAs<ffw::Array>().size());
-	REQUIRE(4 == arr[1].GetAs<ffw::Array>().size());
-	REQUIRE(4 == arr[2].GetAs<ffw::Array>().size());
+	REQUIRE(4 == arr[0].getAs<ffw::Array>().size());
+	REQUIRE(4 == arr[1].getAs<ffw::Array>().size());
+	REQUIRE(4 == arr[2].getAs<ffw::Array>().size());
 }

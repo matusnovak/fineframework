@@ -16,10 +16,10 @@
 #include <memory>
 
 ///=============================================================================
-ffw::ImageReader* ffw::OpenImageReader(const std::string& path){
+ffw::ImageReader* ffw::openImageReader(const std::string& path){
 	ffw::ImageReader* ret = NULL;
 	
-	std::string ext = ffw::ToLower(ffw::Extension(path));
+	std::string ext = ffw::toLower(ffw::extension(path));
 	if     (ext == "png")ret = new ffw::PngLoader();
 	else if(ext == "jpg")ret = new ffw::JpgLoader();
 	else if(ext == "bmp")ret = new ffw::BmpLoader();
@@ -29,7 +29,7 @@ ffw::ImageReader* ffw::OpenImageReader(const std::string& path){
 	else if(ext == "tiff")ret = new ffw::TifLoader();
 	else return NULL;
 
-	if(!ret->Open(path)){
+	if(!ret->open(path)){
 		delete ret;
 		return NULL;
 	}
@@ -38,10 +38,10 @@ ffw::ImageReader* ffw::OpenImageReader(const std::string& path){
 }
 
 ///=============================================================================
-ffw::ImageWriter* ffw::OpenImageWriter(const std::string& path, int width, int height, ffw::ImageType type, int quality){
+ffw::ImageWriter* ffw::openImageWriter(const std::string& path, int width, int height, ffw::ImageType type, int quality){
 	ffw::ImageWriter* ret = NULL;
 	
-	std::string ext = ffw::ToLower(ffw::Extension(path));
+	std::string ext = ffw::toLower(ffw::extension(path));
 	if     (ext == "png")ret = new ffw::PngSaver();
 	else if(ext == "jpg")ret = new ffw::JpgSaver();
 	else if(ext == "bmp")ret = new ffw::BmpSaver();
@@ -51,7 +51,7 @@ ffw::ImageWriter* ffw::OpenImageWriter(const std::string& path, int width, int h
 	else if(ext == "tiff")ret = new ffw::TifSaver();
 	else return NULL;
 
-	if(!ret->Open(path, width, height, type, quality)){
+	if(!ret->open(path, width, height, type, quality)){
 		delete ret;
 		return NULL;
 	}
@@ -60,25 +60,25 @@ ffw::ImageWriter* ffw::OpenImageWriter(const std::string& path, int width, int h
 }
 
 ///=============================================================================
-bool ffw::ReadImage(const std::string& path, void** dest, int* width, int* height, ffw::ImageType* format){
-	ffw::ImageReader* loader = OpenImageReader(path);
+bool ffw::readImage(const std::string& path, void** dest, int* width, int* height, ffw::ImageType* format){
+	ffw::ImageReader* loader = openImageReader(path);
 	if(loader == NULL)return false;
 
-	if(width != NULL)*width = loader->GetWidth();
-	if(height != NULL)*height = loader->GetHeight();
-	if(format != NULL)*format = loader->GetFormat();
+	if(width != NULL)*width = loader->getWidth();
+	if(height != NULL)*height = loader->getHeight();
+	if(format != NULL)*format = loader->getImageType();
 
 	if(dest == NULL){
 		delete loader;
 		return true;
 	}
 
-	*dest = new unsigned char[loader->GetHeight() * loader->GetStrideSize()];
+	*dest = new unsigned char[loader->getHeight() * loader->getStrideSize()];
 
-	while(!loader->Eof()){
-		void* ptr = &((unsigned char*)(*dest))[loader->GetRowOffset() * loader->GetStrideSize()];
-		if(!loader->ReadRow(ptr)){
-			//std::cerr << "Error while reading row: " << loader->GetRowOffset() << std::endl;
+	while(!loader->eof()){
+		void* ptr = &((unsigned char*)(*dest))[loader->getRowOffset() * loader->getStrideSize()];
+		if(!loader->readRow(ptr)){
+			//std::cerr << "Error while reading row: " << loader->getRowOffset() << std::endl;
 			delete loader;
 			return false;
 		}
@@ -89,41 +89,39 @@ bool ffw::ReadImage(const std::string& path, void** dest, int* width, int* heigh
 }
 
 ///=============================================================================
-bool ffw::WriteImage(const std::string& path, const void* src, int width, int height, ffw::ImageType format, int quality){
+bool ffw::writeImage(const std::string& path, const void* src, int width, int height, ffw::ImageType format, int quality){
 	if(src == NULL)return false;
 
-	ffw::ImageWriter* saver = OpenImageWriter(path, width, height, format, quality);
+	ffw::ImageWriter* saver = openImageWriter(path, width, height, format, quality);
 	if(saver == NULL)return false;
 
-	while(!saver->Eof()){
-		const void* ptr = &((const unsigned char*)(src))[saver->GetRowOffset() * saver->GetStrideSize()];
-		if(!saver->WriteRow(ptr)){
-			//std::cerr << "Error while writing row: " << saver->GetRowOffset() << std::endl;
+	while(!saver->eof()){
+		const void* ptr = &((const unsigned char*)(src))[saver->getRowOffset() * saver->getStrideSize()];
+		if(!saver->writeRow(ptr)){
+			//std::cerr << "Error while writing row: " << saver->getRowOffset() << std::endl;
 			delete saver;
 			return false;
 		}
 	}
 
-	saver->WriteFooter();
+	saver->writeFooter();
 	delete saver;
 	return true;
 }
 
 ///=============================================================================
-bool ffw::ReadImage(const std::string& path, ffw::ImageBuffer* image){
-	if(image == NULL)return false;
-	
-	ffw::ImageReader* loader = OpenImageReader(path);
+bool ffw::readImage(const std::string& path, ffw::ImageBuffer& image){
+	ffw::ImageReader* loader = openImageReader(path);
 	if(loader == NULL)return false;
 
-	if(!image->Allocate(loader->GetWidth(), loader->GetHeight(), loader->GetFormat()))return false;
+	if(!image.allocate(loader->getWidth(), loader->getHeight(), loader->getImageType()))return false;
 
-	unsigned char* dest = image->GetPtr();
+	unsigned char* dest = image.getPtr();
 
-	while(!loader->Eof()){
-		void* ptr = &dest[loader->GetRowOffset() * loader->GetStrideSize()];
-		if(!loader->ReadRow(ptr)){
-			//std::cerr << "Error while reading row: " << loader->GetRowOffset() << std::endl;
+	while(!loader->eof()){
+		void* ptr = &dest[loader->getRowOffset() * loader->getStrideSize()];
+		if(!loader->readRow(ptr)){
+			//std::cerr << "Error while reading row: " << loader->getRowOffset() << std::endl;
 			delete loader;
 			return false;
 		}
@@ -134,24 +132,31 @@ bool ffw::ReadImage(const std::string& path, ffw::ImageBuffer* image){
 }
 
 ///=============================================================================
-bool ffw::WriteImage(const std::string& path, const ffw::ImageBuffer* image, int quality){
+ffw::ImageBuffer ffw::readImage(const std::string& path) {
+	ffw::ImageBuffer ret;
+	readImage(path, ret);
+	return ret;
+}
+
+///=============================================================================
+bool ffw::writeImage(const std::string& path, const ffw::ImageBuffer& image, int quality){
 	if(image == NULL)return false;
 
-	ffw::ImageWriter* saver = OpenImageWriter(path, image->GetWidth(), image->GetHeight(), image->GetFormat(), quality);
+	ffw::ImageWriter* saver = openImageWriter(path, image.getWidth(), image.getHeight(), image.getImageType(), quality);
 	if(saver == NULL)return false;
 
-	const unsigned char* src = image->GetPtr();
+	const unsigned char* src = image.getPtr();
 
-	while(!saver->Eof()){
-		const void* ptr = &src[saver->GetRowOffset() * saver->GetStrideSize()];
-		if(!saver->WriteRow(ptr)){
-			//std::cerr << "Error while writing row: " << saver->GetRowOffset() << std::endl;
+	while(!saver->eof()){
+		const void* ptr = &src[saver->getRowOffset() * saver->getStrideSize()];
+		if(!saver->writeRow(ptr)){
+			//std::cerr << "Error while writing row: " << saver->getRowOffset() << std::endl;
 			delete saver;
 			return false;
 		}
 	}
 
-	saver->WriteFooter();
+	saver->writeFooter();
 	delete saver;
 	return true;
 }

@@ -9,13 +9,17 @@ namespace ffw {
 	 */
 	class FFW_API Texture1D: public Texture {
     public:
-        static bool CheckCompability(const RenderContext* renderer);
+        static bool checkCompability(const RenderContext* renderer);
 		Texture1D();
+		Texture1D(const Texture1D& second) = delete;
+		Texture1D(Texture1D&& second);
         ~Texture1D();
-        bool Create(const ffw::RenderContext* renderer, GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat);
-		bool Resize(GLsizei width);
-        bool SetPixels(GLint level, GLint xoffset, GLsizei width, const void* pixels);
-		bool GetPixels(void* pixels);
+        bool create(const ffw::RenderContext* renderer, GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat);
+		bool resize(GLsizei width);
+        bool setPixels(GLint level, GLint xoffset, GLsizei width, const void* pixels);
+		bool getPixels(void* pixels);
+		Texture1D& operator = (const Texture1D& second) = delete;
+		Texture1D& operator = (Texture1D&& second);
     };
 };
 #endif

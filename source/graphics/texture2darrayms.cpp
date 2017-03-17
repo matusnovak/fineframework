@@ -4,9 +4,9 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-bool ffw::Texture2DArrayMS::CheckCompability(const ffw::RenderContext* renderer){
+bool ffw::Texture2DArrayMS::checkCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::RenderExtensions* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	return (
 		gl_->glTexImage3DMultisample != NULL
@@ -19,15 +19,28 @@ ffw::Texture2DArrayMS::Texture2DArrayMS():Texture(){
 }
 
 ///=============================================================================
+ffw::Texture2DArrayMS::Texture2DArrayMS(Texture2DArrayMS&& second) : Texture2DArrayMS() {
+	Texture::swap(second);
+}
+
+///=============================================================================
+ffw::Texture2DArrayMS& ffw::Texture2DArrayMS::operator = (ffw::Texture2DArrayMS&& other) {
+	if (this != &other) {
+		Texture::swap(other);
+	}
+	return *this;
+}
+
+///=============================================================================
 ffw::Texture2DArrayMS::~Texture2DArrayMS(){
 }
 
 ///=============================================================================
-bool ffw::Texture2DArrayMS::Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat, GLint samples){
+bool ffw::Texture2DArrayMS::create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat, GLint samples){
     if(loaded_)return false;
-	if(!CheckCompability(renderer))return false;
+	if(!checkCompability(renderer))return false;
 	loaded_ = true;
-    gl_ = renderer->Glext();
+    gl_ = static_cast<const RenderExtensions*>(renderer);
 
     glGenTextures(1, &buffer_);
     glBindTexture(GL_TEXTURE_2D_MULTISAMPLE_ARRAY, buffer_);
@@ -46,7 +59,7 @@ bool ffw::Texture2DArrayMS::Create(const ffw::RenderContext* renderer, GLsizei w
     int test;
     glGetTexLevelParameteriv(GL_TEXTURE_2D_MULTISAMPLE_ARRAY, 0, GL_TEXTURE_WIDTH, &test);
     if(test != width){
-        Destroy();
+        destroy();
         return false;
     }
 
@@ -59,7 +72,7 @@ bool ffw::Texture2DArrayMS::Create(const ffw::RenderContext* renderer, GLsizei w
 }
 
 ///=============================================================================
-bool ffw::Texture2DArrayMS::Resize(GLsizei width, GLsizei height, GLsizei layers, GLint samples){
+bool ffw::Texture2DArrayMS::resize(GLsizei width, GLsizei height, GLsizei layers, GLint samples){
 	if(!loaded_)return false;
 	width_ = width;
 	height_ = height;

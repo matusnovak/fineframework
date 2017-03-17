@@ -3,6 +3,7 @@
 #define FFW_GUI_THEME
 #include "../config.h"
 #include "../math.h"
+#include "guiimage.h"
 namespace ffw {
 	/**
 	* @ingroup gui
@@ -45,7 +46,7 @@ namespace ffw {
 			os << V.value << (V.type == GuiUnits::Type::PERCENT ? "%" : "px");
 			return os;
 		}
-		inline int ToReal(const int val) const {
+		inline int toReal(const int val) const {
 			if (type == GuiUnits::Type::PERCENT) {
 				return int((value / 100.0f) * val);
 			}
@@ -53,11 +54,11 @@ namespace ffw {
 				return value;
 			}
 		}
-		inline void SetPixels(int px) {
+		inline void setPixels(int px) {
 			type = GuiUnits::Type::PIXELS;
 			value = px;
 		}
-		inline void SetPercent(int pc) {
+		inline void setPercent(int pc) {
 			type = GuiUnits::Type::PERCENT;
 			value = pc;
 		}
@@ -67,19 +68,19 @@ namespace ffw {
 	/**
 	* @ingroup gui
 	*/
-	inline GuiUnits GuiPixels(int pixels) {
+	inline GuiUnits guiPixels(int pixels) {
 		return GuiUnits(pixels, false);
 	}
 	/**
 	* @ingroup gui
 	*/
-	inline GuiUnits GuiPercent(int percent) {
+	inline GuiUnits guiPercent(int percent) {
 		return GuiUnits(percent, true);
 	}
 	/**
 	* @ingroup gui
 	*/
-	inline GuiUnits GuiWrap() {
+	inline GuiUnits guiWrap() {
 		return GuiUnits(-1, true);
 	}
 	/**
@@ -87,8 +88,8 @@ namespace ffw {
 	*/
 	class GuiUnits2D: public ffw::Vec2<GuiUnits> {
 	public:
-		inline ffw::Vec2i ToReal(const ffw::Vec2i& size) {
-			return ffw::Vec2i(x.ToReal(size.x), y.ToReal(size.y));
+		inline ffw::Vec2i toReal(const ffw::Vec2i& size) {
+			return ffw::Vec2i(x.toReal(size.x), y.toReal(size.y));
 		}
 	};
 	/**
@@ -162,7 +163,7 @@ namespace ffw {
 			typedef Attribute<int> Radius;
 			typedef Attribute<ffw::Color> Color;
 			inline Border():
-				size(0),radius(0),color(ffw::Rgb(0xFFFFFF)) {
+				size(0),radius(0),color(ffw::rgb(0xFFFFFF)) {
 			}
 			inline Border(const Attribute<int>& s, const Attribute<int>& r, const Attribute<ffw::Color>& c):
 				size(s),radius(r),color(c) {
@@ -185,24 +186,15 @@ namespace ffw {
 			enum class Type {
 				NONE = 0,
 				SIMPLE,
-				HGRADIENT,
-				VGRADIENT,
 			};
-			inline Background Simple(const ffw::Color& c) {
-				Background bcg;
-				bcg.color = c;
-				bcg.type = Background::Type::SIMPLE;
-				return bcg;
-			}
 			inline Background():
-				radius(0),color(ffw::Rgb(0x000000)),end(ffw::Rgb(0x000000)),type(Type::NONE) {
+				radius(0),color(ffw::rgb(0x000000)),type(Type::NONE) {
 			}
-			inline Background(const Attribute<int>& r, const ffw::Color& c, const ffw::Color& e, Type t):
-				radius(r),color(c),end(e),type(t) {
+			inline Background(const Attribute<int>& r, const ffw::Color& c, Type t):
+				radius(r),color(c),type(t) {
 			}
 			Attribute<int> radius;
 			ffw::Color color;
-			ffw::Color end;
 			Type type;
 			inline operator bool() const {
 				return type != Type::NONE;
@@ -212,7 +204,7 @@ namespace ffw {
 		class Text {
 		public:
 			inline Text():
-				color(ffw::Rgb(0xFFFFFF)) {
+				color(ffw::rgb(0xFFFFFF)) {
 			}
 			inline Text(const ffw::Color& c):
 				color(c) {
@@ -223,7 +215,7 @@ namespace ffw {
 		class Function {
 		public:
 			inline Function() :
-				color(ffw::Rgb(0xFFFFFF)),secondary(ffw::Rgb(0xFFFFFF)) {
+				color(ffw::rgb(0xFFFFFF)),secondary(ffw::rgb(0xFFFFFF)) {
 			}
 			inline Function(const ffw::Color& c):
 				color(c),secondary(c) {
@@ -250,34 +242,10 @@ namespace ffw {
 	/**
 	* @ingroup gui
 	*/
-	inline GuiStyle::Background GuiSimpleBackground(const ffw::Color& color) {
-		return GuiStyle::Background(0, color, ffw::Rgb(0x000000), GuiStyle::Background::Type::SIMPLE);
-	}
-	/**
-	* @ingroup gui
-	*/
-	inline GuiStyle::Background GuiVGradientBackground(const ffw::Color& top, const ffw::Color& bottom) {
-		return GuiStyle::Background(0, top, bottom, GuiStyle::Background::Type::VGRADIENT);
-	}
-	/**
-	* @ingroup gui
-	*/
-	inline GuiStyle::Background GuiHGradientBackground(const ffw::Color& left, const ffw::Color& right) {
-		return GuiStyle::Background(0, left, right, GuiStyle::Background::Type::HGRADIENT);
-	}
-	/**
-	* @ingroup gui
-	*/
-	inline GuiStyle::Background GuiNoBackground() {
-		return GuiStyle::Background(0, ffw::Rgb(0x000000), ffw::Rgb(0x000000), GuiStyle::Background::Type::NONE);
-	}
-	/**
-	* @ingroup gui
-	*/
 	class GuiDefaults {
 	public:
 		inline GuiDefaults() :
-			margin(0), padding(0), align(GuiStyle::Align::TOP_LEFT), size(ffw::Vec2<GuiUnits>(GuiPercent(100), GuiWrap())) {
+			margin(0), padding(0), align(GuiStyle::Align::TOP_LEFT), size(ffw::Vec2<GuiUnits>(guiPercent(100), guiWrap())) {
 		}
 		inline GuiDefaults(const GuiStyle::Margin& m, const GuiStyle::Padding& p, GuiStyle::Align a, const ffw::Vec2<GuiUnits>& s):
 			margin(m),padding(p),align(a),size(s){
@@ -309,13 +277,16 @@ namespace ffw {
 	*/
 	class FFW_API GuiTheme {
 	public:
-		static const GuiTheme Windows;
+		static const GuiTheme windows;
+		static const GuiTheme simpleLight;
+		static const GuiTheme simpleDark;
+		static const GuiTheme modernFlat;
 
 		GuiTheme(const std::initializer_list<std::pair<std::string, GuiStyleGroup>>& list);
 		virtual ~GuiTheme();
-		void Add(const std::pair<std::string, GuiStyleGroup>& sty);
-		const GuiStyleGroup& GetStyleGroup(const std::string& type) const;
-		GuiStyleGroup& GetStyleGroup(const std::string& type);
+		void add(const std::pair<std::string, GuiStyleGroup>& sty);
+		const GuiStyleGroup& getStyleGroup(const std::string& type) const;
+		GuiStyleGroup& getStyleGroup(const std::string& type);
 	private:
 		std::map<std::string, GuiStyleGroup> styles;
 	};

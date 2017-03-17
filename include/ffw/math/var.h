@@ -6,7 +6,7 @@
 #include <string>
 #include <string.h>
 #include <unordered_map>
-#include <cstddef>
+#include <memory>
 
 namespace ffw {
 	class Array;
@@ -16,70 +16,48 @@ namespace ffw {
 	 */
 	class Var {
 	public:
-		class Exception: public std::exception {
-		public:
-
-			inline Exception(const std::string& message):msg(message){
-			}
-
-			inline virtual ~Exception() throw (){
-			}
-
-			inline virtual const char* what() const throw (){
-				return msg.c_str();
-			}
-
-		protected:
-			std::string msg;
-		};
-
-		class InvalidCast: public Exception {
-		public:
-			inline InvalidCast(const std::type_info& first, const std::type_info& second):Exception("Invalid cast from: " + std::string(first.name()) + " to " + std::string(second.name())){
-			}
-		};
-
-		class InvalidKey: public Exception {
-		public:
-			inline InvalidKey():Exception("Key does not exist!"){
-			}
-		};
-
 		class Content {
 		public:
 			virtual ~Content(){}
-			virtual Content* CreateCopy() = 0;
-			virtual const std::type_info& Typeid() const = 0;
-			virtual void* Get() = 0;
-			virtual bool Bool() const = 0;
-			virtual bool IsInteger() const = 0;
-			virtual int GetInteger() const = 0;
+			virtual Content* createCopy() = 0;
+			virtual const std::type_info& getTypeid() const = 0;
+			virtual bool toBool() const = 0;
+			virtual bool isInteger() const = 0;
+			virtual int getInteger() const = 0;
+			virtual bool compare(const Content* other) const = 0;
 		};
 
 		template<class T, class Enable = void>
 		class Data: public Content {
 		public:
-			Data(const T& val):value(val){
+			template<class ... Args>
+			Data(Args&&... args):value(std::forward<Args>(args)...){
 			}
-			~Data(){
+			virtual ~Data(){
 			}
-			Data* CreateCopy() override  {
-				return new Data(value);
+			Data* createCopy() override  {
+				return new Data{ value };
 			}
-			const std::type_info& Typeid() const override {
+			const std::type_info& getTypeid() const override {
 				return typeid(T);
 			}
-			void* Get() override  {
-				return &value;
+			T& get() {
+				return value;
 			}
-			bool Bool() const override  {
+			const T& get() const {
+				return value;
+			}
+			bool toBool() const override  {
                 return false;
 			}
-			bool IsInteger() const override {
+			bool isInteger() const override {
 				return false;
 			}
-			int GetInteger() const override  {
+			int getInteger() const override  {
 				return 0;
+			}
+			bool compare(const Content* other) const override {
+				return value == static_cast<const Data<T>&>(*other).value;
 			}
 		private:
 			T value;
@@ -88,167 +66,175 @@ namespace ffw {
 		template<class T>
 		class Data<T, typename std::enable_if<std::is_integral<T>::value>::type>: public Content {
 		public:
-			Data(const T& val):value(val){
+			template<class ... Args>
+			Data(Args&&... args):value(std::forward<Args>(args)...){
 			}
-			~Data(){
+			virtual ~Data(){
 			}
-			Data* CreateCopy() override  {
-				return new Data(value);
+			Data* createCopy() override  {
+				return new Data{ value };
 			}
-			const std::type_info& Typeid() const override  {
+			const std::type_info& getTypeid() const override  {
 				return typeid(T);
 			}
-			void* Get() override  {
-				return &value;
+			T& get() {
+				return value;
 			}
-			bool Bool() const override {
+			const T& get() const {
+				return value;
+			}
+			bool toBool() const override {
                 return value != 0;
 			}
-			bool IsInteger() const override  {
+			bool isInteger() const override  {
 				return true;
 			}
-			int GetInteger() const override {
+			int getInteger() const override {
 				return static_cast<int>(value);
+			}
+			bool compare(const Content* other) const override {
+				return value == static_cast<const Data<T>&>(*other).value;
 			}
 		private:
 			T value;
 		};
 
-		inline Var():content(NULL){
-			content = new Data<std::nullptr_t>(NULL);
+		inline Var():content(nullptr){
 		}
 
-		inline Var(const Var& other):content(NULL){
-			content = other.content->CreateCopy();
+		inline Var(const Var& other):content(nullptr){
+			if(!other.empty()) {
+				content.reset(other.content->createCopy());
+			}
 		}
 
-		inline Var(Var&& other):content(NULL){
+		inline Var(Var&& other):content(nullptr){
 			std::swap(content, other.content);
 		}
 
-		template<class T> inline Var(T value):content(NULL){
-			content = new Data<T>(value);
+		template<class T> inline Var(T value):content(nullptr){
+			content.reset(new Data<T>{ value });
 		}
+
+		/*template<size_t N> inline Var(const char(&value)[N]) : content(nullptr) {
+			content.reset(new Data<std::string>(value));
+		}*/
+
+		/*template<> inline Var(const char* value) : content(nullptr) {
+			content.reset(new Data<std::string>(value));
+		}*/
 
 		inline Var(std::initializer_list<std::pair<std::string, Var>> list);
-		/*inline Var(std::initializer_list<std::pair<std::string, Var>> list){
-			content = new Data<Var::Object>(list);
-		}*/
 
 		inline Var(std::initializer_list<Var> list);
-		/*inline Var(std::initializer_list<Var> list){
-			content = new Data<Var::Array>(list);
-		}*/
 
 		inline virtual ~Var() {
-			delete content;
 		}
 
-		inline bool Empty() const {
-			return (content->Typeid() == typeid(std::nullptr_t));
+		inline bool empty() const {
+			return (content == nullptr);
 		}
 
-		inline void Reset(){
-			Var().swap(*this);
+		inline void reset(){
+			content.reset();
 		}
 
-		inline const std::type_info& Typeid() const {
-			return content->Typeid();
-		}
-
-		template<class T> inline T& GetAs(){
-			if(content->Typeid() != typeid(T)){
-				throw Var::InvalidCast(content->Typeid(), typeid(T));
+		template<class T> inline T& getAs(){
+			if(content == nullptr || content->getTypeid() != typeid(T)){
+				throw std::bad_cast();
 			}
-			//return *(static_cast<T*>(content->Get()));
-			return Cast<T>();
+			return static_cast<Data<T>&>(*content.get()).get();
 		}
 
-		template<class T> inline const T& GetAs() const {
-			if(content->Typeid() != typeid(T)){
-				throw Var::InvalidCast(content->Typeid(), typeid(T));
+		template<class T> inline const T& getAs() const {
+			if(content->getTypeid() != typeid(T)){
+				throw std::bad_cast();
 			}
-			return Cast<T>();
+			return static_cast<const Data<T>&>(*content.get()).get();
 		}
 
-		template<class T> inline void Set(T value = T()){
+		template<class T> inline void set(T value = T()){
 			*this = value;
 		}
 
-		template<class T> inline bool Contains() const {
-			return (content->Typeid() == typeid(T));
+		template<class T> inline bool is() const {
+			if (content == nullptr)return false;
+			return (content->getTypeid() == typeid(T));
 		}
 
-		inline bool Bool() const {
-		    //return GetAs<bool>();
-		    if(content->Typeid() == typeid(bool)){
-                return Cast<bool>();
+		inline bool toBool() const {
+		    if(content->getTypeid() == typeid(bool)){
+                return getAs<bool>();
 		    } else {
-                return content->Bool();
+                return content->toBool();
 		    }
 		}
 
-		inline bool ContainsBool() const {
-			return Contains<bool>();
+		inline bool isBool() const {
+			return is<bool>();
 		}
 
-		inline std::string String() const {
-			const auto& type = content->Typeid();
+		inline std::string toString() const {
+			const auto& type = content->getTypeid();
 			if(type == typeid(const char*)){
-				return std::string(Cast<const char*>());
+				return std::string(getAs<const char*>());
 			} else if(type == typeid(char*)){
-				return std::string(Cast<char*>());
+				return std::string(getAs<char*>());
 			} else if(type == typeid(std::string)){
-				return Cast<std::string>();
+				return getAs<std::string>();
 			} else {
 				return "";
 			}
 		}
 
-		inline bool ContainsString() const {
+		inline bool isString() const {
 			return (
-				Contains<const char*>() ||
-				Contains<char*>() ||
-				Contains<std::string>()
+				is<const char*>() ||
+				is<char*>() ||
+				is<std::string>()
 			);
 		}
 
-		inline int Int() const {
-			return content->GetInteger();
+		inline int toInt() const {
+			return content->getInteger();
 		}
 
-		inline bool ContainsInt() const {
-			return content->IsInteger();
+		inline bool isInt() const {
+			return content->isInteger();
 		}
 
-		inline float Float() const {
-			const auto& type = content->Typeid();
+		inline float toFloat() const {
+			const auto& type = content->getTypeid();
 			if(type == typeid(float)){
-				return Cast<float>();
+				return getAs<float>();
 			} else if(type == typeid(double)){
-				return static_cast<float>(Cast<double>());
+				return static_cast<float>(getAs<double>());
 			} else {
 				return 0.0f;
 			}
 		}
 
-		inline bool ContainsFloat() const {
-			return (Contains<float>() || Contains<double>());
+		inline bool isFloat() const {
+			return (is<float>() || is<double>());
+		}
+
+		inline void clear() {
+			content.reset();
 		}
 
 // GCC will complain if this is missing but not MSVC nor Clang
 #if !defined(_MSC_VER) && !defined(__APPLE__)
 		template<class T> inline explicit operator T() const {
-			return GetAs<T>();
+			return getAs<T>();
 		}
 #endif
 
 		template<class T> inline explicit operator T&(){
-			return GetAs<T>();
+			return getAs<T>();
 		}
 
 		template<class T> inline explicit operator const T&() const {
-			return GetAs<T>();
+			return getAs<T>();
 		}
 
 		inline void swap(Var& other){
@@ -280,51 +266,10 @@ namespace ffw {
 		inline const Var& operator [] (const std::string& key) const;
 		inline Var& operator [] (size_t n);
 		inline const Var& operator [] (size_t n) const;
-#ifdef FFW_WINDOWS_MSVC
-		inline bool operator == (const char* str){
-			if(content->Typeid() == typeid(std::string)){
-				return GetAs<std::string>().compare(str) == 0;
-
-			} else if(content->Typeid() == typeid(const char*)){
-				return strcmp(GetAs<const char*>(), str) == 0;
-			}
-
-			return false;
-		}
-
-		inline bool operator == (const std::string& str){
-			if(content->Typeid() == typeid(std::string)){
-				return GetAs<std::string>().compare(str) == 0;
-
-			} else if(content->Typeid() == typeid(const char*)){
-				return strcmp(GetAs<const char*>(), str.c_str()) == 0;
-			}
-
-			return false;
-		}
-
-		template<size_t N>
-		inline bool operator == (const char (&other)[N]) const {
-			if(content->Typeid() == typeid(std::string)){
-				return GetAs<std::string>().compare(&other[0]) == 0;
-
-			} else if(content->Typeid() == typeid(const char*)){
-				return strcmp(GetAs<const char*>(), &other[0]) == 0;
-			}
-
-			return false;
-		}
-#endif
-		/*inline bool operator == (bool value) const {
-			if(content->Typeid() == typeid(bool)){
-				return GetAs<bool>() == value;
-			}
-			return false;
-		}*/
 
 		template<class T> inline bool operator == (const T& other) const {
-			if(content->Typeid() == typeid(T)){
-				return GetAs<T>() == other;
+			if(content->getTypeid() == typeid(T)){
+				return getAs<T>() == other;
 			}
 			return false;
 		}
@@ -333,19 +278,30 @@ namespace ffw {
 			return !(*this == other);
 		}
 
+		inline bool operator == (const Var& other) const {
+			if (content != nullptr && other.content != nullptr && content->getTypeid() == other.content->getTypeid()) {
+				return content->compare(other.content.get());
+			}
+			else {
+				return false;
+			}
+		}
+
+		inline bool operator != (const Var& other) const {
+			if (content != nullptr && other.content != nullptr && content->getTypeid() == other.content->getTypeid()) {
+				return !content->compare(other.content.get());
+			}
+			else {
+				return true;
+			}
+		}
+
 	private:
-		template <class T>
-		T& Cast(){
-			return *(static_cast<T*>(content->Get()));
-		}
-
-		template <class T>
-		const T& Cast() const {
-			return *(static_cast<T*>(content->Get()));
-		}
-		Content* content;
+		std::unique_ptr<Content> content;
 	};
-
+	/**
+	 * @ingroup math
+	 */
 	class Array {
     public:
         typedef std::vector<Var> Vec;
@@ -567,10 +523,20 @@ namespace ffw {
         inline void shrink_to_fit() {
             vec.shrink_to_fit();
         }
+
+		inline bool operator == (const Array& other) const {
+			return vec == other.vec;
+		}
+
+		inline bool operator != (const Array& other) const {
+			return vec != other.vec;
+		}
     private:
         Vec vec;
     };
-
+	/**
+	 * @ingroup math
+	 */
     class Object {
     public:
         typedef std::unordered_map<std::string, Var> Map;
@@ -843,37 +809,41 @@ namespace ffw {
         inline size_type size() const {
             return map.size();
         }
+
+		inline bool operator == (const Object& other) const {
+			return map == other.map;
+		}
+
+		inline bool operator != (const Object& other) const {
+			return map != other.map;
+		}
     private:
         Map map;
     };
 
     inline Var::Var(std::initializer_list<std::pair<std::string, Var>> list){
-        content = new Data<Object>(list);
+		content.reset(new Data<Object>{ list });
     }
 
     inline Var::Var(std::initializer_list<Var> list){
-        content = new Data<Array>(list);
+		content.reset(new Data<Array>{ list });
     }
 
     inline Var& Var::operator [] (const std::string& key){
-        return GetAs<Object>().at(key);
+        return getAs<Object>().at(key);
     }
 
     inline const Var& Var::operator [] (const std::string& key) const {
-        return GetAs<Object>().at(key);
+        return getAs<Object>().at(key);
     }
 
     inline Var& Var::operator [] (size_t n){
-        return GetAs<Array>().at(n);
+        return getAs<Array>().at(n);
     }
 
     inline const Var& Var::operator [] (size_t n) const {
-        return GetAs<Array>().at(n);
+        return getAs<Array>().at(n);
     }
-}
-
-inline bool operator == (const ffw::Var& first, bool second){
-	return false;
 }
 
 inline void swap(ffw::Var& first, ffw::Var& second){

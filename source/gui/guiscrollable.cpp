@@ -5,47 +5,47 @@
 
 ///=============================================================================
 ffw::GuiScrollable::GuiScrollable(GuiWindow* context, GuiWidget* widget, bool hori, bool vert) :GuiWidget(context) {
-	ignoreinputflag = true;
+	setIgnoreUserInput(true);
 
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_SCROLLABLE");
-	SetDefaults(&widgetStyle->defaults);
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_SCROLLABLE");
+	setDefaults(&widgetStyle->defaults);
 
-	//SetSize(ffw::GuiPercent(100), ffw::GuiPixels(100));
-	//SetMargin(0, 0, 5, 0);
-	//SetPadding(1);
-	GuiWidget::SetWrap(true);
-	GuiWidget::SetOrientation(GuiWidget::Orientation::HORIZONTAL);
+	//setSize(ffw::guiPercent(100), ffw::guiPixels(100));
+	//setMargin(0, 0, 5, 0);
+	//setPadding(1);
+	GuiWidget::setWrap(true);
+	GuiWidget::setOrientation(GuiWidget::Orientation::HORIZONTAL);
 
 	thickness = 14;
 
 	inner = widget;
-	inner->SetMargin(0);
-	inner->AddEventCallback(&GuiScrollable::WidgetEvent, this, true);
-	inner->SetPadding(2);
+	inner->setMargin(0);
+	inner->addEventCallback(&GuiScrollable::widgetEvent, this, true);
+	inner->setPadding(2);
 
-	GuiWidget::AddWidgetInternal(inner);
+	GuiWidget::addWidgetInternal(inner);
 	if (vert) {
 		vscroll = new ffw::GuiScrollBar(context, true);
-		vscroll->SetMargin(0);
-		vscroll->AddEventCallback(&GuiScrollable::WidgetEvent, this, true);
-		vscroll->SetValue(0);
-		GuiWidget::AddWidgetInternal(vscroll);
+		vscroll->setMargin(0);
+		vscroll->addEventCallback(&GuiScrollable::widgetEvent, this, true);
+		vscroll->setValue(0);
+		GuiWidget::addWidgetInternal(vscroll);
 	}
 	else {
 		vscroll = NULL;
 	}
 	if (hori) {
 		hscroll = new ffw::GuiScrollBar(context, false);
-		hscroll->SetMargin(0);
-		hscroll->AddEventCallback(&GuiScrollable::WidgetEvent, this, true);
-		hscroll->SetValue(0);
-		GuiWidget::AddWidgetInternal(hscroll);
+		hscroll->setMargin(0);
+		hscroll->addEventCallback(&GuiScrollable::widgetEvent, this, true);
+		hscroll->setValue(0);
+		GuiWidget::addWidgetInternal(hscroll);
 	}
 	else {
 		hscroll = NULL;
 	}
 
-	EventSize(GetVisibleContentSize());
+	eventSize(getVisibleContentSize());
 }
 
 ///=============================================================================
@@ -53,131 +53,132 @@ ffw::GuiScrollable::~GuiScrollable() {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::WidgetEvent(ffw::GuiEvent e) {
+void ffw::GuiScrollable::widgetEvent(ffw::GuiEvent e) {
 	if (e.widget == vscroll && e.type == ffw::GuiEvent::Type::CHANGED) {
-		auto off = inner->GetOffset();
-		inner->SetOffset(ffw::Vec2i(off.x, -e.data.changed.value));
+		auto off = inner->getOffset();
+		inner->setOffset(ffw::Vec2i(off.x, -e.data.changed.value));
 	}
 
 	if (e.widget == hscroll && e.type == ffw::GuiEvent::Type::CHANGED) {
-		auto off = inner->GetOffset();
-		inner->SetOffset(ffw::Vec2i(-e.data.changed.value, off.y));
+		auto off = inner->getOffset();
+		inner->setOffset(ffw::Vec2i(-e.data.changed.value, off.y));
 	}
 
-	if (e.widget == inner && e.type == ffw::GuiEvent::Type::SIZE) {
-		const auto total = inner->GetTotalContentSize();
-		const auto visible = inner->GetVisibleContentSize();
+	if (e.widget == inner && e.type == ffw::GuiEvent::Type::INNER) {
+		const auto total = inner->getInnerContentSize();
+		const auto visible = inner->getVisibleContentSize();
 		ffw::Vec2i diff = total - visible;
 
 		if (diff.y > 0 && vscroll != NULL) {
-			vscroll->SetRange(0, diff.y);
-			vscroll->SetButtonLength(ffw::GuiPercent(int((visible.y / float(total.y)) * 100.0f)));
+			vscroll->setRange(0, diff.y);
+			vscroll->setButtonLength(ffw::guiPercent(int((visible.y / float(total.y)) * 100.0f)));
 		}
 		else if (vscroll != NULL) {
-			vscroll->SetRange(0, 0);
+			vscroll->setRange(0, 0);
 		}
 
 		if (diff.x > 0 && hscroll != NULL) {
-			hscroll->SetRange(0, diff.x);
-			vscroll->SetButtonLength(ffw::GuiPercent(int((visible.x / float(total.x)) * 100.0f)));
+			hscroll->setRange(0, diff.x);
+			vscroll->setButtonLength(ffw::guiPercent(int((visible.x / float(total.x)) * 100.0f)));
 		}
 		else if (hscroll != NULL) {
-			hscroll->SetRange(0, 0);
+			hscroll->setRange(0, 0);
 		}
 	}
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::SetScrollValues(int hori, int vert) {
+void ffw::GuiScrollable::setScrollValues(int hori, int vert) {
 	if (hscroll != NULL) {
-		hscroll->SetValue(hori);
+		hscroll->setValue(hori);
 	}
 	if (vscroll != NULL) {
-		vscroll->SetValue(vert);
+		vscroll->setValue(vert);
 	}
-	inner->SetOffset(ffw::Vec2i(hori, vert));
+	inner->setOffset(ffw::Vec2i(hori, vert));
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::SetScrollbarThickness(int px) {
+void ffw::GuiScrollable::setScrollbarThickness(int px) {
 	thickness = px;
-	EventSize(GetVisibleContentSize());
+	eventSize(getVisibleContentSize());
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiScrollable::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventPos(const ffw::Vec2i& pos) {
+void ffw::GuiScrollable::eventPos(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventSize(const ffw::Vec2i& size) {
+void ffw::GuiScrollable::eventSize(const ffw::Vec2i& size) {
 	ffw::Vec2i s = size;
 	if (vscroll != NULL) {
 		s.x -= thickness;
 		if (hscroll != NULL) {
-			vscroll->SetSize(thickness, size.y - thickness);
+			vscroll->setSize(thickness, size.y - thickness);
 		}
 		else {
-			vscroll->SetSize(thickness, size.y);
+			vscroll->setSize(thickness, size.y);
 		}
-		s.x -= vscroll->GetPaddingInPixels(3) - vscroll->GetPaddingInPixels(1);
+		s.x -= vscroll->getPaddingInPixels(3) - vscroll->getPaddingInPixels(1);
 	}
 	if (hscroll != NULL) {
 		s.y -= thickness;
-		hscroll->SetSize(size.x, thickness);
-		s.y -= hscroll->GetPaddingInPixels(0) - hscroll->GetPaddingInPixels(2);
+		hscroll->setSize(size.x, thickness);
+		s.y -= hscroll->getPaddingInPixels(0) - hscroll->getPaddingInPixels(2);
 	}
-	inner->SetSize(s.x, s.y);
-	Invalidate();
-	//RecalculateSize();
+
+	inner->setSize(s.x, s.y);
+	invalidate();
+	//recalculateSize();
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventHover(bool gained) {
+void ffw::GuiScrollable::eventHover(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventFocus(bool gained) {
+void ffw::GuiScrollable::eventFocus(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiScrollable::eventMouse(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+void ffw::GuiScrollable::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventText(wchar_t chr) {
+void ffw::GuiScrollable::eventText(wchar_t chr) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventKey(ffw::Key key, ffw::Mode mode) {
+void ffw::GuiScrollable::eventKey(ffw::Key key, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventDisabled(bool disabled) {
+void ffw::GuiScrollable::eventDisabled(bool disabled) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollable::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_SCROLLABLE");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiScrollable::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_SCROLLABLE");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiScrollable::GetMinimumWrapSize() {
-	ffw::Vec2i s = inner->GetMinimumWrapSize();
+ffw::Vec2i ffw::GuiScrollable::getMinimumWrapSize() {
+	ffw::Vec2i s = inner->getMinimumWrapSize();
 
 	if (vscroll != NULL) {
-		s.x += vscroll->GetMinimumWrapSize().x;
+		s.x += vscroll->getMinimumWrapSize().x;
 	}
 	if (hscroll != NULL) {
-		s.y += hscroll->GetMinimumWrapSize().y;
+		s.y += hscroll->getMinimumWrapSize().y;
 	}
 
 	return s;
@@ -186,7 +187,7 @@ ffw::Vec2i ffw::GuiScrollable::GetMinimumWrapSize() {
 ///=============================================================================
 ffw::GuiScrollableLayout::GuiScrollableLayout(GuiWindow* context, GuiLayout::Orientation orientation, bool hori, bool vert):
 	GuiScrollable(context, new ffw::GuiLayout(context, orientation), hori, vert){
-	GetInner()->SetPadding(2);
+	getInner()->setPadding(2);
 }
 
 ///=============================================================================

@@ -67,18 +67,18 @@ ffw::JpgLoader& ffw::JpgLoader::operator = (JpgLoader&& other){
 
 ///=============================================================================
 ffw::JpgLoader::~JpgLoader(){
-	Close();
+	close();
 	if(jpg_struct != NULL){
 		delete jpg_struct;
 	}
 }
 
 ///=============================================================================
-bool ffw::JpgLoader::Open(const std::string& path){
+bool ffw::JpgLoader::open(const std::string& path){
 	if(loaded)return false;
 
 #ifdef FFW_WINDOWS
-	input = fopen(WstrToAnsi(Utf8ToWstr(path)).c_str(), "rb");
+	input = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "rb");
 #else
 	input = fopen(path.c_str(), "rb");
 #endif
@@ -96,7 +96,7 @@ bool ffw::JpgLoader::Open(const std::string& path){
 	if(setjmp(jpg_struct->jerr.setjmp_buffer)) {
 		// If we get here, the JPEG code has signaled an error.
 		// We need to clean up the JPEG object, close the input file, and return.
-		Close();
+		close();
 		return false;
 	}
 
@@ -134,7 +134,7 @@ bool ffw::JpgLoader::Open(const std::string& path){
 	} else if(jpg_struct->cinfo.output_components == 3){
 		format = ffw::ImageType::RGB_888;
 	} else {
-		Close();
+		close();
 		return false;
 	}
 
@@ -147,7 +147,7 @@ bool ffw::JpgLoader::Open(const std::string& path){
 }
 
 ///=============================================================================
-void ffw::JpgLoader::Close(){
+void ffw::JpgLoader::close(){
 	if(jpg_struct != NULL){
 		if(decompressInit){
 			jpeg_finish_decompress(&jpg_struct->cinfo);
@@ -170,15 +170,15 @@ void ffw::JpgLoader::Close(){
 }
 
 ///=============================================================================
-size_t ffw::JpgLoader::ReadRow(void* dest){
+size_t ffw::JpgLoader::readRow(void* dest){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
-	
+
 	JSAMPROW row_pointer[1];
 	row_pointer[0] = (unsigned char*)dest;
 	jpeg_read_scanlines(&jpg_struct->cinfo, row_pointer, 1);
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }

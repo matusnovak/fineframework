@@ -4,9 +4,9 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-bool ffw::Framebuffer::CheckCompability(const ffw::RenderContext* renderer){
+bool ffw::Framebuffer::checkCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::RenderExtensions* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	#ifdef FFW_OSX
 	return (
@@ -33,21 +33,51 @@ bool ffw::Framebuffer::CheckCompability(const ffw::RenderContext* renderer){
 ffw::Framebuffer::Framebuffer(){
     created_ = false;
 	colorcount_ = 0;
+	gl_ = NULL;
+	fbo_ = 0;
+}
+
+///=============================================================================
+ffw::Framebuffer::Framebuffer(Framebuffer&& other) {
+	created_ = false;
+	colorcount_ = 0;
+	gl_ = NULL;
+	fbo_ = 0;
+	swap(other);
+}
+
+///=============================================================================
+void ffw::Framebuffer::swap(Framebuffer& other) {
+	if (this != &other) {
+		using std::swap;
+		swap(created_, other.created_);
+		swap(colorcount_, other.colorcount_);
+		swap(gl_, other.gl_);
+		swap(fbo_, other.fbo_);
+	}
+}
+
+///=============================================================================
+ffw::Framebuffer& ffw::Framebuffer::operator = (Framebuffer&& other) {
+	if(this != &other) {
+		swap(other);
+	}
+	return *this;
 }
 
 ///=============================================================================
 ffw::Framebuffer::~Framebuffer(){
-    Destroy();
+    destroy();
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::Create(const ffw::RenderContext* renderer){
+bool ffw::Framebuffer::create(const ffw::RenderContext* renderer){
     if(created_)return false;
-	if(!CheckCompability(renderer))return false;
+	if(!checkCompability(renderer))return false;
 	created_ = true;
-	gl_ = renderer->Glext();
+	gl_ = static_cast<const RenderExtensions*>(renderer);
 
-	// Create Framebuffer
+	// create Framebuffer
 	#ifdef FFW_OSX
 		gl_->glGenFramebuffers(1, &fbo_);
 	#else
@@ -57,19 +87,19 @@ bool ffw::Framebuffer::Create(const ffw::RenderContext* renderer){
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddDepthTexture(const ffw::Texture2D* depthtexture){
+bool ffw::Framebuffer::addDepthTexture(const ffw::Texture2D* depthtexture){
     if(!created_ || depthtexture == NULL)return false;
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), 0);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), 0);
     #endif
 	
 	return true;
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddColorTexture(const ffw::Texture2D* colortexture){
+bool ffw::Framebuffer::addColorTexture(const ffw::Texture2D* colortexture){
     if(!created_ || colortexture == NULL)return false;
 
     // Check if number of color attachments is lower than the maximum
@@ -80,9 +110,9 @@ bool ffw::Framebuffer::AddColorTexture(const ffw::Texture2D* colortexture){
     }
 
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), 0);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), 0);
 	#endif
 	
 	colorcount_++;
@@ -90,19 +120,19 @@ bool ffw::Framebuffer::AddColorTexture(const ffw::Texture2D* colortexture){
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddDepthRenderbuffer(const ffw::Renderbuffer2D* depthrenderbuffer){
+bool ffw::Framebuffer::addDepthRenderbuffer(const ffw::Renderbuffer2D* depthrenderbuffer){
     if(!created_ || depthrenderbuffer == NULL)return false;
 	#ifdef FFW_OSX
-		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
 	#else
-		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
     #endif
 	
 	return true;
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddColorRenderbuffer(const ffw::Renderbuffer2D* colorrenderbuffer){
+bool ffw::Framebuffer::addColorRenderbuffer(const ffw::Renderbuffer2D* colorrenderbuffer){
     if(!created_ || colorrenderbuffer == NULL)return false;
 
     // Check if number of color attachments is lower than the maximum
@@ -113,9 +143,9 @@ bool ffw::Framebuffer::AddColorRenderbuffer(const ffw::Renderbuffer2D* colorrend
     }
 
 	#ifdef FFW_OSX
-		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
 	#else
-		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
 	#endif
 	
 	colorcount_++;
@@ -123,20 +153,20 @@ bool ffw::Framebuffer::AddColorRenderbuffer(const ffw::Renderbuffer2D* colorrend
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddDepthTextureMS(const ffw::Texture2DMS* depthtexture){
+bool ffw::Framebuffer::addDepthTextureMS(const ffw::Texture2DMS* depthtexture){
     if(!created_ || depthtexture == NULL)return false;
 	
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), 0);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), 0);
     #endif
 	
 	return true;
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddColorTextureMS(const ffw::Texture2DMS* colortexture){
+bool ffw::Framebuffer::addColorTextureMS(const ffw::Texture2DMS* colortexture){
     if(!created_ || colortexture == NULL)return false;
 
     // Check if number of color attachments is lower than the maximum
@@ -147,9 +177,9 @@ bool ffw::Framebuffer::AddColorTextureMS(const ffw::Texture2DMS* colortexture){
     }
 
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), 0);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->GetHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), 0);
 	#endif
 	
 	colorcount_++;
@@ -157,20 +187,20 @@ bool ffw::Framebuffer::AddColorTextureMS(const ffw::Texture2DMS* colortexture){
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddDepthRenderbufferMS(const ffw::Renderbuffer2DMS* depthrenderbuffer){
+bool ffw::Framebuffer::addDepthRenderbufferMS(const ffw::Renderbuffer2DMS* depthrenderbuffer){
     if(!created_ || depthrenderbuffer == NULL)return false;
 	
 	#ifdef FFW_OSX
-		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
 	#else
-		gl_->glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
     #endif
 	
 	return true;
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::AddColorRenderbufferMS(const ffw::Renderbuffer2DMS* colorrenderbuffer){
+bool ffw::Framebuffer::addColorRenderbufferMS(const ffw::Renderbuffer2DMS* colorrenderbuffer){
     if(!created_ || colorrenderbuffer == NULL)return false;
 
     // Check if number of color attachments is lower than the maximum
@@ -181,9 +211,9 @@ bool ffw::Framebuffer::AddColorRenderbufferMS(const ffw::Renderbuffer2DMS* color
     }
 
 	#ifdef FFW_OSX
-		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
 	#else
-		gl_->glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->GetHandle());
+		gl_->glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
 	#endif
 	
 	colorcount_++;
@@ -191,14 +221,14 @@ bool ffw::Framebuffer::AddColorRenderbufferMS(const ffw::Renderbuffer2DMS* color
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::CheckStatus(){
+bool ffw::Framebuffer::checkStatus(){
     if(!created_)return false;
 	
 	#ifdef FFW_OSX
 		gl_->glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
 		GLenum status = gl_->glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (status != GL_FRAMEBUFFER_COMPLETE) {
-			Destroy();
+			destroy();
 			return false;
 		}
 		
@@ -207,7 +237,7 @@ bool ffw::Framebuffer::CheckStatus(){
 		gl_->glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo_);
 		GLenum status = gl_->glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
 		if (status != GL_FRAMEBUFFER_COMPLETE) {
-			Destroy();
+			destroy();
 			return false;
 		}
 		
@@ -217,7 +247,7 @@ bool ffw::Framebuffer::CheckStatus(){
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::Destroy(){
+bool ffw::Framebuffer::destroy(){
 	#ifdef FFW_OSX
 		if(created_)gl_->glDeleteFramebuffers(1, &fbo_);
 	#else
@@ -229,7 +259,7 @@ bool ffw::Framebuffer::Destroy(){
 }
 
 ///=============================================================================
-void ffw::Framebuffer::Bind() const {
+void ffw::Framebuffer::bind() const {
 	#ifdef FFW_OSX
 		if(created_)gl_->glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
 	#else
@@ -238,7 +268,7 @@ void ffw::Framebuffer::Bind() const {
 }
 
 ///=============================================================================
-void ffw::Framebuffer::Unbind() const {
+void ffw::Framebuffer::unbind() const {
 	#ifdef FFW_OSX
 		if(created_)gl_->glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	#else

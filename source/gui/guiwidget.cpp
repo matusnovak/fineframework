@@ -3,41 +3,6 @@
 #include "ffw/gui/guiwidget.h"
 #include "ffw/gui/guiwindow.h"
 
-static const ffw::GuiStyleGroup ErrorStyle(
-	// Normal
-	ffw::GuiStyle(
-		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
-		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Text(ffw::Rgb(0xFF0000)),
-		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
-	),
-	// Hover
-	ffw::GuiStyle(
-		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
-		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Text(ffw::Rgb(0x00FF00)),
-		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
-	),
-	// Active
-	ffw::GuiStyle(
-		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
-		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Text(ffw::Rgb(0x0000FF)),
-		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
-	),
-	// Disabled
-	ffw::GuiStyle(
-		ffw::GuiStyle::Background(0, ffw::Rgb(0x800000), ffw::Rgb(0x000000), ffw::GuiStyle::Background::Type::SIMPLE),
-		ffw::GuiStyle::Border(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Outline(0, 0, ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Text(ffw::Rgb(0x000000)),
-		ffw::GuiStyle::Function(ffw::Rgb(0xFFFFFF))
-	)
-);
-
 ///=============================================================================
 static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const ffw::Vec2i& childpos, const ffw::Vec2i& childsize){
 	ffw::Vec4i out;
@@ -61,734 +26,786 @@ static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i
 ///=============================================================================
 ffw::GuiWidget::GuiWidget(GuiWindow* ctx):context(ctx){
 	assert(context != NULL && "The context (GuiWindow) must not be NULL!");
-	assert(context->GetTheme() != NULL && "The context (GuiWindow) has to have a valid theme!");
+	assert(context->getTheme() != NULL && "The context (GuiWindow) has to have a valid theme!");
 	widgetStyle = NULL;
-	posreal.Set(0, 0);
-	sizereal.Set(0, 0);
-	size.Set(0, 0);
-	pos.Set(0, 0);
-	updateflag = true;
+	posReal.set(0, 0);
+	sizeReal.set(0, 0);
+	size.set(0, 0);
+	pos.set(0, 0);
 	parent = NULL;
-	calleventpos = false;
-	calleventsize = false;
-	calleventdisabled = false;
-	calleventfocus = false;
-	calleventhover = false;
-	invalidateflag = true;
+	flags.events.pos = false;
+	flags.events.size = false;
+	flags.events.disabled = false;
+	flags.events.focus = false;
+	flags.events.hover = false;
+	flags.events.inner = false;
 	orientation = Orientation::VERTICAL;
-	hoverflag = false;
-	focusflag = false;
-	dropfocusflag = false;
-	ignoreinputflag = false;
-	togglefocusflag = false;
-	stickyfocusflag = false;
-	wrapWidgets = false;
-	first = true;
+	flags.focusType = GuiWidget::Focus::DEFAULT;
+	//first = true;
 	widgetfont = NULL;
-	align = GuiStyle::Align::LEFT;
-	SetMargin(0);
-	SetPadding(0);
+	align = GuiStyle::Align::TOP_LEFT;
+	setMargin(0);
+	setPadding(0);
 	id = -1;
 	callbackPtr = this;
-	shouldhideflag = 0;
-	hidden = false;
-	disableflag = false;
 	lineHeight = 1.5f;
+
+	flags.hidden = false;
+	flags.disabled = false;
+	flags.focus = false;
+	flags.hover = false;
+	flags.wrap = false;
+	flags.render = true;
+	flags.invalidate = true;
+	flags.rearrange = true;
+	flags.first = true;
+	flags.ignore = false;
+}
+
+///=============================================================================
+ffw::GuiWidget::GuiWidget(GuiWidget&& other) {
+	swap(other);
+}
+
+///=============================================================================
+void ffw::GuiWidget::swap(GuiWidget& other) {
+	if(this != &other) {
+		using std::swap;
+
+	}
+}
+
+///=============================================================================
+ffw::GuiWidget& ffw::GuiWidget::operator = (GuiWidget&& other) {
+	if (this != &other) {
+		swap(other);
+	}
+	return *this;
 }
 
 ///=============================================================================
 ffw::GuiWidget::~GuiWidget(){
-	DeleteWidgetsInternal();
+	deleteWidgetsInternal();
 }
 
 ///=============================================================================
-void ffw::GuiWidget::RecalculatePos(){
-	ffw::Vec2i parentsize = sizereal;
-	if(parent != NULL)parentsize = parent->sizereal;
+void ffw::GuiWidget::recalculatePos(){
+	if(parent != NULL)posReal = pos.toReal(parent->getVisibleContentSize());
+	else posReal = pos.toReal(sizeReal);
 
-	if(pos.x == GuiUnits::Type::PERCENT){
-		posreal.x = static_cast<int>((pos.x.value / 100.0f) * parentsize.x);
-	} else {
-		posreal.x = pos.x.value;
-	}
-
-	if(pos.y == GuiUnits::Type::PERCENT){
-		posreal.y = static_cast<int>((pos.y.value / 100.0f) * parentsize.y);
-	} else {
-		posreal.y = pos.y.value;
-	}
+	/*if (typeid(*this) == typeid(ffw::GuiScrollBar::Scroll)) {
+		std::cout << "recalculatePos()   END: " << typeid(*this).name() << " posReal: " << posReal << std::endl;
+	}*/
 }
 
 ///=============================================================================
-void ffw::GuiWidget::RecalculateSize(){
-	// Do not recalculate when called from the parent directly
-	// without setting the flag first
-	if (!invalidateflag)return;
-	invalidateflag = false;
-
-	ffw::Vec2i oldsizereal = sizereal;
-	ffw::Vec2i oldtotalsize = totalsize;
-
-	if(parent != NULL){
-		// X set to wrap?
-		if(size.x == GuiWrap()){
-			sizereal.x = 0;
-		} else {
-			sizereal.x = size.x.ToReal(parent->GetVisibleContentSize().x);
-		}
-
-		// Y set to wrap?
-		if(size.y == GuiWrap()){
-			sizereal.y = 0;
-		} else {
-			sizereal.y = size.y.ToReal(parent->GetVisibleContentSize().y);
-		}
-	} else {
-		sizereal.x = size.x.value;
-		sizereal.y = size.y.value;
-	}
-
-	ffw::Vec2i contentsize = GetVisibleContentSize();
-	totalsize = 0;
+void ffw::GuiWidget::arrangeWidgetsHorizontal(GuiWidget* ptr) {
+	ffw::Vec2i contentSize = getVisibleContentSize();
 
 	int maxheight = 0;
+	int left = 0;
+	int top = 0;
+
+	for (auto& w : widgets) {
+		if (w->isHidden())continue;
+		// recalculate widget size...
+		if (w != ptr)w->recalculateSize(this);
+
+		// get its margin
+		const auto& widgetmargin = w->margin;
+		int realmargin[4];
+
+		// calculate margin
+		realmargin[0] = widgetmargin[0].toReal(contentSize.y);
+		realmargin[1] = widgetmargin[1].toReal(contentSize.x);
+		realmargin[2] = widgetmargin[2].toReal(contentSize.y);
+		realmargin[3] = widgetmargin[3].toReal(contentSize.x);
+
+		if (flags.wrap && size.x != guiWrap()) {
+			int test = left + realmargin[3] + w->getRealSize().x;
+			if (test > contentSize.x) {
+				top += maxheight;
+				maxheight = 0;
+				left = 0;
+			}
+		}
+
+		w->pos.set(guiPixels(left + realmargin[3]), guiPixels(top + realmargin[0]));
+		w->recalculatePos();
+		left += w->getRealSize().x + realmargin[3] + realmargin[1];
+
+		int testheight = w->getRealSize().y + realmargin[0] + realmargin[2];
+		maxheight = std::max(maxheight, testheight);
+
+		totalSize.x = std::max(totalSize.x, left);
+		totalSize.y = std::max(totalSize.y, std::max(top + testheight, maxheight));
+	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::arrangeWidgetsVertical(GuiWidget* ptr) {
+	ffw::Vec2i contentSize = getVisibleContentSize();
+	
 	int maxwidth = 0;
 	int left = 0;
 	int top = 0;
-	if(orientation == Orientation::HORIZONTAL){
-		for(auto& w : widgets){
-			if (w->IsHidden())continue;
-			// Recalculate widget size...
-			w->RecalculateSize();
+	for (auto& w : widgets) {
+		if (w->isHidden())continue;
 
-			// Get its margin
-			const auto& widgetmargin = w->margin;
-			int realmargin[4];
+		// recalculate widget size...
+		if (w != ptr)w->recalculateSize(this);
 
-			// Calculate margin
-			realmargin[0] = widgetmargin[0].ToReal(contentsize.y);
-			realmargin[1] = widgetmargin[1].ToReal(contentsize.x);
-			realmargin[2] = widgetmargin[2].ToReal(contentsize.y);
-			realmargin[3] = widgetmargin[3].ToReal(contentsize.x);
+		// get its margin
+		const auto& widgetmargin = w->margin;
+		int realmargin[4];
 
-			if(wrapWidgets && size.x != GuiWrap()){
-				int test = left + realmargin[3] + w->GetRealSize().x;
-				if(test > contentsize.x){
-					top += maxheight;
-					maxheight = 0;
-					left = 0;
-				}
+		// calculate margin
+		realmargin[0] = widgetmargin[0].toReal(contentSize.y);
+		realmargin[1] = widgetmargin[1].toReal(contentSize.x);
+		realmargin[2] = widgetmargin[2].toReal(contentSize.y);
+		realmargin[3] = widgetmargin[3].toReal(contentSize.x);
+
+		if (flags.wrap && size.y != guiWrap()) {
+			int test = top + realmargin[0] + w->getRealSize().y;
+			if (test > contentSize.y) {
+				left += maxwidth;
+				maxwidth = 0;
+				top = 0;
 			}
-
-			w->pos.Set(GuiPixels(left + realmargin[3]), GuiPixels(top + realmargin[0]));
-			w->RecalculatePos();
-			left += w->GetRealSize().x + realmargin[3] + realmargin[1];
-
-			int testheight = w->GetRealSize().y + realmargin[0] + realmargin[2];
-			maxheight = std::max(maxheight, testheight);
-
-			totalsize.x = std::max(totalsize.x, left);
-			totalsize.y = std::max(totalsize.y, std::max(top + testheight, maxheight));
-		}
-	} else if(orientation == Orientation::VERTICAL){
-		for(auto& w : widgets){
-			if (w->IsHidden())continue;
-			// Recalculate widget size...
-			w->RecalculateSize();
-
-			// Get its margin
-			const auto& widgetmargin = w->margin;
-			int realmargin[4];
-
-			// Calculate margin
-			realmargin[0] = widgetmargin[0].ToReal(contentsize.y);
-			realmargin[1] = widgetmargin[1].ToReal(contentsize.x);
-			realmargin[2] = widgetmargin[2].ToReal(contentsize.y);
-			realmargin[3] = widgetmargin[3].ToReal(contentsize.x);
-
-			if(wrapWidgets && size.y != GuiWrap()){
-				int test = top + realmargin[0] + w->GetRealSize().y;
-				if(test > contentsize.y){
-					left += maxwidth;
-					maxwidth = 0;
-					top = 0;
-				}
-			}
-
-			w->pos.Set(GuiPixels(left + realmargin[3]), GuiPixels(top + realmargin[0]));
-			w->RecalculatePos();
-			top += w->GetRealSize().y + realmargin[0] + realmargin[2];
-
-			int testwidth = w->GetRealSize().x + realmargin[1] + realmargin[3];
-			maxwidth = std::max(maxwidth, testwidth);
-
-			totalsize.x = std::max(totalsize.x, std::max(maxwidth, left + testwidth));
-			totalsize.y = std::max(totalsize.y, top);
-		}
-	}
-	else if (orientation == Orientation::FIXED) {
-		for (auto& w : widgets) {
-			if (w->IsHidden()) {
-				continue;
-			}
-			// Recalculate widget size...
-			w->RecalculateSize();
-
-			w->RecalculatePos();
-
-			ffw::Vec2i test;
-			test = w->GetRealPos() + w->GetRealSize();
-
-			totalsize.x = std::max(totalsize.x, test.x);
-			totalsize.y = std::max(totalsize.y, test.y);
-		}
-	}
-
-	auto min = GetMinimumWrapSize();
-
-	totalsize.x = std::max(totalsize.x, min.x);
-	totalsize.y = std::max(totalsize.y, min.y);
-
-	min.x += GetPaddingInPixels(1) + GetPaddingInPixels(3);
-	min.y += GetPaddingInPixels(0) + GetPaddingInPixels(2);
-
-	// Wrap X
-	if(size.x == ffw::GuiWrap()){
-		sizereal.x = totalsize.x;
-		if(padding[1] != GuiUnits::Type::PERCENT)sizereal.x += padding[1].value;
-		if(padding[3] != GuiUnits::Type::PERCENT)sizereal.x += padding[3].value;
-		if (sizereal.x < min.x)sizereal.x = min.x;
-	}
-
-	// Wrap Y
-	if(size.y == ffw::GuiWrap()){
-		sizereal.y = totalsize.y;
-		if(padding[0] != GuiUnits::Type::PERCENT)sizereal.y += padding[0].value;
-		if(padding[2] != GuiUnits::Type::PERCENT)sizereal.y += padding[2].value;
-		if (sizereal.y < min.y)sizereal.y = min.y;
-	}
-
-	if(oldsizereal != sizereal){
-		if(!first && parent != NULL /*&& (parent->GetSize().x == ffw::GuiWrap() || parent->GetSize().y == ffw::GuiWrap())*/){
-			parent->invalidateflag = true;
-			parent->RecalculateSize();
 		}
 
-		if(parent != NULL) {
-			parent->Redraw();
-		}
+		w->pos.set(guiPixels(left + realmargin[3]), guiPixels(top + realmargin[0]));
+		w->recalculatePos();
+		//std::cout << "widget: " << typeid(*w).name() << " put at: " << w->posReal << std::endl;
+		top += w->getRealSize().y + realmargin[0] + realmargin[2];
 
-		calleventsize = true;
+		int testwidth = w->getRealSize().x + realmargin[1] + realmargin[3];
+		maxwidth = std::max(maxwidth, testwidth);
+
+		totalSize.x = std::max(totalSize.x, std::max(maxwidth, left + testwidth));
+		totalSize.y = std::max(totalSize.y, top);
 	}
-
-	if(oldtotalsize != totalsize) {
-		calleventsize = true;
-	}
-
-	updateflag = true;
-	first = false;
 }
 
 ///=============================================================================
-const ffw::GuiFont* ffw::GuiWidget::GetCurrentFont() const {
+void ffw::GuiWidget::arrangeWidgetsFixed(GuiWidget* ptr) {
+	for (auto& w : widgets) {
+		if (w->isHidden())continue;
+
+		// recalculate widget size...
+		if(w != ptr)w->recalculateSize(this);
+
+		w->recalculatePos();
+
+		ffw::Vec2i test;
+		test = w->getRealPos() + w->getRealSize();
+
+		totalSize.x = std::max(totalSize.x, test.x);
+		totalSize.y = std::max(totalSize.y, test.y);
+	}
+}
+
+///=============================================================================
+void ffw::GuiWidget::recalculateSize(GuiWidget* caller){
+	flags.invalidate = false;
+	//std::cout << "recalculateSize() BEGIN: " << typeid(*this).name() << " sizeReal: " << sizeReal << std::endl;
+
+	auto oldSizeReal = sizeReal;
+	auto oldTotalSize = totalSize;
+
+	if (parent != NULL) {
+		// X set to wrap?
+		if (size.x == guiWrap()) {
+			sizeReal.x = 0;
+		}
+		else {
+			sizeReal.x = size.x.toReal(parent->getVisibleContentSize().x);
+		}
+
+		// Y set to wrap?
+		if (size.y == guiWrap()) {
+			sizeReal.y = 0;
+		}
+		else {
+			sizeReal.y = size.y.toReal(parent->getVisibleContentSize().y);
+		}
+	}
+	else {
+		sizeReal.x = size.x.value;
+		sizeReal.y = size.y.value;
+	}
+
+	auto min = getMinimumWrapSize();
+
+	totalSize = 0;
+	totalSize.x = std::max(totalSize.x, min.x);
+	totalSize.y = std::max(totalSize.y, min.y);
+
+	min.x += getPaddingInPixels(1) + getPaddingInPixels(3);
+	min.y += getPaddingInPixels(0) + getPaddingInPixels(2);
+
+	//totalSize = 0;
+	switch (orientation) {
+		case Orientation::HORIZONTAL: arrangeWidgetsHorizontal(); break;
+		case Orientation::VERTICAL: arrangeWidgetsVertical(); break;
+		default: arrangeWidgetsFixed();  break;
+	}
+
+	// Wrap X
+	if (size.x == ffw::guiWrap()) {
+		sizeReal.x = totalSize.x;
+		if (padding[1] != GuiUnits::Type::PERCENT)sizeReal.x += padding[1].value;
+		if (padding[3] != GuiUnits::Type::PERCENT)sizeReal.x += padding[3].value;
+		if (sizeReal.x < min.x)sizeReal.x = min.x;
+	}
+
+	// Wrap Y
+	if (size.y == ffw::guiWrap()) {
+		sizeReal.y = totalSize.y;
+		if (padding[0] != GuiUnits::Type::PERCENT)sizeReal.y += padding[0].value;
+		if (padding[2] != GuiUnits::Type::PERCENT)sizeReal.y += padding[2].value;
+		if (sizeReal.y < min.y)sizeReal.y = min.y;
+	}
+
+	if (flags.first) {
+		oldSizeReal = sizeReal;
+		flags.events.size = true;
+	}
+
+	if(oldSizeReal != sizeReal) {
+		if(parent != NULL) {
+			if (caller != parent) {
+				//std::cout << "parent: " << typeid(*parent).name() << " of: " << typeid(*this).name() << " should redraw" << std::endl;
+				parent->recalculateSize(this);
+				parent->redraw();
+			}
+		}
+
+		flags.events.size = true;
+		flags.render = true;
+	}
+
+	if(oldTotalSize != totalSize) {
+		flags.events.inner = true;
+	}
+
+	//std::cout << "recalculateSize()   END: " << typeid(*this).name() << " sizeReal: " << sizeReal << " totalSize: " << totalSize << std::endl;
+	//std::cout << "\ttotal: " << totalSize << " old: " << oldTotalSize << std::endl;
+}
+
+///=============================================================================
+const ffw::GuiFont* ffw::GuiWidget::getCurrentFont() const {
 	if(widgetfont == NULL){
-		return context->GetDefaultFont();
+		return context->getDefaultFont();
 	}
 	else return widgetfont;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::Update(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const GuiUserInput& input){
-	if (widgetStyle == NULL && context->GetTheme() != NULL) {
-		EventThemeChanged(context->GetTheme());
-	}
-	
-	if(invalidateflag){
-		RecalculateSize();
-	}
-
-	if (shouldhideflag != 0) {
-		if (shouldhideflag == -1) {
-			hidden = false;
-		}
-		else if (shouldhideflag == 1) {
-			hidden = true;
-		}
-		if (parent != NULL) {
-			parent->Invalidate();
-			parent->RecalculateSize();
-			parent->Redraw();
-		}
-		shouldhideflag = 0;
-	}
-
-	if (hidden)return;
-
-	if(calleventpos){
-		calleventpos = false;
-		//updateflag = true;
-		EventPos(posreal);
+void ffw::GuiWidget::checkEvents() {
+	if (flags.events.pos) {
+		flags.events.pos = false;
+		eventPos(posReal);
 		GuiEvent::Data dat;
-		dat.pos.x = posreal.x;
-		dat.pos.y = posreal.y;
-		PushEvent(GuiEvent::Type::POSITION, dat);
+		dat.pos.x = posReal.x;
+		dat.pos.y = posReal.y;
+		pushEvent(GuiEvent::Type::POSITION, dat);
 	}
 
-	if(calleventsize){
-		calleventsize = false;
+	if (flags.events.size) {
+		flags.events.size = false;
 		//updateflag = true;
-		const auto s = GetVisibleContentSize();
-		EventSize(s);
+		const auto s = getVisibleContentSize();
+		eventSize(s);
 		GuiEvent::Data dat;
 		dat.size.width = s.x;
 		dat.size.height = s.y;
-		PushEvent(GuiEvent::Type::SIZE, dat);
+		pushEvent(GuiEvent::Type::SIZE, dat);
 	}
 
-	if (calleventdisabled) {
-		calleventdisabled = false;
-		EventDisabled(disableflag);
+	if (flags.events.inner) {
+		flags.events.inner = false;
+		//updateflag = true;
+		const auto s = getInnerContentSize();
 		GuiEvent::Data dat;
-		dat.state.disabled = disableflag;
-		PushEvent(GuiEvent::Type::STATE, dat);
+		dat.inner.width = s.x;
+		dat.inner.height = s.y;
+		pushEvent(GuiEvent::Type::INNER, dat);
 	}
 
-	if (calleventfocus) {
-		calleventfocus = false;
-		EventFocus(focusflag);
+	if (flags.events.disabled) {
+		flags.events.disabled = false;
+		eventDisabled(flags.disabled);
 		GuiEvent::Data dat;
-		dat.focus.gained = focusflag;
-		PushEvent(GuiEvent::Type::FOCUS, dat);
+		dat.state.disabled = flags.disabled;
+		pushEvent(GuiEvent::Type::STATE, dat);
 	}
 
-	if (calleventhover) {
-		calleventhover = false;
-		EventHover(hoverflag);
+	if (flags.events.focus) {
+		flags.events.focus = false;
+		eventFocus(flags.focus);
 		GuiEvent::Data dat;
-		dat.hover.gained = hoverflag;
-		PushEvent(GuiEvent::Type::HOVER, dat);
+		dat.focus.gained = flags.events.focus;
+		pushEvent(GuiEvent::Type::FOCUS, dat);
 	}
 
-	if(!ignoreinputflag && !disableflag){
-		if(input.mousepos.x > posreal.x && input.mousepos.x < posreal.x + sizereal.x &&
-		   input.mousepos.y > posreal.y && input.mousepos.y < posreal.y + sizereal.y && !input.mouseout){
-			
-			if(!hoverflag){
-				hoverflag = true;
-				//updateFlag = true;
-				EventHover(true);
-				GuiEvent::Data dat;
-				dat.hover.gained = true;
-				PushEvent(GuiEvent::Type::HOVER, dat);
+	if (flags.events.hover) {
+		flags.events.hover = false;
+		eventHover(flags.hover);
+		GuiEvent::Data dat;
+		dat.hover.gained = flags.hover;
+		pushEvent(GuiEvent::Type::HOVER, dat);
+	}
+}
 
+///=============================================================================
+void ffw::GuiWidget::update(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const GuiUserInput& input, ffw::Vec2i mousepos, bool mouseout){
+	//std::cout << "update for: " << typeid(*this).name() << " (" << mousepos << "/" << mouseout << ")" << std::endl;
+	
+	if (widgetStyle == NULL && context->getTheme() != NULL) {
+		eventThemeChanged(context->getTheme());
+	}
+	
+	if(flags.invalidate){
+		recalculateSize();
+	}
+
+	// Do not proceed if the widget is hidden
+	if (flags.hidden)return;
+
+	checkEvents();
+
+	//std::cout << "checking flags: " << flags.ignore << " / " << flags.disabled << std::endl;
+	if (!flags.ignore && !flags.disabled) {
+		//std::cout << "THE FUCK" << std::endl;
+		if (mousepos != mouseOld){
+			//std::cout << "calculating mouse" << std::endl;
+			if (!mouseout &&
+				mousepos.x > posReal.x && mousepos.x < posReal.x + sizeReal.x &&
+				mousepos.y > posReal.y && mousepos.y < posReal.y + sizeReal.y) {
+
+				//std::cout << "mouse is in!" << std::endl;
+
+				if (!flags.hover) {
+					//std::cout << "hover!" << std::endl;
+					flags.hover = true;
+					//updateFlag = true;
+					eventHover(true);
+					GuiEvent::Data dat;
+					dat.hover.gained = true;
+					pushEvent(GuiEvent::Type::HOVER, dat);
+
+				}
 			}
-		} else if(hoverflag){
-			hoverflag = false;
-			//updateFlag = true;
-			EventHover(false);
-			GuiEvent::Data dat;
-			dat.hover.gained = false;
-			PushEvent(GuiEvent::Type::HOVER, dat);
+			else if (flags.hover) {
+				flags.hover = false;
+				//updateFlag = true;
+				eventHover(false);
+				GuiEvent::Data dat;
+				dat.hover.gained = false;
+				pushEvent(GuiEvent::Type::HOVER, dat);
+			}
 		}
 
 		if(input.mousebtn == ffw::MouseButton::LEFT && input.mousemode != ffw::Mode::NONE){
-			if(hoverflag && input.mousemode == ffw::Mode::PRESSED){
-
-				if(togglefocusflag){
-					focusflag = !focusflag;
-					EventFocus(focusflag);
+			if (flags.hover && input.mousemode == ffw::Mode::PRESSED) {
+				// If focus is 'toggle' then only change the focus,
+				// otherwise always set the focus to true
+				if (flags.focusType == GuiWidget::Focus::TOGGLE) {
+					flags.focus = !flags.focus;
+					eventFocus(flags.focus);
 					GuiEvent::Data dat;
-					dat.focus.gained = focusflag;
-					PushEvent(GuiEvent::Type::FOCUS, dat);
-				} else if(!focusflag){
-					focusflag = true;
-					EventFocus(true);
-					GuiEvent::Data dat;
-					dat.focus.gained = true;
-					PushEvent(GuiEvent::Type::FOCUS, dat);
+					dat.focus.gained = flags.focus;
+					pushEvent(GuiEvent::Type::FOCUS, dat);
 				}
-
-			} else if(!togglefocusflag && focusflag && !hoverflag && !stickyfocusflag){
-				focusflag = false;
-				EventFocus(false);
-				GuiEvent::Data dat;
-				dat.focus.gained = false;
-				PushEvent(GuiEvent::Type::FOCUS, dat);
+				else if (!flags.focus) {
+					flags.focus = true;
+					eventFocus(flags.focus);
+					GuiEvent::Data dat;
+					dat.focus.gained = flags.focus;
+					pushEvent(GuiEvent::Type::FOCUS, dat);
+				}
+			}
+			else if (!flags.hover && input.mousemode == ffw::Mode::PRESSED) {				
+				// Clicked outside of the widget, drop the focus if set as 'default'
+				if (flags.focus && flags.focusType == GuiWidget::Focus::DEFAULT) {
+					flags.focus = false;
+					eventFocus(flags.focus);
+					GuiEvent::Data dat;
+					dat.focus.gained = flags.focus;
+					pushEvent(GuiEvent::Type::FOCUS, dat);
+				}
+			}
+			else if(input.mousemode == ffw::Mode::RELEASED){
+				// Drop focus if set as 'drop'
+				if (flags.focus && flags.focusType == GuiWidget::Focus::DROP) {
+					flags.focus = false;
+					eventFocus(flags.focus);
+					GuiEvent::Data dat;
+					dat.focus.gained = flags.focus;
+					pushEvent(GuiEvent::Type::FOCUS, dat);
+				}
 			}
 		}
 
-		if(dropfocusflag && focusflag && input.mousemode == ffw::Mode::RELEASED && !stickyfocusflag){
-			focusflag = false;
-			EventFocus(false);
+		if(flags.focus && input.mousemode != ffw::Mode::NONE){
+			eventMouseButton(input.mousebtn, input.mousemode);
+		}
+
+		if((flags.hover || flags.focus) && mouseOld != mousepos){
+			mouseOld = mousepos - posReal - offset;
+			mouseOld.x -= getPaddingInPixels(3);
+			mouseOld.y -= getPaddingInPixels(0);
+			eventMouse(mouseOld);
+		}
+
+		if(flags.focus && input.chr != 0xFFFF){
 			GuiEvent::Data dat;
-			dat.focus.gained = false;
-			PushEvent(GuiEvent::Type::FOCUS, dat);
+			dat.input.chr = input.chr;
+			pushEvent(GuiEvent::Type::INPUT, dat);
+			eventText(input.chr);
 		}
 
-		if(focusflag && input.mousemode != ffw::Mode::NONE){
-			EventMouseButton(input.mousebtn, input.mousemode);
-		}
-
-		if((hoverflag || focusflag) && mouseold != input.mousepos){
-			mouseold = input.mousepos - posreal - offset;
-			mouseold.x -= GetPaddingInPixels(3);
-			mouseold.y -= GetPaddingInPixels(0);
-			EventMouse(mouseold);
-		}
-
-		if(focusflag && input.chr != 0xFFFF){
-			EventText(input.chr);
-		}
-
-		if(focusflag && input.keymode != ffw::Mode::NONE){
-			EventKey(input.key, input.keymode);
+		if(flags.focus && input.keymode != ffw::Mode::NONE){
+			GuiEvent::Data dat;
+			dat.key.key = input.key;
+			dat.key.mode = input.keymode;
+			pushEvent(GuiEvent::Type::KEY, dat);
+			eventKey(input.key, input.keymode);
 		}
 	}
 
-	if (invalidateflag) {
-		RecalculateSize();
+	if (flags.invalidate) {
+		recalculateSize();
 	}
+
+	checkEvents();
 
 	if(widgets.size() > 0){
-		GuiUserInput inputoffset;
-		inputoffset.mousepos = input.mousepos - GetVisibleContentPos() - offset;
-		inputoffset.mousemode = input.mousemode;
-		inputoffset.mousebtn = input.mousebtn;
-		inputoffset.chr = input.chr;
-		inputoffset.key = input.key;
-		inputoffset.keymode = input.keymode;
-		inputoffset.mouseout = input.mouseout;
-
 		// Check whenever mouse pos is outside of the visible area
 		// If the mouse pos was outside previously (parent) then do 
 		// not calculate it -> we don't need it
-		if(!input.mouseout){
-			auto mpos = input.mousepos - posreal;
-			auto csize = sizereal;
+		if(!mouseout){
+			auto mpos = mousepos - posReal;
+			auto csize = sizeReal;
 			if(mpos.x < 0 || mpos.x > csize.x || mpos.y < 0 || mpos.y > csize.y){
-				inputoffset.mouseout = true;
+				mouseout = true;
 			}
 		}
 
+		mousepos = mousepos - getVisibleContentPos() - offset;
+
 		for(auto& w : widgets){
-			w->Update(GetVisibleContentPos(), GetVisibleContentSize(), inputoffset);
+			w->update(getVisibleContentPos(), getVisibleContentSize(), input, mousepos, mouseout);
 		}
 	}
+
+	flags.first = false;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::TraverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size){
-	const auto* style = GetCurrentStyle();
+void ffw::GuiWidget::traverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size){
+	const auto* style = getCurrentStyle();
 
 	if(style != NULL && style->background && style->background.color.a >= 1.0f) {
-		context->DrawBackground(pos, size, style->background);
+		context->drawBackground(pos, size, style->background);
 	}
 	
 	if(parent != NULL){
-		parent->TraverseBackground(pos, size);
+		parent->traverseBackground(pos, size);
 	}
 
 	if(style != NULL && style->background){
-		context->DrawBackground(pos, size, style->background);
+		context->drawBackground(pos, size, style->background);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiWidget::RenderComponent(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle* style) {
+void ffw::GuiWidget::renderComponent(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle* style) {
 	if (style == NULL)return;
 
-	// Draw background
+	// draw background
 	if (style->background) {
-		context->DrawBackground(pos, size, style->background);
+		context->drawBackground(pos, size, style->background);
 	}
 
-	// Draw border
+	// draw border
 	if (style->border) {
-		context->DrawBorder(pos, size, style->border);
+		context->drawBorder(pos, size, style->border);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiWidget::Render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsize, const ffw::Vec2i& off, bool clear){
-	if (sizereal.x <= 0 || sizereal.y <= 0)return;
-	if (hidden)return;
+void ffw::GuiWidget::render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsize, const ffw::Vec2i& off, bool clear){
+	if (sizeReal.x <= 0 || sizeReal.y <= 0)return;
+	if (flags.hidden)return;
 	
-	auto posRealOffset = off + posreal;
-	ffw::Vec4i cliparea = RectangleBoolean(clippos, clipsize, posRealOffset, sizereal);
+	auto posRealOffset = off + posReal;
+	ffw::Vec4i cliparea = RectangleBoolean(clippos, clipsize, posRealOffset, sizeReal);
 	ffw::Vec2i childclippos(cliparea.x, cliparea.y);
 	ffw::Vec2i childclipsize(cliparea.z, cliparea.w);
 
 	if(childclipsize.x > 0 && childclipsize.y > 0){
 	
-		if(updateflag){
-			updateflag = false;
+		if(flags.render){
+			flags.render = false;
 		
-			context->SetScissors(childclippos, childclipsize);
+			context->setScissors(childclippos, childclipsize);
 		
 			if(clear){
-				context->ClearWithColor(Rgba(0x000000FF));
+				context->clearWithColor(rgba(0x000000FF));
 
 				// Go up through every parent and draw its background
 				if(parent != NULL){
-					parent->TraverseBackground(posRealOffset, sizereal);
+					parent->traverseBackground(posRealOffset, sizeReal);
 				}
 			}
 
-			const auto* style = GetCurrentStyle();
-			const auto& contentpos = off + GetVisibleContentPos() + offset;
+			const auto* style = getCurrentStyle();
+			const auto& contentpos = off + getVisibleContentPos() + offset;
 
 			if (style != NULL) {
-				// Render the base for the widget
-				RenderComponent(posRealOffset, sizereal, style);
+				// render the base for the widget
+				renderComponent(posRealOffset, sizeReal, style);
 				
-				// Render derived class specific components
-				EventRender(contentpos, GetVisibleContentSize());
+				// render derived class specific components
+				eventRender(contentpos, getVisibleContentSize());
 			}
 
-			//const auto parentpos = off + GetVisibleContentPos();
+			//const auto parentpos = off + getVisibleContentPos();
 			for(auto& w : widgets){
-				w->Render(childclippos, childclipsize, contentpos, false);
+				w->render(childclippos, childclipsize, contentpos, false);
 			}
 		} else {
-			const auto contentpos = off + GetVisibleContentPos() + offset;
+			const auto contentpos = off + getVisibleContentPos() + offset;
 			for(auto& w : widgets){
-				w->Render(childclippos, childclipsize, contentpos, true);
+				w->render(childclippos, childclipsize, contentpos, true);
 			}
 		}
 	}
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiWidget::GetAbsolutePos() const {
-	if (parent == NULL)return posreal;
-	auto parentpos = parent->GetAbsolutePos();
-	parentpos.x += parent->GetPaddingInPixels(3);
-	parentpos.y += parent->GetPaddingInPixels(0);
-	parentpos += parent->GetOffset();
-	return parentpos + posreal;
+ffw::Vec2i ffw::GuiWidget::getAbsolutePos() const {
+	if (parent == NULL)return posReal;
+	auto parentpos = parent->getAbsolutePos();
+	parentpos.x += parent->getPaddingInPixels(3);
+	parentpos.y += parent->getPaddingInPixels(0);
+	parentpos += parent->getOffset();
+	return parentpos + posReal;
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiWidget::GetVisibleContentSize() const {
-	ffw::Vec2i contentSize = sizereal;
-	contentSize.y -= GetPaddingInPixels(0);
-	contentSize.x -= GetPaddingInPixels(1);
-	contentSize.y -= GetPaddingInPixels(2);
-	contentSize.x -= GetPaddingInPixels(3);
-
+ffw::Vec2i ffw::GuiWidget::getVisibleContentSize() const {
+	ffw::Vec2i contentSize = sizeReal;
+	contentSize.y -= getPaddingInPixels(0);
+	contentSize.x -= getPaddingInPixels(1);
+	contentSize.y -= getPaddingInPixels(2);
+	contentSize.x -= getPaddingInPixels(3);
 	return contentSize;
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiWidget::GetVisibleContentPos() const {
-	ffw::Vec2i contentPos = posreal;
+ffw::Vec2i ffw::GuiWidget::getVisibleContentPos() const {
+	ffw::Vec2i contentPos = posReal;
 
 	// Top
-	contentPos.y += padding[0].ToReal(sizereal.y);
+	contentPos.y += padding[0].toReal(sizeReal.y);
 
 	// Left
-	contentPos.x += padding[3].ToReal(sizereal.x);
+	contentPos.x += padding[3].toReal(sizeReal.x);
 
 	return contentPos;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetWrap(bool wrap){
-	wrapWidgets = wrap;
-	invalidateflag = true;
-	updateflag = true;
+void ffw::GuiWidget::setWrap(bool wrap){
+	flags.wrap = wrap;
+	flags.invalidate = true;
+	//invalidateflag = true;
+	//updateflag = true;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetOrientation(Orientation o){
+void ffw::GuiWidget::setOrientation(Orientation o){
 	orientation = o;
-	invalidateflag = true;
-	updateflag = true;
+	flags.invalidate = true;
+	//invalidateflag = true;
+	//updateflag = true;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetID(unsigned long ID){
+void ffw::GuiWidget::setID(unsigned long ID){
 	id = ID;
 }
 
 ///=============================================================================
-unsigned long ffw::GuiWidget::GetID() const {
+unsigned long ffw::GuiWidget::getID() const {
 	return id;
 }
 
 ///=============================================================================
-ffw::GuiWidget* ffw::GuiWidget::AddWidgetInternal(GuiWidget* widget){
+ffw::GuiWidget* ffw::GuiWidget::addWidgetInternal(GuiWidget* widget){
 	if(widget != NULL){
 		widgets.push_back(widget);
-		widget->SetParent(this);
-		//SetSize(size.x, size.y);
-		Invalidate();
-		Redraw();
+		widget->setParent(this);
+		flags.invalidate = true;
+		//setSize(size.x, size.y);
+		//invalidate();
+		//redraw();
 	}
 	return widget;
 }
 
 ///=============================================================================
-ffw::GuiWidget* ffw::GuiWidget::AddWidgetAfterInternal(const GuiWidget* previous, GuiWidget* widget) {
+ffw::GuiWidget* ffw::GuiWidget::addWidgetAfterInternal(const GuiWidget* previous, GuiWidget* widget) {
 	if (widget == NULL || previous == NULL)return NULL;
 	auto it = std::find(widgets.begin(), widgets.end(), previous);
 	if (it == widgets.end()) {
 		widgets.push_back(widget);
-		widget->SetParent(this);
+		widget->setParent(this);
 	}
 	else {
 		widgets.insert(it + 1, widget);
-		widget->SetParent(this);
+		widget->setParent(this);
 	}
-	Invalidate();
-	Redraw();
+	flags.invalidate = true;
+	//invalidate();
+	//redraw();
 	return widget;
 }
 
 ///=============================================================================
-ffw::GuiWidget* ffw::GuiWidget::AddWidgetBeforeInternal(const GuiWidget* next, GuiWidget* widget) {
+ffw::GuiWidget* ffw::GuiWidget::addWidgetBeforeInternal(const GuiWidget* next, GuiWidget* widget) {
 	if (widget == NULL || next == NULL)return NULL;
 	auto it = std::find(widgets.begin(), widgets.end(), next);
 	if (it == widgets.end()) {
 		widgets.push_back(widget);
-		widget->SetParent(this);
+		widget->setParent(this);
 	}
 	else {
 		widgets.insert(it, widget);
-		widget->SetParent(this);
+		widget->setParent(this);
 	}
-	Invalidate();
-	Redraw();
+	flags.invalidate = true;
+	//invalidate();
+	//redraw();
 	return widget;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::DeleteWidgetsInternal() {
+void ffw::GuiWidget::deleteWidgetsInternal() {
 	for (auto& w : widgets) {
 		delete w;
 	}
 	widgets.clear();
-	//SetSize(size.x, size.y);
-	Invalidate();
-	Redraw();
+	flags.invalidate = true;
+	//setSize(size.x, size.y);
+	//invalidate();
+	//redraw();
 }
 
 ///=============================================================================
-bool ffw::GuiWidget::DeleteSingleWidgetInternal(const GuiWidget* widget) {
+bool ffw::GuiWidget::deleteSingleWidgetInternal(const GuiWidget* widget) {
 	auto it = std::find(widgets.begin(), widgets.end(), widget);
 	if (it == widgets.end())return false;
 
 	widgets.erase(it);
-	//SetSize(size.x, size.y);
-	Invalidate();
-	Redraw();
+	//setSize(size.x, size.y);
+	//invalidate();
+	//redraw();
 	return true;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::InvalidateAll() {
-	invalidateflag = true;
-	for (auto& w : widgets)w->InvalidateAll();
-}
-
-///=============================================================================
-void ffw::GuiWidget::SetSize(const ffw::Vec2<GuiUnits>& s){
+void ffw::GuiWidget::setSize(const ffw::Vec2<GuiUnits>& s){
 	if(size.x == s.x && size.y == s.y)return;
 
-	size = s;
-	invalidateflag = true;
-	updateflag = true;
-	calleventsize = true;
+	size.set(s.x, s.y);
+	flags.invalidate = true;
+	flags.rearrange = true;
+	//invalidateflag = true;
+	//updateflag = true;
+	//calleventsize = true;
 
-	InvalidateAll();
+	//InvalidateAll();
 
-	if(parent != NULL){
-		parent->Invalidate();
-	}
+	//if(parent != NULL){
+	//	parent->invalidate();
+	//}
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetOffset(const ffw::Vec2i off){
+void ffw::GuiWidget::setOffset(const ffw::Vec2i off){
 	offset = off;
-	Redraw();
+	redraw();
 }
 
 ///=============================================================================
-const ffw::Vec2i& ffw::GuiWidget::GetOffset() const {
+const ffw::Vec2i& ffw::GuiWidget::getOffset() const {
 	return offset;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetPos(GuiUnits posx, GuiUnits posy){
+void ffw::GuiWidget::setPos(GuiUnits posx, GuiUnits posy){
 	if(pos.x == posx && pos.y == posy)return;
 
-	pos.Set(posx, posy);
-	updateflag = true;
-	calleventpos = true;
-	RecalculatePos();
+	pos.set(posx, posy);
+	//updateflag = true;
+	//calleventpos = true;
+	recalculatePos();
 
-	if(parent != NULL){
-		parent->invalidateflag = true;
-	}
+	//if(parent != NULL){
+	//	parent->invalidateflag = true;
+	//}
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left){
+void ffw::GuiWidget::setPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left){
 	padding[0] = top;
 	padding[1] = right;
 	padding[2] = bottom;
 	padding[3] = left;
-	invalidateflag = true;
-	updateflag = true;
+	flags.invalidate = true;
+	//invalidateflag = true;
+	//InvalidateFirstDown();
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetPadding(GuiUnits all){
-	padding[0] = padding[1] = padding[2] = padding[3] = all;
-	invalidateflag = true;
-	updateflag = true;
-}
-
-///=============================================================================
-void ffw::GuiWidget::SetMargin(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left){
+void ffw::GuiWidget::setMargin(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left){
 	margin[0] = top;
 	margin[1] = right;
 	margin[2] = bottom;
 	margin[3] = left;
-	invalidateflag = true;
-	updateflag = true;
+	if(parent != NULL)parent->flags.invalidate = true;
+	else flags.invalidate = true;
+	//invalidateflag = true;
+	//updateflag = true;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetMargin(GuiUnits all){
-	margin[0] = margin[1] = margin[2] = margin[3] = all;
-	invalidateflag = true;
-	updateflag = true;
-}
-
-///=============================================================================
-int ffw::GuiWidget::GetPaddingInPixels(int side) const {
+int ffw::GuiWidget::getPaddingInPixels(int side) const {
 	if(side == 1 || side == 3){
-		return padding[side].ToReal(sizereal.x);
+		return padding[side].toReal(sizeReal.x);
 	} else if(side == 0 || side == 2){
-		return padding[side].ToReal(sizereal.y);
+		return padding[side].toReal(sizeReal.y);
 	}
 	return 0;
 }
 
 ///=============================================================================
-int ffw::GuiWidget::GetMarginInPixels(int side) const {
+int ffw::GuiWidget::getMarginInPixels(int side) const {
 	if(side == 1 || side == 3){
 		if(parent != NULL){
-			return margin[side].ToReal(parent->GetVisibleContentSize().x);
+			return margin[side].toReal(parent->getVisibleContentSize().x);
 		} else {
-			return margin[side].ToReal(sizereal.x);
+			return margin[side].toReal(sizeReal.x);
 		}
 	} else if(side == 0 || side == 2){
 		if(parent != NULL){
-			return margin[side].ToReal(parent->GetVisibleContentSize().y);
+			return margin[side].toReal(parent->getVisibleContentSize().y);
 		} else {
-			return margin[side].ToReal(sizereal.y);
+			return margin[side].toReal(sizeReal.y);
 		}
 	}
 	return 0;
@@ -796,169 +813,147 @@ int ffw::GuiWidget::GetMarginInPixels(int side) const {
 
 
 ///=============================================================================
-void ffw::GuiWidget::SetTheme(const GuiTheme* theme) {
+void ffw::GuiWidget::setTheme(const GuiTheme* theme) {
 	if (theme == NULL)return;
-	EventThemeChanged(theme);
-	updateflag = true;
+	eventThemeChanged(theme);
+	flags.render = true;
 	for (auto& w : widgets) {
-		w->SetTheme(theme);
+		w->setTheme(theme);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetStyleGroup(const GuiStyleGroup* style) {
+void ffw::GuiWidget::setStyleGroup(const GuiStyleGroup* style) {
 	if (style == NULL)return;
 	widgetStyle = style;
-	updateflag = true;
+	//updateflag = true;
 }
 
 ///=============================================================================
-const ffw::GuiStyle* ffw::GuiWidget::GetCurrentStyle(const GuiStyleGroup* group) const {
+const ffw::GuiStyle* ffw::GuiWidget::getCurrentStyle(const GuiStyleGroup* group) const {
 	if (group == NULL)return NULL;
-	if (disableflag)return &group->disabled;
-	if (focusflag)return &group->active;
-	if (hoverflag)return &group->hover;
+	if (flags.disabled)return &group->disabled;
+	if (flags.focus)return &group->active;
+	if (flags.hover)return &group->hover;
 	return &group->normal;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetAlign(GuiStyle::Align a) {
+void ffw::GuiWidget::setAlign(GuiStyle::Align a) {
 	align = a;
-	invalidateflag = true;
-	Redraw();
+	//invalidateflag = true;
+	//redraw();
 }
 
 ///=============================================================================
-ffw::GuiStyle::Align ffw::GuiWidget::GetAlign() const {
+ffw::GuiStyle::Align ffw::GuiWidget::getAlign() const {
 	return align;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetHidden(bool h) {
-	if(hidden != h) {
-		hidden = h;
-		shouldhideflag = (h ? 1 : -1);
+void ffw::GuiWidget::setHidden(bool h) {
+	if(flags.hidden != h) {
+		flags.hidden = h;
+		//flags.shouldHide = (h ? 1 : -1);
+		if (parent != NULL)parent->flags.invalidate = true;
 	}
 }
 
 ///=============================================================================
-void ffw::GuiWidget::Hide() {
-	if (!hidden) {
-		shouldhideflag = 1;
-		hidden = true;
-	}
-}
-
-///=============================================================================
-void ffw::GuiWidget::Show() {
-	if (hidden) {
-		shouldhideflag = -1;
-		hidden = false;
-	}
-}
-
-///=============================================================================
-const ffw::Vec2<ffw::GuiUnits>& ffw::GuiWidget::GetPos() const {
+const ffw::Vec2<ffw::GuiUnits>& ffw::GuiWidget::getPos() const {
 	return pos;
 }
 
 ///=============================================================================
-const ffw::Vec2<ffw::GuiUnits>& ffw::GuiWidget::GetSize() const {
+const ffw::Vec2<ffw::GuiUnits>& ffw::GuiWidget::getSize() const {
 	return size;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetParent(GuiWidget* parent_){
+void ffw::GuiWidget::setParent(GuiWidget* parent_){
 	parent = parent_;
 }
 
 ///=============================================================================
-const ffw::GuiWidget* ffw::GuiWidget::GetParent() const {
+const ffw::GuiWidget* ffw::GuiWidget::getParent() const {
 	return parent;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetFont(const GuiFont* font){
+void ffw::GuiWidget::setFont(const GuiFont* font){
 	widgetfont = font;
-	updateflag = true;
+	flags.render = true;
 }
 
 ///=============================================================================
-const ffw::GuiFont* ffw::GuiWidget::GetFont() const {
+const ffw::GuiFont* ffw::GuiWidget::getFont() const {
 	return widgetfont;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::PushEvent(GuiEvent::Type type, GuiEvent::Data data) {
-	context->PushEvent(GetCallbackPtr()->eventCallbacks, { GetCallbackPtr(), type, data });
+void ffw::GuiWidget::pushEvent(GuiEvent::Type type, GuiEvent::Data data) {
+	if (getCallbackPtr()->eventCallbacks.callbacks.size() > 0) {
+		context->pushEvent(getCallbackPtr()->eventCallbacks, { getCallbackPtr(), type, data });
+	}
 }
 
 ///=============================================================================
-bool ffw::GuiWidget::ShouldRedraw() const {
-	return updateflag;
+bool ffw::GuiWidget::shouldRedraw() const {
+	return flags.render;
 }
 
 ///=============================================================================
-void ffw::GuiWidget::Redraw(){
-	updateflag = true;
+void ffw::GuiWidget::redraw(){
+	flags.render = true;
 	for(auto w : widgets){
-		w->Redraw();
+		w->redraw();
 	}
 }
 
 ///=============================================================================
-void ffw::GuiWidget::Invalidate(){
-	invalidateflag = true;
-	Redraw();
+void ffw::GuiWidget::invalidate(){
+	//std::cout << "invalidate called" << std::endl;
+	flags.invalidate = true;
+	//redraw();
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetIgnoreUserInput(bool d) {
-	ignoreinputflag = d;
-	for (auto& w : widgets)w->SetIgnoreUserInput(d);
+void ffw::GuiWidget::setIgnoreUserInput(bool d) {
+	flags.ignore = d;
+	for (auto& w : widgets)w->setIgnoreUserInput(d);
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetFocus(bool f){
-	if (focusflag != f) {
-		calleventfocus = true;
-		updateflag = true;
+void ffw::GuiWidget::setFocus(bool f){
+	if (flags.focus != f) {
+		flags.events.focus = true;
+		flags.render = true;
 	}
-	focusflag = f;
-	for (auto& w : widgets)w->SetFocus(f);
+	flags.focus = f;
+	for (auto& w : widgets)w->setFocus(f);
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetDisabled(bool d) {
-	if (ignoreinputflag != d) {
-		calleventdisabled = true;
-		updateflag = true;
+void ffw::GuiWidget::setDisabled(bool d) {
+	if (flags.disabled != d) {
+		flags.events.disabled = true;
+		flags.render = true;
 	}
-	disableflag = d;
-	for (auto& w : widgets)w->SetDisabled(d);
+	flags.disabled = d;
+	for (auto& w : widgets)w->setDisabled(d);
 }
 
 ///=============================================================================
-void ffw::GuiWidget::SetHover(bool h){
-	if (hoverflag != h) {
-		calleventhover = true;
-		updateflag = true;
+void ffw::GuiWidget::setHover(bool h){
+	if (flags.hover != h) {
+		flags.events.hover = true;
+		flags.render = true;
 	}
-	hoverflag = h;
-	for (auto& w : widgets)w->SetHover(h);
+	flags.hover = h;
+	for (auto& w : widgets)w->setHover(h);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiWidget::GetTotalContentSize() const {
-	return totalsize;
-}
-
-///=============================================================================
-ffw::Vec2i ffw::GuiWidget::GetTotalContentPos() const {
-	return GetVisibleContentPos() + offset;
-}
-
-///=============================================================================
-void ffw::GuiWidget::SetCallbackPtr(GuiWidget* ptr){
+void ffw::GuiWidget::setCallbackPtr(GuiWidget* ptr){
 	callbackPtr = ptr;
 }

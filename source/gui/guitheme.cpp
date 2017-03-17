@@ -14,12 +14,12 @@ ffw::GuiTheme::~GuiTheme() {
 }
 
 ///=============================================================================
-void ffw::GuiTheme::Add(const std::pair<std::string, GuiStyleGroup>& sty) {
+void ffw::GuiTheme::add(const std::pair<std::string, GuiStyleGroup>& sty) {
 	styles.insert(sty);
 }
 
 ///=============================================================================
-const ffw::GuiStyleGroup& ffw::GuiTheme::GetStyleGroup(const std::string& type) const  {
+const ffw::GuiStyleGroup& ffw::GuiTheme::getStyleGroup(const std::string& type) const  {
 	if (styles.find(type) == styles.end()) {
 		//std::cerr << "No GuiStyleGroup found for: \"" << type << "\"" << std::endl;
 		throw std::invalid_argument("No GuiStyleGroup found for: \"" + type + "\"");
@@ -28,7 +28,7 @@ const ffw::GuiStyleGroup& ffw::GuiTheme::GetStyleGroup(const std::string& type) 
 }
 
 ///=============================================================================
-ffw::GuiStyleGroup& ffw::GuiTheme::GetStyleGroup(const std::string& type) {
+ffw::GuiStyleGroup& ffw::GuiTheme::getStyleGroup(const std::string& type) {
 	if (styles.find(type) == styles.end()) {
 		//std::cerr << "No GuiStyleGroup found for: \"" << type << "\"" << std::endl;
 		throw std::invalid_argument("No GuiStyleGroup found for: \"" + type + "\"");

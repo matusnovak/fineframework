@@ -5,10 +5,14 @@
 #include <fstream>
 
 ///=============================================================================
-static bool LoadTxt(const std::string& path, std::string* output){
+static bool loadTxt(const std::string& path, std::string* output){
 	if(output == NULL)return false;
 
-	std::ifstream input(path);
+#ifdef FFW_WINDOWS
+	std::ifstream input(ffw::wstrToAnsi(ffw::utf8ToWstr(path)), std::ios::in | std::ios::binary);
+#else
+	std::ifstream input(path, std::ios::in | std::ios::binary);
+#endif
 	if(!input)return false;
 
 	input.seekg(0, std::ios::end);
@@ -22,9 +26,9 @@ static bool LoadTxt(const std::string& path, std::string* output){
 }
 
 ///=============================================================================
-bool ffw::Shader::CheckCompability(const ffw::RenderContext* renderer){
+bool ffw::Shader::checkCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::RenderExtensions* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	return (
 		gl_->glUseProgram                != NULL &&
@@ -72,24 +76,66 @@ bool ffw::Shader::CheckCompability(const ffw::RenderContext* renderer){
 
 ///=============================================================================
 ffw::Shader::Shader(){
-    loaded_ = false;
-    usinggeom_ = false;
-    usingvert_ = false;
-    usingfrag_ = false;
-	program_ = 0;
-	vertshader_ = 0;
-	geomshader_ = 0;
-	fragshader_ = 0;
+    loaded = false;
+	linked = false;
+    usinggeom = false;
+    usingvert = false;
+    usingfrag = false;
+	program = 0;
+	vertshader = 0;
+	geomshader = 0;
+	fragshader = 0;
+	gl_ = NULL;
+}
+
+///=============================================================================
+ffw::Shader::Shader(Shader&& other) {
+	loaded = false;
+	linked = false;
+	usinggeom = false;
+	usingvert = false;
+	usingfrag = false;
+	program = 0;
+	vertshader = 0;
+	geomshader = 0;
+	fragshader = 0;
+	gl_ = NULL;
+	swap(other);
+}
+
+///=============================================================================
+void ffw::Shader::swap(Shader& other) {
+	if (this != &other) {
+		using std::swap;
+		swap(loaded, other.loaded);
+		swap(linked, other.linked);
+		swap(usinggeom, other.usinggeom);
+		swap(usingvert, other.usingvert);
+		swap(usingfrag, other.usingfrag);
+		swap(program, other.program);
+		swap(vertshader, other.vertshader);
+		swap(geomshader, other.geomshader);
+		swap(fragshader, other.fragshader);
+		swap(gl_, other.gl_);
+	}
+}
+
+///=============================================================================
+ffw::Shader& ffw::Shader::operator = (Shader&& other) {
+	if(this != &other) {
+		swap(other);
+	}
+	return *this;
 }
 
 ///=============================================================================
 ffw::Shader::~Shader(){
-    Destroy();
+    destroy();
 }
 
 ///=============================================================================
-bool ffw::Shader::CreateFromFile(const ffw::RenderContext* renderer, const std::string& geompath, const std::string& vertpath, const std::string& fragpath){
-	if(loaded_)return false;
+/*bool ffw::Shader::createFromFile(const ffw::RenderContext* renderer, const std::string& geompath, const std::string& vertpath, const std::string& fragpath){
+	if(loaded)return false;
 
     errorlogstr_ = "";
     std::string geomdata;
@@ -98,25 +144,25 @@ bool ffw::Shader::CreateFromFile(const ffw::RenderContext* renderer, const std::
 
     // If path for geometry Shader is not empty, load file
     if(geompath != ""){
-        if(!::LoadTxt(geompath, &geomdata)){
+        if(!::loadTxt(geompath, &geomdata)){
             return false;
         }
     }
     // If path for vertex Shader is not empty, load file
     if(vertpath != ""){
-        if(!::LoadTxt(vertpath, &vertdata)){
+        if(!::loadTxt(vertpath, &vertdata)){
             return false;
         }
     }
     // If path for fragment Shader is not empty, load file
     if(fragpath != ""){
-        if(!::LoadTxt(fragpath, &fragdata)){
+        if(!::loadTxt(fragpath, &fragdata)){
             return false;
         }
     }
 
     // Now we have sources data, load them into program
-    if(CreateFromData(renderer,
+    if(createFromData(renderer,
 		(geomdata.size() > 0 ? geomdata.c_str() : NULL),
 		(vertdata.size() > 0 ? vertdata.c_str() : NULL),
 		(fragdata.size() > 0 ? fragdata.c_str() : NULL))
@@ -127,129 +173,213 @@ bool ffw::Shader::CreateFromFile(const ffw::RenderContext* renderer, const std::
 }
 
 ///=============================================================================
-bool ffw::Shader::CreateFromData(const ffw::RenderContext* renderer, const char* geomdata, const char* vertdata, const char* fragdata){
-	if(loaded_)return false;
-	if(!CheckCompability(renderer))return false;
-	loaded_ = true;
+bool ffw::Shader::createFromData(const ffw::RenderContext* renderer, const char* geomdata, const char* vertdata, const char* fragdata){
+	if(loaded)return false;
+	if(!checkCompability(renderer))return false;
+	loaded = true;
 
-	gl_ = renderer->Glext();
+	gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	errorlogstr_ = "";
-    // Create Shader
-    program_ = gl_->glCreateProgram();
-    gl_->glUseProgram(program_);
+    // create Shader
+    program = gl_->glCreateProgram();
+    gl_->glUseProgram(program);
 
     // Compile geometry Shader if source data is not empty
     if(geomdata != NULL){
         // Compile Shader
 		#ifdef FFW_OSX
-		if(CompileShader(geomshader_, geomdata, GL_GEOMETRY_SHADER)){
+		if(compileShader(geomshader_, geomdata, GL_GEOMETRY_SHADER)){
 		#else
-        if(CompileShader(geomshader_, geomdata, GL_GEOMETRY_SHADER_ARB)){
+        if(compileShader(geomshader_, geomdata, GL_GEOMETRY_SHADER_ARB)){
 		#endif
             // Shader is compiled attach it to program
-            gl_->glAttachShader(program_, geomshader_);
+            gl_->glAttachShader(program, geomshader_);
             // We are using this Shader
             usinggeom_ = true;
         } else {
             // If compilation failed, delete program
-            gl_->glDeleteProgram(program_);
+            gl_->glDeleteProgram(program);
             // Switch back to main Shader
             gl_->glUseProgram(0);
-			loaded_ = false;
+			loaded = false;
             return false;
         }
     }
     // Compile vertex Shader
     if(vertdata != NULL){
-        if(CompileShader(vertshader_, vertdata, GL_VERTEX_SHADER)){
-            gl_->glAttachShader(program_, vertshader_);
+        if(compileShader(vertshader_, vertdata, GL_VERTEX_SHADER)){
+            gl_->glAttachShader(program, vertshader_);
             usingvert_ = true;
         } else {
-            gl_->glDeleteProgram(program_);
+            gl_->glDeleteProgram(program);
             gl_->glUseProgram(0);
-			loaded_ = false;
+			loaded = false;
             return false;
         }
     }
     // Compile fragment Shader
     if(fragdata != NULL){
-        if(CompileShader(fragshader_, fragdata, GL_FRAGMENT_SHADER)){
-            gl_->glAttachShader(program_, fragshader_);
+        if(compileShader(fragshader_, fragdata, GL_FRAGMENT_SHADER)){
+            gl_->glAttachShader(program, fragshader_);
             usingfrag_ = true;
         } else {
-            gl_->glDeleteProgram(program_);
+            gl_->glDeleteProgram(program);
             gl_->glUseProgram(0);
-			loaded_ = false;
+			loaded = false;
             return false;
         }
     }
 
     // Link program
-    gl_->glLinkProgram(program_);
+    gl_->glLinkProgram(program);
 
     // Check for program errors
     std::string errorstr;
-    if(!CheckForProgramErrors(&errorstr)){
+    if(!checkForProgramErrors(&errorstr)){
         // If there were any errors, delete Shader
-        Destroy();
+        destroy();
         // Switch back to main Shader
         gl_->glUseProgram(0);
 
 		if (errorlogstr_.size() != 0)errorlogstr_ += "\n";
 		errorlogstr_ += "Linking log: " + errorstr;
-		loaded_ = false;
+		loaded = false;
         return false;
     }
 
     // We are done, switch back to main Shader
     gl_->glUseProgram(0);
     return true;
+}*/
+
+///=============================================================================
+bool ffw::Shader::create(const RenderContext* renderer) {
+	if (loaded)return false;
+	if (!checkCompability(renderer))return false;
+
+	gl_ = static_cast<const RenderExtensions*>(renderer);
+	// create Shader
+	program = gl_->glCreateProgram();
+	if (program == 0)return false;
+
+	gl_->glUseProgram(program);
+	loaded = true;
+	return true;
 }
 
 ///=============================================================================
-bool ffw::Shader::CompileShader(GLuint& thisshader, const GLchar* data, GLenum shadertype){
-    // Create Shader based on type
+void ffw::Shader::Link() {
+	if (!loaded) {
+		throw Shader::CompileException("Shader is not created! Did you forget to call setup(const RenderContext*)?");
+	}
+	// Link program
+	gl_->glLinkProgram(program);
+
+	// Check for program errors
+	std::string errorstr;
+	if (!checkForProgramErrors(&errorstr)) {
+		// If there were any errors, delete Shader
+		destroy();
+		
+		throw Shader::CompileException(errorstr);
+	}
+}
+
+///=============================================================================
+void ffw::Shader::compileFragFromData(const std::string& code) {
+	compileShader(fragshader, code.c_str(), GL_FRAGMENT_SHADER);
+	gl_->glAttachShader(program, fragshader);
+	usingfrag = true;
+}
+
+///=============================================================================
+void ffw::Shader::compileGeomFromData(const std::string& code) {
+#ifdef FFW_OSX
+	compileShader(geomshader, code.c_str(), GL_GEOMETRY_SHADER);
+#else
+	compileShader(geomshader, code.c_str(), GL_GEOMETRY_SHADER_ARB);
+#endif
+	gl_->glAttachShader(program, geomshader);
+	usinggeom = true;
+}
+
+///=============================================================================
+void ffw::Shader::compileVertFromData(const std::string& code) {
+	compileShader(vertshader, code.c_str(), GL_VERTEX_SHADER);
+	gl_->glAttachShader(program, vertshader);
+	usingvert = true;
+}
+
+///=============================================================================
+void ffw::Shader::createFromFile(const RenderContext* renderer, const std::string& geomfile, const std::string& vertfile, const std::string& fragfile) {
+	std::string data;
+	if (!create(renderer)) {
+		throw Shader::CompileException("Failed to create shader object!");
+	}
+
+	if (geomfile.size() > 0) {
+		if (loadTxt(geomfile, &data)) compileGeomFromData(data);
+		else throw Shader::FileException(geomfile);
+	}
+
+	data.clear();
+	if(vertfile.size() > 0){
+		if (loadTxt(vertfile, &data)) compileVertFromData(data);
+		else throw Shader::FileException(vertfile);
+	}
+
+	data.clear();
+	if (fragfile.size() > 0) {
+		if (loadTxt(fragfile, &data)) compileFragFromData(data);
+		else throw Shader::FileException(fragfile);
+	}
+
+	Link();
+}
+
+///=============================================================================
+void ffw::Shader::createFromData(const RenderContext* renderer, const std::string& geomdata, const std::string& vertdata, const std::string& fragdata) {
+	if (!create(renderer)) {
+		throw Shader::CompileException("Failed to create shader object!");
+	}
+	if (geomdata.size() > 0)compileGeomFromData(geomdata);
+	if (vertdata.size() > 0)compileVertFromData(vertdata);
+	if (fragdata.size() > 0)compileFragFromData(fragdata);
+	Link();
+}
+
+///=============================================================================
+void ffw::Shader::compileShader(GLuint& thisshader, const GLchar* data, GLenum shadertype){
+    // create Shader based on type
     thisshader = gl_->glCreateShader(shadertype);
-    // Set the source data
+    // set the source data
     gl_->glShaderSource(thisshader, 1, &data, NULL);
     // Compile
     gl_->glCompileShader(thisshader);
     // Check for compilation errors
     std::string errorstr;
-    if(!CheckForShaderErrors(thisshader, &errorstr)){
+    if(!checkForShaderErrors(thisshader, &errorstr)){
         // If there were any errors, delete newly loaded Shader
         gl_->glDeleteShader(thisshader);
-
-        // Save error log
-		if (errorlogstr_.size() != 0)errorlogstr_ += "\n";
-        #ifdef FFW_OSX
-        if      (shadertype == GL_GEOMETRY_SHADER)  errorlogstr_ += "Geometry Shader:\n" + errorstr;
-        #else
-        if      (shadertype == GL_GEOMETRY_SHADER_ARB)  errorlogstr_ += "Geometry Shader:\n" + errorstr;
-        #endif
-        else if (shadertype == GL_VERTEX_SHADER)        errorlogstr_ += "Vertex Shader:\n" + errorstr;
-		else if (shadertype == GL_FRAGMENT_SHADER)      errorlogstr_ += "Fragment Shader:\n" + errorstr;
-        return false;
+		throw Shader::CompileException(errorstr);
     }
-    // No errors
-    return true;
 }
 
 ///=============================================================================
-bool ffw::Shader::CheckForShaderErrors(GLuint thisshader, std::string* errorstr){
+bool ffw::Shader::checkForShaderErrors(GLuint thisshader, std::string* errorstr){
 
     // Check Shader compilation status
     GLint result;
     gl_->glGetShaderiv(thisshader, GL_COMPILE_STATUS, &result);
     // Shader failed to compile
     if(result == GL_FALSE) {
-        // Get length of log
+        // get length of log
         GLint length;
         gl_->glGetShaderiv(thisshader, GL_INFO_LOG_LENGTH, &length);
-        // Allocate memory for log
+        // allocate memory for log
         errorstr->resize(length, ' ');
-        // Get log
+        // get log
         gl_->glGetShaderInfoLog(thisshader, length, &result, &(*errorstr)[0]);
         return false;
     }
@@ -258,20 +388,20 @@ bool ffw::Shader::CheckForShaderErrors(GLuint thisshader, std::string* errorstr)
 }
 
 ///=============================================================================
-bool ffw::Shader::CheckForProgramErrors(std::string* errorstr){
+bool ffw::Shader::checkForProgramErrors(std::string* errorstr){
 
     // Check program for linking errors
     GLint result;
-    gl_->glGetProgramiv(program_, GL_LINK_STATUS, &result);
+    gl_->glGetProgramiv(program, GL_LINK_STATUS, &result);
     // Program linking failed
     if(result == GL_FALSE) {
-        // Get length og log
+        // get length og log
         GLint length;
-        gl_->glGetProgramiv(program_, GL_INFO_LOG_LENGTH, &length);
-        // Allocate memory for log
+        gl_->glGetProgramiv(program, GL_INFO_LOG_LENGTH, &length);
+        // allocate memory for log
         errorstr->resize(length, ' ');
-        // Get log
-        gl_->glGetProgramInfoLog(program_, length, &result, &(*errorstr)[0]);
+        // get log
+        gl_->glGetProgramInfoLog(program, length, &result, &(*errorstr)[0]);
         return false;
     }
     // Program linked
@@ -279,30 +409,29 @@ bool ffw::Shader::CheckForProgramErrors(std::string* errorstr){
 }
 
 ///=============================================================================
-void ffw::Shader::Destroy(){
-    // Do not continue if Shader was not loaded
-    if(!loaded_)return;
+void ffw::Shader::destroy(){
     // Delete Shader if it was loaded
-    if(usinggeom_)gl_->glDeleteShader(geomshader_);
-    if(usingvert_)gl_->glDeleteShader(vertshader_);
-    if(usingfrag_)gl_->glDeleteShader(fragshader_);
-	usinggeom_ = false;
-	usingvert_ = false;
-	usingfrag_ = false;
+    if(usinggeom)gl_->glDeleteShader(geomshader);
+    if(usingvert)gl_->glDeleteShader(vertshader);
+    if(usingfrag)gl_->glDeleteShader(fragshader);
+	usinggeom = false;
+	usingvert = false;
+	usingfrag = false;
     // Delete program
-    gl_->glDeleteProgram(program_);
-	program_ = 0;
-    loaded_ = false;
+    if(program != 0)gl_->glDeleteProgram(program);
+	program = 0;
+    loaded = false;
+	linked = false;
 }
 
 ///=============================================================================
-void ffw::Shader::Bind() const {
-    if(loaded_)gl_->glUseProgram(program_);
+void ffw::Shader::bind() const {
+    if(loaded)gl_->glUseProgram(program);
 }
 
 ///=============================================================================
-void ffw::Shader::Unbind() const {
-    if(loaded_){
+void ffw::Shader::unbind() const {
+    if(loaded){
 		// We need to disable attrib array
 		// Otherwise this will mess up any old pipeline draw calls 
 		gl_->glDisableVertexAttribArray(0);
@@ -311,237 +440,237 @@ void ffw::Shader::Unbind() const {
 }
 
 ///=============================================================================
-void ffw::Shader::SetAttributePointerf(GLint Location, GLint Size, GLsizei Stride, const GLvoid* offset) const {
+void ffw::Shader::setAttributePointerf(GLint Location, GLint Size, GLsizei Stride, const GLvoid* offset) const {
     // Enable attribute
     gl_->glEnableVertexAttribArray(Location);
-    // Set the pointer of the attribute
+    // set the pointer of the attribute
     gl_->glVertexAttribPointer(Location, Size, GL_FLOAT, GL_FALSE, Stride, offset);
 }
 
 ///=============================================================================
-void ffw::Shader::SetAttributeDivisor(GLuint Index, GLuint Divisor) const {
+void ffw::Shader::setAttributeDivisor(GLuint Index, GLuint Divisor) const {
     gl_->glVertexAttribDivisor(Index, Divisor);
 }
 
 ///=============================================================================
-void ffw::Shader::DrawArrays(GLenum Mode, GLint First, GLsizei Count) const {
-    // Draw quad compositing of two triangles drawElements(GL_TRIANGLES, 6, 0);
+void ffw::Shader::drawArrays(GLenum Mode, GLint First, GLsizei count) const {
+    // draw quad compositing of two triangles drawElements(GL_TRIANGLES, 6, 0);
     // drawElements(type to render, first vertice, number of vertices);
-    glDrawArrays(Mode, First, Count);
+    glDrawArrays(Mode, First, count);
 }
 
 ///=============================================================================
-void ffw::Shader::DrawArraysInstanced(GLenum Mode, GLint First, GLsizei Count, GLsizei InstanceCount) const {
-    gl_->glDrawArraysInstanced(Mode, First, Count, InstanceCount);
+void ffw::Shader::drawArraysInstanced(GLenum Mode, GLint First, GLsizei count, GLsizei InstanceCount) const {
+    gl_->glDrawArraysInstanced(Mode, First, count, InstanceCount);
 }
 
 ///=============================================================================
-void ffw::Shader::DrawElements(GLenum Mode, GLsizei Count, GLenum Type, const GLvoid * Indices) const {
-    // Draw quad compositing of two triangles myShader.drawElements(GL_TRIANGLES, 6, 0);
-    // Draw second triangle of quad drawElements(GL_TRIANGLES, 3, (GLvoid*) (sizeof(GLuint) * 3));
+void ffw::Shader::drawElements(GLenum Mode, GLsizei count, GLenum Type, const GLvoid * Indices) const {
+    // draw quad compositing of two triangles myShader.drawElements(GL_TRIANGLES, 6, 0);
+    // draw second triangle of quad drawElements(GL_TRIANGLES, 3, (GLvoid*) (sizeof(GLuint) * 3));
     // drawElements(type to render, number of vertices, (GLvoid*) (sizeof(GLuint) * vertice offset));
-    glDrawElements(Mode, Count, Type, Indices);
+    glDrawElements(Mode, count, Type, Indices);
 }
 
 ///=============================================================================
-void ffw::Shader::DrawElementsRange(GLenum Mode, GLuint Start, GLuint End, GLsizei Count, GLenum Type, const GLvoid * Indices) const {
-    // Draw second triangle of quad drawElementsRange(GL_TRIANGLES, 0, 3, 3, (GLvoid*) (sizeof(GLuint) * 3));
+void ffw::Shader::drawElementsRange(GLenum Mode, GLuint Start, GLuint End, GLsizei count, GLenum Type, const GLvoid * Indices) const {
+    // draw second triangle of quad drawElementsRange(GL_TRIANGLES, 0, 3, 3, (GLvoid*) (sizeof(GLuint) * 3));
     // drawElementsRange(type to render, min index, max index, number of vertices, (GLvoid*) (sizeof(GLuint) * vertice offset));
-    gl_->glDrawRangeElements(Mode, Start, End, Count, Type, Indices);
+    gl_->glDrawRangeElements(Mode, Start, End, count, Type, Indices);
 }
 
 ///=============================================================================
-void ffw::Shader::DrawElementsInstanced(GLenum Mode, GLsizei Count, GLenum Type, const GLvoid * Indices, GLsizei InstanceCount) const {
-    gl_->glDrawElementsInstanced(Mode, Count, Type, Indices, InstanceCount);
+void ffw::Shader::drawElementsInstanced(GLenum Mode, GLsizei count, GLenum Type, const GLvoid * Indices, GLsizei InstanceCount) const {
+    gl_->glDrawElementsInstanced(Mode, count, Type, Indices, InstanceCount);
 }
 
 ///=============================================================================
-int ffw::Shader::GetUniformLocation(const GLchar* Name) const {
-    if(!loaded_)return -1;
-    return gl_->glGetUniformLocation(program_, Name);
+int ffw::Shader::getUniformLocation(const GLchar* Name) const {
+    if(!loaded)return -1;
+    return gl_->glGetUniformLocation(program, Name);
 }
 
 ///=============================================================================
-int ffw::Shader::GetAttributeLocation(const GLchar* Name) const {
-    if(!loaded_)return -1;
-    return gl_->glGetAttribLocation(program_, Name);
+int ffw::Shader::getAttributeLocation(const GLchar* Name) const {
+    if(!loaded)return -1;
+    return gl_->glGetAttribLocation(program, Name);
 }
 ///=============================================================================
-// Set 1D uniforms
-void ffw::Shader::SetUniform1f(GLint location, GLfloat value) const {
+// set 1D uniforms
+void ffw::Shader::setUniform1f(GLint location, GLfloat value) const {
     gl_->glUniform1f(location, value);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform1fv(GLint location, const GLfloat* array, GLsizei length) const {
+void ffw::Shader::setUniform1fv(GLint location, const GLfloat* array, GLsizei length) const {
     gl_->glUniform1fv(location, length, array);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform1i(GLint location, GLint value) const {
+void ffw::Shader::setUniform1i(GLint location, GLint value) const {
     gl_->glUniform1i(location, value);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform1iv(GLint location, const GLint* array, GLsizei length) const {
+void ffw::Shader::setUniform1iv(GLint location, const GLint* array, GLsizei length) const {
     gl_->glUniform1iv(location, length, array);
 }
 
 ///=============================================================================
-// Set 2D uniforms
-void ffw::Shader::SetUniform2f(GLint location, GLfloat x, GLfloat y) const {
+// set 2D uniforms
+void ffw::Shader::setUniform2f(GLint location, GLfloat x, GLfloat y) const {
     gl_->glUniform2f(location, x, y);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform2fv(GLint location, const GLfloat* array, GLsizei length) const {
+void ffw::Shader::setUniform2fv(GLint location, const GLfloat* array, GLsizei length) const {
     gl_->glUniform2fv(location, length, array);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform2i(GLint location, GLint x, GLint y) const {
+void ffw::Shader::setUniform2i(GLint location, GLint x, GLint y) const {
     gl_->glUniform2i(location, x, y);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform2iv(GLint location, const GLint* array, GLsizei length) const {
+void ffw::Shader::setUniform2iv(GLint location, const GLint* array, GLsizei length) const {
     gl_->glUniform2iv(location, length, array);
 }
 
 ///=============================================================================
-// Set 3D uniforms
-void ffw::Shader::SetUniform3f(GLint location, GLfloat x, GLfloat y, GLfloat z) const {
+// set 3D uniforms
+void ffw::Shader::setUniform3f(GLint location, GLfloat x, GLfloat y, GLfloat z) const {
     gl_->glUniform3f(location, x, y, z);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform3fv(GLint location, const GLfloat* array, GLsizei length) const {
+void ffw::Shader::setUniform3fv(GLint location, const GLfloat* array, GLsizei length) const {
     gl_->glUniform3fv(location, length, array);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform3i(GLint location, GLint x, GLint y, GLint z) const {
+void ffw::Shader::setUniform3i(GLint location, GLint x, GLint y, GLint z) const {
     gl_->glUniform3i(location, x, y, z);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform3iv(GLint location, const GLint* array, GLsizei length) const {
+void ffw::Shader::setUniform3iv(GLint location, const GLint* array, GLsizei length) const {
     gl_->glUniform3iv(location, length, array);
 }
 
 
 ///=============================================================================
-// Set 4D uniforms
-void ffw::Shader::SetUniform4f(GLint location, GLfloat x, GLfloat y, GLfloat z, GLfloat w) const {
+// set 4D uniforms
+void ffw::Shader::setUniform4f(GLint location, GLfloat x, GLfloat y, GLfloat z, GLfloat w) const {
     gl_->glUniform4f(location, x, y, z, w);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform4fv(GLint location, const GLfloat* array, GLsizei length) const {
+void ffw::Shader::setUniform4fv(GLint location, const GLfloat* array, GLsizei length) const {
     gl_->glUniform4fv(location, length, array);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform4i(GLint location, GLint x, GLint y, GLint z, GLint w) const {
+void ffw::Shader::setUniform4i(GLint location, GLint x, GLint y, GLint z, GLint w) const {
     gl_->glUniform4i(location, x, y, z, w);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform4iv(GLint location, const GLint* array, GLsizei length) const {
+void ffw::Shader::setUniform4iv(GLint location, const GLint* array, GLsizei length) const {
     gl_->glUniform4iv(location, length, array);
 }
 
 ///=============================================================================
-// Set 2D uniforms from vector
-void ffw::Shader::SetUniform2f(GLint location, const ffw::Vec2f& vec) const {
+// set 2D uniforms from vector
+void ffw::Shader::setUniform2f(GLint location, const ffw::Vec2f& vec) const {
     gl_->glUniform2f(location, vec.x, vec.y);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform2fv(GLint location, const ffw::Vec2f* Array, GLsizei length) const {
+void ffw::Shader::setUniform2fv(GLint location, const ffw::Vec2f* Array, GLsizei length) const {
 	gl_->glUniform2fv(location, length, &Array[0].x);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform2i(GLint location, const ffw::Vec2i& vec) const {
+void ffw::Shader::setUniform2i(GLint location, const ffw::Vec2i& vec) const {
     gl_->glUniform2i(location, vec.x, vec.y);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform2iv(GLint location, const ffw::Vec2i* Array, GLsizei length) const {
+void ffw::Shader::setUniform2iv(GLint location, const ffw::Vec2i* Array, GLsizei length) const {
 	gl_->glUniform2iv(location, length, &Array[0].x);
 }
 
 ///=============================================================================
-// Set 3D uniforms from vector
-void ffw::Shader::SetUniform3f(GLint location, const ffw::Vec3f& vec) const {
+// set 3D uniforms from vector
+void ffw::Shader::setUniform3f(GLint location, const ffw::Vec3f& vec) const {
     gl_->glUniform3f(location, vec.x, vec.y, vec.z);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform3fv(GLint location, const ffw::Vec3f* Array, GLsizei length) const {
+void ffw::Shader::setUniform3fv(GLint location, const ffw::Vec3f* Array, GLsizei length) const {
 	gl_->glUniform3fv(location, length, &Array[0].x);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform3i(GLint location, const ffw::Vec3i& vec) const {
+void ffw::Shader::setUniform3i(GLint location, const ffw::Vec3i& vec) const {
     gl_->glUniform3i(location, vec.x, vec.y, vec.z);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform3iv(GLint location, const ffw::Vec3i* Array, GLsizei length) const {
+void ffw::Shader::setUniform3iv(GLint location, const ffw::Vec3i* Array, GLsizei length) const {
 	gl_->glUniform3iv(location, length, &Array[0].x);
 }
 
 ///=============================================================================
-// Set 4D uniforms from vector
-void ffw::Shader::SetUniform4f(GLint location, const ffw::Vec4f& vec) const {
+// set 4D uniforms from vector
+void ffw::Shader::setUniform4f(GLint location, const ffw::Vec4f& vec) const {
     gl_->glUniform4f(location, vec.x, vec.y, vec.z, vec.w);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform4fv(GLint location, const ffw::Vec4f* Array, GLsizei length) const {
+void ffw::Shader::setUniform4fv(GLint location, const ffw::Vec4f* Array, GLsizei length) const {
 	gl_->glUniform4fv(location, length, &Array[0].x);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform4i(GLint location, const ffw::Vec4i& vec) const {
+void ffw::Shader::setUniform4i(GLint location, const ffw::Vec4i& vec) const {
     gl_->glUniform4i(location, vec.x, vec.y, vec.z, vec.w);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform4iv(GLint location, const ffw::Vec4i* Array, GLsizei length) const {
+void ffw::Shader::setUniform4iv(GLint location, const ffw::Vec4i* Array, GLsizei length) const {
 	gl_->glUniform4iv(location, length, &Array[0].x);
 }
 
 ///=============================================================================
-// Set 4D uniform from color
-void ffw::Shader::SetUniform4f(GLint location, const ffw::Color& col) const {
+// set 4D uniform from color
+void ffw::Shader::setUniform4f(GLint location, const ffw::Color& col) const {
     gl_->glUniform4f(location, col.r, col.g, col.b, col.a);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniform4fv(GLint location, const ffw::Color* Array, GLsizei length) const {
+void ffw::Shader::setUniform4fv(GLint location, const ffw::Color* Array, GLsizei length) const {
 	gl_->glUniform4fv(location, length, &Array[0].r);
 }
 
 ///=============================================================================
-// Set Matrix uniforms
-void ffw::Shader::SetUniformMatrix2fv(GLint location, const GLfloat* mat, GLsizei length) const {
+// set Matrix uniforms
+void ffw::Shader::setUniformMatrix2fv(GLint location, const GLfloat* mat, GLsizei length) const {
     gl_->glUniformMatrix2fv(location, length, GL_FALSE, mat);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniformMatrix3fv(GLint location, const GLfloat* mat, GLsizei length) const {
+void ffw::Shader::setUniformMatrix3fv(GLint location, const GLfloat* mat, GLsizei length) const {
     gl_->glUniformMatrix3fv(location, length, GL_FALSE, mat);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniformMatrix4fv(GLint location, const GLfloat* mat, GLsizei length) const {
+void ffw::Shader::setUniformMatrix4fv(GLint location, const GLfloat* mat, GLsizei length) const {
     gl_->glUniformMatrix4fv(location, length, false, mat);
 }
 
 ///=============================================================================
-void ffw::Shader::SetUniformMatrix4fv(GLint location, const Mat4x4f* mat, GLsizei length) const {
+void ffw::Shader::setUniformMatrix4fv(GLint location, const Mat4x4f* mat, GLsizei length) const {
     gl_->glUniformMatrix4fv(location, length, false, reinterpret_cast<const GLfloat*>(mat));
 }

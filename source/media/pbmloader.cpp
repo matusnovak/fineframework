@@ -26,15 +26,15 @@ ffw::PbmLoader& ffw::PbmLoader::operator = (PbmLoader&& other){
 
 ///=============================================================================
 ffw::PbmLoader::~PbmLoader(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::PbmLoader::Open(const std::string& path){
+bool ffw::PbmLoader::open(const std::string& path){
 	if(loaded)return false;
 
 #ifdef FFW_WINDOWS
-	input->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::in | std::ios::binary);
+	input->open(wstrToAnsi(utf8ToWstr(path)), std::ios::in | std::ios::binary);
 #else
 	input->open(path, std::ios::in | std::ios::binary);
 #endif
@@ -47,21 +47,21 @@ bool ffw::PbmLoader::Open(const std::string& path){
 	
 	for(int i = 0; i < 4; i++){
 		if(!std::getline(*input, header[i])){
-			Close();
+			close();
 			return false;
 		}
 
 		if(header[i].size() == 0){
-			Close();
+			close();
 			return false;
 		}
 	}
 
 	try{
-        width = StringToVal<unsigned long>(header[1]);
-        height = StringToVal<unsigned long>(header[2]);
+        width = stringToVal<unsigned long>(header[1]);
+        height = stringToVal<unsigned long>(header[2]);
     } catch(std::exception e){
-		Close();
+		close();
         return false;
     }
 
@@ -96,12 +96,12 @@ bool ffw::PbmLoader::Open(const std::string& path){
         dataLength = width*height*4;
 
     } else {
-		Close();
+		close();
         return false;
     }
 
 	if(dataLength + offset > size){
-		Close();
+		close();
 		return false;
 	}
 
@@ -111,7 +111,7 @@ bool ffw::PbmLoader::Open(const std::string& path){
 }
 
 ///=============================================================================
-void ffw::PbmLoader::Close(){
+void ffw::PbmLoader::close(){
 	input->close();
 	width = 0;
 	height = 0;
@@ -121,7 +121,7 @@ void ffw::PbmLoader::Close(){
 }
 
 ///=============================================================================
-size_t ffw::PbmLoader::ReadRow(void* dest){
+size_t ffw::PbmLoader::readRow(void* dest){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
@@ -135,7 +135,7 @@ size_t ffw::PbmLoader::ReadRow(void* dest){
 			input->read((char*)dest, width*2);
 			unsigned short* ptr = (unsigned short*)dest;
 			for(size_t i = 0; i < (size_t)width; i++){
-				ptr[i] = ByteSwap16(ptr[i]);
+				ptr[i] = byteSwap16(ptr[i]);
 			}
 			break;
 		}
@@ -151,7 +151,7 @@ size_t ffw::PbmLoader::ReadRow(void* dest){
 			input->read((char*)dest, width*2*3);
 			unsigned short* ptr = (unsigned short*)dest;
 			for(size_t i = 0; i < (size_t)width*3; i++){
-				ptr[i] = ByteSwap16(ptr[i]);
+				ptr[i] = byteSwap16(ptr[i]);
 			}
 			break;
 		}
@@ -162,5 +162,5 @@ size_t ffw::PbmLoader::ReadRow(void* dest){
 	}
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }

@@ -9,11 +9,15 @@ namespace ffw {
 	 */
 	class FFW_API Texture2DMS: public Texture {
     public:
-        static bool CheckCompability(const RenderContext* renderer);
+        static bool checkCompability(const RenderContext* renderer);
 		Texture2DMS();
+		Texture2DMS(const Texture2DMS& second) = delete;
+		Texture2DMS(Texture2DMS&& second);
         ~Texture2DMS();
-        bool Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, GLint samples);
-		bool Resize(GLsizei width, GLsizei height, GLint samples);
+        bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, GLint samples);
+		bool resize(GLsizei width, GLsizei height, GLint samples);
+		Texture2DMS& operator = (const Texture2DMS& second) = delete;
+		Texture2DMS& operator = (Texture2DMS&& second);
 	};
 };
 #endif

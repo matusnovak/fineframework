@@ -38,15 +38,15 @@ ffw::PngLoader& ffw::PngLoader::operator = (PngLoader&& other){
 
 ///=============================================================================
 ffw::PngLoader::~PngLoader(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::PngLoader::Open(const std::string& path){
+bool ffw::PngLoader::open(const std::string& path){
 	if(loaded)return false;
 
 #ifdef FFW_WINDOWS
-	input  = fopen(WstrToAnsi(Utf8ToWstr(path)).c_str(), "rb");
+	input  = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "rb");
 #else
 	input = fopen(path.c_str(), "rb");
 #endif
@@ -198,7 +198,7 @@ bool ffw::PngLoader::Open(const std::string& path){
 }
 
 ///=============================================================================
-void ffw::PngLoader::Close(){
+void ffw::PngLoader::close(){
 	if(pngPtr != NULL){
 		png_destroy_read_struct(&pngPtr, &infoPtr, NULL);
 	}
@@ -217,7 +217,7 @@ void ffw::PngLoader::Close(){
 }
 
 ///=============================================================================
-size_t ffw::PngLoader::ReadRow(void* dest){
+size_t ffw::PngLoader::readRow(void* dest){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
@@ -235,9 +235,9 @@ size_t ffw::PngLoader::ReadRow(void* dest){
 	}
 
 	for(size_t i = 0; i < total; i++){
-		ptr[i] = ffw::ByteSwap16(ptr[i]);
+		ptr[i] = ffw::byteSwap16(ptr[i]);
 	}*/
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }

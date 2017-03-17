@@ -15,56 +15,38 @@ namespace ffw {
 		class FFW_API GuiBody: public GuiLayout {
 		public:
 			GuiBody(GuiWindow* context, GuiLayout::Orientation orient);
-			void EventThemeChanged(const GuiTheme* theme) override;
+			void eventThemeChanged(const GuiTheme* theme) override;
 			virtual ~GuiBody();
 		};
 		GuiWindow();
 		virtual ~GuiWindow();
-		void SetSize(int width, int height);
-		void SetPos(int posx, int posy);
-		void Destroy();
-		const ffw::Vec2i& GetSize() const;
-		const ffw::Vec2i& GetPos() const;
-		void SetDefaultFont(const GuiFont* font);
-		const GuiFont* GetDefaultFont() const;
-		void InjectMousePos(int posx, int posy);
-		void InjectMouseButton(ffw::MouseButton button, ffw::Mode mode);
-		void InjectText(wchar_t chr);
-		void InjectKey(ffw::Key key, ffw::Mode mode);
-		void Update();
-		void PoolEvents();
-		void Render();
-		void Redraw();
-		void Invalidate();
-		inline void AddWidget(GuiWidget* widget) {
-			body->AddWidget(widget);
+		void setSize(int width, int height);
+		void setPos(int posx, int posy);
+		const ffw::Vec2i& getSize() const;
+		const ffw::Vec2i& getPos() const;
+		void setDefaultFont(const GuiFont* font);
+		const GuiFont* getDefaultFont() const;
+		void injectMousePos(int posx, int posy);
+		void injectMouseButton(ffw::MouseButton button, ffw::Mode mode);
+		void injectText(wchar_t chr);
+		void injectKey(ffw::Key key, ffw::Mode mode);
+		void update();
+		void poolEvents();
+		void render();
+		void redraw();
+		void invalidate();
+		GuiBody* getLayout() {
+			return body;
 		}
-		inline void AddWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
-			body->AddWidgetAfter(previous, widget);
+		const GuiBody* getLayout() const {
+			return body;
 		}
-		inline void AddWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
-			body->AddWidgetBefore(next, widget);
-		}
-		inline void DeleteWidgets() {
-			body->DeleteWidgets();
-		}
-		inline bool DeleteSingleWidget(GuiWidget* widget) {
-			return body->DeleteSingleWidget(widget);
-		}
-		inline void SetWrap(bool wrap) {
-			body->SetWrap(wrap);
-		}
-		inline void SetOrientation(GuiLayout::Orientation orientation) {
-			body->SetOrientation(orientation);
-		}
-		void PushEvent(GuiCallback& callback, GuiEvent e);
-		void SetPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left);
-		void SetPadding(GuiUnits all);
-		void SetTheme(const GuiTheme* thm);
-		const GuiTheme* GetTheme() const;
+		void pushEvent(GuiCallback& callback, GuiEvent e);
+		void setTheme(const GuiTheme* thm);
+		const GuiTheme* getTheme() const;
 		template<class T>
-		T* FindByID(unsigned long id){
-			return body->FindByID<T>(id);
+		T* findByID(unsigned long id){
+			return body->findByID<T>(id);
 		}
 	private:
 		GuiBody* body;
@@ -74,6 +56,7 @@ namespace ffw {
 		GuiUserInput input;
 		const GuiFont* defaultfont;
 		std::queue<std::pair<std::function<void(GuiEvent)>, GuiEvent>> eventqueue;
+		ffw::Vec2i mousepos;
 	};
 }
 #endif

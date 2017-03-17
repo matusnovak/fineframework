@@ -2,6 +2,7 @@
 #ifndef FFW_TEXTURE_BASE
 #define FFW_TEXTURE_BASE
 #include "../config.h"
+#include "../math.h"
 #if defined(FFW_WINDOWS_MSVC)
 // Evil windows.h
 #define NOMINMAX
@@ -33,51 +34,57 @@ namespace ffw {
 			MIPMAP_LINEAR
 		};
         Texture();
+		Texture(const Texture& other) = delete;
+		Texture(Texture&& other);
+		void swap(Texture& other);
         virtual ~Texture();
-        inline bool IsCreated() const {
+        inline bool isCreated() const {
 			return loaded_;
 		}
-        void Destroy();
-        void Bind() const;
-        void Unbind() const;
-        inline unsigned int GetHandle() const {
+        void destroy();
+        void bind() const;
+        void unbind() const;
+        inline unsigned int getHandle() const {
 			return buffer_;
 		}
-        inline int GetWidth() const {
+        inline int getWidth() const {
 			return width_;
 		}
-        inline int GetHeight() const {
+        inline int getHeight() const {
 			return height_;
 		}
-        inline int GetLayers() const {
+        inline int getLayers() const {
 			return layers_;
 		}
-        inline int GetDepth() const {
+        inline int getDepth() const {
 			return depth_;
 		}
-		inline int GetSamples() const {
+		inline int getSamples() const {
 			return samples_;
 		}
-        inline unsigned int GetInternalFormat() const {
+        inline unsigned int getInternalFormat() const {
 			return internalformat_;
 		}
-        inline unsigned int GetFormat() const {
+        inline unsigned int getFormat() const {
 			return format_;
 		}
-        inline unsigned int GetPixelFormat() const {
+        inline unsigned int getPixelFormat() const {
 			return pixelformat_;
 		}
-        unsigned int GetTextureFormat() const {
+        unsigned int getTextureFormat() const {
 			return textureformat_;
 		}
-        void SetEnvParami(unsigned int Target, unsigned int Name, int Value);
-        void SetEnvParamf(unsigned int Target, unsigned int Name, float Value);
-        void SetTexParami(unsigned int Name, int Value);
-		void SetTexParamiv(unsigned int Name, int* Values);
-        void SetTexParamf(unsigned int Name, float Value);
-		void SetTexParamfv(unsigned int Name, float* Values);
-        bool GenerateMipmaps();
-		void SetFiltering(Texture::Filtering filtering);
+        void setEnvParami(unsigned int Target, unsigned int Name, int Value);
+        void setEnvParamf(unsigned int Target, unsigned int Name, float Value);
+        void setTexParami(unsigned int Name, int Value);
+		void setTexParamiv(unsigned int Name, int* Values);
+        void setTexParamf(unsigned int Name, float Value);
+		void setTexParamfv(unsigned int Name, float* Values);
+        bool generateMipmaps();
+		void setFiltering(Texture::Filtering filtering);
+
+		Texture& operator = (const Texture& other) = delete;
+		Texture& operator = (Texture&& other);
     protected:
         bool loaded_;
         unsigned int textureformat_;
@@ -95,4 +102,8 @@ namespace ffw {
         const RenderExtensions* gl_;
     };
 };
+
+inline void swap(ffw::Texture& first, ffw::Texture& second) {
+	first.swap(second);
+}
 #endif

@@ -38,40 +38,40 @@ namespace ffw{
 		ObjLoader(ObjLoader&& other);
 		~ObjLoader();
 		void swap(ObjLoader& other);
-		bool Open(const std::string& path);
-		inline bool IsOpen() const {
+		bool open(const std::string& path);
+		inline bool isOpen() const {
 			return loaded;
 		}
 		inline operator bool () const {
-			return IsOpen();
+			return isOpen();
 		}
-		void Close();
-		inline bool Eof() const {
+		void close();
+		inline bool eof() const {
 			return eos;
 		}
-		bool LoadObject(unsigned int i);
-		inline size_t GetObjectCount() const {
+		bool loadObject(unsigned int i);
+		inline size_t getObjectCount() const {
 			return objects.size();
 		}
-		inline bool HasObjectVertices(unsigned int i) const {
+		inline bool hasObjectVertices(unsigned int i) const {
 			if(i >= objects.size())return false;
 			else return objects[i].vCount > 0;
 		}
-		inline bool HasObjectNormals(unsigned int i) const {
+		inline bool hasObjectNormals(unsigned int i) const {
 			if(i >= objects.size())return false;
 			else return objects[i].vnCount > 0;
 		}
-		inline bool HasObjectTexPos(unsigned int i) const {
+		inline bool hasObjectTexPos(unsigned int i) const {
 			if(i >= objects.size())return false;
 			else return objects[i].vtCount > 0;
 		}
-		inline const std::string& GetObjectName(unsigned int i) const {
+		inline const std::string& getObjectName(unsigned int i) const {
 			static const std::string empty = "";
 			if(i >= objects.size())return empty;
 			else return objects[i].name;
 		}
-		size_t CalculateObjectPolyCount();
-		bool GetPolygon(float* ptr);
+		size_t calculateObjectPolyCount();
+		bool getPolygon(float* ptr);
 		ObjLoader& operator = (ObjLoader&& Other);
 		ObjLoader& operator = (const ObjLoader& Other) = delete;
 
@@ -97,18 +97,18 @@ namespace ffw{
 	/**
 	* @ingroup media
 	*/
-	bool FFW_API ReadObj(const std::string& path, float** vertices, unsigned int* numVertices);
+	bool FFW_API readObj(const std::string& path, float** vertices, unsigned int* numVertices);
 #ifdef FFW_GRAPHICS_MODULE
-	inline bool ReadObj(const std::string& path, const ffw::RenderContext* context, ffw::Vbo* vbo, GLenum type = GL_STATIC_DRAW){
+	inline bool readObj(const std::string& path, const ffw::RenderContext* context, ffw::Vbo* vbo, GLenum type = GL_STATIC_DRAW){
 		unsigned int numVertices = 0;
 		float* vertices = NULL;
 
-		if(!ReadObj(path, &vertices, &numVertices)){
+		if(!readObj(path, &vertices, &numVertices)){
 			return false;
 		}
 
-		if(!vbo->Create(context, vertices, numVertices * 8 * sizeof(float), type)){
-			//std::cerr << "ReadObj: Failed to create VBO!" << std::endl;
+		if(!vbo->create(context, vertices, numVertices * 8 * sizeof(float), type)){
+			//std::cerr << "readObj: Failed to create VBO!" << std::endl;
 			delete[] vertices;
 			return false;
 		}

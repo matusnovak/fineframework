@@ -27,14 +27,17 @@ namespace ffw {
 	class FFW_API Renderbuffer {
     public:
         Renderbuffer();
+		Renderbuffer(const Renderbuffer& other) = delete;
+		Renderbuffer(Renderbuffer&& other);
+		void swap(Renderbuffer& other);
         virtual ~Renderbuffer();
-        inline bool IsCreated() const {
+        inline bool isCreated() const {
 			return loaded_;
 		}
-        void Destroy();
-        void Bind() const;
-        void Unbind() const;
-        unsigned int GetHandle() const {
+        void destroy();
+        void bind() const;
+        void unbind() const;
+        unsigned int getHandle() const {
 			return buffer_;
 		}
         inline int getWidth() const {
@@ -43,9 +46,12 @@ namespace ffw {
         inline int getHeight() const {
 			return height_;
 		}
-        inline unsigned int GetInternalFormat() const {
+        inline unsigned int getInternalFormat() const {
 			return internalformat_;
 		}
+
+		Renderbuffer& operator = (const Renderbuffer& other) = delete;
+		Renderbuffer& operator = (Renderbuffer&& other);
     protected:
         bool loaded_;
         unsigned int internalformat_;
@@ -55,4 +61,8 @@ namespace ffw {
         const RenderExtensions* gl_;
     };
 };
+
+inline void swap(ffw::Renderbuffer& first, ffw::Renderbuffer& second) {
+	first.swap(second);
+}
 #endif

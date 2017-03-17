@@ -86,7 +86,7 @@ Now compile it using g++
 
 ```
 $ g++ -c example.cpp -o example.o -std=c++11
-$ g++ -o example example.o -lfinegraphics -lfinemath
+$ g++ -o example example.o -lfinegraphics
 $ ./example
 ```
 

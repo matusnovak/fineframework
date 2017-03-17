@@ -33,38 +33,38 @@ namespace ffw {
 			w = q.w;
 		}
 
-		inline void Set(T X, T Y, T Z, T W) {
+		inline void set(T X, T Y, T Z, T W) {
 			x = X;
 			y = Y;
 			z = Z;
 			w = W;
 		}
 
-		inline void Set(const Quat& q) {
+		inline void set(const Quat& q) {
 			x = q.x;
 			y = q.y;
 			z = q.z;
 			w = q.w;
 		}
 
-		inline ffw::Quat<T>& Rotate(T Deg, T X, T Y, T Z) {
+		inline ffw::Quat<T>& rotate(T Deg, T X, T Y, T Z) {
 			double angle = Deg*DEG_TO_RAD;
 			double result = sin(angle / 2.0);
 			x = float(X * result);
 			y = float(Y * result);
 			z = float(Z * result);
 			w = float(cos(angle / 2.0));
-			Normalize();
+			normalize();
 			return *this;
 		}
 
-		inline ffw::Quat<T>& RotateRad(T Rad, T X, T Y, T Z) {
+		inline ffw::Quat<T>& rotateRad(T Rad, T X, T Y, T Z) {
 			double result = sin(Rad / 2.0);
 			x = float(X * result);
 			y = float(Y * result);
 			z = float(Z * result);
 			w = float(cos(Rad / 2.0));
-			Normalize();
+			normalize();
 			return *this;
 		}
 
@@ -168,7 +168,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline void Normalize() {
+		inline void normalize() {
 			float n = 1.0f / sqrt(x*x + y*y + z*z + w*w);
 			x = x * n;
 			y = y * n;
@@ -176,7 +176,7 @@ namespace ffw {
 			w = w * n;
 		}
 
-		inline void GetEuler(T* Roll, T* Pitch, T* Yaw) const {
+		inline void getEuler(T* Roll, T* Pitch, T* Yaw) const {
 			// http://www.euclideanspace.com/maths/geometry/rotations/conversions/QuatToEuler/
 			T test = x*y + z*w;
 			double heading;
@@ -205,15 +205,15 @@ namespace ffw {
 			if (Yaw != NULL)*Yaw = T(bank      *DEG_TO_RAD);
 		}
 
-		inline float Length() const {
+		inline float length() const {
 			return sqrt(x*x + y*y + z*z + w*w);
 		}
 
-		inline float LengthSqrd() const {
+		inline float lengthSqrd() const {
 			return x*x + y*y + z*z + w*w;
 		}
 
-		inline ffw::Quat<T> GetConjugate() const {
+		inline ffw::Quat<T> getConjugate() const {
 			Quat result;
 			result.x = -x;
 			result.y = -y;
@@ -222,12 +222,12 @@ namespace ffw {
 			return result;
 		}
 
-		inline ffw::Quat<T> GetInversed() const {
-			return GetConjugate() / LengthSqrd();
+		inline ffw::Quat<T> getInversed() const {
+			return getConjugate() / lengthSqrd();
 		}
 
-		inline ffw::Quat<T>& Inverse() {
-			*this = GetConjugate() / LengthSqrd();
+		inline ffw::Quat<T>& inverse() {
+			*this = getConjugate() / lengthSqrd();
 			return *this;
 		}
     };

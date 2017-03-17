@@ -38,11 +38,11 @@ ffw::PngSaver& ffw::PngSaver::operator = (PngSaver&& other){
 
 ///=============================================================================
 ffw::PngSaver::~PngSaver(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::PngSaver::Open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::PngSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
 	(void)quality;
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
@@ -62,7 +62,7 @@ bool ffw::PngSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	}
 
 #ifdef FFW_WINDOWS
-	output  = fopen(WstrToAnsi(Utf8ToWstr(path)).c_str(), "wb");
+	output  = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "wb");
 #else
 	output = fopen(path.c_str(), "wb");
 #endif
@@ -175,7 +175,7 @@ bool ffw::PngSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 }
 
 ///=============================================================================
-void ffw::PngSaver::Close(){
+void ffw::PngSaver::close(){
 	if(pngPtr != NULL){
 		png_destroy_write_struct(&pngPtr, &infoPtr);
 	}
@@ -194,7 +194,7 @@ void ffw::PngSaver::Close(){
 }
 
 ///=============================================================================
-size_t ffw::PngSaver::WriteRow(const void* src){
+size_t ffw::PngSaver::writeRow(const void* src){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(src == NULL)return 0;
@@ -202,11 +202,11 @@ size_t ffw::PngSaver::WriteRow(const void* src){
 	png_write_row(pngPtr, (png_bytep)src);
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }
 
 ///=============================================================================
-bool ffw::PngSaver::WriteFooter(){
+bool ffw::PngSaver::writeFooter(){
 	if(!loaded)return false;
     if(row != height)return false;
 

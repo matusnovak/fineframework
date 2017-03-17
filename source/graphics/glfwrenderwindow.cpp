@@ -2,8 +2,6 @@
 
 #include "ffw/graphics/glfwrenderwindow.h"
 #include "ffw/graphics/monitors.h"
-#include "ffw/graphics/rendercollectiongl1.h"
-#include "ffw/graphics/rendercollectiongl3.h"
 #include <GLFW/glfw3.h>
 #include <memory>
 
@@ -35,11 +33,11 @@ private:
 static GraphicsInitializer graphicsInitializer;
 
 ///=============================================================================
-std::vector<ffw::Monitor> ffw::GLFWRenderWindow::GetMonitors() {
-	int count;
-	GLFWmonitor** monitorPtrs = glfwGetMonitors(&count);
+std::vector<ffw::Monitor> ffw::GLFWRenderWindow::getMonitors() {
+	int cnt;
+	GLFWmonitor** monitorPtrs = glfwGetMonitors(&cnt);
 	std::vector<Monitor> allMonitors;
-	for (int i = 0; i < count; i++) {
+	for (int i = 0; i < cnt; i++) {
 		allMonitors.push_back(Monitor());
 
 		allMonitors[i].name.assign(glfwGetMonitorName(monitorPtrs[i]));
@@ -59,7 +57,7 @@ std::vector<ffw::Monitor> ffw::GLFWRenderWindow::GetMonitors() {
 }
 
 ///=============================================================================
-ffw::Monitor ffw::GLFWRenderWindow::GetPrimaryMonitor() {
+ffw::Monitor ffw::GLFWRenderWindow::getPrimaryMonitor() {
 	GLFWmonitor* monitorPtr = glfwGetPrimaryMonitor();
 	Monitor primaryMonitor;
 	primaryMonitor.name.assign(glfwGetMonitorName(monitorPtr));
@@ -78,12 +76,12 @@ ffw::Monitor ffw::GLFWRenderWindow::GetPrimaryMonitor() {
 }
 
 ///=============================================================================
-std::vector<ffw::Monitor::Mode> ffw::GLFWRenderWindow::GetMonitorModes(ffw::Monitor monitor) {
+std::vector<ffw::Monitor::Mode> ffw::GLFWRenderWindow::getMonitorModes(ffw::Monitor monitor) {
 	std::vector<Monitor::Mode> allModes;
-	int count;
-	const GLFWvidmode* modes = glfwGetVideoModes((GLFWmonitor*)monitor.ptr, &count);
+	int cnt;
+	const GLFWvidmode* modes = glfwGetVideoModes((GLFWmonitor*)monitor.ptr, &cnt);
 
-	for (int i = 0; i < count; i++) {
+	for (int i = 0; i < cnt; i++) {
 		allModes.push_back(Monitor::Mode());
 		allModes[i].resolution.x = modes[i].width;
 		allModes[i].resolution.y = modes[i].height;
@@ -127,7 +125,7 @@ struct ffw::GLFWRenderWindow::windowCallback{
 	static void windowMovedCB           (GLFWwindow* windowContext, int xpos, int ypos);
 	static void windowResizedCB         (GLFWwindow* windowContext, int width, int height);
 	static void windowFocusCB           (GLFWwindow* windowContext, int focus);
-	static void filesFroppedCB          (GLFWwindow* windowContext, int count, const char** files);
+	static void filesFroppedCB          (GLFWwindow* windowContext, int cnt, const char** files);
 };
 
 ///=============================================================================
@@ -135,68 +133,68 @@ void ffw::GLFWRenderWindow::windowCallback::keyPressedCB(GLFWwindow* windowConte
     (void)scancode;
     (void)mods;
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->KeyPressedEvent(static_cast<ffw::Key>(key), static_cast<ffw::Mode>(action));
+    windowPtr->keyPressedEvent(static_cast<ffw::Key>(key), static_cast<ffw::Mode>(action));
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::textInputCB(GLFWwindow* windowContext, unsigned int key){
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->TextInputEvent(key);
+    windowPtr->textInputEvent(key);
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::mouseMovedCB(GLFWwindow* windowContext, double xpos, double ypos){
 	ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->MouseMovedEvent(int(xpos), int(ypos));
+    windowPtr->mouseMovedEvent(int(xpos), int(ypos));
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::mouseButtonPressedCB(GLFWwindow* windowContext, int button, int action, int mods){
     (void)mods;
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->MouseButtonEvent(static_cast<ffw::MouseButton>(button), static_cast<ffw::Mode>(action));
+    windowPtr->mouseButtonEvent(static_cast<ffw::MouseButton>(button), static_cast<ffw::Mode>(action));
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::mouseScrolledCB(GLFWwindow* windowContext, double xoffset, double yoffset){
     (void)xoffset;
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->MouseScrollEvent(int(yoffset));
+    windowPtr->mouseScrollEvent(int(yoffset));
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::windowShouldCloseCB(GLFWwindow* windowContext){
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->WindowCloseEvent();
+    windowPtr->windowCloseEvent();
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::windowMovedCB(GLFWwindow* windowContext, int xpos, int ypos){
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->WindowMovedEvent(xpos, ypos);
+    windowPtr->windowMovedEvent(xpos, ypos);
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::windowResizedCB(GLFWwindow* windowContext, int width, int height){
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-    windowPtr->WindowResizedEvent(width, height);
+    windowPtr->windowResizedEvent(width, height);
 }
 
 ///=============================================================================
 void ffw::GLFWRenderWindow::windowCallback::windowFocusCB(GLFWwindow* windowContext, int focus){
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
-	windowPtr->WindowFocusEvent(focus == 1 ? true : false);
+	windowPtr->windowFocusEvent(focus == 1 ? true : false);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::windowCallback::filesFroppedCB(GLFWwindow* windowContext, int count, const char** files){
+void ffw::GLFWRenderWindow::windowCallback::filesFroppedCB(GLFWwindow* windowContext, int cnt, const char** files){
     ffw::GLFWRenderWindow* windowPtr = static_cast<ffw::GLFWRenderWindow*>(glfwGetWindowUserPointer(windowContext));
     std::vector<std::string> fileList;
-    fileList.resize(count);
-    for(int i = 0; i < count; i++){
+    fileList.resize(cnt);
+    for(int i = 0; i < cnt; i++){
         fileList[i].assign(files[i]);
     }
-    windowPtr->FilesDroppedEvent(fileList);
+    windowPtr->filesDroppedEvent(fileList);
 }
 
 ///=============================================================================
@@ -204,7 +202,6 @@ class ffw::GLFWRenderWindow::impl{
 public:
 	ffw::GLFWRenderWindow* otherWindow;
 	GLFWwindow* windowHandle;
-	std::shared_ptr<ffw::RenderCollection> renderer;
 	ffw::Vec4i sizeBeforeFillscreen;
 	bool setupDone;
 	bool initialized;
@@ -220,7 +217,6 @@ ffw::GLFWRenderWindow::GLFWRenderWindow():pimpl(new impl){
 	pimpl->windowHandle = NULL;
 	pimpl->closed = true;
 	pimpl->singleBuffer = false;
-	pimpl->renderer = NULL;
 }
 
 ///=============================================================================
@@ -241,25 +237,25 @@ ffw::GLFWRenderWindow& ffw::GLFWRenderWindow::operator = (GLFWRenderWindow&& Oth
 ///=============================================================================
 ffw::GLFWRenderWindow::~GLFWRenderWindow(){
 	if(pimpl != NULL){
-		DestroyWindowData();
+		destroyWindowData();
 		delete pimpl;
 	}
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::SetPos(int posx, int posy){
+void ffw::GLFWRenderWindow::setPos(int posx, int posy){
 	if(!pimpl->initialized)return;
 	glfwSetWindowPos(pimpl->windowHandle, posx, posy);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::SetSize(int width, int height){
+void ffw::GLFWRenderWindow::setSize(int width, int height){
 	if(!pimpl->initialized)return;
 	glfwSetWindowSize(pimpl->windowHandle, width, height);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GLFWRenderWindow::GetPos() const {
+ffw::Vec2i ffw::GLFWRenderWindow::getPos() const {
 	ffw::Vec2i pos;
 	if(!pimpl->initialized)return pos;
 	glfwGetWindowPos(pimpl->windowHandle, &pos.x, &pos.y);
@@ -267,7 +263,7 @@ ffw::Vec2i ffw::GLFWRenderWindow::GetPos() const {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GLFWRenderWindow::GetSize() const {
+ffw::Vec2i ffw::GLFWRenderWindow::getSize() const {
 	ffw::Vec2i size;
 	if(!pimpl->initialized)return size;
 	glfwGetWindowSize(pimpl->windowHandle, &size.x, &size.y);
@@ -275,7 +271,7 @@ ffw::Vec2i ffw::GLFWRenderWindow::GetSize() const {
 }
 
 ///=============================================================================
-bool ffw::GLFWRenderWindow::Create(const ffw::GLFWRenderWindowArgs& args, ffw::GLFWRenderWindow* other, ffw::Monitor* targetMonitor){
+bool ffw::GLFWRenderWindow::create(const ffw::GLFWRenderWindowArgs& args, ffw::GLFWRenderWindow* other, ffw::Monitor* targetMonitor){
 	if(pimpl->initialized)return false;
 	if(args.size.x < 0 || args.size.y < 0)return false;
 
@@ -307,16 +303,14 @@ bool ffw::GLFWRenderWindow::Create(const ffw::GLFWRenderWindowArgs& args, ffw::G
         return false;
     }
 
-	/*if(args.icon.IsCreated()){
+	if (args.icon != NULL && args.icon->isAllocated()) {
 		GLFWimage image;
-		image.width = args.icon.getWidth();
-		image.height = args.icon.getHeight();
-		image.pixels = (unsigned char*)args.icon.getPixels();
+		image.width = args.icon->getWidth();
+		image.height = args.icon->getHeight();
+		image.pixels = (unsigned char*)args.icon->getPtr();
 
-#ifdef FFW_WINDOWS
 		glfwSetWindowIcon(newWindowContext, 1, &image);
-#endif
-	}*/
+	}
 
 	glfwSetWindowUserPointer    (newWindowContext, this);
     glfwSetKeyCallback          (newWindowContext, ffw::GLFWRenderWindow::windowCallback::keyPressedCB);
@@ -334,8 +328,8 @@ bool ffw::GLFWRenderWindow::Create(const ffw::GLFWRenderWindowArgs& args, ffw::G
 	pimpl->windowHandle = newWindowContext;
 	pimpl->closed = false;
 
-	if(!SetupContext()){
-		Destroy();
+	if(!setupContext()){
+		destroy();
 		return false;
 	}
 	glfwSwapInterval(1);
@@ -344,62 +338,42 @@ bool ffw::GLFWRenderWindow::Create(const ffw::GLFWRenderWindowArgs& args, ffw::G
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::SetWindowedMode(){
-#ifdef FFW_WINDOWS
+void ffw::GLFWRenderWindow::setWindowedMode(){
 	if(pimpl->initialized){
 		const auto& s = pimpl->sizeBeforeFillscreen;
 		glfwSetWindowMonitor(pimpl->windowHandle, NULL, s.x, s.y, s.z, s.w, GLFW_DONT_CARE);
 	}
-#endif
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::SetWindowedMode(int posx, int posy, int width, int height){
-#ifdef FFW_WINDOWS
+void ffw::GLFWRenderWindow::setWindowedMode(int posx, int posy, int width, int height){
 	if(pimpl->initialized){
 		glfwSetWindowMonitor(pimpl->windowHandle, NULL, posx, posy, width, height, GLFW_DONT_CARE);
 	}
-#endif
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::SetFullscreen(const Monitor* monitor){
-#ifdef FFW_WINDOWS
+void ffw::GLFWRenderWindow::setFullscreen(const Monitor* monitor){
 	if(pimpl->initialized && monitor != NULL){
-		pimpl->sizeBeforeFillscreen.Set(GetPos().x, GetPos().y, GetSize().x, GetSize().y);
+		pimpl->sizeBeforeFillscreen.set(getPos().x, getPos().y, getSize().x, getSize().y);
 		glfwSetWindowMonitor(pimpl->windowHandle, NULL, 0, 0, monitor->resolution.x, monitor->resolution.y, monitor->refreshRate);
 	}
-#endif
 }
 
 ///=============================================================================
-static void* getProcAddress(const char* str){
+static void* getProcaddress(const char* str){
 	return (void*)glfwGetProcAddress(str);
 }
 
 ///=============================================================================
-bool ffw::GLFWRenderWindow::SetupContext(){
+bool ffw::GLFWRenderWindow::setupContext(){
 	glfwMakeContextCurrent(pimpl->windowHandle);
-
-	// Try OpenGL 3.x first
-	pimpl->renderer.reset(new RenderCollectionGL3());
-	pimpl->renderer->Init(&getProcAddress);
-	if(pimpl->renderer->Compile()) {
-		return true;
-	}
-
-	// OpenGL 3.x failed, try OpenGL 1.x
-	pimpl->renderer.reset(new RenderCollectionGL1());
-	pimpl->renderer->Init(&getProcAddress);
-	if (pimpl->renderer->Compile()) {
-		return true;
-	}
-
-	return false;
+	this->loadExtensions(&getProcaddress);
+	return this->compileShaders();
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::DestroyWindowData(){
+void ffw::GLFWRenderWindow::destroyWindowData(){
 	if(pimpl->windowHandle != NULL){
 		glfwDestroyWindow(pimpl->windowHandle);
 		pimpl->windowHandle = NULL;
@@ -407,22 +381,22 @@ void ffw::GLFWRenderWindow::DestroyWindowData(){
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::ShouldClose(bool close){
+void ffw::GLFWRenderWindow::shouldClose(bool close){
 	pimpl->closed = close;
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::Destroy(){
+void ffw::GLFWRenderWindow::destroy(){
 	if(pimpl->initialized){
-		Close();
+		close();
 	}
-	DestroyWindowData();
+	destroyWindowData();
 	pimpl->initialized = false;
 	pimpl->closed = true;
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::RenderFrame(){
+void ffw::GLFWRenderWindow::renderFrame(){
 	if(!pimpl->initialized)return;
 
 	glfwMakeContextCurrent(pimpl->windowHandle);
@@ -433,15 +407,16 @@ void ffw::GLFWRenderWindow::RenderFrame(){
 
 	ffw::Vec2i size;
 	glfwGetWindowSize(pimpl->windowHandle, &size.x, &size.y);
-	glViewport(0, 0, size.x, size.y);
+	//glViewport(0, 0, size.x, size.y);
 
-	glMatrixMode(GL_MODELVIEW);
+	/*glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	glOrtho(0, size.x, size.y, 0, -1, 1);
+	glOrtho(0, size.x, size.y, 0, -1, 1);*/
+	this->setViewport(0, 0, size.x, size.y);
 
-	this->Render();
+	this->render();
 
 	if(pimpl->singleBuffer){
 		glFlush();
@@ -452,93 +427,83 @@ void ffw::GLFWRenderWindow::RenderFrame(){
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::PoolEvents(){
+void ffw::GLFWRenderWindow::poolEvents(){
 	glfwPollEvents();
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::WaitForEvents(){
+void ffw::GLFWRenderWindow::waitForEvents(){
 	glfwWaitEvents();
 }
 
 ///=============================================================================
-bool ffw::GLFWRenderWindow::IsInitialized() const {
+bool ffw::GLFWRenderWindow::isInitialized() const {
 	return pimpl->initialized;
 }
 
 ///=============================================================================
-bool ffw::GLFWRenderWindow::ShouldRender() const {
+bool ffw::GLFWRenderWindow::shouldRender() const {
 	return !pimpl->closed;
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::Show(){
+void ffw::GLFWRenderWindow::show(){
 	glfwShowWindow(pimpl->windowHandle);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::Hide(){
+void ffw::GLFWRenderWindow::hide(){
 	glfwHideWindow(pimpl->windowHandle);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::Iconify(){
+void ffw::GLFWRenderWindow::iconify(){
 	glfwIconifyWindow(pimpl->windowHandle);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::Restore(){
+void ffw::GLFWRenderWindow::restore(){
 	glfwRestoreWindow(pimpl->windowHandle);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::Maximize(){
+void ffw::GLFWRenderWindow::maximize(){
 #ifdef FFW_WINDOWS
 	glfwMaximizeWindow(pimpl->windowHandle);
 #endif
 }
 
 ///=============================================================================
-void* ffw::GLFWRenderWindow::GetGlextFunc(const std::string& FunctionName) const {
+void* ffw::GLFWRenderWindow::getGlextFunc(const std::string& FunctionName) const {
 	if(!pimpl->initialized)return NULL;
 	return (void*)glfwGetProcAddress(FunctionName.c_str());
 }
 
 ///=============================================================================
-bool ffw::GLFWRenderWindow::IsGlextFuncPresent(const std::string& FunctionName) const {
+bool ffw::GLFWRenderWindow::isGlextFuncPresent(const std::string& FunctionName) const {
 	if(!pimpl->initialized)return false;
-	return (GetGlextFunc(FunctionName) != NULL);
+	return (getGlextFunc(FunctionName) != NULL);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::SetSwapInterval(int Interval){
+void ffw::GLFWRenderWindow::setSwapInterval(int Interval){
 	if(!pimpl->initialized)return;
 	glfwSwapInterval(Interval);
 }
 
 ///=============================================================================
-ffw::RenderCollection* ffw::GLFWRenderWindow::Renderer() {
-	return pimpl->renderer.get();
-}
-
-///=============================================================================
-const ffw::RenderExtensions* ffw::GLFWRenderWindow::Glext() const {
-	return pimpl->renderer.get();
-}
-
-///=============================================================================
-void ffw::GLFWRenderWindow::SetSingleBufferMode(bool Enabled){
+void ffw::GLFWRenderWindow::setSingleBufferMode(bool Enabled){
 	pimpl->singleBuffer = Enabled;
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::TextInputEvent(unsigned int c){(void)c;}
-void ffw::GLFWRenderWindow::KeyPressedEvent(ffw::Key key, ffw::Mode mode){(void)key; (void)mode;}
-void ffw::GLFWRenderWindow::MouseMovedEvent(int mousex, int mousey){(void)mousex; (void)mousey;}
-void ffw::GLFWRenderWindow::MouseScrollEvent(int scroll){(void)scroll;}
-void ffw::GLFWRenderWindow::MouseButtonEvent(ffw::MouseButton button, ffw::Mode mode){(void)button; (void)mode;}
-void ffw::GLFWRenderWindow::WindowResizedEvent(int width, int height){(void)width; (void)height;}
-void ffw::GLFWRenderWindow::WindowMovedEvent(int posx, int posy){(void)posx; (void)posy;}
-void ffw::GLFWRenderWindow::WindowCloseEvent(){}
-void ffw::GLFWRenderWindow::WindowFocusEvent(bool focus){(void)focus;}
-void ffw::GLFWRenderWindow::FilesDroppedEvent(std::vector<std::string> filelist){(void)filelist;}
+void ffw::GLFWRenderWindow::textInputEvent(unsigned int c){(void)c;}
+void ffw::GLFWRenderWindow::keyPressedEvent(ffw::Key key, ffw::Mode mode){(void)key; (void)mode;}
+void ffw::GLFWRenderWindow::mouseMovedEvent(int mousex, int mousey){(void)mousex; (void)mousey;}
+void ffw::GLFWRenderWindow::mouseScrollEvent(int scroll){(void)scroll;}
+void ffw::GLFWRenderWindow::mouseButtonEvent(ffw::MouseButton button, ffw::Mode mode){(void)button; (void)mode;}
+void ffw::GLFWRenderWindow::windowResizedEvent(int width, int height){(void)width; (void)height;}
+void ffw::GLFWRenderWindow::windowMovedEvent(int posx, int posy){(void)posx; (void)posy;}
+void ffw::GLFWRenderWindow::windowCloseEvent(){}
+void ffw::GLFWRenderWindow::windowFocusEvent(bool focus){(void)focus;}
+void ffw::GLFWRenderWindow::filesDroppedEvent(std::vector<std::string> filelist){(void)filelist;}

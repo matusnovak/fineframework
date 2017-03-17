@@ -26,14 +26,14 @@ ffw::PbmSaver& ffw::PbmSaver::operator = (PbmSaver&& other){
 
 ///=============================================================================
 ffw::PbmSaver::~PbmSaver(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::PbmSaver::Open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::PbmSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
-	quality = ffw::Clamp(quality, 0, 100);
+	quality = ffw::clamp(quality, 0, 100);
 
 	switch(type){
 		case ImageType::GRAYSCALE_8:
@@ -48,7 +48,7 @@ bool ffw::PbmSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	}
 
 #ifdef FFW_WINDOWS
-	output->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
+	output->open(wstrToAnsi(utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
 #else
 	output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
 #endif
@@ -60,8 +60,8 @@ bool ffw::PbmSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 
 	std::string header[4];
 
-	header[1] = ValToString(w) + "\n";
-    header[2] = ValToString(h) + "\n";
+	header[1] = valToString(w) + "\n";
+    header[2] = valToString(h) + "\n";
 
 	switch(type){
 		case ffw::ImageType::GRAYSCALE_8: {
@@ -111,7 +111,7 @@ bool ffw::PbmSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 }
 
 ///=============================================================================
-void ffw::PbmSaver::Close(){
+void ffw::PbmSaver::close(){
 	output->close();
 	width = 0;
 	height = 0;
@@ -121,7 +121,7 @@ void ffw::PbmSaver::Close(){
 }
 
 ///=============================================================================
-size_t ffw::PbmSaver::WriteRow(const void* src){
+size_t ffw::PbmSaver::writeRow(const void* src){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(src == NULL)return 0;
@@ -134,7 +134,7 @@ size_t ffw::PbmSaver::WriteRow(const void* src){
 		case ffw::ImageType::GRAYSCALE_16: {
 			const unsigned short* ptr = (const unsigned short*)src;
 			for(size_t i = 0; i < (size_t)width; i++){
-				unsigned short pixel = ByteSwap16(ptr[i]);
+				unsigned short pixel = byteSwap16(ptr[i]);
 				output->write((char*)&pixel, sizeof(unsigned short));
 			}
 			break;
@@ -150,7 +150,7 @@ size_t ffw::PbmSaver::WriteRow(const void* src){
 		case ffw::ImageType::RGB_161616: {
 			const unsigned short* ptr = (const unsigned short*)src;
 			for(size_t i = 0; i < (size_t)width*3; i++){
-				unsigned short pixel = ByteSwap16(ptr[i]);
+				unsigned short pixel = byteSwap16(ptr[i]);
 				output->write((char*)&pixel, sizeof(unsigned short));
 			}
 			break;
@@ -162,11 +162,11 @@ size_t ffw::PbmSaver::WriteRow(const void* src){
 	}
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }
 
 ///=============================================================================
-bool ffw::PbmSaver::WriteFooter(){
+bool ffw::PbmSaver::writeFooter(){
 	if(!loaded)return false;
     if(row != height)return false;
 

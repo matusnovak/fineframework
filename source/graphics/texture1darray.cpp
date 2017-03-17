@@ -4,7 +4,7 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-bool ffw::Texture1DArray::CheckCompability(const ffw::RenderContext* renderer){
+bool ffw::Texture1DArray::checkCompability(const ffw::RenderContext* renderer){
 	return true;
 }
 
@@ -14,15 +14,28 @@ ffw::Texture1DArray::Texture1DArray():Texture(){
 }
 
 ///=============================================================================
+ffw::Texture1DArray::Texture1DArray(Texture1DArray&& second) : Texture1DArray() {
+	Texture::swap(second);
+}
+
+///=============================================================================
+ffw::Texture1DArray& ffw::Texture1DArray::operator = (ffw::Texture1DArray&& other) {
+	if (this != &other) {
+		Texture::swap(other);
+	}
+	return *this;
+}
+
+///=============================================================================
 ffw::Texture1DArray::~Texture1DArray(){
 }
 
 ///=============================================================================
-bool ffw::Texture1DArray::Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat){
+bool ffw::Texture1DArray::create(const ffw::RenderContext* renderer, GLsizei width, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat){
     if(loaded_)return false;
-	if(!CheckCompability(renderer))return false;
+	if(!checkCompability(renderer))return false;
 	loaded_ = true;
-    gl_ = renderer->Glext();
+    gl_ = static_cast<const RenderExtensions*>(renderer);
 
     glGenTextures(1, &buffer_);
     glBindTexture(GL_TEXTURE_1D_ARRAY, buffer_);
@@ -41,7 +54,7 @@ bool ffw::Texture1DArray::Create(const ffw::RenderContext* renderer, GLsizei wid
     int test;
     glGetTexLevelParameteriv(GL_TEXTURE_1D_ARRAY, 0, GL_TEXTURE_WIDTH, &test);
     if(test != width){
-        Destroy();
+        destroy();
         return false;
     }
 
@@ -54,7 +67,7 @@ bool ffw::Texture1DArray::Create(const ffw::RenderContext* renderer, GLsizei wid
 }
 
 ///=============================================================================
-bool ffw::Texture1DArray::Resize(GLsizei width, GLsizei layers){
+bool ffw::Texture1DArray::resize(GLsizei width, GLsizei layers){
 	if(!loaded_)return false;
 	width_ = width;
 	layers_ = layers;
@@ -64,7 +77,7 @@ bool ffw::Texture1DArray::Resize(GLsizei width, GLsizei layers){
 }
 
 ///=============================================================================
-bool ffw::Texture1DArray::SetPixels(GLint level, GLint xoffset, GLint loffset, GLsizei width, const void* pixels){
+bool ffw::Texture1DArray::setPixels(GLint level, GLint xoffset, GLint loffset, GLsizei width, const void* pixels){
     if(!loaded_)return false;
     glEnable(GL_TEXTURE_1D_ARRAY);
     glBindTexture(GL_TEXTURE_1D_ARRAY, buffer_);
@@ -74,7 +87,7 @@ bool ffw::Texture1DArray::SetPixels(GLint level, GLint xoffset, GLint loffset, G
 }
 
 ///=============================================================================
-bool ffw::Texture1DArray::GetPixels(void* pixels){
+bool ffw::Texture1DArray::getPixels(void* pixels){
 	if(!loaded_)return false;
 	glGetTexImage(GL_TEXTURE_1D_ARRAY, 0, format_, pixelformat_, pixels);
     return true;

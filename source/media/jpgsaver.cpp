@@ -66,17 +66,17 @@ ffw::JpgSaver& ffw::JpgSaver::operator = (JpgSaver&& other){
 
 ///=============================================================================
 ffw::JpgSaver::~JpgSaver(){
-	Close();
+	close();
 	if(jpg_struct != NULL){
 		delete jpg_struct;
 	}
 }
 
 ///=============================================================================
-bool ffw::JpgSaver::Open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::JpgSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
-	quality = ffw::Clamp(quality, 0, 100);
+	quality = ffw::clamp(quality, 0, 100);
 
 	switch(type){
 		case ImageType::GRAYSCALE_8:
@@ -87,7 +87,7 @@ bool ffw::JpgSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	}
 
 #ifdef FFW_WINDOWS
-	output  = fopen(WstrToAnsi(Utf8ToWstr(path)).c_str(), "wb");
+	output  = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "wb");
 #else
 	output = fopen(path.c_str(), "wb");
 #endif
@@ -111,8 +111,8 @@ bool ffw::JpgSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	if(setjmp(jpg_struct->jerr.setjmp_buffer)) {
 		// If we get here, the JPEG code has signaled an error.
 		// We need to clean up the JPEG object, close the input file, and return.
-		std::cerr << "Set jump failed" << std::endl;
-		Close();
+		std::cerr << "set jump failed" << std::endl;
+		close();
 		return false;
 	}
 
@@ -170,7 +170,7 @@ bool ffw::JpgSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 }
 
 ///=============================================================================
-void ffw::JpgSaver::Close(){
+void ffw::JpgSaver::close(){
 	if(jpg_struct != NULL){
 		if(compressInit){
 			jpeg_finish_compress(&jpg_struct->cinfo);
@@ -194,21 +194,21 @@ void ffw::JpgSaver::Close(){
 }
 
 ///=============================================================================
-size_t ffw::JpgSaver::WriteRow(const void* src){
+size_t ffw::JpgSaver::writeRow(const void* src){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(src == NULL)return 0;
-	
+
 	JSAMPROW row_pointer[1];
 	row_pointer[0] = (unsigned char*)src;
 	if(jpeg_write_scanlines(&jpg_struct->cinfo, row_pointer, 1) != 1)return false;
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }
 
 ///=============================================================================
-bool ffw::JpgSaver::WriteFooter(){
+bool ffw::JpgSaver::writeFooter(){
 	if(!loaded)return false;
     if(row != height)return false;
 

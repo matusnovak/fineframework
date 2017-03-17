@@ -10,35 +10,35 @@ namespace ffw {
 	public:
 		GuiProgressBar(GuiWindow* context);
 		virtual ~GuiProgressBar();
-		ffw::Vec2i GetMinimumWrapSize() override;
-		inline void SetValue(int value) {
-			percent = ffw::Clamp(value, 0, 100);
-			Redraw();
+		ffw::Vec2i getMinimumWrapSize() override;
+		inline void setValue(int value) {
+			percent = ffw::clamp(value, 0, 100);
+			redraw();
 		}
-		inline int GetValue() const {
+		inline int getValue() const {
 			return percent;
 		}
-		void SetInnerStyleGroup(const GuiStyleGroup* style) {
+		void setInnerStyleGroup(const GuiStyleGroup* style) {
 			innerStyle = style;
-			Redraw();
+			redraw();
 		}
-		const GuiStyleGroup* GetInnerStyleGroup() const  {
+		const GuiStyleGroup* getInnerStyleGroup() const  {
 			return innerStyle;
 		}
 	protected:
 		const GuiStyleGroup* innerStyle;
 	private:
-		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-		void EventPos(const ffw::Vec2i& pos) override;
-		void EventSize(const ffw::Vec2i& size) override;
-		void EventHover(bool gained) override;
-		void EventFocus(bool gained) override;
-		void EventMouse(const ffw::Vec2i& pos) override;
-		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-		void EventText(wchar_t chr) override;
-		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		void EventDisabled(bool disabled) override;
-		virtual void EventThemeChanged(const GuiTheme* theme) override;
+		void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+		void eventPos(const ffw::Vec2i& pos) override;
+		void eventSize(const ffw::Vec2i& size) override;
+		void eventHover(bool gained) override;
+		void eventFocus(bool gained) override;
+		void eventMouse(const ffw::Vec2i& pos) override;
+		void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
+		void eventText(wchar_t chr) override;
+		void eventKey(ffw::Key key, ffw::Mode mode) override;
+		void eventDisabled(bool disabled) override;
+		virtual void eventThemeChanged(const GuiTheme* theme) override;
 		int percent;
 	};
 }

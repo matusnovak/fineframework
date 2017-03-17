@@ -28,15 +28,15 @@ ffw::TgaLoader& ffw::TgaLoader::operator = (TgaLoader&& other){
 
 ///=============================================================================
 ffw::TgaLoader::~TgaLoader(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::TgaLoader::Open(const std::string& path){
+bool ffw::TgaLoader::open(const std::string& path){
 	if(loaded)return false;
 
 #ifdef FFW_WINDOWS
-	input->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::in | std::ios::binary);
+	input->open(wstrToAnsi(utf8ToWstr(path)), std::ios::in | std::ios::binary);
 #else
 	input->open(path, std::ios::in | std::ios::binary);
 #endif
@@ -50,7 +50,7 @@ bool ffw::TgaLoader::Open(const std::string& path){
 	input->seekg(0, std::ios::beg);
 
 	if(size < 18){
-		Close();
+		close();
 		return false;
 	}
 
@@ -95,16 +95,16 @@ bool ffw::TgaLoader::Open(const std::string& path){
 
 	// Check if there is no compression
     if(colorMapType != 0){
-		Close();
+		close();
 		return false;
 	}
 
     if(!(imageType == 2 || imageType == 3)){
-		Close();
+		close();
 		return false;
 	}
 
-	// Get number of channels
+	// get number of channels
     if(imageType == 3){
         format = ffw::ImageType::GRAYSCALE_8;
 
@@ -118,13 +118,13 @@ bool ffw::TgaLoader::Open(const std::string& path){
         format = ffw::ImageType::RGB_ALPHA_8888;
 
     } else {
-		Close();
+		close();
         return false;
     }
 
-	if(size < 18 + height * GetStrideSize()){
+	if(size < 18 + height * getStrideSize()){
 		std::cout << "size too low" << std::endl;
-		Close();
+		close();
 		return false;
 	}
 
@@ -136,7 +136,7 @@ bool ffw::TgaLoader::Open(const std::string& path){
 }
 
 ///=============================================================================
-void ffw::TgaLoader::Close(){
+void ffw::TgaLoader::close(){
 	input->close();
 	width = 0;
 	height = 0;
@@ -146,12 +146,12 @@ void ffw::TgaLoader::Close(){
 }
 
 ///=============================================================================
-size_t ffw::TgaLoader::ReadRow(void* dest){
+size_t ffw::TgaLoader::readRow(void* dest){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
 
-	input->seekg(pixelsOffset + (height - row - 1) * GetStrideSize());
+	input->seekg(pixelsOffset + (height - row - 1) * getStrideSize());
 	
 	switch(format){
 		case ffw::ImageType::GRAYSCALE_8: {
@@ -188,5 +188,5 @@ size_t ffw::TgaLoader::ReadRow(void* dest){
 	}
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }

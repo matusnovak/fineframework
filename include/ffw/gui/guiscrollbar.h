@@ -14,89 +14,95 @@ namespace ffw {
 		public:
 			ButtonFirst(GuiWindow* context, bool vertical);
 			virtual ~ButtonFirst();
-			void EventThemeChanged(const GuiTheme* theme) override;
+			void eventThemeChanged(const GuiTheme* theme) override;
+		private:
+			void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+			bool top;
 		};
 
 		class ButtonSecond : public GuiButton {
 		public:
 			ButtonSecond(GuiWindow* context, bool vertical);
 			virtual ~ButtonSecond();
-			void EventThemeChanged(const GuiTheme* theme) override;
+			void eventThemeChanged(const GuiTheme* theme) override;
+		private:
+			void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+			bool bot;
 		};
 
 		class Scroll : public GuiSlider {
 		public:
 			Scroll(GuiWindow* context, bool vertical);
 			virtual ~Scroll();
-			void EventThemeChanged(const GuiTheme* theme) override;
+			void eventThemeChanged(const GuiTheme* theme) override;
 		};
 
 		GuiScrollBar(GuiWindow* context, bool vertical);
-		inline bool IsVertical() const {
-			return slider->IsVertical();
+		inline bool isVertical() const {
+			return slider->isVertical();
 		}
-		inline GuiButton* GetButtonFirst() {
+		inline GuiButton* getButtonFirst() {
 			return left;
 		}
-		inline const GuiButton* GetButtonFirst() const {
+		inline const GuiButton* getButtonFirst() const {
 			return left;
 		}
-		inline GuiButton* GetButtonSecond() {
+		inline GuiButton* getButtonSecond() {
 			return right;
 		}
-		inline const GuiButton* GetButtonSecond() const {
+		inline const GuiButton* getButtonSecond() const {
 			return right;
 		}
-		inline GuiSlider* GetSlider() {
+		inline GuiSlider* getSlider() {
 			return slider;
 		}
-		inline const GuiSlider* GetSlider() const {
+		inline const GuiSlider* getSlider() const {
 			return slider;
 		}
-		inline void SetValue(int val) {
-			slider->SetValue(val);
+		inline void setValue(int val) {
+			slider->setValue(val);
 		}
-		inline int GetValue() const {
-			return slider->GetValue();
+		inline int getValue() const {
+			return slider->getValue();
 		}
-		inline const ffw::Vec2i& GetRange() const {
-			return slider->GetRange();
+		inline const ffw::Vec2i& getRange() const {
+			return slider->getRange();
 		}
-		inline void SetRange(int min, int max) {
-			slider->SetRange(min, max);
+		inline void setRange(int min, int max) {
+			slider->setRange(min, max);
 		}
-		inline void SetInversed(bool inversed) {
-			slider->SetInversed(inversed);
+		inline void setInversed(bool inversed) {
+			slider->setInversed(inversed);
 		}
-		inline bool GetInversed() const {
-			return slider->GetInversed();
+		inline bool getInversed() const {
+			return slider->getInversed();
 		}
-		inline void SetIncrements(int inc) {
+		inline void setIncrements(int inc) {
 			increments = inc;
 		}
-		inline int GetIncrements() const {
+		inline int getIncrements() const {
 			return increments;
 		}
-		void SetButtonLength(GuiUnits length);
-		inline GuiUnits GetButtonLength() const {
-			if (slider->IsVertical())return slider->GetButtonSize().y;
-			else return slider->GetButtonSize().x;
+		void setButtonLength(GuiUnits length);
+		inline GuiUnits getButtonLength() const {
+			if (slider->isVertical())return slider->getButtonSize().y;
+			else return slider->getButtonSize().x;
 		}
 		virtual ~GuiScrollBar();
-		ffw::Vec2i GetMinimumWrapSize() override;
+		ffw::Vec2i getMinimumWrapSize() override;
 	private:
-		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-		void EventPos(const ffw::Vec2i& pos) override;
-		void EventSize(const ffw::Vec2i& size) override;
-		void EventHover(bool gained) override;
-		void EventFocus(bool gained) override;
-		void EventMouse(const ffw::Vec2i& pos) override;
-		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-		void EventText(wchar_t chr) override;
-		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		void EventDisabled(bool disabled) override;
-		void EventThemeChanged(const GuiTheme* theme) override;
-		void Recalculate(const ffw::Vec2i& size);
+		void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+		void eventPos(const ffw::Vec2i& pos) override;
+		void eventSize(const ffw::Vec2i& size) override;
+		void eventHover(bool gained) override;
+		void eventFocus(bool gained) override;
+		void eventMouse(const ffw::Vec2i& pos) override;
+		void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
+		void eventText(wchar_t chr) override;
+		void eventKey(ffw::Key key, ffw::Mode mode) override;
+		void eventDisabled(bool disabled) override;
+		void eventThemeChanged(const GuiTheme* theme) override;
+		void recalculate(const ffw::Vec2i& size);
 		void ButtonCallback(ffw::GuiEvent e);
 		GuiButton* left;
 		GuiButton* right;

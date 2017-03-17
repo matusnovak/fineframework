@@ -1,5 +1,7 @@
 /**
- * \defgroup math math - Math functions and types
+ * @defgroup math math - Math functions and data types
+ * @brief From basic up to advanced math function and 
+ * additional data types such as vectors, matrices, etc...
  */
 #ifndef FFW_MATH_MODULE
 #define FFW_MATH_MODULE
@@ -13,6 +15,7 @@
 #include <sstream>
 #include <string>
 #include <limits>
+#include <exception>
 #include "math/mathconstants.h"
 #include "math/quaternion.h"
 #include "math/vec2.h"
@@ -28,4 +31,5 @@
 #include "math/mvp.h"
 #include "math/imagebuffer.h"
 #include "math/swapwrapper.h"
+#include "math/tokenizer.h"
 #endif

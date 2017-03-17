@@ -29,8 +29,6 @@ else()
     target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
   endif(MSVC)
 endif()
-
-target_link_libraries(${PROJECT_NAME} debug finemath${CMAKE_DEBUG_POSTFIX} optimized finemath)
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   

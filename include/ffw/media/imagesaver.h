@@ -12,20 +12,20 @@ namespace ffw{
 	public:
 		ImageWriter();
 		virtual ~ImageWriter();
-		virtual bool Open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100) = 0;
-		virtual void Close() = 0;
-		virtual size_t WriteRow(const void* src) = 0;
-		virtual bool WriteFooter() = 0;
-		inline bool Eof() const {
+		virtual bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100) = 0;
+		virtual void close() = 0;
+		virtual size_t writeRow(const void* src) = 0;
+		virtual bool writeFooter() = 0;
+		inline bool eof() const {
 			return row >= height;
 		}
 		inline operator bool() const {
 			return loaded;
 		}
-		inline int GetRowOffset() const {
+		inline int getRowOffset() const {
 			return row;
 		}
-		inline bool IsOpen() const {
+		inline bool isOpen() const {
 			return loaded;
 		}
 	protected:

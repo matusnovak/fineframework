@@ -4,13 +4,12 @@
 #include "ffw/gui/guiwindow.h"
 
 ///=============================================================================
-ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label) :GuiButtonToggle(context, Utf8ToWstr(label)) {
+ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label) :GuiButtonToggle(context, utf8ToWstr(label)) {
 }
 
 ///=============================================================================
 ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::wstring& label) : GuiButton(context, label) {
-	togglefocusflag = true;
-	dropfocusflag = false;
+	setToggleFocus();
 }
 
 ///=============================================================================
@@ -18,29 +17,29 @@ ffw::GuiButtonToggle::~GuiButtonToggle() {
 }
 
 ///=============================================================================
-void ffw::GuiButtonToggle::SetValue(bool value) {
-	SetFocus(value);
+void ffw::GuiButtonToggle::setValue(bool value) {
+	setFocus(value);
 }
 
 ///=============================================================================
-bool ffw::GuiButtonToggle::GetValue() const {
-	return HasFocus();
+bool ffw::GuiButtonToggle::getValue() const {
+	return hasFocus();
 }
 
 ///=============================================================================
 ffw::GuiButtonTogglePrimary::GuiButtonTogglePrimary(GuiWindow* context, const std::string& label) :
 	GuiButton(context, label) {
-	// At this point, we are sure that the context and GetTheme() are not NULL
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_BUTTON_PRIMARY");
-	SetDefaults(&widgetStyle->defaults);
+	// At this point, we are sure that the context and getTheme() are not NULL
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_BUTTON_PRIMARY");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::GuiButtonTogglePrimary::GuiButtonTogglePrimary(GuiWindow* context, const std::wstring& label) :
 	GuiButton(context, label) {
-	// At this point, we are sure that the context and GetTheme() are not NULL
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_BUTTON_PRIMARY");
-	SetDefaults(&widgetStyle->defaults);
+	// At this point, we are sure that the context and getTheme() are not NULL
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_BUTTON_PRIMARY");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -48,7 +47,7 @@ ffw::GuiButtonTogglePrimary::~GuiButtonTogglePrimary() {
 }
 
 ///=============================================================================
-void ffw::GuiButtonTogglePrimary::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_BUTTON_PRIMARY");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiButtonTogglePrimary::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_BUTTON_PRIMARY");
+	setDefaults(&widgetStyle->defaults);
 }

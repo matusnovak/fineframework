@@ -11,21 +11,21 @@ namespace ffw {
 		GuiLabel(GuiWindow* context, const std::string& label);
 		GuiLabel(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiLabel();
-		void SetLabel(const std::wstring& label);
-		const std::wstring& GetLabel() const;
-		ffw::Vec2i GetMinimumWrapSize() override;
+		void setLabel(const std::wstring& label);
+		const std::wstring& getLabel() const;
+		ffw::Vec2i getMinimumWrapSize() override;
 	private:
-		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-		void EventPos(const ffw::Vec2i& pos) override;
-		void EventSize(const ffw::Vec2i& size) override;
-		void EventHover(bool gained) override;
-		void EventFocus(bool gained) override;
-		void EventMouse(const ffw::Vec2i& pos) override;
-		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-		void EventText(wchar_t chr) override;
-		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		void EventDisabled(bool disabled) override;
-		virtual void EventThemeChanged(const GuiTheme* theme) override;
+		void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+		void eventPos(const ffw::Vec2i& pos) override;
+		void eventSize(const ffw::Vec2i& size) override;
+		void eventHover(bool gained) override;
+		void eventFocus(bool gained) override;
+		void eventMouse(const ffw::Vec2i& pos) override;
+		void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
+		void eventText(wchar_t chr) override;
+		void eventKey(ffw::Key key, ffw::Mode mode) override;
+		void eventDisabled(bool disabled) override;
+		virtual void eventThemeChanged(const GuiTheme* theme) override;
 		std::wstring label;
 	};
 }

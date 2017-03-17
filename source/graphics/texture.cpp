@@ -5,26 +5,79 @@
 
 ///=============================================================================
 ffw::Texture::Texture() {
-    loaded_ = false;
-    mipmaps_ = false;
-    width_ = 0;
-    height_ = 0;
-    depth_ = 0;
-    layers_ = 0;
-    buffer_ = 0;
+	loaded_ = false;
+	textureformat_ = 0;
+	internalformat_ = 0;
+	format_ = 0;
+	pixelformat_ = 0;
+	buffer_ = 0;
+	width_ = 0;
+	height_ = 0;
+	depth_ = 0;
+	layers_ = 0;
+	mipmaps_ = false;
+	initialized_ = false;
 	samples_ = 0;
-    initialized_ = false;
+	gl_ = NULL;
+}
+
+///=============================================================================
+ffw::Texture::Texture(Texture&& other) {
+	loaded_ = false;
+	textureformat_ = 0;
+	internalformat_ = 0;
+	format_ = 0;
+	pixelformat_ = 0;
+	buffer_ = 0;
+	width_ = 0;
+	height_ = 0;
+	depth_ = 0;
+	layers_ = 0;
+	mipmaps_ = false;
+	initialized_ = false;
+	samples_ = 0;
+	gl_ = NULL;
+	swap(other);
+}
+
+///=============================================================================
+void ffw::Texture::swap(Texture& other) {
+	if (this != &other) {
+		using std::swap;
+		swap(loaded_, other.loaded_);
+		swap(textureformat_, other.textureformat_);
+		swap(internalformat_, other.internalformat_);
+		swap(format_, other.format_);
+		swap(pixelformat_, other.pixelformat_);
+		swap(buffer_, other.buffer_);
+		swap(width_, other.width_);
+		swap(height_, other.height_);
+		swap(depth_, other.depth_);
+		swap(layers_, other.layers_);
+		swap(mipmaps_, other.mipmaps_);
+		swap(initialized_, other.initialized_);
+		swap(samples_, other.samples_);
+		swap(gl_, other.gl_);
+	}
+}
+
+///=============================================================================
+ffw::Texture& ffw::Texture::operator = (Texture&& other) {
+	if (this != &other) {
+		swap(other);
+	}
+	return *this;
 }
 
 ///=============================================================================
 ffw::Texture::~Texture(){
-    Destroy();
+    destroy();
 }
 
 ///=============================================================================
-bool ffw::Texture::GenerateMipmaps(){
+bool ffw::Texture::generateMipmaps(){
     if(!loaded_)return false;
-	Bind();
+	bind();
 	if(gl_->glGenerateMipmap != NULL){
 		gl_->glGenerateMipmap(textureformat_);
 		mipmaps_ = true;
@@ -34,88 +87,93 @@ bool ffw::Texture::GenerateMipmaps(){
 }
 
 ///=============================================================================
-void ffw::Texture::SetEnvParami(GLenum target, GLenum name, GLint value){
+void ffw::Texture::setEnvParami(GLenum target, GLenum name, GLint value){
     glTexEnvi(target, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::SetEnvParamf(GLenum target, GLenum name, GLfloat value){
+void ffw::Texture::setEnvParamf(GLenum target, GLenum name, GLfloat value){
     glTexEnvf(target, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::SetTexParami(GLenum name, GLint value){
+void ffw::Texture::setTexParami(GLenum name, GLint value){
     glTexParameteri(textureformat_, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::SetTexParamf(GLenum name, GLfloat value){
+void ffw::Texture::setTexParamf(GLenum name, GLfloat value){
     glTexParameterf(textureformat_, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::SetTexParamiv(GLenum name, GLint* value){
+void ffw::Texture::setTexParamiv(GLenum name, GLint* value){
     glTexParameteriv(textureformat_, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::SetTexParamfv(GLenum name, GLfloat* value){
+void ffw::Texture::setTexParamfv(GLenum name, GLfloat* value){
     glTexParameterfv(textureformat_, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::SetFiltering(Texture::Filtering filtering) {
-	Bind();
+void ffw::Texture::setFiltering(Texture::Filtering filtering) {
+	bind();
 	switch (filtering) {
 		case Texture::Filtering::NEAREST: {
-			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			setTexParami(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			setTexParami(GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 			break;
 		}
 		case Texture::Filtering::LINEAR: {
-			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+			setTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			setTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			break;
 		}
 		case Texture::Filtering::MIPMAP_NEAREST: {
-			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
-			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+			setTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_NEAREST);
+			setTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_NEAREST);
 			break;
 		}
 		case Texture::Filtering::MIPMAP_LINEAR: {
-			SetTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-			SetTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			setTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			setTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			break;
 		}
 		default: {
 			break;
 		}
 	}
-	Unbind();
+	unbind();
 }
 
 ///=============================================================================
-void ffw::Texture::Bind() const{
+void ffw::Texture::bind() const{
     if(loaded_)glBindTexture(textureformat_, buffer_);
 }
 
 ///=============================================================================
-void ffw::Texture::Unbind() const{
+void ffw::Texture::unbind() const{
     if(loaded_)glBindTexture(textureformat_, 0);
 }
 
 ///=============================================================================
-void ffw::Texture::Destroy(){
+void ffw::Texture::destroy(){
     // Delete texture
     if(loaded_)glDeleteTextures(1, &buffer_);
-    // Reset variables
-    buffer_ = 0;
-    loaded_ = false;
-    mipmaps_ = false;
-    width_ = 0;
-    height_ = 0;
-    depth_ = 0;
-    layers_ = 0;
+    // reset variables
+	loaded_ = false;
+	textureformat_ = 0;
+	internalformat_ = 0;
+	format_ = 0;
+	pixelformat_ = 0;
+	buffer_ = 0;
+	width_ = 0;
+	height_ = 0;
+	depth_ = 0;
+	layers_ = 0;
+	mipmaps_ = false;
+	initialized_ = false;
 	samples_ = 0;
 }
 

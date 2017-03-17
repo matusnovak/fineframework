@@ -9,13 +9,17 @@ namespace ffw {
 	 */
 	class FFW_API Texture2DArray: public Texture {
     public:
-        static bool CheckCompability(const RenderContext* renderer);
+        static bool checkCompability(const RenderContext* renderer);
 		Texture2DArray();
+		Texture2DArray(const Texture2DArray& second) = delete;
+		Texture2DArray(Texture2DArray&& second);
         ~Texture2DArray();
-        bool Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat);
-		bool Resize(GLsizei width, GLsizei height, GLsizei layers);
-        bool SetPixels(GLint level, GLint xoffset, GLint yoffset, GLint loffset, GLsizei width, GLsizei height, const void* pixels);
-		bool GetPixels(void* pixels);
+        bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat);
+		bool resize(GLsizei width, GLsizei height, GLsizei layers);
+        bool setPixels(GLint level, GLint xoffset, GLint yoffset, GLint loffset, GLsizei width, GLsizei height, const void* pixels);
+		bool getPixels(void* pixels);
+		Texture2DArray& operator = (const Texture2DArray& second) = delete;
+		Texture2DArray& operator = (Texture2DArray&& second);
     };
 };
 #endif

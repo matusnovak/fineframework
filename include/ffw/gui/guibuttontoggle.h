@@ -11,16 +11,18 @@ namespace ffw {
 		GuiButtonToggle(GuiWindow* context, const std::string& label);
 		GuiButtonToggle(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButtonToggle();
-		void SetValue(bool value);
-		bool GetValue() const;
+		void setValue(bool value);
+		bool getValue() const;
 	};
-
+	/**
+	* @ingroup gui
+	*/
 	class FFW_API GuiButtonTogglePrimary : public GuiButton {
 	public:
 		GuiButtonTogglePrimary(GuiWindow* context, const std::string& label);
 		GuiButtonTogglePrimary(GuiWindow* context, const std::wstring& label);
 		virtual ~GuiButtonTogglePrimary();
-		void EventThemeChanged(const GuiTheme* theme) override;
+		void eventThemeChanged(const GuiTheme* theme) override;
 	};
 }
 #endif

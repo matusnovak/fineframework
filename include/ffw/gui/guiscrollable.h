@@ -12,50 +12,50 @@ namespace ffw {
 	public:
 		GuiScrollable(GuiWindow* context, GuiWidget* widget, bool hori, bool vert);
 		virtual ~GuiScrollable();
-		ffw::Vec2i GetMinimumWrapSize() override;
-		void SetScrollbarThickness(int px);
-		void SetScrollValues(int hori, int vert);
-		inline ffw::Vec2i GetScrollValues() const {
+		ffw::Vec2i getMinimumWrapSize() override;
+		void setScrollbarThickness(int px);
+		void setScrollValues(int hori, int vert);
+		inline ffw::Vec2i getScrollValues() const {
 			ffw::Vec2i values;
-			if (hscroll != NULL)values.x = hscroll->GetValue();
-			if (vscroll != NULL)values.x = vscroll->GetValue();
+			if (hscroll != NULL)values.x = hscroll->getValue();
+			if (vscroll != NULL)values.x = vscroll->getValue();
 			return values;
 		}
-		inline int GetScrollbarThickness() const {
+		inline int getScrollbarThickness() const {
 			return thickness;
 		}
-		inline ffw::GuiScrollBar* GetVscroll() {
+		inline ffw::GuiScrollBar* getVscroll() {
 			return vscroll;
 		}
-		inline const ffw::GuiScrollBar* GetVscroll() const {
+		inline const ffw::GuiScrollBar* getVscroll() const {
 			return vscroll;
 		}
-		inline ffw::GuiScrollBar* GetHscroll() {
+		inline ffw::GuiScrollBar* getHscroll() {
 			return hscroll;
 		}
-		inline const ffw::GuiScrollBar* GetHscroll() const {
+		inline const ffw::GuiScrollBar* getHscroll() const {
 			return hscroll;
 		}
 	protected:
-		inline ffw::GuiWidget* GetInnerAsWidget() {
+		inline ffw::GuiWidget* getInnerAsWidget() {
 			return inner;
 		}
-		inline const ffw::GuiWidget* GetInnerAsWidget() const {
+		inline const ffw::GuiWidget* getInnerAsWidget() const {
 			return inner;
 		}
 	private:
-		void WidgetEvent(GuiEvent e);
-		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-		void EventPos(const ffw::Vec2i& pos) override;
-		void EventSize(const ffw::Vec2i& size) override;
-		void EventHover(bool gained) override;
-		void EventFocus(bool gained) override;
-		void EventMouse(const ffw::Vec2i& pos) override;
-		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-		void EventText(wchar_t chr) override;
-		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		void EventDisabled(bool disabled) override;
-		void EventThemeChanged(const GuiTheme* theme) override;
+		void widgetEvent(GuiEvent e);
+		void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+		void eventPos(const ffw::Vec2i& pos) override;
+		void eventSize(const ffw::Vec2i& size) override;
+		void eventHover(bool gained) override;
+		void eventFocus(bool gained) override;
+		void eventMouse(const ffw::Vec2i& pos) override;
+		void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
+		void eventText(wchar_t chr) override;
+		void eventKey(ffw::Key key, ffw::Mode mode) override;
+		void eventDisabled(bool disabled) override;
+		void eventThemeChanged(const GuiTheme* theme) override;
 		ffw::GuiScrollBar* vscroll;
 		ffw::GuiScrollBar* hscroll;
 		ffw::GuiWidget* inner;
@@ -68,11 +68,11 @@ namespace ffw {
 	public:
 		GuiScrollableLayout(GuiWindow* context, GuiLayout::Orientation orientation, bool hori, bool vert);
 		virtual ~GuiScrollableLayout();
-		inline GuiLayout* GetInner(){
-			return dynamic_cast<ffw::GuiLayout*>(GetInnerAsWidget());
+		inline GuiLayout* getInner(){
+			return dynamic_cast<ffw::GuiLayout*>(getInnerAsWidget());
 		}
-		inline const GuiLayout* GetInner() const{
-			return dynamic_cast<const ffw::GuiLayout*>(GetInnerAsWidget());
+		inline const GuiLayout* getInner() const{
+			return dynamic_cast<const ffw::GuiLayout*>(getInnerAsWidget());
 		}
 	};
 }

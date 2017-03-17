@@ -15,42 +15,43 @@ namespace ffw {
 			Button(GuiWindow* context, const std::string& label);
 			Button(GuiWindow* context, const std::wstring& label);
 			virtual ~Button();
-			void EventThemeChanged(const GuiTheme* theme) override;
+			void eventThemeChanged(const GuiTheme* theme) override;
 		};
 		class FFW_API TopBar : public GuiLayout {
 		public:
 			TopBar(GuiWindow* context);
 			virtual ~TopBar();
-			void EventThemeChanged(const GuiTheme* theme) override;
+			void eventThemeChanged(const GuiTheme* theme) override;
 		};
 		class FFW_API Content : public GuiLayout {
 		public:
 			Content(GuiWindow* context);
 			virtual ~Content();
-			void EventThemeChanged(const GuiTheme* theme) override;
+			void eventThemeChanged(const GuiTheme* theme) override;
 		};
 		GuiTabs(GuiWindow* context);
 		virtual ~GuiTabs();
-		ffw::Vec2i GetMinimumWrapSize() override;
-		GuiWidget* AddTab(const std::string& label, GuiWidget* widget);
-		GuiWidget* AddTab(const std::wstring& label, GuiWidget* widget);
-		void ShowTabByIndex(size_t index);
-		void ShowTabByWidget(const GuiWidget *widget);
+		ffw::Vec2i getMinimumWrapSize() override;
+		std::pair<GuiButtonToggle*, GuiWidget*> addTab(GuiButtonToggle* button, GuiWidget* widget);
+		std::pair<GuiButtonToggle*, GuiWidget*> addTab(const std::string& label, GuiWidget* widget);
+		std::pair<GuiButtonToggle*, GuiWidget*> addTab(const std::wstring& label, GuiWidget* widget);
+		void showTabByIndex(size_t index);
+		void showTabByWidget(const GuiWidget *widget);
 	private:
-		void WidgetEvent(GuiEvent e);
-		void HideAllExcept(GuiWidget* widget);
-		void AddWidgetPair(GuiButtonToggle* button, GuiWidget* widget);
-		void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-		void EventPos(const ffw::Vec2i& pos) override;
-		void EventSize(const ffw::Vec2i& size) override;
-		void EventHover(bool gained) override;
-		void EventFocus(bool gained) override;
-		void EventMouse(const ffw::Vec2i& pos) override;
-		void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-		void EventText(wchar_t chr) override;
-		void EventKey(ffw::Key key, ffw::Mode mode) override;
-		void EventDisabled(bool disabled) override;
-		void EventThemeChanged(const GuiTheme* theme) override;
+		void widgetEvent(GuiEvent e);
+		void hideAllExcept(GuiWidget* widget);
+		void addWidgetPair(GuiButtonToggle* button, GuiWidget* widget);
+		void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+		void eventPos(const ffw::Vec2i& pos) override;
+		void eventSize(const ffw::Vec2i& size) override;
+		void eventHover(bool gained) override;
+		void eventFocus(bool gained) override;
+		void eventMouse(const ffw::Vec2i& pos) override;
+		void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
+		void eventText(wchar_t chr) override;
+		void eventKey(ffw::Key key, ffw::Mode mode) override;
+		void eventDisabled(bool disabled) override;
+		void eventThemeChanged(const GuiTheme* theme) override;
 		std::vector<std::pair<GuiButtonToggle*, GuiWidget*>> tabs;
 		GuiTabs::TopBar* bar;
 		GuiTabs::Content* content;

@@ -29,10 +29,10 @@ public:
 ```
 
 Next, you will need to override some basic method from ffw::GLFWRenderWindow:
-* **ffw::GLFWRenderWindow::Setup** - This method is called only once before the rendering begins. Put your code here that needs to be executed once.
-* **ffw::GLFWRenderWindow::Render** - This method is called each frame. If you want to render something, this is a place to put it in.
-* **ffw::GLFWRenderWindow::Close** - This method is called only once when the window is begin destroyed. If you need to do a clean-up, this is a place for you.
-* **ffw::GLFWRenderWindow::WindowCloseEvent** - This mthod is called when you click on the [X] button on the window.
+* **ffw::GLFWRenderWindow::setup** - This method is called only once before the rendering begins. Put your code here that needs to be executed once.
+* **ffw::GLFWRenderWindow::render** - This method is called each frame. If you want to render something, this is a place to put it in.
+* **ffw::GLFWRenderWindow::close** - This method is called only once when the window is begin destroyed. If you need to do a clean-up, this is a place for you.
+* **ffw::GLFWRenderWindow::windowCloseEvent** - This mthod is called when you click on the [X] button on the window.
 
 
 ```
@@ -46,26 +46,26 @@ public:
 	~MyCustomClass(){
 	}
 	
-	bool Setup() override {
+	bool setup() override {
 		// Return true or false
 		// true - Setup is OK
 		// false - Setup failed
 		return true;
 	}
 	
-	void Render() override {
-		this->Renderer()->SetDrawColor(ffw::Rgb(0xFF0000)); // Red color
-        this->Renderer()->DrawRectangle(10, 10, GetSize().x-20, GetSize().y-20);
+	void render() override {
+		this->setDrawColor(ffw::rgb(0xFF0000)); // Red color
+        this->drawRectangle(10, 10, getSize().x-20, getSize().y-20);
 	}
 	
-	void Close() override {
+	void close() override {
 		// Window is being destroyed
 	}
 	
-	void WindowCloseEvent() override {
+	void windowCloseEvent() override {
         std::cout << "Window close button pressed!" << std::endl;
 		// Let the window know that we want to be closed.
-        this->ShouldClose(true);
+        this->shouldClose(true);
     }
 }
 ```
@@ -99,7 +99,7 @@ int main(int argc, char *argv[]){
 	// Set arguments
     ffw::GLFWRenderWindowArgs args;
 	// Set initial size to 400x400 pixels
-    args.size.Set(400, 400);
+    args.size.set(400, 400);
 	// Set the window title to "Empty Example" (UTF-8 compatible)
     args.title = "Empty Example";
 	
@@ -125,54 +125,54 @@ int main(int argc, char *argv[]){
     args.size.Set(400, 400);
     args.title = "Empty Example";
     // Create window
-    if(!myCustomWindow.Create(args, NULL)){
+    if(!myCustomWindow.create(args, NULL)){
         std::cerr << "Failed to create window!" << std::endl;
         return 1;
     }
     // Run setup
-    if(!myCustomWindow.Setup()){
+    if(!myCustomWindow.setup()){
         std::cerr << "Failed to setup window!" << std::endl;
         return 1;
     }
     // The main window loop
-    while(myCustomWindow.ShouldRender()){
-        myCustomWindow.RenderFrame();
-        myCustomWindow.PoolEvents();
+    while(myCustomWindow.shouldRender()){
+        myCustomWindow.renderFrame();
+        myCustomWindow.poolEvents();
     }
     // Destroy window, this will delete all graphics data used by the window.
     // Must be called after the setup and before the graphics
     // is terminated
-    myCustomWindow.Destroy();
+    myCustomWindow.destroy();
     return 0;
 }
 ```
 
-The `if(!myCustomWindow.Create(args, NULL)){` will create a new rendering window. If this fails, your parameters are wrong (width or height is zero, etc...). This may also fail if your OS does not support OpenGL. In this case, it will print out "Failed to iniailize GLFW graphics!". If you are using remote connection over X11 on Linux, make sure your DISPLAY system variable is set.
+The `if(!myCustomWindow.create(args, NULL)){` will create a new rendering window. If this fails, your parameters are wrong (width or height is zero, etc...). This may also fail if your OS does not support OpenGL. In this case, it will print out "Failed to iniailize GLFW graphics!". If you are using remote connection over X11 on Linux, make sure your DISPLAY system variable is set.
 
-The `if(!myCustomWindow.Create(args, NULL)){` will set up necessary OpenGL environment for the window and then it will call your own overriden function `MyCustomClass::Setup()` 
+The `if(!myCustomWindow.create(args, NULL)){` will set up necessary OpenGL environment for the window and then it will call your own overriden function `MyCustomClass::Setup()` 
 
-The `while(myCustomWindow.ShouldRender()){` will ask the window if we should continue rendering the window. The method is defined inside of ffw::GLFWRenderWindow::ShouldRender and will return false if one passed a 'true' into ffw::GLFWRenderWindow::ShouldClose method. 
+The `while(myCustomWindow.shouldRender()){` will ask the window if we should continue rendering the window. The method is defined inside of ffw::GLFWRenderWindow::ShouldRender and will return false if one passed a 'true' into ffw::GLFWRenderWindow::ShouldClose method. 
 
-Inside of the loop, you need to call `myCustomWindow.RenderFrame();` which will set the OpenGL viewport and then it will call myCustomWindow::Render() function. The `myCustomWindow.PoolEvents();` will check for the user input.
+Inside of the loop, you need to call `myCustomWindow.renderFrame();` which will set the OpenGL viewport and then it will call myCustomWindow::Render() function. The `myCustomWindow.poolEvents();` will check for the user input.
 
 Now, compile it and you should see something like this image below. If you are not sure how to compile FFW application or if you get any errors, please refer to the [Getting started section in tutorials](md_markdown_tutorials.html).
 
-![Alt](images/tutorial-vs12-05.png)
+![Alt](tutorial-vs12-05.png)
 
 ### Additional window event methods 
 
 You might ask yourself, how do I get a mouse position? You will need to override a specific function inside of ffw::GLFWRenderWindow and they are the following:
 
-* **ffw::GLFWRenderWindow::TextInputEvent**
-* **ffw::GLFWRenderWindow::KeyPressedEvent**
-* **ffw::GLFWRenderWindow::MouseMovedEvent**
-* **ffw::GLFWRenderWindow::MouseScrollEvent**
-* **ffw::GLFWRenderWindow::MouseButtonEvent**
-* **ffw::GLFWRenderWindow::WindowResizedEvent**
-* **ffw::GLFWRenderWindow::WindowMovedEvent**
-* **ffw::GLFWRenderWindow::WindowCloseEvent**
-* **ffw::GLFWRenderWindow::WindowFocusEvent**
-* **ffw::GLFWRenderWindow::FilesDroppedEvent**
+* **ffw::GLFWRenderWindow::textInputEvent**
+* **ffw::GLFWRenderWindow::keyPressedEvent**
+* **ffw::GLFWRenderWindow::mouseMovedEvent**
+* **ffw::GLFWRenderWindow::mouseScrollEvent**
+* **ffw::GLFWRenderWindow::mouseButtonEvent**
+* **ffw::GLFWRenderWindow::windowResizedEvent**
+* **ffw::GLFWRenderWindow::windowMovedEvent**
+* **ffw::GLFWRenderWindow::windowCloseEvent**
+* **ffw::GLFWRenderWindow::windowFocusEvent**
+* **ffw::GLFWRenderWindow::filesDroppedEvent**
 
 They are self explanatory. To read more about each method, simply follow the link or look it up in the documentation of ffw::GLFWRenderWindow.
 
@@ -184,7 +184,7 @@ To use the function, for example MouseMovedEvent (tracking the mouse position) s
 class MyCustomClass: public ffw::GLFWRenderWindow {
 public:
 	...
-	void MouseMovedEvent(int mousex, int mousey) override {
+	void mouseMovedEvent(int mousex, int mousey) override {
         std::cout << "Mouse moved to: " << mousex << "x" << mousey << std::endl;
     }
 	...

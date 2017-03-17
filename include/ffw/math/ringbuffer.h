@@ -24,19 +24,19 @@ namespace ffw{
 		inline ~RingBuffer() {
 		}
 
-		inline void Create(size_t Size) {
-			Reset();
+		inline void create(size_t Size) {
+			reset();
 			elements.resize(Size + 1);
 			size = Size;
 		}
 
-		inline T* Back() {
+		inline T* back() {
 			size_t current = head.load();
 			if (current == tail.load())return NULL;
 			return &elements[current];
 		}
 
-		inline bool Push(const T& Item) {
+		inline bool push(const T& Item) {
 			size_t current = tail.load();
 			size_t next = (current + 1) % (size + 1);
 			if (next == head.load() || size == 0)return false;
@@ -53,23 +53,23 @@ namespace ffw{
 			return true;
 		}
 
-		inline size_t GetRange() const {
+		inline size_t getRange() const {
 			return size;
 		}
 
-		inline size_t Range() const {
+		inline size_t range() const {
 			return size;
 		}
 
-		inline size_t GetTail() const {
+		inline size_t getTail() const {
 			return tail.load();
 		}
 
-		inline size_t GetHead() const {
+		inline size_t getHead() const {
 			return head.load();
 		}
 
-		inline size_t GetSize() const {
+		inline size_t getSize() const {
 			size_t currentTail = tail.load();
 			size_t currentHead = head.load();
 			if (currentTail == currentHead)return 0;
@@ -80,26 +80,26 @@ namespace ffw{
 		}
 
 		inline size_t Size() const {
-			return GetSize();
+			return getSize();
 		}
 
-		inline bool IsFull() const {
+		inline bool isFull() const {
 			size_t next = (tail.load() + 1) % (size + 1);
 			return (next == head.load());
 		}
 
-		inline bool IsEmpty() const {
+		inline bool isEmpty() const {
 			return (tail.load() == head.load());
 		}
 
-		inline void Clear() {
+		inline void clear() {
 			elements.clear();
 			tail.store(0);
 			head.store(0);
 			size = 0;
 		}
 
-		inline void Reset() {
+		inline void reset() {
 			tail.store(0);
 			head.store(0);
 		}

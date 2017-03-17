@@ -44,7 +44,7 @@ Now compile it using g++
 
 ```
 $ g++ -c example.cpp -o example.o -std=c++11 -I/usr/local/include
-$ g++ -o example example.o -lfinegraphics -lfinemath -L/usr/local/lib
+$ g++ -o example example.o -lfinegraphics -L/usr/local/lib
 $ ./example
 ```
 

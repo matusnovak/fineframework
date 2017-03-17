@@ -1,10 +1,12 @@
 /**
- * \defgroup graphics graphics - OpenGL drawing and window handling
+ * @defgroup graphics graphics - OpenGL drawing and window handling
+ * @brief Provides basic graphical functionality via OpenGL
  */
 #ifndef FFW_GRAPHICS_MODULE
 #define FFW_GRAPHICS_MODULE
 #include "config.h"
 #include "constants.h"
+#include "graphics/bitmapfont.h"
 #include "graphics/bufferobject.h"
 #include "graphics/font.h"
 #include "graphics/framebuffer.h"
@@ -22,4 +24,6 @@
 #include "graphics/texture2dms.h"
 #include "graphics/texture3d.h"
 #include "graphics/glfwrenderwindow.h"
+#include "graphics/truetypefont.h"
+#include "graphics/freetypeloader.h"
 #endif

@@ -23,19 +23,19 @@ In the Solution Explorer (usually on the left side) right click on your project 
 
 Next, go to **Configuration Properties -> C/C++ -> Additional Include Directories** and add a new path to include folder of your downloaded copy of pre-built FFW, for example: `C:\path\to\ffw-win32-vc12\include`
 
-![Alt](images/tutorial-vs12-01.png)
+![Alt](tutorial-vs12-01.png)
 
 For the library files, go to **Configuration Properties -> Linker -> General -> Additional Library Directories** and add a new path to `C:\path\to\ffw-win32-vc12\lib`
 
-![Alt](images/tutorial-vs12-02.png)
+![Alt](tutorial-vs12-02.png)
 
-In the same category, go to **Input -> Additional Dependencies** and add `opengl32.lib`, `finegraphics.lib`, `finedata.lib`, `finemedia.lib`, `finegui.lib`, and `finemath.lib` (You don't need to include all modules if you are not going to use them in your project).
+In the same category, go to **Input -> Additional Dependencies** and add `opengl32.lib`, `finegraphics.lib`, `finedata.lib`, `finemedia.lib`, and `finegui.lib` (You don't need to include all modules if you are not going to use them in your project).
 
-Note that you should use the debug version of FFW when using debug configuration, simply, add `finegraphics_d.lib`, `finedata_d.lib`, `finemedia_d.lib`, `finegui_d.lib`, and `finemath_d.lib`  into Additional Dependencies in Debug configutation. (Note the `_d` suffix in the library names!)
+Note that you should use the debug version of FFW when using debug configuration, simply, add `finegraphics_d.lib`, `finedata_d.lib`, `finemedia_d.lib`, and `finegui_d.lib` into Additional Dependencies in Debug configutation. (Note the `_d` suffix in the library names!)
 
 *Note that OpenGL library is needed only when using Graphics Module!*
 
-![Alt](images/tutorial-vs12-03.png)
+![Alt](tutorial-vs12-03.png)
 
 ### Your first code
 
@@ -45,7 +45,7 @@ Your configuration is done, now test the project to make sure everything works. 
 
 Now compile it and run it! You might see the following message:
 
-![Alt](images/tutorial-vs12-04.png)
+![Alt](tutorial-vs12-04.png)
 
 This is where DLL files comes... 
 
@@ -57,4 +57,4 @@ Alternatively (not recommended!) you can put all DLLs and PDBs files (Debug and 
 
 When done, try to run the example again. This should show up:
 
-![Alt](images/tutorial-vs12-05.png)
+![Alt](tutorial-vs12-05.png)

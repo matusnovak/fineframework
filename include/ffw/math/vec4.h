@@ -55,28 +55,28 @@ namespace ffw {
 			w = *(list.begin() + 3);
 		}
 
-		inline void Set(T compx, T compy, T compz, T compw) {
+		inline void set(T compx, T compy, T compz, T compw) {
 			x = compx;
 			y = compy;
 			z = compz;
 			w = compw;
 		}
 
-		inline void Set(T val) {
+		inline void set(T val) {
 			x = val;
 			y = val;
 			z = val;
 			w = val;
 		}
 
-		inline void Set(const Vec4<T>& vec) {
+		inline void set(const Vec4<T>& vec) {
 			x = vec.x;
 			y = vec.y;
 			z = vec.z;
 			w = vec.w;
 		}
 
-		inline void Set(const std::initializer_list<T>& list) {
+		inline void set(const std::initializer_list<T>& list) {
 			if (list.size() != 4)return;
 			x = *(list.begin());
 			y = *(list.begin() + 1);
@@ -208,7 +208,7 @@ namespace ffw {
 			return (x == vec.x && y == vec.y && z == vec.z && w == vec.w);
 		}
 
-		inline ffw::Vec4<T>& Normalize() {
+		inline ffw::Vec4<T>& normalize() {
 			float l = sqrtf(x*x + y*y + z*z + w*w);
 			if (l > 0) {
 				x = x / l;
@@ -219,7 +219,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Vec4<T>& Scale(const T val) {
+		inline ffw::Vec4<T>& scale(const T val) {
 			x = x*val;
 			y = y*val;
 			z = z*val;
@@ -227,15 +227,15 @@ namespace ffw {
 			return *this;
 		}
 
-		inline double Length() const {
+		inline double length() const {
 			return sqrt(static_cast<double>(x*x + y*y + z*z + w*w));
 		}
 
-		inline float Lengthf() const {
+		inline float lengthf() const {
 			return sqrtf(static_cast<float>(x*x + y*y + z*z + w*w));
 		}
 
-		inline T LengthSqrd() const {
+		inline T lengthSqrd() const {
 			return (x*x + y*y + z*z + w*w);
 		}
 

@@ -31,12 +31,12 @@ static bool checkIfFloat(const std::string& Str){
 }
 
 ///=============================================================================
-static bool checkIfBool(const std::string& Str, bool* Bool){
+static bool checkIfBool(const std::string& Str, bool* toBool){
     if(Str.size() == 4 && (Str.find("true") == 0 || Str.find("TRUE") == 0)){
-        *Bool = true;
+        *toBool = true;
         return true;
     } else if (Str.size() == 5 && (Str.find("false") == 0 || Str.find("FALSE") == 0)){
-        *Bool = false;
+        *toBool = false;
         return true;
     }
     return false;
@@ -47,10 +47,10 @@ static ffw::Var parseVariable(const std::string& Str){
     ffw::Var variable;
     bool test;
     if(checkIfInt(Str)){
-        variable = ffw::StringToVal<int>(Str);
+        variable = ffw::stringToVal<int>(Str);
         return variable;
     } else if(checkIfFloat(Str)){
-        variable = ffw::StringToVal<float>(Str);
+        variable = ffw::stringToVal<float>(Str);
         return variable;
     } else if(checkIfBool(Str, &test)){
         variable = test;
@@ -68,30 +68,30 @@ static void insertToObject(tinyxml2::XMLElement* root, ffw::Var& output){
             // Children is a simple text
             const tinyxml2::XMLAttribute* attributePtr = root->FirstAttribute();
             if(attributePtr == NULL){
-                output.GetAs<ffw::Object>().insert(std::make_pair(root->Name(), parseVariable(root->GetText())));
+                output.getAs<ffw::Object>().insert(std::make_pair(root->Name(), parseVariable(root->GetText())));
             } else {
-                auto result = output.GetAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
+                auto result = output.getAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
                 while(attributePtr != NULL){
-                    result.first->second.GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
+                    result.first->second.getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
                     attributePtr = attributePtr->Next();
                 }
-                result.first->second.GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("content", parseVariable(root->GetText())));
+                result.first->second.getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("content", parseVariable(root->GetText())));
             }
 
         } else {
             // Children has more elements
             const tinyxml2::XMLAttribute* attributePtr = root->FirstAttribute();
             if(attributePtr == NULL){
-                auto result = output.GetAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
+                auto result = output.getAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
                 convertXML(root->FirstChildElement(), result.first->second);
 
             } else {
-                auto result = output.GetAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
+                auto result = output.getAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
                 while(attributePtr != NULL){
-                    result.first->second.GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
+                    result.first->second.getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
                     attributePtr = attributePtr->Next();
                 }
-                result = result.first->second.GetAs<ffw::Object>().insert(std::make_pair("content", ffw::Object()));
+                result = result.first->second.getAs<ffw::Object>().insert(std::make_pair("content", ffw::Object()));
                 convertXML(root->FirstChildElement(), result.first->second);
             }
         }
@@ -99,11 +99,11 @@ static void insertToObject(tinyxml2::XMLElement* root, ffw::Var& output){
         // Parent does not have children
         const tinyxml2::XMLAttribute* attributePtr = root->FirstAttribute();
         if(attributePtr == NULL){
-            output.GetAs<ffw::Object>().insert(std::make_pair(root->Name(), ""));
+            output.getAs<ffw::Object>().insert(std::make_pair(root->Name(), ""));
         } else {
-            auto result = output.GetAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
+            auto result = output.getAs<ffw::Object>().insert(std::make_pair(root->Name(), ffw::Object()));
             while(attributePtr != NULL){
-                result.first->second.GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
+                result.first->second.getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
                 attributePtr = attributePtr->Next();
             }
         }
@@ -118,31 +118,31 @@ static void insertToArray(tinyxml2::XMLElement* root, ffw::Var& output){
             // Children is a simple text
             const tinyxml2::XMLAttribute* attributePtr = root->FirstAttribute();
             if(attributePtr == NULL){
-                output.GetAs<ffw::Array>().push_back(parseVariable(root->GetText()));
+                output.getAs<ffw::Array>().push_back(parseVariable(root->GetText()));
             } else {
-                output.GetAs<ffw::Array>().push_back(ffw::Object());
-                auto result = &(output.GetAs<ffw::Array>().at(output.GetAs<ffw::Array>().size()-1));
+                output.getAs<ffw::Array>().push_back(ffw::Object());
+                auto result = &(output.getAs<ffw::Array>().at(output.getAs<ffw::Array>().size()-1));
                 while(attributePtr != NULL){
-                    result->GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
+                    result->getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
                     attributePtr = attributePtr->Next();
                 }
-                result->GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("content", parseVariable(root->GetText())));
+                result->getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("content", parseVariable(root->GetText())));
             }
         } else {
             // Children has more elements
             const tinyxml2::XMLAttribute* attributePtr = root->FirstAttribute();
             if(attributePtr == NULL){
-                output.GetAs<ffw::Array>().push_back(ffw::Object());
-                convertXML(root->FirstChildElement(), output.GetAs<ffw::Array>().at(output.GetAs<ffw::Array>().size()-1));
+                output.getAs<ffw::Array>().push_back(ffw::Object());
+                convertXML(root->FirstChildElement(), output.getAs<ffw::Array>().at(output.getAs<ffw::Array>().size()-1));
 
             } else {
-                output.GetAs<ffw::Array>().push_back(ffw::Object());
-                auto result = &(output.GetAs<ffw::Array>().at(output.GetAs<ffw::Array>().size()-1));
+                output.getAs<ffw::Array>().push_back(ffw::Object());
+                auto result = &(output.getAs<ffw::Array>().at(output.getAs<ffw::Array>().size()-1));
                 while(attributePtr != NULL){
-                    result->GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
+                    result->getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
                     attributePtr = attributePtr->Next();
                 }
-                auto resultPair = result->GetAs<ffw::Object>().insert(std::make_pair("content", ffw::Object()));
+                auto resultPair = result->getAs<ffw::Object>().insert(std::make_pair("content", ffw::Object()));
                 convertXML(root->FirstChildElement(), resultPair.first->second);
             }
         }
@@ -150,12 +150,12 @@ static void insertToArray(tinyxml2::XMLElement* root, ffw::Var& output){
         // Parent does not have children
         const tinyxml2::XMLAttribute* attributePtr = root->FirstAttribute();
         if(attributePtr == NULL){
-            output.GetAs<ffw::Array>().push_back(parseVariable(root->Name()));
+            output.getAs<ffw::Array>().push_back(parseVariable(root->Name()));
         } else {
-            output.GetAs<ffw::Array>().push_back(ffw::Object());
-            auto result = &(output.GetAs<ffw::Array>().at(output.GetAs<ffw::Array>().size()-1));
+            output.getAs<ffw::Array>().push_back(ffw::Object());
+            auto result = &(output.getAs<ffw::Array>().at(output.getAs<ffw::Array>().size()-1));
             while(attributePtr != NULL){
-                result->GetAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
+                result->getAs<ffw::Object>().insert(std::pair<std::string, ffw::Var>("@" + std::string(attributePtr->Name()), parseVariable(attributePtr->Value())));
                 attributePtr = attributePtr->Next();
             }
         }
@@ -167,17 +167,17 @@ static void convertXML(tinyxml2::XMLElement* XML, ffw::Var& output){
     tinyxml2::XMLElement* root = XML;
     while(root != NULL){
         // Check if var is a object
-        if(output.Typeid() == typeid(ffw::Object)){
+        if(output.is<ffw::Object>()){
             // Check if element exists in array
-            auto found = output.GetAs<ffw::Object>().find(root->Name());
-            if(found != output.GetAs<ffw::Object>().end()){
+            auto found = output.getAs<ffw::Object>().find(root->Name());
+            if(found != output.getAs<ffw::Object>().end()){
 
-                if(found->second.Typeid() != typeid(ffw::Array)){
+                if(!found->second.is<ffw::Array>()){
                     // Element already exists! Convert to array...
                     ffw::Var temp = found->second;
                     found->second = ffw::Array();
-                    found->second.GetAs<ffw::Array>().push_back(temp);
-                    //found->second.GetAs<ffw::Array>().push_back(ffw::Array());
+                    found->second.getAs<ffw::Array>().push_back(temp);
+                    //found->second.getAs<ffw::Array>().push_back(ffw::Array());
                     insertToArray(root, found->second);
                 } else {
                     // Element found but is not an array
@@ -256,7 +256,7 @@ static std::string escapeString(std::string Str, bool EscapeUnicode){
                 p++;
             }
 
-            std::wstring mbstr = ffw::Utf8ToWstr(Str.substr(i, p));
+            std::wstring mbstr = ffw::utf8ToWstr(Str.substr(i, p));
             //std::cout << "replacing: " << mstr[0] << std::endl;
             std::string unicodeStr;
             for(const auto& chr : mbstr){
@@ -288,11 +288,11 @@ static std::string escapeString(std::string Str, bool EscapeUnicode){
 
 ///=============================================================================
 static bool checkIfAttributesEmpty(const ffw::Var* Input){
-    if(Input->Typeid() != typeid(ffw::Object)){
+    if(!Input->is<ffw::Object>()){
         return false;
     }
 
-    for(auto it = Input->GetAs<ffw::Object>().begin(); it != Input->GetAs<ffw::Object>().end(); it++){
+    for(auto it = Input->getAs<ffw::Object>().begin(); it != Input->getAs<ffw::Object>().end(); it++){
         if(it->first[0] == '@')continue;
         else return false;
     }
@@ -302,11 +302,11 @@ static bool checkIfAttributesEmpty(const ffw::Var* Input){
 
 ///=============================================================================
 static bool checkIfAttributesContent(const ffw::Var* Input){
-    if(Input->Typeid() != typeid(ffw::Object)){
+    if(!Input->is<ffw::Object>()){
         return false;
     }
 
-    for(auto it = Input->GetAs<ffw::Object>().begin(); it != Input->GetAs<ffw::Object>().end(); it++){
+    for(auto it = Input->getAs<ffw::Object>().begin(); it != Input->getAs<ffw::Object>().end(); it++){
         if(it->first[0] == '@')continue;
         else if(it->first == "content")continue;
         else return false;
@@ -317,53 +317,43 @@ static bool checkIfAttributesContent(const ffw::Var* Input){
 
 ///=============================================================================
 static void encodeXMLFunc(std::ostream& output, const ffw::Var& var, bool Formated, std::string& Indent, bool EscapeUnicode, const std::string& ArrayTag){
-    const auto& varType = var.Typeid();
 
-    /*if(varType == typeid(std::string)){
-        output << escapeString(var.GetAs<std::string>(), EscapeUnicode);
+	if(var.isString()){
+		output << escapeString(var.toString(), EscapeUnicode);
 
-    } else if(varType == typeid(int)){
-        output << ffw::ValToString(var.GetAs<int>());
-
-    } else if(varType == typeid(float)){
-        output << ffw::ValToString(var.GetAs<float>());*/
-
-	if(var.ContainsString()){
-		output << escapeString(var.String(), EscapeUnicode);
-
-	} else if(varType == typeid(bool)){
-        if(var.GetAs<bool>())output << "true";
+	} else if(var.is<bool>()){
+        if(var.getAs<bool>())output << "true";
         else output << "false";
 
-	} else if(var.ContainsInt()){
-		output << ffw::ValToString(var.Int());
+	} else if(var.isInt()){
+		output << ffw::valToString(var.toInt());
 
-	} else if(var.ContainsFloat()){
-		output << ffw::ValToString(var.Float());
+	} else if(var.isFloat()){
+		output << ffw::valToString(var.toFloat());
 
-    } else if(varType == typeid(std::nullptr_t)){
+    } else if(var.empty()){
         output << "null";
 
-    } else if(varType == typeid(ffw::Object)){
+    } else if(var.is<ffw::Object>()){
         //output << Indent
 
-        for(auto it = var.GetAs<ffw::Object>().begin(); it != var.GetAs<ffw::Object>().end(); it++){
+        for(auto it = var.getAs<ffw::Object>().begin(); it != var.getAs<ffw::Object>().end(); it++){
             if(checkIfAttributesEmpty(&(it->second))){
                 std::string attr;
                 if(Formated)
                     attr += Indent + "<" + escapeString(it->first, EscapeUnicode) + " ";
                 else
                     attr += "<" + escapeString(it->first, EscapeUnicode) + " ";
-                for(auto itit = it->second.GetAs<ffw::Object>().begin(); itit != it->second.GetAs<ffw::Object>().end(); itit++){
+                for(auto itit = it->second.getAs<ffw::Object>().begin(); itit != it->second.getAs<ffw::Object>().end(); itit++){
                     attr += itit->first.substr(1, itit->first.size()-1) + "=\"";
-                    if     (itit->second.Typeid() == typeid(std::string))attr += escapeString(itit->second.GetAs<std::string>(), EscapeUnicode) + "\"";
-                    else if(itit->second.Typeid() == typeid(int))attr += ffw::ValToString(itit->second.GetAs<int>()) + "\"";
-                    else if(itit->second.Typeid() == typeid(float))attr += ffw::ValToString(itit->second.GetAs<float>()) + "\"";
-                    else if(itit->second.Typeid() == typeid(bool)){
-                         if(itit->second.GetAs<bool>())attr += "true\"";
+                    if     (itit->second.is<std::string>())attr += escapeString(itit->second.getAs<std::string>(), EscapeUnicode) + "\"";
+                    else if(itit->second.is<int>())attr += ffw::valToString(itit->second.getAs<int>()) + "\"";
+                    else if(itit->second.is<float>())attr += ffw::valToString(itit->second.getAs<float>()) + "\"";
+                    else if(itit->second.is<bool>()){
+                         if(itit->second.getAs<bool>())attr += "true\"";
                          else attr += "false\"";
                     }
-                    else if(itit->second.Typeid() == typeid(std::nullptr_t))attr += "null\"";
+                    else if(itit->second.empty())attr += "null\"";
                     else attr += "\"";
                 }
                 if(Formated)
@@ -377,25 +367,25 @@ static void encodeXMLFunc(std::ostream& output, const ffw::Var& var, bool Format
                     attr += Indent + "<" + escapeString(it->first, EscapeUnicode) + " ";
                 else
                     attr += "<" + escapeString(it->first, EscapeUnicode) + " ";
-                for(auto itit = it->second.GetAs<ffw::Object>().begin(); itit != it->second.GetAs<ffw::Object>().end(); itit++){
+                for(auto itit = it->second.getAs<ffw::Object>().begin(); itit != it->second.getAs<ffw::Object>().end(); itit++){
                     if(itit->first[0] != '@')continue;
                     attr += itit->first.substr(1, itit->first.size()-1) + "=\"";
-                    if     (itit->second.Typeid() == typeid(std::string))attr += escapeString(itit->second.GetAs<std::string>(), EscapeUnicode) + "\"";
-                    else if(itit->second.Typeid() == typeid(int))attr += ffw::ValToString(itit->second.GetAs<int>()) + "\"";
-                    else if(itit->second.Typeid() == typeid(float))attr += ffw::ValToString(itit->second.GetAs<float>()) + "\"";
-                    else if(itit->second.Typeid() == typeid(bool)){
-                         if(itit->second.GetAs<bool>())attr += "true\"";
+                    if     (itit->second.is<std::string>())attr += escapeString(itit->second.getAs<std::string>(), EscapeUnicode) + "\"";
+                    else if(itit->second.is<int>())attr += ffw::valToString(itit->second.getAs<int>()) + "\"";
+                    else if(itit->second.is<float>())attr += ffw::valToString(itit->second.getAs<float>()) + "\"";
+                    else if(itit->second.is<bool>()){
+                         if(itit->second.getAs<bool>())attr += "true\"";
                          else attr += "false\"";
                     }
-                    else if(itit->second.Typeid() == typeid(std::nullptr_t))attr += "null\"";
+                    else if(itit->second.empty())attr += "null\"";
                     else attr += "\"";
                 }
 
                 bool isContentObject = false;
                 bool isContentArray = false;
 
-                if     (it->second.GetAs<ffw::Object>()["content"].Typeid() == typeid(ffw::Object))isContentObject = true;
-                else if(it->second.GetAs<ffw::Object>()["content"].Typeid() == typeid(ffw::Array))isContentArray = true;
+                if     (it->second.getAs<ffw::Object>()["content"].is<ffw::Object>())isContentObject = true;
+                else if(it->second.getAs<ffw::Object>()["content"].is<ffw::Array>())isContentArray = true;
 
                 if(isContentObject || isContentArray){
                     output << attr + ">\n";
@@ -404,7 +394,7 @@ static void encodeXMLFunc(std::ostream& output, const ffw::Var& var, bool Format
                     output << attr + ">";
                 }
 
-                encodeXMLFunc(output, it->second.GetAs<ffw::Object>()["content"], Formated, Indent, EscapeUnicode, "element");
+                encodeXMLFunc(output, it->second.getAs<ffw::Object>()["content"], Formated, Indent, EscapeUnicode, "element");
 
                 if(Formated){
                     if(isContentObject || isContentArray){
@@ -420,11 +410,11 @@ static void encodeXMLFunc(std::ostream& output, const ffw::Var& var, bool Format
             } else {
                 bool inside = false;
                 bool isArray = false;
-                if(it->second.Typeid() == typeid(ffw::Array))isArray = true;
+                if(it->second.is<ffw::Array>())isArray = true;
 
                 if(Formated &&
-                        ((it->second.Typeid() == typeid(ffw::Object) && it->second.GetAs<ffw::Object>().begin() != it->second.GetAs<ffw::Object>().end())
-                      || (it->second.Typeid() == typeid(ffw::Array) && it->second.GetAs<ffw::Array>().size() > 0)) ){
+                        ((it->second.is<ffw::Object>() && it->second.getAs<ffw::Object>().begin() != it->second.getAs<ffw::Object>().end())
+                      || (it->second.is<ffw::Array>() && it->second.getAs<ffw::Array>().size() > 0)) ){
 
                     if(!isArray)output << Indent + "<" + escapeString(it->first, EscapeUnicode) + ">\n";
                     if(!isArray)Indent += "    ";
@@ -449,18 +439,18 @@ static void encodeXMLFunc(std::ostream& output, const ffw::Var& var, bool Format
                 }
             }
         }
-    } else if(varType == typeid(ffw::Array)){
+    } else if(var.is<ffw::Array>()){
 
-        for(size_t i = 0; i < var.GetAs<ffw::Array>().size(); i++){
+        for(size_t i = 0; i < var.getAs<ffw::Array>().size(); i++){
             bool inside = false;
             std::string arrayTagCopy = ArrayTag;
-            if(var.GetAs<ffw::Array>().at(i).Typeid() == typeid(ffw::Array)){
+            if(var.getAs<ffw::Array>().at(i).is<ffw::Array>()){
                 arrayTagCopy = "element";
             }
 
             if(Formated &&
-                    ((var.GetAs<ffw::Array>().at(i).Typeid() == typeid(ffw::Object) && var.GetAs<ffw::Array>().at(i).GetAs<ffw::Object>().begin() != var.GetAs<ffw::Array>().at(i).GetAs<ffw::Object>().end())
-                  || (var.GetAs<ffw::Array>().at(i).Typeid() == typeid(ffw::Array) && var.GetAs<ffw::Array>().at(i).GetAs<ffw::Array>().size() > 0)) ){
+                    ((var.getAs<ffw::Array>().at(i).is<ffw::Object>() && var.getAs<ffw::Array>().at(i).getAs<ffw::Object>().begin() != var.getAs<ffw::Array>().at(i).getAs<ffw::Object>().end())
+                  || (var.getAs<ffw::Array>().at(i).is<ffw::Array>() && var.getAs<ffw::Array>().at(i).getAs<ffw::Array>().size() > 0)) ){
                 output << Indent + "<" + arrayTagCopy + ">\n";
                 Indent += "    ";
                 inside = true;
@@ -470,7 +460,7 @@ static void encodeXMLFunc(std::ostream& output, const ffw::Var& var, bool Format
                 output << "<" + arrayTagCopy + ">";
             }
 
-            encodeXMLFunc(output, var.GetAs<ffw::Array>().at(i), Formated, Indent, EscapeUnicode, "element");
+            encodeXMLFunc(output, var.getAs<ffw::Array>().at(i), Formated, Indent, EscapeUnicode, "element");
             if(Formated){
                 if(inside){
                     Indent = Indent.substr(0, Indent.size()-4);
@@ -486,7 +476,7 @@ static void encodeXMLFunc(std::ostream& output, const ffw::Var& var, bool Format
 }
 
 ///=============================================================================
-bool ffw::DecodeXml(const std::string& input, ffw::Var& output){
+bool ffw::decodeXml(const std::string& input, ffw::Var& output){
     tinyxml2::XMLDocument doc;
     doc.Parse(input.c_str());
     if(doc.Error())return false;
@@ -497,14 +487,14 @@ bool ffw::DecodeXml(const std::string& input, ffw::Var& output){
 }
 
 ///=============================================================================
-ffw::Var ffw::DecodeXml(const std::string& input){
+ffw::Var ffw::decodeXml(const std::string& input){
 	ffw::Var var;
-	DecodeXml(input, var);
+	decodeXml(input, var);
 	return var;
 }
 
 ///=============================================================================
-void ffw::EncodeXml(const ffw::Var& input, std::string& output, bool formated, bool escape){
+void ffw::encodeXml(const ffw::Var& input, std::string& output, bool formated, bool escape){
     std::string indent;
 
 	std::stringstream stream;
@@ -520,7 +510,7 @@ void ffw::EncodeXml(const ffw::Var& input, std::string& output, bool formated, b
 }
 
 ///=============================================================================
-std::string ffw::EncodeXml(const ffw::Var& input, bool formated, bool escape){
+std::string ffw::encodeXml(const ffw::Var& input, bool formated, bool escape){
 	std::string indent;
 
 	std::stringstream stream;
@@ -536,7 +526,7 @@ std::string ffw::EncodeXml(const ffw::Var& input, bool formated, bool escape){
 }
 
 ///=============================================================================
-bool ffw::LoadXml(const std::string& path, ffw::Var& output){
+bool ffw::loadXml(const std::string& path, ffw::Var& output){
     tinyxml2::XMLDocument doc;
     doc.LoadFile(path.c_str());
 	if (doc.Error()){
@@ -548,14 +538,14 @@ bool ffw::LoadXml(const std::string& path, ffw::Var& output){
 }
 
 ///=============================================================================
-bool ffw::SaveXml(const std::string& path, const ffw::Var& input, bool Formated, bool EscapeUnicode){
+bool ffw::saveXml(const std::string& path, const ffw::Var& input, bool Formated, bool EscapeUnicode){
     std::fstream output(path, std::ios::trunc | std::ios::out);
     if(!output){
         return false;
     }
 
     std::string encoded;
-    EncodeXml(input, encoded, Formated, EscapeUnicode);
+    encodeXml(input, encoded, Formated, EscapeUnicode);
 
     output.write(&encoded[0], encoded.size());
     output.close();

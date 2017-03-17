@@ -120,7 +120,7 @@ EXCLUDE                =
 EXCLUDE_SYMLINKS       = NO
 EXCLUDE_PATTERNS       = 
 EXCLUDE_SYMBOLS        = 
-EXAMPLE_PATH           = ../examples/graphics
+EXAMPLE_PATH           = ../examples
 EXAMPLE_PATTERNS       = *.cpp
 EXAMPLE_RECURSIVE      = YES
 IMAGE_PATH             = 
@@ -173,6 +173,24 @@ HTML_EXTRA_FILES       = logo.png ic_menu.png material.min.js \
 						 images/tutorial-vs12-03.png \
 						 images/tutorial-vs12-04.png \
 						 images/tutorial-vs12-05.png \
+						 images/example-3d-monkey.jpg \
+						 images/example-bitmap-font.jpg \
+						 images/example-cube.jpg \
+						 images/example-empty.jpg \
+						 images/example-gui-all-widgets.jpg \
+						 images/example-shapes.jpg \
+						 images/example-texture-subsection.jpg \
+						 images/example-tree.jpg \
+						 images/example-true-type-font.jpg \
+						 images/ubuntu-mono-rgba8.png \
+						 images/modernflat.jpg \
+						 images/simplelight.jpg \
+						 images/simpledark.jpg \
+						 images/windows.jpg \
+						 images/clclosed.png \
+						 images/clopen.png \
+						 images/closed.png \
+						 images/open.png
 HTML_COLORSTYLE_HUE    = 359
 HTML_COLORSTYLE_SAT    = 100
 HTML_COLORSTYLE_GAMMA  = 80
@@ -287,11 +305,11 @@ PERLMOD_MAKEVAR_PREFIX =
 #---------------------------------------------------------------------------
 ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = NO
-EXPAND_ONLY_PREDEF     = NO
+EXPAND_ONLY_PREDEF     = YES
 SEARCH_INCLUDES        = YES
 INCLUDE_PATH           = 
 INCLUDE_FILE_PATTERNS  = 
-PREDEFINED             = 
+PREDEFINED             = DOXYGEN_SHOULD_SKIP_THIS
 EXPAND_AS_DEFINED      = 
 SKIP_FUNCTION_MACROS   = YES
 #---------------------------------------------------------------------------

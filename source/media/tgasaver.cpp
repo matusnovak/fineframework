@@ -30,14 +30,14 @@ ffw::TgaSaver& ffw::TgaSaver::operator = (TgaSaver&& other){
 
 ///=============================================================================
 ffw::TgaSaver::~TgaSaver(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::TgaSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
-	quality = ffw::Clamp(quality, 0, 100);
+	quality = ffw::clamp(quality, 0, 100);
 
 	switch(type){
 		case ImageType::GRAYSCALE_8:
@@ -50,7 +50,7 @@ bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 	}
 
 #ifdef FFW_WINDOWS
-	output->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
+	output->open(wstrToAnsi(utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
 #else
 	output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
 #endif
@@ -99,7 +99,7 @@ bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 			break;
 		}
 		default: {
-			Close();
+			close();
 			return false;
 		}
 	}
@@ -124,7 +124,7 @@ bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 
 	pixelsOffset = (size_t)output->tellg();
 
-	for(size_t i = 0; i < height * GetStrideSize(); i++){
+	for(size_t i = 0; i < height * getStrideSize(); i++){
 		static const char data = 0x00;
 		output->write(&data, 1);
 	}
@@ -135,7 +135,7 @@ bool ffw::TgaSaver::Open(const std::string& path, int w, int h, ffw::ImageType t
 }
 
 ///=============================================================================
-void ffw::TgaSaver::Close(){
+void ffw::TgaSaver::close(){
 	output->close();
 	width = 0;
 	height = 0;
@@ -145,12 +145,12 @@ void ffw::TgaSaver::Close(){
 }
 
 ///=============================================================================
-size_t ffw::TgaSaver::WriteRow(const void* src){
+size_t ffw::TgaSaver::writeRow(const void* src){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(src == NULL)return 0;
 
-	output->seekg(pixelsOffset + (height - row - 1) * GetStrideSize());
+	output->seekg(pixelsOffset + (height - row - 1) * getStrideSize());
 	
 	switch(format){
 		case ffw::ImageType::GRAYSCALE_8: {
@@ -190,11 +190,11 @@ size_t ffw::TgaSaver::WriteRow(const void* src){
 	}
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }
 
 ///=============================================================================
-bool ffw::TgaSaver::WriteFooter(){
+bool ffw::TgaSaver::writeFooter(){
 	if(!loaded)return false;
     if(row != height)return false;
 

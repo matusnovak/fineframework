@@ -22,10 +22,10 @@ namespace ffw {
 		PngSaver& operator = (PngSaver&& other);
 		virtual ~PngSaver();
 
-		bool Open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100) override;
-		size_t WriteRow(const void* src) override;
-		bool WriteFooter() override;
-		virtual void Close();
+		bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100) override;
+		size_t writeRow(const void* src) override;
+		bool writeFooter() override;
+		virtual void close();
 
 	private:
 		png_structp pngPtr;

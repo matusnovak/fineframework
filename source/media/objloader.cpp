@@ -3,10 +3,10 @@
 #include "ffw/media/objloader.h"
 
 ///=============================================================================
-static bool LoadVertices(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
+static bool loadVertices(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
 	if(object.vCount == 0)return true;
 
-	//std::cout << "LoadVertices" << std::endl;
+	//std::cout << "loadVertices" << std::endl;
 	size_t total = 0;
 	mesh.vertices.resize(object.vCount);
 	std::string line;
@@ -18,12 +18,12 @@ static bool LoadVertices(std::fstream& input, ffw::ObjLoader::ObjectInfo& object
 		std::getline(input, line);
 		if(line[0] != 'v' || line[1] != ' ')continue;
 
-		tokens = ffw::GetTokens(line, ' ');
+		tokens = ffw::getTokens(line, ' ');
 		if(tokens.size() >= 3){
 			try {
-				mesh.vertices[total].x = ffw::StringToVal<float>(tokens[1]);
-				mesh.vertices[total].y = ffw::StringToVal<float>(tokens[2]);
-				mesh.vertices[total].z = ffw::StringToVal<float>(tokens[3]);
+				mesh.vertices[total].x = ffw::stringToVal<float>(tokens[1]);
+				mesh.vertices[total].y = ffw::stringToVal<float>(tokens[2]);
+				mesh.vertices[total].z = ffw::stringToVal<float>(tokens[3]);
 			} catch (std::exception e){
 			}
 		}
@@ -34,10 +34,10 @@ static bool LoadVertices(std::fstream& input, ffw::ObjLoader::ObjectInfo& object
 }
 
 ///=============================================================================
-static bool LoadNormals(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
+static bool loadNormals(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
 	if(object.vnCount == 0)return true;
 
-	//std::cout << "LoadNormals" << std::endl;
+	//std::cout << "loadNormals" << std::endl;
 	size_t total = 0;
 	mesh.normals.resize(object.vnCount);
 	std::string line;
@@ -49,12 +49,12 @@ static bool LoadNormals(std::fstream& input, ffw::ObjLoader::ObjectInfo& object,
 		std::getline(input, line);
 		if(line[0] != 'v' || line[1] != 'n')continue;
 
-		tokens = ffw::GetTokens(line, ' ');
+		tokens = ffw::getTokens(line, ' ');
 		if(tokens.size() >= 3){
 			try {
-				mesh.normals[total].x = ffw::StringToVal<float>(tokens[1]);
-				mesh.normals[total].y = ffw::StringToVal<float>(tokens[2]);
-				mesh.normals[total].z = ffw::StringToVal<float>(tokens[3]);
+				mesh.normals[total].x = ffw::stringToVal<float>(tokens[1]);
+				mesh.normals[total].y = ffw::stringToVal<float>(tokens[2]);
+				mesh.normals[total].z = ffw::stringToVal<float>(tokens[3]);
 			} catch (std::exception e){
 			}
 		}
@@ -65,10 +65,10 @@ static bool LoadNormals(std::fstream& input, ffw::ObjLoader::ObjectInfo& object,
 }
 
 ///=============================================================================
-static bool LoadTexpos(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
+static bool loadTexpos(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
 	if(object.vtCount == 0)return true;
 
-	//std::cout << "LoadTexpos" << std::endl;
+	//std::cout << "loadTexpos" << std::endl;
 	size_t total = 0;
 	mesh.texpos.resize(object.vtCount);
 	std::string line;
@@ -80,11 +80,11 @@ static bool LoadTexpos(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, 
 		std::getline(input, line);
 		if(line[0] != 'v' || line[1] != 't')continue;
 
-		tokens = ffw::GetTokens(line, ' ');
+		tokens = ffw::getTokens(line, ' ');
 		if(tokens.size() >= 2){
 			try {
-				mesh.texpos[total].x = ffw::StringToVal<float>(tokens[1]);
-				mesh.texpos[total].y = ffw::StringToVal<float>(tokens[2]);
+				mesh.texpos[total].x = ffw::stringToVal<float>(tokens[1]);
+				mesh.texpos[total].y = ffw::stringToVal<float>(tokens[2]);
 			} catch (std::exception e){
 			}
 		}
@@ -101,7 +101,7 @@ ffw::ObjLoader::ObjLoader(){
 
 ///=============================================================================
 ffw::ObjLoader::~ObjLoader(){
-	Close();
+	close();
 }
 
 ///=============================================================================
@@ -141,8 +141,8 @@ void ffw::ObjLoader::swap(ObjLoader& other){
 }
 
 ///=============================================================================
-bool ffw::ObjLoader::Open(const std::string& path){
-	if(loaded)Close();
+bool ffw::ObjLoader::open(const std::string& path){
+	if(loaded)close();
 
 	input->open(path, std::ios::binary | std::ios::in);
 	if(!input->is_open())return false;
@@ -262,16 +262,16 @@ bool ffw::ObjLoader::Open(const std::string& path){
 }
 
 ///=============================================================================
-bool ffw::ObjLoader::LoadObject(unsigned int i){
+bool ffw::ObjLoader::loadObject(unsigned int i){
 	if(i >= objects.size())return false;
 	activeObject = &objects[i];
 	input->clear();
 	input->seekg(0, std::ios::beg);
 
 	bool result =
-	LoadVertices(*input, *activeObject, activeObjectMesh) &&
-	LoadNormals(*input, *activeObject, activeObjectMesh) &&
-	LoadTexpos(*input, *activeObject, activeObjectMesh);
+	loadVertices(*input, *activeObject, activeObjectMesh) &&
+	loadNormals(*input, *activeObject, activeObjectMesh) &&
+	loadTexpos(*input, *activeObject, activeObjectMesh);
 
 	//std::cout << "done loadgin!" << std::endl;
 	input->clear();
@@ -290,12 +290,12 @@ bool ffw::ObjLoader::LoadObject(unsigned int i){
 }
 
 ///=============================================================================
-size_t ffw::ObjLoader::CalculateObjectPolyCount(){ 
+size_t ffw::ObjLoader::calculateObjectPolyCount(){ 
 	if(activeObject == NULL)return 0;
 
 	size_t total = 0;
 
-	//std::cout << "CalculateObjectPolyCount" << std::endl;
+	//std::cout << "calculateObjectPolyCount" << std::endl;
 	while(input->tellg() < activeObject->fEnd){
 		//std::cout << "tellg: " << input->tellg() << " end: " << activeObject->fEnd << std::endl;
 		std::string line;
@@ -304,7 +304,7 @@ size_t ffw::ObjLoader::CalculateObjectPolyCount(){
 			//std::cout << "continue" << std::endl;
 			continue;
 		}
-		unsigned int tokens = ffw::GetTokensNum(line, ' ');
+		unsigned int tokens = ffw::getTokensNum(line, ' ');
 		if(tokens == 4)total += 1;
 		else if(tokens == 5)total += 2;
 		else if(tokens > 5){
@@ -313,7 +313,7 @@ size_t ffw::ObjLoader::CalculateObjectPolyCount(){
 		//std::cout << "polys: " << total << std::endl;
 	}
 
-	//std::cout << "CalculateObjectPolyCount done" << std::endl;
+	//std::cout << "calculateObjectPolyCount done" << std::endl;
 	input->clear();
 	input->seekg(0, std::ios::beg);
 	input->seekg(activeObject->fPos);
@@ -322,7 +322,7 @@ size_t ffw::ObjLoader::CalculateObjectPolyCount(){
 }
 
 ///=============================================================================
-bool ffw::ObjLoader::GetPolygon(float* ptr){
+bool ffw::ObjLoader::getPolygon(float* ptr){
 	float* P0 = &ptr[0];
 	float* N0 = &ptr[3];
 	float* T0 = &ptr[6];
@@ -344,7 +344,7 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 
 		if(line[0] != 'f' || line[1] != ' ')continue;
 
-		lineTokens = ffw::GetTokens(line, ' ');
+		lineTokens = ffw::getTokens(line, ' ');
 		if(lineTokens.size() <= 3){
 			return false;
 		}
@@ -384,9 +384,9 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 		std::string& v1 = lineTokens[2];
 		std::string& v2 = lineTokens[3];
 
-		v0Tokens = ffw::GetTokens(v0, '/');
-		v1Tokens = ffw::GetTokens(v1, '/');
-		v2Tokens = ffw::GetTokens(v2, '/');
+		v0Tokens = ffw::getTokens(v0, '/');
+		v1Tokens = ffw::getTokens(v1, '/');
+		v2Tokens = ffw::getTokens(v2, '/');
 
 		gotLine = false;
 		tokensRead = 1;
@@ -409,9 +409,9 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 			v2 = &lineTokens[3];
 		}
 
-		v0Tokens = ffw::GetTokens(*v0, '/');
-		v1Tokens = ffw::GetTokens(*v1, '/');
-		v2Tokens = ffw::GetTokens(*v2, '/');
+		v0Tokens = ffw::getTokens(*v0, '/');
+		v1Tokens = ffw::getTokens(*v1, '/');
+		v2Tokens = ffw::getTokens(*v2, '/');
 
 		tokensRead++;
 		if(tokensRead >= 2)gotLine = false;
@@ -429,27 +429,27 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 			middleVT = 0.0f;
 			try {
 				for(unsigned int i = 1; i < lineTokens.size(); i++){
-					tempTokens = ffw::GetTokens(lineTokens[i], '/');
+					tempTokens = ffw::getTokens(lineTokens[i], '/');
 
 					if(tempTokens.size() == 1){
-						tv = ffw::StringToVal<int>(tempTokens[0]);
+						tv = ffw::stringToVal<int>(tempTokens[0]);
 						tvn = 0;
 						tvt = 0;
 
 					} else if(tempTokens.size() == 2 && doubleSlash){
-						tv = ffw::StringToVal<int>(tempTokens[0]);
-						tvn = ffw::StringToVal<int>(tempTokens[1]);
+						tv = ffw::stringToVal<int>(tempTokens[0]);
+						tvn = ffw::stringToVal<int>(tempTokens[1]);
 						tvt = 0;
 
 					} else if(tempTokens.size() == 2){
-						tv = ffw::StringToVal<int>(tempTokens[0]);
-						tvt = ffw::StringToVal<int>(tempTokens[1]);
+						tv = ffw::stringToVal<int>(tempTokens[0]);
+						tvt = ffw::stringToVal<int>(tempTokens[1]);
 						tvn = 0;
 
 					} else if(tempTokens.size() == 3){
-						tv = ffw::StringToVal<int>(tempTokens[0]);
-						tvn = ffw::StringToVal<int>(tempTokens[1]);
-						tvt = ffw::StringToVal<int>(tempTokens[2]);
+						tv = ffw::stringToVal<int>(tempTokens[0]);
+						tvn = ffw::stringToVal<int>(tempTokens[1]);
+						tvt = ffw::stringToVal<int>(tempTokens[2]);
 					}
 
 					if(tv > 0 && activeObject->vCount > 0)middleV += activeObjectMesh.vertices[tv - activeObject->vOffset -1];
@@ -466,11 +466,11 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 		}
 
 		if(tokensRead == lineTokens.size()-2){
-			v0Tokens = ffw::GetTokens(lineTokens[tokensRead+1], '/');
-			v1Tokens = ffw::GetTokens(lineTokens[1], '/');
+			v0Tokens = ffw::getTokens(lineTokens[tokensRead+1], '/');
+			v1Tokens = ffw::getTokens(lineTokens[1], '/');
 		} else {
-			v0Tokens = ffw::GetTokens(lineTokens[tokensRead+1], '/');
-			v1Tokens = ffw::GetTokens(lineTokens[tokensRead+2], '/');
+			v0Tokens = ffw::getTokens(lineTokens[tokensRead+1], '/');
+			v1Tokens = ffw::getTokens(lineTokens[tokensRead+2], '/');
 		}
 		useMiddle = true;
 
@@ -486,29 +486,29 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 	if(!useMiddle && (v0Tokens.size() != v1Tokens.size() || v1Tokens.size() != v2Tokens.size()))return false;
 
 	try {
-		v2i = ffw::StringToVal<int>(v0Tokens[0]);
-		v1i = ffw::StringToVal<int>(v1Tokens[0]);
+		v2i = ffw::stringToVal<int>(v0Tokens[0]);
+		v1i = ffw::stringToVal<int>(v1Tokens[0]);
 		if(!useMiddle)
-			v0i = ffw::StringToVal<int>(v2Tokens[0]);
+			v0i = ffw::stringToVal<int>(v2Tokens[0]);
 
 		// V/VT/VN
 		if(v0Tokens.size() == 3){
-			vt2i = ffw::StringToVal<int>(v0Tokens[1]);
-			vt1i = ffw::StringToVal<int>(v1Tokens[1]);
+			vt2i = ffw::stringToVal<int>(v0Tokens[1]);
+			vt1i = ffw::stringToVal<int>(v1Tokens[1]);
 			if(!useMiddle)
-				vt0i = ffw::StringToVal<int>(v2Tokens[1]);
+				vt0i = ffw::stringToVal<int>(v2Tokens[1]);
 
-			vn2i = ffw::StringToVal<int>(v0Tokens[2]);
-			vn1i = ffw::StringToVal<int>(v1Tokens[2]);
+			vn2i = ffw::stringToVal<int>(v0Tokens[2]);
+			vn1i = ffw::stringToVal<int>(v1Tokens[2]);
 			if(!useMiddle)
-				vn0i = ffw::StringToVal<int>(v2Tokens[2]);
+				vn0i = ffw::stringToVal<int>(v2Tokens[2]);
 
 		// V//VN
 		} else if(v0Tokens.size() == 2 && doubleSlash){
-			vn2i = ffw::StringToVal<int>(v0Tokens[1]);
-			vn1i = ffw::StringToVal<int>(v1Tokens[1]);
+			vn2i = ffw::stringToVal<int>(v0Tokens[1]);
+			vn1i = ffw::stringToVal<int>(v1Tokens[1]);
 			if(!useMiddle)
-				vn0i = ffw::StringToVal<int>(v2Tokens[1]);
+				vn0i = ffw::stringToVal<int>(v2Tokens[1]);
 
 			vt0i = 0;
 			vt1i = 0;
@@ -516,10 +516,10 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 
 		// V/VT
 		} else if(v0Tokens.size() == 2){
-			vt2i = ffw::StringToVal<int>(v0Tokens[1]);
-			vt1i = ffw::StringToVal<int>(v1Tokens[1]);
+			vt2i = ffw::stringToVal<int>(v0Tokens[1]);
+			vt1i = ffw::stringToVal<int>(v1Tokens[1]);
 			if(!useMiddle)
-				vt0i = ffw::StringToVal<int>(v2Tokens[1]);
+				vt0i = ffw::stringToVal<int>(v2Tokens[1]);
 
 			vn0i = 0;
 			vn1i = 0;
@@ -607,7 +607,7 @@ bool ffw::ObjLoader::GetPolygon(float* ptr){
 }
 
 ///=============================================================================
-void ffw::ObjLoader::Close(){
+void ffw::ObjLoader::close(){
 	loaded = false;
 	input->close();
 	objects.clear();
@@ -618,16 +618,16 @@ void ffw::ObjLoader::Close(){
 }
 
 ///=============================================================================
-bool ffw::ReadObj(const std::string& path, float** vertices, unsigned int* numVertices){
+bool ffw::readObj(const std::string& path, float** vertices, unsigned int* numVertices){
 	ffw::ObjLoader obj;
 
 	//std::cout << "Openning object..." << std::endl;
-	if(!obj.Open(path))return false;
+	if(!obj.open(path))return false;
 
 	//std::cout << "Loading object..." << std::endl;
-	if(!obj.LoadObject(0))return false;
+	if(!obj.loadObject(0))return false;
 
-	auto total = obj.CalculateObjectPolyCount();
+	auto total = obj.calculateObjectPolyCount();
 	//std::cout << "Total vertices: " << total << std::endl;
 
 	if(numVertices != NULL)*numVertices = total*3;
@@ -636,14 +636,14 @@ bool ffw::ReadObj(const std::string& path, float** vertices, unsigned int* numVe
 	*vertices = new float [total*24];
 	float* ptr = *vertices;
 
-	bool genNormals = !obj.HasObjectNormals(0);
-	bool genTexpos = !obj.HasObjectTexPos(0);
+	bool genNormals = !obj.hasObjectNormals(0);
+	bool genTexpos = !obj.hasObjectTexPos(0);
 
 	ffw::Vec3f dir0;
 	ffw::Vec3f dir1;
 	ffw::Vec3f c;
 
-	while(!obj.Eof()){
+	while(!obj.eof()){
 		ffw::Vec3f* p0 = reinterpret_cast<ffw::Vec3f*>(&ptr[0]);
 		ffw::Vec3f* p1 = reinterpret_cast<ffw::Vec3f*>(&ptr[3]);
 		ffw::Vec3f* p2 = reinterpret_cast<ffw::Vec3f*>(&ptr[6]);
@@ -657,13 +657,13 @@ bool ffw::ReadObj(const std::string& path, float** vertices, unsigned int* numVe
 		ffw::Vec2f* t2 = reinterpret_cast<ffw::Vec2f*>(&ptr[22]);
 
 		//std::cout << "reading vertices..." << ptr << std::endl;
-		obj.GetPolygon(ptr);
+		obj.getPolygon(ptr);
 
 		if(genNormals){
 			dir0 = *p0 - *p2;
 			dir1 = *p0 - *p1;
-			c = ffw::Cross(dir0, dir1);
-			c.Normalize();
+			c = ffw::cross(dir0, dir1);
+			c.normalize();
 			*n0 = c;
 			*n1 = c;
 			*n2 = c;

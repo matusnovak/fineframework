@@ -4,9 +4,9 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-bool ffw::Texture3D::CheckCompability(const ffw::RenderContext* renderer){
+bool ffw::Texture3D::checkCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::RenderExtensions* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	return (
 		gl_->glTexImage3D			!= NULL &&
@@ -20,15 +20,28 @@ ffw::Texture3D::Texture3D():Texture(){
 }
 
 ///=============================================================================
+ffw::Texture3D::Texture3D(Texture3D&& second) : Texture3D() {
+	Texture::swap(second);
+}
+
+///=============================================================================
+ffw::Texture3D& ffw::Texture3D::operator = (ffw::Texture3D&& other) {
+	if (this != &other) {
+		Texture::swap(other);
+	}
+	return *this;
+}
+
+///=============================================================================
 ffw::Texture3D::~Texture3D(){
 }
 
 ///=============================================================================
-bool ffw::Texture3D::Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei depth, GLenum internalformat, GLenum format, GLenum pixelformat){
+bool ffw::Texture3D::create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei depth, GLenum internalformat, GLenum format, GLenum pixelformat){
     if(loaded_)return false;
-	if(!CheckCompability(renderer))return false;
+	if(!checkCompability(renderer))return false;
 	loaded_ = true;
-    gl_ = renderer->Glext();
+    gl_ = static_cast<const RenderExtensions*>(renderer);
 
     glGenTextures(1, &buffer_);
     glBindTexture(GL_TEXTURE_3D, buffer_);
@@ -46,7 +59,7 @@ bool ffw::Texture3D::Create(const ffw::RenderContext* renderer, GLsizei width, G
     int test;
     glGetTexLevelParameteriv(GL_TEXTURE_3D, 0, GL_TEXTURE_WIDTH, &test);
     if(test != width){
-        Destroy();
+        destroy();
         return false;
     }
 
@@ -60,7 +73,7 @@ bool ffw::Texture3D::Create(const ffw::RenderContext* renderer, GLsizei width, G
 }
 
 ///=============================================================================
-bool ffw::Texture3D::Resize(GLsizei width, GLsizei height, GLsizei depth){
+bool ffw::Texture3D::resize(GLsizei width, GLsizei height, GLsizei depth){
 	if(!loaded_)return false;
 	width_ = width;
 	height_ = height;
@@ -71,14 +84,14 @@ bool ffw::Texture3D::Resize(GLsizei width, GLsizei height, GLsizei depth){
 }
 
 ///=============================================================================
-bool ffw::Texture3D::SetPixels(GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, const void* pixels){
+bool ffw::Texture3D::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, const void* pixels){
     if(!loaded_)return false;
     gl_->glTexSubImage3D(GL_TEXTURE_3D, level, xoffset, yoffset, zoffset, width, height, depth, format_, pixelformat_, pixels);
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture3D::GetPixels(void* pixels){
+bool ffw::Texture3D::getPixels(void* pixels){
     if(!loaded_)return false;
 	glGetTexImage(GL_TEXTURE_3D, 0, format_, pixelformat_, pixels);
     return true;

@@ -1,7 +1,14 @@
 /*** This file is part of FineFramework project ***/
-
+#define NOMINMAX
+#include <Windows.h>
+#include <stdio.h>
 #include <tiffio.h>
 #include "ffw/media/tifloader.h"
+
+///=============================================================================
+static void DummyHandler(const char* module, const char* fmt, va_list ap){
+    // ignore errors and warnings (or handle them your own way)
+}
 
 ///=============================================================================
 ffw::TifLoader::TifLoader(){
@@ -28,15 +35,17 @@ ffw::TifLoader& ffw::TifLoader::operator = (TifLoader&& other){
 
 ///=============================================================================
 ffw::TifLoader::~TifLoader(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::TifLoader::Open(const std::string& path){
+bool ffw::TifLoader::open(const std::string& path){
 	if(loaded)return false;
 
+	TIFFSetWarningHandler(DummyHandler);
+
 #ifdef FFW_WINDOWS
-	tiff = TIFFOpen(WstrToAnsi(Utf8ToWstr(path)).c_str(), "rb");
+	tiff = TIFFOpen(wstrToAnsi(utf8ToWstr(path)).c_str(), "rb");
 #else
 	tiff = TIFFOpen(path.c_str(), "rb");
 #endif
@@ -90,7 +99,7 @@ bool ffw::TifLoader::Open(const std::string& path){
 					break;
 				}
 				default: {
-					Close();
+					close();
 					return false;
 				}
 			}
@@ -115,7 +124,7 @@ bool ffw::TifLoader::Open(const std::string& path){
 					break;
 				}
 				default: {
-					Close();
+					close();
 					return false;
 				}
 			}
@@ -140,14 +149,14 @@ bool ffw::TifLoader::Open(const std::string& path){
 					break;
 				}
 				default: {
-					Close();
+					close();
 					return false;
 				}
 			}
 			break;
 		}
 		default: {
-			Close();
+			close();
 			return false;
 		}
 	}
@@ -161,7 +170,7 @@ bool ffw::TifLoader::Open(const std::string& path){
 }
 
 ///=============================================================================
-void ffw::TifLoader::Close(){
+void ffw::TifLoader::close(){
 	if(tiff != NULL){
 		TIFFClose(tiff);
 	}
@@ -174,7 +183,7 @@ void ffw::TifLoader::Close(){
 }
 
 ///=============================================================================
-size_t ffw::TifLoader::ReadRow(void* dest){
+size_t ffw::TifLoader::readRow(void* dest){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
@@ -182,5 +191,5 @@ size_t ffw::TifLoader::ReadRow(void* dest){
 	TIFFReadScanline(tiff, dest, row);
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }

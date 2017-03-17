@@ -15,17 +15,17 @@ namespace ffw{
 		CsvLoader();
 		~CsvLoader();
 
-		bool OpenFromData(const std::string& input, char delim = ',', char quote = '\"');
-		bool OpenFromFile(const std::string& path, char delim = ',', char quote = '\"');
-		bool IsOpen() const;
-		void Close();
+		bool openFromData(const std::string& input, char delim = ',', char quote = '\"');
+		bool openFromFile(const std::string& path, char delim = ',', char quote = '\"');
+		bool isOpen() const;
+		void close();
 
-		std::string GetRowRaw();
-		ffw::Array GetRow(bool convert = true);
+		std::string getRowRaw();
+		ffw::Array getRow(bool convert = true);
 
-		bool Eof() const;
+		bool eof() const;
 
-		static ffw::Array Tokenize(const std::string& str, size_t begin, size_t end, bool convert = true, char delim = ',', char quote = '\"');
+		static ffw::Array tokenize(const std::string& str, size_t begin, size_t end, bool convert = true, char delim = ',', char quote = '\"');
 
 	private:
 		const std::string* stream;
@@ -37,10 +37,10 @@ namespace ffw{
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API LoadCsv(const std::string& path, ffw::Array& output);
+	bool FFW_API loadCsv(const std::string& path, ffw::Array& output);
 	/**
 	* @ingroup data
 	*/
-	ffw::Array FFW_API DecodeCsv(const std::string& input);
+	ffw::Array FFW_API decodeCsv(const std::string& input);
 };
 #endif

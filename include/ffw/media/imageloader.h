@@ -13,19 +13,19 @@ namespace ffw{
 		ImageReader();
 		virtual ~ImageReader();
 
-		virtual bool Open(const std::string& path) = 0;
-		virtual void Close() = 0;
-		virtual size_t ReadRow(void* dest) = 0;
-		inline bool Eof() const {
+		virtual bool open(const std::string& path) = 0;
+		virtual void close() = 0;
+		virtual size_t readRow(void* dest) = 0;
+		inline bool eof() const {
 			return row >= height;
 		}
 		inline operator bool() const {
 			return loaded;
 		}
-		inline int GetRowOffset() const {
+		inline int getRowOffset() const {
 			return row;
 		}
-		inline bool IsOpen() const {
+		inline bool isOpen() const {
 			return loaded;
 		}
 	protected:

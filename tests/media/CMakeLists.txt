@@ -14,10 +14,12 @@ set(MEDIA_TESTS TestsMedia)
 
 # Dependencies
 foreach(exmpl ${MEDIA_TESTS})
-  target_link_libraries(${exmpl} optimized finemedia optimized finemath)
-  target_link_libraries(${exmpl} debug finemedia${CMAKE_DEBUG_POSTFIX} debug finemath${CMAKE_DEBUG_POSTFIX})
+  target_link_libraries(${exmpl} optimized finemedia )
+  target_link_libraries(${exmpl} debug finemedia${CMAKE_DEBUG_POSTFIX})
 
   if(MSVC)
     set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
   endif(MSVC)
 endforeach(exmpl)
+
+add_test(NAME TestsMedia COMMAND TestsMedia)

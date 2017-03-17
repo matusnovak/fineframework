@@ -10,10 +10,10 @@ namespace ffw {
 	 */
 	class FFW_API Renderbuffer2DMS: public Renderbuffer {
     public:
-        static bool CheckCompability(const RenderContext* Renderer);
+        static bool checkCompability(const RenderContext* Renderer);
 		Renderbuffer2DMS();
         ~Renderbuffer2DMS();
-		bool Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLint samples);
+		bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLint samples);
     };
 };
 #endif

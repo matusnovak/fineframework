@@ -3,41 +3,29 @@
 #define FFW_GUI_FONT_OPENGL
 #include "guifont.h"
 namespace ffw {
+	class RenderContext;
 	/**
 	 * @ingroup gui
 	 */
-	class GuiFontOpenGL: public GuiFont{
-	private:
-		ffw::Font font;
+	class GuiFontOpenGL: public GuiFont, public TrueTypeFont {
 	public:
-		inline GuiFontOpenGL(){
+		inline bool isCreated() const override {
+			return TrueTypeFont::isCreated();
 		}
-		inline ~GuiFontOpenGL(){
-			Destroy();
+		inline void destroy() override {
+			TrueTypeFont::destroy();
 		}
-		inline bool IsCreated() const override {
-			return font.IsCreated();
+		inline ffw::Vec2i getStringSize(const std::wstring& str, float lineHeight = 1.25) const override {
+			return TrueTypeFont::getStringSize(str, lineHeight);
 		}
-		inline void Destroy() override {
-			font.Destroy();
+		inline ffw::Vec2i getStringSize(const std::string& str, float lineHeight = 1.25) const override {
+			return TrueTypeFont::getStringSize(str, lineHeight);
 		}
-		inline ffw::Vec2i GetStringSize(const std::wstring& str, float lineHeight = 1.25) const override {
-			return font.GetStringSize(str, lineHeight);
+		inline int getCharAdvance(wchar_t c) const override {
+			return TrueTypeFont::getChar(c).advance;
 		}
-		inline ffw::Vec2i GetStringSize(const std::string& str, float lineHeight = 1.25) const override {
-			return font.GetStringSize(str, lineHeight);
-		}
-		inline ffw::Font& Get(){
-			return font;
-		}
-		inline const ffw::Font& Get() const {
-			return font;
-		}
-		virtual int GetCharAdvance(wchar_t c) const override {
-			return font.GetCharAdvance(c);
-		}
-		virtual int GetSizeInPixels() const override  {
-			return font.GetSizeInPixels();
+		inline int getSizeInPixels() const override {
+			return TrueTypeFont::getSizePixels();
 		}
 	};
 }

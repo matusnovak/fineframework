@@ -47,25 +47,25 @@ namespace ffw {
 			z = *(list.begin() + 2);
 		}
 
-		inline void Set(T compx, T compy, T compz) {
+		inline void set(T compx, T compy, T compz) {
 			x = compx;
 			y = compy;
 			z = compz;
 		}
 
-		inline void Set(T Value) {
+		inline void set(T Value) {
 			x = Value;
 			y = Value;
 			z = Value;
 		}
 
-		inline void Set(const Vec3<T>& vec) {
+		inline void set(const Vec3<T>& vec) {
 			x = vec.x;
 			y = vec.y;
 			z = vec.z;
 		}
 
-		inline void Set(const std::initializer_list<T>& list) {
+		inline void set(const std::initializer_list<T>& list) {
 			if (list.size() != 3)return;
 			x = *(list.begin());
 			y = *(list.begin() + 1);
@@ -186,11 +186,11 @@ namespace ffw {
 			return (x == vec.x && y == vec.y && z == vec.z);
 		}
 
-		inline ffw::Vec3<T>& RotateByAxis(double deg, Vec3<T> axis) {
-			return RotateByAxisRad(deg * DEG_TO_RAD, axis);
+		inline ffw::Vec3<T>& aotateByAxis(double deg, Vec3<T> axis) {
+			return aotateByAxisRad(deg * DEG_TO_RAD, axis);
 		}
 
-		inline ffw::Vec3<T>& RotateByAxisRad(double rad, Vec3<T> axis) {
+		inline ffw::Vec3<T>& aotateByAxisRad(double rad, Vec3<T> axis) {
 			double sina = sin(rad);
 			double cosa = cos(rad);
 			double cosb = 1.0f - cosa;
@@ -201,62 +201,62 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& RotateX(double deg) {
+		inline ffw::Vec3<T>& rotateX(double deg) {
 			T vy = y;
 			T vz = z;
 			//x = vx;
-			y = static_cast<T>(cos(deg*DEG_TO_RAD))*vy - static_cast<T>(sin(deg*DEG_TO_RAD))*vz;
-			z = static_cast<T>(sin(deg*DEG_TO_RAD))*vy + static_cast<T>(cos(deg*DEG_TO_RAD))*vz;
+			y = static_cast<T>(vy*cos(deg*DEG_TO_RAD) - vz*sin(deg*DEG_TO_RAD));
+			z = static_cast<T>(vy*sin(deg*DEG_TO_RAD) + vz*cos(deg*DEG_TO_RAD));
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& RotateY(double deg) {
+		inline ffw::Vec3<T>& rotateY(double deg) {
 			T vx = x;
 			T vz = z;
-			x = static_cast<T>(cos(deg*DEG_TO_RAD))*vx + static_cast<T>(sin(deg*DEG_TO_RAD))*vz;
+			x = static_cast<T>(vx*cos(deg*DEG_TO_RAD) + vz*sin(deg*DEG_TO_RAD));
 			//y = vy;
-			z = static_cast<T>(-sin(deg*DEG_TO_RAD))*vx + static_cast<T>(cos(deg*DEG_TO_RAD))*vz;
+			z = static_cast<T>(vx*-sin(deg*DEG_TO_RAD) + vz*cos(deg*DEG_TO_RAD));
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& RotateZ(double deg) {
+		inline ffw::Vec3<T>& rotateZ(double deg) {
 			T vx = x;
 			T vy = y;
-			x = static_cast<T>(cos(deg*DEG_TO_RAD))*vx - static_cast<T>(sin(deg*DEG_TO_RAD))*vy;
-			y = static_cast<T>(sin(deg*DEG_TO_RAD))*vx + static_cast<T>(cos(deg*DEG_TO_RAD))*vy;
+			x = static_cast<T>(vx*cos(deg*DEG_TO_RAD) - vy*sin(deg*DEG_TO_RAD));
+			y = static_cast<T>(vx*sin(deg*DEG_TO_RAD) + vy*cos(deg*DEG_TO_RAD));
 			//z = vz;
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& RotateXRad(double rad) {
+		inline ffw::Vec3<T>& rotateXRad(double rad) {
 			T vy = y;
 			T vz = z;
 			//x = vx;
-			y = static_cast<T>(cos(rad))*vy - static_cast<T>(sin(rad))*vz;
-			z = static_cast<T>(sin(rad))*vy + static_cast<T>(cos(rad))*vz;
+			y = static_cast<T>(vy*cos(rad) - vz*sin(rad));
+			z = static_cast<T>(vy*sin(rad) + vz*cos(rad));
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& RotateYRad(double rad) {
+		inline ffw::Vec3<T>& rotateYRad(double rad) {
 			T vx = x;
 			T vz = z;
-			x = static_cast<T>(cos(rad))*vx + static_cast<T>(sin(rad))*vz;
+			x = static_cast<T>(vx*cos(rad) + vz*sin(rad));
 			//y = vy;
-			z = static_cast<T>(-sin(rad))*vx + static_cast<T>(cos(rad))*vz;
+			z = static_cast<T>(vx*-sin(rad) + vz*cos(rad));
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& RotateZRad(double rad) {
+		inline ffw::Vec3<T>& rotateZRad(double rad) {
 			T vx = x;
 			T vy = y;
-			x = static_cast<T>(cos(rad))*vx - static_cast<T>(sin(rad))*vy;
-			y = static_cast<T>(sin(rad))*vx + static_cast<T>(cos(rad))*vy;
+			x = static_cast<T>(vx*cos(rad) - vy*sin(rad));
+			y = static_cast<T>(vx*sin(rad) + vy*cos(rad));
 			//z = vz;
 			return *this;
 		}
 
 		template<class S>
-		inline ffw::Vec3<T>& RotateByQuaternion(const ffw::Quat<S>& quat) {
+		inline ffw::Vec3<T>& rotateByQuaternion(const ffw::Quat<S>& quat) {
 			ffw::Vec3<T> qvc;
 			qvc.x = static_cast<T>(quat.y*z - quat.z*y);
 			qvc.y = static_cast<T>(quat.z*x - quat.x*z);
@@ -271,7 +271,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& Normalize() {
+		inline ffw::Vec3<T>& normalize() {
 			double l = sqrt(x*x + y*y + z*z);
 			if (l > 0) {
 				x = static_cast<T>(x / l);
@@ -281,22 +281,22 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Vec3<T>& Scale(T val) {
+		inline ffw::Vec3<T>& scale(T val) {
 			x = x*val;
 			y = y*val;
 			z = z*val;
 			return *this;
 		}
 
-		inline double Length() const {
+		inline double length() const {
 			return sqrt(static_cast<double>(x*x + y*y + z*z));
 		}
 
-		inline float Lengthf() const {
+		inline float lengthf() const {
 			return sqrtf(static_cast<float>(x*x + y*y + z*z));
 		}
 
-		inline T LengthSqrd() const {
+		inline T lengthSqrd() const {
 			return (x*x + y*y + z*z);
 		}
 

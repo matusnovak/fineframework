@@ -2,8 +2,9 @@
 #ifndef FFW_GUI_WINDOW_OPENGL
 #define FFW_GUI_WINDOW_OPENGL
 #include "guibackend.h"
-#ifdef FFW_GRAPHICS_MODULE
 #include "guifontopengl.h"
+#include "guiimageopengl.h"
+#include <cmath>
 namespace ffw {
 	/**
 	 * @ingroup gui
@@ -14,84 +15,69 @@ namespace ffw {
 		}
 		inline virtual ~GuiWindowOpenGL(){
 		}
-		inline bool Create(RenderContext* ctx){
+		inline bool create(RenderContext* ctx){
 			if(ctx == NULL)return false;
 			context = ctx;
 			return true;
 		}
-		inline void Destroy(){
+		inline void destroy(){
 		}
-		inline void Resize(int width, int height) override {
+		inline void resize(int width, int height) override {
 
 		}
-		inline GuiFont* CreateFontFromData(const unsigned char* buffer, size_t length, int points, int dpi, int start = 0x00, int end = 0xFF) const override {
-			auto* fnt = new GuiFontOpenGL();
-			ffw::Font& font = fnt->Get();
-			if(!font.CreateFromData(context, buffer, length, points, dpi, start, end)){
-				delete fnt;
-				return NULL;
-			}
-			return fnt;
+		inline void drawRectangle(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::Color& color) const override {
+			context->setDrawColor(color);
+			context->drawRectangle(pos.x, pos.y, size.x, size.y);
 		}
-		inline GuiFont* CreateFontFromFile(const std::string& path, int points, int dpi, int start = 0x00, int end = 0xFF) const override {
-			auto* fnt = new GuiFontOpenGL();
-			ffw::Font& font = fnt->Get();
-			if(!font.CreateFromFile(context, path, points, dpi, start, end)){
-				delete fnt;
-				return NULL;
-			}
-			return fnt;
+		inline void drawRectangleRounded(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::Color& color, int tl, int tr, int br, int bl) const override {
+			context->setDrawColor(color);
+			context->drawRectangleRounded(pos.x, pos.y, size.x, size.y, tl, tr, br, bl);
 		}
-		inline void DrawRectangle(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::Color& color) const override {
-			context->Renderer()->SetDrawColor(color);
-			context->Renderer()->DrawRectangle(pos.x, pos.y, size.x, size.y);
+		inline void drawLine(const ffw::Vec2i& start, const ffw::Vec2i& end, const ffw::Color& color) const override  {
+			context->setDrawColor(color);
+			context->drawLine(start.x, start.y, end.x, end.y);
 		}
-		inline void DrawRectangleRounded(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::Color& color, int tl, int tr, int br, int bl) const override {
-			context->Renderer()->SetDrawColor(color);
-			context->Renderer()->DrawRectangleRounded(pos.x, pos.y, size.x, size.y, tl, tr, br, bl, 8);
+		inline void drawCircle(const ffw::Vec2i& pos, int radius, const ffw::Color& color) const override {
+			context->setDrawColor(color);
+			context->drawCircle(pos.x, pos.y, radius);
 		}
-		inline void DrawLine(const ffw::Vec2i& start, const ffw::Vec2i& end, const ffw::Color& color) const override  {
-			context->Renderer()->SetDrawColor(color);
-			context->Renderer()->DrawLine(start.x, start.y, end.x, end.y);
+		inline void drawArc(const ffw::Vec2i& pos, int inner, int outer, float start, float end, const ffw::Color& color) const override {
+			context->setDrawColor(color);
+			context->drawArc(pos.x, pos.y, inner, outer, start, end);
 		}
-		inline void DrawCircle(const ffw::Vec2i& pos, int radius, const ffw::Color& color) const override {
-			context->Renderer()->SetDrawColor(color);
-			context->Renderer()->DrawCircle(pos.x, pos.y, radius, 16);
+		inline void drawQuad(const ffw::Vec2i& p0, const ffw::Vec2i& p1, const ffw::Vec2i& p2, const ffw::Vec2i& p3, const ffw::Color& color) const override {
+			context->setDrawColor(color);
+			context->drawQuad(p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
 		}
-		inline void DrawArc(const ffw::Vec2i& pos, int inner, int outer, float start, float end, const ffw::Color& color) const override {
-			context->Renderer()->SetDrawColor(color);
-			context->Renderer()->DrawArc(pos.x, pos.y, inner, outer, start, end, int(std::fabs(end - start) / 11.25f));
+		inline void drawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring::value_type* str, size_t length, const ffw::Color& color, float lineHeight = 1.25f) const override {
+			context->setDrawColor(color);
+			context->drawString(pos.x, pos.y, dynamic_cast<const ffw::TrueTypeFont*>(font), str, length, lineHeight);
 		}
-		inline void DrawQuad(const ffw::Vec2i& p0, const ffw::Vec2i& p1, const ffw::Vec2i& p2, const ffw::Vec2i& p3, const ffw::Color& color) const override {
-			context->Renderer()->SetDrawColor(color);
-			context->Renderer()->DrawQuad(p0.x, p0.y, p1.x, p1.y, p2.x, p2.y, p3.x, p3.y);
+		inline void drawTriangle(const ffw::Vec2i& p0, const ffw::Vec2i& p1, const ffw::Vec2i& p2, const ffw::Color& color) const override {
+			context->setDrawColor(color);
+			context->drawTriangle(p0.x, p0.y, p1.x, p1.y, p2.x, p2.y);
 		}
-		inline void DrawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring::value_type* str, size_t length, const ffw::Color& color, float lineHeight = 1.25f) const override {
-			context->Renderer()->SetDrawColor(color);
-			context->Renderer()->DrawString(pos.x, pos.y, &dynamic_cast<const ffw::GuiFontOpenGL*>(font)->Get(), str, length, lineHeight);
+		inline void drawImage(const ffw::Vec2i& pos, const ffw::Vec2i& size, const GuiImage* image, const ffw::Vec4i& sub, bool mirrorX, bool mirrorY, const ffw::Color& color) const override {
+			context->setDrawColor(color);
+			context->drawTexture2DSubMirror(pos.x, pos.y, size.x, size.y, dynamic_cast<const ffw::Texture2D*>(image), sub.x, sub.y, sub.z, sub.w, mirrorX, mirrorY);
 		}
-		inline void StartRender() override {
+		inline void startRender() override {
 			glEnable(GL_SCISSOR_TEST);
 		}
-		inline void EndRender() override {
+		inline void endRender() override {
 			glDisable(GL_SCISSOR_TEST);
 		}
-		inline void SetScissors(const ffw::Vec2i& pos, const ffw::Vec2i& size) const override {
+		inline void setScissors(const ffw::Vec2i& pos, const ffw::Vec2i& size) const override {
 			GLint m_viewport[4];
 			glGetIntegerv(GL_VIEWPORT, m_viewport);
 			glScissor(pos.x, m_viewport[3] - pos.y - size.y, size.x, size.y);
 		}
-		inline void ClearWithColor(const ffw::Color& color) const override {
+		inline void clearWithColor(const ffw::Color& color) const override {
 			glClearColor(color.r, color.g, color.b, color.a);
 			glClear(GL_COLOR_BUFFER_BIT);
 		}
 	private:
 		RenderContext* context;
-		ffw::Vec2i size;
-		ffw::Vec2i pos;
-		mutable float vertices[8 * 4 * 2 * 2];
-		mutable float colors[8 * 4 * 2 * 3];
 	};
 }
-#endif
 #endif

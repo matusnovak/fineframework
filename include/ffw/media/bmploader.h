@@ -18,9 +18,9 @@ namespace ffw {
 		BmpLoader& operator = (BmpLoader&& other);
 		virtual ~BmpLoader();
 
-		bool Open(const std::string& path) override;
-		size_t ReadRow(void* dest) override;
-		virtual void Close();
+		bool open(const std::string& path) override;
+		size_t readRow(void* dest) override;
+		virtual void close();
 	private:
 		ffw::SwapWrapper<std::fstream> input;
 		size_t pixelsOffset;

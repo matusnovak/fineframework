@@ -4,7 +4,7 @@
 #include <fstream>
 
 ///=============================================================================
-static bool LoadTxt(const std::string& path, std::string* output){
+static bool loadTxt(const std::string& path, std::string* output){
 	if(output == NULL)return false;
 
 	std::ifstream input(path);
@@ -31,7 +31,7 @@ static std::string unicodeToUtf8(const std::string& Str, size_t Start){
     }
     std::wstring wstr = L" ";
     wstr[0] = value;
-    return ffw::WstrToUtf8(wstr);
+    return ffw::wstrToUtf8(wstr);
 }
 
 ///=============================================================================
@@ -140,7 +140,7 @@ static std::string escapeString(std::string Str, bool EscapeUnicode){
                 p++;
             }
 
-            std::wstring mbstr = ffw::Utf8ToWstr(Str.substr(i, p));
+            std::wstring mbstr = ffw::utf8ToWstr(Str.substr(i, p));
             //std::cout << "replacing: " << mstr[0] << std::endl;
             std::string unicodeStr;
             for(const auto& chr : mbstr){
@@ -171,33 +171,31 @@ static std::string escapeString(std::string Str, bool EscapeUnicode){
 
 ///=============================================================================
 static void encodeJSONFunc(std::ostream& output, const ffw::Var& var, bool Formated, std::string& Indent, bool EscapeUnicode){
-    const auto& varType = var.Typeid();
-
     /*if(varType == typeid(std::string)){
-        (*Output) += "\"" + escapeString(var.GetAs<std::string>(), EscapeUnicode) + "\"";
+        (*Output) += "\"" + escapeString(var.getAs<std::string>(), EscapeUnicode) + "\"";
 
     } else if(varType == typeid(int)){
-        (*Output) += ffw::ValToString(var.GetAs<int>());
+        (*Output) += ffw::valToString(var.getAs<int>());
 
     } else if(varType == typeid(float)){
-        (*Output) += ffw::ValToString(var.GetAs<float>());*/
-	if(var.ContainsString()){
-		output << "\"" + escapeString(var.String(), EscapeUnicode) + "\"";
+        (*Output) += ffw::valToString(var.getAs<float>());*/
+	if (var.empty()) {
+		output << "null";
+	}
+	else if(var.isString()){
+		output << "\"" + escapeString(var.toString(), EscapeUnicode) + "\"";
 
-	} else if(varType == typeid(bool)){
-        if(var.GetAs<bool>())output << "true";
+	} else if(var.is<bool>()){
+        if(var.getAs<bool>())output << "true";
         else output << "false";
 
-	} else if(var.ContainsInt()){
-		output << ffw::ValToString(var.Int());
+	} else if(var.isInt()){
+		output << ffw::valToString(var.toInt());
 
-	} else if(var.ContainsFloat()){
-		output << ffw::ValToString(var.Float());
+	} else if(var.isFloat()){
+		output << ffw::valToString(var.toFloat());
 
-    } else if(varType == typeid(std::nullptr_t)){
-        output << "null";
-
-    } else if(varType == typeid(ffw::Array)){
+    } else if(var.is<ffw::Array>()){
         if(Formated){
             output << "[\n";
             Indent += "    ";
@@ -205,14 +203,14 @@ static void encodeJSONFunc(std::ostream& output, const ffw::Var& var, bool Forma
             output << "[";
         }
 
-        for(size_t i = 0; i < var.GetAs<ffw::Array>().size(); i++){
+        for(size_t i = 0; i < var.getAs<ffw::Array>().size(); i++){
             if(Formated)output << Indent;
-            encodeJSONFunc(output, (var.GetAs<ffw::Array>()[i]), Formated, Indent, EscapeUnicode);
+            encodeJSONFunc(output, (var.getAs<ffw::Array>()[i]), Formated, Indent, EscapeUnicode);
             if(Formated){
-                if(i != var.GetAs<ffw::Array>().size()-1)output << ",\n";
+                if(i != var.getAs<ffw::Array>().size()-1)output << ",\n";
                 else output << "\n";
             } else {
-                if(i != var.GetAs<ffw::Array>().size()-1)output << ",";
+                if(i != var.getAs<ffw::Array>().size()-1)output << ",";
             }
         }
         if(Formated){
@@ -222,8 +220,8 @@ static void encodeJSONFunc(std::ostream& output, const ffw::Var& var, bool Forma
             output << "]";
         }
 
-    } else if(varType == typeid(ffw::Object)){
-        if(var.GetAs<ffw::Object>().begin() == var.GetAs<ffw::Object>().end()){
+    } else if(var.is<ffw::Object>()){
+        if(var.getAs<ffw::Object>().begin() == var.getAs<ffw::Object>().end()){
             output << "{}";
             return;
         }
@@ -235,8 +233,8 @@ static void encodeJSONFunc(std::ostream& output, const ffw::Var& var, bool Forma
             output << "{";
         }
 
-        auto obj = var.GetAs<ffw::Object>();
-        size_t count = 0;
+        auto obj = var.getAs<ffw::Object>();
+        size_t cnt = 0;
         for(auto it = obj.begin(); it != obj.end(); it++){
             if(Formated){
                 output << Indent + "\"" + escapeString(it->first, EscapeUnicode) + "\":";
@@ -247,13 +245,13 @@ static void encodeJSONFunc(std::ostream& output, const ffw::Var& var, bool Forma
             encodeJSONFunc(output, it->second, Formated, Indent, EscapeUnicode);
 
             if(Formated){
-                if(count != obj.size()-1)output << ",\n";
+                if(cnt != obj.size()-1)output << ",\n";
                 else output << "\n";
             } else {
-                if(count != obj.size()-1)output << ",";
+                if(cnt != obj.size()-1)output << ",";
             }
 
-            count++;
+            cnt++;
         }
 
         if(Formated){
@@ -544,7 +542,7 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 
 	//std::cout << "Parsing:" << std::endl;
 	//std::cout << ">" << Input.substr(Begin, End-Begin) << "<" << std::endl;
-	//std::cout << "previous: " << Data.Typeid() << std::endl;
+	//std::cout << "previous: " << Data.typeid() << std::endl;
 
 	size_t begin = std::string::npos;
 	size_t end = std::string::npos;
@@ -556,12 +554,12 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 	// Find begin
 	if((begin = findFirstInWhitespace(Input, '{', Begin, End)) != std::string::npos &&
 	   (end   = findLastInWhitespace(Input, '}', Begin, End)) != std::string::npos){
-		// Is object
+		// is object
 		//////std::cout << "is object!" << std::endl;
 		Data = ffw::Object();
 	} else if((begin = findFirstInWhitespace(Input, '[', Begin, End)) != std::string::npos &&
 	          (end   = findLastInWhitespace(Input, ']', Begin, End)) != std::string::npos){
-		// Is array
+		// is array
 		//////std::cout << "is array!" << std::endl;
 		isArray = true;
 		Data = ffw::Array();
@@ -588,7 +586,7 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 			 (newEnd - newBegin > 0 && Input[newBegin] == 'X')){
 			//////std::cout << "is hex value! \"" << Input.substr(newBegin, newEnd-newBegin) << "\"" << std::endl;
 			//std::cout << Input.substr(newBegin, newEnd-newBegin);
-			Data = ffw::HexToVal<int>(Input.substr(newBegin, newEnd-newBegin));
+			Data = ffw::hexToVal<int>(Input.substr(newBegin, newEnd-newBegin));
 			return;
 		}
 
@@ -605,7 +603,7 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 			//////std::cout << "is float value! \"" << Input.substr(newBegin, newEnd-newBegin) << "\"" << std::endl;
 			//std::cout << Input.substr(newBegin, newEnd-newBegin);
 			try {
-				Data = ffw::StringToVal<float>(Input.substr(newBegin, newEnd-newBegin));
+				Data = ffw::stringToVal<float>(Input.substr(newBegin, newEnd-newBegin));
 			} catch(const std::exception& e){
 				(void)e;
 			}
@@ -615,7 +613,7 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 			//////std::cout << "is integer value! \"" << Input.substr(newBegin, newEnd-newBegin) << "\"" << std::endl;
 			//std::cout << Input.substr(newBegin, newEnd-newBegin);
 			try {
-				Data = ffw::StringToVal<int>(Input.substr(newBegin, newEnd-newBegin));
+				Data = ffw::stringToVal<int>(Input.substr(newBegin, newEnd-newBegin));
 			} catch(const std::exception& e){
 				(void)e;
 			}
@@ -660,13 +658,13 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 	// Parent is an array
 	if(isArray){
 
-		//std::cout << "parent is array: " << (Data.Typeid() == typeid(ffw::Array)) << std::endl;
+		//std::cout << "parent is array: " << (Data.typeid() == typeid(ffw::Array)) << std::endl;
 
 		//std::cout << "[" << std::endl;
 		for(const auto& sec : sections){
 
-			Data.GetAs<ffw::Array>().push_back(ffw::Var());
-			auto& child = Data.GetAs<ffw::Array>().back();
+			Data.getAs<ffw::Array>().push_back(ffw::Var());
+			auto& child = Data.getAs<ffw::Array>().back();
 
 			parseJsonRecursive(Input, sec.first, sec.second, child);
 			//std::cout << ",";
@@ -676,7 +674,7 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 	// Parent is a object
 	} else {
 
-		//std::cout << "parent is object: " << (Data.Typeid() == typeid(ffw::Object)) << std::endl;
+		//std::cout << "parent is object: " << (Data.typeid() == typeid(ffw::Object)) << std::endl;
 
 		// for loop
 		// get collon of each section
@@ -684,19 +682,19 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 		//std::cout << "{" << std::endl;
 		for(const auto& sec : sections){
 			//parseJsonRecursive(Input, sec.first, sec.second, false);
-			// Get collon
+			// get collon
 			size_t collon = getCollon(Input, sec.first, sec.second);
 			if(collon == std::string::npos)continue;
 
-			// Get key
+			// get key
 			std::string key = getKey(Input, sec.first, collon);
 			if(key.size() == 0)continue;
 
 			//////std::cout << "got key: " << key << std::endl;
 			//std::cout << "\"" << key << "\": ";
 
-			Data.GetAs<ffw::Object>().insert(std::make_pair(key, ffw::Var()));
-			auto& child = Data.GetAs<ffw::Object>()[key];
+			Data.getAs<ffw::Object>().insert(std::make_pair(key, ffw::Var()));
+			auto& child = Data.getAs<ffw::Object>()[key];
 
 			parseJsonRecursive(Input, collon+1, sec.second, child);
 			//std::cout << ", ";
@@ -706,7 +704,7 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 }
 
 ///=============================================================================
-std::string ffw::EncodeJson(const ffw::Var& input, bool formated, bool escape){
+std::string ffw::encodeJson(const ffw::Var& input, bool formated, bool escape){
     std::stringstream stream;
 	std::string indent;
     encodeJSONFunc(stream, input, formated, indent, escape);
@@ -714,12 +712,12 @@ std::string ffw::EncodeJson(const ffw::Var& input, bool formated, bool escape){
 }
 
 ///=============================================================================
-void ffw::EncodeJson(const ffw::Var& input, std::string& output, bool formated, bool escape){
-	output = EncodeJson(input, formated, escape);
+void ffw::encodeJson(const ffw::Var& input, std::string& output, bool formated, bool escape){
+	output = encodeJson(input, formated, escape);
 }
 
 ///=============================================================================
-ffw::Var ffw::DecodeJson(const std::string& input){
+ffw::Var ffw::decodeJson(const std::string& input){
     if(input.size() == 0)return false;
 
 	ffw::Var var;
@@ -729,25 +727,25 @@ ffw::Var ffw::DecodeJson(const std::string& input){
 }
 
 ///=============================================================================
-void ffw::DecodeJson(const std::string& input, ffw::Var& output){
-	output = ffw::DecodeJson(input);
+void ffw::decodeJson(const std::string& input, ffw::Var& output){
+	output = ffw::decodeJson(input);
 }
 
 ///=============================================================================
-bool ffw::LoadJson(const std::string& Path, ffw::Var& output){
+bool ffw::loadJson(const std::string& Path, ffw::Var& output){
 	output = ffw::Var();
 
     std::string buffer;
-    if(!::LoadTxt(Path, &buffer)){
+    if(!::loadTxt(Path, &buffer)){
         return false;
     }
 
-    output = DecodeJson(buffer);
+    output = decodeJson(buffer);
 	return true;
 }
 
 ///=============================================================================
-bool ffw::SaveJson(const std::string& Path, const ffw::Var& input, bool formated, bool escape){
+bool ffw::saveJson(const std::string& Path, const ffw::Var& input, bool formated, bool escape){
     std::fstream output(Path, std::ios::trunc | std::ios::out);
     if(!output){
         return false;
@@ -756,7 +754,7 @@ bool ffw::SaveJson(const std::string& Path, const ffw::Var& input, bool formated
 	std::string indent;
     encodeJSONFunc(output, input, formated, indent, escape);
 
-    //std::string encoded = EncodeJson(input, formated, escape);
+    //std::string encoded = encodeJson(input, formated, escape);
 
     //output.write(&encoded[0], encoded.size());
     output.close();

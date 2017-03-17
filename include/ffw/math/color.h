@@ -1,4 +1,4 @@
-/* floathis file is part of FineFramework project */
+/* This file is part of FineFramework project */
 #ifndef FFW_COLOR
 #define FFW_COLOR
 #include <math.h>
@@ -58,28 +58,28 @@ namespace ffw {
 			w = *(list.begin() + 3);
 		}
 
-		inline void Set(float compx, float compy, float compz, float compw) {
+		inline void set(float compx, float compy, float compz, float compw) {
 			x = compx;
 			y = compy;
 			z = compz;
 			w = compw;
 		}
 
-		inline void Set(float val) {
+		inline void set(float val) {
 			x = val;
 			y = val;
 			z = val;
 			w = val;
 		}
 
-		inline void Set(const Color& vec) {
+		inline void set(const Color& vec) {
 			x = vec.x;
 			y = vec.y;
 			z = vec.z;
 			w = vec.w;
 		}
 
-		inline void Set(const std::initializer_list<float>& list) {
+		inline void set(const std::initializer_list<float>& list) {
 			if (list.size() != 4)return;
 			x = *(list.begin());
 			y = *(list.begin() + 1);
@@ -215,7 +215,7 @@ namespace ffw {
 			return true;
 		}
 
-		inline ffw::Color& Clamp() {
+		inline ffw::Color& clamp() {
 			x = std::max(0.0f, std::min(x, 1.0f));
 			y = std::max(0.0f, std::min(x, 1.0f));
 			z = std::max(0.0f, std::min(x, 1.0f));
@@ -223,7 +223,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Color& Normalize() {
+		inline ffw::Color& normalize() {
 			float l = sqrtf(x*x + y*y + z*z + w*w);
 			if (l > 0) {
 				x = x / l;
@@ -235,7 +235,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Color& Scale(const float val) {
+		inline ffw::Color& scale(const float val) {
 			x = x*val;
 			y = y*val;
 			z = z*val;
@@ -243,22 +243,22 @@ namespace ffw {
 			return *this;
 		}
 
-		inline double Length() const {
+		inline double length() const {
 			return sqrt(static_cast<double>(x*x + y*y + z*z + w*w));
 		}
 
-		inline float Lengthf() const {
+		inline float lengthf() const {
 			return sqrtf(static_cast<float>(x*x + y*y + z*z + w*w));
 		}
 
-		inline float LengthSqrd() const {
+		inline float lengthSqrd() const {
 			return (x*x + y*y + z*z + w*w);
 		}
 	};
 	/**
 	* @ingroup math
 	*/
-	inline Color Rgb(unsigned long Hex) {
+	inline Color rgb(unsigned long Hex) {
 		return Color(
 			((Hex & 0xFF0000) >> 16) / 255.0f,
 			((Hex & 0x00FF00) >> 8) / 255.0f,
@@ -269,7 +269,7 @@ namespace ffw {
 	/**
 	* @ingroup math
 	*/
-	inline Color Rgb(unsigned char Red, unsigned char Green, unsigned char Blue) {
+	inline Color rgb(unsigned char Red, unsigned char Green, unsigned char Blue) {
 		return Color(
 			Red / 255.0f,
 			Green / 255.0f,
@@ -280,7 +280,7 @@ namespace ffw {
 	/**
 	* @ingroup math
 	*/
-	inline Color Rgba(unsigned long Hex) {
+	inline Color rgba(unsigned long Hex) {
 		return Color(
 			((Hex & 0xFF000000) >> 24) / 255.0f,
 			((Hex & 0x00FF0000) >> 16) / 255.0f,
@@ -291,7 +291,7 @@ namespace ffw {
 	/**
 	* @ingroup math
 	*/
-	inline Color Rgba(unsigned char Red, unsigned char Green, unsigned char Blue, unsigned char Alpha) {
+	inline Color rgba(unsigned char Red, unsigned char Green, unsigned char Blue, unsigned char Alpha) {
 		return Color(
 			Red / 255.0f,
 			Green / 255.0f,

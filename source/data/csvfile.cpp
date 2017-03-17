@@ -10,12 +10,12 @@ ffw::CsvLoader::CsvLoader(){
 
 ///=============================================================================
 ffw::CsvLoader::~CsvLoader(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::CsvLoader::OpenFromData(const std::string& input, char delim, char quote){
-	if(IsOpen())return false;
+bool ffw::CsvLoader::openFromData(const std::string& input, char delim, char quote){
+	if(isOpen())return false;
 	stream = &input;
 	pos = 0;
 	del = delim;
@@ -24,8 +24,8 @@ bool ffw::CsvLoader::OpenFromData(const std::string& input, char delim, char quo
 }
 
 ///=============================================================================
-bool ffw::CsvLoader::OpenFromFile(const std::string& path, char delim, char quote){
-	if(IsOpen())return false;
+bool ffw::CsvLoader::openFromFile(const std::string& path, char delim, char quote){
+	if(isOpen())return false;
 	del = delim;
 	quot = quote;
 
@@ -40,12 +40,12 @@ bool ffw::CsvLoader::OpenFromFile(const std::string& path, char delim, char quot
 }
 
 ///=============================================================================
-bool ffw::CsvLoader::IsOpen() const {
+bool ffw::CsvLoader::isOpen() const {
 	return (stream != NULL || file.is_open());
 }
 
 ///=============================================================================
-void ffw::CsvLoader::Close(){
+void ffw::CsvLoader::close(){
 	if(file.is_open()){
 		file.close();
 	}
@@ -53,7 +53,7 @@ void ffw::CsvLoader::Close(){
 }
 
 ///=============================================================================
-static void FixDoubleQuotes(std::string& str){
+static void fixDoubleQuotes(std::string& str){
 	size_t pos = 0;
 	while((pos = str.find("\"\"", pos)) != std::string::npos){
 		str.replace(pos, 2, "\"");
@@ -61,7 +61,7 @@ static void FixDoubleQuotes(std::string& str){
 }
 
 ///=============================================================================
-static ffw::Var ParseToken(const std::string& str, size_t begin, size_t end, bool convert, char quot){
+static ffw::Var parseToken(const std::string& str, size_t begin, size_t end, bool convert, char quot){
 	//std::cout << "parsing: " << begin << " / " << end << std::endl;
 
 	if(begin != end && end > begin){
@@ -87,23 +87,23 @@ static ffw::Var ParseToken(const std::string& str, size_t begin, size_t end, boo
 
 		if(convert){
 			bool value = 0;
-			if(ffw::StringIsInteger(&str[begin], end-begin)){
-				return ffw::Var(ffw::StringToVal<int>(str.substr(begin, end-begin)));
+			if(ffw::stringisInteger(&str[begin], end-begin)){
+				return ffw::Var(ffw::stringToVal<int>(str.substr(begin, end-begin)));
 
-			} else if(ffw::StringIsFloat(&str[begin], end-begin)){
-				return ffw::Var(ffw::StringToVal<float>(str.substr(begin, end-begin)));
+			} else if(ffw::stringisFloat(&str[begin], end-begin)){
+				return ffw::Var(ffw::stringToVal<float>(str.substr(begin, end-begin)));
 
-			} else if(ffw::StringIsBool(&str[begin], end-begin, &value)){
+			} else if(ffw::stringisBool(&str[begin], end-begin, &value)){
 				return ffw::Var(value);
 
 			} else {
 				std::string s = str.substr(begin, end-begin);
-				FixDoubleQuotes(s);
+				fixDoubleQuotes(s);
 				return ffw::Var(s);
 			}
 		} else {
 			std::string s = str.substr(begin, end-begin);
-			FixDoubleQuotes(s);
+			fixDoubleQuotes(s);
 			return ffw::Var(s);
 		}
 	}
@@ -113,7 +113,7 @@ static ffw::Var ParseToken(const std::string& str, size_t begin, size_t end, boo
 }
 
 ///=============================================================================
-ffw::Array ffw::CsvLoader::Tokenize(const std::string& str, size_t begin, size_t end, bool convert, char del, char quot){
+ffw::Array ffw::CsvLoader::tokenize(const std::string& str, size_t begin, size_t end, bool convert, char del, char quot){
 	//std::cout << "ROW: " << str.substr(begin, end-begin) << std::endl;
 	//std::cout << "begin: " << begin << " end: " << end << std::endl;
 	bool inside = false;
@@ -136,11 +136,11 @@ ffw::Array ffw::CsvLoader::Tokenize(const std::string& str, size_t begin, size_t
 			}
 
 			if(c == del && !inside){
-				arr.push_back(ParseToken(str, first, i, convert, quot));
+				arr.push_back(parseToken(str, first, i, convert, quot));
 				first = i+1;
 			}
 		} else {
-			arr.push_back(ParseToken(str, first, i, convert, quot));
+			arr.push_back(parseToken(str, first, i, convert, quot));
 		}
 	}
 
@@ -149,14 +149,14 @@ ffw::Array ffw::CsvLoader::Tokenize(const std::string& str, size_t begin, size_t
 }
 
 ///=============================================================================
-ffw::Array ffw::CsvLoader::GetRow(bool convert){
-	std::string str = GetRowRaw();
-	return Tokenize(&str[0], 0, str.size(), convert, del, quot);
+ffw::Array ffw::CsvLoader::getRow(bool convert){
+	std::string str = getRowRaw();
+	return tokenize(&str[0], 0, str.size(), convert, del, quot);
 }
 
 ///=============================================================================
-std::string ffw::CsvLoader::GetRowRaw(){
-	if(!IsOpen())return "";
+std::string ffw::CsvLoader::getRowRaw(){
+	if(!isOpen())return "";
 
 	//std::cout << "getting row..." << std::endl;
 
@@ -172,14 +172,14 @@ std::string ffw::CsvLoader::GetRowRaw(){
 			}
 
 			// Check if row is not empty
-			if(StringContainsWhitespace(&row[0], row.size())){
+			if(stringContainsWhitespace(&row[0], row.size())){
 				//std::cout << row << " contains only whitespace!" << std::endl;
 				continue;
 			}
 			break;
 		}
 
-		//return Tokenize(row, 0, row.size());
+		//return tokenize(row, 0, row.size());
 		return row;
 
 	} else if(stream != NULL){
@@ -210,7 +210,7 @@ std::string ffw::CsvLoader::GetRowRaw(){
 			}
 
 			// Check if row is not empty
-			if(StringContainsWhitespace(&(*stream)[begin], end - begin)){
+			if(stringContainsWhitespace(&(*stream)[begin], end - begin)){
 				//std::cout << stream->substr(begin, end - begin) << " contains only whitespace!" << std::endl;
 				begin = pos;
 				continue;
@@ -218,7 +218,7 @@ std::string ffw::CsvLoader::GetRowRaw(){
 			break;
 		}
 
-		//return Tokenize(*stream, begin, end);
+		//return tokenize(*stream, begin, end);
 		return stream->substr(begin, end - begin);
 	}
 
@@ -226,7 +226,7 @@ std::string ffw::CsvLoader::GetRowRaw(){
 }
 
 ///=============================================================================
-bool ffw::CsvLoader::Eof() const {
+bool ffw::CsvLoader::eof() const {
 	if(file.is_open()){
 		return file.eof();
 	} else if(stream != NULL){
@@ -236,26 +236,26 @@ bool ffw::CsvLoader::Eof() const {
 }
 
 ///=============================================================================
-bool ffw::LoadCsv(const std::string& path, ffw::Array& output){
+bool ffw::loadCsv(const std::string& path, ffw::Array& output){
 	CsvLoader loader;
-	if(!loader.OpenFromFile(path))return false;
+	if(!loader.openFromFile(path))return false;
 
-	while(!loader.Eof()){
-		output.push_back(loader.GetRow());
+	while(!loader.eof()){
+		output.push_back(loader.getRow());
 	}
 
 	return true;
 }
 
 ///=============================================================================
-ffw::Array ffw::DecodeCsv(const std::string& input){
+ffw::Array ffw::decodeCsv(const std::string& input){
 	ffw::Array output;
 
 	CsvLoader loader;
-	if(!loader.OpenFromData(input))return output;
+	if(!loader.openFromData(input))return output;
 
-	while(!loader.Eof()){
-		output.push_back(loader.GetRow());
+	while(!loader.eof()){
+		output.push_back(loader.getRow());
 	}
 
 	return output;

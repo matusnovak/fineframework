@@ -26,35 +26,42 @@ namespace ffw {
 	 */
 	class FFW_API BufferObject {
     public:
-		static bool CheckCompability(const RenderContext* renderer);
+		static bool checkCompability(const RenderContext* renderer);
 		BufferObject(unsigned int objecttype);
+		BufferObject(const BufferObject& other) = delete;
+		BufferObject(BufferObject&& other);
+		void swap(BufferObject& other);
+
 		virtual ~BufferObject();
-		inline bool IsCreated() const {
+		inline bool isCreated() const {
 			return loaded_;
 		}
-		bool Create(const RenderContext* renderer, const void* data, int size, unsigned int type);
-		bool SetData(const void* data, int offset, int size);
-        bool MapBuffer(void** pointer, unsigned int access) const;
-        bool UnMapBuffer() const;
-		void Destroy();
-		void Bind() const;
-		void Unbind() const;
-		inline unsigned int GetHandle() const {
+		bool create(const RenderContext* renderer, const void* data, int size, unsigned int type);
+		bool setData(const void* data, int offset, int size);
+        bool mapBuffer(void** pointer, unsigned int access) const;
+        bool unMapBuffer() const;
+		void destroy();
+		void bind() const;
+		void unbind() const;
+		inline unsigned int getHandle() const {
 			return buffer_;
 		}
-		inline int GetSize() const {
+		inline int getSize() const {
 			return size_;
 		}
-		inline unsigned int GetType() const {
+		inline unsigned int getType() const {
 			return type_;
 		}
-		inline unsigned int GetObjectType() const {
+		inline unsigned int getObjectType() const {
 			return objecttype_;
 		}
-		bool CopyFrom(const BufferObject* other, ptrdiff_t offset1, ptrdiff_t offset2, ptrdiff_t size);
-    private:
+		bool copyFrom(const BufferObject* other, ptrdiff_t offset1, ptrdiff_t offset2, ptrdiff_t size);
+
+		BufferObject& operator = (const BufferObject& other) = delete;
+		BufferObject& operator = (BufferObject&& other);
+    protected:
         unsigned int type_;
-        const unsigned int objecttype_;
+        unsigned int objecttype_;
         bool loaded_;
         unsigned int buffer_;
         int size_;
@@ -75,4 +82,8 @@ namespace ffw {
 		Ibo():BufferObject(GL_ELEMENT_ARRAY_BUFFER){}
 	};
 };
+
+inline void swap(ffw::BufferObject& first, ffw::BufferObject& second) {
+	first.swap(second);
+}
 #endif

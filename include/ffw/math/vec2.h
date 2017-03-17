@@ -41,22 +41,22 @@ namespace ffw {
 			y = *(list.begin() + 1);
 		}
 
-		inline void Set(T compx, T compy) {
+		inline void set(T compx, T compy) {
 			x = compx;
 			y = compy;
 		}
 
-		inline void Set(T Value) {
+		inline void set(T Value) {
 			x = Value;
 			y = Value;
 		}
 
-		inline void Set(const Vec2<T>& vec) {
+		inline void set(const Vec2<T>& vec) {
 			x = vec.x;
 			y = vec.y;
 		}
 
-		inline void Set(const std::initializer_list<T>& list) {
+		inline void set(const std::initializer_list<T>& list) {
 			if (list.size() == 2) {
 				x = *(list.begin());
 				y = *(list.begin() + 1);
@@ -167,21 +167,21 @@ namespace ffw {
 			return (x == vec.x && y == vec.y);
 		}
 
-		inline ffw::Vec2<T>& Rotate(double deg) {
+		inline ffw::Vec2<T>& rotate(double deg) {
 			auto v = *this;
-			x = static_cast<T>(cos(deg*DEG_TO_RAD))*v.x - static_cast<T>(sin(deg*DEG_TO_RAD))*v.y;
-			y = static_cast<T>(sin(deg*DEG_TO_RAD))*v.x + static_cast<T>(cos(deg*DEG_TO_RAD))*v.y;
+			x = (T)(v.x*cos(deg*DEG_TO_RAD) - v.y*sin(deg*DEG_TO_RAD));
+			y = (T)(v.x*sin(deg*DEG_TO_RAD) + v.y*cos(deg*DEG_TO_RAD));
 			return *this;
 		}
 
-		inline ffw::Vec2<T>& RotateRad(double rad) {
+		inline ffw::Vec2<T>& rotateRad(double rad) {
 			auto v = *this;
-			x = static_cast<T>(cos(rad))*v.x - static_cast<T>(sin(rad))*v.y;
-			y = static_cast<T>(sin(rad))*v.x + static_cast<T>(cos(rad))*v.y;
+			x = (T)(v.x*cos(rad) - v.y*sin(rad));
+			y = (T)(v.x*sin(rad) + v.y*cos(rad));
 			return *this;
 		}
 
-		inline ffw::Vec2<T>& Normalize() {
+		inline ffw::Vec2<T>& normalize() {
 			double l = sqrtf(x*x + y*y);
 			if (l > 0) {
 				x = T(x / l);
@@ -190,21 +190,21 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Vec2<T>& Scale(T val) {
+		inline ffw::Vec2<T>& scale(T val) {
 			x = x*val;
 			y = y*val;
 			return *this;
 		}
 
-		inline double Length() const {
+		inline double length() const {
 			return sqrt(static_cast<double>(x*x + y*y));
 		}
 
-		inline float Lengthf() const {
+		inline float lengthf() const {
 			return sqrtf(static_cast<float>(x*x + y*y));
 		}
 
-		inline T LengthSqrd() const {
+		inline T lengthSqrd() const {
 			return (x*x + y*y);
 		}
 

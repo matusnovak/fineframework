@@ -27,8 +27,6 @@ else()
   target_link_libraries(${PROJECT_NAME} glfw3 opengl32 freetype)
 endif()
   
-target_link_libraries(${PROJECT_NAME} debug finemath${CMAKE_DEBUG_POSTFIX} optimized finemath)
-  
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   
 if(BUILD_INSTALL)

@@ -4,9 +4,9 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-bool ffw::Renderbuffer2DMS::CheckCompability(const ffw::RenderContext* renderer){
+bool ffw::Renderbuffer2DMS::checkCompability(const ffw::RenderContext* renderer){
 	if(renderer == NULL)return false;
-	const ffw::RenderExtensions* gl_ = renderer->Glext();
+	const ffw::RenderExtensions* gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	return (
 		gl_->glGenRenderbuffers				 != NULL &&
@@ -27,11 +27,11 @@ ffw::Renderbuffer2DMS::~Renderbuffer2DMS(){
 }
 
 ///=============================================================================
-bool ffw::Renderbuffer2DMS::Create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLint samples){
+bool ffw::Renderbuffer2DMS::create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLint samples){
 	if(loaded_)return false;
-	if(!CheckCompability(renderer))return false;
+	if(!checkCompability(renderer))return false;
 	loaded_ = true;
-	gl_ = renderer->Glext();
+	gl_ = static_cast<const RenderExtensions*>(renderer);
 
 	gl_->glGenRenderbuffers(1, &buffer_);
 	gl_->glBindRenderbuffer(GL_RENDERBUFFER, buffer_);
@@ -45,7 +45,7 @@ bool ffw::Renderbuffer2DMS::Create(const ffw::RenderContext* renderer, GLsizei w
 	int test;
     gl_->glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_INTERNAL_FORMAT, &test);
     if(test != (int)internalformat_){
-        Destroy();
+        destroy();
         return false;
     }
 

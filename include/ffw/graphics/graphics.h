@@ -5,6 +5,9 @@
 #include "rendercontext.h"
 
 namespace ffw{
+	/**
+	* @ingroup graphics
+	*/
 	class FFW_API OpenGLImageType {
 	public:
 		inline OpenGLImageType():
@@ -27,6 +30,6 @@ namespace ffw{
 	/**
 	 * @ingroup graphics
 	 */
-	ffw::OpenGLImageType FFW_API GetOpenGLImageType(ffw::ImageType type);
+	ffw::OpenGLImageType FFW_API getOpenGLImageType(ffw::ImageType type);
 };
 #endif

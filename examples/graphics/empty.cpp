@@ -9,67 +9,73 @@ public:
     ~App(){
 	}
 
-    bool Setup() override {
+    bool setup() override {
 		std::cout << "Window setup!" << std::endl;
+
+		ffw::Texture2D first;
+		ffw::Texture2D second;
+
+		std::swap(first, second);
+
 		return true;
 	}
 
-    void Render() override {
-		this->Renderer()->SetDrawColor(ffw::Rgb(0xFF0000)); // Red color
-		this->Renderer()->DrawRectangle(10, 10, GetSize().x-20, GetSize().y-20);
+    void render() override {
+		this->setDrawColor(ffw::rgb(0xFF0000)); // Red color
+		this->drawRectangle(10, 10, getSize().x-20, getSize().y-20);
 	}
 
-    void Close() override {
+    void close() override {
 		std::cout << "Window is closing!" << std::endl;
 	}
 
-    void TextInputEvent(unsigned int C) override {
+    void textInputEvent(unsigned int C) override {
 
 	}
 
-    void KeyPressedEvent(ffw::Key key, ffw::Mode mode) override {
+    void keyPressedEvent(ffw::Key key, ffw::Mode mode) override {
 		if(mode == ffw::Mode::PRESSED)
 			std::cout << "Key pressed: " << key << std::endl;
 	}
 
-    void MouseMovedEvent(int mousex, int mousey) override {
+    void mouseMovedEvent(int mousex, int mousey) override {
 		std::cout << "Mouse moved to: " << mousex << "x" << mousey << std::endl;
 	}
 
-    void MouseScrollEvent(int scroll) override {
+    void mouseScrollEvent(int scroll) override {
 		std::cout << "Mouse scroll: " << scroll << std::endl;
 	}
 
-    void MouseButtonEvent(ffw::MouseButton button, ffw::Mode mode) override {
+    void mouseButtonEvent(ffw::MouseButton button, ffw::Mode mode) override {
 		if(mode == ffw::Mode::PRESSED){
 			switch(button){
 				case ffw::MouseButton::LEFT: std::cout << "Left mouse button pressed!" << std::endl; break;
-				case ffw::MouseButton::MIDDLE: std::cout << "Middle mouse button pressed!" << std::endl; break;
+				case ffw::MouseButton::MIDDLE: std::cout << "middle mouse button pressed!" << std::endl; break;
 				case ffw::MouseButton::RIGHT: std::cout << "Right mouse button pressed!" << std::endl; break;
 				default: break;
 			}
 		}
 	}
 
-    void WindowResizedEvent(int width, int height) override {
+    void windowResizedEvent(int width, int height) override {
 		std::cout << "Window resized to: " << width << "x" << height << std::endl;
 	}
 
-    void WindowMovedEvent(int windowx, int windowy) override {
+    void windowMovedEvent(int windowx, int windowy) override {
 		std::cout << "Window moved to: " << windowx << "x" << windowy << std::endl;
 	}
 
-    void WindowFocusEvent(bool focus) override {
+    void windowFocusEvent(bool focus) override {
 		if(focus)std::cout << "Focus gained!" << std::endl;
 		else std::cout << "Focus lost!" << std::endl;
 	}
 
-    void WindowCloseEvent() override {
+    void windowCloseEvent() override {
 		std::cout << "Window close button pressed!" << std::endl;
-		this->ShouldClose(true);
+		this->shouldClose(true);
 	}
 
-    void FilesDroppedEvent(std::vector<std::string> filelist) override {
+    void filesDroppedEvent(std::vector<std::string> filelist) override {
         std::cout << "Files dropped: " << std::endl;
         for(const auto& file : filelist){
             std::cout << "\t\'" << file << "\'" << std::endl;
@@ -83,32 +89,32 @@ int main(int argc, char *argv[]){
 	// Instance to our app class
 	App app;
 
-	// Set arguments
+	// set arguments
 	ffw::GLFWRenderWindowArgs args;
-	args.size.Set(400, 400);
+	args.size.set(400, 400);
 	args.title = "Empty Example";
 
-	// Create window
-	if(!app.Create(args, NULL)){
+	// create window
+	if(!app.create(args, NULL)){
 		std::cerr << "Failed to create window!" << std::endl;
 		return 1;
 	}
 
 	// Run setup
-	if(!app.Setup()){
+	if(!app.setup()){
 		std::cerr << "Failed to setup window!" << std::endl;
 		return 1;
 	}
 
 	// The main window loop
-	while(app.ShouldRender()){
-		app.RenderFrame();
-		app.PoolEvents();
+	while(app.shouldRender()){
+		app.renderFrame();
+		app.poolEvents();
 	}
 
-	// Destroy window, this will delete all graphics data used by the window.
+	// destroy window, this will delete all graphics data used by the window.
 	// Must be called after the setup and before the graphics
 	// is terminated
-	app.Destroy();
+	app.destroy();
 	return 0;
 }

@@ -11,10 +11,11 @@ set(MATH_TESTS TestsMath)
 
 # Dependencies
 foreach(exmpl ${MATH_TESTS})
-  target_link_libraries(${exmpl} optimized finemath)
-  target_link_libraries(${exmpl} debug finemath${CMAKE_DEBUG_POSTFIX})
+  # target_link_libraries(${exmpl} )
 
   if(MSVC)
     set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
   endif(MSVC)
 endforeach(exmpl)
+
+add_test(NAME TestsMath COMMAND TestsMath)

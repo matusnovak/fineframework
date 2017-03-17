@@ -29,15 +29,15 @@ ffw::BmpLoader& ffw::BmpLoader::operator = (BmpLoader&& other){
 
 ///=============================================================================
 ffw::BmpLoader::~BmpLoader(){
-	Close();
+	close();
 }
 
 ///=============================================================================
-bool ffw::BmpLoader::Open(const std::string& path){
+bool ffw::BmpLoader::open(const std::string& path){
 	if(loaded)return false;
 
 #ifdef FFW_WINDOWS
-	input->open(WstrToAnsi(Utf8ToWstr(path)), std::ios::in | std::ios::binary);
+	input->open(wstrToAnsi(utf8ToWstr(path)), std::ios::in | std::ios::binary);
 #else
 	input->open(path, std::ios::in | std::ios::binary);
 #endif
@@ -137,7 +137,7 @@ bool ffw::BmpLoader::Open(const std::string& path){
 }
 
 ///=============================================================================
-void ffw::BmpLoader::Close(){
+void ffw::BmpLoader::close(){
 	input->close();
 	width = 0;
 	height = 0;
@@ -148,15 +148,15 @@ void ffw::BmpLoader::Close(){
 }
 
 ///=============================================================================
-size_t ffw::BmpLoader::ReadRow(void* dest){
+size_t ffw::BmpLoader::readRow(void* dest){
 	if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
 	
 	size_t size = 0;
-	int offset = 4 - int(width * (GetBitsPerPixel() / 8.0f)) % 4;
+	int offset = 4 - int(width * (getBitsPerPixel() / 8.0f)) % 4;
 	if(format == ffw::ImageType::RGB_ALPHA_8888)offset = 0;
-	int scanline = int(width * (GetBitsPerPixel() / 8.0f) + offset);
+	int scanline = int(width * (getBitsPerPixel() / 8.0f) + offset);
 	int rowOffset = height - row - 1;
 
 	//std::cout << "offset: " << offset << " row: " << rowOffset << " scanline: " << scanline << std::endl;
@@ -234,5 +234,5 @@ size_t ffw::BmpLoader::ReadRow(void* dest){
 	
 	row++;
 
-	return this->GetStrideSize();
+	return this->getStrideSize();
 }

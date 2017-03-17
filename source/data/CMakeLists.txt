@@ -23,8 +23,6 @@ if(UNIX OR APPLE)
 else()
   #target_link_libraries(${PROJECT_NAME})
 endif()
-
-target_link_libraries(${PROJECT_NAME} debug finemath${CMAKE_DEBUG_POSTFIX} optimized finemath)
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   

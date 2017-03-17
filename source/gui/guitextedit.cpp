@@ -2,14 +2,15 @@
 
 #include "ffw/gui/guitextedit.h"
 #include "ffw/gui/guiwindow.h"
+#include <regex>
 
 ///=============================================================================
 ffw::GuiTextInput::TextLine::TextLine(const std::wstring& s) {
-	SetText(s);
+	setText(s);
 }
 
 ///=============================================================================
-const std::wstring& ffw::GuiTextInput::TextLine::Get() const {
+const std::wstring& ffw::GuiTextInput::TextLine::get() const {
 	return str;
 }
 
@@ -19,33 +20,33 @@ const std::vector<size_t>& ffw::GuiTextInput::TextLine::Tokens() const {
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::TextLine::SetText(const std::wstring& s) {
+void ffw::GuiTextInput::TextLine::setText(const std::wstring& s) {
 	tokens.clear();
 	str = s;
 	tokens.push_back(str.size());
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::TextLine::InsertAt(size_t pos, wchar_t chr) {
+void ffw::GuiTextInput::TextLine::insertAt(size_t pos, wchar_t chr) {
 	if (pos <= str.size()) {
 		str.insert(pos, 1, chr);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::TextLine::RemoveAt(size_t pos) {
+void ffw::GuiTextInput::TextLine::removeAt(size_t pos) {
 	if (pos < str.size()) {
 		str.erase(pos, 1);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::TextLine::Append(const std::wstring& s) {
+void ffw::GuiTextInput::TextLine::append(const std::wstring& s) {
 	str.append(s);
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::TextLine::Recalculate(const ffw::GuiFont* font, int width, bool ignore) {
+void ffw::GuiTextInput::TextLine::recalculate(const ffw::GuiFont* font, int width, bool ignore) {
 	if (!ignore) {
 		tokens[0] = str.size();
 		return;
@@ -60,7 +61,7 @@ void ffw::GuiTextInput::TextLine::Recalculate(const ffw::GuiFont* font, int widt
 	for (size_t i = 0; i < str.size(); i++) {
 		const auto& chr = str[i];
 
-		auto test = font->GetCharAdvance(chr);
+		auto test = font->getCharAdvance(chr);
 
 		if (currentWidth + test > width) {
 			if (lastWhitespace != SIZE_MAX) {
@@ -84,43 +85,22 @@ void ffw::GuiTextInput::TextLine::Recalculate(const ffw::GuiFont* font, int widt
 		}
 	}
 
-	/*int total = 0;
-	int totalForLast = 0;
-	size_t last = SIZE_MAX;
-	for (size_t i = 0; i < str.size(); i++) {
-	const auto& chr = str[i];
-
-	total += font->GetCharAdvance(chr);
-	if (total > width) {
-	if (last == SIZE_MAX)tokens.push_back(i);
-	else tokens.push_back(last + 1);
-	last = i;
-	total -= totalForLast;
-	std::cout << "total: " << total << std::endl;
-	totalForLast = 0;
-	}
-
-	if (chr <= 32) {
-	last = i;
-	totalForLast = total;
-	}
-	}*/
 	tokens.push_back(str.size());
 }
 
 ///=============================================================================
 ffw::GuiTextInput::GuiTextInput(GuiWindow* context, bool multiline, bool editable) : GuiWidget(context) {
-	ignoreinputflag = !editable;
+	setIgnoreUserInput(!editable);
 
-	// At this point, we are sure that the context and GetTheme() are not NULL
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_TEXT_INPUT");
-	SetDefaults(&widgetStyle->defaults);
+	// At this point, we are sure that the context and getTheme() are not NULL
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TEXT_INPUT");
+	setDefaults(&widgetStyle->defaults);
 
 	multi = multiline;
 
 	mousedown = false;
 	linesLastWidth = 0;
-	SetValue(L"");
+	setValue(L"");
 }
 
 ///=============================================================================
@@ -128,7 +108,7 @@ ffw::GuiTextInput::~GuiTextInput() {
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::SetValue(const std::wstring& str) {
+void ffw::GuiTextInput::setValue(const std::wstring& str) {
 	lines.clear();
 	size_t pos = 0;
 	size_t last = 0;
@@ -139,58 +119,59 @@ void ffw::GuiTextInput::SetValue(const std::wstring& str) {
 	}
 	lines.push_back(str.substr(last, str.size() - last));
 
-	auto font = GetCurrentFont();
+	auto font = getCurrentFont();
 	if (font != NULL) {
-		linesLastWidth = GetVisibleContentSize().x;
+		linesLastWidth = getVisibleContentSize().x;
 		for (size_t i = 0; i < lines.size(); i++) {
-			lines[i].Recalculate(GetCurrentFont(), linesLastWidth, multi);
+			lines[i].recalculate(getCurrentFont(), linesLastWidth, multi);
 		}
 	}
-	Invalidate();
+	invalidate();
+	redraw();
 }
 
 ///=============================================================================
-std::wstring ffw::GuiTextInput::GetValue() const {
+std::wstring ffw::GuiTextInput::getValue() const {
 	if (lines.size() == 0) {
 		return L"";
 	}
 	else if (lines.size() == 1) {
-		return lines[0].Get();
+		return lines[0].get();
 	}
 	else {
 		std::wstring ret;
 		for (size_t i = 0; i < lines.size(); i++) {
 			if (i != lines.size() - 1)
-				ret += lines[i].Get() + L"\n";
+				ret += lines[i].get() + L"\n";
 			else
-				ret += lines[i].Get();
+				ret += lines[i].get();
 		}
 		return ret;
 	}
 }
 
 ///=============================================================================
-bool ffw::GuiTextInput::IsEmpty() const {
-	return lines.size() == 0 && lines[0].Get().size() == 0;
+bool ffw::GuiTextInput::isEmpty() const {
+	return lines.size() == 0 && lines[0].get().size() == 0;
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
-	const auto& stl = GetCurrentStyle();
-	//context->SetDrawColor(stl.textcolor);
+void ffw::GuiTextInput::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+	const auto& stl = getCurrentStyle();
+	//context->setDrawColor(stl.textcolor);
 
-	auto font = GetCurrentFont();
-	int heightPerLine = int(GetLineHeight() * font->GetSizeInPixels());
+	auto font = getCurrentFont();
+	int heightPerLine = int(getLineHeight() * font->getSizeInPixels());
 
-	if (HasFocus()) {
-		//context->DrawLine(contentoffset + cursorPos, contentoffset + cursorPos + ffw::Vec2i(0, font->GetLineHeight()), 1);
+	if (hasFocus()) {
+		//context->drawLine(contentoffset + cursorPos, contentoffset + cursorPos + ffw::Vec2i(0, font->getLineHeight()), 1);
 		if (!selection || (selection && cursorIndex == cursorIndexEnd)) {
-			context->DrawLine(contentoffset + cursorPos, contentoffset + cursorPos + ffw::Vec2i(0, heightPerLine), stl->text.color);
+			context->drawLine(contentoffset + cursorPos, contentoffset + cursorPos + ffw::Vec2i(0, heightPerLine), stl->text.color);
 		}
 		else {
-			//context->SetDrawColor(selectionColor);
+			//context->setDrawColor(selectionColor);
 
-			//context->DrawLine(contentoffset + cursorPosEnd, contentoffset + cursorPosEnd + ffw::Vec2i(0, font->GetLineHeight()), 1);
+			//context->drawLine(contentoffset + cursorPosEnd, contentoffset + cursorPosEnd + ffw::Vec2i(0, font->getLineHeight()), 1);
 
 			ffw::Vec2i posBegin = cursorPos;
 			ffw::Vec2i posEnd = cursorPosEnd;
@@ -204,24 +185,24 @@ void ffw::GuiTextInput::EventRender(const ffw::Vec2i& contentoffset, const ffw::
 
 			// On the same line
 			if (posBegin.y == posEnd.y) {
-				context->DrawRectangle(contentoffset + posBegin, ffw::Vec2i(posEnd.x - posBegin.x, heightPerLine), stl->function.color);
+				context->drawRectangle(contentoffset + posBegin, ffw::Vec2i(posEnd.x - posBegin.x, heightPerLine), stl->function.color);
 			}
 			else {
-				context->DrawRectangle(contentoffset + posBegin, ffw::Vec2i(contentsize.x - posBegin.x, heightPerLine), stl->function.color);
+				context->drawRectangle(contentoffset + posBegin, ffw::Vec2i(contentsize.x - posBegin.x, heightPerLine), stl->function.color);
 
-				int count = ((posEnd.y - posBegin.y) / heightPerLine) - 1;
+				int cnt = ((posEnd.y - posBegin.y) / heightPerLine) - 1;
 				int offset = posBegin.y + heightPerLine;
 
-				for (int i = 0; i < count; i++) {
-					context->DrawRectangle(contentoffset + ffw::Vec2i(0, i * heightPerLine + offset), ffw::Vec2i(contentsize.x, heightPerLine), stl->function.color);
+				for (int i = 0; i < cnt; i++) {
+					context->drawRectangle(contentoffset + ffw::Vec2i(0, i * heightPerLine + offset), ffw::Vec2i(contentsize.x, heightPerLine), stl->function.color);
 				}
 
-				context->DrawRectangle(contentoffset + ffw::Vec2i(0, posEnd.y), ffw::Vec2i(posEnd.x, heightPerLine), stl->function.color);
+				context->drawRectangle(contentoffset + ffw::Vec2i(0, posEnd.y), ffw::Vec2i(posEnd.x, heightPerLine), stl->function.color);
 			}
 		}
 	}
 
-	//context->SetDrawColor(stl.textcolor);
+	//context->setDrawColor(stl.textcolor);
 
 	int height = 0;
 	size_t last;
@@ -230,7 +211,7 @@ void ffw::GuiTextInput::EventRender(const ffw::Vec2i& contentoffset, const ffw::
 		const auto& tokens = lines[i].Tokens();
 		last = 0;
 		for (size_t t = 0; t < tokens.size(); t++) {
-			context->DrawString(contentoffset + ffw::Vec2i(0, height), font, &lines[i].Get()[last], tokens[t] - last, stl->text.color);
+			context->drawString(contentoffset + ffw::Vec2i(0, height), font, &lines[i].get()[last], tokens[t] - last, stl->text.color);
 			last = tokens[t];
 			height += heightPerLine;
 		}
@@ -238,10 +219,10 @@ void ffw::GuiTextInput::EventRender(const ffw::Vec2i& contentoffset, const ffw::
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiTextInput::CalculateCursorPos(const ffw::Vec2i& cursor) {
+ffw::Vec2i ffw::GuiTextInput::calculateCursorPos(const ffw::Vec2i& cursor) {
 	ffw::Vec2i pos;
-	auto font = GetCurrentFont();
-	int heightPerLine = int(GetLineHeight() * font->GetSizeInPixels());
+	auto font = getCurrentFont();
+	int heightPerLine = int(getLineHeight() * font->getSizeInPixels());
 
 	pos = 0;
 
@@ -262,8 +243,8 @@ ffw::Vec2i ffw::GuiTextInput::CalculateCursorPos(const ffw::Vec2i& cursor) {
 				break;
 			}
 
-			wchar_t chr = line.Get()[counter];
-			int advance = font->GetCharAdvance(chr);
+			wchar_t chr = line.get()[counter];
+			int advance = font->getCharAdvance(chr);
 
 			pos.x += advance;
 			counter++;
@@ -281,11 +262,11 @@ ffw::Vec2i ffw::GuiTextInput::CalculateCursorPos(const ffw::Vec2i& cursor) {
 }
 
 ///=============================================================================
-std::pair<ffw::Vec2i, ffw::Vec2i> ffw::GuiTextInput::CalculateCursor(const ffw::Vec2i& mouse) {
+std::pair<ffw::Vec2i, ffw::Vec2i> ffw::GuiTextInput::calculateCursor(const ffw::Vec2i& mouse) {
 	ffw::Vec2i pos;
 	ffw::Vec2i cursor;
-	auto font = GetCurrentFont();
-	int heightPerLine = int(font->GetSizeInPixels() * GetLineHeight());
+	auto font = getCurrentFont();
+	int heightPerLine = int(font->getSizeInPixels() * getLineHeight());
 
 	if (font == NULL) {
 		return std::make_pair(ffw::Vec2i(), ffw::Vec2i());
@@ -298,7 +279,7 @@ std::pair<ffw::Vec2i, ffw::Vec2i> ffw::GuiTextInput::CalculateCursor(const ffw::
 		if ((mouse.y >= pos.y && mouse.y < pos.y + currentHeight) || (i == lines.size() - 1 && mouse.y >= pos.y)) {
 			cursor.y = i;
 			cursor.x = 0;
-			// Calculate X
+			// calculate X
 
 			const auto& line = lines[i];
 			if (line.Tokens().size() != 0) {
@@ -308,8 +289,8 @@ std::pair<ffw::Vec2i, ffw::Vec2i> ffw::GuiTextInput::CalculateCursor(const ffw::
 
 				size_t counter = 0;
 				while (counter < last) {
-					wchar_t chr = line.Get()[counter];
-					int advance = font->GetCharAdvance(chr);
+					wchar_t chr = line.get()[counter];
+					int advance = font->getCharAdvance(chr);
 
 					if (mouse.x >= pos.x && mouse.x <= pos.x + advance && mouse.y >= pos.y && mouse.y <= pos.y + heightPerLine) {
 						cursor.x = counter;
@@ -329,7 +310,7 @@ std::pair<ffw::Vec2i, ffw::Vec2i> ffw::GuiTextInput::CalculateCursor(const ffw::
 				}
 			}
 
-			cursor.x = line.Get().size();
+			cursor.x = line.get().size();
 			//std::cout << "selected 1: " << cursorIndex << std::endl;
 			return std::make_pair(pos, cursor);
 		}
@@ -338,7 +319,7 @@ std::pair<ffw::Vec2i, ffw::Vec2i> ffw::GuiTextInput::CalculateCursor(const ffw::
 	}
 
 	cursor.y = lines.size() - 1;
-	cursor.x = lines.back().Get().size();
+	cursor.x = lines.back().get().size();
 	pos = 0;
 
 	//std::cout << "selected 2: " << cursorIndex << std::endl;
@@ -346,64 +327,65 @@ std::pair<ffw::Vec2i, ffw::Vec2i> ffw::GuiTextInput::CalculateCursor(const ffw::
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventPos(const ffw::Vec2i& pos) {
+void ffw::GuiTextInput::eventPos(const ffw::Vec2i& pos) {
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventSize(const ffw::Vec2i& size) {
-	const auto font = GetCurrentFont();
-	const auto width = GetVisibleContentSize().x;
+void ffw::GuiTextInput::eventSize(const ffw::Vec2i& size) {
+	const auto font = getCurrentFont();
+	const auto width = getVisibleContentSize().x;
 	if (font != NULL) {
 		linesLastWidth = width;
 		for (auto& line : lines) {
-			line.Recalculate(GetCurrentFont(), linesLastWidth, multi);
+			line.recalculate(getCurrentFont(), linesLastWidth, multi);
 		}
 	}
 	selection = false;
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventHover(bool gained) {
+void ffw::GuiTextInput::eventHover(bool gained) {
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventFocus(bool gained) {
-	Redraw();
+void ffw::GuiTextInput::eventFocus(bool gained) {
+	redraw();
 
 	if (!gained) {
-		//cursorOffset.Set(-1, -1);
+		//cursorOffset.set(-1, -1);
 		selection = false;
 	}
 
 	GuiEvent::Data dat;
 	dat.clicked.value = gained;
-	PushEvent(GuiEvent::Type::CLICKED, dat);
+	pushEvent(GuiEvent::Type::CLICKED, dat);
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiTextInput::eventMouse(const ffw::Vec2i& pos) {
 	if (mousedown) {
 		if (!ignoreFirst) {
-			auto ret = CalculateCursor(pos);
+			auto ret = calculateCursor(pos);
 			cursorPosEnd = ret.first;
 			cursorIndexEnd = ret.second;
 			//cursorIndexEnd.x++;
-			//cursorPosEnd = CalculateCursorPos(cursorIndexEnd);
+			//cursorPosEnd = calculateCursorPos(cursorIndexEnd);
 			selection = true;
-			Redraw();
+			redraw();
 		}
 		ignoreFirst = false;
 	}
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+void ffw::GuiTextInput::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
 	if (button == ffw::MouseButton::LEFT) {
 		if (mode == ffw::Mode::PRESSED) {
-			auto ret = CalculateCursor(GetMousePos());
+			auto ret = calculateCursor(getMousePos());
 			cursorPos = ret.first;
 			cursorIndex = ret.second;
-			Redraw();
+			redraw();
 			mousedown = true;
 			ignoreFirst = true;
 			selection = false;
@@ -415,63 +397,81 @@ void ffw::GuiTextInput::EventMouseButton(ffw::MouseButton button, ffw::Mode mode
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::SplitAtCurrent() {
-	if (GetCurrentFont() == NULL)return;
+void ffw::GuiTextInput::splitAtCurrent() {
+	if (getCurrentFont() == NULL)return;
 
 	if (cursorIndex.y >= 0 && cursorIndex.y < lines.size()) {
-		auto copy = lines[cursorIndex.y].Get();
-		lines[cursorIndex.y].SetText(copy.substr(cursorIndex.x));
-		lines[cursorIndex.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
+		auto copy = lines[cursorIndex.y].get();
+		lines[cursorIndex.y].setText(copy.substr(cursorIndex.x));
+		lines[cursorIndex.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
 
 		lines.insert(lines.begin() + cursorIndex.y, ffw::GuiTextInput::TextLine(copy.substr(0, cursorIndex.x)));
-		lines[cursorIndex.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
+		lines[cursorIndex.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
 		cursorIndex.y++;
 		cursorIndex.x = 0;
-		cursorPos = CalculateCursorPos(cursorIndex);
-		Invalidate();
+		cursorPos = calculateCursorPos(cursorIndex);
+		invalidate();
+		redraw();
 	}
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::InsertAtCurrent(wchar_t chr) {
-	if (GetCurrentFont() == NULL)return;
-
-	// Check character limits
-	bool found = false;
-	for (const auto& lim : limits) {
-		found |= lim.IsValid(chr);
-	}
-	if (!found && limits.size() != 0)return;
+void ffw::GuiTextInput::insertAtCurrent(wchar_t chr) {
+	if (getCurrentFont() == NULL)return;
 
 	if (cursorIndex.y >= 0 && cursorIndex.y < lines.size()) {
-		lines[cursorIndex.y].InsertAt(cursorIndex.x, chr);
-		lines[cursorIndex.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
+
+		// Is the regular expression empty?
+		if (regexStr.size() > 0) {
+			// Add the char to the index
+			lines[cursorIndex.y].insertAt(cursorIndex.x, chr);
+
+			// Get the whole text
+			auto text = getValue();
+
+			// Go back -> remove the added character
+			lines[cursorIndex.y].removeAt(cursorIndex.x);
+
+			// Test the text with temporary added character
+			std::wregex reg(regexStr);
+			std::wstring swap(L"");
+			if (std::regex_replace(text, reg, swap).size() != 0) {
+				// The whole string must be replaced by an empty string,
+				// otherwise there is no match
+				return;
+			}
+		}
+
+		// Regex ok, continue adding the character
+		lines[cursorIndex.y].insertAt(cursorIndex.x, chr);
+		lines[cursorIndex.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
 		cursorIndex.x++;
-		cursorPos = CalculateCursorPos(cursorIndex);
-		Invalidate();
+		cursorPos = calculateCursorPos(cursorIndex);
+		invalidate();
+		redraw();
 
 		GuiEvent::Data dat;
 		dat.input.chr = chr;
-		PushEvent(GuiEvent::Type::INPUT, dat);
+		pushEvent(GuiEvent::Type::INPUT, dat);
 	}
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::RemoveAtCurrent(int offset) {
-	if (GetCurrentFont() == NULL)return;
+void ffw::GuiTextInput::removeAtCurrent(int offset) {
+	if (getCurrentFont() == NULL)return;
 
 	if (cursorIndex.y >= 0 && cursorIndex.y < lines.size()) {
 
 		size_t index = cursorIndex.x + offset;
-		//std::cout << "delete index: " << index << " total: " << lines[cursorIndex.y].Get().size() << std::endl;
+		//std::cout << "delete index: " << index << " total: " << lines[cursorIndex.y].get().size() << std::endl;
 
-		if (index >= 0 && index < lines[cursorIndex.y].Get().size()) {
-			lines[cursorIndex.y].RemoveAt(cursorIndex.x + offset);
-			lines[cursorIndex.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
+		if (index >= 0 && index < lines[cursorIndex.y].get().size()) {
+			lines[cursorIndex.y].removeAt(cursorIndex.x + offset);
+			lines[cursorIndex.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
 			cursorIndex.x += offset;
-			cursorPos = CalculateCursorPos(cursorIndex);
-			Redraw();
-			Invalidate();
+			cursorPos = calculateCursorPos(cursorIndex);
+			redraw();
+			invalidate();
 		}
 
 		// Deleting backwards at the start of the line
@@ -479,33 +479,35 @@ void ffw::GuiTextInput::RemoveAtCurrent(int offset) {
 		else if (index == -1 && cursorIndex.y > 0) {
 			//std::cout << "minus one!" << std::endl;
 
-			size_t len = lines[cursorIndex.y - 1].Get().size();
-			lines[cursorIndex.y - 1].Append(lines[cursorIndex.y].Get());
+			size_t len = lines[cursorIndex.y - 1].get().size();
+			lines[cursorIndex.y - 1].append(lines[cursorIndex.y].get());
 			lines.erase(lines.begin() + cursorIndex.y);
 			cursorIndex.y--;
-			lines[cursorIndex.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
+			lines[cursorIndex.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
 			cursorIndex.x = len;
-			cursorPos = CalculateCursorPos(cursorIndex);
-			Invalidate();
+			cursorPos = calculateCursorPos(cursorIndex);
+			invalidate();
+			redraw();
 		}
 
 		// Deleting forwards at the end of the line
 		// We need to combine our two lines
-		else if (index == lines[cursorIndex.y].Get().size() && cursorIndex.y + 1 < lines.size()) {
+		else if (index == lines[cursorIndex.y].get().size() && cursorIndex.y + 1 < lines.size()) {
 			//std::cout << "plus one" << std::endl;
 
-			lines[cursorIndex.y].Append(lines[cursorIndex.y + 1].Get());
+			lines[cursorIndex.y].append(lines[cursorIndex.y + 1].get());
 			lines.erase(lines.begin() + cursorIndex.y + 1);
-			lines[cursorIndex.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
-			cursorPos = CalculateCursorPos(cursorIndex);
-			Invalidate();
+			lines[cursorIndex.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
+			cursorPos = calculateCursorPos(cursorIndex);
+			invalidate();
+			redraw();
 		}
 	}
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::ReplaceSection(ffw::Vec2i beg, ffw::Vec2i end, const std::wstring& s) {
-	if (GetCurrentFont() == NULL)return;
+void ffw::GuiTextInput::replaceSection(ffw::Vec2i beg, ffw::Vec2i end, const std::wstring& s) {
+	if (getCurrentFont() == NULL)return;
 
 	if (beg.y > end.y || (beg.y == end.y && beg.x > end.x)) {
 		std::swap(beg, end);
@@ -513,107 +515,108 @@ void ffw::GuiTextInput::ReplaceSection(ffw::Vec2i beg, ffw::Vec2i end, const std
 
 	// Replace inside of a single line?
 	if (beg.y == end.y) {
-		auto copy1 = lines[beg.y].Get().substr(0, beg.x);
-		auto copy2 = lines[end.y].Get().substr(end.x);
+		auto copy1 = lines[beg.y].get().substr(0, beg.x);
+		auto copy2 = lines[end.y].get().substr(end.x);
 
-		lines[beg.y].SetText(copy1 + s + copy2);
-		lines[beg.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
+		lines[beg.y].setText(copy1 + s + copy2);
+		lines[beg.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
 		cursorIndex.x = beg.x + s.size();
-		cursorPos = CalculateCursorPos(cursorIndex);
+		cursorPos = calculateCursorPos(cursorIndex);
 	}
 
 	else {
-		auto copy1 = lines[beg.y].Get().substr(0, beg.x);
-		auto copy2 = lines[end.y].Get().substr(end.x);
+		auto copy1 = lines[beg.y].get().substr(0, beg.x);
+		auto copy2 = lines[end.y].get().substr(end.x);
 
-		size_t toRemove = end.y - beg.y;
-		//std::cout << "to remove: " << (beg.y +1) << " / " << toRemove << std::endl;
+		size_t toremove = end.y - beg.y;
+		//std::cout << "to remove: " << (beg.y +1) << " / " << toremove << std::endl;
 
-		lines.erase(lines.begin() + beg.y + 1, lines.begin() + beg.y + 1 + toRemove);
-		lines[beg.y].SetText(copy1 + s + copy2);
-		lines[beg.y].Recalculate(GetCurrentFont(), GetVisibleContentSize().x, multi);
+		lines.erase(lines.begin() + beg.y + 1, lines.begin() + beg.y + 1 + toremove);
+		lines[beg.y].setText(copy1 + s + copy2);
+		lines[beg.y].recalculate(getCurrentFont(), getVisibleContentSize().x, multi);
 		cursorIndex.x = beg.x + s.size();
 		cursorIndex.y = beg.y;
-		cursorPos = CalculateCursorPos(cursorIndex);
+		cursorPos = calculateCursorPos(cursorIndex);
 	}
 
-	Invalidate();
+	invalidate();
+	redraw();
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventText(wchar_t chr) {
-	auto font = GetCurrentFont();
+void ffw::GuiTextInput::eventText(wchar_t chr) {
+	auto font = getCurrentFont();
 
 	if (!multi && (chr == L'\n' || chr == L'\r'))return;
 
 	if (font != NULL) {
-		if (selection)ReplaceSection(cursorIndex, cursorIndexEnd, std::wstring(1, chr));
-		else InsertAtCurrent(chr);
+		if (selection)replaceSection(cursorIndex, cursorIndexEnd, std::wstring(1, chr));
+		else insertAtCurrent(chr);
 		selection = false;
 	}
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventKey(ffw::Key key, ffw::Mode mode) {
-	auto font = GetCurrentFont();
+void ffw::GuiTextInput::eventKey(ffw::Key key, ffw::Mode mode) {
+	auto font = getCurrentFont();
 
 	if (font != NULL && (mode == ffw::Mode::PRESSED || mode == ffw::Mode::REPEAT)) {
 		switch (key) {
 		case ffw::Key::ENTER:
-		case ffw::Key::NUMPADENTER: {
+		case ffw::Key::NUMPAD_ENTER: {
 			if (multi) {
-				if (selection)ReplaceSection(cursorIndex, cursorIndexEnd, L"");
-				SplitAtCurrent();
+				if (selection)replaceSection(cursorIndex, cursorIndexEnd, L"");
+				splitAtCurrent();
 			}
 			break;
 		}
 		case ffw::Key::TAB: {
-			if (selection)ReplaceSection(cursorIndex, cursorIndexEnd, L"\t");
-			else InsertAtCurrent('\t');
+			if (selection)replaceSection(cursorIndex, cursorIndexEnd, L"\t");
+			else insertAtCurrent('\t');
 			break;
 		}
 		case ffw::Key::BACKSPACE: {
-			if (selection)ReplaceSection(cursorIndex, cursorIndexEnd, L"");
-			else RemoveAtCurrent(-1);
+			if (selection)replaceSection(cursorIndex, cursorIndexEnd, L"");
+			else removeAtCurrent(-1);
 			break;
 		}
-		case ffw::Key::DELETEKEY: {
-			if (selection)ReplaceSection(cursorIndex, cursorIndexEnd, L"");
-			else RemoveAtCurrent(0);
+		case ffw::Key::FUNCTION_DELETE: {
+			if (selection)replaceSection(cursorIndex, cursorIndexEnd, L"");
+			else removeAtCurrent(0);
 			break;
 		}
-		case ffw::Key::ARROWLEFT: {
-			// Is the cursor index valid?
+		case ffw::Key::ARROW_LEFT: {
+			// is the cursor index valid?
 			if (cursorIndex.y >= 0 && cursorIndex.y < lines.size()) {
 				// Go left
 				cursorIndex.x--;
 				// Are we outside if the string?
 				if (cursorIndex.x < 0) {
-					// Is this not the first line?
+					// is this not the first line?
 					if (cursorIndex.y > 0) {
 						// Go to the previous line at the end
-						cursorIndex.x = lines[cursorIndex.y - 1].Get().size();
+						cursorIndex.x = lines[cursorIndex.y - 1].get().size();
 						cursorIndex.y--;
 					}
 					else {
-						// Reset indexes
+						// reset indexes
 						cursorIndex.x = 0;
 						cursorIndex.y = 0;
 					}
 				}
-				cursorPos = CalculateCursorPos(cursorIndex);
-				Redraw();
+				cursorPos = calculateCursorPos(cursorIndex);
+				redraw();
 			}
 			break;
 		}
-		case ffw::Key::ARROWRIGHT: {
-			// Is the cursor index valid?
+		case ffw::Key::ARROW_RIGHT: {
+			// is the cursor index valid?
 			if (cursorIndex.y >= 0 && cursorIndex.y < lines.size()) {
 				// Go right
 				cursorIndex.x++;
 				// Are we outside of the string?
-				if (cursorIndex.x > lines[cursorIndex.y].Get().size()) {
-					// Is this not the last line?
+				if (cursorIndex.x > lines[cursorIndex.y].get().size()) {
+					// is this not the last line?
 					if (cursorIndex.y + 1 < lines.size()) {
 						// Go to the next line at the beginning
 						cursorIndex.x = 0;
@@ -621,11 +624,11 @@ void ffw::GuiTextInput::EventKey(ffw::Key key, ffw::Mode mode) {
 					}
 					else {
 						// This is the last line... reset cursor index Y
-						cursorIndex.x = lines[cursorIndex.y].Get().size();
+						cursorIndex.x = lines[cursorIndex.y].get().size();
 					}
 				}
-				cursorPos = CalculateCursorPos(cursorIndex);
-				Redraw();
+				cursorPos = calculateCursorPos(cursorIndex);
+				redraw();
 			}
 			break;
 		}
@@ -638,33 +641,34 @@ void ffw::GuiTextInput::EventKey(ffw::Key key, ffw::Mode mode) {
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventDisabled(bool disabled) {
+void ffw::GuiTextInput::eventDisabled(bool disabled) {
 }
 
 ///=============================================================================
-void ffw::GuiTextInput::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_TEXT_INPUT");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiTextInput::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_TEXT_INPUT");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiTextInput::GetMinimumWrapSize() {
-	auto font = GetCurrentFont();
+ffw::Vec2i ffw::GuiTextInput::getMinimumWrapSize() {
+	auto font = getCurrentFont();
 	if (font != NULL) {
-		auto test = GetVisibleContentSize().x;
+		auto test = getVisibleContentSize().x;
 		if (linesLastWidth != test) {
 			linesLastWidth = test;
 			for (size_t i = 0; i < lines.size(); i++) {
-				lines[i].Recalculate(GetCurrentFont(), linesLastWidth, multi);
+				lines[i].recalculate(getCurrentFont(), linesLastWidth, multi);
 			}
 		}
 
 		size_t total = 0;
 		for (const auto& l : lines) {
-			total += l.GetNumOfTokens();
+			total += l.getNumOfTokens();
 		}
 		if (total == 0)total = 1;
-		return ffw::Vec2i(0, int(total) * int(font->GetSizeInPixels() * GetLineHeight()));
+		auto ret = ffw::Vec2i(0, int(total) * int(font->getSizeInPixels() * getLineHeight()));
+		return ret;
 	}
 	else return 0;
 }
@@ -672,8 +676,8 @@ ffw::Vec2i ffw::GuiTextInput::GetMinimumWrapSize() {
 ///=============================================================================
 ffw::GuiTextArea::Inner::Inner(GuiWindow* context, bool editable) :
 	GuiTextInput(context, true, editable) {
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_TEXT_AREA_INNER");
-	SetDefaults(&widgetStyle->defaults);
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TEXT_AREA_INNER");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -681,17 +685,17 @@ ffw::GuiTextArea::Inner::~Inner() {
 }
 
 ///=============================================================================
-void ffw::GuiTextArea::Inner::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_TEXT_AREA_INNER");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiTextArea::Inner::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_TEXT_AREA_INNER");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::GuiTextArea::GuiTextArea(GuiWindow* context, bool editable) :
 	GuiScrollable(context, textinput = new GuiTextArea::Inner(context, editable), false, true) {
-	//GetInner()->AddWidget(textinput = new GuiTextArea::Inner(context, editable));
-	widgetStyle = &context->GetTheme()->GetStyleGroup("GUI_TEXT_AREA");
-	SetDefaults(&widgetStyle->defaults);
+	//getInner()->addWidget(textinput = new GuiTextArea::Inner(context, editable));
+	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TEXT_AREA");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -700,7 +704,7 @@ ffw::GuiTextArea::~GuiTextArea() {
 }
 
 ///=============================================================================
-void ffw::GuiTextArea::EventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->GetStyleGroup("GUI_TEXT_AREA");
-	SetDefaults(&widgetStyle->defaults);
+void ffw::GuiTextArea::eventThemeChanged(const GuiTheme* theme) {
+	widgetStyle = &theme->getStyleGroup("GUI_TEXT_AREA");
+	setDefaults(&widgetStyle->defaults);
 }

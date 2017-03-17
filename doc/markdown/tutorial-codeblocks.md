@@ -7,11 +7,11 @@ This tutorial will explain how to include any FFW module into your C++ project. 
 
 When installing MinGW-w64, **use either i686 architecture or x86_64**. (i686 = 32-bit and x86_64 = 64-bit) The version of the compiler must be **4.9.3 or newer!**
 
-![Alt](images/tutorial-cb-01.png)
+![Alt](tutorial-cb-01.png)
 
 Next, when you install CodeBlocks, run it and go to **Settings (main top menu bar) -> Compiler -> Toolchain Executables** and set the compiler installation directory to the compiler's bin path. For example: `C:\Program Files (x86)\mingw-w64\i686-5.4.0-posix-dwarf-rt_v5-rev0\mingw32\bin`
 
-![Alt](images/tutorial-cb-02.png)
+![Alt](tutorial-cb-02.png)
 
 ### Installing FFW
 
@@ -31,21 +31,21 @@ Create a CodeBlocks console application project. You will need to let the compil
 
 In the Project Workspace, right click on your project name and select **Build Options**. Next, add the following properties listed below to **both Release and Debug** configuration. Go to **Compiler Settings -> Compiler Flags** and enable **Have g++ follow the C++11 ISO** alternatively, go to #defines and add -std=c++11 flag.
 
-![Alt](images/tutorial-cb-03.png)
+![Alt](tutorial-cb-03.png)
 
 Now, go to **Search Directories -> Compiler** and add a new path to include folder of your downloaded copy of pre-build FFW, for example: `C:\ffw-XXX-w64-mingw32\include`
 
-![Alt](images/tutorial-cb-04.png)
+![Alt](tutorial-cb-04.png)
 
 For the library files, go to **Search Directories -> Linker** and add a new path to `C:\ffw-XXX-w64-mingw32\lib`
 
-![Alt](images/tutorial-cb-05.png)
+![Alt](tutorial-cb-05.png)
 
-Now, go to the **Linker Settings** and add the following libraries to the **Link libraries** window on the left side: `opengl32`, `finegraphics`, `finedata`, `finemedia`, `finegui`, and `finemath`. (You don't need to include all modules if you are not going to use them in your project).
+Now, go to the **Linker Settings** and add the following libraries to the **Link libraries** window on the left side: `opengl32`, `finegraphics`, `finedata`, `finemedia`, and `finegui`. (You don't need to include all modules if you are not going to use them in your project).
 
 *Note that OpenGL library is needed only when using Graphics Module!*
 
-![Alt](images/tutorial-cb-06.png)
+![Alt](tutorial-cb-06.png)
 
 ### Your first code
 
@@ -55,7 +55,7 @@ Your configuration is done, now test the project to make sure everything works. 
 
 Now compile it and run it! You might see the following message:
 
-![Alt](images/tutorial-cb-07.png)
+![Alt](tutorial-cb-07.png)
 
 This is where DLL files comes...
 
@@ -65,4 +65,4 @@ Alternatively (not recommended!) you can put all DLLs into your MinGW bin folder
 
 When done, try to run the example again. This should show up:
 
-![Alt](images/tutorial-cb-08.png)
+![Alt](tutorial-cb-08.png)

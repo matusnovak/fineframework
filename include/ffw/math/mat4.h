@@ -47,7 +47,7 @@ namespace ffw {
 			}
 		}
 
-		inline void Set(T xx, T yx, T zx, T wx,
+		inline void set(T xx, T yx, T zx, T wx,
 			T xy, T yy, T zy, T wy,
 			T xz, T yz, T zz, T wz,
 			T xw, T yw, T zw, T ww) {
@@ -57,21 +57,21 @@ namespace ffw {
 			ptr[3] = xw;    ptr[7] = yw;    ptr[11] = zw;   ptr[15] = ww;
 		}
 
-		inline void Set(T Val) {
+		inline void set(T Val) {
 			ptr[0] = Val;   ptr[4] = 0.0f;  ptr[8] = 0.0f; ptr[12] = 0.0f;
 			ptr[1] = 0.0f;  ptr[5] = Val;   ptr[9] = 0.0f; ptr[13] = 0.0f;
 			ptr[2] = 0.0f;  ptr[6] = 0.0f;  ptr[10] = Val;  ptr[14] = 0.0f;
 			ptr[3] = 0.0f;  ptr[7] = 0.0f;  ptr[11] = 0.0f; ptr[15] = Val;
 		}
 
-		inline void Set(T m[16]) {
+		inline void set(T m[16]) {
 			ptr[0] = m[0];    ptr[4] = m[4];    ptr[8] = m[8];   ptr[12] = m[12];
 			ptr[1] = m[1];    ptr[5] = m[5];    ptr[9] = m[9];   ptr[13] = m[13];
 			ptr[2] = m[2];    ptr[6] = m[6];    ptr[10] = m[10];  ptr[14] = m[14];
 			ptr[3] = m[3];    ptr[7] = m[7];    ptr[11] = m[11];  ptr[15] = m[15];
 		}
 
-		inline void Set(std::initializer_list<T> List) {
+		inline void set(std::initializer_list<T> List) {
 			if (List.size() != 16) {
 				return;
 			}
@@ -80,11 +80,11 @@ namespace ffw {
 			}
 		}
 
-		inline T* GetPtr() {
+		inline T* getPtr() {
 			return &ptr[0];
 		}
 
-		inline const T* GetPtr() const {
+		inline const T* getPtr() const {
 			return &ptr[0];
 		}
 
@@ -143,7 +143,7 @@ namespace ffw {
 			return ptr[x];
 		}
 
-		inline ffw::Mat4x4<T>& Rotate(const ffw::Quat<T>& Q) {
+		inline ffw::Mat4x4<T>& rotate(const ffw::Quat<T>& Q) {
 			Mat4x4 m;
 			m[0] = 1.0f - 2.0f * (Q.y * Q.y + Q.z * Q.z);    m[4] = 2.0f * (Q.x * Q.y + Q.z * Q.w);         m[8] = 2.0f * (Q.x * Q.z - Q.y * Q.w);
 			m[1] = 2.0f * (Q.x * Q.y - Q.z * Q.w);           m[5] = 1.0f - 2.0f * (Q.x * Q.x + Q.z * Q.z);  m[9] = 2.0f * (Q.y * Q.z + Q.x * Q.w);
@@ -159,7 +159,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Mat4x4<T>& Scale(T X, T Y, T Z) {
+		inline ffw::Mat4x4<T>& scale(T X, T Y, T Z) {
 			Mat4x4 m;
 			m[0] = X;
 			m[5] = Y;
@@ -190,7 +190,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Mat4x4<T>& Inverse() {
+		inline ffw::Mat4x4<T>& inverse() {
 			T inv[16];
 			inv[0] = ptr[5] * ptr[10] * ptr[15] - ptr[5] * ptr[11] * ptr[14] - ptr[9] * ptr[6] * ptr[15] + ptr[9] * ptr[7] * ptr[14] + ptr[13] * ptr[6] * ptr[11] - ptr[13] * ptr[7] * ptr[10];
 			inv[4] = -ptr[4] * ptr[10] * ptr[15] + ptr[4] * ptr[11] * ptr[14] + ptr[8] * ptr[6] * ptr[15] - ptr[8] * ptr[7] * ptr[14] - ptr[12] * ptr[6] * ptr[11] + ptr[12] * ptr[7] * ptr[10];

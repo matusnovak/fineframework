@@ -13,13 +13,13 @@ namespace ffw {
 		public:
 			Value(GuiList* list);
 			~Value();
-			void SetValue(int value);
-			int GetValue() const;
-			void Assign(GuiList::Item* item);
-			void Remove(GuiList::Item* item);
-			void ClearAllExcept(const GuiList::Item* item);
-			void Reset();
-			size_t GetNumOfAssigned() const;
+			void setValue(int value);
+			int getValue() const;
+			void assign(GuiList::Item* item);
+			void remove(GuiList::Item* item);
+			void clearAllExcept(const GuiList::Item* item);
+			void reset();
+			size_t getNumOfassigned() const;
 		private:
 			std::vector<GuiList::Item*> items;
 			int value;
@@ -30,26 +30,26 @@ namespace ffw {
 			Item(GuiWindow* context, const std::string& label, int base, GuiList::Value* group);
 			Item(GuiWindow* context, const std::wstring& label, int base, GuiList::Value* group);
 			virtual ~Item();
-			void SetLabel(const std::wstring& label);
-			const std::wstring& GetLabel() const;
-			inline int GetBaseValue() const {
+			void setLabel(const std::wstring& label);
+			const std::wstring& getLabel() const;
+			inline int getBaseValue() const {
 				return base;
 			}
-			bool IsSelected() const;
-			void AssignValue(bool value);
-			ffw::Vec2i GetMinimumWrapSize() override;
+			bool isSelected() const;
+			void assignValue(bool value);
+			ffw::Vec2i getMinimumWrapSize() override;
 		private:
-			void EventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-			void EventPos(const ffw::Vec2i& pos) override;
-			void EventSize(const ffw::Vec2i& size) override;
-			void EventHover(bool gained) override;
-			void EventFocus(bool gained) override;
-			void EventMouse(const ffw::Vec2i& pos) override;
-			void EventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-			void EventText(wchar_t chr) override;
-			void EventKey(ffw::Key key, ffw::Mode mode) override;
-			void EventDisabled(bool disabled) override;
-			virtual void EventThemeChanged(const GuiTheme* theme) override;
+			void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
+			void eventPos(const ffw::Vec2i& pos) override;
+			void eventSize(const ffw::Vec2i& size) override;
+			void eventHover(bool gained) override;
+			void eventFocus(bool gained) override;
+			void eventMouse(const ffw::Vec2i& pos) override;
+			void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
+			void eventText(wchar_t chr) override;
+			void eventKey(ffw::Key key, ffw::Mode mode) override;
+			void eventDisabled(bool disabled) override;
+			virtual void eventThemeChanged(const GuiTheme* theme) override;
 			std::wstring label;
 			int base;
 			GuiList::Value* group;
@@ -57,15 +57,15 @@ namespace ffw {
 
 		GuiList(GuiWindow* context);
 		virtual ~GuiList();
-		GuiList::Item* AddItem(const std::string& label);
-		GuiList::Item* AddItem(const std::wstring& label);
+		GuiList::Item* addItem(const std::string& label);
+		GuiList::Item* addItem(const std::wstring& label);
 		void DeleteAllItems();
 		bool DeleteItem(const GuiList::Item* item);
-		void SetSelected(int index);
+		void setSelected(int index);
 		void ResetSelected();
-		void SetSelected(const GuiList::Item* item);
-		GuiList::Item* GetSelectedItem() const;
-		void EventThemeChanged(const GuiTheme* theme) override;
+		void setSelected(const GuiList::Item* item);
+		GuiList::Item* getSelectedItem() const;
+		void eventThemeChanged(const GuiTheme* theme) override;
 	private:
 		GuiList::Value group;
 		int counter;
