@@ -1,6 +1,8 @@
 /*** This file is part of FineFramework project ***/
+#if defined(FFW_WINDOWS)
 #define NOMINMAX
 #include <Windows.h>
+#endif
 #include <stdio.h>
 #include <tiffio.h>
 #include "ffw/media/tifsaver.h"

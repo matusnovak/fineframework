@@ -14,14 +14,6 @@ $ sudo apt-get install build-essential
 
 You will need the following install few libraries, depending on the module you wish to use.
 
-| Module | Libraries | Library name as a package |
-|--------|-----------|----------|
-| [Data](group__data.html) | None | None |
-| [Graphics](group__graphics.html) | GL GLU glfw3 Xi X11 Xxf86vm Xrandr Xcursor Xinerama freetype GLFW3 | xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev |
-| [Gui](group__gui.html) | None | None |
-| [Math](group__math.html) | None | None |
-| [Media](group__media.html) | png jpeg tiff z | libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev |
-
 > *Note:* Graphics module also needs GLFW v3.2 library. Downloading GLFW with sudo apt-get install libglfw3-dev might download older version! However, the precompiled version of the finegraphics.so has statically linked GLFW3, so there is no need to download it.
 
 To install the libary, simply run `sudo apt-get install <package-name>` To install all of the libraries, run the following commands:
@@ -32,7 +24,7 @@ sudo apt-get install xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev 
 
 ### There are two options to install FineFramework
 
-You can either download precompiled library files from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent release and download the **ffw-x86_64-linux-gnu.zip** zip file! All necessary third party **static libraries** were linked, therefore there is no need to download them (such as GLFW3).
+You can either download precompiled library files from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent release and download the **ffw-x86_64-linux-gnu.zip** zip file! Necessary third party **static libraries** were linked, therefore there is no need to download them (such as GLFW3, libpng, libjpeg, libfreetype, libz, libtiff).
 
 Or, you can download the source code and build it by yourself.
 
@@ -63,7 +55,15 @@ Normally, when compiling a library from source using makefile, it offers you an 
 
 Compiling the source code requires third party libraries. On Linux, most of the libraries are dynamicaly linked. However, the [Graphics Module](group__graphics.html) needs GLFW version 3.2 or newer. Installing GLFW by `sudo apt-get install libglfw3-dev` **will install older version!** I highly recommend downloading the source code and compiling it manually (via CMake). Or, download pre-built dependencies from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases) (Look for x86_64-linux-gnu.zip with "dependencies" title) and use the `lib/libglfw3.a` (and header files `include/GLFW`) provided. 
 
-You will also need the all of the libraries (dependencies) listed above (look for a table)! Downloading the libraries via `sudo apt-get` will result in installing a dynamic version (*.so file) of the library. If you wish you statically link all the libraries, compile them yourself or grab pre-built dependencies from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases) (Look for x86_64-linux-gnu.zip with "dependencies" title)
+You will also need the all of the libraries (dependencies) listed below (look for a table)! Downloading the libraries via `sudo apt-get` will result in installing a dynamic version (*.so file) of the library. If you wish you statically link all the libraries, compile them yourself or grab pre-built dependencies from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases) (Look for x86_64-linux-gnu.zip with "dependencies" title)
+
+| Module | Libraries | Library name as a package |
+|--------|-----------|----------|
+| [Data](group__data.html) | None | None |
+| [Graphics](group__graphics.html) | GL GLU glfw3 Xi X11 Xxf86vm Xrandr Xcursor Xinerama freetype GLFW3 | xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev |
+| [Gui](group__gui.html) | None | None |
+| [Math](group__math.html) | None | None |
+| [Media](group__media.html) | png jpeg tiff z | libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev |
 
 Download source code from [GitHub as ZIP](https://github.com/matusnovak/fineframework/archive/master.zip) and extract it anywhere in your system. Use CMake to cofigure the project and then compile it using make. To install it, simply run `sudo make install` Don't forget to use `sudo` when installing, the `/usr/local` folder requires sudo permissions.
 

@@ -5,7 +5,9 @@
 #include "../config.h"
 #include "../math.h"
 
-#ifndef __FT_HEADER_H__
+#if defined(__FT_HEADER_H__) || defined(FREETYPE_H_)
+// Nothing
+#else
 typedef void* FT_Face;
 typedef void* FT_Glyph;
 #endif

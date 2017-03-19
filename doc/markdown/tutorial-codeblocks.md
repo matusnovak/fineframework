@@ -3,6 +3,8 @@ FFW with CodeBlocks and MinGW
 
 This tutorial will explain how to include any FFW module into your C++ project. You will need Code::Blocks which comes in two versions, with MinGW compiler and without it. It is highly recommended to use MinGW-w64 which supports much more features than original MinGW. MinGW-w64 can be downloaded from <https://sourceforge.net/projects/mingw-w64/> and download CodeBlocks **without MinGW** from <http://www.codeblocks.org/downloads/26>
 
+If you wish yo use MinGW over MinGW-w64, you can download the setup from <https://sourceforge.net/projects/mingw/>
+
 ### Installing MinGW-w64
 
 When installing MinGW-w64, **use either i686 architecture or x86_64**. (i686 = 32-bit and x86_64 = 64-bit) The version of the compiler must be **4.9.3 or newer!**
@@ -12,6 +14,10 @@ When installing MinGW-w64, **use either i686 architecture or x86_64**. (i686 = 3
 Next, when you install CodeBlocks, run it and go to **Settings (main top menu bar) -> Compiler -> Toolchain Executables** and set the compiler installation directory to the compiler's bin path. For example: `C:\Program Files (x86)\mingw-w64\i686-5.4.0-posix-dwarf-rt_v5-rev0\mingw32\bin`
 
 ![Alt](tutorial-cb-02.png)
+
+### Installing MinGW (not w64)
+
+To install MinGW, follow <http://www.mingw.org/wiki/HOWTO_Install_the_MinGW_GCC_Compiler_Suite> The next few steps are all exactly same for both MinGW and MinGW-w64, you will just need to set different paths.
 
 ### Installing FFW
 

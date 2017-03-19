@@ -176,7 +176,7 @@ size_t ffw::JpgLoader::readRow(void* dest){
     if(dest == NULL)return 0;
 
 	JSAMPROW row_pointer[1];
-	row_pointer[0] = (unsigned char*)dest;
+	row_pointer[0] = (decltype(row_pointer[0]))dest;
 	jpeg_read_scanlines(&jpg_struct->cinfo, row_pointer, 1);
 	row++;
 

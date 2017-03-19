@@ -485,18 +485,18 @@ namespace ffw{
 	* @ingroup math
 	*/
 	inline std::string wstrToAnsi(const std::wstring& Str) {
-		int size = WideCharToMultiByte(CP_ACP, 0, Str.c_str(), Str.size(), NULL, 0, NULL, NULL);
+		auto size = WideCharToMultiByte(CP_ACP, 0, Str.c_str(), (int)Str.size(), NULL, 0, NULL, NULL);
 		std::string out(size, ' ');
-		WideCharToMultiByte(CP_ACP, 0, Str.c_str(), Str.size(), &out[0], size, 0, 0);
+		WideCharToMultiByte(CP_ACP, 0, Str.c_str(), (int)Str.size(), &out[0], (int)size, 0, 0);
 		return out;
 	}
 	/**
 	* @ingroup math
 	*/
 	inline std::wstring ansiToWstr(const std::string& Str) {
-		int size = MultiByteToWideChar(CP_ACP, 0, Str.c_str(), Str.size(), NULL, 0);
+		auto size = MultiByteToWideChar(CP_ACP, 0, Str.c_str(), (int)Str.size(), NULL, 0);
 		std::wstring out(size, L' ');
-		MultiByteToWideChar(CP_ACP, 0, Str.c_str(), Str.size(), &out[0], size);
+		MultiByteToWideChar(CP_ACP, 0, Str.c_str(), (int)Str.size(), &out[0], (int)size);
 		return out;
 	}
 #endif

@@ -25,11 +25,11 @@
 #include "math/mat4.h"
 #include "math/color.h"
 #include "math/var.h"
+#include "math/tokenizer.h"
 #include "math/functions.h"
 #include "math/stringmath.h"
 #include "math/ringbuffer.h"
 #include "math/mvp.h"
 #include "math/imagebuffer.h"
 #include "math/swapwrapper.h"
-#include "math/tokenizer.h"
 #endif
