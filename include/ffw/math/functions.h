@@ -234,7 +234,7 @@ namespace ffw {
 	*/
 	template<class T>
 	inline ffw::Vec2<T> vec3ToVec2(const ffw::Vec3<T>& Vec) {
-		return Vec3<T>(Vec.x, Vec.y);
+		return Vec2<T>(Vec.x, Vec.y);
 	}
 	/**
 	* @ingroup math

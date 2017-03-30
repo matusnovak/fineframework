@@ -221,6 +221,10 @@ namespace ffw {
 		inline void clear() {
 			content.reset();
 		}
+		
+		inline const std::type_info& getTypeid() const {
+			return content->getTypeid();
+		}
 
 // GCC will complain if this is missing but not MSVC nor Clang
 #if !defined(_MSC_VER) && !defined(__APPLE__)

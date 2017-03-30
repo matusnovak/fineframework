@@ -209,7 +209,12 @@ namespace ffw{
 		std::basic_string<T, CharTrait, Allocator> dir;
 		std::basic_string<T, CharTrait, Allocator> ext;
 
-		size_t slash = std::min(path.find_last_of(T('\\')), path.find_last_of(T('/')));
+		size_t back = std::min(path.find_last_of(T('\\')), std::basic_string<T, CharTrait, Allocator>::npos);
+		size_t slash = std::min(path.find_last_of(T('/')), std::basic_string<T, CharTrait, Allocator>::npos);
+		if(slash < back && back != std::basic_string<T, CharTrait, Allocator>::npos)slash = back;
+		if(slash == std::basic_string<T, CharTrait, Allocator>::npos)slash = back;
+		
+		//size_t slash = std::min(path.find_last_of(T('\\')), path.find_last_of(T('/')));
 		if (slash == std::string::npos) {
 			// Check if drive
 			if (path.size() == 2 && path[1] == T(':')) {

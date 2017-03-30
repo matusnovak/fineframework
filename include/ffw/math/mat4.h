@@ -152,7 +152,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Mat4x4<T>& Translate(T X, T Y, T Z) {
+		inline ffw::Mat4x4<T>& translate(T X, T Y, T Z) {
 			ptr[12] += X;
 			ptr[13] += Y;
 			ptr[14] += Z;
@@ -168,7 +168,7 @@ namespace ffw {
 			return *this;
 		}
 
-		inline ffw::Mat4x4<T>& Transpose() {
+		inline ffw::Mat4x4<T>& transpose() {
 			T m04 = ptr[4];
 			T m08 = ptr[8];
 			T m09 = ptr[9];
