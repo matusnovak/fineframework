@@ -32,4 +32,5 @@
 #include "math/mvp.h"
 #include "math/imagebuffer.h"
 #include "math/swapwrapper.h"
+#include "math/thread.h"
 #endif

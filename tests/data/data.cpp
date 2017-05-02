@@ -27,6 +27,15 @@ TEST_CASE("Encode Json", "[JSON]"){
 	REQUIRE(obj["bool"].is<bool>());
 	REQUIRE(obj["array"].is<ffw::Array>());
 
+	REQUIRE("\"world\"" == (std::string)obj["string"]);
+	REQUIRE(123 == (int)obj["integer"]);
+	REQUIRE(42.42f == (float)obj["float"]);
+	REQUIRE(true == obj["bool"].toBool());
+	REQUIRE(3 == obj["array"].getAs<ffw::Array>().size());
+	REQUIRE("first" == (std::string)obj["array"][0]);
+	REQUIRE("second" == (std::string)obj["array"][1]);
+	REQUIRE("third" == (std::string)obj["array"][2]);
+
 	//std::string compare = "{\"string\":\"\\\"world\\\"\",\"integer\":123,\"float\":42.419998,\"bool\":true,\"array\":[\"first\",\"second\",\"third\"]}";
     //std::string compare = "{\"string\":\"\\\"world\\\"\",\"bool\":true,\"float\":42.419998,\"integer\":123,\"array\":[\"first\",\"second\",\"third\"]}";
 	//TEST_EQUAL(compare, jsonstr);
@@ -65,7 +74,47 @@ TEST_CASE("Decode Json", "[JSON]"){
 	REQUIRE("third" == (std::string)json["array"][2]);
 }
 
-TEST_CASE("Decode Json #2", "[JSON]"){
+TEST_CASE("Decode Json #2", "[JSON]") {
+	ffw::Var data;
+
+	std::string jsonstr = 
+		"{\n\
+			\"string\"  :    \"\\\"world\\\"\"     ,\n\
+			\"integer\"    :   123     ,\n\
+			\"float\"  :  42.419998       ,\n\
+			\"bool\"   :    true    ,\n\
+			\"array\"  :   [   \"first\"    ,   \"second\"    ,   \"third\"   ]\n\
+		}";
+	data = ffw::decodeJson(jsonstr);
+
+	REQUIRE(data.is<ffw::Object>());
+
+	ffw::Object& json = data.getAs<ffw::Object>();
+
+	REQUIRE(json.size() == 5);
+	REQUIRE(json.find("string") != json.end());
+	REQUIRE(json.find("integer") != json.end());
+	REQUIRE(json.find("float") != json.end());
+	REQUIRE(json.find("bool") != json.end());
+	REQUIRE(json.find("array") != json.end());
+
+	REQUIRE(json["string"].is<std::string>());
+	REQUIRE(json["integer"].is<int>());
+	REQUIRE(json["float"].is<float>());
+	REQUIRE(json["bool"].is<bool>());
+	REQUIRE(json["array"].is<ffw::Array>());
+
+	REQUIRE("\"world\"" == (std::string)json["string"]);
+	REQUIRE(123 == (int)json["integer"]);
+	REQUIRE(42.42f == (float)json["float"]);
+	REQUIRE(true == json["bool"].toBool());
+	REQUIRE(3 == json["array"].getAs<ffw::Array>().size());
+	REQUIRE("first" == (std::string)json["array"][0]);
+	REQUIRE("second" == (std::string)json["array"][1]);
+	REQUIRE("third" == (std::string)json["array"][2]);
+}
+
+TEST_CASE("Decode Json #3", "[JSON]"){
 	static const std::string jsonstr = "\
 	{\"menu\": {\n\
 	  \"id\": \"file\",\n\
@@ -125,6 +174,31 @@ TEST_CASE("Decode Json #2", "[JSON]"){
 
 	REQUIRE("close" == (std::string)obj2["value"]);
 	REQUIRE("CloseDoc()" == (std::string)obj2["onclick"]);
+}
+
+TEST_CASE("Decode Json #4", "[JSON]") {
+	static const std::string jsonstr = "\
+	{\n\
+		\"object\": {\n\
+		},\n\
+		\"array\": [\n\
+		]\n\
+	}";
+
+	ffw::Var data = ffw::decodeJson(jsonstr);
+
+	REQUIRE(data.is<ffw::Object>());
+
+	ffw::Object& json = (ffw::Object&)data;
+
+	REQUIRE(json.contains("object"));
+	REQUIRE(json.contains("array"));
+
+	REQUIRE(json["object"].is<ffw::Object>());
+	REQUIRE(json["array"].is<ffw::Array>());
+
+	REQUIRE(json["object"].getAs<ffw::Object>().size() == 0);
+	REQUIRE(json["array"].getAs<ffw::Array>().size() == 0);
 }
 
 TEST_CASE("Encode XML", "[XML]"){

@@ -18,7 +18,7 @@
 #include <unistd.h>
 #define FFW_SLEEP_MS(X) usleep(X * 1000)
 #else
-#define FFW_SLEEP_MS(X) Sleep(X)
+#define FFW_SLEEP_MS(X) Sleep((DWORD)X)
 #endif
 
 namespace ffw {
@@ -66,7 +66,7 @@ namespace ffw {
 #else
 			running.store(true);
 			int err = 0;
-			if(err = pthread_create(&t, NULL, &Thread::threadFunc, this)) {
+			if((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
 				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}
@@ -156,7 +156,7 @@ namespace ffw {
 #else
 			running.store(true);
 			int err = 0;
-			if (err = pthread_create(&t, NULL, &Thread::threadFunc, this)) {
+			if ((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
 				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}

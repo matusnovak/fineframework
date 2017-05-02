@@ -11,103 +11,107 @@ namespace ffw{
 	*/
 	class FFW_API ObjLoader {
 	public:
-		struct ObjectInfo {
-			std::string name;
-			size_t vCount;
-			size_t vtCount;
-			size_t vnCount;
-			size_t fCount;
-			size_t vPos;
-			size_t vtPos;
-			size_t vnPos;
-			size_t fPos;
-			size_t vOffset;
-			size_t vtOffset;
-			size_t vnOffset;
-			size_t fEnd;
-		};
-
-		struct MeshData {
-			std::vector<ffw::Vec3f> vertices;
-			std::vector<ffw::Vec3f> normals;
-			std::vector<ffw::Vec2f> texpos;
-		};
-		
 		ObjLoader();
 		ObjLoader(const ObjLoader& other) = delete;
 		ObjLoader(ObjLoader&& other);
 		~ObjLoader();
 		void swap(ObjLoader& other);
 		bool open(const std::string& path);
+		bool getNextObject(std::string* name);
+		bool getPolygon();
+		size_t calculatePolyCount();
 		inline bool isOpen() const {
 			return loaded;
 		}
 		inline operator bool () const {
 			return isOpen();
 		}
+		inline const std::string& getMtllibName() const {
+			return mtllibName;
+		}
+		inline size_t getCurrentLineNum() const {
+			return lineCount;
+		}
+		inline const std::string& getCurrentMaterialName() const {
+			return currentMaterial;
+		}
+		inline bool getMaterialFoundFlag() const {
+			return newMaterialFlag;
+		}
+		inline void resetMaterialFoundFlag() {
+			newMaterialFlag = false;
+		}
+		inline bool objectHasNormals() const {
+			return hasNormals;
+		}
+		inline bool objectHasTexcoords() const {
+			return hasTexcoords;
+		}
+		inline const ffw::Vec3i& getIndex0() const {
+			return lineTokens[indexes[0]];
+		}
+		inline const ffw::Vec3i& getIndex1() const {
+			return lineTokens[indexes[1]];
+		}
+		inline const ffw::Vec3i& getIndex2() const {
+			return lineTokens[indexes[2]];
+		}
+		inline const ffw::Vec3f& getVertex(size_t i) const {
+			return vertices[lineTokens[indexes[i]].x - 1];
+		}
+		inline const ffw::Vec3f& getNormal(size_t i) const {
+			return normals[lineTokens[indexes[i]].z - 1];
+		}
+		inline const ffw::Vec2f& getTexCoord2(size_t i) const {
+			return (const ffw::Vec2f&)texcoords[lineTokens[indexes[i]].y - 1];
+		}
+		inline const ffw::Vec3f& getTexCoord3(size_t i) const {
+			return texcoords[lineTokens[indexes[i]].y - 1];
+		}
+		inline bool gotObject() const {
+			return objectFound;
+		}
+		void fillData(float* ptr, size_t vo = 0, size_t no = 3, size_t to = 6, bool ts = false, size_t stride = 8);
 		void close();
-		inline bool eof() const {
-			return eos;
-		}
-		bool loadObject(unsigned int i);
-		inline size_t getObjectCount() const {
-			return objects.size();
-		}
-		inline bool hasObjectVertices(unsigned int i) const {
-			if(i >= objects.size())return false;
-			else return objects[i].vCount > 0;
-		}
-		inline bool hasObjectNormals(unsigned int i) const {
-			if(i >= objects.size())return false;
-			else return objects[i].vnCount > 0;
-		}
-		inline bool hasObjectTexPos(unsigned int i) const {
-			if(i >= objects.size())return false;
-			else return objects[i].vtCount > 0;
-		}
-		inline const std::string& getObjectName(unsigned int i) const {
-			static const std::string empty = "";
-			if(i >= objects.size())return empty;
-			else return objects[i].name;
-		}
-		size_t calculateObjectPolyCount();
-		bool getPolygon(float* ptr);
 		ObjLoader& operator = (ObjLoader&& Other);
 		ObjLoader& operator = (const ObjLoader& Other) = delete;
 
 	private:
-		std::vector<ObjectInfo> objects;
-		ObjectInfo* activeObject;
-		size_t fRead;
 		ffw::SwapWrapper<std::fstream> input;
-		bool gotLine;
-		size_t tokensRead;
-		size_t tokensTotal;
-		std::vector<std::string> lineTokens;
-		bool doubleSlash;
-		bool eos;
-		MeshData activeObjectMesh;
-		size_t currentLineNum;
-		bool gotMiddle;
-		ffw::Vec3f middleV;
-		ffw::Vec3f middleVN;
-		ffw::Vec2f middleVT;
 		bool loaded;
+		std::string mtllibName;
+		size_t lineCount;
+		std::string currentMaterial;
+		bool newMaterialFlag;
+		std::string line;
+		bool gotLine;
+		size_t previousPos;
+		std::vector<ffw::Vec3i> lineTokens;
+		size_t tokensRead;
+		bool hasNormals;
+		bool hasTexcoords;
+		size_t indexes[3];
+		bool objectFound;
+
+		std::vector<ffw::Vec3f> vertices;
+		std::vector<ffw::Vec3f> normals;
+		std::vector<ffw::Vec3f> texcoords;
 	};
+
 	/**
 	* @ingroup media
 	*/
 	bool FFW_API readObj(const std::string& path, float** vertices, unsigned int* numVertices);
 #ifdef FFW_GRAPHICS_MODULE
-	inline bool readObj(const std::string& path, const ffw::RenderContext* context, ffw::Vbo* vbo, GLenum type = GL_STATIC_DRAW){
+	inline bool readObj(const std::string& path, const ffw::RenderContext* context, ffw::Vbo* vbo, GLenum type = GL_STATIC_DRAW) {
 		unsigned int numVertices = 0;
 		float* vertices = NULL;
 
-		if(!readObj(path, &vertices, &numVertices)){
+		if (!readObj(path, &vertices, &numVertices)) {
 			return false;
 		}
 
-		if(!vbo->create(context, vertices, numVertices * 8 * sizeof(float), type)){
+		if (!vbo->create(context, vertices, numVertices * 8 * sizeof(float), type)) {
 			//std::cerr << "readObj: Failed to create VBO!" << std::endl;
 			delete[] vertices;
 			return false;

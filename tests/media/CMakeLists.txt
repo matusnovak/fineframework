@@ -5,8 +5,8 @@ link_directories(${CMAKE_BINARY_DIR}/Debug)
 link_directories(${CMAKE_BINARY_DIR}/Release)
 link_directories(${CMAKE_BINARY_DIR})
 
-file(COPY imgs DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY imgs DESTINATION ${CMAKE_BINARY_DIR}/tests/media)
+file(COPY imgs cube.mtl cube.obj cylinder.mtl cylinder.obj plane.mtl plane.obj planes.mtl planes.obj DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY imgs cube.mtl cube.obj cylinder.mtl cylinder.obj plane.mtl plane.obj planes.mtl planes.obj DESTINATION ${CMAKE_BINARY_DIR}/tests/media)
 
 # All examples
 add_executable(TestsMedia media.cpp)

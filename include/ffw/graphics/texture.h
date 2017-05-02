@@ -33,6 +33,11 @@ namespace ffw {
 			MIPMAP_NEAREST,
 			MIPMAP_LINEAR
 		};
+		enum Wrapping {
+			REPEAT,
+			MIRRORED_REPEAT,
+			CLAMP_TO_EDGE,
+		};
         Texture();
 		Texture(const Texture& other) = delete;
 		Texture(Texture&& other);
@@ -82,7 +87,7 @@ namespace ffw {
 		void setTexParamfv(unsigned int Name, float* Values);
         bool generateMipmaps();
 		void setFiltering(Texture::Filtering filtering);
-
+		void setWrapping(Texture::Wrapping wrapping);
 		Texture& operator = (const Texture& other) = delete;
 		Texture& operator = (Texture&& other);
     protected:

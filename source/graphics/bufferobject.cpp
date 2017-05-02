@@ -88,24 +88,51 @@ bool ffw::BufferObject::create(const RenderContext* renderer, const void* data, 
     // set buffer initial data
     gl_->glBufferData(objecttype_, size, data, type);
     // UnBind buffer
-    gl_->glBindBuffer(objecttype_, 0);
+    //gl_->glBindBuffer(objecttype_, 0);
     loaded_ = true;
     return true;
 }
 
 ///=============================================================================
+bool ffw::BufferObject::resize(const void* data, GLsizei size) {
+	if (!loaded_)return false;
+	// bind buffer
+	gl_->glBindBuffer(objecttype_, buffer_);
+	// set buffer initial data
+	gl_->glBufferData(objecttype_, size, data, type_);
+	// Remember length of buffer
+    size_ = size;
+	return true;
+}
+
+///=============================================================================
 bool ffw::BufferObject::setData(const void* data, GLsizei offset, GLsizei size){
-    // Do not upload new data if buffer is not dynamic/stream
+	if (!loaded_)return false;
+	// Do not upload new data if buffer is not dynamic/stream
     if(!(type_ == GL_STREAM_DRAW || type_ == GL_DYNAMIC_DRAW))return false;
     // Upload new data
     gl_->glBindBuffer(objecttype_, buffer_);
     gl_->glBufferSubData(objecttype_, offset, size, data);
-    gl_->glBindBuffer(objecttype_, 0);
+    //gl_->glBindBuffer(objecttype_, 0);
     return true;
 }
 
 ///=============================================================================
-bool ffw::BufferObject::copyFrom(const BufferObject* other, GLintptr offset1, GLintptr offset2, GLsizeiptr size){
+bool ffw::BufferObject::getData(void* data, GLsizei offset, GLsizei size) {
+	if (!loaded_)return false;
+	gl_->glBindBuffer(objecttype_, buffer_);
+	gl_->glGetBufferSubData(objecttype_, offset, size, data);
+	return true;
+}
+
+///=============================================================================
+bool ffw::BufferObject::copyFromEnabled() const {
+	if (gl_ == NULL)return false;
+	return (gl_->glCopyBufferSubData != NULL);
+}
+
+///=============================================================================
+bool ffw::BufferObject::copyFrom(const BufferObject* other, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size){
     if(other == NULL)return false;
     if(!loaded_)return false;
     if(!other->isCreated())return false;
@@ -114,7 +141,7 @@ bool ffw::BufferObject::copyFrom(const BufferObject* other, GLintptr offset1, GL
     gl_->glBindBuffer(GL_COPY_READ_BUFFER, other->getHandle());
     gl_->glBindBuffer(GL_COPY_WRITE_BUFFER, buffer_);
 
-    gl_->glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, offset1, offset2, size);
+    gl_->glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, readoffset, writeoffset, size);
 
     return true;
 }

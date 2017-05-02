@@ -18,6 +18,10 @@ foreach(exmpl ${MATH_TESTS})
     set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
   endif(MSVC)
   
+  if(NOT MSVC AND NOT APPLE)
+    target_link_libraries(${exmpl} Threads::Threads)
+  endif()
+  
   # Compile with static stdlib ?
   if(STATIC_STDLIB)
     target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)

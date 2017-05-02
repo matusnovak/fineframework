@@ -34,6 +34,10 @@ static GraphicsInitializer graphicsInitializer;
 
 ///=============================================================================
 std::vector<ffw::Monitor> ffw::GLFWRenderWindow::getMonitors() {
+	if(!graphicsInitializer.Init()) {
+		return std::vector<ffw::Monitor>();
+	}
+	
 	int cnt;
 	GLFWmonitor** monitorPtrs = glfwGetMonitors(&cnt);
 	std::vector<Monitor> allMonitors;
@@ -58,6 +62,10 @@ std::vector<ffw::Monitor> ffw::GLFWRenderWindow::getMonitors() {
 
 ///=============================================================================
 ffw::Monitor ffw::GLFWRenderWindow::getPrimaryMonitor() {
+	if (!graphicsInitializer.Init()) {
+		return ffw::Monitor();
+	}
+	
 	GLFWmonitor* monitorPtr = glfwGetPrimaryMonitor();
 	Monitor primaryMonitor;
 	primaryMonitor.name.assign(glfwGetMonitorName(monitorPtr));

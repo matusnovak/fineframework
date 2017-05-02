@@ -186,11 +186,11 @@ namespace ffw {
 			return (x == vec.x && y == vec.y && z == vec.z);
 		}
 
-		inline ffw::Vec3<T>& aotateByAxis(double deg, Vec3<T> axis) {
-			return aotateByAxisRad(deg * DEG_TO_RAD, axis);
+		inline ffw::Vec3<T>& rotateByAxis(double deg, Vec3<T> axis) {
+			return rotateByAxisRad(deg * DEG_TO_RAD, axis);
 		}
 
-		inline ffw::Vec3<T>& aotateByAxisRad(double rad, Vec3<T> axis) {
+		inline ffw::Vec3<T>& rotateByAxisRad(double rad, Vec3<T> axis) {
 			double sina = sin(rad);
 			double cosa = cos(rad);
 			double cosb = 1.0f - cosa;

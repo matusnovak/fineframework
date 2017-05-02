@@ -89,6 +89,8 @@ bool ffw::Framebuffer::create(const ffw::RenderContext* renderer){
 ///=============================================================================
 bool ffw::Framebuffer::addDepthTexture(const ffw::Texture2D* depthtexture){
     if(!created_ || depthtexture == NULL)return false;
+	
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), 0);
 	#else
@@ -109,6 +111,7 @@ bool ffw::Framebuffer::addColorTexture(const ffw::Texture2D* colortexture){
         return false;
     }
 
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), 0);
 	#else
@@ -122,6 +125,8 @@ bool ffw::Framebuffer::addColorTexture(const ffw::Texture2D* colortexture){
 ///=============================================================================
 bool ffw::Framebuffer::addDepthRenderbuffer(const ffw::Renderbuffer2D* depthrenderbuffer){
     if(!created_ || depthrenderbuffer == NULL)return false;
+	
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
 	#else
@@ -142,6 +147,7 @@ bool ffw::Framebuffer::addColorRenderbuffer(const ffw::Renderbuffer2D* colorrend
         return false;
     }
 
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
 	#else
@@ -156,6 +162,7 @@ bool ffw::Framebuffer::addColorRenderbuffer(const ffw::Renderbuffer2D* colorrend
 bool ffw::Framebuffer::addDepthTextureMS(const ffw::Texture2DMS* depthtexture){
     if(!created_ || depthtexture == NULL)return false;
 	
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), 0);
 	#else
@@ -176,6 +183,7 @@ bool ffw::Framebuffer::addColorTextureMS(const ffw::Texture2DMS* colortexture){
         return false;
     }
 
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), 0);
 	#else
@@ -190,6 +198,7 @@ bool ffw::Framebuffer::addColorTextureMS(const ffw::Texture2DMS* colortexture){
 bool ffw::Framebuffer::addDepthRenderbufferMS(const ffw::Renderbuffer2DMS* depthrenderbuffer){
     if(!created_ || depthrenderbuffer == NULL)return false;
 	
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
 	#else
@@ -202,7 +211,7 @@ bool ffw::Framebuffer::addDepthRenderbufferMS(const ffw::Renderbuffer2DMS* depth
 ///=============================================================================
 bool ffw::Framebuffer::addColorRenderbufferMS(const ffw::Renderbuffer2DMS* colorrenderbuffer){
     if(!created_ || colorrenderbuffer == NULL)return false;
-
+	
     // Check if number of color attachments is lower than the maximum
     GLint maxColorAttachments;
     glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxColorAttachments);
@@ -210,6 +219,7 @@ bool ffw::Framebuffer::addColorRenderbufferMS(const ffw::Renderbuffer2DMS* color
         return false;
     }
 
+	bind();
 	#ifdef FFW_OSX
 		gl_->glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
 	#else
@@ -224,24 +234,25 @@ bool ffw::Framebuffer::addColorRenderbufferMS(const ffw::Renderbuffer2DMS* color
 bool ffw::Framebuffer::checkStatus(){
     if(!created_)return false;
 	
+	bind();
 	#ifdef FFW_OSX
-		gl_->glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
+		//gl_->glBindFramebuffer(GL_FRAMEBUFFER, fbo_);
 		GLenum status = gl_->glCheckFramebufferStatus(GL_FRAMEBUFFER);
 		if (status != GL_FRAMEBUFFER_COMPLETE) {
 			destroy();
 			return false;
 		}
 		
-		gl_->glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		//gl_->glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	#else
-		gl_->glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo_);
+		//gl_->glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, fbo_);
 		GLenum status = gl_->glCheckFramebufferStatusEXT(GL_FRAMEBUFFER_EXT);
 		if (status != GL_FRAMEBUFFER_COMPLETE) {
 			destroy();
 			return false;
 		}
 		
-		gl_->glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
+		//gl_->glBindFramebufferEXT(GL_FRAMEBUFFER_EXT, 0);
 	#endif
     return true;
 }

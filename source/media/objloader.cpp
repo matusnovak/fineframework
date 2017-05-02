@@ -1,102 +1,21 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/media/objloader.h"
-
-///=============================================================================
-static bool loadVertices(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
-	if(object.vCount == 0)return true;
-
-	//std::cout << "loadVertices" << std::endl;
-	size_t total = 0;
-	mesh.vertices.resize(object.vCount);
-	std::string line;
-	std::vector<std::string> tokens;
-
-	input.seekg(object.vPos);
-	while(!input.eof() && total < object.vCount){
-		//std::cout << "total: " << total << std::endl;
-		std::getline(input, line);
-		if(line[0] != 'v' || line[1] != ' ')continue;
-
-		tokens = ffw::getTokens(line, ' ');
-		if(tokens.size() >= 3){
-			try {
-				mesh.vertices[total].x = ffw::stringToVal<float>(tokens[1]);
-				mesh.vertices[total].y = ffw::stringToVal<float>(tokens[2]);
-				mesh.vertices[total].z = ffw::stringToVal<float>(tokens[3]);
-			} catch (std::exception e){
-			}
-		}
-		total++;
-	}
-	//std::cout << "vertices loaded" << std::endl;
-	return true;
-}
-
-///=============================================================================
-static bool loadNormals(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
-	if(object.vnCount == 0)return true;
-
-	//std::cout << "loadNormals" << std::endl;
-	size_t total = 0;
-	mesh.normals.resize(object.vnCount);
-	std::string line;
-	std::vector<std::string> tokens;
-
-	input.seekg(object.vnPos);
-	while(!input.eof() && total < object.vnCount){
-		//std::cout << "total: " << total << std::endl;
-		std::getline(input, line);
-		if(line[0] != 'v' || line[1] != 'n')continue;
-
-		tokens = ffw::getTokens(line, ' ');
-		if(tokens.size() >= 3){
-			try {
-				mesh.normals[total].x = ffw::stringToVal<float>(tokens[1]);
-				mesh.normals[total].y = ffw::stringToVal<float>(tokens[2]);
-				mesh.normals[total].z = ffw::stringToVal<float>(tokens[3]);
-			} catch (std::exception e){
-			}
-		}
-		total++;
-	}
-	//std::cout << "normals loaded" << std::endl;
-	return true;
-}
-
-///=============================================================================
-static bool loadTexpos(std::fstream& input, ffw::ObjLoader::ObjectInfo& object, ffw::ObjLoader::MeshData& mesh){
-	if(object.vtCount == 0)return true;
-
-	//std::cout << "loadTexpos" << std::endl;
-	size_t total = 0;
-	mesh.texpos.resize(object.vtCount);
-	std::string line;
-	std::vector<std::string> tokens;
-
-	input.seekg(object.vtPos);
-	while(!input.eof() && total < object.vtCount){
-		//std::cout << "total: " << total << std::endl;
-		std::getline(input, line);
-		if(line[0] != 'v' || line[1] != 't')continue;
-
-		tokens = ffw::getTokens(line, ' ');
-		if(tokens.size() >= 2){
-			try {
-				mesh.texpos[total].x = ffw::stringToVal<float>(tokens[1]);
-				mesh.texpos[total].y = ffw::stringToVal<float>(tokens[2]);
-			} catch (std::exception e){
-			}
-		}
-		total++;
-	}
-	//std::cout << "texpos loaded" << std::endl;
-	return true;
-}
+#define VECTOR_BUCKET_SIZE 256
+#include <string.h>
+#include <limits.h>
 
 ///=============================================================================
 ffw::ObjLoader::ObjLoader(){
     loaded = false;
+	lineCount = 0;
+	newMaterialFlag = 0;
+	gotLine = false;
+	tokensRead = 0;
+	indexes[0] = 0;
+	indexes[1] = 0;
+	indexes[2] = 0;
+	objectFound = false;
 }
 
 ///=============================================================================
@@ -121,23 +40,26 @@ ffw::ObjLoader& ffw::ObjLoader::operator = (ffw::ObjLoader&& other){
 ///=============================================================================
 void ffw::ObjLoader::swap(ObjLoader& other){
 	using std::swap;
-	swap(objects, other.objects);
-	swap(activeObject, other.activeObject);
-	swap(fRead, other.fRead);
 	swap(input, other.input);
-	swap(gotLine, other.gotLine);
-	swap(tokensRead, other.tokensRead);
-	swap(tokensTotal, other.tokensTotal);
-	swap(lineTokens, other.lineTokens);
-	swap(doubleSlash, other.doubleSlash);
-	swap(eos, other.eos);
-	swap(activeObjectMesh, other.activeObjectMesh);
-	swap(currentLineNum, other.currentLineNum);
-	swap(gotMiddle, other.gotMiddle);
-	swap(middleV, other.middleV);
-	swap(middleVN, other.middleVN);
-	swap(middleVT, other.middleVT);
 	swap(loaded, other.loaded);
+	swap(mtllibName, other.mtllibName);
+	swap(lineCount, other.lineCount);
+	swap(normals, other.normals);
+	swap(vertices, other.vertices);
+	swap(texcoords, other.texcoords);
+	swap(newMaterialFlag, other.newMaterialFlag);
+	swap(currentMaterial, other.currentMaterial);
+	swap(line, other.line);
+	swap(gotLine, other.gotLine);
+	swap(previousPos, other.previousPos);
+	swap(lineTokens, other.lineTokens);
+	swap(tokensRead, other.tokensRead);
+	swap(hasNormals, other.hasNormals);
+	swap(hasTexcoords, other.hasTexcoords);
+	swap(indexes[0], other.indexes[0]);
+	swap(indexes[1], other.indexes[1]);
+	swap(indexes[2], other.indexes[2]);
+	swap(objectFound, other.objectFound);
 }
 
 ///=============================================================================
@@ -147,536 +69,463 @@ bool ffw::ObjLoader::open(const std::string& path){
 	input->open(path, std::ios::binary | std::ios::in);
 	if(!input->is_open())return false;
 
-	size_t lineNum = 0;
-	ObjectInfo* currentObject = NULL;
-	size_t vTotal = 0;
-	size_t vtTotal = 0;
-	size_t vnTotal = 0;
-
-	objects.push_back(ObjectInfo());
-	currentObject = &objects.back();
-	currentObject->vCount = 0;
-	currentObject->vtCount = 0;
-	currentObject->vnCount = 0;
-	currentObject->fCount = 0;
-	currentObject->vPos = 0;
-	currentObject->vtPos = 0;
-	currentObject->vnPos = 0;
-	currentObject->fPos = 0;
-	currentObject->fEnd = 0;
-	currentObject->vOffset = vTotal;
-	currentObject->vtOffset = vtTotal;
-	currentObject->vnOffset = vnTotal;
-
-	bool gotFaces = false;
-
-	while(!input->eof()){
-		std::string line;
-		lineNum++;
-
-		size_t pos = (size_t)input->tellg();
-		std::getline(*input, line);
-
-		// New set of vertices, must be a new object
-		if(((line[0] == 'v' && line[1] == ' ') || (line[0] == 'o' && line[1] == ' ')) && gotFaces){
-			vTotal += currentObject->vCount;
-			vtTotal += currentObject->vtCount;
-			vnTotal += currentObject->vnCount;
-			currentObject->fEnd = pos;
-			objects.push_back(ObjectInfo());
-			currentObject = &objects.back();
-			currentObject->vCount = 0;
-			currentObject->vtCount = 0;
-			currentObject->vnCount = 0;
-			currentObject->fCount = 0;
-			currentObject->vPos = 0;
-			currentObject->vtPos = 0;
-			currentObject->vnPos = 0;
-			currentObject->fPos = 0;
-			currentObject->vOffset = vTotal;
-			currentObject->vtOffset = vtTotal;
-			currentObject->vnOffset = vnTotal;
-			gotFaces = false;
-		}
-
-		// object name
-		if((line[0] == 'o' || line[0] == 'g') && line.size() > 2){
-			currentObject->name = line.substr(2, line.size());
-			continue;
-		}
-
-		// object vertices
-		if(line[0] == 'v' && line[1] == ' ' && currentObject != NULL && currentObject->vPos == 0){
-			currentObject->vPos = pos;
-			currentObject->vCount++;
-			continue;
-		} else if(line[0] == 'v' && line[1] == ' ' && currentObject != NULL){
-			currentObject->vCount++;
-			continue;
-		}
-
-		// object uvs
-		if(line[0] == 'v' && line[1] == 't' && currentObject != NULL && currentObject->vtPos == 0){
-			currentObject->vtPos = pos;
-			currentObject->vtCount++;
-			continue;
-		} else if(line[0] == 'v' && line[1] == 't' && currentObject != NULL){
-			currentObject->vtCount++;
-			continue;
-		}
-
-		// object normals
-		if(line[0] == 'v' && line[1] == 'n' && currentObject != NULL && currentObject->vnPos == 0){
-			currentObject->vnPos = pos;
-			currentObject->vnCount++;
-			continue;
-		} else if(line[0] == 'v' && line[1] == 'n' && currentObject != NULL){
-			currentObject->vnCount++;
-			continue;
-		}
-
-		if(gotFaces && currentObject != NULL){
-			currentObject->fEnd = pos;
-		}
-
-		// object faces
-		if(line[0] == 'f' && line[1] == ' ' && currentObject != NULL && currentObject->fPos == 0){
-			gotFaces = true;
-			currentObject->fPos = pos;
-			currentObject->fCount++;
-			continue;
-		} else if(line[0] == 'f' && line[1] == ' ' && currentObject != NULL){
-			currentObject->fCount++;
-			continue;
-		}
-	}
-
-	input->clear();
-	input->seekg(0, std::ios::beg);
-	fRead = 0;
-	gotLine = false;
-	eos = true;
-	activeObject = NULL;
-	loaded = true;
-	return true;
-}
-
-///=============================================================================
-bool ffw::ObjLoader::loadObject(unsigned int i){
-	if(i >= objects.size())return false;
-	activeObject = &objects[i];
-	input->clear();
-	input->seekg(0, std::ios::beg);
-
-	bool result =
-	loadVertices(*input, *activeObject, activeObjectMesh) &&
-	loadNormals(*input, *activeObject, activeObjectMesh) &&
-	loadTexpos(*input, *activeObject, activeObjectMesh);
-
-	//std::cout << "done loadgin!" << std::endl;
-	input->clear();
-	input->seekg(0, std::ios::beg);
-	if(result)input->seekg(activeObject->fPos);
-	gotLine = false;
-	eos = false;
-	currentLineNum = 0;
-	gotMiddle = false;
-
-	if(!result){
-		activeObject = NULL;
-	}
-
-	return result;
-}
-
-///=============================================================================
-size_t ffw::ObjLoader::calculateObjectPolyCount(){ 
-	if(activeObject == NULL)return 0;
-
-	size_t total = 0;
-
-	//std::cout << "calculateObjectPolyCount" << std::endl;
-	while(input->tellg() < activeObject->fEnd){
-		//std::cout << "tellg: " << input->tellg() << " end: " << activeObject->fEnd << std::endl;
-		std::string line;
-		std::getline(*input, line);
-		if(line[0] != 'f' || line[1] != ' '){
-			//std::cout << "continue" << std::endl;
-			continue;
-		}
-		unsigned int tokens = ffw::getTokensNum(line, ' ');
-		if(tokens == 4)total += 1;
-		else if(tokens == 5)total += 2;
-		else if(tokens > 5){
-			total += tokens-1;
-		}
-		//std::cout << "polys: " << total << std::endl;
-	}
-
-	//std::cout << "calculateObjectPolyCount done" << std::endl;
-	input->clear();
-	input->seekg(0, std::ios::beg);
-	input->seekg(activeObject->fPos);
-
-	return total;
-}
-
-///=============================================================================
-bool ffw::ObjLoader::getPolygon(float* ptr){
-	float* P0 = &ptr[0];
-	float* N0 = &ptr[3];
-	float* T0 = &ptr[6];
-
-	float* P1 = &ptr[8];
-	float* N1 = &ptr[11];
-	float* T1 = &ptr[14];
-
-	float* P2 = &ptr[16];
-	float* N2 = &ptr[19];
-	float* T2 = &ptr[22];
-	
-	if(activeObject == NULL)return false;
-
-	std::string line;
-	while(!gotLine && input->tellg() <= activeObject->fEnd){
-		std::getline(*input, line);
-		currentLineNum++;
-
-		if(line[0] != 'f' || line[1] != ' ')continue;
-
-		lineTokens = ffw::getTokens(line, ' ');
-		if(lineTokens.size() <= 3){
-			return false;
-		}
-
-		tokensTotal = lineTokens.size() -1;
-		doubleSlash = (line.find("//") != std::string::npos);
-		tokensRead = 0;
-		gotLine = true;
-	}
-
-	// End of stream?
-	if(!gotLine){
-		eos = true;
-		return false;
-	}
-
-	int v0i = 0;
-	int v1i = 0;
-	int v2i = 0;
-	int vt0i = 0;
-	int vt1i = 0;
-	int vt2i = 0;
-	int vn0i = 0;
-	int vn1i = 0;
-	int vn2i = 0;
-
-	std::vector<std::string> v0Tokens;
-	std::vector<std::string> v1Tokens;
-	std::vector<std::string> v2Tokens;
-
-	bool useMiddle = false;
-
-	// Triangle
-	if(lineTokens.size() == 4){
-
-		std::string& v0 = lineTokens[1];
-		std::string& v1 = lineTokens[2];
-		std::string& v2 = lineTokens[3];
-
-		v0Tokens = ffw::getTokens(v0, '/');
-		v1Tokens = ffw::getTokens(v1, '/');
-		v2Tokens = ffw::getTokens(v2, '/');
-
-		gotLine = false;
-		tokensRead = 1;
-	}
-
-	// Quad
-	if(lineTokens.size() == 5){
-
-		std::string* v0;
-		std::string* v1;
-		std::string* v2;
-
-		if(tokensRead == 0){
-			v0 = &lineTokens[1];
-			v1 = &lineTokens[2];
-			v2 = &lineTokens[4];
-		} else {
-			v0 = &lineTokens[4];
-			v1 = &lineTokens[2];
-			v2 = &lineTokens[3];
-		}
-
-		v0Tokens = ffw::getTokens(*v0, '/');
-		v1Tokens = ffw::getTokens(*v1, '/');
-		v2Tokens = ffw::getTokens(*v2, '/');
-
-		tokensRead++;
-		if(tokensRead >= 2)gotLine = false;
-	}
-
-	// Poly
-	if(lineTokens.size() > 5){
-		if(!gotMiddle){
-			std::vector<std::string> tempTokens;
-			int tv = 0;
-			int tvn = 0;
-			int tvt = 0;
-			middleV = 0.0f;
-			middleVN = 0.0f;
-			middleVT = 0.0f;
-			try {
-				for(unsigned int i = 1; i < lineTokens.size(); i++){
-					tempTokens = ffw::getTokens(lineTokens[i], '/');
-
-					if(tempTokens.size() == 1){
-						tv = ffw::stringToVal<int>(tempTokens[0]);
-						tvn = 0;
-						tvt = 0;
-
-					} else if(tempTokens.size() == 2 && doubleSlash){
-						tv = ffw::stringToVal<int>(tempTokens[0]);
-						tvn = ffw::stringToVal<int>(tempTokens[1]);
-						tvt = 0;
-
-					} else if(tempTokens.size() == 2){
-						tv = ffw::stringToVal<int>(tempTokens[0]);
-						tvt = ffw::stringToVal<int>(tempTokens[1]);
-						tvn = 0;
-
-					} else if(tempTokens.size() == 3){
-						tv = ffw::stringToVal<int>(tempTokens[0]);
-						tvn = ffw::stringToVal<int>(tempTokens[1]);
-						tvt = ffw::stringToVal<int>(tempTokens[2]);
-					}
-
-					if(tv > 0 && activeObject->vCount > 0)middleV += activeObjectMesh.vertices[tv - activeObject->vOffset -1];
-					if(tvn > 0 && activeObject->vnCount > 0)middleVN += activeObjectMesh.normals[tvn - activeObject->vnOffset -1];
-					if(tvt > 0 && activeObject->vtCount > 0)middleVT += activeObjectMesh.texpos[tvt - activeObject->vtOffset -1];
-				}
-				middleV /= float(tokensTotal -1);
-				middleVN /= float(tokensTotal -1);
-				middleVT /= float(tokensTotal -1);
-
-			} catch (std::exception e){
+	// Seek down and check for mtllib
+	while(std::getline(*input, line)) {
+		lineCount++;
+		if (line.size() == 0)continue;
+		if (line[0] == '#')continue;
+		if (line[0] == 'm') {
+			if(line.find("mtllib") == 0) {
+				mtllibName = line.substr(7);
 			}
-			gotMiddle = true;
-		}
-
-		if(tokensRead == lineTokens.size()-2){
-			v0Tokens = ffw::getTokens(lineTokens[tokensRead+1], '/');
-			v1Tokens = ffw::getTokens(lineTokens[1], '/');
+			break;
 		} else {
-			v0Tokens = ffw::getTokens(lineTokens[tokensRead+1], '/');
-			v1Tokens = ffw::getTokens(lineTokens[tokensRead+2], '/');
-		}
-		useMiddle = true;
-
-		tokensRead++;
-		if(tokensRead >= tokensTotal){gotLine = false; gotMiddle = false;}
-	}
-
-	// Check if we have tokens for each vertex
-	if(useMiddle && (v0Tokens.size() == 0 || v1Tokens.size() == 0))return false;
-	if(!useMiddle && (v0Tokens.size() == 0 || v1Tokens.size() == 0 || v2Tokens.size() == 0))return false;
-
-	if(useMiddle && v0Tokens.size() != v1Tokens.size())return false;
-	if(!useMiddle && (v0Tokens.size() != v1Tokens.size() || v1Tokens.size() != v2Tokens.size()))return false;
-
-	try {
-		v2i = ffw::stringToVal<int>(v0Tokens[0]);
-		v1i = ffw::stringToVal<int>(v1Tokens[0]);
-		if(!useMiddle)
-			v0i = ffw::stringToVal<int>(v2Tokens[0]);
-
-		// V/VT/VN
-		if(v0Tokens.size() == 3){
-			vt2i = ffw::stringToVal<int>(v0Tokens[1]);
-			vt1i = ffw::stringToVal<int>(v1Tokens[1]);
-			if(!useMiddle)
-				vt0i = ffw::stringToVal<int>(v2Tokens[1]);
-
-			vn2i = ffw::stringToVal<int>(v0Tokens[2]);
-			vn1i = ffw::stringToVal<int>(v1Tokens[2]);
-			if(!useMiddle)
-				vn0i = ffw::stringToVal<int>(v2Tokens[2]);
-
-		// V//VN
-		} else if(v0Tokens.size() == 2 && doubleSlash){
-			vn2i = ffw::stringToVal<int>(v0Tokens[1]);
-			vn1i = ffw::stringToVal<int>(v1Tokens[1]);
-			if(!useMiddle)
-				vn0i = ffw::stringToVal<int>(v2Tokens[1]);
-
-			vt0i = 0;
-			vt1i = 0;
-			vt2i = 0;
-
-		// V/VT
-		} else if(v0Tokens.size() == 2){
-			vt2i = ffw::stringToVal<int>(v0Tokens[1]);
-			vt1i = ffw::stringToVal<int>(v1Tokens[1]);
-			if(!useMiddle)
-				vt0i = ffw::stringToVal<int>(v2Tokens[1]);
-
-			vn0i = 0;
-			vn1i = 0;
-			vn2i = 0;
-
-		} else {
-			vt0i = 0;
-			vt1i = 0;
-			vt2i = 0;
-
-			vn0i = 0;
-			vn1i = 0;
-			vn2i = 0;
-		}
-	} catch (std::exception e){
-		return false;
-	}
-
-	if(!gotLine && currentLineNum >= activeObject->fCount)eos = true;
-
-	if(activeObject->vCount > 0){
-		if(!useMiddle && v0i > 0){
-			P0[0] = activeObjectMesh.vertices[v0i - activeObject->vOffset -1].x;
-			P0[1] = activeObjectMesh.vertices[v0i - activeObject->vOffset -1].y;
-			P0[2] = activeObjectMesh.vertices[v0i - activeObject->vOffset -1].z;
-
-		} else if(useMiddle){
-			P0[0] = middleV.x;
-			P0[1] = middleV.y;
-			P0[2] = middleV.z;
-		}
-		if(v1i > 0){
-			P1[0] = activeObjectMesh.vertices[v1i - activeObject->vOffset -1].x;
-			P1[1] = activeObjectMesh.vertices[v1i - activeObject->vOffset -1].y;
-			P1[2] = activeObjectMesh.vertices[v1i - activeObject->vOffset -1].z;
-		}
-		if(v2i > 0){
-			P2[0] = activeObjectMesh.vertices[v2i - activeObject->vOffset -1].x;
-			P2[1] = activeObjectMesh.vertices[v2i - activeObject->vOffset -1].y;
-			P2[2] = activeObjectMesh.vertices[v2i - activeObject->vOffset -1].z;
+			break;
 		}
 	}
 
-	if(activeObject->vnCount > 0){
-		if(!useMiddle && vn0i > 0){
-			N0[0] = activeObjectMesh.normals[vn0i - activeObject->vnOffset -1].x;
-			N0[1] = activeObjectMesh.normals[vn0i - activeObject->vnOffset -1].y;
-			N0[2] = activeObjectMesh.normals[vn0i - activeObject->vnOffset -1].z;
-		}else if(useMiddle){
-			N0[0] = middleVN.x;
-			N0[1] = middleVN.y;
-			N0[2] = middleVN.z;
-		}
-		if(vn1i > 0){
-			N1[0] = activeObjectMesh.normals[vn1i - activeObject->vnOffset -1].x;
-			N1[1] = activeObjectMesh.normals[vn1i - activeObject->vnOffset -1].y;
-			N1[2] = activeObjectMesh.normals[vn1i - activeObject->vnOffset -1].z;
-		}
-		if(vn2i > 0){
-			N2[0] = activeObjectMesh.normals[vn2i - activeObject->vnOffset -1].x;
-			N2[1] = activeObjectMesh.normals[vn2i - activeObject->vnOffset -1].y;
-			N2[2] = activeObjectMesh.normals[vn2i - activeObject->vnOffset -1].z;
-		}
-	}
-
-	if(activeObject->vtCount > 0){
-		if(!useMiddle && vt0i > 0){
-			T0[0] = activeObjectMesh.texpos[vt0i - activeObject->vtOffset -1].x;
-			T0[1] = activeObjectMesh.texpos[vt0i - activeObject->vtOffset -1].y;
-		}else if(useMiddle){
-			T0[0] = middleVT.x;
-			T0[1] = middleVT.y;
-		}
-		if(vt1i > 0){
-			T1[0] = activeObjectMesh.texpos[vt1i - activeObject->vtOffset -1].x;
-			T1[1] = activeObjectMesh.texpos[vt1i - activeObject->vtOffset -1].y;
-		}
-		if(vt2i > 0){
-			T2[0] = activeObjectMesh.texpos[vt2i - activeObject->vtOffset -1].x;
-			T2[1] = activeObjectMesh.texpos[vt2i - activeObject->vtOffset -1].y;
-		}
-	}
-
+	loaded = true;
 	return true;
 }
 
 ///=============================================================================
 void ffw::ObjLoader::close(){
 	loaded = false;
+	lineCount = 0;
 	input->close();
-	objects.clear();
-	activeObjectMesh.vertices.clear();
-	activeObjectMesh.normals.clear();
-	activeObjectMesh.texpos.clear();
-	activeObject = NULL;
+	texcoords.clear();
+	vertices.clear();
+	normals.clear();
+	lineTokens.clear();
+	gotLine = false;
+	newMaterialFlag = false;
+	currentMaterial.clear();
+	mtllibName.clear();
+	tokensRead = 0;
+	indexes[0] = 0;
+	indexes[1] = 0;
+	indexes[2] = 0;
+	objectFound = false;
+}
+
+inline void insetValue(std::vector<ffw::Vec3f>& vec, ffw::Vec3f& val) {
+	if(vec.size() >= vec.capacity()) {
+		vec.reserve(vec.capacity() + VECTOR_BUCKET_SIZE);
+		//std::cout << "resized vector to: " << vec.capacity() << std::endl;
+	}
+	vec.push_back(val);
+}
+
+inline float fastFloat(const char* begin) {
+	return atof(begin);
+}
+
+inline int fastAtoi(const char* begin) {
+	int val = 0;
+	while (*begin) {
+		if (*begin < '0' || *begin > '9')return val;
+		val = val * 10 + (*begin++ - '0');
+	}
+	return val;
+}
+
+static bool parseIndices(const char* begin, size_t length, ffw::Vec3i& out) {
+	size_t counter = 0;
+	size_t last = 0;
+
+	// Check whitespace
+	bool found = true;
+	for (size_t i = 0; i < length; i++) {
+		if (begin[i] != ' ')found = false;
+	}
+	if (found)return false;
+	//std::cout << "parseIndices: " << std::string(begin, length) << std::endl;
+
+	for(size_t i = 0; i < length; i++) {
+		auto c = begin[i];
+		if(c == '/') {
+			if (last - i > 0) {
+
+				if (counter == 0) {
+					//std::cout << "vertex1: " << std::string(begin, i) << std::endl;
+					out.x = fastAtoi(begin);
+				}
+
+				else if (counter == 1) {
+					//std::cout << "texture1: " << std::string(begin + last, i - last) << std::endl;
+					out.y = fastAtoi(begin + last);
+				}
+
+				else if (counter == 2) {
+					//std::cout << "normal1: " << std::string(begin + last, i - last) << std::endl;
+					out.z = fastAtoi(begin + last);
+				}
+			}
+
+			last = i+1;
+			counter++;
+		}
+	}
+
+	if (counter == 0) {
+		//std::cout << "vertex2: " << std::string(begin + last, length - last) << std::endl;
+		out.x = fastAtoi(begin + last);
+	}
+
+	else if (counter == 1) {
+		//std::cout << "texture2: " << std::string(begin + last, length - last) << std::endl;
+		out.y = fastAtoi(begin + last);
+	}
+
+	else if (counter == 2) {
+		//std::cout << "normal2: " << std::string(begin + last, length - last) << std::endl;
+		out.z = fastAtoi(begin + last);
+	}
+
+	return true;
+}
+
+static void parseLineIndices(const std::string& line, std::vector<ffw::Vec3i>& out) {
+	//std::cout << "\tparsing: " << line << std::endl;
+	size_t pos = 1;
+	size_t last = 1;
+	out.clear();
+	ffw::Vec3i val(INT_MAX);
+	while ((pos = line.find(' ', pos)) != std::string::npos) {
+		if (last < pos) {
+			//std::cout << "\tindices: " << line.substr(last, pos - last) << std::endl;
+			if (parseIndices(&line[last], pos - last, val)) {
+				out.push_back(val);
+				val.set(INT_MAX);
+			}
+		}
+		pos++;
+		last = pos;
+	}
+
+	//std::cout << "\tindices: " << line.substr(last, line.size() - last) << std::endl;
+	if (parseIndices(&line[last], line.size() - last, val)) {
+		out.push_back(val);
+	}
+}
+
+static void parseLineFloat(const std::string& line, ffw::Vec3f& out) {
+	size_t pos = 0;
+	size_t last = 0;
+	size_t counter = 0;
+	out.set(0.0f);
+	while ((pos = line.find(' ', pos)) != std::string::npos) {
+		if(last < pos) {
+			//std::cout << "token: \"" << line.substr(last, pos - last) << std::endl;
+			switch(counter) {
+				case 0:
+					break;
+				case 1: 
+					out.x = fastFloat(&line[last]);
+					break;
+				case 2:
+					out.y = fastFloat(&line[last]);
+					break;
+				case 3: 
+					out.z = fastFloat(&line[last]);
+					break;
+				default:
+					break;
+			}
+			counter++;
+		}
+		pos++;
+		last = pos;
+	}
+
+	switch (counter) {
+	case 1:
+		out.x = fastFloat(&line[last]);
+		break;
+	case 2:
+		out.y = fastFloat(&line[last]);
+		break;
+	case 3:
+		out.z = fastFloat(&line[last]);
+		break;
+	default:
+		return;
+	}
 }
 
 ///=============================================================================
-bool ffw::readObj(const std::string& path, float** vertices, unsigned int* numVertices){
+bool ffw::ObjLoader::getNextObject(std::string* name) {
+	ffw::Vec3f val;
+	while (std::getline(*input, line)) {
+		lineCount++;
+		if (line.size() == 0)continue;
+		if (line[0] == '#')continue;
+		if (line.size() <= 2)continue;
+
+		// Vertex
+		if(line[0] == 'v' && line[1] == ' ') {
+			parseLineFloat(line, val);
+			insetValue(vertices, val);
+			//std::cout << "v " << val << std::endl;
+		}
+
+		// Normal
+		else if (line[0] == 'v' && line[1] == 'n') {
+			parseLineFloat(line, val);
+			insetValue(normals, val);
+			//std::cout << "vn " << val << std::endl;
+		}
+
+		// Texture coordinate
+		else if (line[0] == 'v' && line[1] == 't') {
+			parseLineFloat(line, val);
+			insetValue(texcoords, val);
+			//std::cout << "vt " << val << std::endl;
+		}
+
+		// Object/geometry
+		else if ((line[0] == 'o' || line[0] == 'g') && line[1] == ' ') {
+			if (name != NULL)*name = line.substr(2);
+		}
+
+		// Use mtl
+		else if (line.size() > 6 && line[0] == 'u' && line[1] == 's') {
+			currentMaterial = line.substr(7);
+			newMaterialFlag = true;
+		}
+
+		// Smoothing groups
+		else if (line[0] == 's' && line[1] == ' ') {
+			continue;
+		}
+
+		// Face
+		else if (line[0] == 'f' && line[1] == ' ') {
+			parseLineIndices(line, lineTokens);
+			if (lineTokens.size() == 0) {
+				objectFound = false;
+				return false;
+			}
+			hasNormals = lineTokens[0].z != INT_MAX;
+			hasTexcoords = lineTokens[0].y != INT_MAX;
+			tokensRead = 0;
+			gotLine = true;
+			objectFound = true;
+			return true;
+		}
+
+		else {
+			return false;
+		}
+	}
+
+	objectFound = false;
+	return false;
+}
+
+///=============================================================================
+size_t ffw::ObjLoader::calculatePolyCount() {
+	size_t ret = 0;
+	if (!objectFound)return ret;
+
+	// Calculate already parsed line
+	switch(lineTokens.size()) {
+		case 0: break;
+		case 1: break;
+		case 2: break;
+		case 3: ret += 1; break;
+		case 4: ret += 2; break;
+		default: ret += lineTokens.size() - 2;
+	}
+
+	// Read line by line
+	std::string temp;
+	size_t offset = input->tellg();
+	while (std::getline(*input, temp)) {
+		if (temp.size() <= 2)continue;
+
+		// Face
+		if (temp[0] == 'f' && temp[1] == ' ') {
+			size_t count = ffw::getTokensNum(temp, " ");
+			switch (count) {
+				case 1: break;
+				case 2: break;
+				case 3: break;
+				case 4: ret += 1; break;
+				case 5: ret += 2; break;
+				default: ret += count - 3;
+			}
+		}
+
+		if ((temp[0] == 'o' || temp[0] == 'g') && temp[1] == ' ') {
+			break;
+		}
+	}
+
+
+	input->clear();
+	input->seekg(offset);
+	return ret;
+}
+
+///=============================================================================
+bool ffw::ObjLoader::getPolygon() {
+	
+	ffw::Vec3f val;
+
+	while (!gotLine && !input->eof()) {
+		previousPos = input->tellg();
+		if (!std::getline(*input, line)) {
+			// Failed to get a next line
+			objectFound = false;
+			return false;
+		}
+		lineCount++;
+		//std::cout << "reading line: " << line << std::endl;
+
+		if (line.size() == 0)continue;
+		if (line[0] == '#')continue;
+		if (line.size() <= 2)continue;
+
+		// Face
+		if (line[0] == 'f' && line[1] == ' ') {
+			parseLineIndices(line, lineTokens);
+			tokensRead = 0;
+			gotLine = true;
+			break;
+		}
+
+		// Vertex
+		if (line[0] == 'v' && line[1] == ' ') {
+			parseLineFloat(line, val);
+			insetValue(vertices, val);
+			continue;
+		}
+
+		// Normal
+		if (line[0] == 'v' && line[1] == 'n') {
+			parseLineFloat(line, val);
+			insetValue(normals, val);
+			continue;
+		}
+
+		// Texture coordinate
+		if (line[0] == 'v' && line[1] == 't') {
+			parseLineFloat(line, val);
+			insetValue(texcoords, val);
+			continue;
+		}
+
+		// Use mtl
+		if (line.size() > 6 && line[0] == 'u' && line[1] == 's') {
+			currentMaterial = line.substr(7);
+			newMaterialFlag = true;
+			continue;
+		}
+
+		// Smoothing groups
+		if (line[0] == 's' && line[1] == ' ') {
+			continue;
+		}
+
+		// Object/geometry
+		if ((line[0] == 'o' || line[0] == 'g') && line[1] == ' ') {
+			//std::cout << "new geometry found at: " << lineCount << std::endl;
+			input->seekg(previousPos, std::ios_base::beg);
+			objectFound = false;
+			return false;
+		}
+	}
+
+	if(lineTokens.size() == 3) {
+		//std::cout << "parsing triangle " << tokensRead << std::endl;
+		indexes[0] = 2;
+		indexes[1] = 1;
+		indexes[2] = 0;
+		gotLine = false;
+	}
+
+	else if (lineTokens.size() == 4) {
+		//std::cout << "parsing quad " << tokensRead << std::endl;
+		if(tokensRead == 0) {
+			indexes[0] = 0;
+			indexes[1] = 3;
+			indexes[2] = 1;
+		} else {
+			indexes[0] = 1;
+			indexes[1] = 3;
+			indexes[2] = 2;
+			gotLine = false;
+		}
+	}
+
+	else {
+		//std::cout << "parsing poly " << tokensRead << std::endl;
+		indexes[0] = 0;
+		indexes[1] = tokensRead + 2;
+		indexes[2] = tokensRead + 1;
+		if(tokensRead + 3 >= lineTokens.size()) {
+			gotLine = false;
+		}
+	}
+
+	tokensRead++;
+	return true;
+}
+
+///=============================================================================
+void ffw::ObjLoader::fillData(float* ptr, size_t vo, size_t no, size_t to, bool ts, size_t stride) {
+	ffw::Vec3f n;
+	if (!hasNormals) {
+		auto dir0 = vertices[lineTokens[indexes[0]].x - 1] - vertices[lineTokens[indexes[2]].x - 1];
+		auto dir1 = vertices[lineTokens[indexes[0]].x - 1] - vertices[lineTokens[indexes[1]].x - 1];
+		n = ffw::cross(dir0, dir1);
+		n.normalize();
+	}
+
+	for (int i = 0; i < 3; i++) {
+		memcpy(&ptr[vo], &vertices[lineTokens[indexes[i]].x - 1].x, sizeof(ffw::Vec3f));
+		//ptr[0] = vertices[lineTokens[indexes[i]].x - 1].x;
+		//ptr[1] = vertices[lineTokens[indexes[i]].x - 1].y;
+		//ptr[2] = vertices[lineTokens[indexes[i]].x - 1].z;
+		if (hasNormals) {
+			memcpy(&ptr[no], &normals[lineTokens[indexes[i]].z - 1].x, sizeof(ffw::Vec3f));
+		} else {
+			memcpy(&ptr[no], &n.x, sizeof(ffw::Vec3f));
+		}
+
+		if (hasTexcoords) {
+			if (ts) {
+				memcpy(&ptr[to], &texcoords[lineTokens[indexes[i]].y - 1].x, sizeof(ffw::Vec3f));
+			} else {
+				memcpy(&ptr[to], &texcoords[lineTokens[indexes[i]].y - 1].x, sizeof(ffw::Vec2f));
+			}
+		}
+
+		ptr += stride;
+	}
+}
+
+bool ffw::readObj(const std::string& path, float** vertices, unsigned int* numVertices) {
 	ffw::ObjLoader obj;
 
-	//std::cout << "Openning object..." << std::endl;
-	if(!obj.open(path))return false;
+	if (!obj.open(path))return false;
 
-	//std::cout << "Loading object..." << std::endl;
-	if(!obj.loadObject(0))return false;
+	if (!obj.getNextObject(NULL))return false;
 
-	auto total = obj.calculateObjectPolyCount();
-	//std::cout << "Total vertices: " << total << std::endl;
+	auto total = obj.calculatePolyCount();
+	if (total == 0)return false;
 
-	if(numVertices != NULL)*numVertices = total*3;
-	if(vertices == NULL)return true;
+	if (numVertices != NULL)*numVertices = total * 3;
+	if (vertices == NULL)return true;
 
-	*vertices = new float [total*24];
+	*vertices = new float[total * 24];
 	float* ptr = *vertices;
 
-	bool genNormals = !obj.hasObjectNormals(0);
-	bool genTexpos = !obj.hasObjectTexPos(0);
-
-	ffw::Vec3f dir0;
-	ffw::Vec3f dir1;
-	ffw::Vec3f c;
-
-	while(!obj.eof()){
-		ffw::Vec3f* p0 = reinterpret_cast<ffw::Vec3f*>(&ptr[0]);
-		ffw::Vec3f* p1 = reinterpret_cast<ffw::Vec3f*>(&ptr[3]);
-		ffw::Vec3f* p2 = reinterpret_cast<ffw::Vec3f*>(&ptr[6]);
-
-		ffw::Vec3f* n0 = reinterpret_cast<ffw::Vec3f*>(&ptr[8]);
-		ffw::Vec3f* n1 = reinterpret_cast<ffw::Vec3f*>(&ptr[11]);
-		ffw::Vec3f* n2 = reinterpret_cast<ffw::Vec3f*>(&ptr[14]);
-
-		ffw::Vec2f* t0 = reinterpret_cast<ffw::Vec2f*>(&ptr[16]);
-		ffw::Vec2f* t1 = reinterpret_cast<ffw::Vec2f*>(&ptr[19]);
-		ffw::Vec2f* t2 = reinterpret_cast<ffw::Vec2f*>(&ptr[22]);
-
-		//std::cout << "reading vertices..." << ptr << std::endl;
-		obj.getPolygon(ptr);
-
-		if(genNormals){
-			dir0 = *p0 - *p2;
-			dir1 = *p0 - *p1;
-			c = ffw::cross(dir0, dir1);
-			c.normalize();
-			*n0 = c;
-			*n1 = c;
-			*n2 = c;
-		}
-
-		if(genTexpos){
-			*t0 = 0.0f;
-			*t1 = 0.0f;
-			*t2 = 0.0f;
-		}
-
+	while (obj.getPolygon()) {
+		obj.fillData(ptr);
 		ptr = &ptr[24];
 	}
 
-    return true;
+	return true;
 }

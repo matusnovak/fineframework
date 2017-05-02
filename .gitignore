@@ -39,3 +39,5 @@ html/
 
 # Dependencies
 dependencies/
+
+.stackdump

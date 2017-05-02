@@ -57,6 +57,11 @@ elseif(UNIX)
   message(STATUS "zlib library path: ${ZLIB_LIBRARY}")
 endif()
 
+if(NOT APPLE AND NOT MSVC)
+  set(THREADS_PREFER_PTHREAD_FLAG ON)
+  find_package(Threads REQUIRED)
+endif()
+
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 set(CMAKE_DEBUG_POSTFIX _d CACHE STRING "Postfix added to debug version of the library")
