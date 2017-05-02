@@ -92,6 +92,11 @@ Public Types</h2></td></tr>
 <a class="el" href="classffw_1_1_texture.html#a95ded8440101d9ca5418a2de34e76cffa63494a0184e5f2a9d8cf20f878699234">MIPMAP_LINEAR</a>
  }</td></tr>
 <tr class="separator:a95ded8440101d9ca5418a2de34e76cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ed8c06fbd5c85d6daf479489afa51f"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_texture.html#af4ed8c06fbd5c85d6daf479489afa51f">Wrapping</a> { <a class="el" href="classffw_1_1_texture.html#af4ed8c06fbd5c85d6daf479489afa51faf83eb44cd0ca3491bb4d06874d6f1bd5">REPEAT</a>, 
+<a class="el" href="classffw_1_1_texture.html#af4ed8c06fbd5c85d6daf479489afa51fa4dce3f88a19d78a17343cdb8311e8f96">MIRRORED_REPEAT</a>, 
+<a class="el" href="classffw_1_1_texture.html#af4ed8c06fbd5c85d6daf479489afa51fad6f0ef9d345374c010ee3e2065c828d9">CLAMP_TO_EDGE</a>
+ }</td></tr>
+<tr class="separator:af4ed8c06fbd5c85d6daf479489afa51f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -149,6 +154,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3fd71b9f3a431b19ade9080b0770093a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ddca54f72c9b5d5472f56890a6e85de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_texture.html#a3ddca54f72c9b5d5472f56890a6e85de">setFiltering</a> (<a class="el" href="classffw_1_1_texture.html#a95ded8440101d9ca5418a2de34e76cff">Texture::Filtering</a> filtering)</td></tr>
 <tr class="separator:a3ddca54f72c9b5d5472f56890a6e85de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefb80cf00f0d75f94869603e99e00eed"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_texture.html#aefb80cf00f0d75f94869603e99e00eed">setWrapping</a> (<a class="el" href="classffw_1_1_texture.html#af4ed8c06fbd5c85d6daf479489afa51f">Texture::Wrapping</a> wrapping)</td></tr>
+<tr class="separator:aefb80cf00f0d75f94869603e99e00eed"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a98a152f13b47387bc363547c24e623"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classffw_1_1_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_texture.html#a1a98a152f13b47387bc363547c24e623">operator=</a> (const <a class="el" href="classffw_1_1_texture.html">Texture</a> &amp;other)=delete</td></tr>
 <tr class="separator:a1a98a152f13b47387bc363547c24e623"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9142dbb77bd8cef188111f53ef636f3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classffw_1_1_texture.html">Texture</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_texture.html#a9142dbb77bd8cef188111f53ef636f3c">operator=</a> (<a class="el" href="classffw_1_1_texture.html">Texture</a> &amp;&amp;other)</td></tr>
@@ -202,6 +209,25 @@ Protected Attributes</h2></td></tr>
 <tr><td class="fieldname"><a id="a95ded8440101d9ca5418a2de34e76cffa22c9871bef2f32b0c2861c71ada5d0f6"></a>LINEAR&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a95ded8440101d9ca5418a2de34e76cffa0e9cf402687e9eb8b90cc74077a993c4"></a>MIPMAP_NEAREST&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a95ded8440101d9ca5418a2de34e76cffa63494a0184e5f2a9d8cf20f878699234"></a>MIPMAP_LINEAR&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+</div>
+</div>
+<a id="af4ed8c06fbd5c85d6daf479489afa51f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ed8c06fbd5c85d6daf479489afa51f">&sect;&nbsp;</a></span>Wrapping</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classffw_1_1_texture.html#af4ed8c06fbd5c85d6daf479489afa51f">ffw::Texture::Wrapping</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="af4ed8c06fbd5c85d6daf479489afa51faf83eb44cd0ca3491bb4d06874d6f1bd5"></a>REPEAT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af4ed8c06fbd5c85d6daf479489afa51fa4dce3f88a19d78a17343cdb8311e8f96"></a>MIRRORED_REPEAT&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="af4ed8c06fbd5c85d6daf479489afa51fad6f0ef9d345374c010ee3e2065c828d9"></a>CLAMP_TO_EDGE&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
 </div>
@@ -856,6 +882,24 @@ Protected Attributes</h2></td></tr>
           <td></td>
           <td>)</td>
           <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aefb80cf00f0d75f94869603e99e00eed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefb80cf00f0d75f94869603e99e00eed">&sect;&nbsp;</a></span>setWrapping()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ffw::Texture::setWrapping </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classffw_1_1_texture.html#af4ed8c06fbd5c85d6daf479489afa51f">Texture::Wrapping</a>&#160;</td>
+          <td class="paramname"><em>wrapping</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
