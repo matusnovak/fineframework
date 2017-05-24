@@ -41,3 +41,10 @@ html/
 dependencies/
 
 .stackdump
+
+!cube.obj
+!cylinder.obj
+!plane.obj
+!planes.obj
+
+/Win32
