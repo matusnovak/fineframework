@@ -2,7 +2,8 @@
 #ifndef FFW_GUI_TEXT_WRAPPER
 #define FFW_GUI_TEXT_WRAPPER
 #include "guifont.h"
-
+#include "../math/color.h"
+#include <vector>
 namespace ffw {
 	/**
 	* @ingroup gui

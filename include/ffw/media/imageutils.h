@@ -2,8 +2,7 @@
 #ifndef FFW_MEDIA_IMAGE_UTILS
 #define FFW_MEDIA_IMAGE_UTILS
 #include "../config.h"
-#include "../math.h"
-
+#include "../math/imagebuffer.h"
 namespace ffw {
 	class ImageReader;
 	class ImageWriter;

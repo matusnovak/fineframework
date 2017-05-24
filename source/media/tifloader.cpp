@@ -1,6 +1,4 @@
 /*** This file is part of FineFramework project ***/
-#define NOMINMAX
-#include <Windows.h>
 #include <stdio.h>
 #include <tiffio.h>
 #include "ffw/media/tifloader.h"
@@ -44,12 +42,7 @@ bool ffw::TifLoader::open(const std::string& path){
 
 	TIFFSetWarningHandler(DummyHandler);
 
-#ifdef FFW_WINDOWS
-	tiff = TIFFOpen(wstrToAnsi(utf8ToWstr(path)).c_str(), "rb");
-#else
 	tiff = TIFFOpen(path.c_str(), "rb");
-#endif
-
 
 	if(!tiff){
 		return false;

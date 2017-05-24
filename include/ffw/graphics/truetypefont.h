@@ -1,7 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_GRAPHICS_TRUE_TYPE_FONT
 #define FFW_GRAPHICS_TRUE_TYPE_FONT
-
+#include <vector>
 #include "font.h"
 #include "freetypeloader.h"
 

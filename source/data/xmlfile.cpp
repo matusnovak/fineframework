@@ -1,6 +1,8 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/data/xmlfile.h"
+#include "ffw/math/stringmath.h"
+#include <sstream>
 #include "tinyxml2.h"
 #include <fstream>
 

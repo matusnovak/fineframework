@@ -36,11 +36,7 @@ ffw::BmpLoader::~BmpLoader(){
 bool ffw::BmpLoader::open(const std::string& path){
 	if(loaded)return false;
 
-#ifdef FFW_WINDOWS
-	input->open(wstrToAnsi(utf8ToWstr(path)), std::ios::in | std::ios::binary);
-#else
 	input->open(path, std::ios::in | std::ios::binary);
-#endif
 
 	if(!input->is_open()){
 		return false;

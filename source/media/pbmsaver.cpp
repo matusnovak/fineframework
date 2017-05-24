@@ -1,6 +1,8 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/media/pbmsaver.h"
+#include "ffw/math/stringmath.h"
+#include "ffw/math/functions.h"
 
 ///=============================================================================
 ffw::PbmSaver::PbmSaver(){
@@ -47,11 +49,7 @@ bool ffw::PbmSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			return false;
 	}
 
-#ifdef FFW_WINDOWS
-	output->open(wstrToAnsi(utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
-#else
 	output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
-#endif
 
 	if(!output->is_open()){
 		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;

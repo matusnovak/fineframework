@@ -1,10 +1,9 @@
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
 #include <ffw/gui/guiwindowopengl.h>
-#include <chrono>
-#include <thread>
 #include <regex>
 #include <fstream>
+#include <memory>
 
 ///=============================================================================
 class App: public ffw::GLFWRenderWindow {
@@ -400,7 +399,7 @@ public:
 			input->setValue(L"-0.6662");
 			// Zero or one '-' following by any number of digits
 			// then zero or one dot then again, any digit.
-			input->setMatch(L"^-?[0-9]*\.?[0-9]*$");
+			input->setMatch(L"^-?[0-9]*\\.?[0-9]*$");
 			box->addWidget(input);
 
 			label = new ffw::GuiLabel(&gui, "Capitals:");
@@ -721,7 +720,7 @@ int main(int argc, char *argv[]){
 	while(app.shouldRender()){
 		app.renderFrame();
 		app.waitForEvents();
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+		//std::this_thread::sleep_for(std::chrono::milliseconds(10));
 	}
 
 	// destroy window, this will delete all graphics data used by the window.

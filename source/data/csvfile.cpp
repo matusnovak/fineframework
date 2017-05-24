@@ -2,6 +2,7 @@
 
 #include "ffw/data/csvfile.h"
 #include "ffw/data/helpers.h"
+#include "ffw/math/stringmath.h"
 
 ///=============================================================================
 ffw::CsvLoader::CsvLoader(){

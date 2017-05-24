@@ -2,20 +2,24 @@
 #ifndef FFW_BUFFER_OBJECT
 #define FFW_BUFFER_OBJECT
 #include "../config.h"
-#if defined(FFW_WINDOWS_MSVC)
-// Evil windows.h
-#define NOMINMAX
-#include "windows.h"
-#undef NOMINMAX
-#endif
+
 #ifdef FFW_OSX
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 #include <OpenGL/gl3.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/gl.h>
 #else
+#ifndef WINGDIAPI
+#define WINGDIAPI __declspec(dllimport)
+#define APIENTRY _stdcall
 #include "GL/gl.h"
 #include "GL/glext.h"
+#undef WINGDIAPI
+#undef APIENTRY
+#else
+#include "GL/gl.h"
+#include "GL/glext.h"
+#endif
 #endif
 
 namespace ffw {
@@ -36,9 +40,10 @@ namespace ffw {
 		inline bool isCreated() const {
 			return loaded_;
 		}
-		bool create(const RenderContext* renderer, const void* data, int size, unsigned int type);
-		bool setData(const void* data, int offset, int size);
-        bool mapBuffer(void** pointer, unsigned int access) const;
+		bool create(const RenderContext* renderer, const void* data, GLsizei size, GLenum type);
+		bool resize(const void* data, GLsizei size);
+		bool setData(const void* data, GLsizei offset, GLsizei size);
+        bool mapBuffer(void** pointer, GLenum access) const;
         bool unMapBuffer() const;
 		void destroy();
 		void bind() const;
@@ -55,8 +60,9 @@ namespace ffw {
 		inline unsigned int getObjectType() const {
 			return objecttype_;
 		}
-		bool copyFrom(const BufferObject* other, ptrdiff_t offset1, ptrdiff_t offset2, ptrdiff_t size);
-
+		bool copyFrom(const BufferObject* other, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size);
+		bool copyFromEnabled() const;
+		bool getData(void* data, GLsizei offset, GLsizei size);
 		BufferObject& operator = (const BufferObject& other) = delete;
 		BufferObject& operator = (BufferObject&& other);
     protected:
@@ -84,6 +90,12 @@ namespace ffw {
 };
 
 inline void swap(ffw::BufferObject& first, ffw::BufferObject& second) {
+	first.swap(second);
+}
+inline void swap(ffw::Vbo& first, ffw::Vbo& second) {
+	first.swap(second);
+}
+inline void swap(ffw::Ibo& first, ffw::Ibo& second) {
 	first.swap(second);
 }
 #endif

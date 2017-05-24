@@ -1,7 +1,9 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_COLOR
 #define FFW_COLOR
+#include "../config.h"
 #include <math.h>
+#include <algorithm>
 namespace ffw {
 	/**
 	* @ingroup math
@@ -298,6 +300,27 @@ namespace ffw {
 			Blue / 255.0f,
 			Alpha / 255.0f
 		);
+	}
+	/**
+	* @ingroup math
+	*/
+	inline ffw::Color normalize(const Color& col) {
+		auto copy = col;
+		copy.normalize();
+		return copy;
+	}
+	/**
+	* @ingroup math
+	*/
+	inline ffw::Color clamp(const ffw::Color& color) {
+		return ffw::Color(color).clamp();
+	}
+	/**
+	* @ingroup math
+	*/
+	inline std::ostream& operator << (std::ostream& os, const ffw::Color& color) {
+		os << color.r << ", " << color.g << ", " << color.b << ", " << color.a;
+		return os;
 	}
 };
 #endif

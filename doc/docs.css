@@ -238,14 +238,14 @@ table.memberdecls td.memTemplItemLeft,
 table.directory td.entry {
 	width: 1%;
 	white-space:nowrap;
-	padding-right: 5px;
+	padding-right: 0px;
 }
 
 table.memberdecls td.memItemRight,
 table.memberdecls td.memTemplItemRight,
 table.directory td.desc {
 	min-width: 99%;
-	padding-left: 5px;
+	padding-left: 0px;
 }
 
 table.directory tbody td {

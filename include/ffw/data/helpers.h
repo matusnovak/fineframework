@@ -3,7 +3,6 @@
 #define FFW_DATA_HELPERS
 
 #include "../config.h"
-#include "../math.h"
 
 namespace ffw {
 	/**

@@ -2,7 +2,6 @@
 #ifndef FFW_GUI_IMAGE
 #define FFW_GUI_IMAGE
 #include "../config.h"
-#include "../math.h"
 namespace ffw {
 	/**
 	* @ingroup gui

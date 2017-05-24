@@ -23,6 +23,11 @@ if(UNIX OR APPLE)
 else()
   #target_link_libraries(${PROJECT_NAME})
 endif()
+
+# Compile with static stdlib ?
+if(STATIC_STDLIB)
+  target_link_libraries(${PROJECT_NAME} -static-libgcc -static-libstdc++)
+endif(STATIC_STDLIB)
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   

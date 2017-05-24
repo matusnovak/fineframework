@@ -2,7 +2,6 @@
 #ifndef FFW_GUI_BACKEND
 #define FFW_GUI_BACKEND
 #include "../config.h"
-#include "../math.h"
 #include "guitheme.h"
 #include "guifont.h"
 namespace ffw {

@@ -24,7 +24,7 @@ namespace ffw {
 
 		bool open(const std::string& path) override;
 		size_t readRow(void* dest) override;
-		virtual void close();
+		void close() override;
 
 	private:
 		png_structp pngPtr;

@@ -1,12 +1,13 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_VAR
 #define FFW_VAR
-
+#include "../config.h"
 #include <typeinfo>
 #include <string>
 #include <string.h>
 #include <unordered_map>
 #include <memory>
+#include <vector>
 
 namespace ffw {
 	class Array;
@@ -147,7 +148,7 @@ namespace ffw {
 		}
 
 		template<class T> inline const T& getAs() const {
-			if(content->getTypeid() != typeid(T)){
+			if(content == nullptr || content->getTypeid() != typeid(T)){
 				throw std::bad_cast();
 			}
 			return static_cast<const Data<T>&>(*content.get()).get();
@@ -158,11 +159,12 @@ namespace ffw {
 		}
 
 		template<class T> inline bool is() const {
-			if (content == nullptr)return false;
+			if (empty())return false;
 			return (content->getTypeid() == typeid(T));
 		}
 
 		inline bool toBool() const {
+			if(empty())return false;
 		    if(content->getTypeid() == typeid(bool)){
                 return getAs<bool>();
 		    } else {
@@ -175,6 +177,7 @@ namespace ffw {
 		}
 
 		inline std::string toString() const {
+			if(empty())return "";
 			const auto& type = content->getTypeid();
 			if(type == typeid(const char*)){
 				return std::string(getAs<const char*>());
@@ -196,14 +199,17 @@ namespace ffw {
 		}
 
 		inline int toInt() const {
+			if(empty())return 0;
 			return content->getInteger();
 		}
 
 		inline bool isInt() const {
+			if (empty())return false;
 			return content->isInteger();
 		}
 
 		inline float toFloat() const {
+			if(empty())return 0;
 			const auto& type = content->getTypeid();
 			if(type == typeid(float)){
 				return getAs<float>();
@@ -220,6 +226,11 @@ namespace ffw {
 
 		inline void clear() {
 			content.reset();
+		}
+		
+		inline const std::type_info& getTypeid() const {
+			if (empty())return typeid(nullptr);
+			return content->getTypeid();
 		}
 
 // GCC will complain if this is missing but not MSVC nor Clang
@@ -582,15 +593,15 @@ namespace ffw {
             }
         }
 
-		inline bool exists(const std::string& key) {
+		inline bool exists(const std::string& key) const {
 			return map.find(key) != map.end();
 		}
 
-		inline bool contains(const std::string& key) {
+		inline bool contains(const std::string& key) const {
 			return map.find(key) != map.end();
 		}
 
-		inline bool has_key(const std::string& key) {
+		inline bool has_key(const std::string& key) const {
 			return map.find(key) != map.end();
 		}
 
@@ -618,8 +629,7 @@ namespace ffw {
         }
 
         inline Var& operator [] (const key_type& key){
-			if(map.find(key) == map.end())map.insert(std::make_pair(key, ffw::Var()));
-            return map[key];
+			return map[key];
         }
 
         inline const Var& operator [] (const key_type& key) const {
@@ -830,19 +840,19 @@ namespace ffw {
     }
 
     inline Var& Var::operator [] (const std::string& key){
-        return getAs<Object>().at(key);
+        return getAs<Object>()[key];
     }
 
     inline const Var& Var::operator [] (const std::string& key) const {
-        return getAs<Object>().at(key);
+        return getAs<Object>()[key];
     }
 
     inline Var& Var::operator [] (size_t n){
-        return getAs<Array>().at(n);
+        return getAs<Array>()[n];
     }
 
     inline const Var& Var::operator [] (size_t n) const {
-        return getAs<Array>().at(n);
+        return getAs<Array>()[n];
     }
 }
 

@@ -2,7 +2,7 @@
 #ifndef FFW_MATH_IMAGE_BUFFER
 #define FFW_MATH_IMAGE_BUFFER
 #include "../config.h"
-#include "../math.h"
+#include "vec4.h"
 
 namespace ffw {
 	/**
@@ -184,6 +184,76 @@ namespace ffw {
 	private:
 		unsigned char* ptr;
 	};
+	/**
+	* @ingroup math
+	*/
+	template<typename T>
+	ffw::Vec4<T> containImage(T imgwidth, T imgheight, T maxwidth, T maxheight) {
+		float frameAspect = imgheight / float(imgwidth);
+		ffw::Vec4<T> ret;
+
+		if (maxwidth*frameAspect <= maxheight) {
+			ret.z = maxwidth;
+			ret.w = T(maxwidth*frameAspect);
+			ret.x = 0;
+			ret.y = (maxheight - ret.w) / 2;
+
+		}
+		else {
+			ret.z = T(maxheight / frameAspect);
+			ret.w = maxheight;
+			ret.x = (maxwidth - ret.z) / 2;
+			ret.y = 0;
+		}
+
+		return ret;
+	}
+	/**
+	* @ingroup math
+	*/
+	template<typename T>
+	ffw::Vec4<T> coverImage(T imgwidth, T imgheight, T maxwidth, T maxheight) {
+		float imgAspect = imgheight / float(imgwidth);
+		ffw::Vec4<T> ret;
+
+		// Target area is vertical
+		if (maxheight / float(maxwidth) >= 1.0f) {
+			// Image is vertical
+			if (imgAspect >= 1.0f) {
+				ret.z = T(maxheight / imgAspect);
+				ret.w = maxheight;
+				if (ret.z < maxwidth) {
+					ret.z = maxwidth;
+					ret.w = T(maxwidth*imgAspect);
+				}
+				// Image is horizontal
+			}
+			else {
+				ret.z = T(maxheight / imgAspect);
+				ret.w = maxheight;
+			}
+			// Target area is horizontal
+		}
+		else {
+			// Image is vertical
+			if (imgAspect >= 1.0f) {
+				ret.z = maxwidth;
+				ret.w = T(maxwidth*imgAspect);
+				// Image is horizontal
+			}
+			else {
+				ret.z = maxwidth;
+				ret.w = T(maxwidth*imgAspect);
+				if (ret.w < maxheight) {
+					ret.z = T(maxheight / imgAspect);
+					ret.w = maxheight;
+				}
+			}
+		}
+		ret.x = (ret.z - maxwidth) / -2;
+		ret.y = (ret.w - maxheight) / -2;
+		return ret;
+	}
 };
 
 inline void swap(ffw::ImageBuffer& first, ffw::ImageBuffer& second) {

@@ -1,6 +1,7 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/gui/guitextwrapper.h"
+#include "ffw/math/stringmath.h"
 
 ///=============================================================================
 ffw::GuiTextWrapper::Paragraph::Paragraph() {

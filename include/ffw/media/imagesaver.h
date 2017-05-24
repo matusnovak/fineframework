@@ -2,8 +2,8 @@
 #ifndef FFW_MEDIA_IMAGE_SAVER
 #define FFW_MEDIA_IMAGE_SAVER
 #include "../config.h"
-#include "../math.h"
-
+#include "../math/imagebuffer.h"
+#include "../swapwrapper.h"
 namespace ffw{
 	/**
 	 * @ingroup media

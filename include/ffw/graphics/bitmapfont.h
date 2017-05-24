@@ -1,7 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_GRAPHICS_BITMAP_FONT
 #define FFW_GRAPHICS_BITMAP_FONT
-
+#include <vector>
 #include "font.h"
 
 namespace ffw {

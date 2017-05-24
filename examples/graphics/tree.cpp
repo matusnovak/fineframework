@@ -1,4 +1,5 @@
 #include <ffw/graphics.h>
+#include <ffw/math.h>
 
 ///=============================================================================
 class App : public ffw::GLFWRenderWindow {

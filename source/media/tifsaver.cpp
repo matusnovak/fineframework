@@ -1,9 +1,8 @@
 /*** This file is part of FineFramework project ***/
-#define NOMINMAX
-#include <Windows.h>
 #include <stdio.h>
 #include <tiffio.h>
 #include "ffw/media/tifsaver.h"
+#include "ffw/math/functions.h"
 
 ///=============================================================================
 static void DummyHandler(const char* module, const char* fmt, va_list ap){
@@ -64,11 +63,7 @@ bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 
 	TIFFSetWarningHandler(DummyHandler);
 
-#ifdef FFW_WINDOWS
-	tiff = TIFFOpen(wstrToAnsi(utf8ToWstr(path)).c_str(), "w");
-#else
 	tiff = TIFFOpen(path.c_str(), "w");
-#endif
 
 	if(!tiff){
 		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;

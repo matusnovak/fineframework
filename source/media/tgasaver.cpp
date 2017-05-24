@@ -1,6 +1,7 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/media/tgasaver.h"
+#include "ffw/math/functions.h"
 
 static const char tgaFooter[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x54, 0x52, 0x55, 0x45, 0x56, 0x49, 0x53, 0x49, 0x4F, 0x4E, 0x2D, 0x58, 0x46, 0x49, 0x4c, 0x45, 0x2E, 0x00};
 
@@ -49,11 +50,7 @@ bool ffw::TgaSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			return false;
 	}
 
-#ifdef FFW_WINDOWS
-	output->open(wstrToAnsi(utf8ToWstr(path)), std::ios::trunc | std::ios::out | std::ios::binary);
-#else
 	output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
-#endif
 
 	if(!output->is_open()){
 		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;

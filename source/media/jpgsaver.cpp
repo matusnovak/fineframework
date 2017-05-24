@@ -1,6 +1,7 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/media/jpgsaver.h"
+#include "ffw/math/functions.h"
 #include <jpeglib.h>
 #include <setjmp.h>
 
@@ -86,11 +87,7 @@ bool ffw::JpgSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			return false;
 	}
 
-#ifdef FFW_WINDOWS
-	output  = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "wb");
-#else
 	output = fopen(path.c_str(), "wb");
-#endif
 
 	if(!output){
 		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;
@@ -200,7 +197,7 @@ size_t ffw::JpgSaver::writeRow(const void* src){
     if(src == NULL)return 0;
 
 	JSAMPROW row_pointer[1];
-	row_pointer[0] = (unsigned char*)src;
+	row_pointer[0] = (decltype(row_pointer[0]))src;
 	if(jpeg_write_scanlines(&jpg_struct->cinfo, row_pointer, 1) != 1)return false;
 	row++;
 

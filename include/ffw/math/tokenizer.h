@@ -1,8 +1,12 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_MATH_TOKENIZER
 #define FFW_MATH_TOKENIZER
+#include "../config.h"
 #include <string>
 namespace ffw {
+	/**
+	* @ingroup math
+	*/
 	template<class T, typename CharTrait = std::char_traits<T>, typename Allocator = std::allocator<T>>
 	class Tokenizer {
 	public:

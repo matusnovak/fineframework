@@ -34,6 +34,10 @@ static GraphicsInitializer graphicsInitializer;
 
 ///=============================================================================
 std::vector<ffw::Monitor> ffw::GLFWRenderWindow::getMonitors() {
+	if(!graphicsInitializer.Init()) {
+		return std::vector<ffw::Monitor>();
+	}
+	
 	int cnt;
 	GLFWmonitor** monitorPtrs = glfwGetMonitors(&cnt);
 	std::vector<Monitor> allMonitors;
@@ -58,6 +62,10 @@ std::vector<ffw::Monitor> ffw::GLFWRenderWindow::getMonitors() {
 
 ///=============================================================================
 ffw::Monitor ffw::GLFWRenderWindow::getPrimaryMonitor() {
+	if (!graphicsInitializer.Init()) {
+		return ffw::Monitor();
+	}
+	
 	GLFWmonitor* monitorPtr = glfwGetPrimaryMonitor();
 	Monitor primaryMonitor;
 	primaryMonitor.name.assign(glfwGetMonitorName(monitorPtr));
@@ -474,15 +482,15 @@ void ffw::GLFWRenderWindow::maximize(){
 }
 
 ///=============================================================================
-void* ffw::GLFWRenderWindow::getGlextFunc(const std::string& FunctionName) const {
+void* ffw::GLFWRenderWindow::getGlextFunc(const std::string& name) const {
 	if(!pimpl->initialized)return NULL;
-	return (void*)glfwGetProcAddress(FunctionName.c_str());
+	return (void*)glfwGetProcAddress(name.c_str());
 }
 
 ///=============================================================================
-bool ffw::GLFWRenderWindow::isGlextFuncPresent(const std::string& FunctionName) const {
+bool ffw::GLFWRenderWindow::isGlextExtSupported(const std::string& name) const {
 	if(!pimpl->initialized)return false;
-	return (getGlextFunc(FunctionName) != NULL);
+	return (glfwExtensionSupported(name.c_str()) == GLFW_TRUE);
 }
 
 ///=============================================================================

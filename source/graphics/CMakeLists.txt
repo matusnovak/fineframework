@@ -21,11 +21,16 @@ add_library(${PROJECT_NAME} ${BUILD_TYPE} ${SOURCES} ${HEADERS})
 if(APPLE)
   target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARY} ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY} glfw3 freetype z bz2)
 elseif(UNIX)
-  target_link_libraries(${PROJECT_NAME} GL GLU glfw3 Xi X11 Xxf86vm Xrandr Xcursor Xinerama freetype)
+  target_link_libraries(${PROJECT_NAME} GL GLU ${GLFW3_LIBRARY} Xi X11 Xxf86vm Xrandr Xcursor Xinerama ${FREETYPE_LIBRARY})
   include_directories(${PROJECT_NAME} /usr/include/freetype2)
 else()
   target_link_libraries(${PROJECT_NAME} glfw3 opengl32 freetype)
 endif()
+
+# Compile with static stdlib ?
+if(STATIC_STDLIB)
+  target_link_libraries(${PROJECT_NAME} -static-libgcc -static-libstdc++)
+endif(STATIC_STDLIB)
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   

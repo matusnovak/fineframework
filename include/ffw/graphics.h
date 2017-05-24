@@ -4,8 +4,6 @@
  */
 #ifndef FFW_GRAPHICS_MODULE
 #define FFW_GRAPHICS_MODULE
-#include "config.h"
-#include "constants.h"
 #include "graphics/bitmapfont.h"
 #include "graphics/bufferobject.h"
 #include "graphics/font.h"

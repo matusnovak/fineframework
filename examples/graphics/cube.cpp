@@ -179,7 +179,7 @@ public:
 			axis.normalize();
 
 			//std::cout << "axis: " << axis << std::endl;
-			eyesPos.aotateByAxis(eyesRot.y, axis);
+			eyesPos.rotateByAxis(eyesRot.y, axis);
 
 			viewMatrix = ffw::makeLookAtMatrix(eyesPos, ffw::Vec3f(0.0f, 0.0f, 0.0f), ffw::Vec3f(0.0f, 1.0f, 0.0f));
 		}

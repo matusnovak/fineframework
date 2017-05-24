@@ -1,7 +1,10 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/data/jsonfile.h"
+#include "ffw/math/stringmath.h"
 #include <fstream>
+#include <regex>
+#include <sstream>
 
 ///=============================================================================
 static bool loadTxt(const std::string& path, std::string* output){
@@ -171,14 +174,6 @@ static std::string escapeString(std::string Str, bool EscapeUnicode){
 
 ///=============================================================================
 static void encodeJSONFunc(std::ostream& output, const ffw::Var& var, bool Formated, std::string& Indent, bool EscapeUnicode){
-    /*if(varType == typeid(std::string)){
-        (*Output) += "\"" + escapeString(var.getAs<std::string>(), EscapeUnicode) + "\"";
-
-    } else if(varType == typeid(int)){
-        (*Output) += ffw::valToString(var.getAs<int>());
-
-    } else if(varType == typeid(float)){
-        (*Output) += ffw::valToString(var.getAs<float>());*/
 	if (var.empty()) {
 		output << "null";
 	}
@@ -264,54 +259,6 @@ static void encodeJSONFunc(std::ostream& output, const ffw::Var& var, bool Forma
 }
 
 ///=============================================================================
-static bool findInStringIgnoreWhite(const std::string& Input, const std::string& What, bool CaseSensitive, size_t Begin, size_t End){
-	if(What.size() == 0)return false;
-	bool gotWord = false;
-
-	//std::cout << "find in: " << Input.substr(Begin, End-Begin) << std::endl;
-	//std::cout << "case: " << CaseSensitive << std::endl;
-
-	for(size_t i = Begin; i < End; i++){
-		if(Input[i] == 32 || Input[i] == 9 || Input[i] == 13 || Input[i] == 10)continue;
-
-		//std::cout << "testing: " << Input[i] << " / " << int(Input[i]) << std::endl;
-		if(!gotWord && CaseSensitive && Input[i] == What[0] && i <= End-What.size()){
-			for(size_t t = 1; t < What.size(); t++){
-				if(Input[i+t] != What[t]){
-					//std::cout << "incorrect: " << Input[i+t] << " vs " << What[t] << std::endl;
-					return false;
-				}
-			}
-
-			//std::cout << "got word" << std::endl;
-			gotWord = true;
-			i += What.size()-1;
-			continue;
-		}
-
-		//std::cout << "Input: " << (char)tolower(Input[i]) << " what: " << (char)tolower(What[0]) << std::endl;
-		//std::cout << "i: " << i << " end: " << End << " size: " << What.size() << std::endl;
-		if(!gotWord && !CaseSensitive && tolower(Input[i]) == tolower(What[0]) && i <= End-What.size()){
-			for(size_t t = 1; t < What.size(); t++){
-				if(tolower(Input[i+t]) != tolower(What[t])){
-					//std::cout << "incorrect: " << Input[i+t] << " vs " << What[t] << std::endl;
-					return false;
-				}
-			}
-
-			//std::cout << "got word" << std::endl;
-			gotWord = true;
-			i += What.size()-1;
-			continue;
-		}
-
-		//std::cout << "unexpected: " << int(Input[i]) << std::endl;
-		return false;
-	}
-	return true;
-}
-
-///=============================================================================
 static size_t findFirstInWhitespace(const std::string& Input, char What, size_t Begin, size_t End){
 	for(size_t i = Begin; i < End; i++){
 		if(Input[i] == 32 || Input[i] == 9 || Input[i] == 13 || Input[i] == 10)continue;
@@ -336,7 +283,7 @@ static size_t findLastInWhitespace(const std::string& Input, char What, size_t B
 }
 
 ///=============================================================================
-static bool isString(const std::string& Input, size_t Begin, size_t End, size_t* BeginNew, size_t* EndNew){
+static bool checkForString(const std::string& Input, size_t Begin, size_t End, size_t* BeginNew, size_t* EndNew){
 	if(End == 0)return false;
 
 	// Check starting quote
@@ -372,104 +319,64 @@ static bool isString(const std::string& Input, size_t Begin, size_t End, size_t*
 }
 
 ///=============================================================================
-static bool isBoolean(const std::string& Input, size_t Begin, size_t End, bool* BoolValue){
-	if(findInStringIgnoreWhite(Input, "true", false, Begin, End)){
-		if(BoolValue != NULL)*BoolValue = true;
-		return true;
+static bool checkForBoolean(const std::string& str, size_t beg, size_t end, bool* value) {
+	static std::smatch match;
 
-	} else if(findInStringIgnoreWhite(Input, "false", false, Begin, End)){
-		if(BoolValue != NULL)*BoolValue = false;
+	if(std::regex_match(str.begin() + beg, str.begin() + end, match, std::regex("^\\s*[Tt][Rr][Uu][Ee]\\s*$"))) {
+		*value = true;
 		return true;
 	}
+
+	if (std::regex_match(str.begin() + beg, str.begin() + end, match, std::regex("^\\s*[Ff][Aa][Ll][Ss][Ee]\\s*$"))) {
+		*value = false;
+		return true;
+	}
+
 	return false;
 }
 
 ///=============================================================================
-static bool isNull(const std::string& Input, size_t Begin, size_t End){
-	return findInStringIgnoreWhite(Input, "null", false, Begin, End);
+static bool checkForHex(const std::string& str, size_t beg, size_t end) {
+	static std::smatch match;
+	
+	if (std::regex_match(str.begin() + beg, str.begin() + end, match, std::regex("^\\s*0[xX][0-9a-fA-F]+\\s*$"))) {
+		return true;
+	}
+
+	return false;
 }
 
 ///=============================================================================
-static bool isDecimal(const std::string& Input, size_t Begin, size_t End, size_t* BeginNew, size_t* EndNew){
-	size_t numberBegin = std::string::npos;
-	bool isHex = false;
-	bool gotDot = false;
+static bool checkForFloat(const std::string& str, size_t beg, size_t end) {
+	static std::smatch match;
 
-	for(size_t i = Begin; i < End; i++){
-		if(Input[i] == ' ' || Input[i] == 9 || Input[i] == 10 || Input[i] == 13)continue;
-		// Numbers starting with hex prefix "0x"
-		if(i < End-1 && Input[i] == '0' && (Input[i+1] == 'x' || Input[i+1] == 'X')){
-			numberBegin = i+2;
-			isHex = true;
-			if(BeginNew != NULL)*BeginNew = i;
-			break;
-		}
-		// Numbers starting with a decimal
-		if(Input[i] >= '0' && Input[i] <= '9'){
-			numberBegin = i;
-			if(BeginNew != NULL)*BeginNew = i;
-			break;
-		}
-		// Numbers starting with a dot
-		if(i < End-1 && Input[i] == '.' && Input[i+1] >= '0' && Input[i+1] <= '9'){
-			numberBegin = i;
-			gotDot = true;
-			if(BeginNew != NULL)*BeginNew = i;
-			break;
-		}
+	if (std::regex_match(str.begin() + beg, str.begin() + end, match, std::regex("^\\s*[-+]?[0-9]*\\.?[0-9]+([eE][-+]?[0-9]+)?\\s*$"))) {
+		return true;
 	}
 
-	if(numberBegin == std::string::npos)return false;
-	bool isEnd = false;
+	return false;
+}
 
-	//std::cout << "got number! isHex: " << isHex << std::endl;
-	if(EndNew != NULL)*EndNew = End;
+///=============================================================================
+static bool checkForInt(const std::string& str, size_t beg, size_t end) {
+	static std::smatch match;
 
-	if(isHex){
-		for(size_t i = numberBegin; i < End; i++){
-			if(Input[i] == ' ' || Input[i] == 9 || Input[i] == 10 || Input[i] == 13){
-				if(isEnd)continue;
-				if(EndNew != NULL)*EndNew = i;
-				isEnd = true;
-
-			} else if((Input[i] >= '0' && Input[i] <= '9') ||
-								(Input[i] >= 'a' && Input[i] <= 'f') ||
-								(Input[i] >= 'A' && Input[i] <= 'F')){
-				if(isEnd){
-					//std::cout << "unexpected token because it is an end! " << Input[i] << std::endl;
-					return false;
-				}
-			} else {
-				//std::cout << "unexpected token " << Input[i] << std::endl;
-				return false;
-			}
-		}
-	} else {
-		for(size_t i = numberBegin; i < End; i++){
-			if(Input[i] == ' ' || Input[i] == 9 || Input[i] == 10 || Input[i] == 13){
-				if(isEnd)continue;
-				if(EndNew != NULL)*EndNew = i;
-				isEnd = true;
-
-			} else if(Input[i] >= '0' && Input[i] <= '9'){
-				if(isEnd)return false;
-
-			// Check for multiple dots
-			} else if(Input[i] == '.'){
-				if(isEnd)return false;
-				if(i != numberBegin){
-					if(!gotDot)gotDot = true;
-					else return false;
-				}
-			} else if(Input[i] == 'f' || Input[i] == 'F' || Input[i] == 'd' || Input[i] == 'D' || Input[i] == 'l' || Input[i] == 'L'){
-				if(isEnd)return false;
-				if(EndNew != NULL)*EndNew = i+1;
-				isEnd = true;
-			}
-
-		}
+	if (std::regex_match(str.begin() + beg, str.begin() + end, match, std::regex("^\\s*[-+]?\\d+\\s*$"))) {
+		return true;
 	}
-	return true;
+
+	return false;
+}
+
+///=============================================================================
+static bool checkForNull(const std::string& str, size_t beg, size_t end) {
+	static std::smatch match;
+
+	if (std::regex_match(str.begin() + beg, str.begin() + end, match, std::regex("^\\s*[Nn][Uu][Ll][Ll]\\s*$"))) {
+		return true;
+	}
+
+	return false;
 }
 
 ///=============================================================================
@@ -536,13 +443,8 @@ static std::string getKey(const std::string& Input, size_t Begin, size_t Collon)
 ///=============================================================================
 static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t End, ffw::Var& Data){
 	if(Begin >= End){
-		//////std::cout << "begin & end error" << std::endl;
 		return;
 	}
-
-	//std::cout << "Parsing:" << std::endl;
-	//std::cout << ">" << Input.substr(Begin, End-Begin) << "<" << std::endl;
-	//std::cout << "previous: " << Data.typeid() << std::endl;
 
 	size_t begin = std::string::npos;
 	size_t end = std::string::npos;
@@ -551,95 +453,69 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 	size_t newBegin = 0;
 	size_t newEnd = 0;
 	bool boolValue = false;
+
 	// Find begin
 	if((begin = findFirstInWhitespace(Input, '{', Begin, End)) != std::string::npos &&
 	   (end   = findLastInWhitespace(Input, '}', Begin, End)) != std::string::npos){
 		// is object
-		//////std::cout << "is object!" << std::endl;
 		Data = ffw::Object();
 	} else if((begin = findFirstInWhitespace(Input, '[', Begin, End)) != std::string::npos &&
 	          (end   = findLastInWhitespace(Input, ']', Begin, End)) != std::string::npos){
 		// is array
-		//////std::cout << "is array!" << std::endl;
 		isArray = true;
 		Data = ffw::Array();
 	// Check if string
-	} else if(isString(Input, Begin, End, &newBegin, &newEnd)){
-		//////std::cout << "is string! \"" << Input.substr(newBegin, newEnd-newBegin) << "\"" << std::endl;
-		//std::cout << "\"" << Input.substr(newBegin, newEnd-newBegin) << "\"";
+	} else if(checkForString(Input, Begin, End, &newBegin, &newEnd)){
 		Data = parseStringSimple(Input.substr(newBegin, newEnd-newBegin));
 		return;
 
+	}
 	// Check if boolean
-	} else if(isBoolean(Input, Begin, End, &boolValue)){
-		//////std::cout << "is bool! " << (boolValue ? "true" : "false") << std::endl;
-		//std::cout << (boolValue ? "true" : "false");
+	else if (checkForBoolean(Input, Begin, End, &boolValue)) {
 		Data = boolValue;
 		return;
 
-	// Check if decimal
-	} else if(isDecimal(Input, Begin, End, &newBegin, &newEnd)){
 
-		// Hex number?
-		if((newEnd - newBegin > 1 && Input[newBegin] == '0' && Input[newBegin+1] == 'x') ||
-			 (newEnd - newBegin > 1 && Input[newBegin] == '0' && Input[newBegin+1] == 'X') ||
-			 (newEnd - newBegin > 0 && Input[newBegin] == 'X')){
-			//////std::cout << "is hex value! \"" << Input.substr(newBegin, newEnd-newBegin) << "\"" << std::endl;
-			//std::cout << Input.substr(newBegin, newEnd-newBegin);
-			Data = ffw::hexToVal<int>(Input.substr(newBegin, newEnd-newBegin));
-			return;
+	} 
+	// Check if hex
+	else if(checkForHex(Input, Begin, End)) {
+		Data = ffw::hexToVal<int>(Input.substr(Begin, End - Begin));
+		return;
+	}
+	// Check if integer
+	else if (checkForInt(Input, Begin, End)) {
+
+		try {
+			Data = ffw::stringToVal<int>(Input.substr(Begin, End - Begin));
 		}
-
-		// Integer or float?
-		bool isFloat = false;
-		for(size_t i = newBegin; i < newEnd; i++){
-			if(Input[i] == '.'){
-				isFloat = true;
-				break;
-			}
+		catch (const std::exception& e) {
+			Data = (int)0;
+			(void)e;
 		}
-
-		if(isFloat){
-			//////std::cout << "is float value! \"" << Input.substr(newBegin, newEnd-newBegin) << "\"" << std::endl;
-			//std::cout << Input.substr(newBegin, newEnd-newBegin);
-			try {
-				Data = ffw::stringToVal<float>(Input.substr(newBegin, newEnd-newBegin));
-			} catch(const std::exception& e){
-				(void)e;
-			}
-			return;
-
-		} else {
-			//////std::cout << "is integer value! \"" << Input.substr(newBegin, newEnd-newBegin) << "\"" << std::endl;
-			//std::cout << Input.substr(newBegin, newEnd-newBegin);
-			try {
-				Data = ffw::stringToVal<int>(Input.substr(newBegin, newEnd-newBegin));
-			} catch(const std::exception& e){
-				(void)e;
-			}
-			return;
+		return;
+	}
+	// Check if floating point
+	else if (checkForFloat(Input, Begin, End)) {
+		try {
+			Data = ffw::stringToVal<float>(Input.substr(Begin, End - Begin));
 		}
-
-	} else if(isNull(Input, Begin, End)){
-		//////std::cout << "is null!" << std::endl;
+		catch (const std::exception& e) {
+			Data = 0.0f;
+			(void)e;
+		}
+		return;
+	}
+	else if(checkForNull(Input, Begin, End)){
 		Data = nullptr;
-		//std::cout << "null";
 		return;
 
-
 	} else {
-		//std::cout << "begin: " << begin << std::endl;
-		//std::cout << "end: " << end << std::endl;
-		//////std::cout << "is unknown!" << std::endl;
-		Data = nullptr;
-		//std::cout << "error";
 		return;
 	}
 	begin++;
 	end--;
 
 	if(begin >= end){
-		//////std::cout << "begin & end error" << std::endl;
 		return;
 	}
 
@@ -647,39 +523,21 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 	std::vector<std::pair<size_t, size_t> > sections;
 	parseCommas(Input, begin, end, sections);
 
-	///std::cout << std::endl;
-
-	//for(const auto& sec : sections){
-		//////std::cout << "first: " << sec.first << " second: " << sec.second << std::endl;
-		//////std::cout << "str: " << Input.substr(sec.first, sec.second - sec.first) << std::endl;
-	//}
-	////////std::cout << std::endl;
-
 	// Parent is an array
 	if(isArray){
-
-		//std::cout << "parent is array: " << (Data.typeid() == typeid(ffw::Array)) << std::endl;
-
-		//std::cout << "[" << std::endl;
 		for(const auto& sec : sections){
-
-			Data.getAs<ffw::Array>().push_back(ffw::Var());
-			auto& child = Data.getAs<ffw::Array>().back();
-
+			ffw::Var child;
 			parseJsonRecursive(Input, sec.first, sec.second, child);
-			//std::cout << ",";
+			if(!child.empty()) {
+				Data.getAs<ffw::Array>().push_back(std::move(child));
+			}
 		}
-		//std::cout << std::endl << "]" << std::endl;
 
 	// Parent is a object
 	} else {
-
-		//std::cout << "parent is object: " << (Data.typeid() == typeid(ffw::Object)) << std::endl;
-
 		// for loop
 		// get collon of each section
 		// parse that section again without key
-		//std::cout << "{" << std::endl;
 		for(const auto& sec : sections){
 			//parseJsonRecursive(Input, sec.first, sec.second, false);
 			// get collon
@@ -690,16 +548,10 @@ static void parseJsonRecursive(const std::string& Input, size_t Begin, size_t En
 			std::string key = getKey(Input, sec.first, collon);
 			if(key.size() == 0)continue;
 
-			//////std::cout << "got key: " << key << std::endl;
-			//std::cout << "\"" << key << "\": ";
-
 			Data.getAs<ffw::Object>().insert(std::make_pair(key, ffw::Var()));
 			auto& child = Data.getAs<ffw::Object>()[key];
-
 			parseJsonRecursive(Input, collon+1, sec.second, child);
-			//std::cout << ", ";
 		}
-		//std::cout << std::endl << "}" << std::endl;
 	}
 }
 

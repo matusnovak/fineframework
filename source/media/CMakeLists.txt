@@ -21,7 +21,7 @@ add_library(${PROJECT_NAME} ${BUILD_TYPE} ${SOURCES} ${HEADERS})
 if(APPLE)
   target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
 elseif(UNIX)
-  target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
+  target_link_libraries(${PROJECT_NAME} ${PNG_LIBRARY} ${JPEG_LIBRARY} ${TIFF_LIBRARY} ${ZLIB_LIBRARY} lzma jbig)
 else()
   if(MSVC)
     target_link_libraries(${PROJECT_NAME} png jpeg debug tiffd optimized tiff z)
@@ -29,6 +29,11 @@ else()
     target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
   endif(MSVC)
 endif()
+
+# Compile with static stdlib ?
+if(STATIC_STDLIB)
+  target_link_libraries(${PROJECT_NAME} -static-libgcc -static-libstdc++)
+endif(STATIC_STDLIB)
   
 set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX ${CMAKE_DEBUG_POSTFIX})
   

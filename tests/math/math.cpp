@@ -2,6 +2,92 @@
 #define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 
+float multiply(float a, float b) {
+	return a * b;
+}
+
+std::string lowercase(std::string str) {
+	for(auto& c : str) {
+		c = tolower(c);
+	}
+	return str;
+}
+
+size_t delay(size_t ms) {
+	// Do something for a small period of time
+
+	// This should be Sleep or any kind of sleep function,
+	// but for the purpose of the test we can use this dummy for loop.
+	for (volatile size_t i = 0; i < 100000 * ms; i++) {}
+	return ms;
+}
+
+class Test {
+public:
+	float multiply(float a, float b) {
+		return a * b * c;
+	}
+
+	std::string lowercase(std::string str) {
+		for (auto& c : str) {
+			c = tolower(c);
+		}
+		return str + extra;
+	}
+	
+	float c; // Some extra member value
+	std::string extra;
+};
+
+TEST_CASE("Run thread on global static function", "[Thread]") {
+	SECTION("Multiply floats") {
+		ffw::Thread<float(float, float)> thread;
+		REQUIRE(thread.run(&::multiply, 5.0f, 3.0f));
+		thread.join();
+		REQUIRE(thread.getResult() == Approx(15.0f));
+	}
+
+	SECTION("Convert to lower case") {
+		ffw::Thread<std::string(std::string)> thread;
+		REQUIRE(thread.run(&::lowercase, "Hello World"));
+		thread.join();
+		REQUIRE(thread.getResult() == "hello world");
+	}
+}
+
+TEST_CASE("Run thread on member function", "[Thread]") {
+	SECTION("Multiply floats") {
+		Test test;
+		test.c = 2.0f;
+
+		ffw::Thread<float(float, float)> thread;
+		REQUIRE(thread.run(&Test::multiply, &test, 5.0f, 3.0f));
+		thread.join();
+		REQUIRE(thread.getResult() == Approx(30.0f));
+	}
+
+	SECTION("Convert to lower case") {
+		Test test;
+		test.extra = " extra";
+
+		ffw::Thread<std::string(std::string)> thread;
+		REQUIRE(thread.run(&Test::lowercase, &test, "Hello World"));
+		thread.join();
+		REQUIRE(thread.getResult() == "hello world extra");
+	}
+}
+
+TEST_CASE("Run thread on sleep function", "[Thread]") {
+	ffw::Thread<size_t(size_t)> thread;
+	REQUIRE(thread.run(&::delay, 1000));
+	REQUIRE(thread.isRunning() == true);
+	std::cout << "waiting for thread to finish..." << std::endl;
+	thread.join();
+	std::cout << "thread done" << std::endl;
+	REQUIRE(thread.getResult() == 1000);
+	REQUIRE(thread.isRunning() == false);
+}
+
 TEST_CASE("Testing Vec2", "[Vec2]") {
 	{
 		ffw::Vec2i vec;
@@ -429,7 +515,7 @@ TEST_CASE("Testing Vec3", "[Vec3]") {
 
 	{
 		ffw::Vec3f vec(0.0f, 1.0f, 1.0f);
-		vec.aotateByAxis(30.0f, ffw::Vec3f(0.2f, 0.8f, 0.6f));
+		vec.rotateByAxis(30.0f, ffw::Vec3f(0.2f, 0.8f, 0.6f));
 		REQUIRE(std::fabs(vec.x - 0.134128f) < 0.01f);
 		REQUIRE(std::fabs(vec.y - 0.912248f) < 0.01f);
 		REQUIRE(std::fabs(vec.z - 1.072294f) < 0.01f);
@@ -1098,6 +1184,14 @@ TEST_CASE("Testing getFileInfo", "[FileInfo]") {
 		REQUIRE("image" == info.base);
 		REQUIRE("png" == info.ext);
 	}
+
+	{
+		std::string path = "C:/Hello/world\\file.txt";
+		auto info = ffw::getFileInfo(path);
+		REQUIRE("C:/Hello/world\\" == info.dir);
+		REQUIRE("file" == info.base);
+		REQUIRE("txt" == info.ext);
+	}
 }
 
 TEST_CASE("Testing Var", "[Var]") {
@@ -1175,7 +1269,7 @@ TEST_CASE("Testing Var Object", "[VarObject]") {
 	ffw::Object o;
 	REQUIRE(o.size() == 0);
 
-	o = {"hello", 123};
+	o = { {"hello", 123} };
 	REQUIRE(o.size() == 1);
 
 	ffw::Var copy;
@@ -1574,13 +1668,13 @@ TEST_CASE("Testing containImage", "[Math]") {
 TEST_CASE("Testing RingBuffer", "[RingBuffer]") {
 	ffw::RingBuffer<int> buffer;
 
-	REQUIRE(buffer.Size() == 0);
+	REQUIRE(buffer.getSize() == 0);
 	REQUIRE(buffer.back() == NULL);
 	REQUIRE(buffer.range() == 0);
 
 	buffer.create(8);
 
-	REQUIRE(buffer.Size() == 0);
+	REQUIRE(buffer.getSize() == 0);
 	REQUIRE(buffer.back() == NULL);
 	REQUIRE(buffer.range() == 8);
 
@@ -1601,26 +1695,26 @@ TEST_CASE("Testing RingBuffer", "[RingBuffer]") {
 	for (int i = 1; i < 9; i++) {
 		REQUIRE(*buffer.back() == i);
 		int popped;
-		REQUIRE(buffer.Pop(&popped) == true);
+		REQUIRE(buffer.pop(&popped) == true);
 		REQUIRE(popped == i);
-		REQUIRE(buffer.Size() == (8 - i));
+		REQUIRE(buffer.getSize() == (8 - i));
 	}
 
-	REQUIRE(buffer.Size() == 0);
+	REQUIRE(buffer.getSize() == 0);
 	REQUIRE(buffer.back() == NULL);
 	REQUIRE(buffer.range() == 8);
 
 
 	REQUIRE(buffer.push(42) == true);
-	REQUIRE(buffer.Size() == 1);
+	REQUIRE(buffer.getSize() == 1);
 	buffer.reset();
 
-	REQUIRE(buffer.Size() == 0);
+	REQUIRE(buffer.getSize() == 0);
 	REQUIRE(buffer.back() == NULL);
 	REQUIRE(buffer.range() == 8);
 
 	buffer.clear();
-	REQUIRE(buffer.Size() == 0);
+	REQUIRE(buffer.getSize() == 0);
 	REQUIRE(buffer.back() == NULL);
 	REQUIRE(buffer.range() == 0);
 }

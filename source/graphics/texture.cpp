@@ -88,37 +88,42 @@ bool ffw::Texture::generateMipmaps(){
 
 ///=============================================================================
 void ffw::Texture::setEnvParami(GLenum target, GLenum name, GLint value){
+	glBindTexture(textureformat_, buffer_);
     glTexEnvi(target, name, value);
 }
 
 ///=============================================================================
 void ffw::Texture::setEnvParamf(GLenum target, GLenum name, GLfloat value){
+	glBindTexture(textureformat_, buffer_);
     glTexEnvf(target, name, value);
 }
 
 ///=============================================================================
 void ffw::Texture::setTexParami(GLenum name, GLint value){
+	glBindTexture(textureformat_, buffer_);
     glTexParameteri(textureformat_, name, value);
 }
 
 ///=============================================================================
 void ffw::Texture::setTexParamf(GLenum name, GLfloat value){
+	glBindTexture(textureformat_, buffer_);
     glTexParameterf(textureformat_, name, value);
 }
 
 ///=============================================================================
 void ffw::Texture::setTexParamiv(GLenum name, GLint* value){
+	glBindTexture(textureformat_, buffer_);
     glTexParameteriv(textureformat_, name, value);
 }
 
 ///=============================================================================
 void ffw::Texture::setTexParamfv(GLenum name, GLfloat* value){
+	glBindTexture(textureformat_, buffer_);
     glTexParameterfv(textureformat_, name, value);
 }
 
 ///=============================================================================
 void ffw::Texture::setFiltering(Texture::Filtering filtering) {
-	bind();
 	switch (filtering) {
 		case Texture::Filtering::NEAREST: {
 			setTexParami(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -138,6 +143,34 @@ void ffw::Texture::setFiltering(Texture::Filtering filtering) {
 		case Texture::Filtering::MIPMAP_LINEAR: {
 			setTexParami(GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 			setTexParami(GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+			break;
+		}
+		default: {
+			break;
+		}
+	}
+}
+
+///=============================================================================
+void ffw::Texture::setWrapping(Texture::Wrapping wrapping){
+	bind();
+	switch (wrapping) {
+		case Texture::Wrapping::REPEAT: {
+			setTexParami(GL_TEXTURE_WRAP_S, GL_REPEAT);
+			setTexParami(GL_TEXTURE_WRAP_T, GL_REPEAT);
+			setTexParami(GL_TEXTURE_WRAP_R, GL_REPEAT);
+			break;
+		}
+		case Texture::Wrapping::MIRRORED_REPEAT: {
+			setTexParami(GL_TEXTURE_WRAP_S, GL_MIRRORED_REPEAT);
+			setTexParami(GL_TEXTURE_WRAP_T, GL_MIRRORED_REPEAT);
+			setTexParami(GL_TEXTURE_WRAP_R, GL_MIRRORED_REPEAT);
+			break;
+		}
+		case Texture::Wrapping::CLAMP_TO_EDGE: {
+			setTexParami(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+			setTexParami(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+			setTexParami(GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 			break;
 		}
 		default: {

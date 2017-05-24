@@ -2,20 +2,24 @@
 #ifndef FFW_GL_EXTENSIONS
 #define FFW_GL_EXTENSIONS
 #include "../config.h"
-#if defined(FFW_WINDOWS_MSVC)
-// Evil windows.h
-#define NOMINMAX
-#include "windows.h"
-#undef NOMINMAX
-#endif
+
 #ifdef FFW_OSX
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 #include <OpenGL/gl3.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/gl.h>
 #else
+#ifndef WINGDIAPI
+#define WINGDIAPI __declspec(dllimport)
+#define APIENTRY _stdcall
 #include "GL/gl.h"
 #include "GL/glext.h"
+#undef WINGDIAPI
+#undef APIENTRY
+#else
+#include "GL/gl.h"
+#include "GL/glext.h"
+#endif
 #endif
 #if GL_GLEXT_VERSION < 20150623 && !defined(FFW_OSX)
 #error Outdated glext.h! Expected version 20150623 or newer!
@@ -155,11 +159,11 @@ namespace ffw{
         PFNGLISBUFFERPROC glisBuffer;
         PFNGLBUFFERDATAPROC glBufferData;
         PFNGLBUFFERSUBDATAPROC glBufferSubData;
-        PFNGLGETBUFFERSUBDATAPROC glGetHandleSubData;
+        PFNGLGETBUFFERSUBDATAPROC glGetBufferSubData;
         PFNGLMAPBUFFERPROC glMapBuffer;
         PFNGLUNMAPBUFFERPROC glUnmapBuffer;
-        PFNGLGETBUFFERPARAMETERIVPROC glGetHandleParameteriv;
-        PFNGLGETBUFFERPOINTERVPROC glGetHandlePointerv;
+        PFNGLGETBUFFERPARAMETERIVPROC glGetBufferParameteriv;
+        PFNGLGETBUFFERPOINTERVPROC glGetBufferPointerv;
         #endif
         // Group GL_VERSION_2_0
         #if GL_VERSION_2_0 == 1
@@ -332,7 +336,7 @@ namespace ffw{
         PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
         PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
         PFNGLGETRENDERBUFFERPARAMETERIVPROC glGetRenderbufferParameteriv;
-        PFNGLISFRAMEBUFFERPROC glisFramebuffer;
+        PFNGLISFRAMEBUFFERPROC glIsFramebuffer;
         PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
         PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
         PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;
@@ -383,7 +387,7 @@ namespace ffw{
 		PFNGLGETINTEGER64VPROC glGetInteger64v;
 		PFNGLGETSYNCIVPROC glGetSynciv;
 		PFNGLGETINTEGER64I_VPROC glGetInteger64i_v;
-		PFNGLGETBUFFERPARAMETERI64VPROC glGetHandleParameteri64v;
+		PFNGLGETBUFFERPARAMETERI64VPROC glGetBufferParameteri64v;
 		PFNGLFRAMEBUFFERTEXTUREPROC glFramebufferTexture;
 		PFNGLTEXIMAGE2DMULTISAMPLEPROC glTexImage2DMultisample;
 		PFNGLTEXIMAGE3DMULTISAMPLEPROC glTexImage3DMultisample;
@@ -1069,11 +1073,11 @@ namespace ffw{
         PFNGLISBUFFERARBPROC glisBufferARB;
         PFNGLBUFFERDATAARBPROC glBufferDataARB;
         PFNGLBUFFERSUBDATAARBPROC glBufferSubDataARB;
-        PFNGLGETBUFFERSUBDATAARBPROC glGetHandleSubDataARB;
+        PFNGLGETBUFFERSUBDATAARBPROC glGetBufferSubDataARB;
         PFNGLMAPBUFFERARBPROC glMapBufferARB;
         PFNGLUNMAPBUFFERARBPROC glUnmapBufferARB;
-        PFNGLGETBUFFERPARAMETERIVARBPROC glGetHandleParameterivARB;
-        PFNGLGETBUFFERPOINTERVARBPROC glGetHandlePointervARB;
+        PFNGLGETBUFFERPARAMETERIVARBPROC glGetBufferParameterivARB;
+        PFNGLGETBUFFERPOINTERVARBPROC glGetBufferPointervARB;
         #endif
         // Group GL_ARB_vertex_program
         #if GL_ARB_vertex_program == 1
@@ -2708,7 +2712,7 @@ namespace ffw{
         PFNGLMAKENAMEDBUFFERRESIDENTNVPROC glMakeNamedBufferResidentNV;
         PFNGLMAKENAMEDBUFFERNONRESIDENTNVPROC glMakeNamedBufferNonResidentNV;
         PFNGLISNAMEDBUFFERRESIDENTNVPROC glisNamedBufferResidentNV;
-        PFNGLGETBUFFERPARAMETERUI64VNVPROC glGetHandleParameterui64vNV;
+        PFNGLGETBUFFERPARAMETERUI64VNVPROC glGetBufferParameterui64vNV;
         PFNGLGETNAMEDBUFFERPARAMETERUI64VNVPROC glGetNamedBufferParameterui64vNV;
         PFNGLGETINTEGERUI64VNVPROC glGetIntegerui64vNV;
         PFNGLUNIFORMUI64NVPROC glUniformui64NV;
@@ -3251,11 +3255,11 @@ namespace ffw{
 		PFNGLISBUFFERPROC glisBuffer;
 		PFNGLBUFFERDATAPROC glBufferData;
 		PFNGLBUFFERSUBDATAPROC glBufferSubData;
-		PFNGLGETBUFFERSUBDATAPROC glGetHandleSubData;
+		PFNGLGETBUFFERSUBDATAPROC glGetBufferSubData;
 		PFNGLMAPBUFFERPROC glMapBuffer;
 		PFNGLUNMAPBUFFERPROC glUnmapBuffer;
-		PFNGLGETBUFFERPARAMETERIVPROC glGetHandleParameteriv;
-		PFNGLGETBUFFERPOINTERVPROC glGetHandlePointerv;
+		PFNGLGETBUFFERPARAMETERIVPROC glGetBufferParameteriv;
+		PFNGLGETBUFFERPOINTERVPROC glGetBufferPointerv;
 		#endif
 		#if GL_VERSION_2_0 == 1
 		PFNGLBLENDEQUATIONSEPARATEPROC glBlendEquationSeparate;
@@ -3428,7 +3432,7 @@ namespace ffw{
 		#endif
 		#if GL_VERSION_3_2 == 1
 		PFNGLGETINTEGER64I_VPROC glGetInteger64i_v;
-		PFNGLGETBUFFERPARAMETERI64VPROC glGetHandleParameteri64v;
+		PFNGLGETBUFFERPARAMETERI64VPROC glGetBufferParameteri64v;
 		PFNGLFRAMEBUFFERTEXTUREPROC glFramebufferTexture;
 		#endif
 		#if GL_VERSION_3_3 == 1

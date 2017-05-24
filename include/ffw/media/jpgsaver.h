@@ -20,7 +20,7 @@ namespace ffw {
 		bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100) override;
 		size_t writeRow(const void* src) override;
 		bool writeFooter() override;
-		virtual void close();
+		void close() override;
 
 	private:
 		struct jpg_struct_s;

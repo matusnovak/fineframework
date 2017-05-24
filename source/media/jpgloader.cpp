@@ -77,11 +77,7 @@ ffw::JpgLoader::~JpgLoader(){
 bool ffw::JpgLoader::open(const std::string& path){
 	if(loaded)return false;
 
-#ifdef FFW_WINDOWS
-	input = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "rb");
-#else
 	input = fopen(path.c_str(), "rb");
-#endif
 
 	if(!input){
 		return false;
@@ -176,7 +172,7 @@ size_t ffw::JpgLoader::readRow(void* dest){
     if(dest == NULL)return 0;
 
 	JSAMPROW row_pointer[1];
-	row_pointer[0] = (unsigned char*)dest;
+	row_pointer[0] = (decltype(row_pointer[0]))dest;
 	jpeg_read_scanlines(&jpg_struct->cinfo, row_pointer, 1);
 	row++;
 

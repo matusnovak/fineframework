@@ -61,11 +61,7 @@ bool ffw::PngSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			return false;
 	}
 
-#ifdef FFW_WINDOWS
-	output  = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "wb");
-#else
 	output = fopen(path.c_str(), "wb");
-#endif
 
 	if(!output){
 		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;

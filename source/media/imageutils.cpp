@@ -13,6 +13,7 @@
 #include "ffw/media/tgasaver.h"
 #include "ffw/media/tifloader.h"
 #include "ffw/media/tifsaver.h"
+#include "ffw/math/stringmath.h"
 #include <memory>
 
 ///=============================================================================
@@ -140,7 +141,7 @@ ffw::ImageBuffer ffw::readImage(const std::string& path) {
 
 ///=============================================================================
 bool ffw::writeImage(const std::string& path, const ffw::ImageBuffer& image, int quality){
-	if(image == NULL)return false;
+	if(!image.isAllocated())return false;
 
 	ffw::ImageWriter* saver = openImageWriter(path, image.getWidth(), image.getHeight(), image.getImageType(), quality);
 	if(saver == NULL)return false;

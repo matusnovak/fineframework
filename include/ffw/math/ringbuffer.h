@@ -1,7 +1,8 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_RING_BUFFER
 #define FFW_RING_BUFFER
-
+#include "../config.h"
+#include <atomic>
 namespace ffw{
 	/**
 	 * @ingroup math
@@ -45,7 +46,7 @@ namespace ffw{
 			return true;
 		}
 
-		inline bool Pop(T* Item) {
+		inline bool pop(T* Item) {
 			size_t current = head.load();
 			if (current == tail.load())return false;
 			*Item = elements[current];
@@ -77,10 +78,6 @@ namespace ffw{
 				return currentTail - currentHead;
 			}
 			return size - currentHead + currentTail + 1;
-		}
-
-		inline size_t Size() const {
-			return getSize();
 		}
 
 		inline bool isFull() const {

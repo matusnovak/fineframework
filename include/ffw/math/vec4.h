@@ -1,6 +1,8 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_VEC4
 #define FFW_VEC4
+#include "../config.h"
+#include <limits>
 
 namespace ffw {
 	/**
@@ -265,6 +267,38 @@ namespace ffw {
 	 * @ingroup math
 	 */
     typedef Vec4<double> Vec4d;
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline T dot(const ffw::Vec4<T>& V1, const ffw::Vec4<T>& V2) {
+		return (V1.x*V2.x + V1.y*V2.y + V1.z*V2.z + V1.w*V2.w);
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline T distance(const Vec4<T>& v1, const Vec4<T>& v2) {
+		auto v = v2 - v1;
+		return static_cast<T>(v.length());
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline Vec4<T> middle(const Vec4<T>& v1, const Vec4<T>& v2) {
+		auto v = (v2 - v1) / 2.0;
+		return v1 + v;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline ffw::Vec4<T> normalize(const Vec4<T>& vec) {
+		auto copy = vec;
+		copy.normalize();
+		return copy;
+	}
 };
 namespace ffw {
 	template <>

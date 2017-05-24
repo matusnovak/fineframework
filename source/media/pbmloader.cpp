@@ -1,6 +1,8 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/media/pbmloader.h"
+#include "ffw/math/stringmath.h"
+#include "ffw/math/functions.h"
 
 ///=============================================================================
 ffw::PbmLoader::PbmLoader(){
@@ -33,11 +35,7 @@ ffw::PbmLoader::~PbmLoader(){
 bool ffw::PbmLoader::open(const std::string& path){
 	if(loaded)return false;
 
-#ifdef FFW_WINDOWS
-	input->open(wstrToAnsi(utf8ToWstr(path)), std::ios::in | std::ios::binary);
-#else
 	input->open(path, std::ios::in | std::ios::binary);
-#endif
 
 	if(!input->is_open()){
 		return false;
