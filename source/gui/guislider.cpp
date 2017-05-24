@@ -2,6 +2,7 @@
 
 #include "ffw/gui/guislider.h"
 #include "ffw/gui/guiwindow.h"
+#include "ffw/math/functions.h"
 
 ///=============================================================================
 ffw::GuiSlider::GuiSlider(GuiWindow* context, bool vertical_):GuiWidget(context),vertical(vertical_){

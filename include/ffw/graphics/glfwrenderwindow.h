@@ -1,6 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_GLFW_RENDER_WINDOW
 #define FFW_GLFW_RENDER_WINDOW
+#include "../math/vec2.h"
 #include "renderwindow.h"
 #include "monitors.h"
 
@@ -110,8 +111,8 @@ namespace ffw {
 		void poolEvents() override;
 		void waitForEvents() override;
 		bool isInitialized() const override;
-        void* getGlextFunc(const std::string& functionname) const override;
-        bool isGlextFuncPresent(const std::string& functionname) const override;
+        void* getGlextFunc(const std::string& name) const override;
+        bool isGlextExtSupported(const std::string& name) const override;
         void setSwapInterval(int interval);
 		void shouldClose(bool close) override;
 		void show() override;

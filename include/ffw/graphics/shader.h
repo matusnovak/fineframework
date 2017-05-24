@@ -2,21 +2,28 @@
 #ifndef FFW_GRAPHICS_SHADER
 #define FFW_GRAPHICS_SHADER
 #include "../config.h"
-#include "../math.h"
-#if defined(FFW_WINDOWS_MSVC)
-// Evil windows.h
-#define NOMINMAX
-#include "windows.h"
-#undef NOMINMAX
-#endif
+#include "../math/vec2.h"
+#include "../math/vec3.h"
+#include "../math/vec4.h"
+#include "../math/color.h"
+#include "../math/mat4.h"
 #ifdef FFW_OSX
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 #include <OpenGL/gl3.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/gl.h>
 #else
+#ifndef WINGDIAPI
+#define WINGDIAPI __declspec(dllimport)
+#define APIENTRY _stdcall
 #include "GL/gl.h"
 #include "GL/glext.h"
+#undef WINGDIAPI
+#undef APIENTRY
+#else
+#include "GL/gl.h"
+#include "GL/glext.h"
+#endif
 #endif
 #include <string>
 

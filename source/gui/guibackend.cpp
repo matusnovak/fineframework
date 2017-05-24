@@ -1,6 +1,7 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/gui/guibackend.h"
+#include "ffw/math/functions.h"
 
 ///=============================================================================
 void ffw::GuiBackend::drawBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle::Background& background, bool ignore) const {

@@ -13,6 +13,7 @@
 #include "ffw/media/tgasaver.h"
 #include "ffw/media/tifloader.h"
 #include "ffw/media/tifsaver.h"
+#include "ffw/math/stringmath.h"
 #include <memory>
 
 ///=============================================================================

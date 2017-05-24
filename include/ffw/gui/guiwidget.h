@@ -3,7 +3,10 @@
 #define FFW_GUI_WIDGET
 #include "guifont.h"
 #include "guitheme.h"
+#include "../math/stringmath.h"
+#include "../math/functions.h"
 #include <functional>
+#include <vector>
 namespace ffw {
 	class GuiWindow;
 	class GuiWidget;

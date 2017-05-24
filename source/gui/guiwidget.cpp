@@ -2,6 +2,7 @@
 
 #include "ffw/gui/guiwidget.h"
 #include "ffw/gui/guiwindow.h"
+#include <assert.h>
 
 ///=============================================================================
 static ffw::Vec4i RectangleBoolean(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const ffw::Vec2i& childpos, const ffw::Vec2i& childsize){

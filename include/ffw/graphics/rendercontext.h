@@ -1,6 +1,8 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_RENDER_CONTEXT
 #define FFW_RENDER_CONTEXT
+#include "../math/color.h"
+#include "../math/mat4.h"
 #include "renderextensionsgl.h"
 #include "shader.h"
 #include "texture2d.h"
@@ -21,9 +23,10 @@ namespace ffw {
 		 */
 		virtual void* getGlextFunc(const std::string& name) const = 0;
 		/**
-		 * @brief Returns true if the GL extension function is present
+		 * @brief Returns true if the GL extension is suported
+		 * @details Checks if an GLEXT extension is supported, for example "GL_ARB_debug_output"
 		 */
-		virtual bool isGlextFuncPresent(const std::string& name) const = 0;
+		virtual bool isGlextExtSupported(const std::string& name) const = 0;
 		/**
 		 * @brief Sets the viewport dimensions and position
 		 */

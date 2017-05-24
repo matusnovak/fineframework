@@ -1,8 +1,10 @@
 /*** This file is part of FineFramework project ***/
 
 #include "ffw/data/jsonfile.h"
+#include "ffw/math/stringmath.h"
 #include <fstream>
 #include <regex>
+#include <sstream>
 
 ///=============================================================================
 static bool loadTxt(const std::string& path, std::string* output){

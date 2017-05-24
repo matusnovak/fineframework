@@ -1,6 +1,9 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_VEC3
 #define FFW_VEC3
+#include "../config.h"
+#include "quaternion.h"
+#include <limits>
 
 namespace ffw {
 	/**
@@ -325,6 +328,77 @@ namespace ffw {
 	 * @ingroup math
 	 */
     typedef Vec3<double> Vec3d;
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline T dot(const ffw::Vec3<T>& V1, const ffw::Vec3<T>& V2) {
+		return (V1.x*V2.x + V1.y*V2.y + V1.z*V2.z);
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline ffw::Vec3<T> cross(const ffw::Vec3<T>& V1, const ffw::Vec3<T>& V2) {
+		ffw::Vec3<T> product;
+		product.x = V1.y*V2.z - V1.z*V2.y;
+		product.y = V1.z*V2.x - V1.x*V2.z;
+		product.z = V1.x*V2.y - V1.y*V2.x;
+		return product;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline T distance(const Vec3<T>& v1, const Vec3<T>& v2) {
+		auto v = v2 - v1;
+		return static_cast<T>(v.length());
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline Vec3<T> middle(const Vec3<T>& v1, const Vec3<T>& v2) {
+		auto v = (v2 - v1) / 2.0;
+		return v1 + v;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline ffw::Vec3<T> normalize(const Vec3<T>& vec) {
+		auto copy = vec;
+		copy.normalize();
+		return copy;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline double angle(const ffw::Vec3<T>& V1, const ffw::Vec3<T>& V2) {
+		double dot = (V1.x*V2.x + V1.y*V2.y + V1.z*V2.z);
+		double V1Length = sqrt(V1.x*V1.x + V1.y*V1.y + V1.z*V1.z);
+		double V2Length = sqrt(V2.x*V2.x + V2.y*V2.y + V2.z*V2.z);
+		return static_cast<double>(acos(dot / (V1Length*V2Length))*RAD_TO_DEG);
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline double AngleRad(const ffw::Vec3<T>& V1, const ffw::Vec3<T>& V2) {
+		double dot = (V1.x*V2.x + V1.y*V2.y + V1.z*V2.z);
+		double V1Length = sqrt(V1.x*V1.x + V1.y*V1.y + V1.z*V1.z);
+		double V2Length = sqrt(V2.x*V2.x + V2.y*V2.y + V2.z*V2.z);
+		return static_cast<double>(acos(dot / (V1Length*V2Length)));
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline std::ostream& operator << (std::ostream& os, const ffw::Vec3<T>& vec) {
+		os << vec.x << ", " << vec.y << ", " << vec.z;
+		return os;
+	}
 };
 namespace ffw {
 	template <>

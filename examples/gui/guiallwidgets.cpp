@@ -1,10 +1,9 @@
 #include <ffw/graphics.h>
 #include <ffw/gui.h>
 #include <ffw/gui/guiwindowopengl.h>
-#include <chrono>
-#include <thread>
 #include <regex>
 #include <fstream>
+#include <memory>
 
 ///=============================================================================
 class App: public ffw::GLFWRenderWindow {

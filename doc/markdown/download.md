@@ -9,15 +9,15 @@ The linux version has been compiled with statically linked libraries: libglfw3, 
 
 | File name | Operating System | Compiler |
 |-----------|------------------|----------|
-| [ffw-mingw.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-mingw.zip)                             | Windows  | MinGW (32-bit)              |
-| [ffw-i686-w64-mingw32.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-i686-w64-mingw32.zip)       | Windows  | MinGW-w64 i686 (32-bit)     |
-| [ffw-x86_64-w64-mingw32.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-x86_64-w64-mingw32.zip)   | Windows  | MinGW-w64 x86_64 (64-bit)   |
-| [ffw-win32-vc12.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-win32-vc12.zip)                   | Windows  | Visual Studio 2013 (32-bit) |
-| [ffw-win64-vc12.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-win64-vc12.zip)                   | Windows  | Visual Studio 2013 (64-bit) |
-| [ffw-win32-vc14.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-win32-vc14.zip)                   | Windows  | Visual Studio 2015 (32-bit) |
-| [ffw-win64-vc14.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-win64-vc14.zip)                   | Windows  | Visual Studio 2015 (64-bit) |
-| [ffw-x86_64-linux-gnu.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-x86_64-linux-gnu.zip)       | Linux    | GCC (64-bit)                |
-| [ffw-x86_64-apple-darwin.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.2/ffw-x86_64-apple-darwin.zip) | Mac OS X | Clang (64-bit)              |
+| [ffw-mingw.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-mingw.zip)                             | Windows  | MinGW (32-bit)              |
+| [ffw-i686-w64-mingw32.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-i686-w64-mingw32.zip)       | Windows  | MinGW-w64 i686 (32-bit)     |
+| [ffw-x86_64-w64-mingw32.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-x86_64-w64-mingw32.zip)   | Windows  | MinGW-w64 x86_64 (64-bit)   |
+| [ffw-win32-vc12.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-win32-vc12.zip)                   | Windows  | Visual Studio 2013 (32-bit) |
+| [ffw-win64-vc12.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-win64-vc12.zip)                   | Windows  | Visual Studio 2013 (64-bit) |
+| [ffw-win32-vc14.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-win32-vc14.zip)                   | Windows  | Visual Studio 2015 (32-bit) |
+| [ffw-win64-vc14.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-win64-vc14.zip)                   | Windows  | Visual Studio 2015 (64-bit) |
+| [ffw-x86_64-linux-gnu.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-x86_64-linux-gnu.zip)       | Linux    | GCC (64-bit)                |
+| [ffw-x86_64-apple-darwin.zip](https://github.com/matusnovak/fineframework/releases/download/v0.2.3/ffw-x86_64-apple-darwin.zip) | Mac OS X | Clang (64-bit)              |
 
 Source Code
 -----------

@@ -13,8 +13,12 @@ std::string lowercase(std::string str) {
 	return str;
 }
 
-size_t sleep(size_t ms) {
-	ffw::sleep(ms);
+size_t delay(size_t ms) {
+	// Do something for a small period of time
+
+	// This should be Sleep or any kind of sleep function,
+	// but for the purpose of the test we can use this dummy for loop.
+	for (volatile size_t i = 0; i < 100000 * ms; i++) {}
 	return ms;
 }
 
@@ -75,7 +79,7 @@ TEST_CASE("Run thread on member function", "[Thread]") {
 
 TEST_CASE("Run thread on sleep function", "[Thread]") {
 	ffw::Thread<size_t(size_t)> thread;
-	REQUIRE(thread.run(&::sleep, 1000));
+	REQUIRE(thread.run(&::delay, 1000));
 	REQUIRE(thread.isRunning() == true);
 	std::cout << "waiting for thread to finish..." << std::endl;
 	thread.join();

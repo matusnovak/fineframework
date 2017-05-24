@@ -2,7 +2,7 @@
 #ifndef FFW_GUI_FONT
 #define FFW_GUI_FONT
 #include "../config.h"
-#include "../math.h"
+#include "../math/vec2.h"
 namespace ffw {
 	/**
 	 * @ingroup gui

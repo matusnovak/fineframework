@@ -4,6 +4,9 @@
 #define VECTOR_BUCKET_SIZE 256
 #include <string.h>
 #include <limits.h>
+#include "ffw/math/functions.h"
+#include "ffw/math/vec2.h"
+#include "ffw/math/stringmath.h"
 
 ///=============================================================================
 ffw::ObjLoader::ObjLoader(){
@@ -117,7 +120,7 @@ inline void insetValue(std::vector<ffw::Vec3f>& vec, ffw::Vec3f& val) {
 }
 
 inline float fastFloat(const char* begin) {
-	return atof(begin);
+	return (float)atof(begin);
 }
 
 inline int fastAtoi(const char* begin) {

@@ -2,7 +2,7 @@
 #ifndef FFW_LOAD_SAVE_JSON
 #define FFW_LOAD_SAVE_JSON
 #include "../config.h"
-#include "../math.h"
+#include "../math/var.h"
 
 namespace ffw{
 	/**

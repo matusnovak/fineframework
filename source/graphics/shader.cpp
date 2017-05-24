@@ -8,11 +8,8 @@
 static bool loadTxt(const std::string& path, std::string* output){
 	if(output == NULL)return false;
 
-#ifdef FFW_WINDOWS
-	std::ifstream input(ffw::wstrToAnsi(ffw::utf8ToWstr(path)), std::ios::in | std::ios::binary);
-#else
 	std::ifstream input(path, std::ios::in | std::ios::binary);
-#endif
+
 	if(!input)return false;
 
 	input.seekg(0, std::ios::end);

@@ -2,8 +2,7 @@
 #ifndef FFW_LOAD_SAVE_CSV
 #define FFW_LOAD_SAVE_CSV
 #include "../config.h"
-#include "../math.h"
-
+#include "../math/var.h"
 #include <fstream>
 
 namespace ffw{

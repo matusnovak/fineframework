@@ -2,21 +2,24 @@
 #ifndef FFW_TEXTURE_BASE
 #define FFW_TEXTURE_BASE
 #include "../config.h"
-#include "../math.h"
-#if defined(FFW_WINDOWS_MSVC)
-// Evil windows.h
-#define NOMINMAX
-#include "windows.h"
-#undef NOMINMAX
-#endif
+
 #ifdef FFW_OSX
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 #include <OpenGL/gl3.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/gl.h>
 #else
+#ifndef WINGDIAPI
+#define WINGDIAPI __declspec(dllimport)
+#define APIENTRY _stdcall
 #include "GL/gl.h"
 #include "GL/glext.h"
+#undef WINGDIAPI
+#undef APIENTRY
+#else
+#include "GL/gl.h"
+#include "GL/glext.h"
+#endif
 #endif
 
 namespace ffw {

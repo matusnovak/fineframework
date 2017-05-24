@@ -2,9 +2,12 @@
 #ifndef FFW_MEDIA_OBJ_LOADER
 #define FFW_MEDIA_OBJ_LOADER
 #include "../config.h"
-#include "../math.h"
+#include "../math/vec3.h"
+#include "../math/vec2.h"
+#include "../swapwrapper.h"
 #include <fstream>
-
+#include <string>
+#include <vector>
 namespace ffw{
 	/**
 	* @ingroup media

@@ -4,7 +4,7 @@
 #define FFW_FT_UNICODE_MAX 65535
 
 #include "../config.h"
-#include "../math.h"
+#include "../math/vec2.h"
 #include "texture2d.h"
 #include "bufferobject.h"
 

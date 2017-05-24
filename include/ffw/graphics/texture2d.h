@@ -1,6 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_TEXTURE_2D
 #define FFW_TEXTURE_2D
+#include "../math/imagebuffer.h"
 #include "texture.h"
 
 namespace ffw {

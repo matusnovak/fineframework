@@ -77,11 +77,7 @@ ffw::JpgLoader::~JpgLoader(){
 bool ffw::JpgLoader::open(const std::string& path){
 	if(loaded)return false;
 
-#ifdef FFW_WINDOWS
-	input = fopen(wstrToAnsi(utf8ToWstr(path)).c_str(), "rb");
-#else
 	input = fopen(path.c_str(), "rb");
-#endif
 
 	if(!input){
 		return false;

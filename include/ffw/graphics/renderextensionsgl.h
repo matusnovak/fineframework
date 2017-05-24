@@ -2,20 +2,24 @@
 #ifndef FFW_GL_EXTENSIONS
 #define FFW_GL_EXTENSIONS
 #include "../config.h"
-#if defined(FFW_WINDOWS_MSVC)
-// Evil windows.h
-#define NOMINMAX
-#include "windows.h"
-#undef NOMINMAX
-#endif
+
 #ifdef FFW_OSX
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 #include <OpenGL/gl3.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/gl.h>
 #else
+#ifndef WINGDIAPI
+#define WINGDIAPI __declspec(dllimport)
+#define APIENTRY _stdcall
 #include "GL/gl.h"
 #include "GL/glext.h"
+#undef WINGDIAPI
+#undef APIENTRY
+#else
+#include "GL/gl.h"
+#include "GL/glext.h"
+#endif
 #endif
 #if GL_GLEXT_VERSION < 20150623 && !defined(FFW_OSX)
 #error Outdated glext.h! Expected version 20150623 or newer!
@@ -332,7 +336,7 @@ namespace ffw{
         PFNGLGENRENDERBUFFERSPROC glGenRenderbuffers;
         PFNGLRENDERBUFFERSTORAGEPROC glRenderbufferStorage;
         PFNGLGETRENDERBUFFERPARAMETERIVPROC glGetRenderbufferParameteriv;
-        PFNGLISFRAMEBUFFERPROC glisFramebuffer;
+        PFNGLISFRAMEBUFFERPROC glIsFramebuffer;
         PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer;
         PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers;
         PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers;

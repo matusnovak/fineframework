@@ -1,6 +1,8 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_VEC2
 #define FFW_VEC2
+#include "../config.h"
+#include <limits>
 
 namespace ffw {
 	/**
@@ -233,6 +235,67 @@ namespace ffw {
 	 * @ingroup math
 	 */
     typedef Vec2<double> Vec2d;
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline T dot(const ffw::Vec2<T>& V1, const ffw::Vec2<T>& V2) {
+		return (V1.x*V2.x + V1.y*V2.y);
+	}
+	/**
+	* @ingroup math
+	* @bug Some random bug
+	*/
+	template <class T>
+	inline T distance(const Vec2<T>& v1, const Vec2<T>& v2) {
+		auto v = v2 - v1;
+		return static_cast<T>(v.length());
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline Vec2<T> middle(const Vec2<T>& v1, const Vec2<T>& v2) {
+		auto v = (v2 - v1) / 2.0;
+		return v1 + v;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline ffw::Vec2<T> normalize(const Vec2<T>& vec) {
+		auto copy = vec;
+		copy.normalize();
+		return copy;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline double angle(const ffw::Vec2<T>& V1, const ffw::Vec2<T>& V2) {
+		double dot = (V1.x*V2.x + V1.y*V2.y);
+		double V1Length = sqrt(V1.x*V1.x + V1.y*V1.y);
+		double V2Length = sqrt(V2.x*V2.x + V2.y*V2.y);
+		return static_cast<double>(acos(dot / (V1Length*V2Length))*RAD_TO_DEG);
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline double AngleRad(const ffw::Vec2<T>& V1, const ffw::Vec2<T>& V2) {
+		double dot = (V1.x*V2.x + V1.y*V2.y);
+		double V1Length = sqrt(V1.x*V1.x + V1.y*V1.y);
+		double V2Length = sqrt(V2.x*V2.x + V2.y*V2.y);
+		return static_cast<double>(acos(dot / (V1Length*V2Length)));
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline std::ostream& operator << (std::ostream& os, const ffw::Vec2<T>& vec) {
+		os << vec.x << ", " << vec.y;
+		return os;
+	}
 };
 
 namespace ffw {

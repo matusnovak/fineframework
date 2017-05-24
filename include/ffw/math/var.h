@@ -1,12 +1,13 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_VAR
 #define FFW_VAR
-
+#include "../config.h"
 #include <typeinfo>
 #include <string>
 #include <string.h>
 #include <unordered_map>
 #include <memory>
+#include <vector>
 
 namespace ffw {
 	class Array;

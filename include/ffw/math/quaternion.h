@@ -1,6 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_Quat
 #define FFW_Quat
+#include "../config.h"
 
 namespace ffw {
 	/**
@@ -239,5 +240,26 @@ namespace ffw {
 	 * @ingroup math
 	 */
 	typedef Quat<double> Quatd;
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline ffw::Quat<T> normalize(const Quat<T>& Q) {
+		ffw::Quat<T> result;
+		float n = 1.0f / sqrt(Q.x*Q.x + Q.y*Q.y + Q.z*Q.z + Q.w*Q.w);
+		result.x = Q.x * n;
+		result.y = Q.y * n;
+		result.z = Q.z * n;
+		result.w = Q.w * n;
+		return result;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline std::ostream& operator << (std::ostream& os, const ffw::Quat<T>& quat) {
+		os << quat.x << ", " << quat.y << ", " << quat.z << ", " << quat.w;
+		return os;
+	}
 };
 #endif

@@ -482,15 +482,15 @@ void ffw::GLFWRenderWindow::maximize(){
 }
 
 ///=============================================================================
-void* ffw::GLFWRenderWindow::getGlextFunc(const std::string& FunctionName) const {
+void* ffw::GLFWRenderWindow::getGlextFunc(const std::string& name) const {
 	if(!pimpl->initialized)return NULL;
-	return (void*)glfwGetProcAddress(FunctionName.c_str());
+	return (void*)glfwGetProcAddress(name.c_str());
 }
 
 ///=============================================================================
-bool ffw::GLFWRenderWindow::isGlextFuncPresent(const std::string& FunctionName) const {
+bool ffw::GLFWRenderWindow::isGlextExtSupported(const std::string& name) const {
 	if(!pimpl->initialized)return false;
-	return (getGlextFunc(FunctionName) != NULL);
+	return (glfwExtensionSupported(name.c_str()) == GLFW_TRUE);
 }
 
 ///=============================================================================

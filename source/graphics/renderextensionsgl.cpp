@@ -316,7 +316,7 @@ void ffw::RenderExtensions::loadExtensions(glextLoader Loader){
         GET_GL_EXT_FUNC(PFNGLGENRENDERBUFFERSPROC, glGenRenderbuffers);
         GET_GL_EXT_FUNC(PFNGLRENDERBUFFERSTORAGEPROC, glRenderbufferStorage);
         GET_GL_EXT_FUNC(PFNGLGETRENDERBUFFERPARAMETERIVPROC, glGetRenderbufferParameteriv);
-        GET_GL_EXT_FUNC(PFNGLISFRAMEBUFFERPROC, glisFramebuffer);
+        GET_GL_EXT_FUNC(PFNGLISFRAMEBUFFERPROC, glIsFramebuffer);
         GET_GL_EXT_FUNC(PFNGLBINDFRAMEBUFFERPROC, glBindFramebuffer);
         GET_GL_EXT_FUNC(PFNGLDELETEFRAMEBUFFERSPROC, glDeleteFramebuffers);
         GET_GL_EXT_FUNC(PFNGLGENFRAMEBUFFERSPROC, glGenFramebuffers);

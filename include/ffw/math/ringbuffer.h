@@ -1,7 +1,8 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_RING_BUFFER
 #define FFW_RING_BUFFER
-
+#include "../config.h"
+#include <atomic>
 namespace ffw{
 	/**
 	 * @ingroup math

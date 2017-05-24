@@ -1,20 +1,25 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_STRING_MATH
 #define FFW_STRING_MATH
-
+#include "../config.h"
+#include "tokenizer.h"
 #include <string>
+#include <sstream>
+#include <vector>
+#include <algorithm>
+#include <stdexcept>
 
-namespace ffw{
+namespace ffw {
 	/**
 	 * @ingroup math
 	 */
 	template<class T>
 	class FileInfo {
 	public:
-		FileInfo(){
+		FileInfo() {
 		}
-		FileInfo(const T& name, const T& dir, const T& ext):
-			base(name),dir(dir),ext(ext){
+		FileInfo(const T& name, const T& dir, const T& ext) :
+			base(name), dir(dir), ext(ext) {
 		}
 		const T base;
 		const T dir;
@@ -22,7 +27,7 @@ namespace ffw{
 	};
 	/**
 	* @ingroup math
-	* @exception Throws std::invalid_argument (invalid conversion) 
+	* @exception Throws std::invalid_argument (invalid conversion)
 	* or std::out_of_range (conversion is out of the range)
 	*/
 	template <class T> inline T stringToVal(const std::string& str);
@@ -123,9 +128,9 @@ namespace ffw{
 	*/
 	template<class T, typename CharTrait = std::char_traits<T>, typename Allocator = std::allocator<T>>
 	size_t getTokensFunc(
-			std::vector<std::basic_string<T, CharTrait, Allocator>>* vec,
-			const std::basic_string<T, CharTrait, Allocator>& str,
-			const std::basic_string<T, CharTrait, Allocator>& delim) {
+		std::vector<std::basic_string<T, CharTrait, Allocator>>* vec,
+		const std::basic_string<T, CharTrait, Allocator>& str,
+		const std::basic_string<T, CharTrait, Allocator>& delim) {
 		Tokenizer<T> tokenizer(str, delim);
 		std::basic_string<T, CharTrait, Allocator> temp;
 		size_t cnt = 0;
@@ -211,9 +216,9 @@ namespace ffw{
 
 		size_t back = std::min(path.find_last_of(T('\\')), std::basic_string<T, CharTrait, Allocator>::npos);
 		size_t slash = std::min(path.find_last_of(T('/')), std::basic_string<T, CharTrait, Allocator>::npos);
-		if(slash < back && back != std::basic_string<T, CharTrait, Allocator>::npos)slash = back;
-		if(slash == std::basic_string<T, CharTrait, Allocator>::npos)slash = back;
-		
+		if (slash < back && back != std::basic_string<T, CharTrait, Allocator>::npos)slash = back;
+		if (slash == std::basic_string<T, CharTrait, Allocator>::npos)slash = back;
+
 		//size_t slash = std::min(path.find_last_of(T('\\')), path.find_last_of(T('/')));
 		if (slash == std::string::npos) {
 			// Check if drive
@@ -484,26 +489,5 @@ namespace ffw{
 	inline std::wstring valToWstring(T Value, unsigned int Dec) {
 		return utf8ToWstr(valToString(Value, Dec));
 	}
-
-#if defined(FFW_WINDOWS)
-	/**
-	* @ingroup math
-	*/
-	inline std::string wstrToAnsi(const std::wstring& Str) {
-		auto size = WideCharToMultiByte(CP_ACP, 0, Str.c_str(), (int)Str.size(), NULL, 0, NULL, NULL);
-		std::string out(size, ' ');
-		WideCharToMultiByte(CP_ACP, 0, Str.c_str(), (int)Str.size(), &out[0], (int)size, 0, 0);
-		return out;
-	}
-	/**
-	* @ingroup math
-	*/
-	inline std::wstring ansiToWstr(const std::string& Str) {
-		auto size = MultiByteToWideChar(CP_ACP, 0, Str.c_str(), (int)Str.size(), NULL, 0);
-		std::wstring out(size, L' ');
-		MultiByteToWideChar(CP_ACP, 0, Str.c_str(), (int)Str.size(), &out[0], (int)size);
-		return out;
-	}
-#endif
 };
 #endif

@@ -2,7 +2,7 @@
 #ifndef FFW_GL_MONITORS
 #define FFW_GL_MONITORS
 #include "../config.h"
-#include "../math.h"
+#include "../math/vec3.h"
 #include <string>
 #include <vector>
 

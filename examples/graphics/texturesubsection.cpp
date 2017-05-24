@@ -1,4 +1,5 @@
 #include <ffw/graphics.h>
+#include <ffw/math.h>
 #include <fstream>
 
 #define TEXTURE_SIZE (512*512*3)

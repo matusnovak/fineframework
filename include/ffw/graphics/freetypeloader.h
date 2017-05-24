@@ -3,7 +3,6 @@
 #define FFW_GRAPHICS_FREE_TYPE_LOADER
 
 #include "../config.h"
-#include "../math.h"
 
 #if defined(__FT_HEADER_H__) || defined(FREETYPE_H_)
 // Nothing

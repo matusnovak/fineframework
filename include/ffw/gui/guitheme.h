@@ -2,8 +2,12 @@
 #ifndef FFW_GUI_THEME
 #define FFW_GUI_THEME
 #include "../config.h"
-#include "../math.h"
 #include "guiimage.h"
+#include "../math/color.h"
+#include "../math/vec2.h"
+#include "../math/vec3.h"
+#include "../math/vec4.h"
+#include <map>
 namespace ffw {
 	/**
 	* @ingroup gui

@@ -2,6 +2,9 @@
 #include "ffw/graphics/rendercontext.h"
 #include "ffw/graphics/font.h"
 #include "ffw/graphics/texture2d.h"
+#include "ffw/math/mvp.h"
+#include "ffw/math/mathconstants.h"
+#include "ffw/math/functions.h"
 
 #define STRINGIFY(x) #x
 

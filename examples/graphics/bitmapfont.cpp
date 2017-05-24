@@ -1,5 +1,6 @@
 #include <ffw/graphics.h>
 #include <fstream>
+#include <cstring>
 #define NUM_OF_LINES (8)
 #define TEXTURE_SIZE (512*512*4)
 
