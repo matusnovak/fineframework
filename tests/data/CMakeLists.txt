@@ -4,6 +4,8 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 link_directories(${CMAKE_BINARY_DIR}/Debug)
 link_directories(${CMAKE_BINARY_DIR}/Release)
 link_directories(${CMAKE_BINARY_DIR})
+include_directories(${CMAKE_BINARY_DIR}/libraries/include)
+link_directories(${CMAKE_BINARY_DIR}/libraries/lib)
 
 file(COPY sample.csv DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY sample.csv DESTINATION ${CMAKE_BINARY_DIR}/tests/data)

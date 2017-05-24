@@ -4,6 +4,8 @@ project (finemedia)
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
 link_directories(${CMAKE_BINARY_DIR}/Debug)
 link_directories(${CMAKE_BINARY_DIR}/Release)
+include_directories(${CMAKE_EXTRA_INCLUDE_DIRS})
+link_directories(${CMAKE_EXTRA_LINK_DIRS})
 
 FILE(GLOB SOURCES *.cpp)
 FILE(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ffw/media/*.h)
