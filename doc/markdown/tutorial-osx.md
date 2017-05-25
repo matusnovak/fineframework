@@ -1,38 +1,63 @@
 FFW with GCC on OSX
 -----------------------------------------
 
-This tutorial will explain how to include any FFW module into your C++ project. You will need GCC compiler 4.9.2 or newer! You can check your GCC version by typing `gcc --version` GCC is no part of OSX by default, you will need to download and install XCode.
+This tutorial will explain how to include any FFW module into your C++ project. You will need Clang++ compiler 3.7 or newer!  You will also need to install [Homebrew](https://brew.sh/)
 
-### Installing FFW
+### Installing dependencies
 
-**There are two options to install FineFramework:**
-
-(recommended) You can either download precompiled library files from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent release and download the **ffw-x86_64-osx-clang.zip** zip file! All necessary third party libraries were statically linked, therefore there is no need to download them.
-
-Or, you can download the source code and build it by yourself.
-
-### Installing FFW using precompiled library files
-
-Download the most recent **ffw-x86_64-osx-clang.zip** zip file from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases) and extract it anywhere in your system.
-
-Now, you will need to copy contents of the `lib` folder inside the extracted zip file into `/usr/local/lib` and contents of the `include` folder into `/usr/local/include`
-
-Normally, when compiling a library from source using makefile, it offers you an option `sudo make install` which will do all the necessary steps for you.
-
-### Installing FFW by building it from the source code
-
-Compiling the source code requires third party libraries (dependencies). You can either compile them by yourself or you can download them from [GitHub Release Page](https://github.com/matusnovak/fineframework/releases) Look for "Dependencies" and download **x86_64-osx-clang.zip** the zip file contains `include` and `lib` folder. Extract the contents of the `include` folder into `/usr/local/include` and contents of the `lib` folder into `/usr/local/lib`
-
-Next, download source code from [GitHub as ZIP](https://github.com/matusnovak/fineframework/archive/master.zip) and extract it anywhere in your system. Use CMake to cofigure the project and then compile it using make. To install it, simply run `sudo make install` Don't forget to use `sudo` when installing, the `/usr/local` folder requires sudo permissions.
+First, you will need to install Clang++ compiler (alias GCC) by running [Homebrew](https://brew.sh/):
 
 ```
-cd /path/to/fineframework
-mkdir build
-cd build
-cmake ..
-make all
-sudo make install
+$ brew install --with-clang llvm
+$ brew install cmake
 ```
+
+To test if you have Clang++ 3.7 or newer, simply run:
+
+```
+$ clang++ --version
+```
+
+You will need the following install the following libraries via [Homebrew](https://brew.sh/):
+
+```
+$ brew install freetype libpng libjpeg libtiff zlib glfw
+```
+
+You can check if they are all present by executing `ls /usr/local/lib`
+
+### Installing FFW (building from source code)
+
+Clone (or download as zip or tar file) and run cmake by running the following commands:
+
+```
+$ cd ~ # Go to the home directory
+$ git clone https://github.com/matusnovak/fineframework.git # Will create a "fineframework" directory
+$ mkdir fineframework/build
+$ cd fineframework/build
+$ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+```
+
+Make sure that the dependencies (third party libraries) are found. The `LIBRARY-NOTFOUND` will be displayed if the given library was not found.
+
+```
+# The following output will be printed by cmake 
+-- glfw3 library path: /usr/local/lib/libglfw.dylib
+-- freetype library path: /usr/local/lib/libfreetype.dylib
+-- png library path: /usr/local/lib/libpng.dylib
+-- jpeg library path: /usr/local/lib/libjpeg.dylib
+-- tiff library path: /usr/local/lib/libtiff.dylib
+-- zlib library path: /usr/lib/libz.dylib
+```
+
+Lastly, compile and install:
+
+```
+$ make all
+$ make install
+```
+
+That's it!
 
 ### Your first code
 
@@ -43,8 +68,8 @@ Your configuration is done, now test the project to make sure everything works. 
 Now compile it using g++
 
 ```
-$ g++ -c example.cpp -o example.o -std=c++11 -I/usr/local/include
-$ g++ -o example example.o -lfinegraphics -L/usr/local/lib
+$ clang++ -c example.cpp -o example.o -std=c++11 -I/usr/local/include
+$ clang++ -o example example.o -lfinegraphics -L/usr/local/lib
 $ ./example
 ```
 

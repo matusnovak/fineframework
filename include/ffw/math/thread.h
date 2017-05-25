@@ -85,7 +85,7 @@ namespace ffw {
 #else
 			running.store(true);
 			int err = 0;
-			if (err = pthread_create(&t, NULL, &Thread::threadFunc, this)) {
+			if ((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
 				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}
@@ -229,7 +229,7 @@ namespace ffw {
 #else
 			running.store(true);
 			int err = 0;
-			if (err = pthread_create(&t, NULL, &Thread::threadFunc, this)) {
+			if ((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
 				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}
