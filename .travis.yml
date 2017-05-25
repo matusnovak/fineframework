@@ -15,19 +15,8 @@ addons:
             - cmake
             
 before_install:
-  - echo $LANG
-  - echo $LC_ALL
-  - if [ $TRAVIS_OS_NAME = linux ]; then 
-       sudo apt-get install xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev -y;
-       sudo curl -o /usr/include/GL/glext.h https://www.opengl.org/registry/api/GL/glext.h;
-       git clone https://github.com/glfw/glfw;
-       mkdir buildglfw && cd buildglfw;
-       cmake ../glfw && make && sudo make install;
-       cd ..;
-     fi;
-   - if [ $TRAVIS_OS_NAME = osx ]; then
-       brew install freetype libpng libjpeg libtiff zlib glfw -y || true;
-     fi
+  - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev -y && sudo curl -o /usr/include/GL/glext.h https://www.opengl.org/registry/api/GL/glext.h && git clone https://github.com/glfw/glfw && mkdir buildglfw && cd buildglfw&& cmake ../glfw && make && sudo make install && cd ..; fi
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew install freetype libpng libjpeg libtiff zlib glfw -y || true; fi
 
 script:
   - gcc -v && g++ -v && cmake --version
