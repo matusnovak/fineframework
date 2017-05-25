@@ -24,7 +24,7 @@ before_install:
        mkdir buildglfw && cd buildglfw;
        cmake ../glfw && make && sudo make install;
        cd ..;
-     fi
+     fi;
    - if [ $TRAVIS_OS_NAME = osx ]; then
        brew install freetype libpng libjpeg libtiff zlib glfw -y || true;
      fi
