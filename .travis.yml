@@ -6,14 +6,13 @@ matrix:
     - compiler: clang
       os: osx
       
+dist: trusty
 addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - gcc-6
-      - g++-6
-      - cmake
+    apt:
+        sources:
+            - kubuntu-backports
+        packages:
+            - cmake
       
 install:
   - echo "Installing..."
