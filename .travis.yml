@@ -16,7 +16,9 @@ addons:
       
 install:
   - echo "Installing..."
-  - sudo apt-get install xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev libglfw3-dev -y
+  - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev -y; fi
+  - if [ $TRAVIS_OS_NAME = osx ]; then brew install freetype libpng libjpeg libtiff zlib glfw -y; fi
+  - if [ $TRAVIS_OS_NAME = linux ]; then git clone https://github.com/glfw/glfw && mkdir build && cd build && cmake ../glfw && make && sudo make install; fi
   
 script:
   - echo "Bulding..."
