@@ -21,7 +21,7 @@ add_library(${PROJECT_NAME} ${BUILD_TYPE} ${SOURCES} ${HEADERS})
   
 # Dependencies
 if(APPLE)
-  target_link_libraries(${PROJECT_NAME} png jpeg tiff z)
+  target_link_libraries(${PROJECT_NAME} ${PNG_LIBRARY} ${JPEG_LIBRARY} ${TIFF_LIBRARY} ${ZLIB_LIBRARY})
 elseif(UNIX)
   target_link_libraries(${PROJECT_NAME} ${PNG_LIBRARY} ${JPEG_LIBRARY} ${TIFF_LIBRARY} ${ZLIB_LIBRARY} lzma jbig)
 else()

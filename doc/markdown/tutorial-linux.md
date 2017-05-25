@@ -18,7 +18,7 @@ To test if you have GCC 4.9.2 or newer, simply run:
 $ gcc --version
 ```
 
-You will need the following install the following libraries, depending on the module you wish to use.
+You will need the following install the third party libraries.
 
 > *Note:* Graphics module also needs GLFW v3.2 library. Downloading GLFW with sudo apt-get install libglfw3-dev might download older version! However, the precompiled version of the finegraphics.so has statically linked GLFW3, so there is no need to download it.
 

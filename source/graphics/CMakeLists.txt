@@ -21,7 +21,7 @@ add_library(${PROJECT_NAME} ${BUILD_TYPE} ${SOURCES} ${HEADERS})
   
 # Dependencies
 if(APPLE)
-  target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARY} ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY} ${GLFW3_LIBRARY} ${FREETYPE_LIBRARY} ${ZLIB_LIBRARY} bz2)
+  target_link_libraries(${PROJECT_NAME} ${OPENGL_LIBRARY} ${COCOA_LIBRARY} ${IOKIT_LIBRARY} ${COREVIDEO_LIBRARY} ${GLFW3_LIBRARY} ${FREETYPE_LIBRARY} ${ZLIB_LIBRARY} ${BZ2_LIBRARY})
   include_directories(${PROJECT_NAME} /usr/local/include/freetype2)
 elseif(UNIX)
   target_link_libraries(${PROJECT_NAME} GL GLU ${GLFW3_LIBRARY} Xi X11 Xxf86vm Xrandr Xcursor Xinerama ${FREETYPE_LIBRARY})
