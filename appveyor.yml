@@ -61,7 +61,7 @@ test_script:
     cd C:\projects\fineframework\build
 
 
-    if "%MAKE%"=="mingw32-make.exe" (ctest -v)
+    if "%MAKE%"=="mingw32-make.exe" (ctest -CC)
 
 
     if "%MAKE%"=="MSBuild.exe" (MSBuild.exe /p:Configuration=Debug "RUN_TESTS.vcxproj" /verbosity:minimal && MSBuild.exe /p:Configuration=Release "RUN_TESTS.vcxproj" /verbosity:minimal)
