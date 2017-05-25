@@ -7,27 +7,7 @@
 #include "../math/vec4.h"
 #include "../math/color.h"
 #include "../math/mat4.h"
-#ifdef FFW_OSX
-#define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
-#include <OpenGL/gl3.h>
-#include <OpenGL/glext.h>
-#include <OpenGL/gl.h>
-#else
-#ifndef WINGDIAPI
-#define WINGDIAPI __declspec(dllimport)
-#define APIENTRY _stdcall
-#include "GL/gl.h"
-#include "GL/glext.h"
-#undef WINGDIAPI
-#undef APIENTRY
-#else
-#ifndef APIENTRY
-#define APIENTRY
-#endif
-#include "GL/gl.h"
-#include "GL/glext.h"
-#endif
-#endif
+#include "renderextensionsgl.h"
 #include <string>
 
 namespace ffw {

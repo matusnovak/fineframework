@@ -8,7 +8,6 @@
 #include "renderbuffer2dms.h"
 
 namespace ffw {
-    class RenderContext;
 	/**
 	 * @ingroup graphics
 	 */

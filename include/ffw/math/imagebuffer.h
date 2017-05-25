@@ -3,6 +3,7 @@
 #define FFW_MATH_IMAGE_BUFFER
 #include "../config.h"
 #include "vec4.h"
+#include <cstring>
 
 namespace ffw {
 	/**

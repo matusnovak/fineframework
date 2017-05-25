@@ -3,12 +3,13 @@
 #define FFW_GL_EXTENSIONS
 #include "../config.h"
 
-#ifdef FFW_OSX
+#if defined(FFW_OSX)
 #define GL_DO_NOT_WARN_IF_MULTI_GL_VERSION_HEADERS_INCLUDED
 #include <OpenGL/gl3.h>
 #include <OpenGL/glext.h>
 #include <OpenGL/gl.h>
-#else
+
+#elif defined(FFW_WINDOWS)
 #ifndef WINGDIAPI
 #define WINGDIAPI __declspec(dllimport)
 #define APIENTRY _stdcall
@@ -17,16 +18,23 @@
 #undef WINGDIAPI
 #undef APIENTRY
 #else
-#ifndef APIENTRY
-#define APIENTRY
-#endif
 #include "GL/gl.h"
 #include "GL/glext.h"
 #endif
+
+
+#elif defined(FFW_LINUX)
+#include "GL/gl.h"
+#include "GL/glext.h"
+
+#else
+#error Something went wrong while including GL headers!
+
 #endif
+
 #if GL_GLEXT_VERSION < 20150623 && !defined(FFW_OSX)
 #error Outdated glext.h! Expected version 20150623 or newer!
-#endif
+#else
 
 namespace ffw{
 	/**
@@ -3744,4 +3752,5 @@ namespace ffw{
 #endif
     };
 };
+#endif
 #endif

@@ -2,7 +2,7 @@
 #ifndef FFW_GRAPHICS_DRAW
 #define FFW_GRAPHICS_DRAW
 #include "../config.h"
-#include "rendercontext.h"
+#include "renderextensionsgl.h"
 
 namespace ffw{
 	/**
