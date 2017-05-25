@@ -11,8 +11,12 @@ addons:
     apt:
         sources:
             - kubuntu-backports
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-precise-3.7
         packages:
             - cmake
+            - g++-4.9
+            - clang-3.7
             
 before_install:
   - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install curl xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev -y && sudo curl -o /usr/include/GL/glext.h https://www.khronos.org/registry/OpenGL/api/GL/glext.h && git clone https://github.com/glfw/glfw && mkdir buildglfw && cd buildglfw&& cmake ../glfw && make && sudo make install && cd ..; fi
