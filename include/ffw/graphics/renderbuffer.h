@@ -17,6 +17,9 @@
 #undef WINGDIAPI
 #undef APIENTRY
 #else
+#ifndef APIENTRY
+#define APIENTRY
+#endif
 #include "GL/gl.h"
 #include "GL/glext.h"
 #endif
