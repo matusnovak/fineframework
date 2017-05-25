@@ -17,12 +17,11 @@ addons:
 install:
   - if [ $TRAVIS_OS_NAME = linux ]; then sudo apt-get install xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev -y; fi
   - if [ $TRAVIS_OS_NAME = osx ]; then brew install freetype libpng libjpeg libtiff zlib glfw -y || true; fi
-  - if [ $TRAVIS_OS_NAME = linux ]; then mkdir ./deps && mkdir ./deps/glfw && git clone https://github.com/glfw/glfw ./deps && mkdir ./deps/build && cd ./deps/build && cmake ../glfw && make && sudo make install; fi
+  - if [ $TRAVIS_OS_NAME = linux ]; then git clone https://github.com/glfw/glfw && mkdir buildglfw && cd buildglfw && cmake ../glfw && make && sudo make install; && cd ..; fi
   
 script:
   - gcc -v && g++ -v && cmake --version
-  - if [ $TRAVIS_OS_NAME = linux ]; then cd /home/travis/build/matusnovak/fineframework && pwd && ls; fi
-  - if [ $TRAVIS_OS_NAME = osx ]; then cd /Users/travis/build/matusnovak/fineframework && pwd && ls; fi
+  - pwd && ls
   - mkdir build && cd build && cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release 
   - make all
   - echo "     " | make test
