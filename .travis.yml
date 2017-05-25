@@ -1,0 +1,33 @@
+language: cpp
+matrix:
+  include:
+    - compiler: gcc
+      os: linux
+    - compiler: clang
+      os: osx
+      
+install:
+  - git clone -q --branch=master https://github.com/matusnovak/fineframework.git
+  - ls
+  
+script:
+  - pwd && ls
+  - cd fineframework
+  - mkdir build
+  - cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release 
+  - make all
+  
+after_success:
+  - cd fineframework/build
+  - echo "     " | make test
+  
+branches:
+  only:
+  - master
+  
+notifications:
+    email:
+        recipients:
+            - matusnov@gmail.com
+    on_success: never
+    on_failure: always

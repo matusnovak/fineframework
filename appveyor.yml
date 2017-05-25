@@ -1,0 +1,67 @@
+version: '{build}'
+branches:
+  only:
+  - master
+image: Visual Studio 2015
+configuration: Release
+platform: Any CPU
+init:
+- cmd: >-
+    echo "Compiling with: %GENERATOR%"
+
+    echo "Using dependencies: %ARCH%-%TOOLSET%.zip"
+
+    dir C:\mingw-w64\
+environment:
+  matrix:
+  - TOOLSET: w64-mingw32
+    ARCH: i686
+    GENERATOR: '"MinGW Makefiles"'
+    MAKE: mingw32-make.exe
+    MINGW_DIR_BIN: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
+  - TOOLSET: w64-mingw32
+    ARCH: x86_64
+    GENERATOR: '"MinGW Makefiles"'
+    MAKE: mingw32-make.exe
+    MINGW_DIR_BIN: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
+  - TOOLSET: vc14
+    ARCH: win32
+    GENERATOR: '"Visual Studio 14 2015"'
+    MAKE: MSBuild.exe
+  - TOOLSET: vc14
+    ARCH: win64
+    GENERATOR: '"Visual Studio 14 2015 Win64"'
+    MAKE: MSBuild.exe
+install:
+- cmd: >-
+    mkdir C:\projects\dependencies
+
+    appveyor DownloadFile "https://github.com/matusnovak/fineframework/releases/download/v0.2.2-deps/%ARCH%-%TOOLSET%.zip"
+
+    7z x %ARCH%-%TOOLSET%.zip -oC:\projects\dependencies > nul
+build_script:
+- cmd: >-
+    mkdir C:\projects\fineframework\build
+
+
+    cd C:\projects\fineframework\build
+
+
+    SET PATH=%PATH:C:\Program Files\Git\usr\bin;=%
+
+    SET PATH=%PATH%;%MINGW_DIR_BIN%
+
+
+    if "%MAKE%"=="mingw32-make.exe" (gcc --version && cmake .. -G %GENERATOR% -DEXTRA_LIBRARY_DIR="C:\projects\dependencies\%ARCH%-%TOOLSET%" -DCMAKE_BUILD_TYPE=Release && mingw32-make.exe all)
+
+
+    if "%MAKE%"=="MSBuild.exe" (cmake .. -G %GENERATOR% -DEXTRA_LIBRARY_DIR="C:\projects\dependencies\%ARCH%-%TOOLSET%" && MSBuild.exe /p:Configuration=Debug "ALL_BUILD.vcxproj" /verbosity:minimal && MSBuild.exe /p:Configuration=Release "ALL_BUILD.vcxproj" /verbosity:minimal)
+test_script:
+- cmd: >-
+    cd C:\projects\fineframework\build
+
+
+    if "%MAKE%"=="mingw32-make.exe" (echo "     " | mingw32-make.exe test)
+
+
+    if "%MAKE%"=="MSBuild.exe" (MSBuild.exe /p:Configuration=Debug "RUN_TESTS.vcxproj" /verbosity:minimal && MSBuild.exe /p:Configuration=Release "RUN_TESTS.vcxproj" /verbosity:minimal)
