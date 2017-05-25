@@ -7,9 +7,12 @@ matrix:
       os: osx
       
 install:
-  - pwd && ls
+  - echo "Installing..."
   
 script:
+  - echo "Bulding..."
+  - pwd && ls
+  - cd fineframework
   - mkdir build
   - cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release 
   - make all
