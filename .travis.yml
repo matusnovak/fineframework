@@ -16,6 +16,7 @@ addons:
       
 install:
   - echo "Installing..."
+  - sudo apt-get install xorg-dev libglu1-mesa-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev libglfw3-dev -y
   
 script:
   - echo "Bulding..."
