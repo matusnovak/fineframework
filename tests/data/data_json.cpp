@@ -498,7 +498,7 @@ TEST_CASE("Decode JSON pairs #2", "[JSON]") {
 		REQUIRE(key.str() == "\"second\"");
 		REQUIRE(node.str() == "20");
 		REQUIRE(key.isString() == true);
-		REQUIRE_NOTHROW(REQUIRE(key.toString() == "first"));
+		REQUIRE_NOTHROW(REQUIRE(key.toString() == "second"));
 
 		REQUIRE(json.stepOut());
 	}
