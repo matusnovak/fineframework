@@ -1,130 +1,83 @@
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html;charset=UTF-8">
-<meta name="description" content="FineFramework (FFW) is an open source framework written in C++ designed for developing applications." />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<link rel="stylesheet" type="text/css" href="material.css">
-<link rel="stylesheet" type="text/css" href="docs.css">
-<script src="jquery.js"></script>
-<script src="material.min.js"></script>
-<script src="dynsections.js"></script>
-<title>FineFramework - Documentation</title>
-</head>
-<body>
-  <!-- Always shows a header, even in smaller screens. -->
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-	  <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600 is-casting-shadow">
-		<div class="mdl-layout__header-row">
-		  <!-- Title -->
-		  <span class="mdl-layout-title"><a href="index.html"><img src="logo.png"></a></span>
-		  <!-- add spacer, to align navigation to the right -->
-		  <div class="mdl-layout-spacer"></div>
-		  <!-- Navigation. We hide it in small screens. -->
-		  <nav class="mdl-navigation mdl-layout--large-screen-only">
-			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
-			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-button mdl-button--raised mdl-button--colored" href="md_doc_markdown_download.html">Download</a>
-		  </nav>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="FineFramework (FFW) is an open source framework written in C++ designed for developing applications." />
+		<meta name="author" content="Matus Novak">
+		<link rel="icon" href="favicon.ico">
+		<title>FineFramework - Documentation</title>
+		<!-- Bootstrap core CSS -->
+		<link href="bootstrap.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="docs.css" rel="stylesheet">
+	</head>
+	<body>
+		<nav class="navbar sticky-top navbar-toggleable-md navbar-light bg-faded">
+		<div class="container">
+		  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <a class="navbar-brand" href="index.html">
+			<img src="logo.png" width="60" height="30" alt="">
+		  </a>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item active"><a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a></li>
+			  <li class="nav-item"><a class="nav-link" href="modules.html">Documentation</a></li>
+			  <li class="nav-item"><a class="nav-link" href="md_doc_markdown_tutorials.html">Tutorials</a></li>
+			  <li class="nav-item"><a class="nav-link" href="md_doc_markdown_examples.html">Examples</a></li>
+			  <li class="nav-item"><a class="nav-link" href="md_doc_markdown_faq.html">F.A.Q</a></li>
+			  <li class="nav-item"><a class="nav-link" href="https://github.com/matusnovak/fineframework">GitHub</a></li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+			  <a class="btn btn-outline-primary" href="md_doc_markdown_download.html" role="button">Download</a>
+			</form>
+		  </div>
 		</div>
-	  </header>
-	  <div class="mdl-layout__drawer">
-		<span class="mdl-layout-title">FineFramework</span>
-		<nav class="mdl-navigation">
-			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
-			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_download.html">Download</a>
-			<a class="mdl-navigation__link" href="pages.html">All related pages</a>
-			<a class="mdl-navigation__link" href="modules.html">All modules</a>
-			<a class="mdl-navigation__link" href="bug.html">All bugs</a>
 		</nav>
-	  </div>
-	  <main class="mdl-layout__content">
-		<div class="content-padding mdl-color--grey-100">
-		<div class="page-content mdl-grid mdl-color--white mdl-shadow--2dp">
-		<div style="display: block; width: 100%;"><!-- Generated by Doxygen 1.8.11 -->
+		<div class="container" id="main">
+		  <div class="row">
+		    <div class="col-md-3 col-sm-12" id="sidebar"><!-- Generated by Doxygen 1.8.11 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li class="current"><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Decode CSV </div>  </div>
+<div class="title">Tutorial: Decode CSV </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p>This tutorial will explain how to decode CSV structure.</p>
 <p><b>The tutorial uses <a class="el" href="classffw_1_1_var.html">ffw::Var</a> which is essential in the following examples. You must read <a href="md_doc_markdown_tutorial-var.html">Var - JSON-like data structure</a> tutorial first!</b></p>
 <h3>Decode CSV with one function</h3>
-<div class="fragment"><div class="line"><span class="comment">// Make sure the lines are separated by \n !!!</span></div><div class="line">std::string str =</div><div class="line">    <span class="stringliteral">&quot;Year,Make,Model,length\n\</span></div><div class="line"><span class="stringliteral">    1997,Ford,E350,2.34\n\</span></div><div class="line"><span class="stringliteral">    2000,Mercury,Cougar,2.38&quot;</span>;</div><div class="line"></div><div class="line"><a class="code" href="classffw_1_1_array.html">ffw::Array</a> arr = <a class="code" href="group__data.html#ga1b2fc25b12357bacf15f87670439fe9a">ffw::decodeCsv</a>(str);</div><div class="line"><span class="comment">// No exceptions here!</span></div></div><!-- fragment --><p>This will return an <a class="el" href="classffw_1_1_array.html">ffw::Array</a> that contains multiple <a class="el" href="classffw_1_1_array.html">ffw::Array</a> (s).</p>
+<div class="fragment"><div class="line"><span class="comment">// Make sure the lines are separated by \n !!!</span></div><div class="line">std::string str =</div><div class="line">    <span class="stringliteral">&quot;Year,Make,Model,length\n\</span></div><div class="line"><span class="stringliteral">    1997,Ford,E350,2.34\n\</span></div><div class="line"><span class="stringliteral">    2000,Mercury,Cougar,2.38&quot;</span>;</div><div class="line"></div><div class="line"><a class="code" href="classffw_1_1_array.html">ffw::Array</a> arr = <a class="code" href="group__data.html#ga3175e907023dd05a990340db32e2e632">ffw::decodeCsv</a>(str);</div><div class="line"><span class="comment">// No exceptions here!</span></div></div><!-- fragment --><p>This will return an <a class="el" href="classffw_1_1_array.html">ffw::Array</a> that contains multiple <a class="el" href="classffw_1_1_array.html">ffw::Array</a> (s).</p>
 <div class="fragment"><div class="line">std::cout &lt;&lt; arr.<a class="code" href="classffw_1_1_array.html#a288e09d5dc162a0c140c6a555a5f709e">size</a>() &lt;&lt; std::endl;</div></div><!-- fragment --><p>This will print number 3 as there are only 3 lines in the source CSV. it is guaranteed that each element of the <code>arr</code> will contain <a class="el" href="classffw_1_1_array.html">ffw::Array</a> and nothing else!</p>
 <div class="fragment"><div class="line">std::cout &lt;&lt; arr[0].<a class="code" href="classffw_1_1_array.html#a288e09d5dc162a0c140c6a555a5f709e">size</a>() &lt;&lt; std::endl;</div></div><!-- fragment --><p>This will print number 4 becuase there are 4 items in the first row. Now, to access individual items...</p>
 <div class="fragment"><div class="line"><span class="comment">// We do not care about the first row, it&#39;s a header... </span></div><div class="line"><span class="comment">// Most CSV files contain a header</span></div><div class="line"></div><div class="line"><span class="comment">// Returns false becuase the &quot;1997&quot; is not a string</span></div><div class="line">arr[1][0].is&lt;std::string&gt;(); <span class="comment">// arr[1][0].isString(); also works!</span></div><div class="line"></div><div class="line"><span class="comment">// This returns true:</span></div><div class="line">arr[1][0].is&lt;<span class="keywordtype">int</span>&gt;(); <span class="comment">// arr[1][0].isInt(); also works!</span></div><div class="line"></div><div class="line"><span class="comment">// Prints &quot;Cougar length: 2.38&quot;</span></div><div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;Cougar length: &quot;</span> &lt;&lt; arr[2][3].getAs&lt;<span class="keywordtype">float</span>&gt;() &lt;&lt; std::endl;</div><div class="line"></div><div class="line"><span class="comment">// However, this will throw std::bad_cast</span></div><div class="line">std::cout &lt;&lt; <span class="stringliteral">&quot;Cougar length: &quot;</span> &lt;&lt; arr[2][3].getAs&lt;<span class="keywordtype">int</span>&gt;() &lt;&lt; std::endl;</div></div><!-- fragment --><p>Why the following two lines below are equal?</p>
-<div class="fragment"><div class="line">std::cout &lt;&lt; arr[2].getAs&lt;<a class="code" href="classffw_1_1_array.html">ffw::Array</a>&gt;()[3].getAs&lt;float&gt;() &lt;&lt; std::endl;</div><div class="line">std::cout &lt;&lt; arr[2][3].getAs&lt;<span class="keywordtype">float</span>&gt;() &lt;&lt; std::endl;</div></div><!-- fragment --><p>In the first line, <code>arr</code> is already <a class="el" href="classffw_1_1_array.html">ffw::Array</a>. However, <a class="el" href="classffw_1_1_array.html">ffw::Array</a> holds <a class="el" href="classffw_1_1_var.html">ffw::Var</a> which can hold any c++ data type. We know that <a class="el" href="group__data.html#ga1b2fc25b12357bacf15f87670439fe9a">ffw::decodeCsv</a> returns array of arrays, so it is safe to explicitly call <code>getAs&lt;<a class="el" href="classffw_1_1_array.html">ffw::Array</a>&gt;()</code>. The <code>[3]</code> returns 4th element and <code>getAs&lt;float&gt;()</code> gives us a reference to the float.</p>
+<div class="fragment"><div class="line">std::cout &lt;&lt; arr[2].getAs&lt;<a class="code" href="classffw_1_1_array.html">ffw::Array</a>&gt;()[3].getAs&lt;float&gt;() &lt;&lt; std::endl;</div><div class="line">std::cout &lt;&lt; arr[2][3].getAs&lt;<span class="keywordtype">float</span>&gt;() &lt;&lt; std::endl;</div></div><!-- fragment --><p>In the first line, <code>arr</code> is already <a class="el" href="classffw_1_1_array.html">ffw::Array</a>. However, <a class="el" href="classffw_1_1_array.html">ffw::Array</a> holds <a class="el" href="classffw_1_1_var.html">ffw::Var</a> which can hold any c++ data type. We know that <a class="el" href="group__data.html#ga3175e907023dd05a990340db32e2e632">ffw::decodeCsv</a> returns array of arrays, so it is safe to explicitly call <code>getAs&lt;<a class="el" href="classffw_1_1_array.html">ffw::Array</a>&gt;()</code>. The <code>[3]</code> returns 4th element and <code>getAs&lt;float&gt;()</code> gives us a reference to the float.</p>
 <p>The second line does exactly same thing. The <a class="el" href="classffw_1_1_var.html">ffw::Var</a> contains two [ ] operators, one for integers, one for strings. If you call the operator with an integer, it will assume you are trying to get <a class="el" href="classffw_1_1_array.html">ffw::Array</a> and it will call <code>getAs&lt;<a class="el" href="classffw_1_1_array.html">ffw::Array</a>&gt;()</code> and <code>[int]</code> at the same time for you... it's just for simplicitly. If you would put a string inside the [ ] operator, it will call <code>getAs&lt;<a class="el" href="classffw_1_1_object.html">ffw::Object</a>&gt;()</code> which throws std::bad_cast because in this example we are dealing with arrays only, no objects.</p>
 <h3>Decode CSV line by line</h3>
 <div class="fragment"><div class="line"><a class="code" href="classffw_1_1_array.html">ffw::Array</a> output;</div><div class="line"><a class="code" href="classffw_1_1_csv_loader.html">ffw::CsvLoader</a> loader;</div><div class="line"></div><div class="line"><span class="comment">// First param: file path</span></div><div class="line"><span class="comment">// Second param: delimiter (some CSV use ;) default: ,</span></div><div class="line"><span class="comment">// Third param: how are string represented? default: &quot;</span></div><div class="line"><span class="keywordflow">if</span>(!loader.<a class="code" href="classffw_1_1_csv_loader.html#a42ae6d1fa3e13b686c7546d44a397548">openFromFile</a>(<span class="stringliteral">&quot;file.csv&quot;</span>, <span class="charliteral">&#39;,&#39;</span>, <span class="charliteral">&#39;\&quot;&#39;</span>)){</div><div class="line">  std::cerr &lt;&lt; <span class="stringliteral">&quot;File failed to open!&quot;</span> &lt;&lt; std::endl;</div><div class="line">}</div><div class="line"><span class="keywordflow">else</span> {</div><div class="line">  <span class="keywordflow">while</span>(!loader.<a class="code" href="classffw_1_1_csv_loader.html#a660eb27565d56a5140110322780cabc8">eof</a>()){</div><div class="line">    output = loader.<a class="code" href="classffw_1_1_csv_loader.html#a3021f058a120e4aedf0a892579e3dc8b">getRow</a>(<span class="keyword">true</span>);</div><div class="line">  }</div><div class="line">}</div></div><!-- fragment --><p>You can also use <code>openFromData</code> which acceps a string instead. The <code>getRow</code> acceps one parameter, a boolean. If you pass true, it will convert all items into their type (integer, float, std::string, bool). If you pass false, no conversion is performed and everything is stored in <a class="el" href="classffw_1_1_array.html">ffw::Array</a> as std::string.</p>
 <h3>Decode CSV one line only</h3>
 <div class="fragment"><div class="line">std::string str = <span class="stringliteral">&quot;1999,Chevy,\&quot;Venture \&quot;\&quot;Extended Edition, Very Large\&quot;\&quot;\&quot;,,5000.00&quot;</span>;</div><div class="line"><a class="code" href="classffw_1_1_array.html">ffw::Array</a> arr = <a class="code" href="classffw_1_1_csv_loader.html#a088b3e61b47fb380fcec3bf247f6487f">ffw::CsvLoader::tokenize</a>(str, 0, str.size(), <span class="keyword">true</span>, <span class="charliteral">&#39;,&#39;</span>, <span class="charliteral">&#39;\&quot;&#39;</span>);</div></div><!-- fragment --><p>The function (static function!) acceps std::string in which you specify the start and the end. Via the 4th parameter you tell it to either decode (true) values into integers, floats, string, etc... or leave everything (false) into std::string. The 5th and 6th specify how are items separated from each other and how are string expressed. Usually in CSV files the items are separated with a comma and strings are enclosed in quotation marks. </p>
 </div></div><!-- contents -->
-			</div>
-			</div>
-			<footer class="mdl-mega-footer">
-			  <div class="mdl-mega-footer--middle-section mdl-grid">
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">Features</h1>
-				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
-					<li><a href="md_doc_markdown_examples.html">Examples</a></li>
-					<li><a href="pages.html">All Pages</a></li>
-				  </ul>
-				</div>
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">Details</h1>
-				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
-					<li><a href="modules.html">Modules</a></li>
-					<li><a href="classes.html">Classes</a></li>
-					<li><a href="files.html">Files</a></li>
-					<li><a href="annotated.html">Class Hierarchy</a></li>
-					<li><a href="md_doc_markdown_faq.html">F.A.Q</a></li>
-				  </ul>
-				</div>
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">Installation</h1>
-				  <ul class="mdl-mega-footer--link-list">
-				    <li><a href="md_doc_markdown_download.html">Download</a></li>
-					<li><a href="md_doc_markdown_tutorial-visualstudio-2015.html">Visual Studio 2015</a></li>
-					<li><a href="md_doc_markdown_tutorial-visualstudio-2013.html">Visual Studio 2013</a></li>
-					<li><a href="md_doc_markdown_tutorial-codeblocks.html">Code Blocks - MinGW</a></li>
-					<li><a href="md_doc_markdown_tutorial-linux.html">Linux GCC</a></li>
-					<li><a href="md_doc_markdown_tutorial-osx.html">Clang OSX</a></li>
-				  </ul>
-				</div>
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">GitHub</h1>
-				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="https://github.com/matusnovak/fineframework/archive/master.zip">Source Code</a></li>
-					<li><a href="https://github.com/matusnovak/fineframework/releases">Releases</a></li>
-					<li><a href="https://github.com/matusnovak/fineframework/issues">Comments/Issues</a></li>
-				  </ul>
-				</div>
-			  </div>
-			  <div class="mdl-mega-footer--bottom-section mdl-grid">
-				<ul class="mdl-mega-footer--link-list">
-				  <li><a href="https://github.com/matusnovak/fineframework/blob/master/LICENSE">Licensed under The MIT License</a></li>
-				</ul>
-			  </div>
-			</footer>
-		</main>
 	</div>
-</body>
+	<script>window.jQuery || document.write('<script src="jquery.min.js"><\/script>')</script>
+	<script src="tether.min.js"></script>
+	<script src="bootstrap.min.js"></script>
+	<script src="dynsections.js"></script>
+	<script>
+	  $( document ).ready(function() {
+	    //$('#sidebar').after('<div class="col-9">');
+		$('.header,.contents').wrapAll('<div class="col-md-9 col-sm-12"></div>');
+	  });
+	</script>
+	</body>
 </html>

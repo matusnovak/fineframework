@@ -1,55 +1,90 @@
-<html>
-<head>
-<meta http-equiv="content-type" content="text/html;charset=UTF-8">
-<meta name="description" content="FineFramework (FFW) is an open source framework written in C++ designed for developing applications." />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<link rel="stylesheet" type="text/css" href="material.css">
-<link rel="stylesheet" type="text/css" href="docs.css">
-<script src="jquery.js"></script>
-<script src="material.min.js"></script>
-<script src="dynsections.js"></script>
-<title>FineFramework - Documentation</title>
-</head>
-<body>
-  <!-- Always shows a header, even in smaller screens. -->
-	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-	  <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600 is-casting-shadow">
-		<div class="mdl-layout__header-row">
-		  <!-- Title -->
-		  <span class="mdl-layout-title"><a href="index.html"><img src="logo.png"></a></span>
-		  <!-- add spacer, to align navigation to the right -->
-		  <div class="mdl-layout-spacer"></div>
-		  <!-- Navigation. We hide it in small screens. -->
-		  <nav class="mdl-navigation mdl-layout--large-screen-only">
-			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
-			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-button mdl-button--raised mdl-button--colored" href="md_doc_markdown_download.html">Download</a>
-		  </nav>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<meta name="description" content="FineFramework (FFW) is an open source framework written in C++ designed for developing applications." />
+		<meta name="author" content="Matus Novak">
+		<link rel="icon" href="favicon.ico">
+		<title>FineFramework - Documentation</title>
+		<!-- Bootstrap core CSS -->
+		<link href="bootstrap.css" rel="stylesheet">
+		<!-- Custom styles for this template -->
+		<link href="docs.css" rel="stylesheet">
+	</head>
+	<body>
+		<nav class="navbar sticky-top navbar-toggleable-md navbar-light bg-faded">
+		<div class="container">
+		  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		  </button>
+		  <a class="navbar-brand" href="index.html">
+			<img src="logo.png" width="60" height="30" alt="">
+		  </a>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+			  <li class="nav-item active"><a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a></li>
+			  <li class="nav-item"><a class="nav-link" href="modules.html">Documentation</a></li>
+			  <li class="nav-item"><a class="nav-link" href="md_doc_markdown_tutorials.html">Tutorials</a></li>
+			  <li class="nav-item"><a class="nav-link" href="md_doc_markdown_examples.html">Examples</a></li>
+			  <li class="nav-item"><a class="nav-link" href="md_doc_markdown_faq.html">F.A.Q</a></li>
+			  <li class="nav-item"><a class="nav-link" href="https://github.com/matusnovak/fineframework">GitHub</a></li>
+			</ul>
+			<form class="form-inline my-2 my-lg-0">
+			  <a class="btn btn-outline-primary" href="md_doc_markdown_download.html" role="button">Download</a>
+			</form>
+		  </div>
 		</div>
-	  </header>
-	  <div class="mdl-layout__drawer">
-		<span class="mdl-layout-title">FineFramework</span>
-		<nav class="mdl-navigation">
-			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
-			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-navigation__link" href="md_doc_markdown_download.html">Download</a>
-			<a class="mdl-navigation__link" href="pages.html">All related pages</a>
-			<a class="mdl-navigation__link" href="modules.html">All modules</a>
-			<a class="mdl-navigation__link" href="bug.html">All bugs</a>
 		</nav>
-	  </div>
-	  <main class="mdl-layout__content">
-		<div class="content-padding mdl-color--grey-100">
-		<div class="page-content mdl-grid mdl-color--white mdl-shadow--2dp">
-		<div style="display: block; width: 100%;"><!-- Generated by Doxygen 1.8.11 -->
+		<div class="container" id="main">
+		  <div class="row">
+		    <div class="col-md-3 col-sm-12" id="sidebar"><!-- Generated by Doxygen 1.8.11 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li><a href="pages.html"><span>Related&#160;Pages</span></a></li>
+      <li><a href="modules.html"><span>Modules</span></a></li>
+      <li class="current"><a href="namespaces.html"><span>Namespaces</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="files.html"><span>Files</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="namespaces.html"><span>Namespace&#160;List</span></a></li>
+      <li class="current"><a href="namespacemembers.html"><span>Namespace&#160;Members</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow3" class="tabs2">
+    <ul class="tablist">
+      <li><a href="namespacemembers.html"><span>All</span></a></li>
+      <li class="current"><a href="namespacemembers_func.html"><span>Functions</span></a></li>
+      <li><a href="namespacemembers_vars.html"><span>Variables</span></a></li>
+      <li><a href="namespacemembers_type.html"><span>Typedefs</span></a></li>
+      <li><a href="namespacemembers_enum.html"><span>Enumerations</span></a></li>
+      <li><a href="namespacemembers_eval.html"><span>Enumerator</span></a></li>
+    </ul>
+  </div>
+  <div id="navrow4" class="tabs3">
+    <ul class="tablist">
+      <li><a href="#index_a"><span>a</span></a></li>
+      <li><a href="#index_b"><span>b</span></a></li>
+      <li><a href="#index_c"><span>c</span></a></li>
+      <li><a href="#index_d"><span>d</span></a></li>
+      <li><a href="#index_e"><span>e</span></a></li>
+      <li><a href="#index_g"><span>g</span></a></li>
+      <li><a href="#index_h"><span>h</span></a></li>
+      <li><a href="#index_l"><span>l</span></a></li>
+      <li><a href="#index_m"><span>m</span></a></li>
+      <li><a href="#index_n"><span>n</span></a></li>
+      <li><a href="#index_o"><span>o</span></a></li>
+      <li><a href="#index_r"><span>r</span></a></li>
+      <li><a href="#index_s"><span>s</span></a></li>
+      <li><a href="#index_t"><span>t</span></a></li>
+      <li><a href="#index_u"><span>u</span></a></li>
+      <li><a href="#index_v"><span>v</span></a></li>
+      <li class="current"><a href="#index_w"><span>w</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
 <div class="contents">
 &#160;
@@ -98,22 +133,22 @@
 
 <h3><a class="anchor" id="index_d"></a>- d -</h3><ul>
 <li>decodeCsv()
-: <a class="el" href="group__data.html#ga1b2fc25b12357bacf15f87670439fe9a">ffw</a>
+: <a class="el" href="group__data.html#ga3175e907023dd05a990340db32e2e632">ffw</a>
 </li>
 <li>decodeCsvFile()
-: <a class="el" href="group__data.html#gaafeec293a4f924ae61275b94d91c1650">ffw</a>
+: <a class="el" href="group__data.html#ga168243fb4b76721254279383fad59359">ffw</a>
 </li>
 <li>decodeJson()
-: <a class="el" href="group__data.html#ga0780cb48e4a531f0c81d1700a84fc988">ffw</a>
+: <a class="el" href="group__data.html#gaa0ba75fad93be69ca083741b63bef8bf">ffw</a>
 </li>
 <li>decodeJsonFile()
-: <a class="el" href="group__data.html#gad6160074e0abd692929def4a1348e8fd">ffw</a>
+: <a class="el" href="group__data.html#ga63553c76ee0774903d4e6b5e1ad33723">ffw</a>
 </li>
 <li>decodeXml()
-: <a class="el" href="group__data.html#ga4493e96b439015195f3adf4f5b892d12">ffw</a>
+: <a class="el" href="group__data.html#ga9c32dc9b2f638ffca1b67ef1a1efa677">ffw</a>
 </li>
 <li>decodeXmlFile()
-: <a class="el" href="group__data.html#ga48cf7d2b5dc156041df10a04c7c75404">ffw</a>
+: <a class="el" href="group__data.html#gaa8e7004e189e31928a495bd47fd77f20">ffw</a>
 </li>
 <li>dirname()
 : <a class="el" href="group__math.html#ga12751f27f4a3186f039626ba3804f189">ffw</a>
@@ -129,16 +164,16 @@
 
 <h3><a class="anchor" id="index_e"></a>- e -</h3><ul>
 <li>encodeJson()
-: <a class="el" href="group__data.html#gacfe175954150eba07c0bf025bb5730a3">ffw</a>
+: <a class="el" href="group__data.html#gae03a274408dab0065f4cf960f4e8d398">ffw</a>
 </li>
 <li>encodeJsonFile()
-: <a class="el" href="group__data.html#ga44ff2a535cbcc33db016ffcf1b23a738">ffw</a>
+: <a class="el" href="group__data.html#ga7e76b5a20f56eac65ebd8e41b99d22ab">ffw</a>
 </li>
 <li>encodeXml()
-: <a class="el" href="group__data.html#ga28e1ffa5d6591cb447ce6096e75c60f8">ffw</a>
+: <a class="el" href="group__data.html#gaf34cc506f0144c5f359bb03b502089f2">ffw</a>
 </li>
 <li>encodeXmlFile()
-: <a class="el" href="group__data.html#ga025641318a4985510c6e62f6620be8c1">ffw</a>
+: <a class="el" href="group__data.html#gaf1ebd0f364230040233259007c2c4a40">ffw</a>
 </li>
 <li>extension()
 : <a class="el" href="group__math.html#ga2114703275d612eae345d082c71fa34a">ffw</a>
@@ -151,7 +186,7 @@
 : <a class="el" href="group__math.html#ga9a2dd9c982c0513e3d6d3b1132f91e3c">ffw</a>
 </li>
 <li>getOpenGLImageType()
-: <a class="el" href="group__graphics.html#gae6aec695545d89f62e01ff577e7efe2e">ffw</a>
+: <a class="el" href="group__graphics.html#gaa52fc9272c6011e3c7530cc801a66d93">ffw</a>
 </li>
 <li>getTokens()
 : <a class="el" href="group__math.html#gaa5db012248a0f19fec64c202f6dd6b01">ffw</a>
@@ -222,10 +257,10 @@
 
 <h3><a class="anchor" id="index_o"></a>- o -</h3><ul>
 <li>openImageReader()
-: <a class="el" href="group__media.html#gafc7982060c99a76f80a2c98b5f9a5be9">ffw</a>
+: <a class="el" href="group__media.html#ga87e5ca033117b5fbfb132649d75185f5">ffw</a>
 </li>
 <li>openImageWriter()
-: <a class="el" href="group__media.html#ga4e99a98309a730773fdc43b620775f17">ffw</a>
+: <a class="el" href="group__media.html#ga48161b9edfec370464b0f34e44f5cfe1">ffw</a>
 </li>
 <li>operator&lt;&lt;()
 : <a class="el" href="group__math.html#ga6abf760193050ca6e1eb7f7d61669d08">ffw</a>
@@ -235,10 +270,10 @@
 
 <h3><a class="anchor" id="index_r"></a>- r -</h3><ul>
 <li>readImage()
-: <a class="el" href="group__media.html#gac7a71b1f595c4c1d5c49d4ecaa8225b6">ffw</a>
+: <a class="el" href="group__media.html#ga012ca465bfd4bcf7d114348d97ef6cfd">ffw</a>
 </li>
 <li>readObj()
-: <a class="el" href="group__media.html#gad9a045ca5965cf25e3b18f70bf787330">ffw</a>
+: <a class="el" href="group__media.html#ga6c79e9458a338f0003e5313f667641b3">ffw</a>
 </li>
 <li>remap()
 : <a class="el" href="group__math.html#gae12e3a7c35c01f5d7d98986d0d377d88">ffw</a>
@@ -254,16 +289,16 @@
 
 <h3><a class="anchor" id="index_s"></a>- s -</h3><ul>
 <li>stringContainsWhitespace()
-: <a class="el" href="group__data.html#ga9bdea241b85e13441030af3e28d2e89e">ffw</a>
+: <a class="el" href="group__data.html#gabd5c09c9d45df57a4232328dfe9a06fc">ffw</a>
 </li>
 <li>stringisBool()
-: <a class="el" href="group__data.html#gac3058bb8e62e6cabf52e09587f2e9438">ffw</a>
+: <a class="el" href="group__data.html#ga6f21f9a74f57256078fa491a82d60f74">ffw</a>
 </li>
 <li>stringisFloat()
-: <a class="el" href="group__data.html#gaadff74b0b7aec09f5a2853fd15a157ae">ffw</a>
+: <a class="el" href="group__data.html#gaead0c558093bc2b4735d5600d7fa9591">ffw</a>
 </li>
 <li>stringisInteger()
-: <a class="el" href="group__data.html#ga3d48dcc46cf2c0537514ebd0b53c7d45">ffw</a>
+: <a class="el" href="group__data.html#gac7c6fb6aedd4fa29a46e99d0fb2ca88e">ffw</a>
 </li>
 <li>stringToVal()
 : <a class="el" href="group__math.html#ga2ff4bfee8a2663b98766162bc8c00ccc">ffw</a>
@@ -339,7 +374,7 @@
 
 <h3><a class="anchor" id="index_w"></a>- w -</h3><ul>
 <li>writeImage()
-: <a class="el" href="group__media.html#ga52215bbf8d8cb800425f9d6fb8dfb885">ffw</a>
+: <a class="el" href="group__media.html#ga1cbe76f2347f4c27a600b26f524375f8">ffw</a>
 </li>
 <li>wstrToUtf8()
 : <a class="el" href="group__math.html#ga0aa11007c68be2b7e770caee0d98778c">ffw</a>
@@ -349,61 +384,16 @@
 </li>
 </ul>
 </div><!-- contents -->
-			</div>
-			</div>
-			<footer class="mdl-mega-footer">
-			  <div class="mdl-mega-footer--middle-section mdl-grid">
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">Features</h1>
-				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
-					<li><a href="md_doc_markdown_examples.html">Examples</a></li>
-					<li><a href="pages.html">All Pages</a></li>
-				  </ul>
-				</div>
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">Details</h1>
-				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
-					<li><a href="modules.html">Modules</a></li>
-					<li><a href="classes.html">Classes</a></li>
-					<li><a href="files.html">Files</a></li>
-					<li><a href="annotated.html">Class Hierarchy</a></li>
-					<li><a href="md_doc_markdown_faq.html">F.A.Q</a></li>
-				  </ul>
-				</div>
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">Installation</h1>
-				  <ul class="mdl-mega-footer--link-list">
-				    <li><a href="md_doc_markdown_download.html">Download</a></li>
-					<li><a href="md_doc_markdown_tutorial-visualstudio-2015.html">Visual Studio 2015</a></li>
-					<li><a href="md_doc_markdown_tutorial-visualstudio-2013.html">Visual Studio 2013</a></li>
-					<li><a href="md_doc_markdown_tutorial-codeblocks.html">Code Blocks - MinGW</a></li>
-					<li><a href="md_doc_markdown_tutorial-linux.html">Linux GCC</a></li>
-					<li><a href="md_doc_markdown_tutorial-osx.html">Clang OSX</a></li>
-				  </ul>
-				</div>
-				<div class="mdl-mega-footer--drop-down-section">
-				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
-				  <h1 class="mdl-mega-footer--heading">GitHub</h1>
-				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="https://github.com/matusnovak/fineframework/archive/master.zip">Source Code</a></li>
-					<li><a href="https://github.com/matusnovak/fineframework/releases">Releases</a></li>
-					<li><a href="https://github.com/matusnovak/fineframework/issues">Comments/Issues</a></li>
-				  </ul>
-				</div>
-			  </div>
-			  <div class="mdl-mega-footer--bottom-section mdl-grid">
-				<ul class="mdl-mega-footer--link-list">
-				  <li><a href="https://github.com/matusnovak/fineframework/blob/master/LICENSE">Licensed under The MIT License</a></li>
-				</ul>
-			  </div>
-			</footer>
-		</main>
 	</div>
-</body>
+	<script>window.jQuery || document.write('<script src="jquery.min.js"><\/script>')</script>
+	<script src="tether.min.js"></script>
+	<script src="bootstrap.min.js"></script>
+	<script src="dynsections.js"></script>
+	<script>
+	  $( document ).ready(function() {
+	    //$('#sidebar').after('<div class="col-9">');
+		$('.header,.contents').wrapAll('<div class="col-md-9 col-sm-12"></div>');
+	  });
+	</script>
+	</body>
 </html>
