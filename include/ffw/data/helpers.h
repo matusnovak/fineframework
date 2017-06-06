@@ -8,19 +8,19 @@ namespace ffw {
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API stringContainsWhitespace(const char* str, size_t length);
+	bool FFW_API stringContainsWhitespace(std::string::const_iterator begin, std::string::const_iterator end);
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API stringisInteger(const char* str, size_t length);
+	bool FFW_API stringisInteger(std::string::const_iterator begin, std::string::const_iterator end);
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API stringisFloat(const char* str, size_t length);
+	bool FFW_API stringisFloat(std::string::const_iterator begin, std::string::const_iterator end);
 	/**
 	* @ingroup data
 	*/
-	bool FFW_API stringisBool(const char* str, size_t length, bool* ptr = NULL);
+	bool FFW_API stringisBool(std::string::const_iterator begin, std::string::const_iterator end);
 };
 
 #endif

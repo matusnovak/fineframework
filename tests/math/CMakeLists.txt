@@ -8,9 +8,15 @@ include_directories(${CMAKE_BINARY_DIR}/libraries/include)
 link_directories(${CMAKE_BINARY_DIR}/libraries/lib)
 
 # All examples
-add_executable(TestsMath math.cpp)
+add_executable(TestsMathFileInfo math_fileinfo.cpp)
+add_executable(TestsMathFunctions math_functions.cpp)
+add_executable(TestsMathRingBuffer math_ringbuffer.cpp)
+add_executable(TestsMathThreads math_threads.cpp)
+add_executable(TestsMathUnicode math_unicode.cpp)
+add_executable(TestsMathVar math_var.cpp)
+add_executable(TestsMathVectors math_vectors.cpp)
 
-set(MATH_TESTS TestsMath)
+set(MATH_TESTS TestsMathFileInfo TestsMathFunctions TestsMathRingBuffer TestsMathThreads TestsMathUnicode TestsMathVar TestsMathVectors)
 
 # Dependencies
 foreach(exmpl ${MATH_TESTS})
@@ -28,6 +34,6 @@ foreach(exmpl ${MATH_TESTS})
   if(STATIC_STDLIB)
     target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
   endif(STATIC_STDLIB)
+  
+  add_test(NAME ${exmpl} COMMAND ${exmpl})
 endforeach(exmpl)
-
-add_test(NAME TestsMath COMMAND TestsMath)

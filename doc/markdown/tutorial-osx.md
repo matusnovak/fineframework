@@ -48,7 +48,11 @@ Make sure that the dependencies (third party libraries) are found. The `LIBRARY-
 -- jpeg library path: /usr/local/lib/libjpeg.dylib
 -- tiff library path: /usr/local/lib/libtiff.dylib
 -- zlib library path: /usr/lib/libz.dylib
+-- gz2 library path: /usr/local/lib/libbz2.dylib 
 ```
+
+* If you wish to link against static dependencies, add `-DPREFER_STATIC_OVER_DYNAMIC=ON` at the end of the cmake command.
+* To change the install directory, add `-DCMAKE_INSTALL_PREFIX:PATH=/path/to/install/dir`
 
 Lastly, compile and install:
 

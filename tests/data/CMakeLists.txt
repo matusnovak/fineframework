@@ -7,13 +7,15 @@ link_directories(${CMAKE_BINARY_DIR})
 include_directories(${CMAKE_BINARY_DIR}/libraries/include)
 link_directories(${CMAKE_BINARY_DIR}/libraries/lib)
 
-file(COPY sample.csv DESTINATION ${CMAKE_BINARY_DIR})
-file(COPY sample.csv DESTINATION ${CMAKE_BINARY_DIR}/tests/data)
+file(COPY sample.csv MOCK_DATA.json DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY sample.csv MOCK_DATA.json DESTINATION ${CMAKE_BINARY_DIR}/tests/data)
 
 # All examples
-add_executable(TestsData data.cpp)
+add_executable(TestsDataCsv data_csv.cpp)
+add_executable(TestsDataJson data_json.cpp)
+add_executable(TestsDataXml data_xml.cpp)
 
-set(DATA_TESTS TestsData)
+set(DATA_TESTS TestsDataCsv TestsDataJson TestsDataXml)
 
 # Dependencies
 foreach(exmpl ${DATA_TESTS})
@@ -28,6 +30,6 @@ foreach(exmpl ${DATA_TESTS})
   if(STATIC_STDLIB)
     target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
   endif(STATIC_STDLIB)
+  
+  add_test(NAME ${exmpl} COMMAND ${exmpl})
 endforeach(exmpl)
-
-add_test(NAME TestsData COMMAND TestsData)

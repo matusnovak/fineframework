@@ -1,6 +1,6 @@
 /*** This file is part of FineFramework project ***/
 
-#include "ffw/data/csvfile.h"
+#include "ffw/data/csvreader.h"
 #include "ffw/data/helpers.h"
 #include "ffw/math/stringmath.h"
 
@@ -87,16 +87,15 @@ static ffw::Var parseToken(const std::string& str, size_t begin, size_t end, boo
 		}
 
 		if(convert){
-			bool value = 0;
-			if(ffw::stringisInteger(&str[begin], end-begin)){
+			if(ffw::stringisInteger(str.cbegin() + begin, str.cbegin() + end)){
 				return ffw::Var(ffw::stringToVal<int>(str.substr(begin, end-begin)));
 
-			} else if(ffw::stringisFloat(&str[begin], end-begin)){
+			} else if(ffw::stringisFloat(str.cbegin() + begin, str.cbegin() + end)){
 				return ffw::Var(ffw::stringToVal<float>(str.substr(begin, end-begin)));
 
-			} else if(ffw::stringisBool(&str[begin], end-begin, &value)){
-				return ffw::Var(value);
-
+			} else if(ffw::stringisBool(str.cbegin() + begin, str.cbegin() + end)){
+				if(tolower(str[begin]) == 't' )return ffw::Var((bool)true);
+				else return ffw::Var((bool)false);
 			} else {
 				std::string s = str.substr(begin, end-begin);
 				fixDoubleQuotes(s);
@@ -173,7 +172,7 @@ std::string ffw::CsvLoader::getRowRaw(){
 			}
 
 			// Check if row is not empty
-			if(stringContainsWhitespace(&row[0], row.size())){
+			if(stringContainsWhitespace(row.cbegin(), row.cend())){
 				//std::cout << row << " contains only whitespace!" << std::endl;
 				continue;
 			}
@@ -211,7 +210,7 @@ std::string ffw::CsvLoader::getRowRaw(){
 			}
 
 			// Check if row is not empty
-			if(stringContainsWhitespace(&(*stream)[begin], end - begin)){
+			if(stringContainsWhitespace(stream->begin() + begin, stream->begin() + end)){
 				//std::cout << stream->substr(begin, end - begin) << " contains only whitespace!" << std::endl;
 				begin = pos;
 				continue;
@@ -237,15 +236,16 @@ bool ffw::CsvLoader::eof() const {
 }
 
 ///=============================================================================
-bool ffw::loadCsv(const std::string& path, ffw::Array& output){
+ffw::Array ffw::decodeCsvFile(const std::string& path){
 	CsvLoader loader;
-	if(!loader.openFromFile(path))return false;
+	ffw::Array out;
+	if(!loader.openFromFile(path))return out;
 
 	while(!loader.eof()){
-		output.push_back(loader.getRow());
+		out.push_back(loader.getRow());
 	}
 
-	return true;
+	return out;
 }
 
 ///=============================================================================

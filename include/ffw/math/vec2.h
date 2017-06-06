@@ -244,7 +244,6 @@ namespace ffw {
 	}
 	/**
 	* @ingroup math
-	* @bug Some random bug
 	*/
 	template <class T>
 	inline T distance(const Vec2<T>& v1, const Vec2<T>& v2) {
@@ -282,7 +281,7 @@ namespace ffw {
 	* @ingroup math
 	*/
 	template <class T>
-	inline double AngleRad(const ffw::Vec2<T>& V1, const ffw::Vec2<T>& V2) {
+	inline double angleRad(const ffw::Vec2<T>& V1, const ffw::Vec2<T>& V2) {
 		double dot = (V1.x*V2.x + V1.y*V2.y);
 		double V1Length = sqrt(V1.x*V1.x + V1.y*V1.y);
 		double V2Length = sqrt(V2.x*V2.x + V2.y*V2.y);

@@ -5,7 +5,9 @@
  */
 #ifndef FFW_DATA_MODULE
 #define FFW_DATA_MODULE
-#include "data/csvfile.h"
-#include "data/xmlfile.h"
-#include "data/jsonfile.h"
+#include "data/csvreader.h"
+#include "data/xmlreader.h"
+#include "data/xmlwriter.h"
+#include "data/jsonreader.h"
+#include "data/jsonwriter.h"
 #endif

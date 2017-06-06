@@ -4,7 +4,7 @@
 
 **Where can I download pre-built binary files?**
 
-> [Here!](md_markdown_download.html)
+> [Here!](md_doc_markdown_download.html)
 
 **Can I extract a piece of code from a source file and use it in my own project?**
 
@@ -20,7 +20,7 @@
 
 **How do I add this library/libraries to my project?**
 
-> I highly recommend reading "Getting started" section in [tutorials page](md_markdown_tutorials.html). 
+> I highly recommend reading "Getting started" section in [tutorials page](md_doc_markdown_tutorials.html). 
 >
 > You will need to let your compiler know where the header files are located by adding `-I/path/to/fineframework/include` Next, you will also need to add a folder where the library binaries are located by adding `-L/path/to/fineframework/include` into the linker. Now your compiler knows where the header files are located and your linker also knows about the binary files. You will also need to add `-lfinegrapgics` or `-lfinemedia` depending on what module are you using. Lastly, add `#include <ffw/graphics.h>` or `#include <ffw/media.h>` into your project source files, depending on what you need. For more info read [this guide](http://www.network-theory.co.uk/docs/gccintro/gccintro_17.html). Or, if you are using Visual Studio, read [this guide instead.](https://en.wikibooks.org/wiki/C%2B%2B_Programming/Compiler/Linker/Libraries/Configuring_Visual_Studio) 
 
@@ -30,7 +30,7 @@
 
 **When I launch my application I get an error that fineframework *.so files were not found (Linux)**
 
-> Copy the necessary *.so files next to your project's executable. If you are building FFW with CMake, did you forget to run `sudo make install` ? For more information read [this tutorial](md_markdown_tutorial-linux.html). 
+> Copy the necessary *.so files next to your project's executable. If you are building FFW with CMake, did you forget to run `sudo make install` ? For more information read [this tutorial](md_doc_markdown_tutorial-linux.html). 
 
 **undefined reference to 'pthread_create'**
 

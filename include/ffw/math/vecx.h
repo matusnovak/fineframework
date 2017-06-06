@@ -263,5 +263,37 @@ namespace ffw{
 
 		std::array<T, S> arr;
 	};
+	/**
+	* @ingroup math
+	*/
+	template <class T, size_t S>
+	inline T dot(const ffw::Vec<T, S>& V1, const ffw::Vec<T, S>& V2) {
+		T ret = 0;
+		for(size_t i = 0; i < S; i++){
+			ret += V1[i] * V2[i];
+		}
+		return ret;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T, size_t S>
+	inline T distance(const Vec<T, S>& v1, const Vec<T, S>& v2) {
+		return static_cast<T>(ffw::Vec<T, S>(v2 - v1).length());
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T, size_t S>
+	inline Vec<T, S> middle(const Vec<T, S>& v1, const Vec<T, S>& v2) {
+		return ffw::Vec<T, S>((v1 + v2) / 2);
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T, size_t S>
+	inline ffw::Vec<T, S> normalize(const Vec<T, S>& vec) {
+		return ffw::Vec<T, S>(vec).normalize();
+	}
 };
 #endif

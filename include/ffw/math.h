@@ -19,4 +19,5 @@
 #include "math/ringbuffer.h"
 #include "math/imagebuffer.h"
 #include "math/thread.h"
+#include "math/mutex.h"
 #endif

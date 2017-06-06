@@ -11,9 +11,11 @@ file(COPY imgs cube.mtl cube.obj cylinder.mtl cylinder.obj plane.mtl plane.obj p
 file(COPY imgs cube.mtl cube.obj cylinder.mtl cylinder.obj plane.mtl plane.obj planes.mtl planes.obj DESTINATION ${CMAKE_BINARY_DIR}/tests/media)
 
 # All examples
-add_executable(TestsMedia media.cpp)
+add_executable(TestsMediaImages media_images.cpp)
+add_executable(TestsMediaObj media_obj.cpp)
+add_executable(TestsMediaAudio media_audio.cpp)
 
-set(MEDIA_TESTS TestsMedia)
+set(MEDIA_TESTS TestsMediaImages TestsMediaObj TestsMediaAudio)
 
 # Dependencies
 foreach(exmpl ${MEDIA_TESTS})
@@ -28,6 +30,6 @@ foreach(exmpl ${MEDIA_TESTS})
   if(STATIC_STDLIB)
     target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
   endif(STATIC_STDLIB)
+  
+  add_test(NAME ${exmpl} COMMAND ${exmpl})
 endforeach(exmpl)
-
-add_test(NAME TestsMedia COMMAND TestsMedia)

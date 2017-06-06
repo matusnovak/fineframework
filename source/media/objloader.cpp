@@ -79,7 +79,8 @@ bool ffw::ObjLoader::open(const std::string& path){
 		if (line[0] == '#')continue;
 		if (line[0] == 'm') {
 			if(line.find("mtllib") == 0) {
-				mtllibName = line.substr(7);
+				mtllibName = line.substr(7);	
+				if (mtllibName.back() == '\r')mtllibName.pop_back();
 			}
 			break;
 		} else {
@@ -288,12 +289,16 @@ bool ffw::ObjLoader::getNextObject(std::string* name) {
 
 		// Object/geometry
 		else if ((line[0] == 'o' || line[0] == 'g') && line[1] == ' ') {
-			if (name != NULL)*name = line.substr(2);
+			if (name != NULL) {
+				*name = line.substr(2);
+				if (name->back() == '\r')name->pop_back();
+			}
 		}
 
 		// Use mtl
 		else if (line.size() > 6 && line[0] == 'u' && line[1] == 's') {
 			currentMaterial = line.substr(7);
+			if (currentMaterial.back() == '\r')currentMaterial.pop_back();
 			newMaterialFlag = true;
 		}
 
@@ -422,6 +427,7 @@ bool ffw::ObjLoader::getPolygon() {
 		// Use mtl
 		if (line.size() > 6 && line[0] == 'u' && line[1] == 's') {
 			currentMaterial = line.substr(7);
+			if (currentMaterial.back() == '\r')currentMaterial.pop_back();
 			newMaterialFlag = true;
 			continue;
 		}

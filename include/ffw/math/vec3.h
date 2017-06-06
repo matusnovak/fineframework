@@ -385,7 +385,7 @@ namespace ffw {
 	* @ingroup math
 	*/
 	template <class T>
-	inline double AngleRad(const ffw::Vec3<T>& V1, const ffw::Vec3<T>& V2) {
+	inline double angleRad(const ffw::Vec3<T>& V1, const ffw::Vec3<T>& V2) {
 		double dot = (V1.x*V2.x + V1.y*V2.y + V1.z*V2.z);
 		double V1Length = sqrt(V1.x*V1.x + V1.y*V1.y + V1.z*V1.z);
 		double V2Length = sqrt(V2.x*V2.x + V2.y*V2.y + V2.z*V2.z);

@@ -3,7 +3,7 @@ Example: Bitmap Font
 
 ![Screenshot](example-bitmap-font.jpg)
 
-The purpose of this example is to show capability of loading and rendering a bitmap based font. It's up to the user how they decide to load and fill character data. The code below should be simple enough to understand. Similary to [True Type Font](md_markdown_example-true-type-font.html), this example uses an image instead of an True Type fonts.
+The purpose of this example is to show capability of loading and rendering a bitmap based font. It's up to the user how they decide to load and fill character data. The code below should be simple enough to understand. Similary to [True Type Font](md_doc_markdown_example-true-type-font.html), this example uses an image instead of an True Type fonts.
 
 **Requires finegraphics and finemath module to run**
 

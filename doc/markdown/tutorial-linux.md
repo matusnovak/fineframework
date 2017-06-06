@@ -75,6 +75,10 @@ Make sure that the dependencies (third party libraries) are found and C++11 is s
 -- Looking for include file pthread.h - found
 ```
 
+* If you wish to link against static dependencies, add `-DPREFER_STATIC_OVER_DYNAMIC=ON` at the end of the cmake command.
+* If you wish to link against static stdlib, add `-DSTATIC_STDLIB=ON` at the end of the cmake command.
+* To change the install directory, add `-DCMAKE_INSTALL_PREFIX:PATH=/path/to/install/dir`
+
 Lastly, compile and install:
 
 ```
