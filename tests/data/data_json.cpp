@@ -133,7 +133,8 @@ TEST_CASE("Comparator #1", "[JSON]") {
 }
 
 TEST_CASE("Decode JSON braces #1", "[JSON]") {
-	ffw::JsonReader json("[[{}]]");
+	std::string str = "[[{}]]";
+	ffw::JsonReader json(str);
 	ffw::JsonReader::Node node;
 	REQUIRE(json.getNext(&node, NULL) == true);
 	REQUIRE(node.ptr != NULL);
