@@ -22,25 +22,25 @@
 		  <!-- Navigation. We hide it in small screens. -->
 		  <nav class="mdl-navigation mdl-layout--large-screen-only">
 			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_markdown_faq.html">F.A.Q</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
 			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-button mdl-button--raised mdl-button--colored" href="md_markdown_download.html">Download</a>
+			<a class="mdl-button mdl-button--raised mdl-button--colored" href="md_doc_markdown_download.html">Download</a>
 		  </nav>
 		</div>
 	  </header>
 	  <div class="mdl-layout__drawer">
-		<span class="mdl-layout-title">Title</span>
+		<span class="mdl-layout-title">FineFramework</span>
 		<nav class="mdl-navigation">
 			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_markdown_faq.html">F.A.Q</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
 			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-navigation__link" href="md_markdown_download.html">Download</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_download.html">Download</a>
 			<a class="mdl-navigation__link" href="pages.html">All related pages</a>
 			<a class="mdl-navigation__link" href="modules.html">All modules</a>
 			<a class="mdl-navigation__link" href="bug.html">All bugs</a>
@@ -107,8 +107,15 @@
 <li>isAlphaOnly()
 : <a class="el" href="classffw_1_1_font.html#a6d9a0f5530f479c867b7551feb237dd1">ffw::Font</a>
 </li>
+<li>isArray()
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#ab2e7e5adeb331bfd0cd19ade1d387af6">ffw::JsonReader::Node</a>
+</li>
 <li>isBool()
 : <a class="el" href="classffw_1_1_var.html#a877b4772f6baaedfaef82fe99b99cea9">ffw::Var</a>
+</li>
+<li>isBoolean()
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a62811ba773df1ee153bc90fbf49e8e9e">ffw::JsonReader::Node</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#a4e61f37c8f11e8265018e21c407620a5">ffw::XmlReader::Value</a>
 </li>
 <li>isCreated()
 : <a class="el" href="classffw_1_1_buffer_object.html#a877ea57b654445340f681833f4653554">ffw::BufferObject</a>
@@ -128,10 +135,14 @@
 </li>
 <li>isEmpty()
 : <a class="el" href="classffw_1_1_gui_text_input.html#a47da35d1e8be00eb301783936534a8f9">ffw::GuiTextInput</a>
+, <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a7d3d86c0112c70d2800a5da5fee79ade">ffw::JsonReader::Node</a>
 , <a class="el" href="classffw_1_1_ring_buffer.html#ac310ea9fe8a1be50525d5b6160647ccc">ffw::RingBuffer&lt; T &gt;</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#a7f6c69a6afd6d166e6a7060cc85f686d">ffw::XmlReader::Value</a>
 </li>
 <li>isFloat()
-: <a class="el" href="classffw_1_1_var.html#a14eddfd4c73b43e799e9273c0615cc09">ffw::Var</a>
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a4fdf6f974c0751ad57d6dfe14e16ef71">ffw::JsonReader::Node</a>
+, <a class="el" href="classffw_1_1_var.html#a14eddfd4c73b43e799e9273c0615cc09">ffw::Var</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#afba3f88e31c74423852dba3ff2e588c0">ffw::XmlReader::Value</a>
 </li>
 <li>isFull()
 : <a class="el" href="classffw_1_1_ring_buffer.html#afef6976b3007d3b162017fa11c49a95b">ffw::RingBuffer&lt; T &gt;</a>
@@ -151,9 +162,11 @@
 : <a class="el" href="classffw_1_1_var.html#a31d75d7945814b640b882f2021f29a2d">ffw::Var</a>
 </li>
 <li>isInteger()
-: <a class="el" href="classffw_1_1_var_1_1_content.html#a25e8366f9ef1a2010a72c9b855e85ef7">ffw::Var::Content</a>
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a939690e54f17813f10ebf4d889efc118">ffw::JsonReader::Node</a>
+, <a class="el" href="classffw_1_1_var_1_1_content.html#a25e8366f9ef1a2010a72c9b855e85ef7">ffw::Var::Content</a>
 , <a class="el" href="classffw_1_1_var_1_1_data.html#af7e7526adebdeea9e05216e805561011">ffw::Var::Data&lt; T, Enable &gt;</a>
 , <a class="el" href="classffw_1_1_var_1_1_data_3_01_t_00_01typename_01std_1_1enable__if_3_01std_1_1is__integral_3_01_71ae06d7d7c3bee1c30bf8050615a65a.html#af0090048e4146a987415653b1825bf5c">ffw::Var::Data&lt; T, typename std::enable_if&lt; std::is_integral&lt; T &gt;::value &gt;::type &gt;</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#abcdcbc4a9b81475405032bfb025b14f3">ffw::XmlReader::Value</a>
 </li>
 <li>isLinked()
 : <a class="el" href="classffw_1_1_shader.html#a7407c12be5bc642c44e46e1be0f07ab5">ffw::Shader</a>
@@ -161,11 +174,27 @@
 <li>isNewline()
 : <a class="el" href="classffw_1_1_gui_text_wrapper_1_1_stepper.html#a39545f1ae8061120d1263667d880454d">ffw::GuiTextWrapper::Stepper</a>
 </li>
+<li>isNull()
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a3946c2badd09e546e570dbcfd310e1ba">ffw::JsonReader::Node</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#a3524e402c9fd38744cc7d35f2bd00add">ffw::XmlReader::Value</a>
+</li>
+<li>isNumber()
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a741d5374a7544f4701accce6b5e4cd26">ffw::JsonReader::Node</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#a36dda67412b32e89b83cc75758910deb">ffw::XmlReader::Value</a>
+</li>
+<li>isObject()
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a67b95625b7d22e6699235e6b98b46f51">ffw::JsonReader::Node</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_attribute.html#a17319f9688cc5b59beec6baa87543871">ffw::XmlReader::Attribute</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_node.html#af5855e40022c69c4d8bd44c2b9c935e7">ffw::XmlReader::Node</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#aa11ae43e9e2e0d99bc51518df4801478">ffw::XmlReader::Value</a>
+</li>
 <li>isOpen()
 : <a class="el" href="classffw_1_1_csv_loader.html#a5a073efffc4762b47019ac310f02e7d9">ffw::CsvLoader</a>
 , <a class="el" href="classffw_1_1_image_reader.html#a9eceacdc6b3cd1a48e96bb0e67c66319">ffw::ImageReader</a>
 , <a class="el" href="classffw_1_1_image_writer.html#afc935a20677f4f310088dc831b302eb3">ffw::ImageWriter</a>
+, <a class="el" href="classffw_1_1_json_writer_1_1_file_stream.html#aba816aa097c3b2850546041d42e23d78">ffw::JsonWriter::FileStream</a>
 , <a class="el" href="classffw_1_1_obj_loader.html#a0ee85ebf57668cff53da3d7f8214729c">ffw::ObjLoader</a>
+, <a class="el" href="classffw_1_1_xml_writer_1_1_file_stream.html#a8afc6ee2187a47a9547fef07e55f9891">ffw::XmlWriter::FileStream</a>
 </li>
 <li>isRunning()
 : <a class="el" href="classffw_1_1_thread_3_01_ret_07_args_8_8_8_08_4.html#a9e1c5dd4f42576090f9c9aa3fc2fc652">ffw::Thread&lt; Ret(Args...)&gt;</a>
@@ -175,7 +204,9 @@
 : <a class="el" href="classffw_1_1_gui_list_1_1_item.html#abc35163aa565bc27642c3e32fbaf9ae4">ffw::GuiList::Item</a>
 </li>
 <li>isString()
-: <a class="el" href="classffw_1_1_var.html#ac9a08aa525206187d8fea6e2bc671022">ffw::Var</a>
+: <a class="el" href="classffw_1_1_json_reader_1_1_node.html#a3ef88585d37ddcda68dbccd378b44b77">ffw::JsonReader::Node</a>
+, <a class="el" href="classffw_1_1_var.html#ac9a08aa525206187d8fea6e2bc671022">ffw::Var</a>
+, <a class="el" href="classffw_1_1_xml_reader_1_1_value.html#ab9a86e3bac0e4f2031a12c41e63d170f">ffw::XmlReader::Value</a>
 </li>
 <li>isUsingFrag()
 : <a class="el" href="classffw_1_1_shader.html#ae5d53c3d84123c8b907a4aa03e19c8d6">ffw::Shader</a>
@@ -204,8 +235,8 @@
 				  <h1 class="mdl-mega-footer--heading">Features</h1>
 				  <ul class="mdl-mega-footer--link-list">
 					<li><a href="index.html">Home</a></li>
-					<li><a href="md_markdown_documentation.html">Documentation</a></li>
-					<li><a href="md_markdown_examples.html">Examples</a></li>
+					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
+					<li><a href="md_doc_markdown_examples.html">Examples</a></li>
 					<li><a href="pages.html">All Pages</a></li>
 				  </ul>
 				</div>
@@ -213,24 +244,24 @@
 				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
 				  <h1 class="mdl-mega-footer--heading">Details</h1>
 				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="md_markdown_documentation.html">Documentation</a></li>
+					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
 					<li><a href="modules.html">Modules</a></li>
 					<li><a href="classes.html">Classes</a></li>
 					<li><a href="files.html">Files</a></li>
 					<li><a href="annotated.html">Class Hierarchy</a></li>
-					<li><a href="md_markdown_faq.html">F.A.Q</a></li>
+					<li><a href="md_doc_markdown_faq.html">F.A.Q</a></li>
 				  </ul>
 				</div>
 				<div class="mdl-mega-footer--drop-down-section">
 				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
 				  <h1 class="mdl-mega-footer--heading">Installation</h1>
 				  <ul class="mdl-mega-footer--link-list">
-				    <li><a href="md_markdown_download.html">Download</a></li>
-					<li><a href="md_markdown_tutorial-visualstudio-2015.html">Visual Studio 2015</a></li>
-					<li><a href="md_markdown_tutorial-visualstudio-2013.html">Visual Studio 2013</a></li>
-					<li><a href="md_markdown_tutorial-codeblocks.html">Code Blocks - MinGW</a></li>
-					<li><a href="md_markdown_tutorial-linux.html">Linux GCC</a></li>
-					<li><a href="md_markdown_tutorial-osx.html">Clang OSX</a></li>
+				    <li><a href="md_doc_markdown_download.html">Download</a></li>
+					<li><a href="md_doc_markdown_tutorial-visualstudio-2015.html">Visual Studio 2015</a></li>
+					<li><a href="md_doc_markdown_tutorial-visualstudio-2013.html">Visual Studio 2013</a></li>
+					<li><a href="md_doc_markdown_tutorial-codeblocks.html">Code Blocks - MinGW</a></li>
+					<li><a href="md_doc_markdown_tutorial-linux.html">Linux GCC</a></li>
+					<li><a href="md_doc_markdown_tutorial-osx.html">Clang OSX</a></li>
 				  </ul>
 				</div>
 				<div class="mdl-mega-footer--drop-down-section">

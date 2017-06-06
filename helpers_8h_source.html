@@ -22,25 +22,25 @@
 		  <!-- Navigation. We hide it in small screens. -->
 		  <nav class="mdl-navigation mdl-layout--large-screen-only">
 			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_markdown_faq.html">F.A.Q</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
 			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-button mdl-button--raised mdl-button--colored" href="md_markdown_download.html">Download</a>
+			<a class="mdl-button mdl-button--raised mdl-button--colored" href="md_doc_markdown_download.html">Download</a>
 		  </nav>
 		</div>
 	  </header>
 	  <div class="mdl-layout__drawer">
-		<span class="mdl-layout-title">Title</span>
+		<span class="mdl-layout-title">FineFramework</span>
 		<nav class="mdl-navigation">
 			<a class="mdl-navigation__link" href="index.html">Home</a>
-			<a class="mdl-navigation__link" href="md_markdown_documentation.html">Documentation</a>
-			<a class="mdl-navigation__link" href="md_markdown_tutorials.html">Tutorials</a>
-			<a class="mdl-navigation__link" href="md_markdown_examples.html">Examples</a>
-			<a class="mdl-navigation__link" href="md_markdown_faq.html">F.A.Q</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_documentation.html">Documentation</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_tutorials.html">Tutorials</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_examples.html">Examples</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_faq.html">F.A.Q</a>
 			<a class="mdl-navigation__link" href="https://github.com/matusnovak/fineframework">GitHub</a>
-			<a class="mdl-navigation__link" href="md_markdown_download.html">Download</a>
+			<a class="mdl-navigation__link" href="md_doc_markdown_download.html">Download</a>
 			<a class="mdl-navigation__link" href="pages.html">All related pages</a>
 			<a class="mdl-navigation__link" href="modules.html">All modules</a>
 			<a class="mdl-navigation__link" href="bug.html">All bugs</a>
@@ -60,11 +60,11 @@
 <div class="title">helpers.h</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="helpers_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* This file is part of FineFramework project */</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#ifndef FFW_DATA_HELPERS</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define FFW_DATA_HELPERS</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../config.h&quot;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceffw.html">ffw</a> {</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#ga210a7c72e15dd128053812f18489d431">stringContainsWhitespace</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keywordtype">size_t</span> length);</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#ga50a08b176a36301d554d9ac6d8785a75">stringisInteger</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keywordtype">size_t</span> length);</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#ga8e982365ea24743a739d6f1190f11072">stringisFloat</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keywordtype">size_t</span> length);</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#gae6fd0d5043dfb72362c2813b2467cc44">stringisBool</a>(<span class="keyword">const</span> <span class="keywordtype">char</span>* str, <span class="keywordtype">size_t</span> length, <span class="keywordtype">bool</span>* ptr = NULL);</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="config_8h_html_a66b14d142de0be39106b81c86b2422c5"><div class="ttname"><a href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a></div><div class="ttdeci">#define FFW_API</div><div class="ttdef"><b>Definition:</b> config.h:54</div></div>
-<div class="ttc" id="group__data_html_ga210a7c72e15dd128053812f18489d431"><div class="ttname"><a href="group__data.html#ga210a7c72e15dd128053812f18489d431">ffw::stringContainsWhitespace</a></div><div class="ttdeci">bool FFW_API stringContainsWhitespace(const char *str, size_t length)</div></div>
-<div class="ttc" id="group__data_html_gae6fd0d5043dfb72362c2813b2467cc44"><div class="ttname"><a href="group__data.html#gae6fd0d5043dfb72362c2813b2467cc44">ffw::stringisBool</a></div><div class="ttdeci">bool FFW_API stringisBool(const char *str, size_t length, bool *ptr=NULL)</div></div>
-<div class="ttc" id="group__data_html_ga50a08b176a36301d554d9ac6d8785a75"><div class="ttname"><a href="group__data.html#ga50a08b176a36301d554d9ac6d8785a75">ffw::stringisInteger</a></div><div class="ttdeci">bool FFW_API stringisInteger(const char *str, size_t length)</div></div>
-<div class="ttc" id="group__data_html_ga8e982365ea24743a739d6f1190f11072"><div class="ttname"><a href="group__data.html#ga8e982365ea24743a739d6f1190f11072">ffw::stringisFloat</a></div><div class="ttdeci">bool FFW_API stringisFloat(const char *str, size_t length)</div></div>
+<a href="helpers_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="comment">/* This file is part of FineFramework project */</span></div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#ifndef FFW_DATA_HELPERS</span></div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#define FFW_DATA_HELPERS</span></div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;../config.h&quot;</span></div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceffw.html">ffw</a> {</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#ga9bdea241b85e13441030af3e28d2e89e">stringContainsWhitespace</a>(std::string::const_iterator begin, std::string::const_iterator end);</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#ga3d48dcc46cf2c0537514ebd0b53c7d45">stringisInteger</a>(std::string::const_iterator begin, std::string::const_iterator end);</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#gaadff74b0b7aec09f5a2853fd15a157ae">stringisFloat</a>(std::string::const_iterator begin, std::string::const_iterator end);</div><div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a> <a class="code" href="group__data.html#gac3058bb8e62e6cabf52e09587f2e9438">stringisBool</a>(std::string::const_iterator begin, std::string::const_iterator end);</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;};</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="group__data_html_ga9bdea241b85e13441030af3e28d2e89e"><div class="ttname"><a href="group__data.html#ga9bdea241b85e13441030af3e28d2e89e">ffw::stringContainsWhitespace</a></div><div class="ttdeci">bool FFW_API stringContainsWhitespace(std::string::const_iterator begin, std::string::const_iterator end)</div></div>
+<div class="ttc" id="group__data_html_gaadff74b0b7aec09f5a2853fd15a157ae"><div class="ttname"><a href="group__data.html#gaadff74b0b7aec09f5a2853fd15a157ae">ffw::stringisFloat</a></div><div class="ttdeci">bool FFW_API stringisFloat(std::string::const_iterator begin, std::string::const_iterator end)</div></div>
+<div class="ttc" id="config_8h_html_a66b14d142de0be39106b81c86b2422c5"><div class="ttname"><a href="config_8h.html#a66b14d142de0be39106b81c86b2422c5">FFW_API</a></div><div class="ttdeci">#define FFW_API</div><div class="ttdef"><b>Definition:</b> config.h:54</div></div>
+<div class="ttc" id="group__data_html_gac3058bb8e62e6cabf52e09587f2e9438"><div class="ttname"><a href="group__data.html#gac3058bb8e62e6cabf52e09587f2e9438">ffw::stringisBool</a></div><div class="ttdeci">bool FFW_API stringisBool(std::string::const_iterator begin, std::string::const_iterator end)</div></div>
+<div class="ttc" id="group__data_html_ga3d48dcc46cf2c0537514ebd0b53c7d45"><div class="ttname"><a href="group__data.html#ga3d48dcc46cf2c0537514ebd0b53c7d45">ffw::stringisInteger</a></div><div class="ttdeci">bool FFW_API stringisInteger(std::string::const_iterator begin, std::string::const_iterator end)</div></div>
 <div class="ttc" id="namespaceffw_html"><div class="ttname"><a href="namespaceffw.html">ffw</a></div><div class="ttdef"><b>Definition:</b> constants.h:4</div></div>
 </div><!-- fragment --></div><!-- contents -->
 			</div>
@@ -76,8 +76,8 @@
 				  <h1 class="mdl-mega-footer--heading">Features</h1>
 				  <ul class="mdl-mega-footer--link-list">
 					<li><a href="index.html">Home</a></li>
-					<li><a href="md_markdown_documentation.html">Documentation</a></li>
-					<li><a href="md_markdown_examples.html">Examples</a></li>
+					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
+					<li><a href="md_doc_markdown_examples.html">Examples</a></li>
 					<li><a href="pages.html">All Pages</a></li>
 				  </ul>
 				</div>
@@ -85,24 +85,24 @@
 				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
 				  <h1 class="mdl-mega-footer--heading">Details</h1>
 				  <ul class="mdl-mega-footer--link-list">
-					<li><a href="md_markdown_documentation.html">Documentation</a></li>
+					<li><a href="md_doc_markdown_documentation.html">Documentation</a></li>
 					<li><a href="modules.html">Modules</a></li>
 					<li><a href="classes.html">Classes</a></li>
 					<li><a href="files.html">Files</a></li>
 					<li><a href="annotated.html">Class Hierarchy</a></li>
-					<li><a href="md_markdown_faq.html">F.A.Q</a></li>
+					<li><a href="md_doc_markdown_faq.html">F.A.Q</a></li>
 				  </ul>
 				</div>
 				<div class="mdl-mega-footer--drop-down-section">
 				  <input class="mdl-mega-footer--heading-checkbox" type="checkbox" checked="">
 				  <h1 class="mdl-mega-footer--heading">Installation</h1>
 				  <ul class="mdl-mega-footer--link-list">
-				    <li><a href="md_markdown_download.html">Download</a></li>
-					<li><a href="md_markdown_tutorial-visualstudio-2015.html">Visual Studio 2015</a></li>
-					<li><a href="md_markdown_tutorial-visualstudio-2013.html">Visual Studio 2013</a></li>
-					<li><a href="md_markdown_tutorial-codeblocks.html">Code Blocks - MinGW</a></li>
-					<li><a href="md_markdown_tutorial-linux.html">Linux GCC</a></li>
-					<li><a href="md_markdown_tutorial-osx.html">Clang OSX</a></li>
+				    <li><a href="md_doc_markdown_download.html">Download</a></li>
+					<li><a href="md_doc_markdown_tutorial-visualstudio-2015.html">Visual Studio 2015</a></li>
+					<li><a href="md_doc_markdown_tutorial-visualstudio-2013.html">Visual Studio 2013</a></li>
+					<li><a href="md_doc_markdown_tutorial-codeblocks.html">Code Blocks - MinGW</a></li>
+					<li><a href="md_doc_markdown_tutorial-linux.html">Linux GCC</a></li>
+					<li><a href="md_doc_markdown_tutorial-osx.html">Clang OSX</a></li>
 				  </ul>
 				</div>
 				<div class="mdl-mega-footer--drop-down-section">
