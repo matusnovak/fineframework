@@ -18,8 +18,8 @@ namespace ffw {
 		bool createFromData(const RenderContext* renderer, const void* pixels, int width, int height, ffw::ImageType format, int points, int dpi, int start = 0x00, int end = 0x7F);
 		bool createFromBuffer(const RenderContext* renderer, const ImageBuffer& buffer, int points, int dpi, int start = 0x00, int end = 0x7F);
 		void destroy() override;
-		const Char& getChar(wchar_t chr) const override;
-		void setCharData(wchar_t chr, int x, int y, int width, int height, int advance, int bearing);
+		const Font::Char& getChar(wchar_t chr) const override;
+		Font::Char& setCharData(wchar_t chr);
 
 		BitmapFont& operator = (const BitmapFont& other) = delete;
 		BitmapFont& operator = (BitmapFont&& other);

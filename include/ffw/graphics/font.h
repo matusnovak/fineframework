@@ -20,8 +20,9 @@ namespace ffw {
 			unsigned short y = 0;
 			unsigned short width = 0;
 			unsigned short height = 0;
-			unsigned short advance = 0;
-			unsigned short bearing = 0;
+			float bearingX = 0;
+			float bearingY = 0;
+			float advance = 0;
 		};
 
 		Font();
@@ -48,8 +49,8 @@ namespace ffw {
 		inline bool isCreated() const {
 			return loaded;
 		}
-		inline int getCharVerticalOffset(const Font::Char& data) const {
-			return (sizePixels - data.height) + (data.height - data.bearing);
+		inline float getCharVerticalOffset(const Font::Char& data) const {
+			return float(sizePixels - data.height) + float(data.height - data.bearingY);
 		}
 		inline bool isAlphaOnly() const {
 			return alphaOnlyFlag;

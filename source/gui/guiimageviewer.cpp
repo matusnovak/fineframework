@@ -38,8 +38,20 @@ void ffw::GuiImageViewer::setMirror(bool mirrorX, bool mirrorY) {
 }
 
 ///=============================================================================
+void ffw::GuiImageViewer::setLabel(const std::wstring& label_){
+	label = label_;
+	redraw();
+}
+
+///=============================================================================
+const std::wstring& ffw::GuiImageViewer::getLabel() const {
+	return label;
+}
+
+///=============================================================================
 void ffw::GuiImageViewer::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
-	context->drawImage(contentoffset, contentsize, img, sub, mirror.x, mirror.y, getCurrentStyle()->text.color);
+	context->drawImage(contentoffset, contentsize, img, sub, mirror.x, mirror.y, getCurrentStyle()->function.color);
+	context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
@@ -52,10 +64,19 @@ void ffw::GuiImageViewer::eventSize(const ffw::Vec2i& size) {
 
 ///=============================================================================
 void ffw::GuiImageViewer::eventHover(bool gained) {
+	redraw();
 }
 
 ///=============================================================================
 void ffw::GuiImageViewer::eventFocus(bool gained) {
+	redraw();
+
+	if (!gained || getFlags().focusType != GuiWidget::Focus::DROP) {
+		GuiEvent::Data dat;
+		if (getFlags().focusType == GuiWidget::Focus::DROP)dat.clicked.value = true;
+		else dat.clicked.value = gained;
+		pushEvent(GuiEvent::Type::CLICKED, dat);
+	}
 }
 
 ///=============================================================================

@@ -14,8 +14,14 @@ namespace ffw{
 	public:
 		CsvLoader();
 		~CsvLoader();
-
+		/**
+		* @brief Opens CSV from data (string)
+		* @return Returns true on success
+		*/
 		bool openFromData(const std::string& input, char delim = ',', char quote = '\"');
+		/**
+		* @brief Opens CSV from file
+		*/
 		bool openFromFile(const std::string& path, char delim = ',', char quote = '\"');
 		bool isOpen() const;
 		void close();

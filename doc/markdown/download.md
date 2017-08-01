@@ -1,5 +1,5 @@
-Pre-compiled FineFramework binaries
------------------------------------
+Download
+--------
 
 Pre-compiled binaries can be found on [GitHub Release Page](https://github.com/matusnovak/fineframework/releases). Look for the most recent `FineFramework - precompiled -vX.X.X` release and download the correct ZIP file depending on your compiler and OS.
 

@@ -209,6 +209,14 @@ namespace ffw {
 		inline T lengthSqrd() const {
 			return (x*x + y*y);
 		}
+		
+		T& operator [] (size_t i){
+			return ((T*)&x)[i];
+		}
+
+		const T& operator [] (size_t i) const  {
+			return ((T*)&x)[i];
+		}
 
 		template <class S>
 		inline operator ffw::Vec2<S>() const {

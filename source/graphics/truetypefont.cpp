@@ -6,6 +6,7 @@
 static int totalTextureW = 7;
 static int availableTextureW[7] = { 64, 128, 256, 512, 1024, 2048, 4096 };
 static int pow2[7] = { 4, 8, 16, 32, 64, 128, 256 };
+static int padding = 1;
 
 template<class T>
 static T GetUpperMultiple(T val, T mul) {
@@ -165,7 +166,7 @@ bool ffw::TrueTypeFont::fillData(const RenderContext* renderer, int start, int e
 			// Check horizontal space
 			if(posx + texWidth > totalWidth) {
 				posx = 0;
-				posy += lineHeight;
+				posy += lineHeight + padding*2;
 				lineHeight = 0;
 
 				// If we run out of rows, break and try bigger texture size
@@ -185,11 +186,11 @@ bool ffw::TrueTypeFont::fillData(const RenderContext* renderer, int start, int e
 			lineHeight = std::max(lineHeight, (int)chr.height);
 			lastPosY = posy + lineHeight;
 
-			characters[i].x = posx;
-			characters[i].y = posy;
+			characters[i].x = posx + padding;
+			characters[i].y = posy + padding;
 
 			// Move right
-			posx += chr.width;
+			posx += chr.width + padding*2;
 		}
 
 		if(found) {
@@ -215,12 +216,14 @@ bool ffw::TrueTypeFont::fillData(const RenderContext* renderer, int start, int e
 			characters[i].width = charsTemp[i].width;
 			characters[i].height = charsTemp[i].height;
 			characters[i].advance = charsTemp[i].advance;
-			characters[i].bearing = charsTemp[i].bearing;
+			characters[i].bearingX = charsTemp[i].bearingX;
+			characters[i].bearingY = charsTemp[i].bearingY;
 		} else {
 			characters[i].width = 0;
 			characters[i].height = 0;
 			characters[i].advance = 0;
-			characters[i].bearing = 0;
+			characters[i].bearingX = 0;
+			characters[i].bearingY = 0;
 		}
 	}
 

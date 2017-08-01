@@ -3,10 +3,12 @@
 #define FFW_MEDIA_TIF_SAVER
 #include "imagesaver.h"
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifndef _TIFFIO_
 typedef void* TIFFp;
 #else
 typedef TIFF* TIFFp;
+#endif
 #endif
 
 namespace ffw {

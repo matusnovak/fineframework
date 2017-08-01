@@ -38,6 +38,10 @@ public:
 	bool setup() override {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		// PLEASE READ!!!
+		// If you get artefacts around the font letters, uncomment "glBlendFuncSeparate"
+		// and remove the "glBlendFunc" above!
+		// glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
 		gui.setTheme(&ffw::GuiTheme::simpleLight);
 		gui.create(this);

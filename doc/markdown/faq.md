@@ -1,3 +1,6 @@
+F.A.Q
+-----
+
 **I want to use only one module (for example finegraphics), do I need link all of them?**
 
 > No. All modules (graphics, data, gui, media) are not dependent on each other. However, they all use math module which is header only library, therefore no extra linking is needed.

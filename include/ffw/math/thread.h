@@ -4,6 +4,7 @@
 #include "../config.h"
 #include <math.h>
 #include <functional>
+#include <atomic>
 
 #ifndef FFW_USING_STD_THREADS
 #if defined(_GLIBCXX_HAS_GTHREADS) || defined(_MSC_VER)
@@ -91,7 +92,6 @@ namespace ffw {
 #else
 			int err = 0;
 			if ((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
-				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}
 			return true;
@@ -112,7 +112,6 @@ namespace ffw {
 #else
 			int err = 0;
 			if((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
-				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}
 			return true;
@@ -233,7 +232,6 @@ namespace ffw {
 #else
 			int err = 0;
 			if ((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
-				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}
 			return true;
@@ -254,7 +252,6 @@ namespace ffw {
 #else
 			int err = 0;
 			if ((err = pthread_create(&t, NULL, &Thread::threadFunc, this)) != 0) {
-				//std::cerr << "pthread_create error code: " << err << std::endl;
 				return false;
 			}
 			return true;

@@ -240,6 +240,14 @@ namespace ffw {
 		inline T lengthSqrd() const {
 			return (x*x + y*y + z*z + w*w);
 		}
+		
+		T& operator [] (size_t i){
+			return ((T*)&x)[i];
+		}
+
+		const T& operator [] (size_t i) const  {
+			return ((T*)&x)[i];
+		}
 
 		template <class S>
 		inline operator ffw::Vec4<S>() const {
@@ -298,6 +306,14 @@ namespace ffw {
 		auto copy = vec;
 		copy.normalize();
 		return copy;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline std::ostream& operator << (std::ostream& os, const ffw::Vec4<T>& vec) {
+		os << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w;
+		return os;
 	}
 };
 namespace ffw {

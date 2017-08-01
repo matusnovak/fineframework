@@ -97,6 +97,11 @@ namespace ffw {
 			callbacks.back().func = std::bind(memfuncptr, instance, std::placeholders::_1);
 			callbacks.back().now = instant;
 		}
+		void add(const std::function<void(GuiEvent)>& function, bool instant) {
+			callbacks.push_back(Data());
+			callbacks.back().func = function;
+			callbacks.back().now = instant;
+		}
 		std::vector<Data> callbacks;
 	};
 	/**
@@ -286,6 +291,9 @@ namespace ffw {
 		void addEventCallback(void (T::*memfuncptr)(GuiEvent), T* instance, bool now = false){
 			eventCallbacks.add(memfuncptr, instance, now);
 		}
+		void addEventCallback(const std::function<void(GuiEvent)>& function, bool now = false) {
+			eventCallbacks.add(function, now);
+		}
 		void setCallbackPtr(GuiWidget* ptr);
 		inline GuiWidget* getCallbackPtr() const {
 			return callbackPtr;
@@ -332,6 +340,18 @@ namespace ffw {
 		inline const GuiWindow* getWindow() const  {
 			return context;
 		}
+		inline void setToggleFocus() {
+			flags.focusType = GuiWidget::Focus::TOGGLE;
+		}
+		inline void setStickyFocus() {
+			flags.focusType = GuiWidget::Focus::STICKY;
+		}
+		inline void setDropFocus() {
+			flags.focusType = GuiWidget::Focus::DROP;
+		}
+		inline void setDefaultFocus() {
+			flags.focusType = GuiWidget::Focus::DEFAULT;
+		}
 		GuiWidget& operator = (const GuiWidget& other) = delete;
 		GuiWidget& operator = (GuiWidget&& other);
 	protected:
@@ -362,18 +382,6 @@ namespace ffw {
 		virtual void eventThemeChanged(const GuiTheme* theme) = 0;
 		GuiWindow* context;
 		const GuiStyleGroup* widgetStyle;
-		inline void setToggleFocus() {
-			flags.focusType = GuiWidget::Focus::TOGGLE;
-		}
-		inline void setStickyFocus() {
-			flags.focusType = GuiWidget::Focus::STICKY;
-		}
-		inline void setDropFocus() {
-			flags.focusType = GuiWidget::Focus::DROP;
-		}
-		inline void setDefaultFocus() {
-			flags.focusType = GuiWidget::Focus::DEFAULT;
-		}
 		inline const Flags& getFlags() const {
 			return flags;
 		}

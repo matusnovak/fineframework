@@ -1,5 +1,5 @@
-FFW with GCC on Linux
------------------------------------------
+Tutorial: GCC on Linux
+----------------------
 
 This tutorial will explain how to include any FFW module into your C++ project. You will need GCC compiler 4.9.2 or newer! 
 

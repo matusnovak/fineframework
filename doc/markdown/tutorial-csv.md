@@ -1,8 +1,16 @@
-## Decode CSV 
+Tutorial: Decode CSV 
+--------------------
 
 This tutorial will explain how to decode CSV structure. 
 
 **The tutorial uses ffw::Var which is essential in the following examples. You must read [Var - JSON-like data structure](md_doc_markdown_tutorial-var.html) tutorial first!**
+
+Make sure you add `finedata` into your linker and add the following headers into your project:
+
+```cpp
+#include <ffw/math.h>
+#include <ffw/data.h>
+```
 
 ### Decode CSV with one function
 

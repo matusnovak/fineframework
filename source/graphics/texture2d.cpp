@@ -85,6 +85,7 @@ bool ffw::Texture2D::resize(GLsizei width, GLsizei height){
 ///=============================================================================
 bool ffw::Texture2D::setPixels(GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, const void* pixels){
     if(!loaded_)return false;
+	glBindTexture(GL_TEXTURE_2D, buffer_);
     glTexSubImage2D(GL_TEXTURE_2D, level, xoffset, yoffset, width, height, format_, pixelformat_, pixels);
     return true;
 }
@@ -92,6 +93,7 @@ bool ffw::Texture2D::setPixels(GLint level, GLint xoffset, GLint yoffset, GLsize
 ///=============================================================================
 bool ffw::Texture2D::getPixels(void* pixels){
     if(!loaded_)return false;
+	glBindTexture(GL_TEXTURE_2D, buffer_);
 	glGetTexImage(GL_TEXTURE_2D, 0, format_, pixelformat_, pixels);
     return true;
 }

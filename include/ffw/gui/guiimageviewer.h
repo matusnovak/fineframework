@@ -22,6 +22,8 @@ namespace ffw {
 		inline const ffw::Vec2<bool> getMirror() const {
 			return mirror;
 		}
+		void setLabel(const std::wstring& label);
+		const std::wstring& getLabel() const;
 		ffw::Vec2i getMinimumWrapSize() override;
 	private:
 		void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
@@ -38,6 +40,7 @@ namespace ffw {
 		const GuiImage* img;
 		ffw::Vec4i sub;
 		ffw::Vec2<bool> mirror;
+		std::wstring label;
 	};
 }
 #endif

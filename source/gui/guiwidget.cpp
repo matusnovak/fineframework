@@ -554,7 +554,7 @@ void ffw::GuiWidget::render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsiz
 			context->setScissors(childclippos, childclipsize);
 		
 			if(clear){
-				context->clearWithColor(rgba(0x000000FF));
+				context->clearWithColor(rgba(0x00000000));
 
 				// Go up through every parent and draw its background
 				if(parent != NULL){

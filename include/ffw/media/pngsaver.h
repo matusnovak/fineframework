@@ -3,9 +3,11 @@
 #define FFW_MEDIA_PNG_SAVER
 #include "imagesaver.h"
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #ifndef PNG_H
 typedef void* png_structp;
 typedef void* png_infop;
+#endif
 #endif
 
 namespace ffw {

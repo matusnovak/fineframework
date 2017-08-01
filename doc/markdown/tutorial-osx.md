@@ -1,5 +1,5 @@
-FFW with GCC on OSX
------------------------------------------
+Tutorial: Clang on OSX
+----------------------
 
 This tutorial will explain how to include any FFW module into your C++ project. You will need Clang++ compiler 3.7 or newer!  You will also need to install [Homebrew](https://brew.sh/)
 

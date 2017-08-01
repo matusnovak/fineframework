@@ -117,7 +117,7 @@ namespace ffw {
 		std::string str;
 		str.resize(sizeof(T) * 2);
 		for (size_t i = 0; i < sizeof(T) * 2; i++) {
-			char c = (Value >> (i * 4));
+			char c = char(Value >> (i * 4));
 			c = c & 0x0F;
 			str[sizeof(T) * 2 - i - 1] = chars[int(c)];
 		}

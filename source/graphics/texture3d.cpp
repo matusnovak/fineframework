@@ -86,6 +86,7 @@ bool ffw::Texture3D::resize(GLsizei width, GLsizei height, GLsizei depth){
 ///=============================================================================
 bool ffw::Texture3D::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, const void* pixels){
     if(!loaded_)return false;
+	glBindTexture(GL_TEXTURE_3D, buffer_);
     gl_->glTexSubImage3D(GL_TEXTURE_3D, level, xoffset, yoffset, zoffset, width, height, depth, format_, pixelformat_, pixels);
     return true;
 }
@@ -93,6 +94,7 @@ bool ffw::Texture3D::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint 
 ///=============================================================================
 bool ffw::Texture3D::getPixels(void* pixels){
     if(!loaded_)return false;
+	glBindTexture(GL_TEXTURE_3D, buffer_);
 	glGetTexImage(GL_TEXTURE_3D, 0, format_, pixelformat_, pixels);
     return true;
 }

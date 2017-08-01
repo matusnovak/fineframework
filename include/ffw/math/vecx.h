@@ -131,7 +131,7 @@ namespace ffw{
 			return *this;
 		}
 
-		ffw::Vec2<T>& operator =  (const T& val) {
+		ffw::Vec<T, S>& operator =  (const T& val) {
 			for (size_t i = 0; i < S; i++) {
 				arr[i] = val;
 			}
@@ -294,6 +294,17 @@ namespace ffw{
 	template <class T, size_t S>
 	inline ffw::Vec<T, S> normalize(const Vec<T, S>& vec) {
 		return ffw::Vec<T, S>(vec).normalize();
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T, size_t S>
+	inline std::ostream& operator << (std::ostream& os, const ffw::Vec<T, S>& vec) {
+		os << vec[0];
+		for(size_t i = 1; i < S; i++){
+			os << ", " << vec[i];
+		}
+		return os;
 	}
 };
 #endif

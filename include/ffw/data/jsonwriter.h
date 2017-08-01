@@ -52,7 +52,6 @@ namespace ffw{
 		void addBoolean(bool val, const char* key = NULL);
 		void addFloat(float val, const char* key = NULL);
 		void addNull(const char* key = NULL);
-
 	private:
 		void writeIndent();
 		void addBegin(const char* key);

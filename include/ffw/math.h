@@ -20,4 +20,5 @@
 #include "math/imagebuffer.h"
 #include "math/thread.h"
 #include "math/mutex.h"
+#include "math/mvp.h"
 #endif

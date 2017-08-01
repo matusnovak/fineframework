@@ -1,5 +1,6 @@
 #include <ffw/graphics.h>
 #include <ffw/media.h>
+#include <ffw/math.h>
 
 ///=============================================================================
 class App: public ffw::GLFWRenderWindow {
@@ -170,8 +171,6 @@ public:
 	}
 
     void mouseButtonEvent(ffw::MouseButton button, ffw::Mode mode) override {
-		if(mode == ffw::Mode::PRESSED)mouseDown = true;
-		else mouseDown = false;
 	}
 
     void windowResizedEvent(int width, int height) override {
@@ -240,8 +239,6 @@ int main(int argc, char *argv[]){
 		system("pause");
 		return 1;
 	}
-
-	app.setSingleBufferMode(true);
 
 	// The main window loop
 	while(app.shouldRender()){

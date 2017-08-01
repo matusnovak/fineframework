@@ -6,6 +6,7 @@
 ffw::GuiWindow::GuiBody::GuiBody(GuiWindow* context, GuiLayout::Orientation orient):GuiLayout(context, orient) {
 	// At this point, we are sure that the context and getTheme() are not NULL
 	widgetStyle = &context->getTheme()->getStyleGroup("GUI_WINDOW_BODY");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -16,6 +17,7 @@ ffw::GuiWindow::GuiBody::~GuiBody() {
 ///=============================================================================
 void ffw::GuiWindow::GuiBody::eventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->getStyleGroup("GUI_WINDOW_BODY");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -83,7 +85,7 @@ const ffw::GuiFont* ffw::GuiWindow::getDefaultFont() const {
 
 ///=============================================================================
 void ffw::GuiWindow::injectMousePos(int posx, int posy){
-	mousepos.set(posx, posy);
+	mousepos.set(posx - pos.x, posy - pos.y);
 }
 
 ///=============================================================================

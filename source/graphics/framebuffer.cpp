@@ -87,21 +87,21 @@ bool ffw::Framebuffer::create(const ffw::RenderContext* renderer){
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addDepthTexture(const ffw::Texture2D* depthtexture){
+bool ffw::Framebuffer::addDepthTexture(const ffw::Texture2D* depthtexture, int mip){
     if(!created_ || depthtexture == NULL)return false;
 	
 	bind();
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), mip);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), mip);
     #endif
 	
 	return true;
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addColorTexture(const ffw::Texture2D* colortexture){
+bool ffw::Framebuffer::addColorTexture(const ffw::Texture2D* colortexture, int mip){
     if(!created_ || colortexture == NULL)return false;
 
     // Check if number of color attachments is lower than the maximum
@@ -113,9 +113,31 @@ bool ffw::Framebuffer::addColorTexture(const ffw::Texture2D* colortexture){
 
 	bind();
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), mip);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), mip);
+	#endif
+	
+	colorcount_++;
+    return true;
+}
+
+///=============================================================================
+bool ffw::Framebuffer::addCubemapTexture(const ffw::TextureCubemap* texture, int side, int mip) {
+	if(!created_ || texture == NULL)return false;
+
+    // Check if number of color attachments is lower than the maximum
+    GLint maxColorAttachments;
+    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxColorAttachments);
+	if (colorcount_ > maxColorAttachments){
+        return false;
+    }
+
+	bind();
+	#ifdef FFW_OSX
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), mip);
+	#else
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, texture->getHandle(), mip);
 	#endif
 	
 	colorcount_++;
@@ -159,21 +181,21 @@ bool ffw::Framebuffer::addColorRenderbuffer(const ffw::Renderbuffer2D* colorrend
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addDepthTextureMS(const ffw::Texture2DMS* depthtexture){
+bool ffw::Framebuffer::addDepthTextureMS(const ffw::Texture2DMS* depthtexture, int mip){
     if(!created_ || depthtexture == NULL)return false;
 	
 	bind();
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), mip);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), mip);
     #endif
 	
 	return true;
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addColorTextureMS(const ffw::Texture2DMS* colortexture){
+bool ffw::Framebuffer::addColorTextureMS(const ffw::Texture2DMS* colortexture, int mip){
     if(!created_ || colortexture == NULL)return false;
 
     // Check if number of color attachments is lower than the maximum
@@ -185,9 +207,9 @@ bool ffw::Framebuffer::addColorTextureMS(const ffw::Texture2DMS* colortexture){
 
 	bind();
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), 0);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), mip);
 	#else
-		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), 0);
+		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), mip);
 	#endif
 	
 	colorcount_++;

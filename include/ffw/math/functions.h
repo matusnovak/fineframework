@@ -22,6 +22,20 @@ namespace ffw {
 	/**
 	* @ingroup math
 	*/
+	template<class T>
+	inline T radians (T val){
+		return static_cast<T>(val * DEG_TO_RAD);
+	}
+	/**
+	* @ingroup math
+	*/
+	template<class T>
+	inline T degrees (T val){
+		return static_cast<T>(val * RAD_TO_DEG);
+	}
+	/**
+	* @ingroup math
+	*/
 	template<typename T>
 	inline T remap(T value, T InMin, T InMax, T OutMin, T OutMax) {
 		return (value - InMin)*(OutMax - OutMin) / (InMax - InMin) + OutMin;

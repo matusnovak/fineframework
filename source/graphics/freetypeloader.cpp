@@ -212,9 +212,9 @@ bool ffw::FreeTypeLoader::getGlyphData(CharData* data) {
 	//data->pixels = pixels;
 	data->width = static_cast<short>(bitmap.width);
 	data->height = static_cast<short>(bitmap.rows);
-	data->left = short(fontFace->glyph->metrics.horiBearingX / 64);
-	data->bearing = short(fontFace->glyph->metrics.horiBearingY / 64);
-	data->advance = short(fontFace->glyph->advance.x >> 6);
+	data->bearingX = fontFace->glyph->metrics.horiBearingX / 64.0f;
+	data->bearingY = fontFace->glyph->metrics.horiBearingY / 64.0f;
+	data->advance = fontFace->glyph->linearHoriAdvance / 65536.0f;
 	return true;
 }
 

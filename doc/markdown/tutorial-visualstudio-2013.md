@@ -1,4 +1,4 @@
-FFW with Visual Studio 2013
+Tutorial: Visual Studio 2013
 -----------------------------------------
 
 This tutorial will explain how to include any FFW module into your C++ project. You will need Visual Studio 2013 which can be downloaded from <https://www.visualstudio.com/en-us/news/releasenotes/vs2013-community-vs>.
@@ -52,8 +52,6 @@ This is where DLL files comes...
 For the Debug, simply copy all DLL and PDB files with '_d' suffix from `C:\path\to\ffw-win32-vc12\bin` into `C:\Path\To\Your\Project Folder\Debug` (this folder contains your executable file!)
 
 For the Release, simply copy all DLL (with NO '_d' suffix!) from `C:\path\to\ffw-win32-vc12\bin` into `C:\Path\To\Your\Project Folder\Release` (this folder contains your executable file!)
-
-Alternatively (not recommended!) you can put all DLLs and PDBs files (Debug and Release) into your Visual Studio bin folder located here: `C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin` In this case, you won't need to copy DLLs every time you create a new FFW project, unless you are running your application outside of Visual Studio.
 
 When done, try to run the example again. This should show up:
 

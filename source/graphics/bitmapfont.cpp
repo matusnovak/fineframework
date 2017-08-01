@@ -89,16 +89,8 @@ bool ffw::BitmapFont::createFromData(const RenderContext* renderer, const void* 
 }
 
 ///=============================================================================
-void ffw::BitmapFont::setCharData(wchar_t chr, int x, int y, int width, int height, int advance, int bearing) {
-	if (chr < offsetStart || chr > offsetEnd)return;
-
-	auto& data = characters[chr - offsetStart];
-	data.x = x;
-	data.y = y;
-	data.width = width;
-	data.height = height;
-	data.advance = advance;
-	data.bearing = bearing;
+ffw::Font::Char& ffw::BitmapFont::setCharData(wchar_t chr) {
+	return characters[chr - offsetStart];
 }
 
 ///=============================================================================

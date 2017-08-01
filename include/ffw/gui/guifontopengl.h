@@ -22,7 +22,7 @@ namespace ffw {
 			return TrueTypeFont::getStringSize(str, lineHeight);
 		}
 		inline int getCharAdvance(wchar_t c) const override {
-			return TrueTypeFont::getChar(c).advance;
+			return (int)TrueTypeFont::getChar(c).advance;
 		}
 		inline int getSizeInPixels() const override {
 			return TrueTypeFont::getSizePixels();
