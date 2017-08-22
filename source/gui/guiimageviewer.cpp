@@ -49,21 +49,24 @@ const std::wstring& ffw::GuiImageViewer::getLabel() const {
 }
 
 ///=============================================================================
-void ffw::GuiImageViewer::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiImageViewer::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
 	context->drawImage(contentoffset, contentsize, img, sub, mirror.x, mirror.y, getCurrentStyle()->function.color);
 	context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
-void ffw::GuiImageViewer::eventPos(const ffw::Vec2i& pos) {
+void ffw::GuiImageViewer::eventPos(const ffw::Vec2f& p) {
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiImageViewer::eventSize(const ffw::Vec2i& size) {
+void ffw::GuiImageViewer::eventSize(const ffw::Vec2f& s) {
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiImageViewer::eventHover(bool gained) {
+	(void)gained;
 	redraw();
 }
 
@@ -80,23 +83,36 @@ void ffw::GuiImageViewer::eventFocus(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiImageViewer::eventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiImageViewer::eventMouse(const ffw::Vec2f& mousePos) {
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiImageViewer::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiImageViewer::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiImageViewer::eventText(wchar_t chr) {
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiImageViewer::eventKey(ffw::Key key, ffw::Mode mode) {
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiImageViewer::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -106,23 +122,23 @@ void ffw::GuiImageViewer::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiImageViewer::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiImageViewer::getMinimumWrapSize() {
 	if (img == NULL)return 0;
 	//return ffw::Vec2i(img->getWidth(), img->getHeight());
 	if(getSize().x == guiWrap() && getSize().y == guiWrap()) {
-		return ffw::Vec2i(sub.z, sub.w);
+		return static_cast<ffw::Vec2f>(ffw::Vec2i(sub.z, sub.w));
 	}
 	else if(getSize().x == guiWrap()) {
 		float aspect = sub.z / (float)sub.w;
-		auto size = getVisibleContentSize();
-		return ffw::Vec2i(size.y * aspect, size.y);
+		auto s = getVisibleContentSize();
+		return ffw::Vec2f(s.y * aspect, s.y);
 	}
 	else if (getSize().y == guiWrap()) {
 		float aspect = sub.z / (float)sub.w;
-		auto size = getVisibleContentSize();
-		return ffw::Vec2i(size.x, size.x / aspect);
+		auto s = getVisibleContentSize();
+		return ffw::Vec2f(s.x, s.x / aspect);
 	}
 	else {
-		return ffw::Vec2i(sub.z, sub.w);
+		return static_cast<ffw::Vec2f>(ffw::Vec2i(sub.z, sub.w));
 	}
 }

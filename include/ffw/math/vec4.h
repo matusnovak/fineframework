@@ -3,6 +3,7 @@
 #define FFW_VEC4
 #include "../config.h"
 #include <limits>
+#include <cmath>
 
 namespace ffw {
 	/**
@@ -254,6 +255,17 @@ namespace ffw {
 			return ffw::Vec4<S>((S)x, (S)y, (S)z, (S)w);
 		}
 
+		inline Vec4<T> round() const {
+			return Vec4<T>(std::round(x), std::round(y), std::round(z), std::round(w));
+		}
+
+		inline Vec4<T> floor() const {
+			return Vec4<T>(std::floor(x), std::floor(y), std::floor(z), std::floor(w));
+		}
+
+		inline Vec4<T> ceil() const {
+			return Vec4<T>(std::ceil(x), std::ceil(y), std::ceil(z), std::ceil(w));
+		}
     };
 	/**
 	 * @ingroup math

@@ -287,7 +287,7 @@ namespace ffw {
 	inline std::string toUpper(const std::string& str) {
 		std::string copy(str);
 		for (auto& c : copy) {
-			c = toupper(c);
+			c = static_cast<char>(toupper(c));
 		}
 		return copy;
 	}
@@ -297,7 +297,7 @@ namespace ffw {
 	inline std::string toLower(const std::string& str) {
 		std::string copy(str);
 		for (auto& c : copy) {
-			c = tolower(c);
+			c = static_cast<char>(tolower(c));
 		}
 		return copy;
 	}

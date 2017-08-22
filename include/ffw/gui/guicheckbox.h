@@ -12,14 +12,15 @@ namespace ffw {
 		public:
 			Button(GuiWindow* context);
 			virtual ~Button();
-			ffw::Vec2i getMinimumWrapSize() override;
+			ffw::Vec2f getMinimumWrapSize() override;
 		private:
-			void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-			void eventPos(const ffw::Vec2i& pos) override;
-			void eventSize(const ffw::Vec2i& size) override;
+			void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
+			void eventPos(const ffw::Vec2f& pos) override;
+			void eventSize(const ffw::Vec2f& size) override;
 			void eventHover(bool gained) override;
 			void eventFocus(bool gained) override;
-			void eventMouse(const ffw::Vec2i& pos) override;
+			void eventMouse(const ffw::Vec2f& pos) override;
+			bool eventScroll(const ffw::Vec2f& scroll) override;
 			void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 			void eventText(wchar_t chr) override;
 			void eventKey(ffw::Key key, ffw::Mode mode) override;
@@ -40,14 +41,15 @@ namespace ffw {
 		GuiCheckbox::Button* getButton(){
 			return widgetbutton;
 		}
-		ffw::Vec2i getMinimumWrapSize() override;
+		ffw::Vec2f getMinimumWrapSize() override;
 	private:
-		void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override;
-		void eventPos(const ffw::Vec2i& pos) override;
-		void eventSize(const ffw::Vec2i& size) override;
+		void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
+		void eventPos(const ffw::Vec2f& pos) override;
+		void eventSize(const ffw::Vec2f& size) override;
 		void eventHover(bool gained) override;
 		void eventFocus(bool gained) override;
-		void eventMouse(const ffw::Vec2i& pos) override;
+		void eventMouse(const ffw::Vec2f& pos) override;
+		bool eventScroll(const ffw::Vec2f& scroll) override;
 		void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
 		void eventText(wchar_t chr) override;
 		void eventKey(ffw::Key key, ffw::Mode mode) override;

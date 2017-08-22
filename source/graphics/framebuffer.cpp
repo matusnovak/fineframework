@@ -135,7 +135,7 @@ bool ffw::Framebuffer::addCubemapTexture(const ffw::TextureCubemap* texture, int
 
 	bind();
 	#ifdef FFW_OSX
-		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), mip);
+		gl_->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, texture->getHandle(), mip);
 	#else
 		gl_->glFramebufferTexture2DEXT(GL_FRAMEBUFFER_EXT, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, texture->getHandle(), mip);
 	#endif

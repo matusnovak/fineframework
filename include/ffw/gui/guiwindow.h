@@ -20,13 +20,14 @@ namespace ffw {
 		};
 		GuiWindow();
 		virtual ~GuiWindow();
-		void setSize(int width, int height);
-		void setPos(int posx, int posy);
-		const ffw::Vec2i& getSize() const;
-		const ffw::Vec2i& getPos() const;
+		void setSize(float width, float height);
+		void setPos(float posx, float posy);
+		const ffw::Vec2f& getSize() const;
+		const ffw::Vec2f& getPos() const;
 		void setDefaultFont(const GuiFont* font);
 		const GuiFont* getDefaultFont() const;
-		void injectMousePos(int posx, int posy);
+		void injectMousePos(float posx, float posy);
+		void injectScroll(float posx, float posy);
 		void injectMouseButton(ffw::MouseButton button, ffw::Mode mode);
 		void injectText(wchar_t chr);
 		void injectKey(ffw::Key key, ffw::Mode mode);
@@ -51,12 +52,12 @@ namespace ffw {
 	private:
 		GuiBody* body;
 		const GuiTheme* theme;
-		ffw::Vec2i size;
-		ffw::Vec2i pos;
+		ffw::Vec2f size;
+		ffw::Vec2f pos;
 		GuiUserInput input;
 		const GuiFont* defaultfont;
 		std::queue<std::pair<std::function<void(GuiEvent)>, GuiEvent>> eventqueue;
-		ffw::Vec2i mousepos;
+		ffw::Vec2f mousepos;
 	};
 }
 #endif

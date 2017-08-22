@@ -15,14 +15,14 @@ namespace ffw {
 		inline void destroy() override {
 			TrueTypeFont::destroy();
 		}
-		inline ffw::Vec2i getStringSize(const std::wstring& str, float lineHeight = 1.25) const override {
-			return TrueTypeFont::getStringSize(str, lineHeight);
+		inline ffw::Vec2f getStringSize(const std::wstring& str, float lineHeight = 1.25) const override {
+			return static_cast<ffw::Vec2f>(TrueTypeFont::getStringSize(str, lineHeight));
 		}
-		inline ffw::Vec2i getStringSize(const std::string& str, float lineHeight = 1.25) const override {
-			return TrueTypeFont::getStringSize(str, lineHeight);
+		inline ffw::Vec2f getStringSize(const std::string& str, float lineHeight = 1.25) const override {
+			return static_cast<ffw::Vec2f>(TrueTypeFont::getStringSize(str, lineHeight));
 		}
-		inline int getCharAdvance(wchar_t c) const override {
-			return (int)TrueTypeFont::getChar(c).advance;
+		inline float getCharAdvance(wchar_t c) const override {
+			return TrueTypeFont::getChar(c).advance;
 		}
 		inline int getSizeInPixels() const override {
 			return TrueTypeFont::getSizePixels();

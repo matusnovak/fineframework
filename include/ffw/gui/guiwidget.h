@@ -19,6 +19,7 @@ namespace ffw {
 			CLICKED = 0,
 			SELECTED,
 			CHANGED,
+			SLIDED,
 			SIZE,
 			INNER,
 			POSITION,
@@ -41,19 +42,23 @@ namespace ffw {
 				int value;
 			} changed;
 
+			struct SlidedData {
+				float value;
+			} slided;
+
 			struct SizeData {
-				int width;
-				int height;
+				float width;
+				float height;
 			} size;
 
 			struct InnerData {
-				int width;
-				int height;
+				float width;
+				float height;
 			} inner;
 
 			struct PosData {
-				int x;
-				int y;
+				float x;
+				float y;
 			} pos;
 
 			struct HoverData {
@@ -114,6 +119,7 @@ namespace ffw {
 		wchar_t chr;
 		ffw::Key key;
 		ffw::Mode keymode;
+		mutable ffw::Vec2f scroll;
 	};
 	/**
 	 * @ingroup gui
@@ -168,17 +174,17 @@ namespace ffw {
 		void setPos(GuiUnits posx, GuiUnits posy);
 		const ffw::Vec2<GuiUnits>& getPos() const;
 		const ffw::Vec2<GuiUnits>& getSize() const;
-		ffw::Vec2i getVisibleContentSize() const;
-		ffw::Vec2i getVisibleContentPos() const;
-		inline ffw::Vec2i getInnerContentSize() const {
+		ffw::Vec2f getVisibleContentSize() const;
+		ffw::Vec2f getVisibleContentPos() const;
+		inline ffw::Vec2f getInnerContentSize() const {
 			return totalSize;
 		}
-		inline ffw::Vec2i getInnerContentPos() const {
+		inline ffw::Vec2f getInnerContentPos() const {
 			return getVisibleContentPos() + offset;
 		}
-		ffw::Vec2i getAbsolutePos() const;
-		void setOffset(const ffw::Vec2i off);
-		const ffw::Vec2i& getOffset() const;
+		ffw::Vec2f getAbsolutePos() const;
+		void setOffset(const ffw::Vec2f off);
+		const ffw::Vec2f& getOffset() const;
 		void setPadding(GuiUnits top, GuiUnits right, GuiUnits bottom, GuiUnits left);
 		inline void setPadding(GuiUnits all) {
 			setPadding(all, all, all, all);
@@ -229,8 +235,8 @@ namespace ffw {
 		inline void setPaddingLeft(GuiUnits val) {
 			setPadding(padding[0], padding[1], padding[2], val);
 		}
-		int getPaddingInPixels(int side) const;
-		int getMarginInPixels(int side) const;
+		float getPaddingInPixels(int side) const;
+		float getMarginInPixels(int side) const;
 		void setAlign(GuiStyle::Align align);
 		GuiStyle::Align getAlign() const;
 		void setWrap(bool wrap);
@@ -239,8 +245,8 @@ namespace ffw {
 		}
 		void setID(unsigned long id);
 		unsigned long getID() const;
-		void update(const ffw::Vec2i& parentpos, const ffw::Vec2i& parentsize, const GuiUserInput& input, ffw::Vec2i mousepos, bool mouseout);
-		void render(const ffw::Vec2i& clippos, const ffw::Vec2i& clipsize, const ffw::Vec2i& off, bool clear);
+		void update(const ffw::Vec2f& parentpos, const ffw::Vec2f& parentsize, const GuiUserInput& input, ffw::Vec2f mousepos, bool mouseout);
+		void render(const ffw::Vec2f& clippos, const ffw::Vec2f& clipsize, const ffw::Vec2f& off, bool clear);
 		bool shouldRedraw() const;
 		void redraw();
 		void invalidate();
@@ -275,7 +281,7 @@ namespace ffw {
 		inline const ffw::Vec2i getMousePos() const {
 			return mouseOld;
 		}
-		virtual ffw::Vec2i getMinimumWrapSize() = 0;
+		virtual ffw::Vec2f getMinimumWrapSize() = 0;
 		template<class T>
 		T* findByID(unsigned long id_){
 			if(typeid(*this).hash_code() == typeid(T).hash_code() && id == id_)return dynamic_cast<T*>(this);
@@ -307,16 +313,16 @@ namespace ffw {
 			return getCurrentStyle(widgetStyle);
 		}
 		const ffw::GuiStyle* getCurrentStyle(const GuiStyleGroup* group) const;
-		inline const ffw::Vec2i& getRealSize() const {
+		inline const ffw::Vec2f& getRealSize() const {
 			return sizeReal;
 		}
-		inline ffw::Vec2i getRealSizeWithMargin() const {
-			return ffw::Vec2i(
+		inline ffw::Vec2f getRealSizeWithMargin() const {
+			return ffw::Vec2f(
 				sizeReal.x + getMarginInPixels(1) + getMarginInPixels(3),
 				sizeReal.y + getMarginInPixels(0) + getMarginInPixels(2)
 			);
 		}
-		inline const ffw::Vec2i& getRealPos() const {
+		inline const ffw::Vec2f& getRealPos() const {
 			return posReal;
 		}
 		inline void setLineHeight(float height) {
@@ -355,7 +361,7 @@ namespace ffw {
 		GuiWidget& operator = (const GuiWidget& other) = delete;
 		GuiWidget& operator = (GuiWidget&& other);
 	protected:
-		void traverseBackground(const ffw::Vec2i& pos, const ffw::Vec2i& size);
+		void traverseBackground(const ffw::Vec2f& pos, const ffw::Vec2f& size);
 		GuiWidget* addWidgetInternal(GuiWidget* widget);
 		GuiWidget* addWidgetAfterInternal(const GuiWidget* previous, GuiWidget* widget);
 		GuiWidget* addWidgetBeforeInternal(const GuiWidget* next, GuiWidget* widget);
@@ -368,13 +374,14 @@ namespace ffw {
 		}
 		void recalculatePos();
 		void recalculateSize(GuiWidget* ptr = NULL);
-		void renderComponent(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiStyle* group);
-		virtual void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) = 0;
-		virtual void eventPos(const ffw::Vec2i& pos) = 0;
-		virtual void eventSize(const ffw::Vec2i& size) = 0;
+		void renderComponent(const ffw::Vec2f& pos, const ffw::Vec2f& size, const ffw::GuiStyle* group);
+		virtual void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) = 0;
+		virtual void eventPos(const ffw::Vec2f& pos) = 0;
+		virtual void eventSize(const ffw::Vec2f& size) = 0;
 		virtual void eventHover(bool gained) = 0;
 		virtual void eventFocus(bool gained) = 0;
-		virtual void eventMouse(const ffw::Vec2i& pos) = 0;
+		virtual void eventMouse(const ffw::Vec2f& mousePos) = 0;
+		virtual bool eventScroll(const ffw::Vec2f& scroll) = 0;
 		virtual void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) = 0;
 		virtual void eventText(wchar_t chr) = 0;
 		virtual void eventKey(ffw::Key key, ffw::Mode mode) = 0;
@@ -390,13 +397,13 @@ namespace ffw {
 		void arrangeWidgetsVertical(GuiWidget* ptr = NULL);
 		void arrangeWidgetsHorizontal(GuiWidget* ptr = NULL);
 		void arrangeWidgetsFixed(GuiWidget* ptr = NULL);
-		ffw::Vec2i sizeReal;
-		ffw::Vec2i posReal;
+		ffw::Vec2f sizeReal;
+		ffw::Vec2f posReal;
 		ffw::GuiUnits2D size;
 		ffw::GuiUnits2D pos;
-		ffw::Vec2i mouseOld;
-		ffw::Vec2i offset;
-		ffw::Vec2i totalSize;
+		ffw::Vec2f mouseOld;
+		ffw::Vec2f offset;
+		ffw::Vec2f totalSize;
 		Orientation orientation;
 		GuiStyle::Align align;
 		std::vector<GuiWidget*> widgets;

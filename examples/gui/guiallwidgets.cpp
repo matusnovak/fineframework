@@ -19,7 +19,7 @@ public:
 
 	ffw::GuiLayout* makeBox(ffw::GuiWindow* window, ffw::GuiLayout* parent, const std::string& str) {
 		auto box = new ffw::GuiVerticalLayout(&gui);
-		box->setSize(ffw::guiPercent(33), ffw::guiWrap());
+		box->setSize(ffw::guiPercent(33.33333f), ffw::guiWrap());
 		box->setPadding(5);
 		parent->addWidget(box);
 
@@ -662,6 +662,7 @@ public:
 	}
 
     void mouseScrollEvent(int scroll) override {
+		gui.injectScroll(0, scroll);
 	}
 
     void mouseButtonEvent(ffw::MouseButton button, ffw::Mode mode) override {

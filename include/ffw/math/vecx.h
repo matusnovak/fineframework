@@ -3,6 +3,7 @@
 #define FFW_VEC_X
 #include "../config.h"
 #include <array>
+#include <cmath>
 
 namespace ffw{
 	template<class T, size_t S>
@@ -259,6 +260,30 @@ namespace ffw{
 				copy.arr[i] = static_cast<X>(arr[i]);
 			}
 			return copy;
+		}
+
+		inline Vec<T, S> round() const {
+			Vec<T, S> ret;
+			for (size_t i = 0; i < S; i++) {
+				ret[i] = std::round(arr[i]);
+			}
+			return ret;
+		}
+
+		inline Vec<T, S> floor() const {
+			Vec<T, S> ret;
+			for (size_t i = 0; i < S; i++) {
+				ret[i] = std::floor(arr[i]);
+			}
+			return ret;
+		}
+
+		inline Vec<T, S> ceil() const {
+			Vec<T, S> ret;
+			for (size_t i = 0; i < S; i++) {
+				ret[i] = std::ceil(arr[i]);
+			}
+			return ret;
 		}
 
 		std::array<T, S> arr;

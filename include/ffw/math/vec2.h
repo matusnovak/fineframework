@@ -3,6 +3,7 @@
 #define FFW_VEC2
 #include "../config.h"
 #include <limits>
+#include <cmath>
 
 namespace ffw {
 	/**
@@ -221,6 +222,18 @@ namespace ffw {
 		template <class S>
 		inline operator ffw::Vec2<S>() const {
 			return ffw::Vec2<S>((S)x, (S)y);
+		}
+
+		inline Vec2<T> round() const {
+			return Vec2<T>(std::round(x), std::round(y));
+		}
+
+		inline Vec2<T> floor() const {
+			return Vec2<T>(std::floor(x), std::floor(y));
+		}
+
+		inline Vec2<T> ceil() const {
+			return Vec2<T>(std::ceil(x), std::ceil(y));
 		}
     };
 	/**

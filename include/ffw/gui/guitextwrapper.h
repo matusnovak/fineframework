@@ -35,7 +35,7 @@ namespace ffw {
 			}
 			void append(const std::wstring& str);
 			void section(const ffw::Color& color, const ffw::GuiFont* font);
-			void recalculate(int width);
+			void recalculate(float width);
 		protected:
 			std::wstring text;
 			std::vector<Section> sections;
@@ -90,7 +90,7 @@ namespace ffw {
 		inline void addParagraph() {
 			paragraphs.push_back(Paragraph());
 		}
-		void recalculate(int width);
+		void recalculate(float width);
 		inline void append(const std::wstring& str) {
 			if (paragraphs.size() != 0)paragraphs.back().append(str);
 		}

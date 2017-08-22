@@ -49,47 +49,62 @@ void ffw::GuiLayout::setOrientation(Orientation orient){
 }
 
 ///=============================================================================
-void ffw::GuiLayout::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
+void ffw::GuiLayout::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize){
+	(void)contentsize;
+	(void)contentoffset;
 }
 
 ///=============================================================================
-void ffw::GuiLayout::eventPos(const ffw::Vec2i& pos){
-	// Do nothing
+void ffw::GuiLayout::eventPos(const ffw::Vec2f& p){
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiLayout::eventSize(const ffw::Vec2i& size){
-	// Do nothing
+void ffw::GuiLayout::eventSize(const ffw::Vec2f& s){
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiLayout::eventHover(bool gained){
-	// Do nothing
+	(void)gained;
 }
 
 ///=============================================================================
 void ffw::GuiLayout::eventFocus(bool gained){
-	// Do nothing
+	(void)gained;
 }
 
 ///=============================================================================
-void ffw::GuiLayout::eventMouse(const ffw::Vec2i& pos){
+void ffw::GuiLayout::eventMouse(const ffw::Vec2f& mousePos){
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiLayout::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiLayout::eventMouseButton(ffw::MouseButton button, ffw::Mode mode){
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiLayout::eventText(wchar_t chr){
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiLayout::eventKey(ffw::Key key, ffw::Mode mode){
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiLayout::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -99,6 +114,6 @@ void ffw::GuiLayout::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiLayout::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiLayout::getMinimumWrapSize() {
 	return 0;
 }

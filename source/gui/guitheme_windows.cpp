@@ -88,7 +88,7 @@ const ffw::GuiTheme ffw::GuiTheme::windows({
 				ffw::GuiStyle::Margin(0, 0, 0, 0),
 				ffw::GuiStyle::Padding(0),
 				ffw::GuiStyle::Align::TOP_LEFT,
-				ffw::Vec2<GuiUnits>(ffw::guiPercent(100), ffw::guiWrap())
+				ffw::Vec2<GuiUnits>(ffw::guiPercent(100), ffw::guiPercent(100))
 			)
 		)
 	},

@@ -152,50 +152,62 @@ std::pair<ffw::GuiButtonToggle*, ffw::GuiWidget*> ffw::GuiTabs::addTab(const std
 }
 
 ///=============================================================================
-void ffw::GuiTabs::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiTabs::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
+	(void)contentoffset;
+	(void)contentsize;
 }
 
 ///=============================================================================
-void ffw::GuiTabs::eventPos(const ffw::Vec2i& pos) {
+void ffw::GuiTabs::eventPos(const ffw::Vec2f& p) {
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiTabs::eventSize(const ffw::Vec2i& size) {
-	/*const auto& topSize = bar->getRealSizeWithMargin();
-	ffw::Vec2i contentSize(size.x, size.y - topSize.y);
-	contentSize.x -= content->getMarginInPixels(1);
-	contentSize.x -= content->getMarginInPixels(3);
-	contentSize.y -= content->getMarginInPixels(0);
-	contentSize.y -= content->getMarginInPixels(2);
-	content->setSize(contentSize.x, contentSize.y);*/
+void ffw::GuiTabs::eventSize(const ffw::Vec2f& s) {
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiTabs::eventHover(bool gained) {
+	(void)gained;
 }
 
 ///=============================================================================
 void ffw::GuiTabs::eventFocus(bool gained) {
+	(void)gained;
 }
 
 ///=============================================================================
-void ffw::GuiTabs::eventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiTabs::eventMouse(const ffw::Vec2f& mousePos) {
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiTabs::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiTabs::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiTabs::eventText(wchar_t chr) {
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiTabs::eventKey(ffw::Key key, ffw::Mode mode) {
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiTabs::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -205,6 +217,6 @@ void ffw::GuiTabs::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiTabs::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiTabs::getMinimumWrapSize() {
 	return 0;
 }

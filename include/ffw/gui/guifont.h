@@ -11,9 +11,9 @@ namespace ffw {
 	public:
 		virtual bool isCreated() const = 0;
 		virtual void destroy() = 0;
-		virtual ffw::Vec2i getStringSize(const std::wstring& str, float lineHeight = 1.25) const = 0;
-		virtual ffw::Vec2i getStringSize(const std::string& str, float lineHeight = 1.25) const = 0;
-		virtual int getCharAdvance(wchar_t c) const = 0;
+		virtual ffw::Vec2f getStringSize(const std::wstring& str, float lineHeight = 1.25) const = 0;
+		virtual ffw::Vec2f getStringSize(const std::string& str, float lineHeight = 1.25) const = 0;
+		virtual float getCharAdvance(wchar_t c) const = 0;
 		virtual int getSizeInPixels() const = 0;
 	};
 }

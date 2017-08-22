@@ -4,6 +4,7 @@
 #include "../config.h"
 #include "quaternion.h"
 #include <limits>
+#include <cmath>
 
 namespace ffw {
 	/**
@@ -314,6 +315,18 @@ namespace ffw {
 		template <class S>
 		inline operator ffw::Vec3<S>() const {
 			return ffw::Vec3<S>((S)x, (S)y, (S)z);
+		}
+
+		inline Vec3<T> round() const {
+			return Vec3<T>(std::round(x), std::round(y), std::round(z));
+		}
+
+		inline Vec3<T> floor() const {
+			return Vec3<T>(std::floor(x), std::floor(y), std::floor(z));
+		}
+
+		inline Vec3<T> ceil() const {
+			return Vec3<T>(std::ceil(x), std::ceil(y), std::ceil(z));
 		}
     };
 	/**

@@ -17,32 +17,35 @@ ffw::GuiCheckbox::Button::~Button(){
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::Button::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
+void ffw::GuiCheckbox::Button::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize){
 	//context->drawRectangle(contentoffset, contentsize, getCurrentStyle()->function.color);
-	int width = std::min(contentsize.x, contentsize.y) / 2;
-	auto pos = contentoffset + contentsize / 2;
+	float width = std::min(contentsize.x, contentsize.y) / 2.0f;
+	auto p = contentoffset + contentsize / 2.0f;
 	context->drawLine(
-		ffw::Vec2i(pos.x - width, pos.y),
-		ffw::Vec2i(pos.x, pos.y + width),
+		ffw::Vec2f(p.x - width, p.y).floor(),
+		ffw::Vec2f(p.x, p.y + width).ceil(),
 		getCurrentStyle()->function.color
 	);
 	context->drawLine(
-		ffw::Vec2i(pos.x, pos.y + width),
-		ffw::Vec2i(pos.x + width, pos.y - width),
+		ffw::Vec2f(p.x, p.y + width).ceil(),
+		ffw::Vec2f(p.x + width, p.y - width).floor(),
 		getCurrentStyle()->function.color
 	);
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::Button::eventPos(const ffw::Vec2i& pos){
+void ffw::GuiCheckbox::Button::eventPos(const ffw::Vec2f& p){
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::Button::eventSize(const ffw::Vec2i& size){
+void ffw::GuiCheckbox::Button::eventSize(const ffw::Vec2f& s){
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::Button::eventHover(bool gained){
+	(void)gained;
 	redraw();
 }
 
@@ -56,23 +59,36 @@ void ffw::GuiCheckbox::Button::eventFocus(bool gained){
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::Button::eventMouse(const ffw::Vec2i& pos){
+void ffw::GuiCheckbox::Button::eventMouse(const ffw::Vec2f& mousePos){
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiCheckbox::Button::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::Button::eventMouseButton(ffw::MouseButton button, ffw::Mode mode){
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::Button::eventText(wchar_t chr){
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::Button::eventKey(ffw::Key key, ffw::Mode mode){
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::Button::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -82,8 +98,8 @@ void ffw::GuiCheckbox::Button::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiCheckbox::Button::getMinimumWrapSize() {
-	return 8;
+ffw::Vec2f ffw::GuiCheckbox::Button::getMinimumWrapSize() {
+	return 8.0f;
 }
 
 ///=============================================================================
@@ -132,48 +148,64 @@ bool ffw::GuiCheckbox::getValue() const {
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
-	auto size = widgetbutton->getRealSize();
-	size.x += widgetbutton->getMarginInPixels(1);
-	size.y = 0;
-	context->drawStringAligned(contentoffset + size, contentsize - size, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
+void ffw::GuiCheckbox::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize){
+	auto s = widgetbutton->getRealSize();
+	s.x += widgetbutton->getMarginInPixels(1);
+	s.y = 0;
+	context->drawStringAligned(contentoffset + s, contentsize - s, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::eventPos(const ffw::Vec2i& pos){
-	// Do nothing
+void ffw::GuiCheckbox::eventPos(const ffw::Vec2f& p){
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::eventSize(const ffw::Vec2i& size){
+void ffw::GuiCheckbox::eventSize(const ffw::Vec2f& s){
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::eventHover(bool gained){
+	(void)gained;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::eventFocus(bool gained){
+	(void)gained;
 }
 
 ///=============================================================================
-void ffw::GuiCheckbox::eventMouse(const ffw::Vec2i& pos){
+void ffw::GuiCheckbox::eventMouse(const ffw::Vec2f& mousePos){
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiCheckbox::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::eventMouseButton(ffw::MouseButton button, ffw::Mode mode){
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::eventText(wchar_t chr){
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::eventKey(ffw::Key key, ffw::Mode mode){
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiCheckbox::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -183,9 +215,9 @@ void ffw::GuiCheckbox::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiCheckbox::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiCheckbox::getMinimumWrapSize() {
 	if(getCurrentFont() == NULL)return 0;
-	auto strsize = getCurrentFont()->getStringSize(label, getLineHeight());
+	auto strsize = static_cast<ffw::Vec2f>(getCurrentFont()->getStringSize(label, getLineHeight()));
 	const auto& buttonSize = widgetbutton->getRealSizeWithMargin();
 	strsize.x += buttonSize.x;
 	strsize.y = std::max(strsize.y, buttonSize.y);
