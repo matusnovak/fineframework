@@ -69,12 +69,12 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a376d7b5f526bd6b37bcd35d256b4a1a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a369b27c53668d94f73e99e6d528ef9a4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#a369b27c53668d94f73e99e6d528ef9a4">destroy</a> ()=0</td></tr>
 <tr class="separator:a369b27c53668d94f73e99e6d528ef9a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab9ed30844822fc7e89628a624219eb9"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#aab9ed30844822fc7e89628a624219eb9">getStringSize</a> (const std::wstring &amp;str, float lineHeight=1.25) const =0</td></tr>
-<tr class="separator:aab9ed30844822fc7e89628a624219eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1a2a26ed8c012237e8ef8a0ec74f522c"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#a1a2a26ed8c012237e8ef8a0ec74f522c">getStringSize</a> (const std::string &amp;str, float lineHeight=1.25) const =0</td></tr>
-<tr class="separator:a1a2a26ed8c012237e8ef8a0ec74f522c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5318f6723a6f304c1a301adfc020329d"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#a5318f6723a6f304c1a301adfc020329d">getCharAdvance</a> (wchar_t c) const =0</td></tr>
-<tr class="separator:a5318f6723a6f304c1a301adfc020329d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9c875b4d3b2810aa58392ca1c1a6a511"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#a9c875b4d3b2810aa58392ca1c1a6a511">getStringSize</a> (const std::wstring &amp;str, float lineHeight=1.25) const =0</td></tr>
+<tr class="separator:a9c875b4d3b2810aa58392ca1c1a6a511"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acf04ec19aca727ef2e612e2115698bc5"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#acf04ec19aca727ef2e612e2115698bc5">getStringSize</a> (const std::string &amp;str, float lineHeight=1.25) const =0</td></tr>
+<tr class="separator:acf04ec19aca727ef2e612e2115698bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa83caadc2d0046e059e07af84bcf652e"><td class="memItemLeft" align="right" valign="top">virtual float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#aa83caadc2d0046e059e07af84bcf652e">getCharAdvance</a> (wchar_t c) const =0</td></tr>
+<tr class="separator:aa83caadc2d0046e059e07af84bcf652e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a665242ee5a32c87f4b37b6c4908b085c"><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_font.html#a665242ee5a32c87f4b37b6c4908b085c">getSizeInPixels</a> () const =0</td></tr>
 <tr class="separator:a665242ee5a32c87f4b37b6c4908b085c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -106,8 +106,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5318f6723a6f304c1a301adfc020329d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5318f6723a6f304c1a301adfc020329d">&#9670;&nbsp;</a></span>getCharAdvance()</h2>
+<a id="aa83caadc2d0046e059e07af84bcf652e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa83caadc2d0046e059e07af84bcf652e">&#9670;&nbsp;</a></span>getCharAdvance()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -116,7 +116,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual int ffw::GuiFont::getCharAdvance </td>
+          <td class="memname">virtual float ffw::GuiFont::getCharAdvance </td>
           <td>(</td>
           <td class="paramtype">wchar_t&#160;</td>
           <td class="paramname"><em>c</em></td><td>)</td>
@@ -130,7 +130,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classffw_1_1_gui_font_open_g_l.html#a74a7a01d94dcd6f2bdb8b2d8453b38ef">ffw::GuiFontOpenGL</a>.</p>
+<p>Implemented in <a class="el" href="classffw_1_1_gui_font_open_g_l.html#a017cd4a803727e093210c634b74f9361">ffw::GuiFontOpenGL</a>.</p>
 
 </div>
 </div>
@@ -161,8 +161,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aab9ed30844822fc7e89628a624219eb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab9ed30844822fc7e89628a624219eb9">&#9670;&nbsp;</a></span>getStringSize() <span class="overload">[1/2]</span></h2>
+<a id="a9c875b4d3b2810aa58392ca1c1a6a511"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9c875b4d3b2810aa58392ca1c1a6a511">&#9670;&nbsp;</a></span>getStringSize() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +171,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> ffw::GuiFont::getStringSize </td>
+          <td class="memname">virtual <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> ffw::GuiFont::getStringSize </td>
           <td>(</td>
           <td class="paramtype">const std::wstring &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
@@ -195,12 +195,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classffw_1_1_gui_font_open_g_l.html#af33dde67c7a142c25248e7220500b4d1">ffw::GuiFontOpenGL</a>.</p>
+<p>Implemented in <a class="el" href="classffw_1_1_gui_font_open_g_l.html#aef017961f1bfe9246e05f4e66b16c62b">ffw::GuiFontOpenGL</a>.</p>
 
 </div>
 </div>
-<a id="a1a2a26ed8c012237e8ef8a0ec74f522c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a2a26ed8c012237e8ef8a0ec74f522c">&#9670;&nbsp;</a></span>getStringSize() <span class="overload">[2/2]</span></h2>
+<a id="acf04ec19aca727ef2e612e2115698bc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf04ec19aca727ef2e612e2115698bc5">&#9670;&nbsp;</a></span>getStringSize() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,7 +209,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> ffw::GuiFont::getStringSize </td>
+          <td class="memname">virtual <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> ffw::GuiFont::getStringSize </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>str</em>, </td>
@@ -233,7 +233,7 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classffw_1_1_gui_font_open_g_l.html#a03a5cde6cf7ad30831629339c6ee053f">ffw::GuiFontOpenGL</a>.</p>
+<p>Implemented in <a class="el" href="classffw_1_1_gui_font_open_g_l.html#ac13551bbcda5381fb4d0f6c07eb827f6">ffw::GuiFontOpenGL</a>.</p>
 
 </div>
 </div>

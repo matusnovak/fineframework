@@ -46,6 +46,7 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classffw_1_1_gui_window_open_g_l-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">ffw::GuiWindowOpenGL Class Reference<div class="ingroups"><a class="el" href="group__gui.html">gui - Graphical User Interface</a></div></div>  </div>
@@ -59,8 +60,9 @@ Inheritance diagram for ffw::GuiWindowOpenGL:</div>
  <div class="center">
   <img src="classffw_1_1_gui_window_open_g_l.png" usemap="#ffw::GuiWindowOpenGL_map" alt=""/>
   <map id="ffw::GuiWindowOpenGL_map" name="ffw::GuiWindowOpenGL_map">
-<area href="classffw_1_1_gui_window.html" alt="ffw::GuiWindow" shape="rect" coords="0,56,145,80"/>
-<area href="classffw_1_1_gui_backend.html" alt="ffw::GuiBackend" shape="rect" coords="0,0,145,24"/>
+<area href="classffw_1_1_gui_window.html" alt="ffw::GuiWindow" shape="rect" coords="0,56,171,80"/>
+<area href="classffw_1_1_gui_backend.html" alt="ffw::GuiBackend" shape="rect" coords="0,0,171,24"/>
+<area href="classffw_1_1_gui_window_open_g_l_f_b_o.html" alt="ffw::GuiWindowOpenGLFBO" shape="rect" coords="0,168,171,192"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -70,57 +72,59 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af0023b9d5fbcd03f89bfcf5201a00399"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bf3dbb74d24832107c38de839791922"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a2bf3dbb74d24832107c38de839791922">~GuiWindowOpenGL</a> ()</td></tr>
 <tr class="separator:a2bf3dbb74d24832107c38de839791922"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb56b6c8470a6c7605e6589a07211a71"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#adb56b6c8470a6c7605e6589a07211a71">create</a> (<a class="el" href="classffw_1_1_render_context.html">RenderContext</a> *ctx)</td></tr>
-<tr class="separator:adb56b6c8470a6c7605e6589a07211a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b373328d712b1b2c304962e439ec435"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a7b373328d712b1b2c304962e439ec435">destroy</a> ()</td></tr>
-<tr class="separator:a7b373328d712b1b2c304962e439ec435"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0ce86a092485c3373a2f26154ba74f84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a0ce86a092485c3373a2f26154ba74f84">resize</a> (int width, int height) override</td></tr>
-<tr class="separator:a0ce86a092485c3373a2f26154ba74f84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8fae0e9a343ca38b621f87ff33c9acd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#aa8fae0e9a343ca38b621f87ff33c9acd">drawRectangle</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;size, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:aa8fae0e9a343ca38b621f87ff33c9acd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78d3fe11461d30c1981b7cdc0ddf8e86"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a78d3fe11461d30c1981b7cdc0ddf8e86">drawRectangleRounded</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;size, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color, int tl, int tr, int br, int bl) const override</td></tr>
-<tr class="separator:a78d3fe11461d30c1981b7cdc0ddf8e86"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1febb88fddcd785c34077dce201fd70b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a1febb88fddcd785c34077dce201fd70b">drawLine</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;start, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;end, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:a1febb88fddcd785c34077dce201fd70b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a763307bc316e727a6302953ba7c55f08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a763307bc316e727a6302953ba7c55f08">drawCircle</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, int radius, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:a763307bc316e727a6302953ba7c55f08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af932ca019a7210fcbd8e501657c9d928"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#af932ca019a7210fcbd8e501657c9d928">drawArc</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, int inner, int outer, float start, float end, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:af932ca019a7210fcbd8e501657c9d928"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab0ab2e9e62dad91e676c2f873f3ff375"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#ab0ab2e9e62dad91e676c2f873f3ff375">drawQuad</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;p0, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;p1, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;p2, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;p3, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:ab0ab2e9e62dad91e676c2f873f3ff375"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea1f3482e395eda5fdba5ee8c2b61437"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#aea1f3482e395eda5fdba5ee8c2b61437">drawString</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="classffw_1_1_gui_font.html">ffw::GuiFont</a> *font, const std::wstring::value_type *str, size_t length, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color, float lineHeight=1.25f) const override</td></tr>
-<tr class="separator:aea1f3482e395eda5fdba5ee8c2b61437"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abde7d78848a0e2a803f4f67952890722"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#abde7d78848a0e2a803f4f67952890722">drawTriangle</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;p0, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;p1, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;p2, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:abde7d78848a0e2a803f4f67952890722"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acde6dd8dfdd9b0ffd11a20bb3e53d13b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#acde6dd8dfdd9b0ffd11a20bb3e53d13b">drawImage</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;size, const <a class="el" href="classffw_1_1_gui_image.html">GuiImage</a> *image, const <a class="el" href="group__math.html#ga3bd7b708561d6e2db0e66a1dd4177400">ffw::Vec4i</a> &amp;sub, bool mirrorX, bool mirrorY, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:acde6dd8dfdd9b0ffd11a20bb3e53d13b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70b5026b2b829847172d6762465846f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a70b5026b2b829847172d6762465846f4">startRender</a> () override</td></tr>
-<tr class="separator:a70b5026b2b829847172d6762465846f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1ebecc19115d6a3dc5f7b0535514a9dc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a1ebecc19115d6a3dc5f7b0535514a9dc">endRender</a> () override</td></tr>
-<tr class="separator:a1ebecc19115d6a3dc5f7b0535514a9dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a988a1ab3f7d5d56b1976b0f6563f6478"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a988a1ab3f7d5d56b1976b0f6563f6478">setScissors</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;size) const override</td></tr>
-<tr class="separator:a988a1ab3f7d5d56b1976b0f6563f6478"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4d4a18d1fc6db409da1efe33b5a38667"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a4d4a18d1fc6db409da1efe33b5a38667">clearWithColor</a> (const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
-<tr class="separator:a4d4a18d1fc6db409da1efe33b5a38667"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a21e6fb9cea28830d2c3b62982aaf1055"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a21e6fb9cea28830d2c3b62982aaf1055">create</a> (<a class="el" href="classffw_1_1_render_context.html">RenderContext</a> *ctx)</td></tr>
+<tr class="separator:a21e6fb9cea28830d2c3b62982aaf1055"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d04a93ed23822f66999dc5229b2d072"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a3d04a93ed23822f66999dc5229b2d072">destroy</a> ()</td></tr>
+<tr class="separator:a3d04a93ed23822f66999dc5229b2d072"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f10b19ff45fc419be43f1ced96a8ad2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a5f10b19ff45fc419be43f1ced96a8ad2">resize</a> (int width, int height) override</td></tr>
+<tr class="separator:a5f10b19ff45fc419be43f1ced96a8ad2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16154d2ebcb14210cdcbf4e1686923af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a16154d2ebcb14210cdcbf4e1686923af">drawRectangle</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;s, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:a16154d2ebcb14210cdcbf4e1686923af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aceef8463a31872c64b3973756c777497"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#aceef8463a31872c64b3973756c777497">drawRectangleRounded</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;s, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color, float tl, float tr, float br, float bl) const override</td></tr>
+<tr class="separator:aceef8463a31872c64b3973756c777497"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afcfc6ada8303e1db2bfba79b883dd7ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#afcfc6ada8303e1db2bfba79b883dd7ae">drawLine</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;start, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;end, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:afcfc6ada8303e1db2bfba79b883dd7ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeffd67488958bbfa3e9cc5f6a55eee65"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#aeffd67488958bbfa3e9cc5f6a55eee65">drawCircle</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p, float radius, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:aeffd67488958bbfa3e9cc5f6a55eee65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a1946b2bbbc0ff0bd6a8977bb1b58de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a7a1946b2bbbc0ff0bd6a8977bb1b58de">drawArc</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p, float inner, float outer, float start, float end, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:a7a1946b2bbbc0ff0bd6a8977bb1b58de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847a9e7aedeab963f9af7f302ce1e745"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a847a9e7aedeab963f9af7f302ce1e745">drawQuad</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p0, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p1, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p2, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p3, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:a847a9e7aedeab963f9af7f302ce1e745"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5681e980451c7ddd04bf736a3c9b0f61"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a5681e980451c7ddd04bf736a3c9b0f61">drawString</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p, const <a class="el" href="classffw_1_1_gui_font.html">ffw::GuiFont</a> *font, const std::wstring::value_type *str, size_t length, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color, float lineHeight=1.25f) const override</td></tr>
+<tr class="separator:a5681e980451c7ddd04bf736a3c9b0f61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a9ecd9bce7c986bf9986c2816fdbdb0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a2a9ecd9bce7c986bf9986c2816fdbdb0">drawTriangle</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p0, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p1, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p2, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:a2a9ecd9bce7c986bf9986c2816fdbdb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac144b7ac68371dc9cfd78becb746fdcc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#ac144b7ac68371dc9cfd78becb746fdcc">drawImage</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;s, const <a class="el" href="classffw_1_1_gui_image.html">GuiImage</a> *image, const <a class="el" href="group__math.html#ga3bd7b708561d6e2db0e66a1dd4177400">ffw::Vec4i</a> &amp;sub, bool mirrorX, bool mirrorY, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:ac144b7ac68371dc9cfd78becb746fdcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2ae76582cb0c701db24f89971270b54"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#ab2ae76582cb0c701db24f89971270b54">startRender</a> () override</td></tr>
+<tr class="separator:ab2ae76582cb0c701db24f89971270b54"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62f18367492912cd799f7613cacf3974"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a62f18367492912cd799f7613cacf3974">endRender</a> () override</td></tr>
+<tr class="separator:a62f18367492912cd799f7613cacf3974"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a36eaeff19e0ec5253288089e0c8f3fb2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#a36eaeff19e0ec5253288089e0c8f3fb2">setScissors</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;p, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;s) const override</td></tr>
+<tr class="separator:a36eaeff19e0ec5253288089e0c8f3fb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa13443ca89429d4bb7fd94ecb87c5195"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#aa13443ca89429d4bb7fd94ecb87c5195">clearWithColor</a> (const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color) const override</td></tr>
+<tr class="separator:aa13443ca89429d4bb7fd94ecb87c5195"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classffw_1_1_gui_window"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classffw_1_1_gui_window')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classffw_1_1_gui_window.html">ffw::GuiWindow</a></td></tr>
 <tr class="memitem:a33f0672a19ac459522cc198a0ed05bcf inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a33f0672a19ac459522cc198a0ed05bcf">GuiWindow</a> ()</td></tr>
 <tr class="separator:a33f0672a19ac459522cc198a0ed05bcf inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c5d8302fb98730c5ebd26ddbcaf85d6 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a0c5d8302fb98730c5ebd26ddbcaf85d6">~GuiWindow</a> ()</td></tr>
 <tr class="separator:a0c5d8302fb98730c5ebd26ddbcaf85d6 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78943ff98cd3bb6985c91578321cd093 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a78943ff98cd3bb6985c91578321cd093">setSize</a> (int width, int height)</td></tr>
-<tr class="separator:a78943ff98cd3bb6985c91578321cd093 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a942c50a7a0f29ed4f21c09b0691448d3 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a942c50a7a0f29ed4f21c09b0691448d3">setPos</a> (int posx, int posy)</td></tr>
-<tr class="separator:a942c50a7a0f29ed4f21c09b0691448d3 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3e8fea77dafa69a30f27539703958d34 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a3e8fea77dafa69a30f27539703958d34">getSize</a> () const</td></tr>
-<tr class="separator:a3e8fea77dafa69a30f27539703958d34 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02346c9ca7d4f1c085d24e2b4c5c8935 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a02346c9ca7d4f1c085d24e2b4c5c8935">getPos</a> () const</td></tr>
-<tr class="separator:a02346c9ca7d4f1c085d24e2b4c5c8935 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae939277a4fca55bfd8719b94304b1a60 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#ae939277a4fca55bfd8719b94304b1a60">setSize</a> (float width, float height)</td></tr>
+<tr class="separator:ae939277a4fca55bfd8719b94304b1a60 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0002ea7af0f448ce52c84c913dd64914 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a0002ea7af0f448ce52c84c913dd64914">setPos</a> (float posx, float posy)</td></tr>
+<tr class="separator:a0002ea7af0f448ce52c84c913dd64914 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99094ef2cf1f80b1ae4d2c2987eb8cc1 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a99094ef2cf1f80b1ae4d2c2987eb8cc1">getSize</a> () const</td></tr>
+<tr class="separator:a99094ef2cf1f80b1ae4d2c2987eb8cc1 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab93fc9d50345ac1d3122c0dafd713d9b inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#ab93fc9d50345ac1d3122c0dafd713d9b">getPos</a> () const</td></tr>
+<tr class="separator:ab93fc9d50345ac1d3122c0dafd713d9b inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a69b119695e954f116b457e4e8e899eb7 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a69b119695e954f116b457e4e8e899eb7">setDefaultFont</a> (const <a class="el" href="classffw_1_1_gui_font.html">GuiFont</a> *font)</td></tr>
 <tr class="separator:a69b119695e954f116b457e4e8e899eb7 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0668293732e6d5e2cb8ed57c1d3ab237 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classffw_1_1_gui_font.html">GuiFont</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a0668293732e6d5e2cb8ed57c1d3ab237">getDefaultFont</a> () const</td></tr>
 <tr class="separator:a0668293732e6d5e2cb8ed57c1d3ab237 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18a4780194b98e636b872717a937b114 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a18a4780194b98e636b872717a937b114">injectMousePos</a> (int posx, int posy)</td></tr>
-<tr class="separator:a18a4780194b98e636b872717a937b114 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cda8e7293efe9c3bc88b913e1eaf62d inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a6cda8e7293efe9c3bc88b913e1eaf62d">injectMousePos</a> (float posx, float posy)</td></tr>
+<tr class="separator:a6cda8e7293efe9c3bc88b913e1eaf62d inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae6ea4f8221a1a90279ad8ed274bbf1cd inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#ae6ea4f8221a1a90279ad8ed274bbf1cd">injectScroll</a> (float posx, float posy)</td></tr>
+<tr class="separator:ae6ea4f8221a1a90279ad8ed274bbf1cd inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a81f96d5659ad48d2dd536c69214f8fa0 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#a81f96d5659ad48d2dd536c69214f8fa0">injectMouseButton</a> (<a class="el" href="namespaceffw.html#a27b70bbb6a1b35235c34a999d7420b25">ffw::MouseButton</a> button, <a class="el" href="namespaceffw.html#a7c343296bbf3216a2b78bd49ae015373">ffw::Mode</a> mode)</td></tr>
 <tr class="separator:a81f96d5659ad48d2dd536c69214f8fa0 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac5f10d6d9aeb5ac0f317b582dd21144 inherit pub_methods_classffw_1_1_gui_window"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#aac5f10d6d9aeb5ac0f317b582dd21144">injectText</a> (wchar_t chr)</td></tr>
@@ -151,14 +155,19 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa3acf616ea9b1d53a24e00cf52dcc259 inherit pub_methods_classffw_1_1_gui_window"><td class="memTemplItemLeft" align="right" valign="top">T *&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window.html#aa3acf616ea9b1d53a24e00cf52dcc259">findByID</a> (unsigned long id)</td></tr>
 <tr class="separator:aa3acf616ea9b1d53a24e00cf52dcc259 inherit pub_methods_classffw_1_1_gui_window"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classffw_1_1_gui_backend"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classffw_1_1_gui_backend')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classffw_1_1_gui_backend.html">ffw::GuiBackend</a></td></tr>
-<tr class="memitem:ac0dc7514dd95e0e9e6158478a0425171 inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#ac0dc7514dd95e0e9e6158478a0425171">drawString</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="classffw_1_1_gui_font.html">ffw::GuiFont</a> *font, const std::wstring &amp;str, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color, float lineHeight=1.25f) const</td></tr>
-<tr class="separator:ac0dc7514dd95e0e9e6158478a0425171 inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08cfecfaf3aabd2bbc1fe5dcfffdbddb inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#a08cfecfaf3aabd2bbc1fe5dcfffdbddb">drawBackground</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;size, const <a class="el" href="classffw_1_1_gui_style_1_1_background.html">ffw::GuiStyle::Background</a> &amp;background, bool ignore=false) const</td></tr>
-<tr class="separator:a08cfecfaf3aabd2bbc1fe5dcfffdbddb inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad8c957f7031be6b41127c01db303d712 inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#ad8c957f7031be6b41127c01db303d712">drawBorder</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;size, const <a class="el" href="classffw_1_1_gui_style_1_1_border.html">ffw::GuiStyle::Border</a> &amp;border) const</td></tr>
-<tr class="separator:ad8c957f7031be6b41127c01db303d712 inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae3562629af31f331879cfa57711b0669 inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#ae3562629af31f331879cfa57711b0669">drawStringAligned</a> (const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;pos, const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;size, const <a class="el" href="classffw_1_1_gui_font.html">ffw::GuiFont</a> *font, <a class="el" href="classffw_1_1_gui_style.html#a090d6fab826702c345e68d6dfbef85b9">ffw::GuiStyle::Align</a> align, const std::wstring &amp;str, const <a class="el" href="classffw_1_1_gui_style_1_1_text.html">ffw::GuiStyle::Text</a> &amp;text, float lineHeight=1.25f) const</td></tr>
-<tr class="separator:ae3562629af31f331879cfa57711b0669 inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a447dc3e91ffc7fb7d5478cd2bb48f661 inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#a447dc3e91ffc7fb7d5478cd2bb48f661">drawString</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;pos, const <a class="el" href="classffw_1_1_gui_font.html">ffw::GuiFont</a> *font, const std::wstring &amp;str, const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;color, float lineHeight=1.25f) const</td></tr>
+<tr class="separator:a447dc3e91ffc7fb7d5478cd2bb48f661 inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a64dbe23de7e75db7bdcd91f1088737fb inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#a64dbe23de7e75db7bdcd91f1088737fb">drawBackground</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;pos, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;size, const <a class="el" href="classffw_1_1_gui_style_1_1_background.html">ffw::GuiStyle::Background</a> &amp;background, bool ignore=false) const</td></tr>
+<tr class="separator:a64dbe23de7e75db7bdcd91f1088737fb inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae477d37aacbb0bbbe6ed9cc3b2e41ece inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#ae477d37aacbb0bbbe6ed9cc3b2e41ece">drawBorder</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;pos, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;size, const <a class="el" href="classffw_1_1_gui_style_1_1_border.html">ffw::GuiStyle::Border</a> &amp;border) const</td></tr>
+<tr class="separator:ae477d37aacbb0bbbe6ed9cc3b2e41ece inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b6b3eb9ada99d885ea3180d53a9526f inherit pub_methods_classffw_1_1_gui_backend"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_backend.html#a7b6b3eb9ada99d885ea3180d53a9526f">drawStringAligned</a> (const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;pos, const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;size, const <a class="el" href="classffw_1_1_gui_font.html">ffw::GuiFont</a> *font, <a class="el" href="classffw_1_1_gui_style.html#a090d6fab826702c345e68d6dfbef85b9">ffw::GuiStyle::Align</a> align, const std::wstring &amp;str, const <a class="el" href="classffw_1_1_gui_style_1_1_text.html">ffw::GuiStyle::Text</a> &amp;text, float lineHeight=1.25f) const</td></tr>
+<tr class="separator:a7b6b3eb9ada99d885ea3180d53a9526f inherit pub_methods_classffw_1_1_gui_backend"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:ade228e3f1d7cdfcf0a0e91ccc279f314"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classffw_1_1_render_context.html">RenderContext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classffw_1_1_gui_window_open_g_l.html#ade228e3f1d7cdfcf0a0e91ccc279f314">context</a></td></tr>
+<tr class="separator:ade228e3f1d7cdfcf0a0e91ccc279f314"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af0023b9d5fbcd03f89bfcf5201a00399"></a>
@@ -212,8 +221,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a4d4a18d1fc6db409da1efe33b5a38667"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4d4a18d1fc6db409da1efe33b5a38667">&#9670;&nbsp;</a></span>clearWithColor()</h2>
+<a id="aa13443ca89429d4bb7fd94ecb87c5195"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa13443ca89429d4bb7fd94ecb87c5195">&#9670;&nbsp;</a></span>clearWithColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,7 +231,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ffw::GuiWindowOpenGL::clearWithColor </td>
+          <td class="memname">virtual void ffw::GuiWindowOpenGL::clearWithColor </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="structffw_1_1_color.html">ffw::Color</a> &amp;&#160;</td>
           <td class="paramname"><em>color</em></td><td>)</td>
@@ -240,8 +249,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adb56b6c8470a6c7605e6589a07211a71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb56b6c8470a6c7605e6589a07211a71">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a21e6fb9cea28830d2c3b62982aaf1055"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a21e6fb9cea28830d2c3b62982aaf1055">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,7 +259,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool ffw::GuiWindowOpenGL::create </td>
+          <td class="memname">virtual bool ffw::GuiWindowOpenGL::create </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classffw_1_1_render_context.html">RenderContext</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -259,15 +268,17 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classffw_1_1_gui_window_open_g_l_f_b_o.html#a6d70edeef18d29d923095f60bb2745f9">ffw::GuiWindowOpenGLFBO</a>.</p>
+
 </div>
 </div>
-<a id="a7b373328d712b1b2c304962e439ec435"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b373328d712b1b2c304962e439ec435">&#9670;&nbsp;</a></span>destroy()</h2>
+<a id="a3d04a93ed23822f66999dc5229b2d072"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d04a93ed23822f66999dc5229b2d072">&#9670;&nbsp;</a></span>destroy()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +287,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ffw::GuiWindowOpenGL::destroy </td>
+          <td class="memname">virtual void ffw::GuiWindowOpenGL::destroy </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -284,15 +295,17 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
+<p>Reimplemented in <a class="el" href="classffw_1_1_gui_window_open_g_l_f_b_o.html#a038d4f03679dd7b9589d8b5de8e44d51">ffw::GuiWindowOpenGLFBO</a>.</p>
+
 </div>
 </div>
-<a id="af932ca019a7210fcbd8e501657c9d928"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af932ca019a7210fcbd8e501657c9d928">&#9670;&nbsp;</a></span>drawArc()</h2>
+<a id="a7a1946b2bbbc0ff0bd6a8977bb1b58de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1946b2bbbc0ff0bd6a8977bb1b58de">&#9670;&nbsp;</a></span>drawArc()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -303,19 +316,19 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawArc </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>inner</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>outer</em>, </td>
         </tr>
         <tr>
@@ -349,12 +362,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a5026f5ccccbc94cdb2e25fa042552e93">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a8d249d42457841a9ab8c803da45c25e2">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="a763307bc316e727a6302953ba7c55f08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a763307bc316e727a6302953ba7c55f08">&#9670;&nbsp;</a></span>drawCircle()</h2>
+<a id="aeffd67488958bbfa3e9cc5f6a55eee65"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeffd67488958bbfa3e9cc5f6a55eee65">&#9670;&nbsp;</a></span>drawCircle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -365,13 +378,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawCircle </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>radius</em>, </td>
         </tr>
         <tr>
@@ -393,12 +406,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a8345c5dfba5ba1c2c428316f350faa77">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a327dd83584f09254d33573d07a14e23a">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="acde6dd8dfdd9b0ffd11a20bb3e53d13b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acde6dd8dfdd9b0ffd11a20bb3e53d13b">&#9670;&nbsp;</a></span>drawImage()</h2>
+<a id="ac144b7ac68371dc9cfd78becb746fdcc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac144b7ac68371dc9cfd78becb746fdcc">&#9670;&nbsp;</a></span>drawImage()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,14 +422,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawImage </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -461,12 +474,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a6c4e95f877f7f9a0e174f1e94b787122">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#aea9d69f128f67a0a2ccade1ba5c7c615">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="a1febb88fddcd785c34077dce201fd70b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1febb88fddcd785c34077dce201fd70b">&#9670;&nbsp;</a></span>drawLine()</h2>
+<a id="afcfc6ada8303e1db2bfba79b883dd7ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afcfc6ada8303e1db2bfba79b883dd7ae">&#9670;&nbsp;</a></span>drawLine()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -477,13 +490,13 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawLine </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>start</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>end</em>, </td>
         </tr>
         <tr>
@@ -505,12 +518,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#af2f5ffc2b81855c9dbd7e86976d41284">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a2e93e407aa8d56514179276610a9d49b">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="ab0ab2e9e62dad91e676c2f873f3ff375"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0ab2e9e62dad91e676c2f873f3ff375">&#9670;&nbsp;</a></span>drawQuad()</h2>
+<a id="a847a9e7aedeab963f9af7f302ce1e745"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a847a9e7aedeab963f9af7f302ce1e745">&#9670;&nbsp;</a></span>drawQuad()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -521,25 +534,25 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawQuad </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>p0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>p1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>p2</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>p3</em>, </td>
         </tr>
         <tr>
@@ -561,12 +574,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#ac5be45b8bb1b5cc18f1bb2056701deac">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a7b51b5fc6281e022bb1b45453796f3fa">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="aa8fae0e9a343ca38b621f87ff33c9acd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8fae0e9a343ca38b621f87ff33c9acd">&#9670;&nbsp;</a></span>drawRectangle()</h2>
+<a id="a16154d2ebcb14210cdcbf4e1686923af"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16154d2ebcb14210cdcbf4e1686923af">&#9670;&nbsp;</a></span>drawRectangle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -577,14 +590,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawRectangle </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -605,12 +618,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a367a52dff030bb972339e98e01c0fcb3">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#ad229a180d5244af705c6fc9b94abeaee">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="a78d3fe11461d30c1981b7cdc0ddf8e86"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78d3fe11461d30c1981b7cdc0ddf8e86">&#9670;&nbsp;</a></span>drawRectangleRounded()</h2>
+<a id="aceef8463a31872c64b3973756c777497"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aceef8463a31872c64b3973756c777497">&#9670;&nbsp;</a></span>drawRectangleRounded()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -621,14 +634,14 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawRectangleRounded </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>size</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -639,25 +652,25 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>tl</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>tr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>br</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
+          <td class="paramtype">float&#160;</td>
           <td class="paramname"><em>bl</em>&#160;</td>
         </tr>
         <tr>
@@ -673,12 +686,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a8be93aae7fa0d09e1bb83d6c38e09c60">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a3cd26c9fedb19d2337b12fa3a31b9e93">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="aea1f3482e395eda5fdba5ee8c2b61437"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea1f3482e395eda5fdba5ee8c2b61437">&#9670;&nbsp;</a></span>drawString()</h2>
+<a id="a5681e980451c7ddd04bf736a3c9b0f61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5681e980451c7ddd04bf736a3c9b0f61">&#9670;&nbsp;</a></span>drawString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -689,8 +702,8 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawString </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -735,12 +748,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#ae4c77cb3aeeb95a31ca3a13a5cca383c">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a3edcf3626c8fb11c49f356d235a22821">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="abde7d78848a0e2a803f4f67952890722"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abde7d78848a0e2a803f4f67952890722">&#9670;&nbsp;</a></span>drawTriangle()</h2>
+<a id="a2a9ecd9bce7c986bf9986c2816fdbdb0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a9ecd9bce7c986bf9986c2816fdbdb0">&#9670;&nbsp;</a></span>drawTriangle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -751,19 +764,19 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">void ffw::GuiWindowOpenGL::drawTriangle </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>p0</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>p1</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
           <td class="paramname"><em>p2</em>, </td>
         </tr>
         <tr>
@@ -785,12 +798,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a72a30b0c1663e7a4a3042c81af929b59">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#aadd7f5d5e221e1ac837653a5463f79bf">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="a1ebecc19115d6a3dc5f7b0535514a9dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ebecc19115d6a3dc5f7b0535514a9dc">&#9670;&nbsp;</a></span>endRender()</h2>
+<a id="a62f18367492912cd799f7613cacf3974"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a62f18367492912cd799f7613cacf3974">&#9670;&nbsp;</a></span>endRender()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -799,7 +812,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ffw::GuiWindowOpenGL::endRender </td>
+          <td class="memname">virtual void ffw::GuiWindowOpenGL::endRender </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -814,10 +827,12 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a26d844c1babfeadc631dc45df723dc37">ffw::GuiBackend</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classffw_1_1_gui_window_open_g_l_f_b_o.html#ae307a22a51c78481dde54323a31cdcd2">ffw::GuiWindowOpenGLFBO</a>.</p>
+
 </div>
 </div>
-<a id="a0ce86a092485c3373a2f26154ba74f84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0ce86a092485c3373a2f26154ba74f84">&#9670;&nbsp;</a></span>resize()</h2>
+<a id="a5f10b19ff45fc419be43f1ced96a8ad2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f10b19ff45fc419be43f1ced96a8ad2">&#9670;&nbsp;</a></span>resize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -826,7 +841,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ffw::GuiWindowOpenGL::resize </td>
+          <td class="memname">virtual void ffw::GuiWindowOpenGL::resize </td>
           <td>(</td>
           <td class="paramtype">int&#160;</td>
           <td class="paramname"><em>width</em>, </td>
@@ -852,10 +867,12 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classffw_1_1_gui_backend.html#af2497bddcba3d8ff994bbfe2ad4e5e10">ffw::GuiBackend</a>.</p>
 
+<p>Reimplemented in <a class="el" href="classffw_1_1_gui_window_open_g_l_f_b_o.html#aef162043c1201e6f06458e7728958c76">ffw::GuiWindowOpenGLFBO</a>.</p>
+
 </div>
 </div>
-<a id="a988a1ab3f7d5d56b1976b0f6563f6478"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a988a1ab3f7d5d56b1976b0f6563f6478">&#9670;&nbsp;</a></span>setScissors()</h2>
+<a id="a36eaeff19e0ec5253288089e0c8f3fb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a36eaeff19e0ec5253288089e0c8f3fb2">&#9670;&nbsp;</a></span>setScissors()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -864,16 +881,16 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ffw::GuiWindowOpenGL::setScissors </td>
+          <td class="memname">virtual void ffw::GuiWindowOpenGL::setScissors </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="group__math.html#ga8ac6bae8a24d96d0223a29ecfff14570">ffw::Vec2i</a> &amp;&#160;</td>
-          <td class="paramname"><em>size</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="group__math.html#ga44573357c25b7969b4391ca0ae427636">ffw::Vec2f</a> &amp;&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -888,12 +905,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a14a1e2f98e15394f0f1a06a7c67ea388">ffw::GuiBackend</a>.</p>
+<p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a533dbbb5e165326e85ebacb877fee2f3">ffw::GuiBackend</a>.</p>
 
 </div>
 </div>
-<a id="a70b5026b2b829847172d6762465846f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70b5026b2b829847172d6762465846f4">&#9670;&nbsp;</a></span>startRender()</h2>
+<a id="ab2ae76582cb0c701db24f89971270b54"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2ae76582cb0c701db24f89971270b54">&#9670;&nbsp;</a></span>startRender()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -902,7 +919,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void ffw::GuiWindowOpenGL::startRender </td>
+          <td class="memname">virtual void ffw::GuiWindowOpenGL::startRender </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -916,6 +933,31 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Implements <a class="el" href="classffw_1_1_gui_backend.html#a7a10d3b391690aced9ff03b553d94a44">ffw::GuiBackend</a>.</p>
+
+<p>Reimplemented in <a class="el" href="classffw_1_1_gui_window_open_g_l_f_b_o.html#a9c8b33daa398d2161ac6f50314ef70d2">ffw::GuiWindowOpenGLFBO</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ade228e3f1d7cdfcf0a0e91ccc279f314"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade228e3f1d7cdfcf0a0e91ccc279f314">&#9670;&nbsp;</a></span>context</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classffw_1_1_render_context.html">RenderContext</a>* ffw::GuiWindowOpenGL::context</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
