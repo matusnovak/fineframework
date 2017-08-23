@@ -1,5 +1,5 @@
-Vectors
---------------------------
+Tutorial: Vectors
+-----------------
 
 This tutorial will explain the basics hidden behind vectors. However, you are expected to know basics of linear algebra, such as vector addition.
 

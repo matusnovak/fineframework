@@ -6,19 +6,19 @@ public:
 	}
 	virtual ~GuiWidgetNull() {
 	}
-	ffw::Vec2i getMinimumWrapSize() override {
+	ffw::Vec2f getMinimumWrapSize() override {
 		return 0;
 	}
 private:
-	void eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) override {
+	void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override {
 		(void)contentoffset;
 		(void)contentsize;
 	}
-	void eventPos(const ffw::Vec2i& pos) override {
-		(void)pos;
+	void eventPos(const ffw::Vec2f& p) override {
+		(void)p;
 	}
-	void eventSize(const ffw::Vec2i& size) override {
-		(void)size;
+	void eventSize(const ffw::Vec2f& s) override {
+		(void)s;
 	}
 	void eventHover(bool gained) override {
 		(void)gained;
@@ -26,8 +26,12 @@ private:
 	void eventFocus(bool gained) override {
 		(void)gained;
 	}
-	void eventMouse(const ffw::Vec2i& pos) override {
-		(void)pos;
+	void eventMouse(const ffw::Vec2f& p) override {
+		(void)p;
+	}
+	bool eventScroll(const ffw::Vec2f& s) override {
+		(void)s;
+		return false;
 	}
 	void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override {
 		(void)button;
@@ -63,36 +67,36 @@ public:
 	void create(int pixels) {
 		points = pixels;
 	}
-	ffw::Vec2i getStringSize(const std::wstring& str, float lineHeight = 1.25) const override {
+	ffw::Vec2f getStringSize(const std::wstring& str, float lineHeight = 1.25) const override {
 		return getStringSizeFunc(str, lineHeight);
 	}
-	ffw::Vec2i getStringSize(const std::string& str, float lineHeight = 1.25) const override {
+	ffw::Vec2f getStringSize(const std::string& str, float lineHeight = 1.25) const override {
 		return getStringSizeFunc(str, lineHeight);
 	}
-	virtual int getCharAdvance(wchar_t c) const override {
+	virtual float getCharAdvance(wchar_t c) const override {
 		(void)c;
-		return points;
+		return (float)points;
 	}
 	virtual int getSizeInPixels() const override {
 		return points;
 	}
 private:
 	template<class T>
-	ffw::Vec2i getStringSizeFunc(const T& str, float lineHeight) const {
-		ffw::Vec2i size(0, int(points * lineHeight));
-		int width = 0;
+	ffw::Vec2f getStringSizeFunc(const T& str, float lineHeight) const {
+		ffw::Vec2f s(0, float(points * lineHeight));
+		float width = 0;
 		for (const auto& c : str) {
 			if (c == '\n') {
-				size.y += int(points * lineHeight);
-				width = std::max(size.x, width);
-				size.x = 0;
+				s.y += int(points * lineHeight);
+				width = std::max(s.x, width);
+				s.x = 0;
 			}
 			else {
 				width += points;
 			}
 		}
-		size.x = std::max(size.x, width);
-		return size;
+		s.x = std::max(s.x, width);
+		return s;
 	}
 	int points;
 };
@@ -107,61 +111,62 @@ public:
 		 (void)width;
 		 (void)height;
 	}
-	void drawRectangle(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::Color& color) const override {
-		(void)pos;
-		(void)size;
+	void drawRectangle(const ffw::Vec2f& p, const ffw::Vec2f& s, const ffw::Color& color) const override {
+		(void)p;
+		(void)s;
 		(void)color;
 	}
-	void drawTriangle(const ffw::Vec2i& p0, const ffw::Vec2i& p1, const ffw::Vec2i& p2, const ffw::Color& color) const override {
+	void drawTriangle(const ffw::Vec2f& p0, const ffw::Vec2f& p1, const ffw::Vec2f& p2, const ffw::Color& color) const override {
 		(void)p0;
 		(void)p1;
 		(void)p2;
 		(void)color;
 	}
-	void drawRectangleRounded(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::Color& color, int tl, int tr, int br, int bl) const override {
-		(void)pos;
-		(void)size;
+	void drawRectangleRounded(const ffw::Vec2f& p, const ffw::Vec2f& s, const ffw::Color& color, float tl, float tr, float br, float bl) const override {
+		(void)p;
+		(void)s;
 		(void)color;
 		(void)tl;
 		(void)tr;
 		(void)br;
 		(void)bl;
 	}
-	void drawLine(const ffw::Vec2i& start, const ffw::Vec2i& end, const ffw::Color& color) const override {
+	void drawLine(const ffw::Vec2f& start, const ffw::Vec2f& end, const ffw::Color& color) const override {
 		(void)start;
 		(void)end;
 		(void)color;
 	}
-	void drawCircle(const ffw::Vec2i& pos, int radius, const ffw::Color& color) const override {
-		(void)pos;
+	void drawCircle(const ffw::Vec2f& p, float radius, const ffw::Color& color) const override {
+		(void)p;
 		(void)radius;
 		(void)color;
 	}
-	void drawArc(const ffw::Vec2i& pos, int inner, int outer, float start, float end, const ffw::Color& color) const override {
-		(void)pos;
+	void drawArc(const ffw::Vec2f& p, float inner, float outer, float start, float end, const ffw::Color& color) const override {
+		(void)p;
 		(void)inner;
 		(void)outer;
 		(void)start;
 		(void)end;
 		(void)color;
 	}
-	void drawQuad(const ffw::Vec2i& p0, const ffw::Vec2i& p1, const ffw::Vec2i& p2, const ffw::Vec2i& p3, const ffw::Color& color) const override {
+	void drawQuad(const ffw::Vec2f& p0, const ffw::Vec2f& p1, const ffw::Vec2f& p2, const ffw::Vec2f& p3, const ffw::Color& color) const override {
 		(void)p0;
 		(void)p1;
 		(void)p2;
 		(void)p3;
 		(void)color;
 	}
-	void drawString(const ffw::Vec2i& pos, const ffw::GuiFont* font, const std::wstring::value_type* str, size_t length, const ffw::Color& color, float lineHeight = 1.25f) const override {
-		(void)pos;
+	void drawString(const ffw::Vec2f& p, const ffw::GuiFont* font, const std::wstring::value_type* str, size_t length, const ffw::Color& color, float lineHeight = 1.25f) const override {
+		(void)p;
 		(void)font;
 		(void)str;
 		(void)length;
 		(void)color;
+		(void)lineHeight;
 	}
-	void drawImage(const ffw::Vec2i& pos, const ffw::Vec2i& size, const ffw::GuiImage* image, const ffw::Vec4i& sub, bool mirrorX, bool mirrorY, const ffw::Color& color) const override {
-		(void)pos;
-		(void)size;
+	void drawImage(const ffw::Vec2f& p, const ffw::Vec2f& s, const ffw::GuiImage* image, const ffw::Vec4i& sub, bool mirrorX, bool mirrorY, const ffw::Color& color) const override {
+		(void)p;
+		(void)s;
 		(void)image;
 		(void)sub;
 		(void)mirrorX;
@@ -172,9 +177,9 @@ public:
 	}
 	void endRender() override {
 	}
-	void setScissors(const ffw::Vec2i& pos, const ffw::Vec2i& size) const override {
-		(void)pos;
-		(void)size;
+	void setScissors(const ffw::Vec2f& p, const ffw::Vec2f& s) const override {
+		(void)p;
+		(void)s;
 	}
 	void clearWithColor(const ffw::Color& color) const override {
 		(void)color;
@@ -249,9 +254,9 @@ public:
 	GuiWindowNull gui; \
 	GuiFontNull font; \
 	font.create(8); \
+	gui.setTheme(&NullTheme); \
 	gui.setPos(0, 0); \
 	gui.setSize(w, h); \
-	gui.setTheme(&NullTheme); \
 	gui.setDefaultFont(&font);
 
 #define TEST_UPDATE_AND_RENDER \

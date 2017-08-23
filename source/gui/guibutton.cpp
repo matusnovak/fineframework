@@ -34,20 +34,23 @@ const std::wstring& ffw::GuiButton::getLabel() const {
 }
 
 ///=============================================================================
-void ffw::GuiButton::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiButton::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
 	context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
-void ffw::GuiButton::eventPos(const ffw::Vec2i& pos) {
+void ffw::GuiButton::eventPos(const ffw::Vec2f& p) {
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiButton::eventSize(const ffw::Vec2i& size) {
+void ffw::GuiButton::eventSize(const ffw::Vec2f& s) {
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiButton::eventHover(bool gained) {
+	(void)gained;
 	redraw();
 }
 
@@ -64,23 +67,36 @@ void ffw::GuiButton::eventFocus(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiButton::eventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiButton::eventMouse(const ffw::Vec2f& p) {
+	(void)p;
+}
+
+///=============================================================================
+bool ffw::GuiButton::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiButton::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiButton::eventText(wchar_t chr) {
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiButton::eventKey(ffw::Key key, ffw::Mode mode) {
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiButton::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -90,7 +106,7 @@ void ffw::GuiButton::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiButton::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiButton::getMinimumWrapSize() {
 	if (getCurrentFont() == NULL || label.size() == 0)return 0;
 	return getCurrentFont()->getStringSize(label, getLineHeight());
 }

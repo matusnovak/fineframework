@@ -1,4 +1,4 @@
-Var - JSON-like data structure
+Tutorial: Var - JSON-like data structure
 ----------------------------------------
 
 This tutorial will explain how the ffw::Var class can accept and hold any data type, including creating JSON like data structures via key value pairs and arrays.

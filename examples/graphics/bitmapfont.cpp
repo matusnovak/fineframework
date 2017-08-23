@@ -59,7 +59,14 @@ public:
 		for(int i = 0; i < 256; i++) {
 			int y = i / 16;
 			int x = i - (y * 16);
-			font.setCharData((wchar_t)i, x*32, y*32, CHAR_WIDTH, CHAR_HEIGHT, CHAR_ADVANCE, CHAR_BEARING);
+			auto& chr = font.setCharData((wchar_t)i);
+			chr.x = x * 32;
+			chr.y = y * 32;
+			chr.width = CHAR_WIDTH;
+			chr.height = CHAR_HEIGHT;
+			chr.advance = CHAR_ADVANCE;
+			chr.bearingX = 0;
+			chr.bearingY = CHAR_BEARING;
 		}
 
 		// Required for font blending

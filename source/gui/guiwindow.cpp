@@ -6,6 +6,7 @@
 ffw::GuiWindow::GuiBody::GuiBody(GuiWindow* context, GuiLayout::Orientation orient):GuiLayout(context, orient) {
 	// At this point, we are sure that the context and getTheme() are not NULL
 	widgetStyle = &context->getTheme()->getStyleGroup("GUI_WINDOW_BODY");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -16,6 +17,7 @@ ffw::GuiWindow::GuiBody::~GuiBody() {
 ///=============================================================================
 void ffw::GuiWindow::GuiBody::eventThemeChanged(const GuiTheme* theme) {
 	widgetStyle = &theme->getStyleGroup("GUI_WINDOW_BODY");
+	setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
@@ -23,9 +25,6 @@ ffw::GuiWindow::GuiWindow(){
 	theme = &GuiTheme::simpleLight;
 	body = new GuiBody(this, GuiLayout::Orientation::VERTICAL);
 	body->setPos(0, 0);
-	//body->setPadding(ffw::guiPixels(10));
-	//body->Style().normal.background = true;
-	//body->Style().normal.backgroundcolor = ffw::rgb(0xF0F0F0);
 	defaultfont = NULL;
 	input.chr = 0xFFFF;
 	input.keymode = ffw::Mode::NONE;
@@ -38,24 +37,24 @@ ffw::GuiWindow::~GuiWindow(){
 }
 
 ///=============================================================================
-void ffw::GuiWindow::setSize(int width, int height){
+void ffw::GuiWindow::setSize(float width, float height){
 	size.set(width, height);
 	body->setSize(width, height);
-	resize(width, height);
+	resize((int)width, (int)height);
 }
 
 ///=============================================================================
-void ffw::GuiWindow::setPos(int posx, int posy){
+void ffw::GuiWindow::setPos(float posx, float posy){
 	pos.set(posx, posy);
 }
 
 ///=============================================================================
-const ffw::Vec2i& ffw::GuiWindow::getSize() const {
+const ffw::Vec2f& ffw::GuiWindow::getSize() const {
 	return size;
 }
 
 ///=============================================================================
-const ffw::Vec2i& ffw::GuiWindow::getPos() const {
+const ffw::Vec2f& ffw::GuiWindow::getPos() const {
 	return pos;
 }
 
@@ -82,8 +81,13 @@ const ffw::GuiFont* ffw::GuiWindow::getDefaultFont() const {
 }
 
 ///=============================================================================
-void ffw::GuiWindow::injectMousePos(int posx, int posy){
-	mousepos.set(posx, posy);
+void ffw::GuiWindow::injectMousePos(float posx, float posy){
+	mousepos.set(posx - pos.x, posy - pos.y);
+}
+
+///=============================================================================
+void ffw::GuiWindow::injectScroll(float posx, float posy){
+	input.scroll.set(posx, posy);
 }
 
 ///=============================================================================
@@ -105,8 +109,8 @@ void ffw::GuiWindow::injectKey(ffw::Key key, ffw::Mode mode){
 
 ///=============================================================================
 void ffw::GuiWindow::update(){
-	const auto& size = body->getSize();
-	body->update(ffw::Vec2i(0, 0), ffw::Vec2i(size.x.value, size.y.value), input, mousepos, false);
+	const auto& s = body->getSize();
+	body->update(ffw::Vec2f(0, 0), ffw::Vec2f(s.x.value, s.y.value), input, mousepos, false);
 	input.mousemode = ffw::Mode::NONE;
 	input.chr = 0xFFFF;
 	input.keymode = ffw::Mode::NONE;
@@ -128,8 +132,8 @@ void ffw::GuiWindow::poolEvents(){
 ///=============================================================================
 void ffw::GuiWindow::render(){
 	startRender();
-	const auto& size = body->getSize();
-	body->render(ffw::Vec2i(0, 0), ffw::Vec2i(size.x.value, size.y.value), ffw::Vec2i(0, 0), true);
+	const auto& s = body->getSize();
+	body->render(ffw::Vec2f(0, 0), ffw::Vec2f(s.x.value, s.y.value), ffw::Vec2f(0, 0), true);
 	endRender();
 }
 

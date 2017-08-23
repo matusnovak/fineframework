@@ -8,6 +8,8 @@
 #include "../math/vec3.h"
 #include "../math/vec4.h"
 #include <map>
+#include <limits>
+
 namespace ffw {
 	/**
 	* @ingroup gui
@@ -19,81 +21,104 @@ namespace ffw {
 			PIXELS,
 			WRAP,
 		};
-		inline GuiUnits() :value(0), type(GuiUnits::Type::PIXELS) {
+		inline GuiUnits() :value(0) {
 			
 		}
-		inline GuiUnits(int Value, bool percentage) :value(Value), type((percentage ? GuiUnits::Type::PERCENT : GuiUnits::Type::PIXELS)) {
+		inline GuiUnits(float val, bool percentage) :value(percentage ? -val : val) {
 			
 		}
-		inline GuiUnits(int Value) :value(Value), type(GuiUnits::Type::PIXELS) {
+		inline GuiUnits(float val) :value(val) {
 			
 		}
 		inline bool operator == (const GuiUnits& other) const {
-			return (value == other.value && type == other.type);
+			if (value == std::numeric_limits<float>::infinity() && other.value == std::numeric_limits<float>::infinity())return true;
+			return std::fabs(value - other.value) < std::numeric_limits<float>::epsilon();
 		}
 		inline bool operator != (const GuiUnits& other) const {
-			return (value != other.value || type != other.type);
+			if (value == std::numeric_limits<float>::infinity() && other.value == std::numeric_limits<float>::infinity())return false;
+			return std::fabs(value - other.value) >= std::numeric_limits<float>::epsilon();
 		}
-		inline bool operator == (int v) const {
-			return (value == v && type != GuiUnits::Type::PERCENT);
+		inline bool operator == (float v) const {
+			return std::fabs(value - v) < std::numeric_limits<float>::epsilon();
 		}
-		inline bool operator != (int v) const {
-			return (value != v || type == GuiUnits::Type::PERCENT);
+		inline bool operator != (float v) const {
+			return std::fabs(value - v) >= std::numeric_limits<float>::epsilon();
 		}
 		inline bool operator == (Type t) const {
-			return (type == t);
+			switch(t) {
+				case Type::PIXELS: return value >= 0;
+				case Type::PERCENT: return value < 0;
+				case Type::WRAP: return value == std::numeric_limits<float>::infinity();
+				default: break;
+			}
+			return false;
 		}
 		inline bool operator != (Type t) const {
-			return (type != t);
+			switch(t) {
+				case Type::PIXELS: return value < 0;
+				case Type::PERCENT: return value >= 0;
+				case Type::WRAP: return value != std::numeric_limits<float>::infinity();
+				default: break;
+			}
+			return false;
 		}
 		inline friend std::ostream& operator << (std::ostream& os, const GuiUnits& V) {
-			os << V.value << (V.type == GuiUnits::Type::PERCENT ? "%" : "px");
+			os << (V.value < 0 ? -V.value : V.value) << (V.value < 0 ? "%" : "px");
 			return os;
 		}
-		inline int toReal(const int val) const {
-			if (type == GuiUnits::Type::PERCENT) {
-				return int((value / 100.0f) * val);
+		inline float toReal(float val) const {
+			if (value == std::numeric_limits<float>::infinity())return 0;
+			else if (value < 0) {
+				return float((-value / 100.0f) * val);
 			}
 			else {
 				return value;
 			}
 		}
-		inline void setPixels(int px) {
-			type = GuiUnits::Type::PIXELS;
+		inline void setPixels(float px) {
 			value = px;
 		}
-		inline void setPercent(int pc) {
-			type = GuiUnits::Type::PERCENT;
-			value = pc;
+		inline void setPercent(float pc) {
+			value = -pc;
 		}
-		Type type;
-		int value;
+		inline Type getType() const {
+			if (value == std::numeric_limits<float>::infinity())return Type::WRAP;
+			if (value < 0)return Type::PERCENT;
+			return Type::PIXELS;
+		}
+		float value;
 	};
+	inline bool operator == (float left, const GuiUnits& right){
+		return std::fabs(right.value - left) < std::numeric_limits<float>::epsilon();
+	}
+	inline bool operator != (float left, const GuiUnits& right){
+		return std::fabs(right.value - left) >= std::numeric_limits<float>::epsilon();
+	}
 	/**
 	* @ingroup gui
 	*/
-	inline GuiUnits guiPixels(int pixels) {
+	inline GuiUnits guiPixels(float pixels) {
 		return GuiUnits(pixels, false);
 	}
 	/**
 	* @ingroup gui
 	*/
-	inline GuiUnits guiPercent(int percent) {
+	inline GuiUnits guiPercent(float percent) {
 		return GuiUnits(percent, true);
 	}
 	/**
 	* @ingroup gui
 	*/
 	inline GuiUnits guiWrap() {
-		return GuiUnits(-1, true);
+		return GuiUnits(std::numeric_limits<float>::infinity());
 	}
 	/**
 	* @ingroup gui
 	*/
 	class GuiUnits2D: public ffw::Vec2<GuiUnits> {
 	public:
-		inline ffw::Vec2i toReal(const ffw::Vec2i& size) {
-			return ffw::Vec2i(x.toReal(size.x), y.toReal(size.y));
+		inline ffw::Vec2f toReal(const ffw::Vec2f& size) {
+			return ffw::Vec2f(x.toReal(size.x), y.toReal(size.y));
 		}
 	};
 	/**
@@ -163,13 +188,13 @@ namespace ffw {
 		};
 		class Border {
 		public:
-			typedef Attribute<int> Size;
-			typedef Attribute<int> Radius;
+			typedef Attribute<float> Size;
+			typedef Attribute<float> Radius;
 			typedef Attribute<ffw::Color> Color;
 			inline Border():
 				size(0),radius(0),color(ffw::rgb(0xFFFFFF)) {
 			}
-			inline Border(const Attribute<int>& s, const Attribute<int>& r, const Attribute<ffw::Color>& c):
+			inline Border(const Attribute<float>& s, const Attribute<float>& r, const Attribute<ffw::Color>& c):
 				size(s),radius(r),color(c) {
 			}
 			inline operator bool() const {
@@ -186,7 +211,7 @@ namespace ffw {
 
 		class Background {
 		public:
-			typedef Attribute<int> Radius;
+			typedef Attribute<float> Radius;
 			enum class Type {
 				NONE = 0,
 				SIMPLE,
@@ -194,10 +219,10 @@ namespace ffw {
 			inline Background():
 				radius(0),color(ffw::rgb(0x000000)),type(Type::NONE) {
 			}
-			inline Background(const Attribute<int>& r, const ffw::Color& c, Type t):
+			inline Background(const Attribute<float>& r, const ffw::Color& c, Type t):
 				radius(r),color(c),type(t) {
 			}
-			Attribute<int> radius;
+			Attribute<float> radius;
 			ffw::Color color;
 			Type type;
 			inline operator bool() const {

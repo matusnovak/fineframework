@@ -4,11 +4,13 @@
 
 #include "../config.h"
 
+#ifndef DOXYGEN_SHOULD_SKIP_THIS
 #if defined(__FT_HEADER_H__) || defined(FREETYPE_H_)
 // Nothing
 #else
 typedef void* FT_Face;
 typedef void* FT_Glyph;
+#endif
 #endif
 
 namespace ffw {
@@ -26,9 +28,9 @@ namespace ffw {
 			}
 			short width = 0;
 			short height = 0;
-			short left = 0;
-			short bearing = 0;
-			short advance = 0;
+			float bearingX = 0;
+			float bearingY = 0;
+			float advance = 0;
 			unsigned char* pixels = NULL;
 		};
 		FreeTypeLoader();

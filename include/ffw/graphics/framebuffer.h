@@ -6,6 +6,7 @@
 #include "texture2dms.h"
 #include "renderbuffer2d.h"
 #include "renderbuffer2dms.h"
+#include "texturecubemap.h"
 
 namespace ffw {
 	/**
@@ -23,17 +24,21 @@ namespace ffw {
 			return created_;
 		}
         bool create(const RenderContext* Renderer);
-        bool addColorTexture(const ffw::Texture2D* DepthTexture);
-        bool addDepthTexture(const ffw::Texture2D* ColorTexture);
-        bool addColorTextureMS(const ffw::Texture2DMS* DepthTexture);
-        bool addDepthTextureMS(const ffw::Texture2DMS* ColorTexture);
-        bool addColorRenderbuffer(const ffw::Renderbuffer2D* DepthTexture);
-        bool addDepthRenderbuffer(const ffw::Renderbuffer2D* ColorTexture);
-        bool addColorRenderbufferMS(const ffw::Renderbuffer2DMS* DepthTexture);
-        bool addDepthRenderbufferMS(const ffw::Renderbuffer2DMS* ColorTexture);
+        bool addColorTexture(const ffw::Texture2D* texture, int mip = 0);
+		bool addCubemapTexture(const ffw::TextureCubemap* texture, int side, int mip = 0);
+        bool addDepthTexture(const ffw::Texture2D* texture, int mip = 0);
+        bool addColorTextureMS(const ffw::Texture2DMS* texture, int mip = 0);
+        bool addDepthTextureMS(const ffw::Texture2DMS* texture, int mip = 0);
+        bool addColorRenderbuffer(const ffw::Renderbuffer2D* texture);
+        bool addDepthRenderbuffer(const ffw::Renderbuffer2D* texture);
+        bool addColorRenderbufferMS(const ffw::Renderbuffer2DMS* texture);
+        bool addDepthRenderbufferMS(const ffw::Renderbuffer2DMS* texture);
 		bool checkStatus();
 		inline unsigned int getHandle() const {
 			return fbo_;
+		}
+		inline void resetColorCount() {
+			colorcount_ = 0;
 		}
         bool destroy();
         void bind() const;

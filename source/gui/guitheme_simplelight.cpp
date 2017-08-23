@@ -29,14 +29,14 @@
 #define ETCHED_BACKGROUND 0xDDDDDD
 #define ETCHED_BORDER 0xB5B5B5
 
-#define BUTTON_RADIUS_LEFT ffw::GuiStyle::Attribute<int>(4, 0, 0, 4)
-#define BUTTON_RADIUS_RIGHT ffw::GuiStyle::Attribute<int>(0, 4, 4, 0)
-#define BUTTON_RADIUS_TOP ffw::GuiStyle::Attribute<int>(4, 4, 0, 0)
-#define BUTTON_RADIUS_BOTTOM ffw::GuiStyle::Attribute<int>(0, 0, 4, 4)
+#define BUTTON_RADIUS_LEFT ffw::GuiStyle::Attribute<float>(4, 0, 0, 4)
+#define BUTTON_RADIUS_RIGHT ffw::GuiStyle::Attribute<float>(0, 4, 4, 0)
+#define BUTTON_RADIUS_TOP ffw::GuiStyle::Attribute<float>(4, 4, 0, 0)
+#define BUTTON_RADIUS_BOTTOM ffw::GuiStyle::Attribute<float>(0, 0, 4, 4)
 
-#define TAB_BUTTON_BORDER ffw::GuiStyle::Attribute<int>(1, 1, 0, 1)
-#define TAB_BUTTON_RADIUS ffw::GuiStyle::Attribute<int>(BORDER_RADIUS, BORDER_RADIUS, 0, 0)
-#define TAB_CONTENT_RADIUS ffw::GuiStyle::Attribute<int>(0, 0, BORDER_RADIUS, BORDER_RADIUS)
+#define TAB_BUTTON_BORDER ffw::GuiStyle::Attribute<float>(1, 1, 0, 1)
+#define TAB_BUTTON_RADIUS ffw::GuiStyle::Attribute<float>(BORDER_RADIUS, BORDER_RADIUS, 0, 0)
+#define TAB_CONTENT_RADIUS ffw::GuiStyle::Attribute<float>(0, 0, BORDER_RADIUS, BORDER_RADIUS)
 
 ///=============================================================================
 const ffw::GuiTheme ffw::GuiTheme::simpleLight({
@@ -124,7 +124,7 @@ const ffw::GuiTheme ffw::GuiTheme::simpleLight({
 				ffw::GuiStyle::Margin(0, 0, 0, 0),
 				ffw::GuiStyle::Padding(0),
 				ffw::GuiStyle::Align::TOP_LEFT,
-				ffw::Vec2<GuiUnits>(ffw::guiPercent(100), ffw::guiWrap())
+				ffw::Vec2<GuiUnits>(ffw::guiPercent(100), ffw::guiPercent(100))
 			)
 		)
 	},

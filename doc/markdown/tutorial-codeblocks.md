@@ -1,4 +1,4 @@
-FFW with CodeBlocks and MinGW
+Tutorial: CodeBlocks and MinGW
 -----------------------------------------
 
 This tutorial will explain how to include any FFW module into your C++ project. You will need Code::Blocks which comes in two versions, with MinGW compiler and without it. It is highly recommended to use MinGW-w64 which supports much more features than original MinGW. MinGW-w64 can be downloaded from <https://sourceforge.net/projects/mingw-w64/> and download CodeBlocks **without MinGW** from <http://www.codeblocks.org/downloads/26>

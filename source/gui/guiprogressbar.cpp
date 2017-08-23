@@ -17,47 +17,64 @@ ffw::GuiProgressBar::~GuiProgressBar() {
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
-	int width = int((percent / 100.0f) * contentsize.x);
+void ffw::GuiProgressBar::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
+	float width = float((percent / 100.0f) * contentsize.x);
 	if(width > 0) {
-		renderComponent(contentoffset, ffw::Vec2i(width, contentsize.y), getCurrentStyle(innerStyle));
+		renderComponent(contentoffset, ffw::Vec2f(width, contentsize.y), getCurrentStyle(innerStyle));
 	}
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::eventPos(const ffw::Vec2i& pos) {
+void ffw::GuiProgressBar::eventPos(const ffw::Vec2f& p) {
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::eventSize(const ffw::Vec2i& size) {
+void ffw::GuiProgressBar::eventSize(const ffw::Vec2f& s) {
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiProgressBar::eventHover(bool gained) {
+	(void)gained;
 }
 
 ///=============================================================================
 void ffw::GuiProgressBar::eventFocus(bool gained) {
+	(void)gained;
 }
 
 ///=============================================================================
-void ffw::GuiProgressBar::eventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiProgressBar::eventMouse(const ffw::Vec2f& mousePos) {
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiProgressBar::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiProgressBar::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiProgressBar::eventText(wchar_t chr) {
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiProgressBar::eventKey(ffw::Key key, ffw::Mode mode) {
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiProgressBar::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -68,6 +85,6 @@ void ffw::GuiProgressBar::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiProgressBar::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiProgressBar::getMinimumWrapSize() {
 	return ffw::Vec2i(16, 8);
 }

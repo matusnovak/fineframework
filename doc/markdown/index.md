@@ -1,9 +1,10 @@
 FineFramework
 -------------
 
-<div>
-	<img src="https://ci.appveyor.com/api/projects/status/4kdgp457xvcklvt2?svg=true">
-	<img src="https://travis-ci.org/matusnovak/fineframework.svg?branch=master">
+<div class ="images">
+	<img src="https://ci.appveyor.com/api/projects/status/4kdgp457xvcklvt2/branch/master?svg=true"/>
+	<img src="https://travis-ci.org/matusnovak/fineframework.svg?branch=master"/>
+	<img src="https://api.codacy.com/project/badge/Grade/5f3cdd8363c64a9ab7fb3904cb56cf00"/>
 </div>
 
 FineFramework (FFW) is an open source framework written in C++ designed for developing applications. This framework provides basic simple structure to write things easily with less code. Anyone can use this framework without greater knowledge of programming. This framework provides functions which can be used as a building blocks for applications of any kind. The core functions should provide sufficient exploitation for the most of problems.

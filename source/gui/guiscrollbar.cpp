@@ -16,22 +16,22 @@ ffw::GuiScrollBar::ButtonFirst::~ButtonFirst() {
 }
 
 ///=============================================================================
-void ffw::GuiScrollBar::ButtonFirst::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
-	auto radius = std::min(contentsize.x, contentsize.y) / 2;
-	auto pos = contentoffset + contentsize / 2;
+void ffw::GuiScrollBar::ButtonFirst::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
+	auto radius = std::min(contentsize.x, contentsize.y) / 2.0f;
+	auto p = contentoffset + contentsize / 2.0f;
 	
 	if(top) {
 		context->drawTriangle(
-			ffw::Vec2i(pos.x, pos.y - radius),
-			ffw::Vec2i(pos.x + radius, pos.y + radius),
-			ffw::Vec2i(pos.x - radius, pos.y + radius),
+			ffw::Vec2f(p.x, p.y - radius),
+			ffw::Vec2f(p.x + radius, p.y + radius),
+			ffw::Vec2f(p.x - radius, p.y + radius),
 			getCurrentStyle()->text.color);
 	} 
 	else {
 		context->drawTriangle(
-			ffw::Vec2i(pos.x + radius, pos.y + radius),
-			ffw::Vec2i(pos.x + radius, pos.y - radius),
-			ffw::Vec2i(pos.x - radius, pos.y),
+			ffw::Vec2f(p.x + radius, p.y + radius),
+			ffw::Vec2f(p.x + radius, p.y - radius),
+			ffw::Vec2f(p.x - radius, p.y),
 			getCurrentStyle()->text.color);
 	}
 }
@@ -55,22 +55,22 @@ ffw::GuiScrollBar::ButtonSecond::~ButtonSecond() {
 }
 
 ///=============================================================================
-void ffw::GuiScrollBar::ButtonSecond::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
-	auto radius = std::min(contentsize.x, contentsize.y) / 2;
-	auto pos = contentoffset + contentsize / 2;
+void ffw::GuiScrollBar::ButtonSecond::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
+	auto radius = std::min(contentsize.x, contentsize.y) / 2.0f;
+	auto p = contentoffset + contentsize / 2.0f;
 
 	if (bot) {
 		context->drawTriangle(
-			ffw::Vec2i(pos.x + radius, pos.y - radius),
-			ffw::Vec2i(pos.x - radius, pos.y - radius),
-			ffw::Vec2i(pos.x, pos.y + radius),
+			ffw::Vec2f(p.x + radius, p.y - radius),
+			ffw::Vec2f(p.x - radius, p.y - radius),
+			ffw::Vec2f(p.x, p.y + radius),
 			getCurrentStyle()->text.color);
 	}
 	else {
 		context->drawTriangle(
-			ffw::Vec2i(pos.x - radius, pos.y + radius),
-			ffw::Vec2i(pos.x - radius, pos.y - radius),
-			ffw::Vec2i(pos.x + radius, pos.y),
+			ffw::Vec2f(p.x - radius, p.y + radius),
+			ffw::Vec2f(p.x - radius, p.y - radius),
+			ffw::Vec2f(p.x + radius, p.y),
 			getCurrentStyle()->text.color);
 	}
 }
@@ -182,21 +182,21 @@ ffw::GuiScrollBar::~GuiScrollBar() {
 
 ///=============================================================================
 void ffw::GuiScrollBar::setButtonLength(GuiUnits length) {
-	auto size = slider->getButtonSize();
+	auto s = slider->getButtonSize();
 	if (slider->isVertical()) {
-		size.y = length;
-		slider->setButtonSize(size);
+		s.y = length;
+		slider->setButtonSize(s);
 	}
 	else {
-		size.x = length;
-		slider->setButtonSize(size);
+		s.x = length;
+		slider->setButtonSize(s);
 	}
 }
 
 ///=============================================================================
 void ffw::GuiScrollBar::ButtonCallback(ffw::GuiEvent e) {
 	if (e.type == ffw::GuiEvent::Type::CLICKED) {
-		int val = slider->getValue();
+		float val = slider->getValue();
 
 		if (e.widget == left) {
 			slider->setValue(val - increments);
@@ -211,60 +211,78 @@ void ffw::GuiScrollBar::ButtonCallback(ffw::GuiEvent e) {
 }
 
 ///=============================================================================
-void ffw::GuiScrollBar::recalculate(const ffw::Vec2i& size) {
+void ffw::GuiScrollBar::recalculate(const ffw::Vec2f& s) {
 	if (slider->isVertical()) {
-		left->setSize(size.x, size.x);
-		right->setSize(size.x, size.x);
-		slider->setSize(size.x, size.y - size.x * 2);
+		left->setSize(s.x, s.x);
+		right->setSize(s.x, s.x);
+		slider->setSize(s.x, s.y - s.x * 2);
 	}
 	else {
-		left->setSize(size.y, size.y);
-		right->setSize(size.y, size.y);
-		slider->setSize(size.x - size.y * 2, size.y);
+		left->setSize(s.y, s.y);
+		right->setSize(s.y, s.y);
+		slider->setSize(s.x - s.y * 2, s.y);
 	}
 	invalidate();
 }
 
 ///=============================================================================
-void ffw::GuiScrollBar::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiScrollBar::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
+	(void)contentoffset;
+	(void)contentsize;
 }
 
 ///=============================================================================
-void ffw::GuiScrollBar::eventPos(const ffw::Vec2i& pos) {
+void ffw::GuiScrollBar::eventPos(const ffw::Vec2f& p) {
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiScrollBar::eventSize(const ffw::Vec2i& size) {
-	recalculate(size);
+void ffw::GuiScrollBar::eventSize(const ffw::Vec2f& s) {
+	recalculate(s);
 	redraw();
 }
 
 ///=============================================================================
 void ffw::GuiScrollBar::eventHover(bool gained) {
+	(void)gained;
 }
 
 ///=============================================================================
 void ffw::GuiScrollBar::eventFocus(bool gained) {
+	(void)gained;
 }
 
 ///=============================================================================
-void ffw::GuiScrollBar::eventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiScrollBar::eventMouse(const ffw::Vec2f& mousePos) {
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiScrollBar::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiScrollBar::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiScrollBar::eventText(wchar_t chr) {
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiScrollBar::eventKey(ffw::Key key, ffw::Mode mode) {
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiScrollBar::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -279,8 +297,8 @@ void ffw::GuiScrollBar::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiScrollBar::getMinimumWrapSize() {
-	ffw::Vec2i s;
+ffw::Vec2f ffw::GuiScrollBar::getMinimumWrapSize() {
+	ffw::Vec2f s;
 
 	auto slidermin = slider->getMinimumWrapSize();
 	auto leftmin = left->getMinimumWrapSize();

@@ -20,8 +20,9 @@ namespace ffw {
 			unsigned short y = 0;
 			unsigned short width = 0;
 			unsigned short height = 0;
-			unsigned short advance = 0;
-			unsigned short bearing = 0;
+			float bearingX = 0;
+			float bearingY = 0;
+			float advance = 0;
 		};
 
 		Font();
@@ -30,8 +31,8 @@ namespace ffw {
 
 		virtual void destroy() = 0;
 		virtual const Char& getChar(wchar_t chr) const = 0;
-		virtual ffw::Vec2i getStringSize(const std::string& str, float lineHeight = 1.25f) const;
-		virtual ffw::Vec2i getStringSize(const std::wstring& str, float lineHeight = 1.25f) const;
+		virtual ffw::Vec2f getStringSize(const std::string& str, float lineHeight = 1.25f) const;
+		virtual ffw::Vec2f getStringSize(const std::wstring& str, float lineHeight = 1.25f) const;
 
 		inline int getSizePt() const {
 			return sizePoints;
@@ -48,15 +49,15 @@ namespace ffw {
 		inline bool isCreated() const {
 			return loaded;
 		}
-		inline int getCharVerticalOffset(const Font::Char& data) const {
-			return (sizePixels - data.height) + (data.height - data.bearing);
+		inline float getCharVerticalOffset(const Font::Char& data) const {
+			return float(sizePixels - data.height) + float(data.height - data.bearingY);
 		}
 		inline bool isAlphaOnly() const {
 			return alphaOnlyFlag;
 		}
     protected:
 		template<class T>
-		ffw::Vec2i getStringSizeFunc(const std::basic_string<T>& str, float lineHeight) const;
+		ffw::Vec2f getStringSizeFunc(const std::basic_string<T>& str, float lineHeight) const;
         ffw::Texture2D texture;
 		int sizePoints;
 		int sizePixels;

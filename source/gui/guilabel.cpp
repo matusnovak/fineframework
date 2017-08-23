@@ -31,44 +31,61 @@ const std::wstring& ffw::GuiLabel::getLabel() const {
 }
 
 ///=============================================================================
-void ffw::GuiLabel::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize){
+void ffw::GuiLabel::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize){
 	context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
-void ffw::GuiLabel::eventPos(const ffw::Vec2i& pos){
+void ffw::GuiLabel::eventPos(const ffw::Vec2f& p){
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiLabel::eventSize(const ffw::Vec2i& size){
+void ffw::GuiLabel::eventSize(const ffw::Vec2f& s){
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiLabel::eventHover(bool gained){
+	(void)gained;
 }
 
 ///=============================================================================
 void ffw::GuiLabel::eventFocus(bool gained){
+	(void)gained;
 }
 
 ///=============================================================================
-void ffw::GuiLabel::eventMouse(const ffw::Vec2i& pos){
+void ffw::GuiLabel::eventMouse(const ffw::Vec2f& mousePos) {
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiLabel::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiLabel::eventMouseButton(ffw::MouseButton button, ffw::Mode mode){
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiLabel::eventText(wchar_t chr){
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiLabel::eventKey(ffw::Key key, ffw::Mode mode){
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiLabel::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -78,7 +95,7 @@ void ffw::GuiLabel::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiLabel::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiLabel::getMinimumWrapSize() {
 	if(getCurrentFont() == NULL)return 0;
 	return getCurrentFont()->getStringSize(label, getLineHeight());
 }

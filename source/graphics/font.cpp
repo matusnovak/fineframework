@@ -22,12 +22,12 @@ bool ffw::Font::checkCompability(const RenderContext* renderer) {
 
 ///=============================================================================
 template<class T>
-ffw::Vec2i ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, float lineHeight) const {
+ffw::Vec2f ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, float lineHeight) const {
 	if (!isCreated())return ffw::Vec2i(0, 0);
 
-	int height = int(getSizePixels() * lineHeight);
-	ffw::Vec2i size(0, height);
-	int width = 0;
+	float height = getSizePixels() * lineHeight;
+	ffw::Vec2f size(0, height);
+	float width = 0;
 
 	for(size_t i = 0; i < str.size(); i++) {
 		if(str[i] == '\n') {
@@ -42,15 +42,15 @@ ffw::Vec2i ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, float l
 	}
 
 	size.x = std::max(width, size.x);
-	return size;
+	return ffw::Vec2f(ceil(size.x), ceil(size.y));
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::Font::getStringSize(const std::wstring& str, float lineHeight) const {
+ffw::Vec2f ffw::Font::getStringSize(const std::wstring& str, float lineHeight) const {
 	return getStringSizeFunc<wchar_t>(str, lineHeight);
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::Font::getStringSize(const std::string& str, float lineHeight) const {
+ffw::Vec2f ffw::Font::getStringSize(const std::string& str, float lineHeight) const {
 	return getStringSizeFunc<char>(str, lineHeight);
 }

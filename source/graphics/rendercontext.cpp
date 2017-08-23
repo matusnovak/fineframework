@@ -787,22 +787,29 @@ void ffw::RenderContext::drawStringFunc(float posx, float posy, const ffw::Font*
 		const ffw::Font::Char& chrData = font->getChar(chr);
 
 		if (chr == 32 || chr == 9) {
-			advance += (float)chrData.advance;
+			advance += chrData.advance;
 			continue;
 		}
 
 		else if (chr == '\n') {
-			height += int(lineHeight * font->getSizePixels());
+			height += lineHeight * font->getSizePixels();
 			advance = posx;
 			continue;
 		}
 
 		auto offset = font->getCharVerticalOffset(chrData);
 
-		vertices[0] = advance + chrData.width; vertices[1] = height + offset;
-		vertices[2] = advance; vertices[3] = height + offset;
-		vertices[4] = advance; vertices[5] = height + chrData.height + offset;
-		vertices[6] = advance + chrData.width; vertices[7] = height + chrData.height + offset;
+		vertices[0] = floor(advance + chrData.width + chrData.bearingX); 
+		vertices[1] = floor(height + offset);
+
+		vertices[2] = floor(advance + chrData.bearingX); 
+		vertices[3] = floor(height + offset);
+
+		vertices[4] = floor(advance + chrData.bearingX);  
+		vertices[5] = floor(height + chrData.height + offset);
+
+		vertices[6] = floor(advance + chrData.width + chrData.bearingX);  
+		vertices[7] = floor(height + chrData.height + offset);
 
 		float uvs[8] = {
 			(chrData.x + chrData.width) / textureWidth, chrData.y / textureHeight,
@@ -822,7 +829,7 @@ void ffw::RenderContext::drawStringFunc(float posx, float posy, const ffw::Font*
 			genericShader.drawArrays(GL_QUADS, 0, 4);
 		}
 
-		advance += (float)chrData.advance;
+		advance += chrData.advance;
 	}
 
 	if (!usesOpenGL3) {

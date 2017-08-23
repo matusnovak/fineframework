@@ -1,362 +1,351 @@
-.mdl-mega-footer--bottom-section.mdl-grid,
-.mdl-mega-footer--middle-section.mdl-grid {
-	max-width: 1100px;
-	padding: 15px;
+/* Show it is fixed to the top */
+body {
+	
 }
 
-.page-content.mdl-grid {
-	max-width: 1100px;
-	padding: 15px;
+#main {
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
-.content-padding {
-	padding-top: 40px;
-	padding-bottom: 40px;
+@media (max-width: 576px) {
+	nav .container {
+		width: 100%;
+	}
 }
 
-.mdl-layout__content {
-	background-color: rgb(66,66,66);
+#sidebar ul {
+	list-style-type: none;
+	padding: 10px;
+	background-color: #f7f7f7;
+	list-style-position: outside;
 }
 
-.mdl-layout__header-row {
-	width: 100%;
-	/*max-width: 1100px;*/
-	margin: 0 auto;
+#sidebar #navrow1:before {
+	content: "Contents:";
+	font-weight: 500;
+	padding-left: 0.5rem;
 }
 
-.header,
-.contents,
-.footer {
-	width: 100%;
-}
-
-.mdl-navigation__link {
-	color: rgb(117,117,117) !important;
-}
-
-.mdl-layout__drawer-button {
-	color: rgb(117,117,117) !important;
-}
-
-code {
+#sidebar .tabs3 ul > li {
 	display: inline-block;
-    background-color: rgba(0,0,0,.06);
-    border-radius: 3px;
-    white-space: pre-wrap;
-	font-size: 85%;
-	padding-left: 5px;
-	padding-right: 5px;
 }
 
-.fragment {
-	color: #000;
-    text-shadow: 0 1px #fff;
-    font-family: Consolas,Monaco,'Andale Mono',monospace;
-    direction: ltr;
-    text-align: left;
-    white-space: pre;
-    word-spacing: normal;
-    word-break: normal;
-    line-height: 1.5;
-    -moz-tab-size: 4;
-    tab-size: 4;
-    -webkit-hyphens: none;
-    -moz-hyphens: none;
-    -ms-hyphens: none;
-    hyphens: none;
-	padding: 1em;
-    margin: .5em 0;
-    overflow: auto;
-    font-size: 87%;
-    background-color: rgba(0,0,0,.06);
-    border-radius: 3px;
-    white-space: pre-wrap;
-	overflow-x: visible;
-	overflow-y: auto;
-	white-space: pre;
-	/*max-height: 800px;*/
+#sidebar .navpath:before {
+	content: "Hierarchy:";
+	font-weight: 500;
+	padding-left: 0.5rem;
 }
 
-.fragment .line {
-	min-height: 1.5em;
+#sidebar .navpath ul > li:before {
+	content: "\25B8";
+}
+
+.image img {
+	max-width: 100%;
+}
+
+.headertitle > .title {
+	font-size: 2.5rem;
+	margin-bottom: 0.5rem;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+	margin-top: 0;
+	margin: 0.67em 0;
 }
 
 .ingroups {
-	font-size: 18px;
+	font-size: 1.0rem;
 }
 
-.groupheader,
-.headertitle {
-	font-size: 35px;
+.ingroups:before {
+	content: "Group: ";
 }
 
-.fragment .keyword {
-	color: #E91E63;
+code {
+	white-space: nowrap;
 }
 
-.fragment .keywordtype {
-	color: #9D1DB3;
+.images .image {
+	display: inline-block;
 }
 
-.fragment .stringliteral {
-	color: #E57316;
+.fragment {
+	background-color: rgb(248, 248, 248);
+	margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 8px 1em 6px;
+	border: 1px solid rgb(221, 221, 221);
+	border-radius: 3px;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+	font-size: 0.9em;
+	display: block;
+    break-inside: avoid;
+    text-align: left;
+    overflow-x: auto;
+    white-space: pre;
+    position: relative !important;
+	word-break: normal;
+    word-wrap: break-word;
+}
+
+.navpath {
+	padding: 0.3rem 0.6rem;
+	margin-bottom: 0.5rem;
+	background-color: rgb(248, 248, 248);
+}
+
+.navpath > ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.navpath > ul > li {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.navpath > ul > li:not(:first-child):before {
+	content: "\25BA";
+	font-family: sans-serif;
+	font-size: 0.8rem;
+	padding: 0 0.25rem;
+}
+
+.memitem {
+	margin-bottom: 0.5rem;
+}
+
+.memdoc {
+	border: 1px solid rgb(221, 221, 221);
+	border-top-width: 0;
+	border-radius: 0 0 3px 3px;
+	padding: 0.75rem;
+}
+
+.memproto {
+	background-color: rgb(248, 248, 248);
+	padding: 8px 1em 6px;
+	border: 1px solid rgb(221, 221, 221);
+	border-radius: 0 3px 0 0;
+	overflow-x: auto;
+	white-space: nowrap;
+}
+
+.memtitle {
+	font-size: 1.2rem;
+	border: 1px solid rgb(221, 221, 221);
+	border-bottom-width: 0;
+	display: inline-block;
+	padding: 0.5rem;
+	margin: 0;
+	margin-bottom: -1px;
+	margin-top: 0.5rem;
+	background-color: rgb(248, 248, 248);
+	border-radius: 3px 3px 0 0;
+}
+
+.memtemplate,
+.memname td {
+	font-family: Consolas, "Liberation Mono", Courier, monospace;
+	font-size: 0.9em;
+	white-space: nowrap;
+}
+
+.memitem td.paramname {
+	font-style: italic;
+	padding-right: 1rem;
+}
+
+table.mlabels {
+	display: block;
+    width: 100%;
+}
+
+table.mlabels tbody {
+	display: block;
+	width: 100%;
+}
+
+table.mlabels td.mlabels-right {
+	width: 99%;
+	text-align: right;
+}
+
+table.mlabels td.mlabels-right > span > span {
+	padding: .1rem .2rem;
+    margin-left: .2rem;
+	color: #fff !important;
+	background-color: #0275d8 !important;
+	/*font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;*/
+}
+
+.doxtable,
+.memberdecls,
+.directory {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.doxtable th,
+.doxtable td,
+.memberdecls th,
+.memberdecls td,
+.directory th,
+.directory td {
+  padding: 0.75rem;
+  vertical-align: top;
+  /*border-top: 1px solid #eceeef;*/
+}
+
+.doxtable th,
+.doxtable td,
+.directory th,
+.directory td {
+  border-top: 1px solid #eceeef;
+}
+
+.doxtable thead th,
+.doxtable thead th,
+.memberdecls thead th,
+.directory thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #eceeef;
+}
+
+.doxtable tbody + tbody,
+.memberdecls tbody + tbody,
+.directory tbody + tbody {
+  border-top: 2px solid #eceeef;
+}
+
+.doxtable tbody tr:hover,
+.memberdecls tbody tr:hover,
+.directory tbody tr:hover {
+  /*background-color: rgba(0, 0, 0, 0.075);*/
+}
+
+td.mdescLeft,
+td.mdescRight {
+	padding-top: 0;
+}
+
+td.memTemplParams {
+	padding-bottom: 0;
+}
+
+td.memItemLeft {
+	white-space: nowrap;
+}
+
+td.memItemRight {
+	width: 99%;
+}
+
+.memberdecls tr[class^='separator'] {
+	background-color: #eceeef;
+	height: 1px !important;
+	line-height: 1px !important;
+}
+
+.memberdecls tr[class^='separator'] td {
+	/*display: none !important;*/
+	height: 0 !important;
+	line-height: 0 !important;
+	padding: 0;
+	margin: 0;
+}
+
+td.entry span {
+	/*display: none !important;*/
+}
+
+.fragment .line {
+	min-height: 1em;
+}
+
+.fragment .comment {
+	color: #999988;
 }
 
 .fragment .keywordflow {
-	color: #4937D3;
+	color: #a71d5d;
+}
+
+.fragment .keywordtype {
+	color: #63a35c;
+}
+
+.fragment .preprocessor {
+	color: #a71d5d;
+}
+
+.fragment .keyword {
+	color: #a71d5d;
 }
 
 .fragment a {
 	text-decoration: underline;
 }
 
-.fragment .comment {
-	color: #5F9B6B;
+.fragment .stringliteral {
+	color: #183691;
 }
 
-tt, code, kbd, samp {
-    font-family: monospace;
+.icona {
+	color: #fff;
+    background-color: #0275d8;
+	border: 1px solid #0275d8;
+	vertical-align: middle;
+    padding: 0rem 0.2rem;
+	margin-right: 0.5rem;
+    font-size: 1rem;
+    border-radius: 0.25rem;
+	margin-left: 0.2rem;
 }
 
-.textblock img {
-	margin-bottom: 10px;
+.memdoc dl.warning,
+.memdoc dl.note,
+.memdoc dl.bug {
+	padding: 0.5rem;
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+    border: 1px solid #eee;
+    border-left-width: .25rem;
+    border-radius: .25rem;
 }
 
-blockquote.doxtable:after,
-blockquote.doxtable:before {
-	content: "";
+.memdoc dl.warning {
+	border-left-color: #f0ad4e;
 }
 
-table.doxtable {
-	max-width: 100%;
-	/*display: block;*/
+.memdoc dl.note {
+	border-left-color: #5bc0de;
 }
 
-table.memberdecls,
-table.directory {
-	width: 100%;
-	overflow-x: auto;
-	overflow-y: hidden;
-	display: block;
-	margin: 20px 0;
+.memdoc dl.bug {
+	border-left-color: #d9534f;
 }
 
-table.memberdecls tbody {
-	min-width: 100%;
-	width: auto;
-	display: block;
+.entry .arrow {
+	font-family: sans-serif;
+	color: #888;
+	font-size: 0.8rem;
 }
 
-table.doxtable tbody th,
-table.doxtable tbody td {
-	text-align: left;
-}
-
-table.memberdecls tbody tr {
-	min-width: 100%;
-	width: auto;
-	display: block;
-}
-
-table.memberdecls tbody tr.heading h2 {
-	font-size: 28px;
-}
-
-table.memberdecls tbody tr.heading td {
-	min-width: 100%;
-	display: block;
-}
-
-table.memberdecls tr.heading {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-}
-
-table.memberdecls .groupheader {
-	border: none;
-	padding: 0;
-	margin: 0;
-}
-
-.directory .levels {
+.levels {
 	text-align: right;
-	font-size: 18px;
-	margin: 10px 0;
 }
 
-.summary > a,
-.directory .levels > span {
-	margin: 5px 10px;
-	width: auto;
-	min-width: 24px;
-	padding: 0 5px;
-	font-weight: 700;
+.levels > span {
+	cursor: pointer;
+	color: #0275d8;
+	font-weight: 500;
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
 }
-
-table.doxtable tbody tr,
-table.directory tbody tr,
-table.memberdecls tbody tr {
-	min-height: 0px;
-	height: auto;
-	text-align: left;
-}
-
-table.doxtable tbody td,
-table.directory tbody td,
-table.memberdecls tbody td {
-	min-height: 0px;
-	height: auto;
-	text-align: left;
-}
-
-table.doxtable tbody td {
-	white-space: pre-wrap;
-}
-
-table.memberdecls tr.inherit_header td {
-	min-width: 100%;
-	display: block;
-}
-
-table.memberdecls td.memTemplParams {
-	min-width: 100%;
-	display: block;
-	border-bottom: none;
-	padding-bottom: 0;
-}
-
-table.memberdecls td.memTemplItemLeft,
-table.memberdecls td.memTemplItemRight {
-	padding-top: 0;
-}
-
-table.memberdecls td.mdescLeft,
-table.memberdecls td.mdescRight {
-	padding-top: 0;
-}
-
-table.memberdecls td {
-	border: none;
-}
-
-table.memberdecls td.memItemLeft,
-table.memberdecls td.memTemplItemLeft,
-table.directory td.entry {
-	width: 1%;
-	white-space:nowrap;
-	padding-right: 0px;
-}
-
-table.memberdecls td.memItemRight,
-table.memberdecls td.memTemplItemRight,
-table.directory td.desc {
-	min-width: 99%;
-	padding-left: 0px;
-}
-
-table.directory tbody td {
-	/*padding: 10px;*/
-}
-
-table.directory tbody tr[class^='separator'],
-table.memberdecls tbody tr[class^='separator'] {
-	border-bottom: 1px solid rgba(0, 0, 0, 0.12);
-	display: block !important;
-	min-width: 100%;
-	/*height: 1px;*/
-}
-
-table.directory tbody tr[class^='separator'] td,
-table.memberdecls tbody tr[class^='separator'] td {
-	display: none;
-}
-
-.memtitle {
-	font-size: 18px;
-	line-height: 22px;
-	margin-bottom: 0;
-	padding: 10px 5px;
-	border: 1px solid #DDD;
-	border-bottom: none;
-}
-
-.memproto {
-	background-color: #EEE;
-	padding: 5px;
-}
-
-.memitem {
-	border: 1px solid #DDD;
-	border-top: none;
-	margin-bottom: 15px;
-}
-
-.memdoc {
-	padding: 5px;
-}
-
-table.mlabels {
-	display: block;
-	width: 100%;
-}
-
-table.mlabels {
-	position: relative;
-}
-
-table.mlabels td.mlabels-right {
-	text-align: right;
-	margin-top: 10px;
-	position: absolute;
-	z-index: 99;
-	right: 0px;
-	margin-top: 0px;
-}
-
-.mlabel {
-	font-size: 10pt;
-	vertical-align: top;
-	color: #FFF;
-	background-color: #2196f3;
-	padding: 2px;
-	margin-left: 5px;
-	border-radius: 2px;
-}
-
-.navpath {
-	/*background: rgba(158,158,158, 0.20);*/
-	padding: 5px;
-	display: block;
-	border-radius: 2px;
-}
-
-.navpath ul {
-	padding: 0;
-	margin: 0;
-}
-
-.navpath ul li {
-	display: inline-block;
-	font-weight: 700;
-	/*padding: 10px;*/
-	margin-left: 10px;
-	font-size: 18px;
-}
-
-.navpath ul li:not(:first-child):before {
-	content: "> ";
-}
-
-.mdl-layout__drawer-button > i {
-	visibility: hidden;
-}
-
-.mdl-layout__drawer-button > i:after {
-	visibility: visible;
-}
-
-.mdl-layout__drawer-button {
-	background-image: url("ic_menu.png");
-	width: 48px;
-	height: 48px;
-}
-

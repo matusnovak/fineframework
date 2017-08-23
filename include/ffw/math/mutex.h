@@ -20,6 +20,9 @@
 #endif
 
 namespace ffw {
+	/**
+	 * @ingroup math
+	 */
 	class Mutex {
 	public:
 		inline Mutex() {

@@ -3,6 +3,7 @@
 #define FFW_VEC4
 #include "../config.h"
 #include <limits>
+#include <cmath>
 
 namespace ffw {
 	/**
@@ -240,12 +241,31 @@ namespace ffw {
 		inline T lengthSqrd() const {
 			return (x*x + y*y + z*z + w*w);
 		}
+		
+		T& operator [] (size_t i){
+			return ((T*)&x)[i];
+		}
+
+		const T& operator [] (size_t i) const  {
+			return ((T*)&x)[i];
+		}
 
 		template <class S>
 		inline operator ffw::Vec4<S>() const {
 			return ffw::Vec4<S>((S)x, (S)y, (S)z, (S)w);
 		}
 
+		inline Vec4<T> round() const {
+			return Vec4<T>(std::round(x), std::round(y), std::round(z), std::round(w));
+		}
+
+		inline Vec4<T> floor() const {
+			return Vec4<T>(std::floor(x), std::floor(y), std::floor(z), std::floor(w));
+		}
+
+		inline Vec4<T> ceil() const {
+			return Vec4<T>(std::ceil(x), std::ceil(y), std::ceil(z), std::ceil(w));
+		}
     };
 	/**
 	 * @ingroup math
@@ -298,6 +318,14 @@ namespace ffw {
 		auto copy = vec;
 		copy.normalize();
 		return copy;
+	}
+	/**
+	* @ingroup math
+	*/
+	template <class T>
+	inline std::ostream& operator << (std::ostream& os, const ffw::Vec4<T>& vec) {
+		os << vec.x << ", " << vec.y << ", " << vec.z << ", " << vec.w;
+		return os;
 	}
 };
 namespace ffw {

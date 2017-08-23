@@ -23,7 +23,7 @@
 #define BORDER_SIZE 1
 #define BORDER_RADIUS 0
 
-#define TAB_BUTTON_BORDER_SIZE ffw::GuiStyle::Attribute<int>(BORDER_SIZE, BORDER_SIZE, 0, BORDER_SIZE)
+#define TAB_BUTTON_BORDER_SIZE ffw::GuiStyle::Attribute<float>(BORDER_SIZE, BORDER_SIZE, 0, BORDER_SIZE)
 
 ///=============================================================================
 const ffw::GuiTheme ffw::GuiTheme::modernFlat({
@@ -111,7 +111,7 @@ const ffw::GuiTheme ffw::GuiTheme::modernFlat({
 				ffw::GuiStyle::Margin(0, 0, 0, 0),
 				ffw::GuiStyle::Padding(0),
 				ffw::GuiStyle::Align::TOP_LEFT,
-				ffw::Vec2<GuiUnits>(ffw::guiPercent(100), ffw::guiWrap())
+				ffw::Vec2<GuiUnits>(ffw::guiPercent(100), ffw::guiPercent(100))
 			)
 		)
 	},

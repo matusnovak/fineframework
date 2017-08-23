@@ -86,16 +86,15 @@ bool ffw::Texture2DArray::resize(GLsizei width, GLsizei height, GLsizei layers){
 ///=============================================================================
 bool ffw::Texture2DArray::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint loffset, GLsizei width, GLsizei height, const void* pixels){
     if(!loaded_)return false;
-    glEnable(GL_TEXTURE_2D_ARRAY);
     glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
     gl_->glTexSubImage3D(GL_TEXTURE_2D_ARRAY, level, xoffset, yoffset, loffset, width, height, 1, format_, pixelformat_, pixels);
-    glDisable(GL_TEXTURE_2D_ARRAY);
     return true;
 }
 
 ///=============================================================================
 bool ffw::Texture2DArray::getPixels(void* pixels){
 	if(!loaded_)return false;
+	glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
 	glGetTexImage(GL_TEXTURE_2D_ARRAY, 0, format_, pixelformat_, pixels);
     return true;
 }

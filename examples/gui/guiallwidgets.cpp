@@ -19,7 +19,7 @@ public:
 
 	ffw::GuiLayout* makeBox(ffw::GuiWindow* window, ffw::GuiLayout* parent, const std::string& str) {
 		auto box = new ffw::GuiVerticalLayout(&gui);
-		box->setSize(ffw::guiPercent(33), ffw::guiWrap());
+		box->setSize(ffw::guiPercent(33.33333f), ffw::guiWrap());
 		box->setPadding(5);
 		parent->addWidget(box);
 
@@ -38,6 +38,10 @@ public:
 	bool setup() override {
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		// PLEASE READ!!!
+		// If you get artefacts around the font letters, uncomment "glBlendFuncSeparate"
+		// and remove the "glBlendFunc" above!
+		// glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
 		gui.setTheme(&ffw::GuiTheme::simpleLight);
 		gui.create(this);
@@ -658,6 +662,7 @@ public:
 	}
 
     void mouseScrollEvent(int scroll) override {
+		gui.injectScroll(0, scroll);
 	}
 
     void mouseButtonEvent(ffw::MouseButton button, ffw::Mode mode) override {

@@ -34,7 +34,7 @@
 
 #if GL_GLEXT_VERSION < 20150623 && !defined(FFW_OSX)
 #error Outdated glext.h! Expected version 20150623 or newer!
-#else
+#endif
 
 namespace ffw{
 	/**
@@ -3752,5 +3752,4 @@ namespace ffw{
 #endif
     };
 };
-#endif
 #endif

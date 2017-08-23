@@ -13,6 +13,24 @@ file(COPY monkey.obj DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
 file(COPY uvgrid.png DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY uvgrid.png DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
 
+file(COPY skybox_back.png DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY skybox_back.png DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
+
+file(COPY skybox_bottom.png DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY skybox_bottom.png DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
+
+file(COPY skybox_front.png DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY skybox_front.png DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
+
+file(COPY skybox_left.png DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY skybox_left.png DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
+
+file(COPY skybox_right.png DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY skybox_right.png DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
+
+file(COPY skybox_top.png DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY skybox_top.png DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
+
 file(COPY monkeyshader.frag DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY monkeyshader.frag DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
 
@@ -22,8 +40,9 @@ file(COPY monkeyshader.vert DESTINATION ${CMAKE_BINARY_DIR}/examples/media)
 # All examples
 add_executable(ExampleShowImage showimage.cpp)
 add_executable(Example3DMonkey 3dmonkey.cpp)
+add_executable(ExampleCubemap cubemap.cpp)
 
-set(MEDIA_EXAMPLES ExampleShowImage Example3DMonkey)
+set(MEDIA_EXAMPLES ExampleShowImage Example3DMonkey ExampleCubemap)
 
 # Dependencies
 foreach(exmpl ${MEDIA_EXAMPLES})

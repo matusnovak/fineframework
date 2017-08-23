@@ -134,20 +134,23 @@ bool ffw::GuiList::Item::isSelected() const {
 }
 
 ///=============================================================================
-void ffw::GuiList::Item::eventRender(const ffw::Vec2i& contentoffset, const ffw::Vec2i& contentsize) {
+void ffw::GuiList::Item::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
 	context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
-void ffw::GuiList::Item::eventPos(const ffw::Vec2i& pos) {
+void ffw::GuiList::Item::eventPos(const ffw::Vec2f& p) {
+	(void)p;
 }
 
 ///=============================================================================
-void ffw::GuiList::Item::eventSize(const ffw::Vec2i& size) {
+void ffw::GuiList::Item::eventSize(const ffw::Vec2f& s) {
+	(void)s;
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventHover(bool gained) {
+	(void)gained;
 	redraw();
 }
 
@@ -160,23 +163,36 @@ void ffw::GuiList::Item::eventFocus(bool gained) {
 }
 
 ///=============================================================================
-void ffw::GuiList::Item::eventMouse(const ffw::Vec2i& pos) {
+void ffw::GuiList::Item::eventMouse(const ffw::Vec2f& mousePos) {
+	(void)mousePos;
+}
+
+///=============================================================================
+bool ffw::GuiList::Item::eventScroll(const ffw::Vec2f& scroll) {
+	(void)scroll;
+	return false;
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
+	(void)button;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventText(wchar_t chr) {
+	(void)chr;
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventKey(ffw::Key key, ffw::Mode mode) {
+	(void)key;
+	(void)mode;
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventDisabled(bool disabled) {
+	(void)disabled;
 }
 
 ///=============================================================================
@@ -186,7 +202,7 @@ void ffw::GuiList::Item::eventThemeChanged(const GuiTheme* theme) {
 }
 
 ///=============================================================================
-ffw::Vec2i ffw::GuiList::Item::getMinimumWrapSize() {
+ffw::Vec2f ffw::GuiList::Item::getMinimumWrapSize() {
 	if (getCurrentFont() == NULL)return 0;
 	return getCurrentFont()->getStringSize(label, getLineHeight());
 }

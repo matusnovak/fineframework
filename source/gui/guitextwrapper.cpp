@@ -31,7 +31,7 @@ void ffw::GuiTextWrapper::Paragraph::section(const ffw::Color& color, const ffw:
 }
 
 ///=============================================================================
-void ffw::GuiTextWrapper::Paragraph::recalculate(int width) {
+void ffw::GuiTextWrapper::Paragraph::recalculate(float width) {
 	// Breakable whitespace characters
 	static const std::wstring unicodeSpaces = L"\x0009\x0020\x00A0\x1680\x180E\x2000\x2001\x2002\x2003\x2004\x2005\x2006\x2007\x2008\x2009\x200A\x200B\x205F\x3000\xEFEF";
 	
@@ -230,7 +230,7 @@ const std::wstring ffw::GuiTextWrapper::getValue() const {
 }
 
 ///=============================================================================
-void ffw::GuiTextWrapper::recalculate(int width) {
+void ffw::GuiTextWrapper::recalculate(float width) {
 	for(auto& p : paragraphs) {
 		p.recalculate(width);
 	}

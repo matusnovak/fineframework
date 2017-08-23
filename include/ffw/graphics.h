@@ -21,6 +21,7 @@
 #include "graphics/texture2darrayms.h"
 #include "graphics/texture2dms.h"
 #include "graphics/texture3d.h"
+#include "graphics/texturecubemap.h"
 #include "graphics/glfwrenderwindow.h"
 #include "graphics/truetypefont.h"
 #include "graphics/freetypeloader.h"

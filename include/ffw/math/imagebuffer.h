@@ -142,8 +142,6 @@ namespace ffw {
 
 			// Test if new size is exactly same
 			if (ptr != NULL) {
-				auto tempWidth = width;
-				auto tempFormat = format;
 				size_t oldSize = getHeight() * getStrideSize();
 				width = w;
 				format = type;

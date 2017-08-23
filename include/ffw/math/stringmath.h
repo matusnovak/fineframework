@@ -117,7 +117,7 @@ namespace ffw {
 		std::string str;
 		str.resize(sizeof(T) * 2);
 		for (size_t i = 0; i < sizeof(T) * 2; i++) {
-			char c = (Value >> (i * 4));
+			char c = char(Value >> (i * 4));
 			c = c & 0x0F;
 			str[sizeof(T) * 2 - i - 1] = chars[int(c)];
 		}
@@ -287,7 +287,7 @@ namespace ffw {
 	inline std::string toUpper(const std::string& str) {
 		std::string copy(str);
 		for (auto& c : copy) {
-			c = toupper(c);
+			c = static_cast<char>(toupper(c));
 		}
 		return copy;
 	}
@@ -297,7 +297,7 @@ namespace ffw {
 	inline std::string toLower(const std::string& str) {
 		std::string copy(str);
 		for (auto& c : copy) {
-			c = tolower(c);
+			c = static_cast<char>(tolower(c));
 		}
 		return copy;
 	}
