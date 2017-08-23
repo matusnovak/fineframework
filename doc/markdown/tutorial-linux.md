@@ -20,13 +20,15 @@ $ gcc --version
 
 You will need the following install the third party libraries.
 
-> *Note:* Graphics module also needs GLFW v3.2 library. Downloading GLFW with sudo apt-get install libglfw3-dev might download older version! However, the precompiled version of the finegraphics.so has statically linked GLFW3, so there is no need to download it.
+> *Note:* Graphics module also needs GLFW v3.2 library. Downloading GLFW with sudo apt-get install libglfw3-dev might download older version!
 
 To install the libary, simply run `sudo apt-get install <package-name>` To install all of the libraries, run the following commands:
 
 ```
 $ sudo apt-get install curl xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev
 ```
+
+Note: On Debian the `libjpeg8-dev` package might be renamed as `libjpeg-dev`
 
 Next, you will need to update glext.h to the newest version. If you are running latest Linux, for example Ubuntu 16.04 or newer, this is not needed. Run the following command, this will download official `glect.h` and puts it at the right place:
 
