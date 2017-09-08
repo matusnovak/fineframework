@@ -5,6 +5,9 @@ set (CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Select build type")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo" "MinSizeRel")
 
+set(INCLUDE_DIRECTORIES "${INCLUDE_DIRECTORIES}" CACHE STRING "Additional include directories")
+set(CMAKE_LIBRARY_PATH "${CMAKE_LIBRARY_PATH}" CACHE STRING "Additional library directories")
+
 if(APPLE)
   include_directories(/usr/local/include)
   link_directories(/usr/local/lib)

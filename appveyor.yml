@@ -19,30 +19,59 @@ init:
 - cmd: >-
     echo "Compiling with: %GENERATOR%"
     echo "Using dependencies: %ARCH%-%TOOLSET%.zip"
-
-#---------------------------------#
-#    environment matrix           #
-#---------------------------------#
 environment:
   matrix:
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+    TOOLSET: w64-mingw32
+    ARCH: i686
+    GENERATOR: '"MinGW Makefiles"'
+    MAKE: mingw32-make.exe
+    MINGW_DIR_BIN: C:\mingw-w64\i686-6.3.0-posix-dwarf-rt_v5-rev1\mingw32\bin
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+    TOOLSET: w64-mingw32
+    ARCH: x86_64
+    GENERATOR: '"MinGW Makefiles"'
+    MAKE: mingw32-make.exe
+    MINGW_DIR_BIN: C:\mingw-w64\x86_64-6.3.0-posix-seh-rt_v5-rev1\mingw64\bin
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
     TOOLSET: vc12
     ARCH: win32
     GENERATOR: '"Visual Studio 12 2013"'
     MAKE: MSBuild.exe
-    CONFIGURATION: Debug
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
+    TOOLSET: vc12
+    ARCH: win64
+    GENERATOR: '"Visual Studio 12 2013 Win64"'
+    MAKE: MSBuild.exe
   - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
     TOOLSET: vc14
     ARCH: win32
     GENERATOR: '"Visual Studio 14 2015"'
     MAKE: MSBuild.exe
-    CONFIGURATION: Debug
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+    TOOLSET: vc14
+    ARCH: win64
+    GENERATOR: '"Visual Studio 14 2015 Win64"'
+    MAKE: MSBuild.exe
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    TOOLSET: vc15
+    ARCH: win32
+    GENERATOR: '"Visual Studio 15 2017"'
+    MAKE: MSBuild.exe
+  - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+    TOOLSET: vc15
+    ARCH: win64
+    GENERATOR: '"Visual Studio 15 2017 Win64"'
+    MAKE: MSBuild.exe
 
 #---------------------------------#
 #            steps                #
 #---------------------------------#
 install:
   - call .ci\deps.bat
+
+before_build:
+  - call .ci\gittag.bat
 
 build_script:
   - call .ci\build.bat
@@ -64,8 +93,9 @@ artifacts:
 #           deployment            #
 #---------------------------------#
 deploy:
-  description: 'Binary distribution of FineFramework'
-  release: $(appveyor_repo_tag_name)
+  description: 'Binary distribution of FineFramework DLLs for Visual Studio 2013, Visual Studio 2015, Visual Studio 2017, and MinGW-w64 (both 32-bit and 64-bit)'
+  tag: $(appveyor_repo_tag_name)
+  release: 'FineFramework - compiled - $(appveyor_repo_tag_name)'
   provider: GitHub
   artifact: /.*\.zip/
   draft: false
@@ -74,7 +104,7 @@ deploy:
     secure: Iy3zJbGrOW9X8aiAYoBX+xHl9mlapXwHrLlsHqrlKFGpXapjiv/lQVZZz3npjPTJ
   on:
     branch: master
-    appveyor_repo_tag: true
+    appveyor_repo_tag: false
 
 #---------------------------------#
 #         notifications           #
