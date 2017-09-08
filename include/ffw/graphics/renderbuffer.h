@@ -33,6 +33,9 @@ namespace ffw {
         inline unsigned int getInternalFormat() const {
 			return internalformat_;
 		}
+		inline int getSamples() const {
+			return samples_;
+        }
 
 		Renderbuffer& operator = (const Renderbuffer& other) = delete;
 		Renderbuffer& operator = (Renderbuffer&& other);
@@ -42,6 +45,7 @@ namespace ffw {
         unsigned int buffer_;
         int width_;
         int height_;
+		int samples_;
         const RenderExtensions* gl_;
     };
 };

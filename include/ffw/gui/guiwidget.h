@@ -28,6 +28,7 @@ namespace ffw {
 			STATE,
 			INPUT,
 			KEY,
+			MOUSEBTN,
 		};
 		union Data {
 			struct ClickedData {
@@ -81,6 +82,11 @@ namespace ffw {
 				ffw::Key key;
 				ffw::Mode mode;
 			} key;
+
+			struct MousebtnData {
+				ffw::MouseButton button;
+				ffw::Mode mode;
+			} mousebtn;
 		};
 		GuiWidget* widget;
 		Type type;

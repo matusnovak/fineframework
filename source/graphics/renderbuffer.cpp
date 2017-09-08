@@ -9,6 +9,7 @@ ffw::Renderbuffer::Renderbuffer() {
     loaded_ = false;
     width_ = 0;
     height_ = 0;
+	samples_ = 0;
     buffer_ = 0;
 	internalformat_ = 0;
 }
@@ -18,6 +19,7 @@ ffw::Renderbuffer::Renderbuffer(Renderbuffer&& other) {
 	loaded_ = false;
 	width_ = 0;
 	height_ = 0;
+	samples_ = 0;
 	buffer_ = 0;
 	internalformat_ = 0;
 	swap(other);
@@ -30,6 +32,7 @@ void ffw::Renderbuffer::swap(Renderbuffer& other) {
 		swap(loaded_, other.loaded_);
 		swap(width_, other.width_);
 		swap(height_, other.height_);
+		swap(samples_, other.samples_);
 		swap(buffer_, other.buffer_);
 		swap(internalformat_, other.internalformat_);
 	}
@@ -67,6 +70,7 @@ void ffw::Renderbuffer::destroy(){
     loaded_ = false;
     width_ = 0;
     height_ = 0;
+	samples_ = 0;
 	internalformat_ = 0;
 }
 ///=============================================================================

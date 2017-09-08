@@ -164,7 +164,7 @@ bool ffw::TrueTypeFont::fillData(const RenderContext* renderer, int start, int e
 			int texHeight = GetUpperMultiple((int)chr.height, 4);
 
 			// Check horizontal space
-			if(posx + texWidth > totalWidth) {
+			if(posx + texWidth + 3 > totalWidth) {
 				posx = 0;
 				posy += lineHeight + padding*2;
 				lineHeight = 0;
@@ -234,6 +234,7 @@ bool ffw::TrueTypeFont::fillData(const RenderContext* renderer, int start, int e
 	}
 
 	texture.bind();
+	//glPixelStorei(GL_PACK_ALIGNMENT, 1);
 
 	// Upload all pixels
 	for (size_t i = 0; i < characters.size(); i++) {

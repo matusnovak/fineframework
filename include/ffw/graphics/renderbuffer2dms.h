@@ -14,6 +14,7 @@ namespace ffw {
 		Renderbuffer2DMS();
         ~Renderbuffer2DMS();
 		bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLint samples);
+		bool resize(GLsizei width, GLsizei height, GLint samples);
     };
 };
 #endif

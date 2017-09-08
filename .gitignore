@@ -33,6 +33,8 @@
 /build-*
 /build*/
 /temp*/
+/install/
+/dependencies/
 
 # Ignore html docs created by doxygen
 html/
@@ -48,3 +50,5 @@ dependencies/
 !planes.obj
 
 /Win32
+
+*.zip

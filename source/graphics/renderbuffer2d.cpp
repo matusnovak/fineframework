@@ -51,3 +51,13 @@ bool ffw::Renderbuffer2D::create(const ffw::RenderContext* renderer, GLsizei wid
 
     return true;
 }
+
+///=============================================================================
+bool ffw::Renderbuffer2D::resize(GLsizei width, GLsizei height){
+	if(!loaded_)return false;
+	width_ = width;
+	height_ = height;
+	gl_->glBindRenderbuffer(GL_RENDERBUFFER, buffer_);
+	gl_->glRenderbufferStorage(GL_RENDERBUFFER, internalformat_, width_, height_);
+	return true;
+}

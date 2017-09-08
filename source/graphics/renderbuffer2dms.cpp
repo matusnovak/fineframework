@@ -38,9 +38,10 @@ bool ffw::Renderbuffer2DMS::create(const ffw::RenderContext* renderer, GLsizei w
 
 	width_			= width;
 	height_			= height;
+	samples_		= samples;
 	internalformat_	= internalformat;
 
-	gl_->glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, internalformat_, width_, height_);
+	gl_->glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples_, internalformat_, width_, height_);
 
 	int test;
     gl_->glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_INTERNAL_FORMAT, &test);
@@ -52,3 +53,13 @@ bool ffw::Renderbuffer2DMS::create(const ffw::RenderContext* renderer, GLsizei w
     return true;
 }
 
+///=============================================================================
+bool ffw::Renderbuffer2DMS::resize(GLsizei width, GLsizei height, GLint samples){
+	if(!loaded_)return false;
+	width_ = width;
+	height_ = height;
+	samples_ = samples;
+	gl_->glBindRenderbuffer(GL_RENDERBUFFER, buffer_);
+	gl_->glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples_, internalformat_, width_, height_);
+	return true;
+}

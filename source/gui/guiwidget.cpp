@@ -273,9 +273,12 @@ void ffw::GuiWidget::recalculateSize(GuiWidget* caller){
 		flags.events.size = true;
 	}
 
+	//std::cout << "widget: " << typeid(*this).name() << " oldSizeReal: " << oldSizeReal << " sizeReal: " << sizeReal << std::endl;
+
 	if(oldSizeReal != sizeReal) {
 		if(parent != NULL) {
 			if (caller != parent) {
+				//std::cout << "recalculating parent..." << std::endl;
 				parent->recalculateSize(this);
 				parent->redraw();
 			}
@@ -441,8 +444,12 @@ void ffw::GuiWidget::update(const ffw::Vec2f& parentpos, const ffw::Vec2f& paren
 			}
 		}
 
-		if(flags.focus && input.mousemode != ffw::Mode::NONE){
+		if(flags.hover && input.mousemode != ffw::Mode::NONE){
 			eventMouseButton(input.mousebtn, input.mousemode);
+			GuiEvent::Data dat;
+			dat.mousebtn.button = input.mousebtn;
+			dat.mousebtn.mode = input.mousemode;
+			pushEvent(GuiEvent::Type::MOUSEBTN, dat);
 		}
 
 		if((flags.hover || flags.focus) && mouseOld != mousepos){

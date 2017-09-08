@@ -30,6 +30,7 @@ ffw::GuiScrollable::GuiScrollable(GuiWindow* context, GuiWidget* widget, bool ho
 		vscroll->setMargin(0);
 		vscroll->addEventCallback(&GuiScrollable::widgetEvent, this, true);
 		vscroll->setValue(0);
+		vscroll->setRange(0, 0);
 		GuiWidget::addWidgetInternal(vscroll);
 	}
 	else {
@@ -40,6 +41,7 @@ ffw::GuiScrollable::GuiScrollable(GuiWindow* context, GuiWidget* widget, bool ho
 		hscroll->setMargin(0);
 		hscroll->addEventCallback(&GuiScrollable::widgetEvent, this, true);
 		hscroll->setValue(0);
+		hscroll->setRange(0, 0);
 		GuiWidget::addWidgetInternal(hscroll);
 	}
 	else {
@@ -118,6 +120,8 @@ void ffw::GuiScrollable::eventPos(const ffw::Vec2f& p) {
 
 ///=============================================================================
 void ffw::GuiScrollable::eventSize(const ffw::Vec2f& s) {
+	//std::cout << "ffw::GuiScrollable::eventSize " << s << std::endl;
+	
 	ffw::Vec2f ss = s;
 	if (vscroll != NULL) {
 		ss.x -= thickness;
@@ -137,6 +141,25 @@ void ffw::GuiScrollable::eventSize(const ffw::Vec2f& s) {
 
 	inner->setSize(ss.x, ss.y);
 	invalidate();
+
+	const auto total = inner->getInnerContentSize();
+	ffw::Vec2f diff = (total - s).floor();
+	
+	if (diff.x > 0 && hscroll != NULL) {
+		hscroll->setRange(0, diff.x);
+		hscroll->setButtonLength(ffw::guiPercent((s.x / total.x) * 100.0f));
+	}
+	else if (hscroll != NULL) {
+		hscroll->setRange(0, 0);
+	}
+
+	if (diff.y > 0 && vscroll != NULL) {
+		vscroll->setRange(0, diff.y);
+		vscroll->setButtonLength(ffw::guiPercent((s.y / total.y) * 100.0f));
+	}
+	else if (vscroll != NULL) {
+		vscroll->setRange(0, 0);
+	}
 }
 
 ///=============================================================================
