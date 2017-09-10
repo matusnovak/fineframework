@@ -7,8 +7,8 @@ SET PATH=%PATH%;%MINGW_DIR_BIN%
 
 REM Do Debug only on devel branch
 set "TARGETS=Debug"
-REM Do Debug+Release only on master branch
-if "%APPVEYOR_REPO_BRANCH%"=="master" (set "TARGETS=Debug Release")
+REM Do Debug+MinSizeRel only on master branch
+if "%APPVEYOR_REPO_BRANCH%"=="master" (set "TARGETS=Debug MinSizeRel")
 
 REM Which platform?
 if "%MAKE%"=="MSBuild.exe" goto :msvc

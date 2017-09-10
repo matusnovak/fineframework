@@ -93,7 +93,7 @@ artifacts:
 #           deployment            #
 #---------------------------------#
 deploy:
-  description: 'Binary distribution of FineFramework DLLs for Visual Studio 2013, Visual Studio 2015, Visual Studio 2017, and MinGW-w64 (both 32-bit and 64-bit)'
+  description: 'Binary distribution of FineFramework DLLs for Visual Studio 2013, Visual Studio 2015, Visual Studio 2017, MinGW-w64, Linux, and OSX (both 32-bit and 64-bit)'
   tag: $(appveyor_repo_tag_name)
   release: 'FineFramework - compiled - $(appveyor_repo_tag_name)'
   provider: GitHub
@@ -113,3 +113,7 @@ notifications:
   - provider: Email
     to:
       - matusnov@gmail.com
+    on_build_success: true
+    on_build_failure: true
+    on_build_status_changed: true
+    

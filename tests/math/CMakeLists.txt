@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../../include)
-link_directories(${CMAKE_BINARY_DIR}/Debug)
-link_directories(${CMAKE_BINARY_DIR}/Release)
+if(MSVC)
+  link_directories(${CMAKE_BINARY_DIR}/Debug)
+  link_directories(${CMAKE_BINARY_DIR}/Release)
+endif()
 link_directories(${CMAKE_BINARY_DIR})
-include_directories(${CMAKE_BINARY_DIR}/libraries/include)
-link_directories(${CMAKE_BINARY_DIR}/libraries/lib)
 
 # All examples
 add_executable(TestsMathFileInfo math_fileinfo.cpp)
