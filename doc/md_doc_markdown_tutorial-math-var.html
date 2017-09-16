@@ -1,0 +1,3608 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Var - JSON-like data structure · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-toggle-chapters/toggle.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-insert-logo/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="md_doc_markdown_tutorial-math-vectors.html" />
+    
+    
+    <link rel="prev" href="md_doc_markdown_tutorial-math-tokenizer.html" />
+    
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Introduction
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="md_doc_markdown_download.html">
+            
+                <a href="md_doc_markdown_download.html">
+            
+                    
+                    Download
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="modules.html">
+            
+                <a href="modules.html">
+            
+                    
+                    Modules
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.3.1" data-path="group__data.html">
+            
+                <a href="group__data.html">
+            
+                    
+                    data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.2" data-path="group__graphics.html">
+            
+                <a href="group__graphics.html">
+            
+                    
+                    graphics
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.3" data-path="group__gui.html">
+            
+                <a href="group__gui.html">
+            
+                    
+                    gui
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.4" data-path="group__math.html">
+            
+                <a href="group__math.html">
+            
+                    
+                    math
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3.5" data-path="group__media.html">
+            
+                <a href="group__media.html">
+            
+                    
+                    media
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="md_doc_markdown_tutorials.html">
+            
+                <a href="md_doc_markdown_tutorials.html">
+            
+                    
+                    List of tutorials
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="md_doc_markdown_tutorial-install.html">
+            
+                <a href="md_doc_markdown_tutorial-install.html">
+            
+                    
+                    Installing FineFramework
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1.1" data-path="md_doc_markdown_tutorial-install-codeblocks.html">
+            
+                <a href="md_doc_markdown_tutorial-install-codeblocks.html">
+            
+                    
+                    CodeBlocks and MinGW
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.2" data-path="md_doc_markdown_tutorial-install-linux.html">
+            
+                <a href="md_doc_markdown_tutorial-install-linux.html">
+            
+                    
+                    GCC on Linux
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.3" data-path="md_doc_markdown_tutorial-install-osx.html">
+            
+                <a href="md_doc_markdown_tutorial-install-osx.html">
+            
+                    
+                    Clang on OSX
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.4" data-path="md_doc_markdown_tutorial-install-visualstudio-2013.html">
+            
+                <a href="md_doc_markdown_tutorial-install-visualstudio-2013.html">
+            
+                    
+                    Visual Studio 2013
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.5" data-path="md_doc_markdown_tutorial-install-visualstudio-2015.html">
+            
+                <a href="md_doc_markdown_tutorial-install-visualstudio-2015.html">
+            
+                    
+                    Visual Studio 2015
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.1.6" data-path="md_doc_markdown_tutorial-install-visualstudio-2017.html">
+            
+                <a href="md_doc_markdown_tutorial-install-visualstudio-2017.html">
+            
+                    
+                    Visual Studio 2017
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="md_doc_markdown_tutorial-math.html">
+            
+                <a href="md_doc_markdown_tutorial-math.html">
+            
+                    
+                    Math Module
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.2.1" data-path="md_doc_markdown_tutorial-math-stringmath.html">
+            
+                <a href="md_doc_markdown_tutorial-math-stringmath.html">
+            
+                    
+                    Extra string functions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.2" data-path="md_doc_markdown_tutorial-math-threads.html">
+            
+                <a href="md_doc_markdown_tutorial-math-threads.html">
+            
+                    
+                    Threads
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.3" data-path="md_doc_markdown_tutorial-math-tokenizer.html">
+            
+                <a href="md_doc_markdown_tutorial-math-tokenizer.html">
+            
+                    
+                    String tokenizer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.2.4" data-path="md_doc_markdown_tutorial-math-var.html">
+            
+                <a href="md_doc_markdown_tutorial-math-var.html">
+            
+                    
+                    Var - JSON-like data structure
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2.5" data-path="md_doc_markdown_tutorial-math-vectors.html">
+            
+                <a href="md_doc_markdown_tutorial-math-vectors.html">
+            
+                    
+                    Vectors
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="md_doc_markdown_tutorial-graphics.html">
+            
+                <a href="md_doc_markdown_tutorial-graphics.html">
+            
+                    
+                    Graphics Module
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.3.1" data-path="md_doc_markdown_tutorial-graphics-window.html">
+            
+                <a href="md_doc_markdown_tutorial-graphics-window.html">
+            
+                    
+                    Creating a Rendering Window
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="md_doc_markdown_tutorial-data.html">
+            
+                <a href="md_doc_markdown_tutorial-data.html">
+            
+                    
+                    Data Module
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.4.1" data-path="md_doc_markdown_tutorial-data-csv.html">
+            
+                <a href="md_doc_markdown_tutorial-data-csv.html">
+            
+                    
+                    Decode CSV
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4.2" data-path="md_doc_markdown_tutorial-data-json.html">
+            
+                <a href="md_doc_markdown_tutorial-data-json.html">
+            
+                    
+                    Encode and decode JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4.3" data-path="md_doc_markdown_tutorial-data-xml.html">
+            
+                <a href="md_doc_markdown_tutorial-data-xml.html">
+            
+                    
+                    Encode and decode XML
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="md_doc_markdown_examples.html">
+            
+                <a href="md_doc_markdown_examples.html">
+            
+                    
+                    Examples
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="md_doc_markdown_example-3d-monkey.html">
+            
+                <a href="md_doc_markdown_example-3d-monkey.html">
+            
+                    
+                    Example: 3D Monkey
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="md_doc_markdown_example-bitmap-font.html">
+            
+                <a href="md_doc_markdown_example-bitmap-font.html">
+            
+                    
+                    Example: Bitmap Font
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="md_doc_markdown_example-cube.html">
+            
+                <a href="md_doc_markdown_example-cube.html">
+            
+                    
+                    Example: Cube
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="md_doc_markdown_example-empty.html">
+            
+                <a href="md_doc_markdown_example-empty.html">
+            
+                    
+                    Example: Empty
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="md_doc_markdown_example-gui-all-widgets.html">
+            
+                <a href="md_doc_markdown_example-gui-all-widgets.html">
+            
+                    
+                    Example: Gui All Widgets
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.6" data-path="md_doc_markdown_example-gui-themes.html">
+            
+                <a href="md_doc_markdown_example-gui-themes.html">
+            
+                    
+                    Example: Gui Themes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.7" data-path="md_doc_markdown_example-shapes.html">
+            
+                <a href="md_doc_markdown_example-shapes.html">
+            
+                    
+                    Example: Shapes
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.8" data-path="md_doc_markdown_example-show-image.html">
+            
+                <a href="md_doc_markdown_example-show-image.html">
+            
+                    
+                    Example: Show Image
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.9" data-path="md_doc_markdown_example-texture-subsection.html">
+            
+                <a href="md_doc_markdown_example-texture-subsection.html">
+            
+                    
+                    Example: Texture Subsection
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.10" data-path="md_doc_markdown_example-tree.html">
+            
+                <a href="md_doc_markdown_example-tree.html">
+            
+                    
+                    Example: Tree
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.11" data-path="md_doc_markdown_example-true-type-font.html">
+            
+                <a href="md_doc_markdown_example-true-type-font.html">
+            
+                    
+                    Example: True Type Font
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.6" data-path="md_doc_markdown_faq.html">
+            
+                <a href="md_doc_markdown_faq.html">
+            
+                    
+                    F.A.Q
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="divider"></li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="annotated.html">
+            
+                <a href="annotated.html">
+            
+                    
+                    Class Index
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1" data-path="ffw.html">
+            
+                <a href="ffw.html">
+            
+                    
+                    ffw
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.1" data-path="ffw_Array.html">
+            
+                <a href="ffw_Array.html">
+            
+                    
+                    Array
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2" data-path="ffw_XmlReader.html">
+            
+                <a href="ffw_XmlReader.html">
+            
+                    
+                    XmlReader
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.2.1" data-path="ffw_XmlReader_Attribute.html">
+            
+                <a href="ffw_XmlReader_Attribute.html">
+            
+                    
+                    Attribute
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2.2" data-path="ffw_XmlReader_Cache.html">
+            
+                <a href="ffw_XmlReader_Cache.html">
+            
+                    
+                    Cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2.3" data-path="ffw_XmlReader_Node.html">
+            
+                <a href="ffw_XmlReader_Node.html">
+            
+                    
+                    Node
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.2.4" data-path="ffw_XmlReader_Value.html">
+            
+                <a href="ffw_XmlReader_Value.html">
+            
+                    
+                    Value
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3" data-path="ffw_GuiStyle.html">
+            
+                <a href="ffw_GuiStyle.html">
+            
+                    
+                    GuiStyle
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.3.1" data-path="ffw_GuiStyle_Attribute.html">
+            
+                <a href="ffw_GuiStyle_Attribute.html">
+            
+                    
+                    Attribute
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3.2" data-path="ffw_GuiStyle_Background.html">
+            
+                <a href="ffw_GuiStyle_Background.html">
+            
+                    
+                    Background
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3.3" data-path="ffw_GuiStyle_Border.html">
+            
+                <a href="ffw_GuiStyle_Border.html">
+            
+                    
+                    Border
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3.4" data-path="ffw_GuiStyle_Function.html">
+            
+                <a href="ffw_GuiStyle_Function.html">
+            
+                    
+                    Function
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.3.5" data-path="ffw_GuiStyle_Text.html">
+            
+                <a href="ffw_GuiStyle_Text.html">
+            
+                    
+                    Text
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.4" data-path="ffw_BitmapFont.html">
+            
+                <a href="ffw_BitmapFont.html">
+            
+                    
+                    BitmapFont
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.5" data-path="ffw_BmpLoader.html">
+            
+                <a href="ffw_BmpLoader.html">
+            
+                    
+                    BmpLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.6" data-path="ffw_BmpSaver.html">
+            
+                <a href="ffw_BmpSaver.html">
+            
+                    
+                    BmpSaver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.7" data-path="ffw_BufferObject.html">
+            
+                <a href="ffw_BufferObject.html">
+            
+                    
+                    BufferObject
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.8" data-path="ffw_GuiRadio.html">
+            
+                <a href="ffw_GuiRadio.html">
+            
+                    
+                    GuiRadio
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.8.1" data-path="ffw_GuiRadio_Button.html">
+            
+                <a href="ffw_GuiRadio_Button.html">
+            
+                    
+                    Button
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.8.2" data-path="ffw_GuiRadio_Value.html">
+            
+                <a href="ffw_GuiRadio_Value.html">
+            
+                    
+                    Value
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.9" data-path="ffw_GuiTabs.html">
+            
+                <a href="ffw_GuiTabs.html">
+            
+                    
+                    GuiTabs
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.9.1" data-path="ffw_GuiTabs_Button.html">
+            
+                <a href="ffw_GuiTabs_Button.html">
+            
+                    
+                    Button
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.9.2" data-path="ffw_GuiTabs_Content.html">
+            
+                <a href="ffw_GuiTabs_Content.html">
+            
+                    
+                    Content
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.9.3" data-path="ffw_GuiTabs_TopBar.html">
+            
+                <a href="ffw_GuiTabs_TopBar.html">
+            
+                    
+                    TopBar
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.10" data-path="ffw_GuiCheckbox.html">
+            
+                <a href="ffw_GuiCheckbox.html">
+            
+                    
+                    GuiCheckbox
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.10.1" data-path="ffw_GuiCheckbox_Button.html">
+            
+                <a href="ffw_GuiCheckbox_Button.html">
+            
+                    
+                    Button
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.11" data-path="ffw_GuiScrollBar.html">
+            
+                <a href="ffw_GuiScrollBar.html">
+            
+                    
+                    GuiScrollBar
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.11.1" data-path="ffw_GuiScrollBar_ButtonFirst.html">
+            
+                <a href="ffw_GuiScrollBar_ButtonFirst.html">
+            
+                    
+                    ButtonFirst
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.11.2" data-path="ffw_GuiScrollBar_ButtonSecond.html">
+            
+                <a href="ffw_GuiScrollBar_ButtonSecond.html">
+            
+                    
+                    ButtonSecond
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.11.3" data-path="ffw_GuiScrollBar_Scroll.html">
+            
+                <a href="ffw_GuiScrollBar_Scroll.html">
+            
+                    
+                    Scroll
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.12" data-path="ffw_JsonReader.html">
+            
+                <a href="ffw_JsonReader.html">
+            
+                    
+                    JsonReader
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.12.1" data-path="ffw_JsonReader_Cache.html">
+            
+                <a href="ffw_JsonReader_Cache.html">
+            
+                    
+                    Cache
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.12.2" data-path="ffw_JsonReader_Node.html">
+            
+                <a href="ffw_JsonReader_Node.html">
+            
+                    
+                    Node
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13" data-path="ffw_GuiEvent.html">
+            
+                <a href="ffw_GuiEvent.html">
+            
+                    
+                    GuiEvent
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.13.1" data-path="ffw_GuiEvent_Data.html">
+            
+                <a href="ffw_GuiEvent_Data.html">
+            
+                    
+                    Data
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.13.1.1" data-path="ffw_GuiEvent_Data_ChangedData.html">
+            
+                <a href="ffw_GuiEvent_Data_ChangedData.html">
+            
+                    
+                    ChangedData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.2" data-path="ffw_GuiEvent_Data_ClickedData.html">
+            
+                <a href="ffw_GuiEvent_Data_ClickedData.html">
+            
+                    
+                    ClickedData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.3" data-path="ffw_GuiEvent_Data_FocusData.html">
+            
+                <a href="ffw_GuiEvent_Data_FocusData.html">
+            
+                    
+                    FocusData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.4" data-path="ffw_GuiEvent_Data_HoverData.html">
+            
+                <a href="ffw_GuiEvent_Data_HoverData.html">
+            
+                    
+                    HoverData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.5" data-path="ffw_GuiEvent_Data_InnerData.html">
+            
+                <a href="ffw_GuiEvent_Data_InnerData.html">
+            
+                    
+                    InnerData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.6" data-path="ffw_GuiEvent_Data_InputData.html">
+            
+                <a href="ffw_GuiEvent_Data_InputData.html">
+            
+                    
+                    InputData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.7" data-path="ffw_GuiEvent_Data_InputKey.html">
+            
+                <a href="ffw_GuiEvent_Data_InputKey.html">
+            
+                    
+                    InputKey
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.8" data-path="ffw_GuiEvent_Data_MousebtnData.html">
+            
+                <a href="ffw_GuiEvent_Data_MousebtnData.html">
+            
+                    
+                    MousebtnData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.9" data-path="ffw_GuiEvent_Data_PosData.html">
+            
+                <a href="ffw_GuiEvent_Data_PosData.html">
+            
+                    
+                    PosData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.10" data-path="ffw_GuiEvent_Data_SelectedData.html">
+            
+                <a href="ffw_GuiEvent_Data_SelectedData.html">
+            
+                    
+                    SelectedData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.11" data-path="ffw_GuiEvent_Data_SizeData.html">
+            
+                <a href="ffw_GuiEvent_Data_SizeData.html">
+            
+                    
+                    SizeData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.12" data-path="ffw_GuiEvent_Data_SlidedData.html">
+            
+                <a href="ffw_GuiEvent_Data_SlidedData.html">
+            
+                    
+                    SlidedData
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.13.1.13" data-path="ffw_GuiEvent_Data_StateData.html">
+            
+                <a href="ffw_GuiEvent_Data_StateData.html">
+            
+                    
+                    StateData
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.14" data-path="ffw_Font.html">
+            
+                <a href="ffw_Font.html">
+            
+                    
+                    Font
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.14.1" data-path="ffw_Font_Char.html">
+            
+                <a href="ffw_Font_Char.html">
+            
+                    
+                    Char
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.15" data-path="ffw_FreeTypeLoader.html">
+            
+                <a href="ffw_FreeTypeLoader.html">
+            
+                    
+                    FreeTypeLoader
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.15.1" data-path="ffw_FreeTypeLoader_CharData.html">
+            
+                <a href="ffw_FreeTypeLoader_CharData.html">
+            
+                    
+                    CharData
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.16" data-path="ffw_Color.html">
+            
+                <a href="ffw_Color.html">
+            
+                    
+                    Color
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.17" data-path="ffw_Shader.html">
+            
+                <a href="ffw_Shader.html">
+            
+                    
+                    Shader
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.17.1" data-path="ffw_Shader_CompileException.html">
+            
+                <a href="ffw_Shader_CompileException.html">
+            
+                    
+                    CompileException
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.17.2" data-path="ffw_Shader_FileException.html">
+            
+                <a href="ffw_Shader_FileException.html">
+            
+                    
+                    FileException
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.18" data-path="ffw_Var.html">
+            
+                <a href="ffw_Var.html">
+            
+                    
+                    Var
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.18.1" data-path="ffw_Var_Content.html">
+            
+                <a href="ffw_Var_Content.html">
+            
+                    
+                    Content
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.18.2" data-path="ffw_Var_Data.html">
+            
+                <a href="ffw_Var_Data.html">
+            
+                    
+                    Data
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.18.3" data-path="ffw_Var_Data__T__typename_std__enable_if__std__is_integral__T____value____type__.html">
+            
+                <a href="ffw_Var_Data__T__typename_std__enable_if__std__is_integral__T____value____type__.html">
+            
+                    
+                    Data< T, typename std::enable_if< std::is_integral< T >::value >::type >
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.19" data-path="ffw_CsvLoader.html">
+            
+                <a href="ffw_CsvLoader.html">
+            
+                    
+                    CsvLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.20" data-path="ffw_GuiCallback.html">
+            
+                <a href="ffw_GuiCallback.html">
+            
+                    
+                    GuiCallback
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.20.1" data-path="ffw_GuiCallback_Data.html">
+            
+                <a href="ffw_GuiCallback_Data.html">
+            
+                    
+                    Data
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.21" data-path="ffw_GuiWidget.html">
+            
+                <a href="ffw_GuiWidget.html">
+            
+                    
+                    GuiWidget
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.21.1" data-path="ffw_GuiWidget_Flags.html">
+            
+                <a href="ffw_GuiWidget_Flags.html">
+            
+                    
+                    Flags
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.21.1.1" data-path="ffw_GuiWidget_Flags_Events.html">
+            
+                <a href="ffw_GuiWidget_Flags_Events.html">
+            
+                    
+                    Events
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.22" data-path="ffw_FileInfo.html">
+            
+                <a href="ffw_FileInfo.html">
+            
+                    
+                    FileInfo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.23" data-path="ffw_JsonWriter.html">
+            
+                <a href="ffw_JsonWriter.html">
+            
+                    
+                    JsonWriter
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.23.1" data-path="ffw_JsonWriter_FileStream.html">
+            
+                <a href="ffw_JsonWriter_FileStream.html">
+            
+                    
+                    FileStream
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.23.2" data-path="ffw_JsonWriter_Stream.html">
+            
+                <a href="ffw_JsonWriter_Stream.html">
+            
+                    
+                    Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.23.3" data-path="ffw_JsonWriter_StringStream.html">
+            
+                <a href="ffw_JsonWriter_StringStream.html">
+            
+                    
+                    StringStream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.24" data-path="ffw_XmlWriter.html">
+            
+                <a href="ffw_XmlWriter.html">
+            
+                    
+                    XmlWriter
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.24.1" data-path="ffw_XmlWriter_FileStream.html">
+            
+                <a href="ffw_XmlWriter_FileStream.html">
+            
+                    
+                    FileStream
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.24.2" data-path="ffw_XmlWriter_Stream.html">
+            
+                <a href="ffw_XmlWriter_Stream.html">
+            
+                    
+                    Stream
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.24.3" data-path="ffw_XmlWriter_StringStream.html">
+            
+                <a href="ffw_XmlWriter_StringStream.html">
+            
+                    
+                    StringStream
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.25" data-path="ffw_Framebuffer.html">
+            
+                <a href="ffw_Framebuffer.html">
+            
+                    
+                    Framebuffer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.26" data-path="ffw_GLFWRenderWindow.html">
+            
+                <a href="ffw_GLFWRenderWindow.html">
+            
+                    
+                    GLFWRenderWindow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.27" data-path="ffw_GLFWRenderWindowArgs.html">
+            
+                <a href="ffw_GLFWRenderWindowArgs.html">
+            
+                    
+                    GLFWRenderWindowArgs
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.28" data-path="ffw_GuiBackend.html">
+            
+                <a href="ffw_GuiBackend.html">
+            
+                    
+                    GuiBackend
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.29" data-path="ffw_GuiWindow.html">
+            
+                <a href="ffw_GuiWindow.html">
+            
+                    
+                    GuiWindow
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.29.1" data-path="ffw_GuiWindow_GuiBody.html">
+            
+                <a href="ffw_GuiWindow_GuiBody.html">
+            
+                    
+                    GuiBody
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.30" data-path="ffw_GuiButton.html">
+            
+                <a href="ffw_GuiButton.html">
+            
+                    
+                    GuiButton
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.31" data-path="ffw_GuiButtonPrimary.html">
+            
+                <a href="ffw_GuiButtonPrimary.html">
+            
+                    
+                    GuiButtonPrimary
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.32" data-path="ffw_GuiButtonToggle.html">
+            
+                <a href="ffw_GuiButtonToggle.html">
+            
+                    
+                    GuiButtonToggle
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.33" data-path="ffw_GuiButtonTogglePrimary.html">
+            
+                <a href="ffw_GuiButtonTogglePrimary.html">
+            
+                    
+                    GuiButtonTogglePrimary
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.34" data-path="ffw_GuiDefaults.html">
+            
+                <a href="ffw_GuiDefaults.html">
+            
+                    
+                    GuiDefaults
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.35" data-path="ffw_GuiFixedLayout.html">
+            
+                <a href="ffw_GuiFixedLayout.html">
+            
+                    
+                    GuiFixedLayout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.36" data-path="ffw_GuiFont.html">
+            
+                <a href="ffw_GuiFont.html">
+            
+                    
+                    GuiFont
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.37" data-path="ffw_GuiFontOpenGL.html">
+            
+                <a href="ffw_GuiFontOpenGL.html">
+            
+                    
+                    GuiFontOpenGL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.38" data-path="ffw_GuiHorizontalLayout.html">
+            
+                <a href="ffw_GuiHorizontalLayout.html">
+            
+                    
+                    GuiHorizontalLayout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.39" data-path="ffw_GuiImage.html">
+            
+                <a href="ffw_GuiImage.html">
+            
+                    
+                    GuiImage
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.40" data-path="ffw_GuiImageOpenGL.html">
+            
+                <a href="ffw_GuiImageOpenGL.html">
+            
+                    
+                    GuiImageOpenGL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.41" data-path="ffw_GuiImageViewer.html">
+            
+                <a href="ffw_GuiImageViewer.html">
+            
+                    
+                    GuiImageViewer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.42" data-path="ffw_GuiLabel.html">
+            
+                <a href="ffw_GuiLabel.html">
+            
+                    
+                    GuiLabel
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.43" data-path="ffw_GuiLayout.html">
+            
+                <a href="ffw_GuiLayout.html">
+            
+                    
+                    GuiLayout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.44" data-path="ffw_GuiList.html">
+            
+                <a href="ffw_GuiList.html">
+            
+                    
+                    GuiList
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.44.1" data-path="ffw_GuiList_Item.html">
+            
+                <a href="ffw_GuiList_Item.html">
+            
+                    
+                    Item
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.44.2" data-path="ffw_GuiList_Value.html">
+            
+                <a href="ffw_GuiList_Value.html">
+            
+                    
+                    Value
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.45" data-path="ffw_GuiProgressBar.html">
+            
+                <a href="ffw_GuiProgressBar.html">
+            
+                    
+                    GuiProgressBar
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.46" data-path="ffw_GuiProgressCircle.html">
+            
+                <a href="ffw_GuiProgressCircle.html">
+            
+                    
+                    GuiProgressCircle
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.47" data-path="ffw_GuiRichText.html">
+            
+                <a href="ffw_GuiRichText.html">
+            
+                    
+                    GuiRichText
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.48" data-path="ffw_GuiScrollable.html">
+            
+                <a href="ffw_GuiScrollable.html">
+            
+                    
+                    GuiScrollable
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.49" data-path="ffw_GuiScrollableLayout.html">
+            
+                <a href="ffw_GuiScrollableLayout.html">
+            
+                    
+                    GuiScrollableLayout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.50" data-path="ffw_GuiSlider.html">
+            
+                <a href="ffw_GuiSlider.html">
+            
+                    
+                    GuiSlider
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.51" data-path="ffw_GuiStyleGroup.html">
+            
+                <a href="ffw_GuiStyleGroup.html">
+            
+                    
+                    GuiStyleGroup
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.52" data-path="ffw_GuiSwitch.html">
+            
+                <a href="ffw_GuiSwitch.html">
+            
+                    
+                    GuiSwitch
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.53" data-path="ffw_GuiTextArea.html">
+            
+                <a href="ffw_GuiTextArea.html">
+            
+                    
+                    GuiTextArea
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.53.1" data-path="ffw_GuiTextArea_Inner.html">
+            
+                <a href="ffw_GuiTextArea_Inner.html">
+            
+                    
+                    Inner
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.54" data-path="ffw_GuiTextInput.html">
+            
+                <a href="ffw_GuiTextInput.html">
+            
+                    
+                    GuiTextInput
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.54.1" data-path="ffw_GuiTextInput_TextLine.html">
+            
+                <a href="ffw_GuiTextInput_TextLine.html">
+            
+                    
+                    TextLine
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.55" data-path="ffw_GuiTextWrapper.html">
+            
+                <a href="ffw_GuiTextWrapper.html">
+            
+                    
+                    GuiTextWrapper
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.55.1" data-path="ffw_GuiTextWrapper_Paragraph.html">
+            
+                <a href="ffw_GuiTextWrapper_Paragraph.html">
+            
+                    
+                    Paragraph
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.55.2" data-path="ffw_GuiTextWrapper_Section.html">
+            
+                <a href="ffw_GuiTextWrapper_Section.html">
+            
+                    
+                    Section
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.55.3" data-path="ffw_GuiTextWrapper_Stepper.html">
+            
+                <a href="ffw_GuiTextWrapper_Stepper.html">
+            
+                    
+                    Stepper
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.56" data-path="ffw_GuiTheme.html">
+            
+                <a href="ffw_GuiTheme.html">
+            
+                    
+                    GuiTheme
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.57" data-path="ffw_GuiUnits.html">
+            
+                <a href="ffw_GuiUnits.html">
+            
+                    
+                    GuiUnits
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.58" data-path="ffw_GuiUnits2D.html">
+            
+                <a href="ffw_GuiUnits2D.html">
+            
+                    
+                    GuiUnits2D
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.59" data-path="ffw_GuiUserInput.html">
+            
+                <a href="ffw_GuiUserInput.html">
+            
+                    
+                    GuiUserInput
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.60" data-path="ffw_GuiVerticalLayout.html">
+            
+                <a href="ffw_GuiVerticalLayout.html">
+            
+                    
+                    GuiVerticalLayout
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.61" data-path="ffw_GuiWindowOpenGL.html">
+            
+                <a href="ffw_GuiWindowOpenGL.html">
+            
+                    
+                    GuiWindowOpenGL
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.62" data-path="ffw_GuiWindowOpenGLFBO.html">
+            
+                <a href="ffw_GuiWindowOpenGLFBO.html">
+            
+                    
+                    GuiWindowOpenGLFBO
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.63" data-path="ffw_Ibo.html">
+            
+                <a href="ffw_Ibo.html">
+            
+                    
+                    Ibo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.64" data-path="ffw_ImageBuffer.html">
+            
+                <a href="ffw_ImageBuffer.html">
+            
+                    
+                    ImageBuffer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.65" data-path="ffw_ImageFormat.html">
+            
+                <a href="ffw_ImageFormat.html">
+            
+                    
+                    ImageFormat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.66" data-path="ffw_ImageReader.html">
+            
+                <a href="ffw_ImageReader.html">
+            
+                    
+                    ImageReader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.67" data-path="ffw_ImageWriter.html">
+            
+                <a href="ffw_ImageWriter.html">
+            
+                    
+                    ImageWriter
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.68" data-path="ffw_JpgLoader.html">
+            
+                <a href="ffw_JpgLoader.html">
+            
+                    
+                    JpgLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.69" data-path="ffw_JpgSaver.html">
+            
+                <a href="ffw_JpgSaver.html">
+            
+                    
+                    JpgSaver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.70" data-path="ffw_JsonDecodeException.html">
+            
+                <a href="ffw_JsonDecodeException.html">
+            
+                    
+                    JsonDecodeException
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.71" data-path="ffw_JsonEncodeException.html">
+            
+                <a href="ffw_JsonEncodeException.html">
+            
+                    
+                    JsonEncodeException
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.72" data-path="ffw_JsonException.html">
+            
+                <a href="ffw_JsonException.html">
+            
+                    
+                    JsonException
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.73" data-path="ffw_Mat4x4.html">
+            
+                <a href="ffw_Mat4x4.html">
+            
+                    
+                    Mat4x4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.74" data-path="ffw_Monitor.html">
+            
+                <a href="ffw_Monitor.html">
+            
+                    
+                    Monitor
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.1.1.74.1" data-path="ffw_Monitor_Mode.html">
+            
+                <a href="ffw_Monitor_Mode.html">
+            
+                    
+                    Mode
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.75" data-path="ffw_Mutex.html">
+            
+                <a href="ffw_Mutex.html">
+            
+                    
+                    Mutex
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.76" data-path="ffw_Object.html">
+            
+                <a href="ffw_Object.html">
+            
+                    
+                    Object
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.77" data-path="ffw_ObjLoader.html">
+            
+                <a href="ffw_ObjLoader.html">
+            
+                    
+                    ObjLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.78" data-path="ffw_OpenGLImageType.html">
+            
+                <a href="ffw_OpenGLImageType.html">
+            
+                    
+                    OpenGLImageType
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.79" data-path="ffw_PbmLoader.html">
+            
+                <a href="ffw_PbmLoader.html">
+            
+                    
+                    PbmLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.80" data-path="ffw_PbmSaver.html">
+            
+                <a href="ffw_PbmSaver.html">
+            
+                    
+                    PbmSaver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.81" data-path="ffw_PngLoader.html">
+            
+                <a href="ffw_PngLoader.html">
+            
+                    
+                    PngLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.82" data-path="ffw_PngSaver.html">
+            
+                <a href="ffw_PngSaver.html">
+            
+                    
+                    PngSaver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.83" data-path="ffw_Quat.html">
+            
+                <a href="ffw_Quat.html">
+            
+                    
+                    Quat
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.84" data-path="ffw_Renderbuffer.html">
+            
+                <a href="ffw_Renderbuffer.html">
+            
+                    
+                    Renderbuffer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.85" data-path="ffw_Renderbuffer2D.html">
+            
+                <a href="ffw_Renderbuffer2D.html">
+            
+                    
+                    Renderbuffer2D
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.86" data-path="ffw_Renderbuffer2DMS.html">
+            
+                <a href="ffw_Renderbuffer2DMS.html">
+            
+                    
+                    Renderbuffer2DMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.87" data-path="ffw_RenderContext.html">
+            
+                <a href="ffw_RenderContext.html">
+            
+                    
+                    RenderContext
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.88" data-path="ffw_RenderExtensions.html">
+            
+                <a href="ffw_RenderExtensions.html">
+            
+                    
+                    RenderExtensions
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.89" data-path="ffw_RenderWindow.html">
+            
+                <a href="ffw_RenderWindow.html">
+            
+                    
+                    RenderWindow
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.90" data-path="ffw_RingBuffer.html">
+            
+                <a href="ffw_RingBuffer.html">
+            
+                    
+                    RingBuffer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.91" data-path="ffw_SwapWrapper.html">
+            
+                <a href="ffw_SwapWrapper.html">
+            
+                    
+                    SwapWrapper
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.92" data-path="ffw_Texture.html">
+            
+                <a href="ffw_Texture.html">
+            
+                    
+                    Texture
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.93" data-path="ffw_Texture1D.html">
+            
+                <a href="ffw_Texture1D.html">
+            
+                    
+                    Texture1D
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.94" data-path="ffw_Texture1DArray.html">
+            
+                <a href="ffw_Texture1DArray.html">
+            
+                    
+                    Texture1DArray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.95" data-path="ffw_Texture2D.html">
+            
+                <a href="ffw_Texture2D.html">
+            
+                    
+                    Texture2D
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.96" data-path="ffw_Texture2DArray.html">
+            
+                <a href="ffw_Texture2DArray.html">
+            
+                    
+                    Texture2DArray
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.97" data-path="ffw_Texture2DArrayMS.html">
+            
+                <a href="ffw_Texture2DArrayMS.html">
+            
+                    
+                    Texture2DArrayMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.98" data-path="ffw_Texture2DMS.html">
+            
+                <a href="ffw_Texture2DMS.html">
+            
+                    
+                    Texture2DMS
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.99" data-path="ffw_Texture3D.html">
+            
+                <a href="ffw_Texture3D.html">
+            
+                    
+                    Texture3D
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.100" data-path="ffw_TextureCubemap.html">
+            
+                <a href="ffw_TextureCubemap.html">
+            
+                    
+                    TextureCubemap
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.101" data-path="ffw_TgaLoader.html">
+            
+                <a href="ffw_TgaLoader.html">
+            
+                    
+                    TgaLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.102" data-path="ffw_TgaSaver.html">
+            
+                <a href="ffw_TgaSaver.html">
+            
+                    
+                    TgaSaver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.103" data-path="ffw_Thread__Ret_Args_____.html">
+            
+                <a href="ffw_Thread__Ret_Args_____.html">
+            
+                    
+                    Thread< Ret(Args...)>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.104" data-path="ffw_Thread__void_Args_____.html">
+            
+                <a href="ffw_Thread__void_Args_____.html">
+            
+                    
+                    Thread< void(Args...)>
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.105" data-path="ffw_TifLoader.html">
+            
+                <a href="ffw_TifLoader.html">
+            
+                    
+                    TifLoader
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.106" data-path="ffw_TifSaver.html">
+            
+                <a href="ffw_TifSaver.html">
+            
+                    
+                    TifSaver
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.107" data-path="ffw_Tokenizer.html">
+            
+                <a href="ffw_Tokenizer.html">
+            
+                    
+                    Tokenizer
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.108" data-path="ffw_TrueTypeFont.html">
+            
+                <a href="ffw_TrueTypeFont.html">
+            
+                    
+                    TrueTypeFont
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.109" data-path="ffw_Vbo.html">
+            
+                <a href="ffw_Vbo.html">
+            
+                    
+                    Vbo
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.110" data-path="ffw_Vec.html">
+            
+                <a href="ffw_Vec.html">
+            
+                    
+                    Vec
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.111" data-path="ffw_Vec2.html">
+            
+                <a href="ffw_Vec2.html">
+            
+                    
+                    Vec2
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.112" data-path="ffw_Vec3.html">
+            
+                <a href="ffw_Vec3.html">
+            
+                    
+                    Vec3
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.113" data-path="ffw_Vec4.html">
+            
+                <a href="ffw_Vec4.html">
+            
+                    
+                    Vec4
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.114" data-path="ffw_XmlDecodeException.html">
+            
+                <a href="ffw_XmlDecodeException.html">
+            
+                    
+                    XmlDecodeException
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.115" data-path="ffw_XmlEncodeException.html">
+            
+                <a href="ffw_XmlEncodeException.html">
+            
+                    
+                    XmlEncodeException
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.1.1.116" data-path="ffw_XmlException.html">
+            
+                <a href="ffw_XmlException.html">
+            
+                    
+                    XmlException
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href=".." >Var - JSON-like data structure</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="var---json-like-data-structure">Var - JSON-like data structure</h1>
+<p>This tutorial will explain how the <a href="ffw_Var.html">ffw::Var</a> class can accept and hold any data type, including creating JSON like data structures via key value pairs and arrays.</p>
+<h4 id="basics">Basics</h4>
+<p>Before we start, make sure to add this to your project:</p>
+<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;iostream&gt;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span>
+</div></pre>
+
+
+
+<p>A <a href="ffw_Var.html">ffw::Var</a> can be initialized as any other variable and can be re-assigned into a different data type at runtime. There is not limit on what it can hold.</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a;</span>
+<span class="hljs-normal">a = 123; </span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Now holds an integer</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Value of var: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// prints: &quot;Value of var: 123&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">a = -0.0042f;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Now holds a float</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Value of var: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;Value of var: -0.0042&quot;</span>
+</div></pre>
+
+
+
+<p>At any time, you check which data type it holds.</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#b1a50abb">empty</a>()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds nothing!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-keyword">else</span><span class="hljs-normal"> </span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds an integer!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-keyword">else</span><span class="hljs-normal"> </span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds a float!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-keyword">else</span><span class="hljs-normal"> </span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">char</span><span class="hljs-normal">&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds a char!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;a holds a float!&quot;</span>
+</div></pre>
+
+
+
+<p>The <a href="ffw_Var.html">ffw::Var</a> holds exactly the data type you put into it. This might raise some issues such as handling unsigned and signed integers</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (int)123;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds an signed integer!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">} </span>
+<span class="hljs-normal"></span><span class="hljs-keyword">else</span><span class="hljs-normal"> </span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> </span><span class="hljs-title">int</span><span class="hljs-normal">&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds an unsigned integer!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;a holds an signed integer!&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">a = (</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> int)123;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds an signed integer!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">} </span>
+<span class="hljs-normal"></span><span class="hljs-keyword">else</span><span class="hljs-normal"> </span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> </span><span class="hljs-title">int</span><span class="hljs-normal">&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds an unsigned integer!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;a holds an unsigned integer!&quot;</span>
+</div></pre>
+
+
+
+<p>You can also modify the stored value. The <a href="ffw_Var.html#1be6ba0e">ffw::Var::getAs</a> method will return a reference to the stored value.</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() = 100.0f;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Value of var: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;Value of var: 100&quot;</span>
+</div></pre>
+
+
+
+<p>Note that storing a reference might be usefull, but after you re-assign a new value, the reference will be invalid! Imagine it as a pointer, you set a pointer to <code>float&amp; ref = a.getAs&lt;float&gt;();</code> and when you create a new value <code>a = 200.0f</code> the address will change!</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-title">float</span><span class="hljs-normal">&amp; ref = a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;();</span>
+<span class="hljs-normal">ref = 100.0f;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Value of var: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;Value of var: 100&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">a = 200.0f;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// New float assigned to a, the old one is gone forever!</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">ref = 100.0f;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Will result in undefined behaviour!</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prefer to access the value via a.getAs&lt;float&gt;()</span>
+</div></pre>
+
+
+
+<p>Trying to get a different data type than is stored inside of <a href="ffw_Var.html">ffw::Var</a> will throw you an std::bad_cast</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Value of var: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// OK Prints: &quot;Value of var: 100&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Value of var: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// ERROR: std::bad_cast</span>
+</div></pre>
+
+
+
+<p>The <a href="ffw_Var.html#1be6ba0e">ffw::Var::getAs</a> has to know the explicit type you are trying to retrieve!</p>
+<h4 id="with-great-power-comes-great-responsibility">With great power comes great responsibility</h4>
+<p>The <a href="ffw_Var.html">ffw::Var</a> can tell you what data it holds via <a href="ffw_Var.html#faa85b7e">ffw::Var::getTypeid</a> method. This can only tell you what is inside but it will never ever give you the true data. It simply can not, this is limited by the C++ language.</p>
+<p>You have to know what are you storing and you have to know exactly what are you looking for when trying to retrieve the value behind <a href="ffw_Var.html">ffw::Var</a></p>
+<h4 id="the-problem-with-strings">The problem with strings</h4>
+<p>Because <a href="ffw_Var.html">ffw::Var</a> stores explicit type (if you store double, it&apos;s double, not float... if you store int, it&apos;s not unsigned int, nor long, it&apos;s just an int...) there is an issue with C style strings (const char*), string arrays (const char[N]), and C++ std::strings.</p>
+<p>For example:</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;std::string&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds std::string!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-keyword">else</span><span class="hljs-normal"> </span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-keyword">const</span><span class="hljs-normal"> </span><span class="hljs-title">char</span><span class="hljs-normal">*&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds const char*!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;a holds const char*!&quot;</span>
+</div></pre>
+
+
+
+<p>A simple workaround is to always store value as std::string</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = std::string(</span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">);</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;std::string&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds std::string!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-keyword">else</span><span class="hljs-normal"> </span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-keyword">const</span><span class="hljs-normal"> </span><span class="hljs-title">char</span><span class="hljs-normal">*&gt;()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds const char*!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;a holds std::string!&quot;</span>
+</div></pre>
+
+
+
+<p>If you are using both std::string and const char<em> then you might would like to use <a href="ffw_Var.html#f587f1a0">ffw::Var::isString</a> and <a href="ffw_Var.html#1804ed51">ffw::Var::toString</a> methods. Note that the toString method will always return a copy of the original string. <em>*If the <a href="ffw_Var.html">ffw::Var</a> does not hold any kind of string, it will return an empty string.</em></em></p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">;</span>
+<span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> b = std::string(</span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">);</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Always true, even though they are different data types</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#f587f1a0">isString</a>() &amp;&amp; b.<a href="ffw_Var.html#f587f1a0">isString</a>()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a and b are strings!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1804ed51">toString</a>() &lt;&lt; </span><span class="hljs-string">&quot; b: &quot;</span><span class="hljs-normal"> &lt;&lt; b.<a href="ffw_Var.html#1804ed51">toString</a>() &lt;&lt; std::endl;</span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;a: Hello World! b: Hello World!&quot;</span>
+</div></pre>
+
+
+
+<h4 id="the-problem-with-inetegers-floats-booleans">The problem with inetegers, floats, booleans</h4>
+<p>As mentioned above, storing an signed integer and then asking for unsigned integer will throw a std::bad_cast exception.</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> int)123;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;a: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl; </span><span class="hljs-comment">// Error! std::bad_cast</span><span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;a: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> </span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl; </span><span class="hljs-comment">// OK!</span>
+</div></pre>
+
+
+
+<p>The <a href="ffw_Var.html">ffw::Var</a> offers the following methods, similarly to <a href="ffw_Var.html#1804ed51">ffw::Var::toString</a> as explained above. All of the following methods do not throw an exception. For example, if the stored data type is std::string and you will call <a href="ffw_Var.html#4321ba77">ffw::Var::toInt</a> it will return an integer of value of zero. This applies to toBool (will return false) and toFloat (will return 0.0f).</p>
+<ul>
+<li><p><a href="ffw_Var.html#4321ba77">ffw::Var::toInt</a> and <a href="ffw_Var.html#95faec1d">ffw::Var::isInt</a> for all integer data types (int, short, unsigned long, uint32_t, etc...)</p>
+</li>
+<li><p><a href="ffw_Var.html#5d2999ad">ffw::Var::toFloat</a> and <a href="ffw_Var.html#5bc85c4d">ffw::Var::isFloat</a> for all floating point data types (float, double, etc...)</p>
+</li>
+<li><p><a href="ffw_Var.html#70753066">ffw::Var::toBool</a> and <a href="ffw_Var.html#8b978a46">ffw::Var::isBool</a> for booleans, will also work if any integer is stored</p>
+</li>
+</ul>
+<h4 id="key-value-mapping">Key value mapping</h4>
+<p>If you heard about JSON, you will know what is this about. The <a href="ffw_Object.html">ffw::Object</a> is a fancy std::unordered_map structure that contains keys as std::string and values as <a href="ffw_Var.html">ffw::Var</a>. With this, we can create a JSON-like object:</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Insert into object</span><span class="hljs-normal"></span>
+<span class="hljs-normal">obj.<a href="ffw_Object.html#dc1d6d5e">insert</a>(std::make_pair(</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, 123));</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// This works as well</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// The operator [] will insert a new key pair if the key does not exist</span><span class="hljs-normal"></span>
+<span class="hljs-normal">obj[</span><span class="hljs-string">&quot;boolean&quot;</span><span class="hljs-normal">] = </span><span class="hljs-keyword">true</span><span class="hljs-normal">;</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">obj.<a href="ffw_Object.html#49739af4">has_key</a>(</span><span class="hljs-string">&quot;boolean&quot;</span><span class="hljs-normal">); </span><span class="hljs-comment">// Returns true</span>
+</div></pre>
+
+
+
+<p>You can then use the mapped values as any other <a href="ffw_Var.html">ffw::Var</a></p>
+<pre><div class="lang-cpp"><span class="hljs-keyword">if</span><span class="hljs-normal">(obj[</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">].isInt()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;value: &quot;</span><span class="hljs-normal"> &lt;&lt; obj[</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">].toInt() &lt;&lt; std::endl;</span>
+<span class="hljs-normal">  </span><span class="hljs-comment">// obj[&quot;value&quot;].getAs&lt;int&gt;() also works</span><span class="hljs-normal"></span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(obj[</span><span class="hljs-string">&quot;boolean&quot;</span><span class="hljs-normal">].isBool()){</span>
+<span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;boolean: &quot;</span><span class="hljs-normal"> &lt;&lt; obj[</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">].toBool() &lt;&lt; std::endl;</span>
+<span class="hljs-normal">  </span><span class="hljs-comment">// obj[&quot;value&quot;].getAs&lt;bool&gt;() also works</span><span class="hljs-normal"></span>
+<span class="hljs-normal">}</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;value: 123&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">//         &quot;boolean: 1&quot;</span>
+</div></pre>
+
+
+
+<p>The <a href="ffw_Object.html">ffw::Object</a> offers a braced list constructor which simplifies things even further:</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = {</span>
+<span class="hljs-normal">  {</span><span class="hljs-string">&quot;integer&quot;</span><span class="hljs-normal">, 123},</span>
+<span class="hljs-normal">  {</span><span class="hljs-string">&quot;float&quot;</span><span class="hljs-normal">, 456.7f},</span>
+<span class="hljs-normal">  {</span><span class="hljs-string">&quot;double&quot;</span><span class="hljs-normal">, 456.7},</span>
+<span class="hljs-normal">  {</span><span class="hljs-string">&quot;boolean&quot;</span><span class="hljs-normal">, </span><span class="hljs-keyword">true</span><span class="hljs-normal">},</span>
+<span class="hljs-normal">  {</span><span class="hljs-string">&quot;object&quot;</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a> </span>
+<span class="hljs-normal">    {</span>
+<span class="hljs-normal">      {</span><span class="hljs-string">&quot;first&quot;</span><span class="hljs-normal">, 10},</span>
+<span class="hljs-normal">      {</span><span class="hljs-string">&quot;second&quot;</span><span class="hljs-normal">, 20}</span>
+<span class="hljs-normal">    }</span>
+<span class="hljs-normal">  }</span>
+<span class="hljs-normal">};</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Access object -&gt; first -&gt; int</span><span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;object/first: &quot;</span><span class="hljs-normal"> &lt;&lt; obj[</span><span class="hljs-string">&quot;object&quot;</span><span class="hljs-normal">][</span><span class="hljs-string">&quot;first&quot;</span><span class="hljs-normal">].toInt() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints &quot;object/first: 10&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;object/invalid: &quot;</span><span class="hljs-normal"> &lt;&lt; obj[</span><span class="hljs-string">&quot;object&quot;</span><span class="hljs-normal">][</span><span class="hljs-string">&quot;invalid&quot;</span><span class="hljs-normal">].toInt() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints &quot;object/first: 0&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Why zero ? Because operator [] creates a new empty value, so the following:</span><span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;object/new: &quot;</span><span class="hljs-normal"> &lt;&lt; obj[</span><span class="hljs-string">&quot;object&quot;</span><span class="hljs-normal">][</span><span class="hljs-string">&quot;new&quot;</span><span class="hljs-normal">].<a href="ffw_Object.html#ac7b4816">empty</a>() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints &quot;object/new: 1&quot;</span>
+</div></pre>
+
+
+
+<p>Note that <a href="http://en.cppreference.com/w/cpp/container/unordered_map/operator_at" target="_blank">operator[] will insert a new value if the key does not exist</a> If you wish the program to throw an exception if the key does not exist, you might want to use <a href="ffw_Object.html#a7ec28a3">ffw::Object::at</a> For example: <code>obj.at(&quot;invalid-key&quot;).isBool()</code> will throw <a href="http://en.cppreference.com/w/cpp/error/out_of_range" target="_blank">std::out_of_range</a></p>
+<p>Also, when having an object inside of an object, you might think of doing this:</p>
+<pre><div class="lang-cpp"><span class="hljs-comment">// Access object -&gt; first -&gt; int</span><span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;object/first: &quot;</span><span class="hljs-normal"> &lt;&lt; </span>
+<span class="hljs-normal">  obj[</span><span class="hljs-string">&quot;object&quot;</span><span class="hljs-normal">].getAs&lt;<a href="ffw_Object.html">ffw::Object</a>&gt;()[</span><span class="hljs-string">&quot;first&quot;</span><span class="hljs-normal">].toInt()</span>
+<span class="hljs-normal">  &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints &quot;object/first: 10&quot;</span>
+</div></pre>
+
+
+
+<p>So how come the previous section does not have <code>getAs</code> and it still works? The <a href="ffw_Var.html">ffw::Var</a> offers two [] operators. If you supply std::string, it will assume that you are treating it as <a href="ffw_Object.html">ffw::Object</a>, if you supply an integer, it will assume you are treating it as <a href="ffw_Array.html">ffw::Array</a></p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = 123;</span>
+<span class="hljs-normal">a[</span><span class="hljs-string">&quot;something&quot;</span><span class="hljs-normal">] = 456; </span><span class="hljs-comment">// std::bad_cast the a is not an object</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">a = <a href="ffw_Object.html">ffw::Object</a>();</span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Both are exactly same:</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a[</span><span class="hljs-string">&quot;something&quot;</span><span class="hljs-normal">] = 456; </span><span class="hljs-comment">// OK new value inserted</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;<a href="ffw_Object.html">ffw::Object</a>&gt;()[</span><span class="hljs-string">&quot;something&quot;</span><span class="hljs-normal">] = 456; </span><span class="hljs-comment">// Also OK value modyfied</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">a[0] = 456; </span><span class="hljs-comment">// std::bad_cast the a is not an Array</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">a = <a href="ffw_Array.html">ffw::Array</a>();</span>
+<span class="hljs-normal">a[0] = 456; </span><span class="hljs-comment">// Segmentation fault, array is empty!</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a.push_back(123);</span>
+<span class="hljs-normal">a[0] = 456; </span><span class="hljs-comment">// OK!</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a.getAs&lt;<a href="ffw_Array.html">ffw::Array</a>&gt;()[0] = 456; </span><span class="hljs-comment">// OK!</span>
+</div></pre>
+
+
+
+<h4 id="arrays">Arrays</h4>
+<p>Alongside <a href="ffw_Object.html">ffw::Object</a> we have <a href="ffw_Array.html">ffw::Array</a> which is fancy std::vector that holds <a href="ffw_Var.html">ffw::Var</a>. It works exactly such as a normal std::vector</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> a;</span>
+<span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(123); </span><span class="hljs-comment">// int</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(456.7f); </span><span class="hljs-comment">// float</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(456.7); </span><span class="hljs-comment">// double</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(<a href="ffw_Array.html">ffw::Array</a>{10, 20, 30}); </span><span class="hljs-comment">// array of 3 ints</span><span class="hljs-normal"></span>
+<span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(</span><span class="hljs-keyword">true</span><span class="hljs-normal">); </span><span class="hljs-comment">// bool</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;int: &quot;</span><span class="hljs-normal"> &lt;&lt; a[0].toInt() &lt;&lt; std::endl;</span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;float: &quot;</span><span class="hljs-normal"> &lt;&lt; a[1].toFloat() &lt;&lt; std::endl;</span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;double: &quot;</span><span class="hljs-normal"> &lt;&lt; a[2].getAs&lt;</span><span class="hljs-title">double</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;array: &quot;</span><span class="hljs-normal"> &lt;&lt; </span>
+<span class="hljs-normal">  a[3][0].toInt() &lt;&lt; </span><span class="hljs-string">&quot;, &quot;</span><span class="hljs-normal"> &lt;&lt; </span>
+<span class="hljs-normal">  a[3][1].toInt() &lt;&lt; </span><span class="hljs-string">&quot;, &quot;</span><span class="hljs-normal"> &lt;&lt;</span>
+<span class="hljs-normal">  a[3][2].toInt() &lt;&lt; std::endl;</span>
+<span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;bool: &quot;</span><span class="hljs-normal"> &lt;&lt; a[4].toBool() &lt;&lt; std::endl;</span>
+<span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;int: 123&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">//         &quot;float: 456.7&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">//         &quot;double: 456.7&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">//         &quot;array: 10, 20, 30&quot;</span><span class="hljs-normal"></span>
+<span class="hljs-normal"></span><span class="hljs-comment">//         &quot;bool: 1&quot;</span>
+</div></pre>
+
+
+
+<h4 id="putting-it-all-together">Putting it all together</h4>
+<p>With both arrays and objects, you can create some fancy looking data structures:</p>
+<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> example1 = { </span>
+<span class="hljs-normal">    </span><span class="hljs-string">&quot;menu&quot;</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a>{</span>
+<span class="hljs-normal">        {</span><span class="hljs-string">&quot;id&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;file&quot;</span><span class="hljs-normal">,},</span>
+<span class="hljs-normal">        {</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;File&quot;</span><span class="hljs-normal">,},</span>
+<span class="hljs-normal">        {</span><span class="hljs-string">&quot;popup&quot;</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a>{</span>
+<span class="hljs-normal">            {</span><span class="hljs-string">&quot;menuitem&quot;</span><span class="hljs-normal">, <a href="ffw_Array.html">ffw::Array</a>{</span>
+<span class="hljs-normal">                <a href="ffw_Object.html">ffw::Object</a>{{</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;New&quot;</span><span class="hljs-normal">}, {</span><span class="hljs-string">&quot;onclick&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;CreateNewDoc()&quot;</span><span class="hljs-normal">}},</span>
+<span class="hljs-normal">                <a href="ffw_Object.html">ffw::Object</a>{{</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;Open&quot;</span><span class="hljs-normal">}, {</span><span class="hljs-string">&quot;onclick&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;OpenDoc()&quot;</span><span class="hljs-normal">}},</span>
+<span class="hljs-normal">                <a href="ffw_Object.html">ffw::Object</a>{{</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;Close&quot;</span><span class="hljs-normal">}, {</span><span class="hljs-string">&quot;onclick&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;CloseDoc()&quot;</span><span class="hljs-normal">}}</span>
+<span class="hljs-normal">            }},</span>
+<span class="hljs-normal">        }},</span>
+<span class="hljs-normal">    } </span>
+<span class="hljs-normal">};</span>
+</div></pre>
+
+
+
+<p>Which is equivalent to the following JSON:</p>
+<pre><div class="lang-cpp"><span class="hljs-normal">{</span>
+<span class="hljs-normal">  &quot;menu&quot;: {</span>
+<span class="hljs-normal">    &quot;id&quot;: &quot;file&quot;,</span>
+<span class="hljs-normal">    &quot;value&quot;: &quot;File&quot;,</span>
+<span class="hljs-normal">    &quot;popup&quot;: {</span>
+<span class="hljs-normal">      &quot;menuitem&quot;: [</span>
+<span class="hljs-normal">        {&quot;value&quot;: &quot;New&quot;, &quot;onclick&quot;: &quot;CreateNewDoc()&quot;},</span>
+<span class="hljs-normal">        {&quot;value&quot;: &quot;Open&quot;, &quot;onclick&quot;: &quot;OpenDoc()&quot;},</span>
+<span class="hljs-normal">        {&quot;value&quot;: &quot;Close&quot;, &quot;onclick&quot;: &quot;CloseDoc()&quot;}</span>
+<span class="hljs-normal">      ]</span>
+<span class="hljs-normal">    }</span>
+<span class="hljs-normal">  }</span>
+<span class="hljs-normal">}</span>
+</div></pre>
+
+
+
+<h4 id="what-about-json-or-xml">What about JSON or XML?</h4>
+<p>Yes, you can use <a href="ffw_Var.html">ffw::Var</a> <a href="ffw_Object.html">ffw::Object</a> and <a href="ffw_Array.html">ffw::Array</a> to encode (serialize) or decode (deserialize) JSON and XML.</p>
+<p>See <strong><a href="md_doc_markdown_tutorial-json.html">Encode and decode JSON</a></strong> and <strong><a href="md_doc_markdown_tutorial-xml.html">Encode and decode XML</a></strong> tutorials. </p>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="md_doc_markdown_tutorial-math-tokenizer.html" class="navigation navigation-prev " aria-label="Previous page: String tokenizer">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="md_doc_markdown_tutorial-math-vectors.html" class="navigation navigation-next " aria-label="Next page: Vectors">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"Var - JSON-like data structure","level":"1.4.2.4","depth":3,"next":{"title":"Vectors","level":"1.4.2.5","depth":3,"path":"doc/md_doc_markdown_tutorial-math-vectors.md","ref":"doc/md_doc_markdown_tutorial-math-vectors.md","articles":[]},"previous":{"title":"String tokenizer","level":"1.4.2.3","depth":3,"path":"doc/md_doc_markdown_tutorial-math-tokenizer.md","ref":"doc/md_doc_markdown_tutorial-math-tokenizer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"toggle-chapters":{},"insert-logo":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-math-var.md","mtime":"2017-09-16T13:27:26.486Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T13:29:17.253Z"},"basePath":"..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-toggle-chapters/toggle.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-insert-logo/plugin.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

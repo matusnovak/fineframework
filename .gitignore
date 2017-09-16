@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+node_modules/
+_book/
+
+*.md
