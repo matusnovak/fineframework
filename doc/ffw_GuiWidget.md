@@ -1,0 +1,1304 @@
+GuiWidget
+===================================
+
+
+**Implemented by:** [ffw::GuiButton](ffw_GuiButton.html), [ffw::GuiCheckbox](ffw_GuiCheckbox.html), [ffw::GuiCheckbox::Button](ffw_GuiCheckbox_Button.html), [ffw::GuiImageViewer](ffw_GuiImageViewer.html), [ffw::GuiLabel](ffw_GuiLabel.html), [ffw::GuiLayout](ffw_GuiLayout.html), [ffw::GuiList::Item](ffw_GuiList_Item.html), [ffw::GuiProgressBar](ffw_GuiProgressBar.html), [ffw::GuiProgressCircle](ffw_GuiProgressCircle.html), [ffw::GuiRadio](ffw_GuiRadio.html), [ffw::GuiRadio::Button](ffw_GuiRadio_Button.html), [ffw::GuiRichText](ffw_GuiRichText.html), [ffw::GuiScrollable](ffw_GuiScrollable.html), [ffw::GuiScrollBar](ffw_GuiScrollBar.html), [ffw::GuiSlider](ffw_GuiSlider.html), [ffw::GuiSwitch](ffw_GuiSwitch.html), [ffw::GuiTabs](ffw_GuiTabs.html), [ffw::GuiTextInput](ffw_GuiTextInput.html), 
+
+The documentation for this class was generated from: `include/ffw/gui/guiwidget.h`
+
+
+
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiWidget::Flags](ffw_GuiWidget_Flags.html) |
+
+
+## Public Types
+
+| Type | Name |
+| -------: | :------- |
+| enum | [Orientation](#47f53876) |
+| enum | [Focus](#5379607f) |
+
+
+## Protected Attributes
+
+| Type | Name |
+| -------: | :------- |
+|  [GuiWindow](ffw_GuiWindow.html) * | [context](#a4fd6a8b) |
+|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [widgetStyle](#3a7949b4) |
+
+
+## Public Functions
+
+| Type | Name |
+| -------: | :------- |
+|   | [GuiWidget](#effff205) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
+|   | [GuiWidget](#84f2e0c8) (const [GuiWidget](ffw_GuiWidget.html) & _other_) = delete  |
+|   | [GuiWidget](#a717ecce) ([GuiWidget](ffw_GuiWidget.html) && _other_)  |
+|  void | [swap](#0863f905) ([GuiWidget](ffw_GuiWidget.html) & _other_)  |
+|  virtual  | [~GuiWidget](#9b4afe51) ()  |
+|  void | [setSize](#2f88ed2c) ([GuiUnits](ffw_GuiUnits.html) _width_, [GuiUnits](ffw_GuiUnits.html) _height_)  |
+|  void | [setSize](#e6a2e8d3) (const [ffw::Vec2](ffw_Vec2.html)< [GuiUnits](ffw_GuiUnits.html) > & _s_)  |
+|  void | [setPos](#73cab019) ([GuiUnits](ffw_GuiUnits.html) _posx_, [GuiUnits](ffw_GuiUnits.html) _posy_)  |
+|  const [ffw::Vec2](ffw_Vec2.html)< [GuiUnits](ffw_GuiUnits.html) > & | [getPos](#472a3695) () const  |
+|  const [ffw::Vec2](ffw_Vec2.html)< [GuiUnits](ffw_GuiUnits.html) > & | [getSize](#7806b9eb) () const  |
+|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getVisibleContentSize](#e56fd225) () const  |
+|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getVisibleContentPos](#c91ad3e7) () const  |
+|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getInnerContentSize](#62ca3682) () const  |
+|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getInnerContentPos](#7e841405) () const  |
+|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getAbsolutePos](#3cb9fee9) () const  |
+|  void | [setOffset](#bc101f1f) (const [ffw::Vec2f](ffw.html#fcfaa6c5) _off_)  |
+|  const [ffw::Vec2f](ffw.html#fcfaa6c5) & | [getOffset](#ff20ff5a) () const  |
+|  void | [setPadding](#13ce72b1) ([GuiUnits](ffw_GuiUnits.html) _top_, [GuiUnits](ffw_GuiUnits.html) _right_, [GuiUnits](ffw_GuiUnits.html) _bottom_, [GuiUnits](ffw_GuiUnits.html) _left_)  |
+|  void | [setPadding](#f112d22b) ([GuiUnits](ffw_GuiUnits.html) _all_)  |
+|  void | [setPadding](#db0e4126) (const [GuiStyle::Padding](ffw_GuiStyle.html#82b7d280) & _pad_)  |
+|  void | [setMargin](#1f3a476d) ([GuiUnits](ffw_GuiUnits.html) _top_, [GuiUnits](ffw_GuiUnits.html) _right_, [GuiUnits](ffw_GuiUnits.html) _bottom_, [GuiUnits](ffw_GuiUnits.html) _left_)  |
+|  void | [setMargin](#724880b1) ([GuiUnits](ffw_GuiUnits.html) _all_)  |
+|  void | [setMargin](#06da917d) (const [GuiStyle::Margin](ffw_GuiStyle.html#77df323f) & _mar_)  |
+|  const [GuiStyle::Padding](ffw_GuiStyle.html#82b7d280) & | [getPadding](#a56204bc) () const  |
+|  const [GuiStyle::Margin](ffw_GuiStyle.html#77df323f) & | [getMargin](#7060f34d) () const  |
+|  [GuiUnits](ffw_GuiUnits.html) | [getPadding](#ba0319d8) (int _side_) const  |
+|  [GuiUnits](ffw_GuiUnits.html) | [getMargin](#2361d746) (int _side_) const  |
+|  void | [setMarginTop](#5e9de0ba) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  void | [setMarginRight](#c355b0a1) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  void | [setMarginBottom](#6a6c9965) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  void | [setMarginLeft](#1ab76ffe) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  void | [setPaddingTop](#74b1c375) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  void | [setPaddingRight](#a70b5a3d) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  void | [setPaddingBottom](#2254e26e) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  void | [setPaddingLeft](#f4b9befe) ([GuiUnits](ffw_GuiUnits.html) _val_)  |
+|  float | [getPaddingInPixels](#11adb516) (int _side_) const  |
+|  float | [getMarginInPixels](#edb20435) (int _side_) const  |
+|  void | [setAlign](#65835ebb) ([GuiStyle::Align](ffw_GuiStyle.html#80d2c0e2) _align_)  |
+|  [GuiStyle::Align](ffw_GuiStyle.html#80d2c0e2) | [getAlign](#48d6843a) () const  |
+|  void | [setWrap](#bace6600) (bool _wrap_)  |
+|  bool | [getWrap](#d9effebd) () const  |
+|  void | [setID](#c8d9ab43) (unsigned long _id_)  |
+|  unsigned long | [getID](#a074ad79) () const  |
+|  void | [update](#ace13146) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _parentpos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _parentsize_, const [GuiUserInput](ffw_GuiUserInput.html) & _input_, [ffw::Vec2f](ffw.html#fcfaa6c5) _mousepos_, bool _mouseout_)  |
+|  void | [render](#6ca314de) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _clippos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _clipsize_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _off_, bool _clear_)  |
+|  bool | [shouldRedraw](#077c72ca) () const  |
+|  void | [redraw](#b5a27de2) ()  |
+|  void | [invalidate](#15d551cb) ()  |
+|  void | [setParent](#ebe0662a) ([GuiWidget](ffw_GuiWidget.html) * _parent_)  |
+|  const [GuiWidget](ffw_GuiWidget.html) * | [getParent](#fffe352d) () const  |
+|  bool | [hasHover](#e6b9f459) () const  |
+|  bool | [hasFocus](#cd2a2032) () const  |
+|  void | [setFocus](#07e1703c) (bool _f_)  |
+|  void | [setHover](#894527ec) (bool _h_)  |
+|  void | [setDisabled](#34acd985) (bool _d_)  |
+|  void | [setHidden](#9d9b97c0) (bool _h_)  |
+|  void | [setIgnoreUserInput](#c63468c9) (bool _d_)  |
+|  void | [hide](#98ed3d7f) ()  |
+|  void | [show](#72adbc6e) ()  |
+|  bool | [isHidden](#163d8039) () const  |
+|  bool | [isDisabled](#76b4f3dd) () const  |
+|  void | [setFont](#8a441607) (const [GuiFont](ffw_GuiFont.html) * _font_)  |
+|  const [GuiFont](ffw_GuiFont.html) * | [getFont](#2d8e5f24) () const  |
+|  const [GuiFont](ffw_GuiFont.html) * | [getCurrentFont](#688c5dc2) () const  |
+|  const [ffw::Vec2i](ffw.html#e4e07ebe) | [getMousePos](#2fac9a68) () const  |
+|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#c12efa3f) () = 0  |
+|  T * | [findByID](#2a8bac7d) (unsigned long _id__)  |
+|  void | [addEventCallback](#3e89cac1) (void(T::*)([GuiEvent](ffw_GuiEvent.html)) _memfuncptr_, T * _instance_, bool _now_ = false)  |
+|  void | [addEventCallback](#3b2933d1) (const std::function< void([GuiEvent](ffw_GuiEvent.html))> & _function_, bool _now_ = false)  |
+|  void | [setCallbackPtr](#8adda7f1) ([GuiWidget](ffw_GuiWidget.html) * _ptr_)  |
+|  [GuiWidget](ffw_GuiWidget.html) * | [getCallbackPtr](#36442b01) () const  |
+|  void | [setTheme](#3f65a53e) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
+|  void | [setStyleGroup](#a83d3b82) (const [GuiStyleGroup](ffw_GuiStyleGroup.html) * _style_)  |
+|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [getStyleGroup](#e2855aa0) ()  |
+|  const [ffw::GuiStyle](ffw_GuiStyle.html) * | [getCurrentStyle](#29480ee7) () const  |
+|  const [ffw::GuiStyle](ffw_GuiStyle.html) * | [getCurrentStyle](#819d90d1) (const [GuiStyleGroup](ffw_GuiStyleGroup.html) * _group_) const  |
+|  const [ffw::Vec2f](ffw.html#fcfaa6c5) & | [getRealSize](#4f2b8235) () const  |
+|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getRealSizeWithMargin](#9490320b) () const  |
+|  const [ffw::Vec2f](ffw.html#fcfaa6c5) & | [getRealPos](#c7936745) () const  |
+|  void | [setLineHeight](#7fd26b07) (float _height_)  |
+|  float | [getLineHeight](#81f6f9eb) () const  |
+|  void | [setDefaults](#f66f774f) (const [ffw::GuiDefaults](ffw_GuiDefaults.html) * _def_)  |
+|  [GuiWindow](ffw_GuiWindow.html) * | [getWindow](#4b15b476) ()  |
+|  const [GuiWindow](ffw_GuiWindow.html) * | [getWindow](#d0bc83be) () const  |
+|  void | [setToggleFocus](#8ee39d66) ()  |
+|  void | [setStickyFocus](#14899218) ()  |
+|  void | [setDropFocus](#15d13c40) ()  |
+|  void | [setDefaultFocus](#7bebdfe7) ()  |
+|  [GuiWidget](ffw_GuiWidget.html) & | [operator=](#65a717ad) (const [GuiWidget](ffw_GuiWidget.html) & _other_) = delete  |
+|  [GuiWidget](ffw_GuiWidget.html) & | [operator=](#36d95005) ([GuiWidget](ffw_GuiWidget.html) && _other_)  |
+
+
+## Protected Functions
+
+| Type | Name |
+| -------: | :------- |
+|  void | [traverseBackground](#f7412e3e) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_)  |
+|  [GuiWidget](ffw_GuiWidget.html) * | [addWidgetInternal](#9f307c00) ([GuiWidget](ffw_GuiWidget.html) * _widget_)  |
+|  [GuiWidget](ffw_GuiWidget.html) * | [addWidgetAfterInternal](#f6b84d3a) (const [GuiWidget](ffw_GuiWidget.html) * _previous_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
+|  [GuiWidget](ffw_GuiWidget.html) * | [addWidgetBeforeInternal](#e4c841b7) (const [GuiWidget](ffw_GuiWidget.html) * _next_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
+|  void | [deleteWidgetsInternal](#e9681a70) ()  |
+|  bool | [deleteSingleWidgetInternal](#a0480cd5) (const [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
+|  void | [setOrientation](#fd7abf0b) ([Orientation](ffw_GuiWidget.html#47f53876) _orientation_)  |
+|  void | [pushEvent](#cb58e264) ([GuiEvent::Type](ffw_GuiEvent.html#d7001c09) _type_, [GuiEvent::Data](ffw_GuiEvent_Data.html) _data_)  |
+|  const std::vector< [GuiWidget](ffw_GuiWidget.html) * > & | [getAllWidgets](#6aac45b2) () const  |
+|  void | [recalculatePos](#86cd28ab) ()  |
+|  void | [recalculateSize](#ff0d162b) ([GuiWidget](ffw_GuiWidget.html) * _ptr_ = NULL)  |
+|  void | [renderComponent](#725ccfce) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_, const [ffw::GuiStyle](ffw_GuiStyle.html) * _group_)  |
+|  virtual void | [eventRender](#3b53d9f9) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _contentoffset_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _contentsize_) = 0  |
+|  virtual void | [eventPos](#c045417a) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_) = 0  |
+|  virtual void | [eventSize](#13025a06) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_) = 0  |
+|  virtual void | [eventHover](#9e63e257) (bool _gained_) = 0  |
+|  virtual void | [eventFocus](#a69c1f45) (bool _gained_) = 0  |
+|  virtual void | [eventMouse](#ad101652) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _mousePos_) = 0  |
+|  virtual bool | [eventScroll](#0831371b) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _scroll_) = 0  |
+|  virtual void | [eventMouseButton](#64babaac) ([ffw::MouseButton](ffw.html#f80e46cc) _button_, [ffw::Mode](ffw.html#e03b52d5) _mode_) = 0  |
+|  virtual void | [eventText](#cac9e232) (wchar_t _chr_) = 0  |
+|  virtual void | [eventKey](#936e99b9) ([ffw::Key](ffw.html#23661d50) _key_, [ffw::Mode](ffw.html#e03b52d5) _mode_) = 0  |
+|  virtual void | [eventDisabled](#61b40782) (bool _disabled_) = 0  |
+|  virtual void | [eventThemeChanged](#d1726419) (const [GuiTheme](ffw_GuiTheme.html) * _theme_) = 0  |
+|  const [Flags](ffw_GuiWidget_Flags.html) & | [getFlags](#a3e68c52) () const  |
+
+
+## Public Types Documentation
+
+### <span style="opacity:0.5;">enum</span> <a id="47f53876" href="#47f53876">Orientation</a>
+
+```cpp
+enum Orientation {
+    FIXED,
+    VERTICAL,
+    HORIZONTAL,
+}
+```
+
+
+
+### <span style="opacity:0.5;">enum</span> <a id="5379607f" href="#5379607f">Focus</a>
+
+```cpp
+enum Focus {
+    DEFAULT,
+    STICKY,
+    DROP,
+    TOGGLE,
+}
+```
+
+
+
+
+
+## Protected Attributes Documentation
+
+### <span style="opacity:0.5;">variable</span> <a id="a4fd6a8b" href="#a4fd6a8b">context</a>
+
+```cpp
+GuiWindow * context
+```
+
+
+
+### <span style="opacity:0.5;">variable</span> <a id="3a7949b4" href="#3a7949b4">widgetStyle</a>
+
+```cpp
+const GuiStyleGroup * widgetStyle
+```
+
+
+
+
+
+## Public Functions Documentation
+
+### <span style="opacity:0.5;">function</span> <a id="effff205" href="#effff205">GuiWidget</a>
+
+```cpp
+ GuiWidget (
+    GuiWindow * context
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="84f2e0c8" href="#84f2e0c8">GuiWidget</a>
+
+```cpp
+ GuiWidget (
+    const GuiWidget & other
+) = delete 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a717ecce" href="#a717ecce">GuiWidget</a>
+
+```cpp
+ GuiWidget (
+    GuiWidget && other
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="0863f905" href="#0863f905">swap</a>
+
+```cpp
+void swap (
+    GuiWidget & other
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="9b4afe51" href="#9b4afe51">~GuiWidget</a>
+
+```cpp
+virtual  ~GuiWidget () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="2f88ed2c" href="#2f88ed2c">setSize</a>
+
+```cpp
+inline void setSize (
+    GuiUnits width,
+    GuiUnits height
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="e6a2e8d3" href="#e6a2e8d3">setSize</a>
+
+```cpp
+void setSize (
+    const ffw::Vec2< GuiUnits > & s
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="73cab019" href="#73cab019">setPos</a>
+
+```cpp
+void setPos (
+    GuiUnits posx,
+    GuiUnits posy
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="472a3695" href="#472a3695">getPos</a>
+
+```cpp
+const ffw::Vec2< GuiUnits > & getPos () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="7806b9eb" href="#7806b9eb">getSize</a>
+
+```cpp
+const ffw::Vec2< GuiUnits > & getSize () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="e56fd225" href="#e56fd225">getVisibleContentSize</a>
+
+```cpp
+ffw::Vec2f getVisibleContentSize () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c91ad3e7" href="#c91ad3e7">getVisibleContentPos</a>
+
+```cpp
+ffw::Vec2f getVisibleContentPos () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="62ca3682" href="#62ca3682">getInnerContentSize</a>
+
+```cpp
+inline ffw::Vec2f getInnerContentSize () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="7e841405" href="#7e841405">getInnerContentPos</a>
+
+```cpp
+inline ffw::Vec2f getInnerContentPos () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="3cb9fee9" href="#3cb9fee9">getAbsolutePos</a>
+
+```cpp
+ffw::Vec2f getAbsolutePos () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="bc101f1f" href="#bc101f1f">setOffset</a>
+
+```cpp
+void setOffset (
+    const ffw::Vec2f off
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="ff20ff5a" href="#ff20ff5a">getOffset</a>
+
+```cpp
+const ffw::Vec2f & getOffset () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="13ce72b1" href="#13ce72b1">setPadding</a>
+
+```cpp
+void setPadding (
+    GuiUnits top,
+    GuiUnits right,
+    GuiUnits bottom,
+    GuiUnits left
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="f112d22b" href="#f112d22b">setPadding</a>
+
+```cpp
+inline void setPadding (
+    GuiUnits all
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="db0e4126" href="#db0e4126">setPadding</a>
+
+```cpp
+inline void setPadding (
+    const GuiStyle::Padding & pad
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="1f3a476d" href="#1f3a476d">setMargin</a>
+
+```cpp
+void setMargin (
+    GuiUnits top,
+    GuiUnits right,
+    GuiUnits bottom,
+    GuiUnits left
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="724880b1" href="#724880b1">setMargin</a>
+
+```cpp
+inline void setMargin (
+    GuiUnits all
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="06da917d" href="#06da917d">setMargin</a>
+
+```cpp
+inline void setMargin (
+    const GuiStyle::Margin & mar
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a56204bc" href="#a56204bc">getPadding</a>
+
+```cpp
+inline const GuiStyle::Padding & getPadding () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="7060f34d" href="#7060f34d">getMargin</a>
+
+```cpp
+inline const GuiStyle::Margin & getMargin () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="ba0319d8" href="#ba0319d8">getPadding</a>
+
+```cpp
+inline GuiUnits getPadding (
+    int side
+) const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="2361d746" href="#2361d746">getMargin</a>
+
+```cpp
+inline GuiUnits getMargin (
+    int side
+) const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="5e9de0ba" href="#5e9de0ba">setMarginTop</a>
+
+```cpp
+inline void setMarginTop (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c355b0a1" href="#c355b0a1">setMarginRight</a>
+
+```cpp
+inline void setMarginRight (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="6a6c9965" href="#6a6c9965">setMarginBottom</a>
+
+```cpp
+inline void setMarginBottom (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="1ab76ffe" href="#1ab76ffe">setMarginLeft</a>
+
+```cpp
+inline void setMarginLeft (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="74b1c375" href="#74b1c375">setPaddingTop</a>
+
+```cpp
+inline void setPaddingTop (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a70b5a3d" href="#a70b5a3d">setPaddingRight</a>
+
+```cpp
+inline void setPaddingRight (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="2254e26e" href="#2254e26e">setPaddingBottom</a>
+
+```cpp
+inline void setPaddingBottom (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="f4b9befe" href="#f4b9befe">setPaddingLeft</a>
+
+```cpp
+inline void setPaddingLeft (
+    GuiUnits val
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="11adb516" href="#11adb516">getPaddingInPixels</a>
+
+```cpp
+float getPaddingInPixels (
+    int side
+) const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="edb20435" href="#edb20435">getMarginInPixels</a>
+
+```cpp
+float getMarginInPixels (
+    int side
+) const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="65835ebb" href="#65835ebb">setAlign</a>
+
+```cpp
+void setAlign (
+    GuiStyle::Align align
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="48d6843a" href="#48d6843a">getAlign</a>
+
+```cpp
+GuiStyle::Align getAlign () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="bace6600" href="#bace6600">setWrap</a>
+
+```cpp
+void setWrap (
+    bool wrap
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="d9effebd" href="#d9effebd">getWrap</a>
+
+```cpp
+inline bool getWrap () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c8d9ab43" href="#c8d9ab43">setID</a>
+
+```cpp
+void setID (
+    unsigned long id
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a074ad79" href="#a074ad79">getID</a>
+
+```cpp
+unsigned long getID () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="ace13146" href="#ace13146">update</a>
+
+```cpp
+void update (
+    const ffw::Vec2f & parentpos,
+    const ffw::Vec2f & parentsize,
+    const GuiUserInput & input,
+    ffw::Vec2f mousepos,
+    bool mouseout
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="6ca314de" href="#6ca314de">render</a>
+
+```cpp
+void render (
+    const ffw::Vec2f & clippos,
+    const ffw::Vec2f & clipsize,
+    const ffw::Vec2f & off,
+    bool clear
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="077c72ca" href="#077c72ca">shouldRedraw</a>
+
+```cpp
+bool shouldRedraw () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="b5a27de2" href="#b5a27de2">redraw</a>
+
+```cpp
+void redraw () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="15d551cb" href="#15d551cb">invalidate</a>
+
+```cpp
+void invalidate () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="ebe0662a" href="#ebe0662a">setParent</a>
+
+```cpp
+void setParent (
+    GuiWidget * parent
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="fffe352d" href="#fffe352d">getParent</a>
+
+```cpp
+const GuiWidget * getParent () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="e6b9f459" href="#e6b9f459">hasHover</a>
+
+```cpp
+inline bool hasHover () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="cd2a2032" href="#cd2a2032">hasFocus</a>
+
+```cpp
+inline bool hasFocus () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="07e1703c" href="#07e1703c">setFocus</a>
+
+```cpp
+void setFocus (
+    bool f
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="894527ec" href="#894527ec">setHover</a>
+
+```cpp
+void setHover (
+    bool h
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="34acd985" href="#34acd985">setDisabled</a>
+
+```cpp
+void setDisabled (
+    bool d
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="9d9b97c0" href="#9d9b97c0">setHidden</a>
+
+```cpp
+void setHidden (
+    bool h
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c63468c9" href="#c63468c9">setIgnoreUserInput</a>
+
+```cpp
+void setIgnoreUserInput (
+    bool d
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="98ed3d7f" href="#98ed3d7f">hide</a>
+
+```cpp
+inline void hide () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="72adbc6e" href="#72adbc6e">show</a>
+
+```cpp
+inline void show () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="163d8039" href="#163d8039">isHidden</a>
+
+```cpp
+inline bool isHidden () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="76b4f3dd" href="#76b4f3dd">isDisabled</a>
+
+```cpp
+inline bool isDisabled () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="8a441607" href="#8a441607">setFont</a>
+
+```cpp
+void setFont (
+    const GuiFont * font
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="2d8e5f24" href="#2d8e5f24">getFont</a>
+
+```cpp
+const GuiFont * getFont () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="688c5dc2" href="#688c5dc2">getCurrentFont</a>
+
+```cpp
+const GuiFont * getCurrentFont () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="2fac9a68" href="#2fac9a68">getMousePos</a>
+
+```cpp
+inline const ffw::Vec2i getMousePos () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c12efa3f" href="#c12efa3f">getMinimumWrapSize</a>
+
+```cpp
+virtual ffw::Vec2f getMinimumWrapSize () = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="2a8bac7d" href="#2a8bac7d">findByID</a>
+
+```cpp
+inline T * findByID (
+    unsigned long id_
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="3e89cac1" href="#3e89cac1">addEventCallback</a>
+
+```cpp
+inline void addEventCallback (
+    void(T::*)(GuiEvent) memfuncptr,
+    T * instance,
+    bool now = false
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="3b2933d1" href="#3b2933d1">addEventCallback</a>
+
+```cpp
+inline void addEventCallback (
+    const std::function< void(GuiEvent)> & function,
+    bool now = false
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="8adda7f1" href="#8adda7f1">setCallbackPtr</a>
+
+```cpp
+void setCallbackPtr (
+    GuiWidget * ptr
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="36442b01" href="#36442b01">getCallbackPtr</a>
+
+```cpp
+inline GuiWidget * getCallbackPtr () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="3f65a53e" href="#3f65a53e">setTheme</a>
+
+```cpp
+void setTheme (
+    const GuiTheme * theme
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a83d3b82" href="#a83d3b82">setStyleGroup</a>
+
+```cpp
+void setStyleGroup (
+    const GuiStyleGroup * style
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="e2855aa0" href="#e2855aa0">getStyleGroup</a>
+
+```cpp
+inline const GuiStyleGroup * getStyleGroup () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="29480ee7" href="#29480ee7">getCurrentStyle</a>
+
+```cpp
+inline const ffw::GuiStyle * getCurrentStyle () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="819d90d1" href="#819d90d1">getCurrentStyle</a>
+
+```cpp
+const ffw::GuiStyle * getCurrentStyle (
+    const GuiStyleGroup * group
+) const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="4f2b8235" href="#4f2b8235">getRealSize</a>
+
+```cpp
+inline const ffw::Vec2f & getRealSize () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="9490320b" href="#9490320b">getRealSizeWithMargin</a>
+
+```cpp
+inline ffw::Vec2f getRealSizeWithMargin () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c7936745" href="#c7936745">getRealPos</a>
+
+```cpp
+inline const ffw::Vec2f & getRealPos () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="7fd26b07" href="#7fd26b07">setLineHeight</a>
+
+```cpp
+inline void setLineHeight (
+    float height
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="81f6f9eb" href="#81f6f9eb">getLineHeight</a>
+
+```cpp
+inline float getLineHeight () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="f66f774f" href="#f66f774f">setDefaults</a>
+
+```cpp
+inline void setDefaults (
+    const ffw::GuiDefaults * def
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="4b15b476" href="#4b15b476">getWindow</a>
+
+```cpp
+inline GuiWindow * getWindow () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="d0bc83be" href="#d0bc83be">getWindow</a>
+
+```cpp
+inline const GuiWindow * getWindow () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="8ee39d66" href="#8ee39d66">setToggleFocus</a>
+
+```cpp
+inline void setToggleFocus () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="14899218" href="#14899218">setStickyFocus</a>
+
+```cpp
+inline void setStickyFocus () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="15d13c40" href="#15d13c40">setDropFocus</a>
+
+```cpp
+inline void setDropFocus () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="7bebdfe7" href="#7bebdfe7">setDefaultFocus</a>
+
+```cpp
+inline void setDefaultFocus () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="65a717ad" href="#65a717ad">operator=</a>
+
+```cpp
+GuiWidget & operator= (
+    const GuiWidget & other
+) = delete 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="36d95005" href="#36d95005">operator=</a>
+
+```cpp
+GuiWidget & operator= (
+    GuiWidget && other
+) 
+```
+
+
+
+
+
+## Protected Functions Documentation
+
+### <span style="opacity:0.5;">function</span> <a id="f7412e3e" href="#f7412e3e">traverseBackground</a>
+
+```cpp
+void traverseBackground (
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="9f307c00" href="#9f307c00">addWidgetInternal</a>
+
+```cpp
+GuiWidget * addWidgetInternal (
+    GuiWidget * widget
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="f6b84d3a" href="#f6b84d3a">addWidgetAfterInternal</a>
+
+```cpp
+GuiWidget * addWidgetAfterInternal (
+    const GuiWidget * previous,
+    GuiWidget * widget
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="e4c841b7" href="#e4c841b7">addWidgetBeforeInternal</a>
+
+```cpp
+GuiWidget * addWidgetBeforeInternal (
+    const GuiWidget * next,
+    GuiWidget * widget
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="e9681a70" href="#e9681a70">deleteWidgetsInternal</a>
+
+```cpp
+void deleteWidgetsInternal () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a0480cd5" href="#a0480cd5">deleteSingleWidgetInternal</a>
+
+```cpp
+bool deleteSingleWidgetInternal (
+    const GuiWidget * widget
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="fd7abf0b" href="#fd7abf0b">setOrientation</a>
+
+```cpp
+void setOrientation (
+    Orientation orientation
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="cb58e264" href="#cb58e264">pushEvent</a>
+
+```cpp
+void pushEvent (
+    GuiEvent::Type type,
+    GuiEvent::Data data
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="6aac45b2" href="#6aac45b2">getAllWidgets</a>
+
+```cpp
+inline const std::vector< GuiWidget * > & getAllWidgets () const 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="86cd28ab" href="#86cd28ab">recalculatePos</a>
+
+```cpp
+void recalculatePos () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="ff0d162b" href="#ff0d162b">recalculateSize</a>
+
+```cpp
+void recalculateSize (
+    GuiWidget * ptr = NULL
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="725ccfce" href="#725ccfce">renderComponent</a>
+
+```cpp
+void renderComponent (
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
+    const ffw::GuiStyle * group
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="3b53d9f9" href="#3b53d9f9">eventRender</a>
+
+```cpp
+virtual void eventRender (
+    const ffw::Vec2f & contentoffset,
+    const ffw::Vec2f & contentsize
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c045417a" href="#c045417a">eventPos</a>
+
+```cpp
+virtual void eventPos (
+    const ffw::Vec2f & pos
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="13025a06" href="#13025a06">eventSize</a>
+
+```cpp
+virtual void eventSize (
+    const ffw::Vec2f & size
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="9e63e257" href="#9e63e257">eventHover</a>
+
+```cpp
+virtual void eventHover (
+    bool gained
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a69c1f45" href="#a69c1f45">eventFocus</a>
+
+```cpp
+virtual void eventFocus (
+    bool gained
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="ad101652" href="#ad101652">eventMouse</a>
+
+```cpp
+virtual void eventMouse (
+    const ffw::Vec2f & mousePos
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="0831371b" href="#0831371b">eventScroll</a>
+
+```cpp
+virtual bool eventScroll (
+    const ffw::Vec2f & scroll
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="64babaac" href="#64babaac">eventMouseButton</a>
+
+```cpp
+virtual void eventMouseButton (
+    ffw::MouseButton button,
+    ffw::Mode mode
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="cac9e232" href="#cac9e232">eventText</a>
+
+```cpp
+virtual void eventText (
+    wchar_t chr
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="936e99b9" href="#936e99b9">eventKey</a>
+
+```cpp
+virtual void eventKey (
+    ffw::Key key,
+    ffw::Mode mode
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="61b40782" href="#61b40782">eventDisabled</a>
+
+```cpp
+virtual void eventDisabled (
+    bool disabled
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="d1726419" href="#d1726419">eventThemeChanged</a>
+
+```cpp
+virtual void eventThemeChanged (
+    const GuiTheme * theme
+) = 0 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="a3e68c52" href="#a3e68c52">getFlags</a>
+
+```cpp
+inline const Flags & getFlags () const 
+```
+
+
+
+
+

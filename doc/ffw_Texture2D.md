@@ -1,0 +1,173 @@
+Texture2D
+===================================
+
+
+**Inherits from:** [ffw::Texture](ffw_Texture.html)
+
+**Implemented by:** [ffw::GuiImageOpenGL](ffw_GuiImageOpenGL.html)
+
+The documentation for this class was generated from: `include/ffw/graphics/texture2d.h`
+
+
+
+## Public Static Functions
+
+| Type | Name |
+| -------: | :------- |
+|  bool | [checkCompability](#e9dc30f1) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
+
+
+## Public Functions
+
+| Type | Name |
+| -------: | :------- |
+|   | [Texture2D](#ee0911a8) ()  |
+|   | [Texture2D](#036b8e3f) (const [Texture2D](ffw_Texture2D.html) & _second_) = delete  |
+|   | [Texture2D](#75e56eea) ([Texture2D](ffw_Texture2D.html) && _second_)  |
+|   | [~Texture2D](#3aeb91cf) ()  |
+|  bool | [create](#f59551b6) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _Width_, GLsizei _Height_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_)  |
+|  bool | [createFromBuffer](#e0034941) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, bool _inverse_ = false)  |
+|  bool | [resize](#d5d7f904) (GLsizei _width_, GLsizei _height_)  |
+|  bool | [setPixels](#713b96bd) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLsizei _width_, GLsizei _height_, const void * _pixels_)  |
+|  bool | [getPixels](#8efe1953) (void * _pixels_)  |
+|  [Texture2D](ffw_Texture2D.html) & | [operator=](#176b4505) (const [Texture2D](ffw_Texture2D.html) & _second_) = delete  |
+|  [Texture2D](ffw_Texture2D.html) & | [operator=](#0d0ce047) ([Texture2D](ffw_Texture2D.html) && _second_)  |
+
+
+## Public Static Functions Documentation
+
+### <span style="opacity:0.5;">function</span> <a id="e9dc30f1" href="#e9dc30f1">checkCompability</a>
+
+```cpp
+static bool checkCompability (
+    const RenderContext * renderer
+) 
+```
+
+
+
+
+
+## Public Functions Documentation
+
+### <span style="opacity:0.5;">function</span> <a id="ee0911a8" href="#ee0911a8">Texture2D</a>
+
+```cpp
+ Texture2D () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="036b8e3f" href="#036b8e3f">Texture2D</a>
+
+```cpp
+ Texture2D (
+    const Texture2D & second
+) = delete 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="75e56eea" href="#75e56eea">Texture2D</a>
+
+```cpp
+ Texture2D (
+    Texture2D && second
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="3aeb91cf" href="#3aeb91cf">~Texture2D</a>
+
+```cpp
+ ~Texture2D () 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="f59551b6" href="#f59551b6">create</a>
+
+```cpp
+bool create (
+    const ffw::RenderContext * renderer,
+    GLsizei Width,
+    GLsizei Height,
+    GLenum internalformat,
+    GLenum format,
+    GLenum pixelformat
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="e0034941" href="#e0034941">createFromBuffer</a>
+
+```cpp
+bool createFromBuffer (
+    const ffw::RenderContext * renderer,
+    const ImageBuffer & buffer,
+    bool inverse = false
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="d5d7f904" href="#d5d7f904">resize</a>
+
+```cpp
+bool resize (
+    GLsizei width,
+    GLsizei height
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="713b96bd" href="#713b96bd">setPixels</a>
+
+```cpp
+bool setPixels (
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLsizei width,
+    GLsizei height,
+    const void * pixels
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="8efe1953" href="#8efe1953">getPixels</a>
+
+```cpp
+bool getPixels (
+    void * pixels
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="176b4505" href="#176b4505">operator=</a>
+
+```cpp
+Texture2D & operator= (
+    const Texture2D & second
+) = delete 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="0d0ce047" href="#0d0ce047">operator=</a>
+
+```cpp
+Texture2D & operator= (
+    Texture2D && second
+) 
+```
+
+
+
+
+
