@@ -40,7 +40,7 @@ Also, please make sure that your `glext.h` located in `/usr/local/include/GL` is
 ### Instructions
 
 
-Don't know what to do? Look into tutorials located here
+Don't know what to do? Look into [tutorials located here](md_doc_markdown_tutorial-install.html)
 
 ### Source Code
 
