@@ -8,7 +8,7 @@ The documentation for this class was generated from: `include/ffw/math/thread.h`
 ## Detailed description
 
 This thread class can accept any static or member function with variable arguments. The output of the target function is NOT stored as this thread class accepts only void functions. To use non-void functions, see ffw::Thread< Ret(Args...)> Why another thread class? Why not std::thread? The ffw::Thread uses std::thread only if the compiler allows it. Some older GCC compilers do not have access to std::thread. If the std::thread is not available, the ffw::Thread will use POSIX pthreads instead. This also applies for [ffw::Mutex](ffw_Mutex.html). Secondly, there are minor differences between pthreads and std::thread + std::mutex. The two classes: ffw::Thread and [ffw::Mutex](ffw_Mutex.html) make sure that no matter which thread backend is being used, the written code and the behavior will be the same. 
-<pre><div class="lang-cpp"><span class="hljs-normal">// Some class</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">// Some class</span>
 <span class="hljs-normal">class Foo &#123;</span>
 <span class="hljs-normal">    public:</span>
 <span class="hljs-normal">    void baz(int val) &#123;</span>
@@ -84,7 +84,6 @@ inline bool run (
 
 Runs a thread on the member function. 
 
-#### Details:
 **Params:**
 * _func:_ Pointer to the member function 
 * _instance:_ Instance to the class of the member function 
@@ -102,7 +101,6 @@ inline bool run (
 
 Runs a thread on the static function. 
 
-#### Details:
 **Params:**
 * _func:_ Pointer to the static (non-member!) function 
 * _args:_ List of arguments that matches the function declaration 
@@ -116,7 +114,6 @@ inline void getResult ()
 
 Returns the result returned by the executed function. 
 
-#### Details:
 There is no returned value if you are using void function to run a thread. **see:** ffw::Thread< Ret(Args...)> 
 
 
@@ -128,7 +125,6 @@ inline void getResult () const
 
 Returns the result returned by the executed function. 
 
-#### Details:
 There is no returned value if you are using void function to run a thread. **see:** ffw::Thread< Ret(Args...)> 
 
 

@@ -60,5 +60,7 @@ virtual void eventThemeChanged (
 
 
 
+**Overrides:** [eventThemeChanged](/doc/ffw_GuiButton.md#e9b0ba14)
+
 
 

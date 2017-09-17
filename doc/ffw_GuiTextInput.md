@@ -79,6 +79,8 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 
+**Overrides:** [getMinimumWrapSize](/doc/ffw_GuiWidget.md#c12efa3f)
+
 ### <span style="opacity:0.5;">function</span> <a id="f72ee70f" href="#f72ee70f">isEmpty</a>
 
 ```cpp

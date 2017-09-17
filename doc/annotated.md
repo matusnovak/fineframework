@@ -154,7 +154,7 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
   * class **[RenderWindow](/doc/ffw_RenderWindow.md)** 
   * class **[RingBuffer](/doc/ffw_RingBuffer.md)** 
   * class **[SwapWrapper](/doc/ffw_SwapWrapper.md)** 
-  * class **[Texture](/doc/ffw_Texture.md)** 
+  * class **[Texture](/doc/ffw_Texture.md)** <span style="opacity:0.8;">Base class for all texture types. </span>
   * class **[Texture1D](/doc/ffw_Texture1D.md)** 
   * class **[Texture1DArray](/doc/ffw_Texture1DArray.md)** 
   * class **[Texture2D](/doc/ffw_Texture2D.md)** 

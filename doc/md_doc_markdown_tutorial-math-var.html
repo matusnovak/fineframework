@@ -3185,14 +3185,14 @@
 <p>This tutorial will explain how the <a href="ffw_Var.html">ffw::Var</a> class can accept and hold any data type, including creating JSON like data structures via key value pairs and arrays.</p>
 <h4 id="basics">Basics</h4>
 <p>Before we start, make sure to add this to your project:</p>
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;iostream&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;iostream&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span>
 </div></pre>
 
 
 
 <p>A <a href="ffw_Var.html">ffw::Var</a> can be initialized as any other variable and can be re-assigned into a different data type at runtime. There is not limit on what it can hold.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a;</span>
 <span class="hljs-normal">a = 123; </span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Now holds an integer</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
@@ -3209,7 +3209,7 @@
 
 
 <p>At any time, you check which data type it holds.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#b1a50abb">empty</a>()){</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds nothing!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -3229,7 +3229,7 @@
 
 
 <p>The <a href="ffw_Var.html">ffw::Var</a> holds exactly the data type you put into it. This might raise some issues such as handling unsigned and signed integers</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (int)123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (int)123;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;()){</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds an signed integer!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -3253,7 +3253,7 @@
 
 
 <p>You can also modify the stored value. The <a href="ffw_Var.html#1be6ba0e">ffw::Var::getAs</a> method will return a reference to the stored value.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() = 100.0f;</span>
 <span class="hljs-normal"></span>
@@ -3264,7 +3264,7 @@
 
 
 <p>Note that storing a reference might be usefull, but after you re-assign a new value, the reference will be invalid! Imagine it as a pointer, you set a pointer to <code>float&amp; ref = a.getAs&lt;float&gt;();</code> and when you create a new value <code>a = 200.0f</code> the address will change!</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-title">float</span><span class="hljs-normal">&amp; ref = a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;();</span>
 <span class="hljs-normal">ref = 100.0f;</span>
@@ -3283,7 +3283,7 @@
 
 
 <p>Trying to get a different data type than is stored inside of <a href="ffw_Var.html">ffw::Var</a> will throw you an std::bad_cast</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Value of var: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
 <span class="hljs-normal"></span><span class="hljs-comment">// OK Prints: &quot;Value of var: 100&quot;</span><span class="hljs-normal"></span>
@@ -3301,7 +3301,7 @@
 <h4 id="the-problem-with-strings">The problem with strings</h4>
 <p>Because <a href="ffw_Var.html">ffw::Var</a> stores explicit type (if you store double, it&apos;s double, not float... if you store int, it&apos;s not unsigned int, nor long, it&apos;s just an int...) there is an issue with C style strings (const char*), string arrays (const char[N]), and C++ std::strings.</p>
 <p>For example:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;std::string&gt;()){</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds std::string!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -3315,7 +3315,7 @@
 
 
 <p>A simple workaround is to always store value as std::string</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = std::string(</span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">);</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = std::string(</span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">);</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;std::string&gt;()){</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;a holds std::string!&quot;</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -3329,7 +3329,7 @@
 
 
 <p>If you are using both std::string and const char<em> then you might would like to use <a href="ffw_Var.html#f587f1a0">ffw::Var::isString</a> and <a href="ffw_Var.html#1804ed51">ffw::Var::toString</a> methods. Note that the toString method will always return a copy of the original string. <em>*If the <a href="ffw_Var.html">ffw::Var</a> does not hold any kind of string, it will return an empty string.</em></em></p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> b = std::string(</span><span class="hljs-string">&quot;Hello World!&quot;</span><span class="hljs-normal">);</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Always true, even though they are different data types</span><span class="hljs-normal"></span>
@@ -3345,7 +3345,7 @@
 
 <h4 id="the-problem-with-inetegers-floats-booleans">The problem with inetegers, floats, booleans</h4>
 <p>As mentioned above, storing an signed integer and then asking for unsigned integer will throw a std::bad_cast exception.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> int)123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> int)123;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;a: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl; </span><span class="hljs-comment">// Error! std::bad_cast</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;a: &quot;</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> </span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl; </span><span class="hljs-comment">// OK!</span>
@@ -3364,7 +3364,7 @@
 </ul>
 <h4 id="key-value-mapping">Key value mapping</h4>
 <p>If you heard about JSON, you will know what is this about. The <a href="ffw_Object.html">ffw::Object</a> is a fancy std::unordered_map structure that contains keys as std::string and values as <a href="ffw_Var.html">ffw::Var</a>. With this, we can create a JSON-like object:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Insert into object</span><span class="hljs-normal"></span>
 <span class="hljs-normal">obj.<a href="ffw_Object.html#dc1d6d5e">insert</a>(std::make_pair(</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, 123));</span>
@@ -3379,7 +3379,7 @@
 
 
 <p>You can then use the mapped values as any other <a href="ffw_Var.html">ffw::Var</a></p>
-<pre><div class="lang-cpp"><span class="hljs-keyword">if</span><span class="hljs-normal">(obj[</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">].isInt()){</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-keyword">if</span><span class="hljs-normal">(obj[</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">].isInt()){</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">&quot;value: &quot;</span><span class="hljs-normal"> &lt;&lt; obj[</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">].toInt() &lt;&lt; std::endl;</span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// obj[&quot;value&quot;].getAs&lt;int&gt;() also works</span><span class="hljs-normal"></span>
 <span class="hljs-normal">}</span>
@@ -3394,7 +3394,7 @@
 
 
 <p>The <a href="ffw_Object.html">ffw::Object</a> offers a braced list constructor which simplifies things even further:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = {</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = {</span>
 <span class="hljs-normal">  {</span><span class="hljs-string">&quot;integer&quot;</span><span class="hljs-normal">, 123},</span>
 <span class="hljs-normal">  {</span><span class="hljs-string">&quot;float&quot;</span><span class="hljs-normal">, 456.7f},</span>
 <span class="hljs-normal">  {</span><span class="hljs-string">&quot;double&quot;</span><span class="hljs-normal">, 456.7},</span>
@@ -3422,7 +3422,7 @@
 
 <p>Note that <a href="http://en.cppreference.com/w/cpp/container/unordered_map/operator_at" target="_blank">operator[] will insert a new value if the key does not exist</a> If you wish the program to throw an exception if the key does not exist, you might want to use <a href="ffw_Object.html#a7ec28a3">ffw::Object::at</a> For example: <code>obj.at(&quot;invalid-key&quot;).isBool()</code> will throw <a href="http://en.cppreference.com/w/cpp/error/out_of_range" target="_blank">std::out_of_range</a></p>
 <p>Also, when having an object inside of an object, you might think of doing this:</p>
-<pre><div class="lang-cpp"><span class="hljs-comment">// Access object -&gt; first -&gt; int</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Access object -&gt; first -&gt; int</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;object/first: &quot;</span><span class="hljs-normal"> &lt;&lt; </span>
 <span class="hljs-normal">  obj[</span><span class="hljs-string">&quot;object&quot;</span><span class="hljs-normal">].getAs&lt;<a href="ffw_Object.html">ffw::Object</a>&gt;()[</span><span class="hljs-string">&quot;first&quot;</span><span class="hljs-normal">].toInt()</span>
 <span class="hljs-normal">  &lt;&lt; std::endl;</span>
@@ -3432,7 +3432,7 @@
 
 
 <p>So how come the previous section does not have <code>getAs</code> and it still works? The <a href="ffw_Var.html">ffw::Var</a> offers two [] operators. If you supply std::string, it will assume that you are treating it as <a href="ffw_Object.html">ffw::Object</a>, if you supply an integer, it will assume you are treating it as <a href="ffw_Array.html">ffw::Array</a></p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = 123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = 123;</span>
 <span class="hljs-normal">a[</span><span class="hljs-string">&quot;something&quot;</span><span class="hljs-normal">] = 456; </span><span class="hljs-comment">// std::bad_cast the a is not an object</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">a = <a href="ffw_Object.html">ffw::Object</a>();</span>
@@ -3454,7 +3454,7 @@
 
 <h4 id="arrays">Arrays</h4>
 <p>Alongside <a href="ffw_Object.html">ffw::Object</a> we have <a href="ffw_Array.html">ffw::Array</a> which is fancy std::vector that holds <a href="ffw_Var.html">ffw::Var</a>. It works exactly such as a normal std::vector</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> a;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> a;</span>
 <span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(123); </span><span class="hljs-comment">// int</span><span class="hljs-normal"></span>
 <span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(456.7f); </span><span class="hljs-comment">// float</span><span class="hljs-normal"></span>
 <span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(456.7); </span><span class="hljs-comment">// double</span><span class="hljs-normal"></span>
@@ -3480,7 +3480,7 @@
 
 <h4 id="putting-it-all-together">Putting it all together</h4>
 <p>With both arrays and objects, you can create some fancy looking data structures:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> example1 = { </span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> example1 = { </span>
 <span class="hljs-normal">    </span><span class="hljs-string">&quot;menu&quot;</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a>{</span>
 <span class="hljs-normal">        {</span><span class="hljs-string">&quot;id&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;file&quot;</span><span class="hljs-normal">,},</span>
 <span class="hljs-normal">        {</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;File&quot;</span><span class="hljs-normal">,},</span>
@@ -3498,7 +3498,7 @@
 
 
 <p>Which is equivalent to the following JSON:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">{</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">{</span>
 <span class="hljs-normal">  &quot;menu&quot;: {</span>
 <span class="hljs-normal">    &quot;id&quot;: &quot;file&quot;,</span>
 <span class="hljs-normal">    &quot;value&quot;: &quot;File&quot;,</span>
@@ -3561,7 +3561,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Var - JSON-like data structure","level":"1.4.2.4","depth":3,"next":{"title":"Vectors","level":"1.4.2.5","depth":3,"path":"doc/md_doc_markdown_tutorial-math-vectors.md","ref":"doc/md_doc_markdown_tutorial-math-vectors.md","articles":[]},"previous":{"title":"String tokenizer","level":"1.4.2.3","depth":3,"path":"doc/md_doc_markdown_tutorial-math-tokenizer.md","ref":"doc/md_doc_markdown_tutorial-math-tokenizer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-math-var.md","mtime":"2017-09-16T14:51:44.527Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T14:51:55.130Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Var - JSON-like data structure","level":"1.4.2.4","depth":3,"next":{"title":"Vectors","level":"1.4.2.5","depth":3,"path":"doc/md_doc_markdown_tutorial-math-vectors.md","ref":"doc/md_doc_markdown_tutorial-math-vectors.md","articles":[]},"previous":{"title":"String tokenizer","level":"1.4.2.3","depth":3,"path":"doc/md_doc_markdown_tutorial-math-tokenizer.md","ref":"doc/md_doc_markdown_tutorial-math-tokenizer.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-math-var.md","mtime":"2017-09-17T21:13:33.402Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-17T21:15:11.078Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

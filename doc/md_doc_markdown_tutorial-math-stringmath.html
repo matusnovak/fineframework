@@ -3185,7 +3185,7 @@
 <p>This tutorial will explain how to use some of the additional components of math module regarding string manipulation. The tokenizer is inside of <a href="group__math.html">math module</a> which is a header only library. All you need to do is to add <code>#include &lt;[ffw/math.h]()&gt;</code> into your project.</p>
 <h4 id="extract-filenamepath-information">Extract filename/path information</h4>
 <p>Suppose you have a path to a file and you would like to get its filename and extension.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">std::string path = </span><span class="hljs-string">&quot;C:\Some\Path\To\file.txt&quot;</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::string path = </span><span class="hljs-string">&quot;C:\Some\Path\To\file.txt&quot;</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Directory: &quot;</span><span class="hljs-normal"> &lt;&lt; <a href="ffw.html#b0d25873">ffw::dirname</a>(path) &lt;&lt; std::endl;</span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">&quot;Basename: &quot;</span><span class="hljs-normal"> &lt;&lt; <a href="ffw.html#faaecb7e">ffw::basename</a>(path) &lt;&lt; std::endl;</span>
@@ -3199,7 +3199,7 @@
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-comment">// The following does exactly the same thing as above:</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// The following does exactly the same thing as above:</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::string path = </span><span class="hljs-string">&quot;C:\Some\Path\To\file.txt&quot;</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">auto</span><span class="hljs-normal"> info = <a href="ffw.html#0391411c">ffw::getFileInfo</a>(path);</span>
@@ -3216,7 +3216,7 @@
 
 <h4 id="convert-value-to-string-and-back">Convert value to string and back</h4>
 <p>The <a href="ffw.html#eebabb4c">ffw::stringToVal</a> works only on integers and floating points!</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">std::string msg = </span><span class="hljs-string">&quot;The value is: &quot;</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::string msg = </span><span class="hljs-string">&quot;The value is: &quot;</span><span class="hljs-normal">;</span>
 <span class="hljs-normal">msg += <a href="ffw.html#c771be1a">ffw::valToString</a>(42.05f);</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; msg &lt;&lt; std::endl;</span>
@@ -3226,7 +3226,7 @@
 
 
 <p>To convert from string to any integer/float use <a href="ffw.html#c771be1a">ffw::valToString</a>. Note that you have to supply a data type as a template parameter!</p>
-<pre><div class="lang-cpp"><span class="hljs-title">int</span><span class="hljs-normal"> val = <a href="ffw.html#709a0897">ffw::stringToVal<int></int></a>(</span><span class="hljs-string">&quot;-123456&quot;</span><span class="hljs-normal">);</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-title">int</span><span class="hljs-normal"> val = <a href="ffw.html#709a0897">ffw::stringToVal<int></int></a>(</span><span class="hljs-string">&quot;-123456&quot;</span><span class="hljs-normal">);</span>
 <span class="hljs-normal">std::cout &lt;&lt; val &lt;&lt; std::endl;</span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;-123456&quot;</span>
 </div></pre>
@@ -3234,7 +3234,7 @@
 
 
 <h4 id="convert-from-hexadecimal-string-to-int">Convert from hexadecimal string to int</h4>
-<pre><div class="lang-cpp"><span class="hljs-title">int</span><span class="hljs-normal"> val = ffw::hexToVal&lt;int&gt;(</span><span class="hljs-string">&quot;FFFF&quot;</span><span class="hljs-normal">);</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-title">int</span><span class="hljs-normal"> val = ffw::hexToVal&lt;int&gt;(</span><span class="hljs-string">&quot;FFFF&quot;</span><span class="hljs-normal">);</span>
 <span class="hljs-normal">std::cout &lt;&lt; val &lt;&lt; std::endl;</span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Prints: &quot;65535&quot;</span>
 </div></pre>
@@ -3243,7 +3243,7 @@
 
 <h4 id="convert-utf-8-to-stdwstring-and-back">Convert UTF-8 to std::wstring and back</h4>
 <p>The std::wstring is not directly meant to be UTF-16 string. However, because wchar can hold up to 65535 (even more on Unix) it is perfect storage for decoding UTF-8 string.</p>
-<pre><div class="lang-cpp"><span class="hljs-comment">// String containing 24 UTF-8 enchoded characters </span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// String containing 24 UTF-8 enchoded characters </span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::string str = </span><span class="hljs-string">&quot;\x48\x65\x69\x7A\xC3\xB6\x6C\x72\xC3\xBC\x63\x6B\x73\x74\x6F\xC3\x9F\x61\x62\x64\xC3\xA4\x6D\x70\x66\x75\x6E\x67&quot;</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Convert to multi byte string std::wstring</span><span class="hljs-normal"></span>
@@ -3312,7 +3312,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Extra string functions","level":"1.4.2.1","depth":3,"next":{"title":"Threads","level":"1.4.2.2","depth":3,"path":"doc/md_doc_markdown_tutorial-math-threads.md","ref":"doc/md_doc_markdown_tutorial-math-threads.md","articles":[]},"previous":{"title":"Math Module","level":"1.4.2","depth":2,"path":"doc/md_doc_markdown_tutorial-math.md","ref":"doc/md_doc_markdown_tutorial-math.md","articles":[{"title":"Extra string functions","level":"1.4.2.1","depth":3,"path":"doc/md_doc_markdown_tutorial-math-stringmath.md","ref":"doc/md_doc_markdown_tutorial-math-stringmath.md","articles":[]},{"title":"Threads","level":"1.4.2.2","depth":3,"path":"doc/md_doc_markdown_tutorial-math-threads.md","ref":"doc/md_doc_markdown_tutorial-math-threads.md","articles":[]},{"title":"String tokenizer","level":"1.4.2.3","depth":3,"path":"doc/md_doc_markdown_tutorial-math-tokenizer.md","ref":"doc/md_doc_markdown_tutorial-math-tokenizer.md","articles":[]},{"title":"Var - JSON-like data structure","level":"1.4.2.4","depth":3,"path":"doc/md_doc_markdown_tutorial-math-var.md","ref":"doc/md_doc_markdown_tutorial-math-var.md","articles":[]},{"title":"Vectors","level":"1.4.2.5","depth":3,"path":"doc/md_doc_markdown_tutorial-math-vectors.md","ref":"doc/md_doc_markdown_tutorial-math-vectors.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-math-stringmath.md","mtime":"2017-09-16T14:51:44.113Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T14:51:55.130Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Extra string functions","level":"1.4.2.1","depth":3,"next":{"title":"Threads","level":"1.4.2.2","depth":3,"path":"doc/md_doc_markdown_tutorial-math-threads.md","ref":"doc/md_doc_markdown_tutorial-math-threads.md","articles":[]},"previous":{"title":"Math Module","level":"1.4.2","depth":2,"path":"doc/md_doc_markdown_tutorial-math.md","ref":"doc/md_doc_markdown_tutorial-math.md","articles":[{"title":"Extra string functions","level":"1.4.2.1","depth":3,"path":"doc/md_doc_markdown_tutorial-math-stringmath.md","ref":"doc/md_doc_markdown_tutorial-math-stringmath.md","articles":[]},{"title":"Threads","level":"1.4.2.2","depth":3,"path":"doc/md_doc_markdown_tutorial-math-threads.md","ref":"doc/md_doc_markdown_tutorial-math-threads.md","articles":[]},{"title":"String tokenizer","level":"1.4.2.3","depth":3,"path":"doc/md_doc_markdown_tutorial-math-tokenizer.md","ref":"doc/md_doc_markdown_tutorial-math-tokenizer.md","articles":[]},{"title":"Var - JSON-like data structure","level":"1.4.2.4","depth":3,"path":"doc/md_doc_markdown_tutorial-math-var.md","ref":"doc/md_doc_markdown_tutorial-math-var.md","articles":[]},{"title":"Vectors","level":"1.4.2.5","depth":3,"path":"doc/md_doc_markdown_tutorial-math-vectors.md","ref":"doc/md_doc_markdown_tutorial-math-vectors.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-math-stringmath.md","mtime":"2017-09-17T21:13:33.047Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-17T21:15:11.078Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

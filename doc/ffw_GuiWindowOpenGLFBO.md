@@ -50,6 +50,8 @@ inline virtual bool create (
 
 
 
+**Overrides:** [create](/doc/ffw_GuiWindowOpenGL.md#c7df1c0d)
+
 ### <span style="opacity:0.5;">function</span> <a id="17a89158" href="#17a89158">destroy</a>
 
 ```cpp
@@ -57,6 +59,8 @@ inline virtual void destroy ()
 ```
 
 
+
+**Overrides:** [destroy](/doc/ffw_GuiWindowOpenGL.md#69b35170)
 
 ### <span style="opacity:0.5;">function</span> <a id="17470439" href="#17470439">resize</a>
 
@@ -69,6 +73,8 @@ inline virtual void resize (
 
 
 
+**Overrides:** [resize](/doc/ffw_GuiWindowOpenGL.md#b42ac84e)
+
 ### <span style="opacity:0.5;">function</span> <a id="0a4cdf90" href="#0a4cdf90">startRender</a>
 
 ```cpp
@@ -77,6 +83,8 @@ inline virtual void startRender ()
 
 
 
+**Overrides:** [startRender](/doc/ffw_GuiWindowOpenGL.md#0ebe5781)
+
 ### <span style="opacity:0.5;">function</span> <a id="222ae168" href="#222ae168">endRender</a>
 
 ```cpp
@@ -84,6 +92,8 @@ inline virtual void endRender ()
 ```
 
 
+
+**Overrides:** [endRender](/doc/ffw_GuiWindowOpenGL.md#d5a627e1)
 
 ### <span style="opacity:0.5;">function</span> <a id="c45e9c10" href="#c45e9c10">getFboTexture</a>
 

@@ -3185,7 +3185,7 @@
 <p>This tutorial will explain how to create and manage an OpenGL rendering window using <a href="ffw_GLFWRenderWindow.html">ffw::GLFWRenderWindow</a> class.</p>
 <h4 id="starting-from-scratch">Starting from scratch</h4>
 <p>First, you need to include the necessary FFW header file. The FineFramework is separated into several modules: Graphics, Math, Data, Gui, etc... They are all independent, however, they all rely on the Math module. The header file you are looking for is <a href="">ffw/graphics.h</a></p>
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 </div></pre>
 
 
@@ -3194,7 +3194,7 @@
 <p>You don&apos;t need to include math module as well, it is automatically included by <strong>all</strong> modules. </p>
 </blockquote>
 <p>Next, we need to create our own class which will hold the functionality of the window. Simply, create a class derived from <a href="ffw_GLFWRenderWindow.html">ffw::GLFWRenderWindow</a>.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow {</span>
 <span class="hljs-normal">public:</span>
@@ -3219,7 +3219,7 @@
 <li><p><strong><a href="ffw_GLFWRenderWindow.html#d1e6b4ff">ffw::GLFWRenderWindow::windowCloseEvent</a></strong> - This mthod is called when you click on the [X] button on the window.</p>
 </li>
 </ul>
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow {</span>
 <span class="hljs-normal">public:</span>
@@ -3256,7 +3256,7 @@
 
 
 <p>All C++ applications need a main function</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow {</span>
 <span class="hljs-normal">public:</span>
@@ -3271,7 +3271,7 @@
 
 
 <p>Inside of main, we will create an instance of our window. First, we need to set arguments for the window. These arguments define what the size of the window should be (or the position) when the window is created and so on. All the arguments and its description can be found here <a href="ffw_GLFWRenderWindowArgs.html">ffw::GLFWRenderWindowArgs</a>.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow {</span>
 <span class="hljs-normal">public:</span>
@@ -3293,7 +3293,7 @@
 
 
 <p>Lastly, we need to declare an instance of our window and write a code that will run the main loop. This will be explained below.</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow {</span>
 <span class="hljs-normal">public:</span>
@@ -3364,7 +3364,7 @@
 </ul>
 <p>They are self explanatory. To read more about each method, simply follow the link or look it up in the documentation of <a href="ffw_GLFWRenderWindow.html">ffw::GLFWRenderWindow</a>.</p>
 <p>To use the function, for example MouseMovedEvent (tracking the mouse position) simply add it into your class and mark is as <code>override</code></p>
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow {</span>
 <span class="hljs-normal">public:</span>
@@ -3421,7 +3421,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Creating a Rendering Window","level":"1.4.3.1","depth":3,"next":{"title":"Data Module","level":"1.4.4","depth":2,"path":"doc/md_doc_markdown_tutorial-data.md","ref":"doc/md_doc_markdown_tutorial-data.md","articles":[{"title":"Decode CSV","level":"1.4.4.1","depth":3,"path":"doc/md_doc_markdown_tutorial-data-csv.md","ref":"doc/md_doc_markdown_tutorial-data-csv.md","articles":[]},{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"path":"doc/md_doc_markdown_tutorial-data-json.md","ref":"doc/md_doc_markdown_tutorial-data-json.md","articles":[]},{"title":"Encode and decode XML","level":"1.4.4.3","depth":3,"path":"doc/md_doc_markdown_tutorial-data-xml.md","ref":"doc/md_doc_markdown_tutorial-data-xml.md","articles":[]}]},"previous":{"title":"Graphics Module","level":"1.4.3","depth":2,"path":"doc/md_doc_markdown_tutorial-graphics.md","ref":"doc/md_doc_markdown_tutorial-graphics.md","articles":[{"title":"Creating a Rendering Window","level":"1.4.3.1","depth":3,"path":"doc/md_doc_markdown_tutorial-graphics-window.md","ref":"doc/md_doc_markdown_tutorial-graphics-window.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-graphics-window.md","mtime":"2017-09-16T14:51:43.976Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T14:51:55.130Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Creating a Rendering Window","level":"1.4.3.1","depth":3,"next":{"title":"Data Module","level":"1.4.4","depth":2,"path":"doc/md_doc_markdown_tutorial-data.md","ref":"doc/md_doc_markdown_tutorial-data.md","articles":[{"title":"Decode CSV","level":"1.4.4.1","depth":3,"path":"doc/md_doc_markdown_tutorial-data-csv.md","ref":"doc/md_doc_markdown_tutorial-data-csv.md","articles":[]},{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"path":"doc/md_doc_markdown_tutorial-data-json.md","ref":"doc/md_doc_markdown_tutorial-data-json.md","articles":[]},{"title":"Encode and decode XML","level":"1.4.4.3","depth":3,"path":"doc/md_doc_markdown_tutorial-data-xml.md","ref":"doc/md_doc_markdown_tutorial-data-xml.md","articles":[]}]},"previous":{"title":"Graphics Module","level":"1.4.3","depth":2,"path":"doc/md_doc_markdown_tutorial-graphics.md","ref":"doc/md_doc_markdown_tutorial-graphics.md","articles":[{"title":"Creating a Rendering Window","level":"1.4.3.1","depth":3,"path":"doc/md_doc_markdown_tutorial-graphics-window.md","ref":"doc/md_doc_markdown_tutorial-graphics-window.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-graphics-window.md","mtime":"2017-09-17T21:13:32.854Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-17T21:15:11.078Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

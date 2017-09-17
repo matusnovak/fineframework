@@ -159,5 +159,7 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 
+**Overrides:** [getMinimumWrapSize](/doc/ffw_GuiWidget.md#c12efa3f)
+
 
 

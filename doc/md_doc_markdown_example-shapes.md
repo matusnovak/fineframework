@@ -9,7 +9,7 @@ The purpose of this example is to show various 2D primitives included in graphic
 **Requires finegraphics and finemath module to run**
 
 
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">math.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">inline</span><span class="hljs-normal"> </span><span class="hljs-title">int</span><span class="hljs-normal"> RandomRange(</span><span class="hljs-title">int</span><span class="hljs-normal"> min, </span><span class="hljs-title">int</span><span class="hljs-normal"> max) &#123;</span>

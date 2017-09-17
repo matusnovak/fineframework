@@ -28,6 +28,8 @@ inline virtual bool isCreated () const
 
 
 
+**Overrides:** [isCreated](/doc/ffw_GuiImage.md#833c84e1)
+
 ### <span style="opacity:0.5;">function</span> <a id="adc2eb1f" href="#adc2eb1f">destroy</a>
 
 ```cpp
@@ -35,6 +37,8 @@ inline virtual void destroy ()
 ```
 
 
+
+**Overrides:** [destroy](/doc/ffw_GuiImage.md#58fb2680)
 
 ### <span style="opacity:0.5;">function</span> <a id="f8248ac8" href="#f8248ac8">getWidth</a>
 
@@ -44,6 +48,8 @@ inline virtual int getWidth () const
 
 
 
+**Overrides:** [getWidth](/doc/ffw_GuiImage.md#fa13a690)
+
 ### <span style="opacity:0.5;">function</span> <a id="e617b32a" href="#e617b32a">getHeight</a>
 
 ```cpp
@@ -51,6 +57,8 @@ inline virtual int getHeight () const
 ```
 
 
+
+**Overrides:** [getHeight](/doc/ffw_GuiImage.md#d66eb7be)
 
 
 

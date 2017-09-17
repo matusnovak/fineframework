@@ -52,7 +52,7 @@ _Note that OpenGL library is needed only when using Graphics Module!_
 Your configuration is done, now test the project to make sure everything works. Copy paste the following example:
 
 
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-keyword">class </span><span class="hljs-normal">App: </span><span class="hljs-keyword">public</span><span class="hljs-normal"> <a href="ffw_GLFWRenderWindow.html">ffw::GLFWRenderWindow</a> &#123;</span>
 <span class="hljs-normal"></span><span class="hljs-keyword">public</span><span class="hljs-normal">:</span>

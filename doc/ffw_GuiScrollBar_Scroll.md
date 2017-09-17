@@ -48,5 +48,7 @@ virtual void eventThemeChanged (
 
 
 
+**Overrides:** [eventThemeChanged](/doc/ffw_GuiSlider.md#eefa90aa)
+
 
 

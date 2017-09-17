@@ -3291,7 +3291,6 @@
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">shouldRender</span> <span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>
 </code></pre>
 <p>Returns true if the window is not closed. </p>
-<h4 id="details">Details:</h4>
 <p>When <a href="ffw_RenderWindow.html#48c90ff6">shouldClose()</a> is called with a &apos;true&apos; boolean value, this function will then return false </p>
 <h3 id="function-renderframe"><span style="opacity:0.5;">function</span> <a id="f1f7eabd" href="#f1f7eabd">renderFrame</a></h3>
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">renderFrame</span> <span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>
@@ -3301,13 +3300,11 @@
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">poolEvents</span> <span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>
 </code></pre>
 <p>Pools all user input events, if any. </p>
-<h4 id="details">Details:</h4>
 <p>This is blocking function that will return whenever there are any events in the queue. If you wish to wait for the user first, see <a href="ffw_RenderWindow.html#855f4a96">waitForEvents()</a> </p>
 <h3 id="function-waitforevents"><span style="opacity:0.5;">function</span> <a id="855f4a96" href="#855f4a96">waitForEvents</a></h3>
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">waitForEvents</span> <span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>
 </code></pre>
 <p>Pools all user input events and waits if there is none. </p>
-<h4 id="details">Details:</h4>
 <p>This is blocking function that will not return unless there is at least one user event. If you wish to have continuous rendering, even if there are no user events, use <a href="ffw_RenderWindow.html#a3426c98">poolEvents()</a> </p>
 <h3 id="function-isinitialized"><span style="opacity:0.5;">function</span> <a id="16b82494" href="#16b82494">isInitialized</a></h3>
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">bool</span> <span class="hljs-title">isInitialized</span> <span class="hljs-params">()</span> <span class="hljs-keyword">const</span> </span>= <span class="hljs-number">0</span>
@@ -3339,7 +3336,6 @@
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">maximize</span> <span class="hljs-params">()</span> </span>= <span class="hljs-number">0</span>
 </code></pre>
 <p>Maximizes the window in order to utilize whole screen. </p>
-<h4 id="details">Details:</h4>
 <p>This is not the same as full screen mode! </p>
 <h3 id="function-setsinglebuffermode"><span style="opacity:0.5;">function</span> <a id="9fecce69" href="#9fecce69">setSingleBufferMode</a></h3>
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">virtual</span> <span class="hljs-keyword">void</span> <span class="hljs-title">setSingleBufferMode</span> <span class="hljs-params">(
@@ -3390,7 +3386,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RenderWindow","level":"2.1.1.89","depth":3,"next":{"title":"RingBuffer","level":"2.1.1.90","depth":3,"path":"doc/ffw_RingBuffer.md","ref":"doc/ffw_RingBuffer.md","articles":[]},"previous":{"title":"RenderExtensions","level":"2.1.1.88","depth":3,"path":"doc/ffw_RenderExtensions.md","ref":"doc/ffw_RenderExtensions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/ffw_RenderWindow.md","mtime":"2017-09-16T14:51:42.430Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T14:51:55.130Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RenderWindow","level":"2.1.1.89","depth":3,"next":{"title":"RingBuffer","level":"2.1.1.90","depth":3,"path":"doc/ffw_RingBuffer.md","ref":"doc/ffw_RingBuffer.md","articles":[]},"previous":{"title":"RenderExtensions","level":"2.1.1.88","depth":3,"path":"doc/ffw_RenderExtensions.md","ref":"doc/ffw_RenderExtensions.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/ffw_RenderWindow.md","mtime":"2017-09-17T21:13:31.204Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-17T21:15:11.078Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

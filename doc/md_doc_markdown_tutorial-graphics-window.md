@@ -9,7 +9,7 @@ This tutorial will explain how to create and manage an OpenGL rendering window u
 First, you need to include the necessary FFW header file. The FineFramework is separated into several modules: Graphics, Math, Data, Gui, etc... They are all independent, however, they all rely on the Math module. The header file you are looking for is [ffw/graphics.h]()
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 </div></pre>
 
 
@@ -21,7 +21,7 @@ First, you need to include the necessary FFW header file. The FineFramework is s
 Next, we need to create our own class which will hold the functionality of the window. Simply, create a class derived from [ffw::GLFWRenderWindow](ffw_GLFWRenderWindow.html).
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow &#123;</span>
 <span class="hljs-normal">public:</span>
@@ -48,7 +48,7 @@ Next, you will need to override some basic method from [ffw::GLFWRenderWindow](f
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow &#123;</span>
 <span class="hljs-normal">public:</span>
@@ -87,7 +87,7 @@ Next, you will need to override some basic method from [ffw::GLFWRenderWindow](f
 All C++ applications need a main function
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow &#123;</span>
 <span class="hljs-normal">public:</span>
@@ -104,7 +104,7 @@ All C++ applications need a main function
 Inside of main, we will create an instance of our window. First, we need to set arguments for the window. These arguments define what the size of the window should be (or the position) when the window is created and so on. All the arguments and its description can be found here [ffw::GLFWRenderWindowArgs](ffw_GLFWRenderWindowArgs.html).
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow &#123;</span>
 <span class="hljs-normal">public:</span>
@@ -128,7 +128,7 @@ Inside of main, we will create an instance of our window. First, we need to set 
 Lastly, we need to declare an instance of our window and write a code that will run the main loop. This will be explained below.
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow &#123;</span>
 <span class="hljs-normal">public:</span>
@@ -214,7 +214,7 @@ They are self explanatory. To read more about each method, simply follow the lin
 To use the function, for example MouseMovedEvent (tracking the mouse position) simply add it into your class and mark is as `override`
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">#include &lt;ffw/graphics.h&gt;</span>
 
 <span class="hljs-normal">class MyCustomClass: public ffw::GLFWRenderWindow &#123;</span>
 <span class="hljs-normal">public:</span>

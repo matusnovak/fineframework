@@ -125,7 +125,6 @@ bool setPixels (
 
 Sets the pixels. 
 
-#### Details:
 The side parameter corresponds to which side should be set. The accepted values are from 0 to 5 where each number represents:
 * 0: GL_TEXTURE_CUBE_MAP_POSITIVE_X (Right)
 

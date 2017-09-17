@@ -47,6 +47,8 @@ virtual bool write (
 
 
 
+**Overrides:** [write](/doc/ffw_JsonWriter_Stream.md#a7c9ef03)
+
 ### <span style="opacity:0.5;">function</span> <a id="b0bf021d" href="#b0bf021d">get</a>
 
 ```cpp

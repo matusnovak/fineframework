@@ -1,6 +1,7 @@
 Texture
 ===================================
 
+Base class for all texture types. 
 
 **Implemented by:** [ffw::Texture1D](ffw_Texture1D.html), [ffw::Texture1DArray](ffw_Texture1DArray.html), [ffw::Texture2D](ffw_Texture2D.html), [ffw::Texture2DArray](ffw_Texture2DArray.html), [ffw::Texture2DArrayMS](ffw_Texture2DArrayMS.html), [ffw::Texture2DMS](ffw_Texture2DMS.html), [ffw::Texture3D](ffw_Texture3D.html), [ffw::TextureCubemap](ffw_TextureCubemap.html), 
 
@@ -21,18 +22,18 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 | Type | Name |
 | -------: | :------- |
 |  bool | [loaded_](#3712489e) |
-|  unsigned int | [textureformat_](#5d93f702) |
-|  unsigned int | [internalformat_](#d21c801d) |
-|  unsigned int | [format_](#ecfcb0c7) |
-|  unsigned int | [pixelformat_](#30be9b01) |
-|  unsigned int | [buffer_](#357761a5) |
-|  int | [width_](#40f402bd) |
-|  int | [height_](#027f8ad6) |
-|  int | [depth_](#6f38ebd2) |
-|  int | [layers_](#e15bc835) |
+|  GLenum | [textureformat_](#c6a4f73a) |
+|  GLenum | [internalformat_](#89c39537) |
+|  GLenum | [format_](#961b7e69) |
+|  GLenum | [pixelformat_](#e7781fb9) |
+|  GLuint | [buffer_](#3f178b6f) |
+|  GLsizei | [width_](#9bab2969) |
+|  GLsizei | [height_](#e13b2a3f) |
+|  GLsizei | [depth_](#703d2c08) |
+|  GLsizei | [layers_](#abef61ff) |
 |  bool | [mipmaps_](#68175277) |
 |  bool | [initialized_](#78620727) |
-|  int | [samples_](#5eda4ea3) |
+|  GLsizei | [samples_](#88c51f03) |
 |  const [RenderExtensions](ffw_RenderExtensions.html) * | [gl_](#52cddaa1) |
 
 
@@ -46,26 +47,26 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |  void | [swap](#65f662f7) ([Texture](ffw_Texture.html) & _other_)  |
 |  virtual  | [~Texture](#dbda44f2) ()  |
 |  bool | [isCreated](#84ce8388) () const  |
-|  void | [destroy](#97a0d99f) ()  |
-|  void | [bind](#7f4f9eff) () const  |
+|  void | [destroy](#97a0d99f) () <div style="opacity:0.8;">Destroys the texture. </div> |
+|  void | [bind](#7f4f9eff) () const <div style="opacity:0.8;">Actives the texture. </div> |
 |  void | [unbind](#e194da6f) () const  |
-|  unsigned int | [getHandle](#49985807) () const  |
-|  int | [getWidth](#88cc7d54) () const  |
-|  int | [getHeight](#601ebb4a) () const  |
-|  int | [getLayers](#f4ba027d) () const  |
-|  int | [getDepth](#ee377ec5) () const  |
-|  int | [getSamples](#6ba63b6e) () const  |
-|  unsigned int | [getInternalFormat](#fce3679f) () const  |
-|  unsigned int | [getFormat](#30486275) () const  |
-|  unsigned int | [getPixelFormat](#eff9ff9a) () const  |
-|  unsigned int | [getTextureFormat](#3dc19096) () const  |
-|  void | [setEnvParami](#47bd0fcc) (unsigned int _Target_, unsigned int _Name_, int _Value_)  |
-|  void | [setEnvParamf](#e920eadf) (unsigned int _Target_, unsigned int _Name_, float _Value_)  |
-|  void | [setTexParami](#8da9b27f) (unsigned int _Name_, int _Value_)  |
-|  void | [setTexParamiv](#16de1a6a) (unsigned int _Name_, int * _Values_)  |
-|  void | [setTexParamf](#f811fa82) (unsigned int _Name_, float _Value_)  |
-|  void | [setTexParamfv](#5945ac50) (unsigned int _Name_, float * _Values_)  |
-|  bool | [generateMipmaps](#6add236e) ()  |
+|  GLuint | [getHandle](#00fffa76) () const <div style="opacity:0.8;">Returns the OpenGL pointer, a handle to the texture. </div> |
+|  GLsizei | [getWidth](#e923c54f) () const <div style="opacity:0.8;">Returns the width of the texture. </div> |
+|  GLsizei | [getHeight](#7d5ac775) () const <div style="opacity:0.8;">Returns the height of the texture. </div> |
+|  GLsizei | [getLayers](#14bc2e6b) () const <div style="opacity:0.8;">Returns the number of layers. </div> |
+|  GLsizei | [getDepth](#5ed77603) () const <div style="opacity:0.8;">Returns the depth of the texture. </div> |
+|  GLsizei | [getSamples](#386dc7e0) () const  |
+|  GLenum | [getInternalFormat](#8617d7f5) () const <div style="opacity:0.8;">Returns the number of color components in the texture. </div> |
+|  GLenum | [getFormat](#af4e84ce) () const <div style="opacity:0.8;">Returns the format of the pixel data. </div> |
+|  GLenum | [getPixelFormat](#892d4b10) () const <div style="opacity:0.8;">Returns the data type of the pixel data. </div> |
+|  GLenum | [getTextureFormat](#2175a3f9) () const <div style="opacity:0.8;">Returns the type of the texture. </div> |
+|  void | [setEnvParami](#c4d7b948) (GLenum _Target_, GLenum _Name_, GLint _Value_)  |
+|  void | [setEnvParamf](#06d0d348) (GLenum _Target_, GLenum _Name_, GLfloat _Value_)  |
+|  void | [setTexParami](#c59b22c3) (GLenum _Name_, GLint _Value_)  |
+|  void | [setTexParamiv](#2d153939) (GLenum _Name_, GLint * _Values_)  |
+|  void | [setTexParamf](#70d91320) (GLenum _Name_, GLfloat _Value_)  |
+|  void | [setTexParamfv](#3a3ce5aa) (GLenum _Name_, GLfloat * _Values_)  |
+|  bool | [generateMipmaps](#6add236e) () <div style="opacity:0.8;">Generates mip maps. </div> |
 |  void | [setFiltering](#c441998e) ([Texture::Filtering](ffw_Texture.html#0342016e) _filtering_)  |
 |  void | [setWrapping](#3edc29d4) ([Texture::Wrapping](ffw_Texture.html#e1626a42) _wrapping_)  |
 |  [Texture](ffw_Texture.html) & | [operator=](#eeca55f9) (const [Texture](ffw_Texture.html) & _other_) = delete  |
@@ -111,74 +112,74 @@ bool loaded_
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="5d93f702" href="#5d93f702">textureformat_</a>
+### <span style="opacity:0.5;">variable</span> <a id="c6a4f73a" href="#c6a4f73a">textureformat_</a>
 
 ```cpp
-unsigned int textureformat_
+GLenum textureformat_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="d21c801d" href="#d21c801d">internalformat_</a>
+### <span style="opacity:0.5;">variable</span> <a id="89c39537" href="#89c39537">internalformat_</a>
 
 ```cpp
-unsigned int internalformat_
+GLenum internalformat_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="ecfcb0c7" href="#ecfcb0c7">format_</a>
+### <span style="opacity:0.5;">variable</span> <a id="961b7e69" href="#961b7e69">format_</a>
 
 ```cpp
-unsigned int format_
+GLenum format_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="30be9b01" href="#30be9b01">pixelformat_</a>
+### <span style="opacity:0.5;">variable</span> <a id="e7781fb9" href="#e7781fb9">pixelformat_</a>
 
 ```cpp
-unsigned int pixelformat_
+GLenum pixelformat_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="357761a5" href="#357761a5">buffer_</a>
+### <span style="opacity:0.5;">variable</span> <a id="3f178b6f" href="#3f178b6f">buffer_</a>
 
 ```cpp
-unsigned int buffer_
+GLuint buffer_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="40f402bd" href="#40f402bd">width_</a>
+### <span style="opacity:0.5;">variable</span> <a id="9bab2969" href="#9bab2969">width_</a>
 
 ```cpp
-int width_
+GLsizei width_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="027f8ad6" href="#027f8ad6">height_</a>
+### <span style="opacity:0.5;">variable</span> <a id="e13b2a3f" href="#e13b2a3f">height_</a>
 
 ```cpp
-int height_
+GLsizei height_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="6f38ebd2" href="#6f38ebd2">depth_</a>
+### <span style="opacity:0.5;">variable</span> <a id="703d2c08" href="#703d2c08">depth_</a>
 
 ```cpp
-int depth_
+GLsizei depth_
 ```
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="e15bc835" href="#e15bc835">layers_</a>
+### <span style="opacity:0.5;">variable</span> <a id="abef61ff" href="#abef61ff">layers_</a>
 
 ```cpp
-int layers_
+GLsizei layers_
 ```
 
 
@@ -199,10 +200,10 @@ bool initialized_
 
 
 
-### <span style="opacity:0.5;">variable</span> <a id="5eda4ea3" href="#5eda4ea3">samples_</a>
+### <span style="opacity:0.5;">variable</span> <a id="88c51f03" href="#88c51f03">samples_</a>
 
 ```cpp
-int samples_
+GLsizei samples_
 ```
 
 
@@ -279,15 +280,16 @@ inline bool isCreated () const
 void destroy () 
 ```
 
+Destroys the texture. 
 
-
+Destroys the texture and the allocated memory to it. Calling this on already deleted texture does nothing. 
 ### <span style="opacity:0.5;">function</span> <a id="7f4f9eff" href="#7f4f9eff">bind</a>
 
 ```cpp
 void bind () const 
 ```
 
-
+Actives the texture. 
 
 ### <span style="opacity:0.5;">function</span> <a id="e194da6f" href="#e194da6f">unbind</a>
 
@@ -297,149 +299,156 @@ void unbind () const
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="49985807" href="#49985807">getHandle</a>
+### <span style="opacity:0.5;">function</span> <a id="00fffa76" href="#00fffa76">getHandle</a>
 
 ```cpp
-inline unsigned int getHandle () const 
+inline GLuint getHandle () const 
+```
+
+Returns the OpenGL pointer, a handle to the texture. 
+
+### <span style="opacity:0.5;">function</span> <a id="e923c54f" href="#e923c54f">getWidth</a>
+
+```cpp
+inline GLsizei getWidth () const 
+```
+
+Returns the width of the texture. 
+
+### <span style="opacity:0.5;">function</span> <a id="7d5ac775" href="#7d5ac775">getHeight</a>
+
+```cpp
+inline GLsizei getHeight () const 
+```
+
+Returns the height of the texture. 
+
+If the texture is 1D texture, the returned type is always 1. 
+### <span style="opacity:0.5;">function</span> <a id="14bc2e6b" href="#14bc2e6b">getLayers</a>
+
+```cpp
+inline GLsizei getLayers () const 
+```
+
+Returns the number of layers. 
+
+If the texture is not an array, the returned value is always 1. 
+### <span style="opacity:0.5;">function</span> <a id="5ed77603" href="#5ed77603">getDepth</a>
+
+```cpp
+inline GLsizei getDepth () const 
+```
+
+Returns the depth of the texture. 
+
+This only applies to 3D texture, otherwise returns 1. 
+### <span style="opacity:0.5;">function</span> <a id="386dc7e0" href="#386dc7e0">getSamples</a>
+
+```cpp
+inline GLsizei getSamples () const 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="88cc7d54" href="#88cc7d54">getWidth</a>
+### <span style="opacity:0.5;">function</span> <a id="8617d7f5" href="#8617d7f5">getInternalFormat</a>
 
 ```cpp
-inline int getWidth () const 
+inline GLenum getInternalFormat () const 
 ```
 
+Returns the number of color components in the texture. 
 
-
-### <span style="opacity:0.5;">function</span> <a id="601ebb4a" href="#601ebb4a">getHeight</a>
+The internal format can be GL_RGB8, GL_RGBA8, GL_RGB32F, etc... 
+### <span style="opacity:0.5;">function</span> <a id="af4e84ce" href="#af4e84ce">getFormat</a>
 
 ```cpp
-inline int getHeight () const 
+inline GLenum getFormat () const 
 ```
 
+Returns the format of the pixel data. 
 
-
-### <span style="opacity:0.5;">function</span> <a id="f4ba027d" href="#f4ba027d">getLayers</a>
+The format can be GL_RGB, GL_RED, GL_RGBA, etc... 
+### <span style="opacity:0.5;">function</span> <a id="892d4b10" href="#892d4b10">getPixelFormat</a>
 
 ```cpp
-inline int getLayers () const 
+inline GLenum getPixelFormat () const 
 ```
 
+Returns the data type of the pixel data. 
 
-
-### <span style="opacity:0.5;">function</span> <a id="ee377ec5" href="#ee377ec5">getDepth</a>
+The pixel format can be GL_UNSIGNED_BYTE, GL_FLOAT, etc... 
+### <span style="opacity:0.5;">function</span> <a id="2175a3f9" href="#2175a3f9">getTextureFormat</a>
 
 ```cpp
-inline int getDepth () const 
+inline GLenum getTextureFormat () const 
 ```
 
+Returns the type of the texture. 
 
-
-### <span style="opacity:0.5;">function</span> <a id="6ba63b6e" href="#6ba63b6e">getSamples</a>
-
-```cpp
-inline int getSamples () const 
-```
-
-
-
-### <span style="opacity:0.5;">function</span> <a id="fce3679f" href="#fce3679f">getInternalFormat</a>
-
-```cpp
-inline unsigned int getInternalFormat () const 
-```
-
-
-
-### <span style="opacity:0.5;">function</span> <a id="30486275" href="#30486275">getFormat</a>
-
-```cpp
-inline unsigned int getFormat () const 
-```
-
-
-
-### <span style="opacity:0.5;">function</span> <a id="eff9ff9a" href="#eff9ff9a">getPixelFormat</a>
-
-```cpp
-inline unsigned int getPixelFormat () const 
-```
-
-
-
-### <span style="opacity:0.5;">function</span> <a id="3dc19096" href="#3dc19096">getTextureFormat</a>
-
-```cpp
-inline unsigned int getTextureFormat () const 
-```
-
-
-
-### <span style="opacity:0.5;">function</span> <a id="47bd0fcc" href="#47bd0fcc">setEnvParami</a>
+The texture format can be GL_TEXTURE_1D, GL_TEXTURE_2D, etc... 
+### <span style="opacity:0.5;">function</span> <a id="c4d7b948" href="#c4d7b948">setEnvParami</a>
 
 ```cpp
 void setEnvParami (
-    unsigned int Target,
-    unsigned int Name,
-    int Value
+    GLenum Target,
+    GLenum Name,
+    GLint Value
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="e920eadf" href="#e920eadf">setEnvParamf</a>
+### <span style="opacity:0.5;">function</span> <a id="06d0d348" href="#06d0d348">setEnvParamf</a>
 
 ```cpp
 void setEnvParamf (
-    unsigned int Target,
-    unsigned int Name,
-    float Value
+    GLenum Target,
+    GLenum Name,
+    GLfloat Value
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="8da9b27f" href="#8da9b27f">setTexParami</a>
+### <span style="opacity:0.5;">function</span> <a id="c59b22c3" href="#c59b22c3">setTexParami</a>
 
 ```cpp
 void setTexParami (
-    unsigned int Name,
-    int Value
+    GLenum Name,
+    GLint Value
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="16de1a6a" href="#16de1a6a">setTexParamiv</a>
+### <span style="opacity:0.5;">function</span> <a id="2d153939" href="#2d153939">setTexParamiv</a>
 
 ```cpp
 void setTexParamiv (
-    unsigned int Name,
-    int * Values
+    GLenum Name,
+    GLint * Values
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="f811fa82" href="#f811fa82">setTexParamf</a>
+### <span style="opacity:0.5;">function</span> <a id="70d91320" href="#70d91320">setTexParamf</a>
 
 ```cpp
 void setTexParamf (
-    unsigned int Name,
-    float Value
+    GLenum Name,
+    GLfloat Value
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="5945ac50" href="#5945ac50">setTexParamfv</a>
+### <span style="opacity:0.5;">function</span> <a id="3a3ce5aa" href="#3a3ce5aa">setTexParamfv</a>
 
 ```cpp
 void setTexParamfv (
-    unsigned int Name,
-    float * Values
+    GLenum Name,
+    GLfloat * Values
 ) 
 ```
 
@@ -451,7 +460,7 @@ void setTexParamfv (
 bool generateMipmaps () 
 ```
 
-
+Generates mip maps. 
 
 ### <span style="opacity:0.5;">function</span> <a id="c441998e" href="#c441998e">setFiltering</a>
 

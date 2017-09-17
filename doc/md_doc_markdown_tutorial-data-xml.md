@@ -8,7 +8,7 @@ This tutorial will explain how to decode and encode XML structure.
 Make sure you add `finedata` into your linker and add the following headers into your project:
 
 
-<pre><div class="lang-cpp"></div></pre>
+<pre><div class="lang-cpp" style="white-space: nowrap;"></div></pre>
 
 
 
@@ -57,7 +57,7 @@ All values (both attributes such as `id="file"` and content `<id>file</id>` ) ar
 Decoding can be done as the following:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> xml;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> xml;</span>
 <span class="hljs-normal"></span><span class="hljs-keyword">try</span><span class="hljs-normal"> &#123;</span>
 <span class="hljs-normal">  xml = <a href="ffw.html#39a9cfe3">ffw::decodeXml</a>(</span>
 <span class="hljs-normal">    </span><span class="hljs-string">"&lt;menu id=\"file\" value=\"File\"&gt;"</span><span class="hljs-normal"></span>
@@ -151,7 +151,7 @@ The following code is a simple way to create a data structure using [ffw::Var](f
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = &#123; </span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = &#123; </span>
 <span class="hljs-normal">  </span><span class="hljs-string">"menu"</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a>&#123;</span>
 <span class="hljs-normal">    &#123;</span><span class="hljs-string">"id"</span><span class="hljs-normal">, </span><span class="hljs-string">"file"</span><span class="hljs-normal">,&#125;,</span>
 <span class="hljs-normal">    &#123;</span><span class="hljs-string">"value"</span><span class="hljs-normal">, </span><span class="hljs-string">"File"</span><span class="hljs-normal">,&#125;,</span>
@@ -182,7 +182,7 @@ The following code is a simple way to create a data structure using [ffw::Var](f
 Will create the following equivalent XML structure:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">&lt;</span><span class="hljs-title">menu</span><span class="hljs-normal">&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">&lt;</span><span class="hljs-title">menu</span><span class="hljs-normal">&gt;</span>
 <span class="hljs-normal">    &lt;</span><span class="hljs-title">id</span><span class="hljs-normal">&gt;</span><span class="hljs-keyword">file</span><span class="hljs-normal">&lt;/</span><span class="hljs-title">id</span><span class="hljs-normal">&gt;</span>
 <span class="hljs-normal">    &lt;</span><span class="hljs-title">value</span><span class="hljs-normal">&gt;</span><span class="hljs-keyword">File</span><span class="hljs-normal">&lt;/</span><span class="hljs-title">value</span><span class="hljs-normal">&gt;</span>
 <span class="hljs-normal">    &lt;</span><span class="hljs-title">popup</span><span class="hljs-normal">&gt;</span>
@@ -232,7 +232,7 @@ Also, note that there is difference between integer, number, float:
 Also, note that [ffw::XmlReader::Node::isString](ffw_XmlReader_Value.html#05622955) returns always true, (but returns false if isEmptr() returns true!) even if toInteger returns true. This is due to the reason that in XML strings are not explicitly written (in syntax form) compared to JSON where we can exactly tell the value is a string.
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_XmlReader.html">ffw::XmlReader</a> xml(</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_XmlReader.html">ffw::XmlReader</a> xml(</span>
 <span class="hljs-normal">  </span><span class="hljs-string">"&lt;menu id=\"file\" value=\"\"&gt;"</span><span class="hljs-normal"></span>
 <span class="hljs-normal">    </span><span class="hljs-string">"&lt;popup&gt;"</span><span class="hljs-normal"></span>
 <span class="hljs-normal">      </span><span class="hljs-string">"&lt;menuitem value=\"New\" onclick=\"CreateNewDoc()\" /&gt;"</span><span class="hljs-normal"></span>
@@ -330,7 +330,7 @@ This method si very similar to the one above and again, it does not use [ffw::Va
 [ffw::XmlWriter](ffw_XmlWriter.html) supports arbitary stream, you can create one based on [ffw::XmlWriter::Stream](ffw_XmlWriter_Stream.html) when you override one simple method. However, [ffw::XmlWriter::StringStream](ffw_XmlWriter_StringStream.html) and [ffw::XmlWriter::FileStream](ffw_XmlWriter_FileStream.html) are provided to you.
 
 
-<pre><div class="lang-cpp"><span class="hljs-keyword">try</span><span class="hljs-normal"> &#123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-keyword">try</span><span class="hljs-normal"> &#123;</span>
 <span class="hljs-normal">  <a href="ffw_XmlWriter_StringStream.html">ffw::XmlWriter::StringStream</a> stream;</span>
 <span class="hljs-normal">  <a href="ffw_XmlWriter.html">ffw::XmlWriter</a> xml(&amp;stream, </span><span class="hljs-string">"    "</span><span class="hljs-normal">, </span><span class="hljs-keyword">false</span><span class="hljs-normal">);</span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// If you wish to create compact XML (no new lines, no indent)</span><span class="hljs-normal"></span>
@@ -387,7 +387,7 @@ This method si very similar to the one above and again, it does not use [ffw::Va
 Creates the following XML structure:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">&lt;</span><span class="hljs-title">menu</span><span class="hljs-normal"> </span><span class="hljs-keyword">id</span><span class="hljs-normal">=</span><span class="hljs-string">"file"</span><span class="hljs-normal">&gt;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">&lt;</span><span class="hljs-title">menu</span><span class="hljs-normal"> </span><span class="hljs-keyword">id</span><span class="hljs-normal">=</span><span class="hljs-string">"file"</span><span class="hljs-normal">&gt;</span>
 <span class="hljs-normal">    &lt;</span><span class="hljs-title">value</span><span class="hljs-normal">&gt;</span><span class="hljs-keyword">File</span><span class="hljs-normal">&lt;/</span><span class="hljs-title">value</span><span class="hljs-normal">&gt;</span>
 <span class="hljs-normal">    &lt;</span><span class="hljs-title">popup</span><span class="hljs-normal">&gt;</span>
 <span class="hljs-normal">        &lt;</span><span class="hljs-title">menuitem</span><span class="hljs-normal"> </span><span class="hljs-keyword">value</span><span class="hljs-normal">=</span><span class="hljs-string">"New"</span><span class="hljs-normal"> </span><span class="hljs-keyword">onclick</span><span class="hljs-normal">=</span><span class="hljs-string">"CreateNewDoc()"</span><span class="hljs-normal">/&gt;</span>

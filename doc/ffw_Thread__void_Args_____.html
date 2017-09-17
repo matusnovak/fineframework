@@ -3186,7 +3186,7 @@
 <p>The documentation for this class was generated from: <code>include/ffw/math/thread.h</code></p>
 <h2 id="detailed-description">Detailed description</h2>
 <p>This thread class can accept any static or member function with variable arguments. The output of the target function is NOT stored as this thread class accepts only void functions. To use non-void functions, see ffw::Thread&lt; Ret(Args...)&gt; Why another thread class? Why not std::thread? The ffw::Thread uses std::thread only if the compiler allows it. Some older GCC compilers do not have access to std::thread. If the std::thread is not available, the ffw::Thread will use POSIX pthreads instead. This also applies for <a href="ffw_Mutex.html">ffw::Mutex</a>. Secondly, there are minor differences between pthreads and std::thread + std::mutex. The two classes: ffw::Thread and <a href="ffw_Mutex.html">ffw::Mutex</a> make sure that no matter which thread backend is being used, the written code and the behavior will be the same. </p>
-<pre><div class="lang-cpp"><span class="hljs-normal">// Some class</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">// Some class</span>
 <span class="hljs-normal">class Foo {</span>
 <span class="hljs-normal">    public:</span>
 <span class="hljs-normal">    void baz(int val) {</span>
@@ -3276,7 +3276,6 @@
 )
 </code></pre>
 <p>Runs a thread on the member function. </p>
-<h4 id="details">Details:</h4>
 <p><strong>Params:</strong></p>
 <ul>
 <li><em>func:</em> Pointer to the member function </li>
@@ -3290,7 +3289,6 @@
 )
 </code></pre>
 <p>Runs a thread on the static function. </p>
-<h4 id="details">Details:</h4>
 <p><strong>Params:</strong></p>
 <ul>
 <li><em>func:</em> Pointer to the static (non-member!) function </li>
@@ -3300,13 +3298,11 @@
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getResult</span> <span class="hljs-params">()</span>
 </span></code></pre>
 <p>Returns the result returned by the executed function. </p>
-<h4 id="details">Details:</h4>
 <p>There is no returned value if you are using void function to run a thread. <strong>see:</strong> ffw::Thread&lt; Ret(Args...)&gt; </p>
 <h3 id="function-getresult"><span style="opacity:0.5;">function</span> <a id="f6cdbddb" href="#f6cdbddb">getResult</a></h3>
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">getResult</span> <span class="hljs-params">()</span> <span class="hljs-keyword">const</span>
 </span></code></pre>
 <p>Returns the result returned by the executed function. </p>
-<h4 id="details">Details:</h4>
 <p>There is no returned value if you are using void function to run a thread. <strong>see:</strong> ffw::Thread&lt; Ret(Args...)&gt; </p>
 <h3 id="function-join"><span style="opacity:0.5;">function</span> <a id="54b3db43" href="#54b3db43">join</a></h3>
 <pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">inline</span> <span class="hljs-keyword">void</span> <span class="hljs-title">join</span> <span class="hljs-params">()</span>
@@ -3359,7 +3355,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Thread< void(Args...)>","level":"2.1.1.104","depth":3,"next":{"title":"TifLoader","level":"2.1.1.105","depth":3,"path":"doc/ffw_TifLoader.md","ref":"doc/ffw_TifLoader.md","articles":[]},"previous":{"title":"Thread< Ret(Args...)>","level":"2.1.1.103","depth":3,"path":"doc/ffw_Thread__Ret_Args_____.md","ref":"doc/ffw_Thread__Ret_Args_____.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/ffw_Thread__void_Args_____.md","mtime":"2017-09-16T14:51:42.594Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T14:51:55.130Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Thread< void(Args...)>","level":"2.1.1.104","depth":3,"next":{"title":"TifLoader","level":"2.1.1.105","depth":3,"path":"doc/ffw_TifLoader.md","ref":"doc/ffw_TifLoader.md","articles":[]},"previous":{"title":"Thread< Ret(Args...)>","level":"2.1.1.103","depth":3,"path":"doc/ffw_Thread__Ret_Args_____.md","ref":"doc/ffw_Thread__Ret_Args_____.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/ffw_Thread__void_Args_____.md","mtime":"2017-09-17T21:13:31.395Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-17T21:15:11.078Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

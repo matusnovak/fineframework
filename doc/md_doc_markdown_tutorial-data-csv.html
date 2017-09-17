@@ -3185,14 +3185,14 @@
 <p>This tutorial will explain how to decode CSV structure.</p>
 <p><strong>The tutorial uses <a href="ffw_Var.html">ffw::Var</a> which is essential in the following examples. You must read <a href="md_doc_markdown_tutorial-var.html">Var - JSON-like data structure</a> tutorial first!</strong></p>
 <p>Make sure you add <code>finedata</code> into your linker and add the following headers into your project:</p>
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/data.h</a>&gt;</span>
 </div></pre>
 
 
 
 <h4 id="decode-csv-with-one-function">Decode CSV with one function</h4>
-<pre><div class="lang-cpp"><span class="hljs-comment">// Make sure the lines are separated by \n !!!</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Make sure the lines are separated by \n !!!</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::string str =</span>
 <span class="hljs-normal">    </span><span class="hljs-string">&quot;Year,Make,Model,length\n\</span>
 <span class="hljs-string">    1997,Ford,E350,2.34\n\</span>
@@ -3205,19 +3205,19 @@
 
 
 <p>This will return an <a href="ffw_Array.html">ffw::Array</a> that contains multiple <a href="ffw_Array.html">ffw::Array</a> (s).</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">std::cout &lt;&lt; arr.<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::cout &lt;&lt; arr.<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
 </div></pre>
 
 
 
 <p>This will print number 3 as there are only 3 lines in the source CSV. it is guaranteed that each element of the <code>arr</code> will contain <a href="ffw_Array.html">ffw::Array</a> and nothing else!</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">std::cout &lt;&lt; arr[0].<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::cout &lt;&lt; arr[0].<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
 </div></pre>
 
 
 
 <p>This will print number 4 becuase there are 4 items in the first row. Now, to access individual items...</p>
-<pre><div class="lang-cpp"><span class="hljs-comment">// We do not care about the first row, it&apos;s a header... </span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// We do not care about the first row, it&apos;s a header... </span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Most CSV files contain a header</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Returns false becuase the &quot;1997&quot; is not a string</span><span class="hljs-normal"></span>
@@ -3236,7 +3236,7 @@
 
 
 <p>Why the following two lines below are equal?</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">std::cout &lt;&lt; arr[2].getAs&lt;<a href="ffw_Array.html">ffw::Array</a>&gt;()[3].getAs&lt;float&gt;() &lt;&lt; std::endl;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::cout &lt;&lt; arr[2].getAs&lt;<a href="ffw_Array.html">ffw::Array</a>&gt;()[3].getAs&lt;float&gt;() &lt;&lt; std::endl;</span>
 <span class="hljs-normal">std::cout &lt;&lt; arr[2][3].getAs&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
 </div></pre>
 
@@ -3245,7 +3245,7 @@
 <p>In the first line, <code>arr</code> is already <a href="ffw_Array.html">ffw::Array</a>. However, <a href="ffw_Array.html">ffw::Array</a> holds <a href="ffw_Var.html">ffw::Var</a> which can hold any c++ data type. We know that <a href="ffw.html#b7bf6532">ffw::decodeCsv</a> returns array of arrays, so it is safe to explicitly call <code>getAs&lt;[ffw::Array](ffw_Array.html)&gt;()</code>. The <code>[3]</code> returns 4th element and <code>getAs&lt;float&gt;()</code> gives us a reference to the float.</p>
 <p>The second line does exactly same thing. The <a href="ffw_Var.html">ffw::Var</a> contains two [ ] operators, one for integers, one for strings. If you call the operator with an integer, it will assume you are trying to get <a href="ffw_Array.html">ffw::Array</a> and it will call <code>getAs&lt;[ffw::Array](ffw_Array.html)&gt;()</code> and <code>[int]</code> at the same time for you... it&apos;s just for simplicitly. If you would put a string inside the [ ] operator, it will call <code>getAs&lt;[ffw::Object](ffw_Object.html)&gt;()</code> which throws std::bad_cast because in this example we are dealing with arrays only, no objects.</p>
 <h4 id="decode-csv-line-by-line">Decode CSV line by line</h4>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> output;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> output;</span>
 <span class="hljs-normal"><a href="ffw_CsvLoader.html">ffw::CsvLoader</a> loader;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// First param: file path</span><span class="hljs-normal"></span>
@@ -3265,7 +3265,7 @@
 
 <p>You can also use <code>openFromData</code> which acceps a string instead. The <code>getRow</code> acceps one parameter, a boolean. If you pass true, it will convert all items into their type (integer, float, std::string, bool). If you pass false, no conversion is performed and everything is stored in <a href="ffw_Array.html">ffw::Array</a> as std::string.</p>
 <h4 id="decode-csv-one-line-only">Decode CSV one line only</h4>
-<pre><div class="lang-cpp"><span class="hljs-normal">std::string str = </span><span class="hljs-string">&quot;1999,Chevy,\&quot;Venture \&quot;\&quot;Extended Edition, Very Large\&quot;\&quot;\&quot;,,5000.00&quot;</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::string str = </span><span class="hljs-string">&quot;1999,Chevy,\&quot;Venture \&quot;\&quot;Extended Edition, Very Large\&quot;\&quot;\&quot;,,5000.00&quot;</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> arr = <a href="ffw_CsvLoader.html#1dd92eb0">ffw::CsvLoader::tokenize</a>(str, 0, str.size(), </span><span class="hljs-keyword">true</span><span class="hljs-normal">, </span><span class="hljs-string">&apos;,&apos;</span><span class="hljs-normal">, </span><span class="hljs-string">&apos;\&quot;&apos;</span><span class="hljs-normal">);</span>
 </div></pre>
 
@@ -3315,7 +3315,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Decode CSV","level":"1.4.4.1","depth":3,"next":{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"path":"doc/md_doc_markdown_tutorial-data-json.md","ref":"doc/md_doc_markdown_tutorial-data-json.md","articles":[]},"previous":{"title":"Data Module","level":"1.4.4","depth":2,"path":"doc/md_doc_markdown_tutorial-data.md","ref":"doc/md_doc_markdown_tutorial-data.md","articles":[{"title":"Decode CSV","level":"1.4.4.1","depth":3,"path":"doc/md_doc_markdown_tutorial-data-csv.md","ref":"doc/md_doc_markdown_tutorial-data-csv.md","articles":[]},{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"path":"doc/md_doc_markdown_tutorial-data-json.md","ref":"doc/md_doc_markdown_tutorial-data-json.md","articles":[]},{"title":"Encode and decode XML","level":"1.4.4.3","depth":3,"path":"doc/md_doc_markdown_tutorial-data-xml.md","ref":"doc/md_doc_markdown_tutorial-data-xml.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-data-csv.md","mtime":"2017-09-16T14:51:44.156Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T14:51:55.130Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Decode CSV","level":"1.4.4.1","depth":3,"next":{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"path":"doc/md_doc_markdown_tutorial-data-json.md","ref":"doc/md_doc_markdown_tutorial-data-json.md","articles":[]},"previous":{"title":"Data Module","level":"1.4.4","depth":2,"path":"doc/md_doc_markdown_tutorial-data.md","ref":"doc/md_doc_markdown_tutorial-data.md","articles":[{"title":"Decode CSV","level":"1.4.4.1","depth":3,"path":"doc/md_doc_markdown_tutorial-data-csv.md","ref":"doc/md_doc_markdown_tutorial-data-csv.md","articles":[]},{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"path":"doc/md_doc_markdown_tutorial-data-json.md","ref":"doc/md_doc_markdown_tutorial-data-json.md","articles":[]},{"title":"Encode and decode XML","level":"1.4.4.3","depth":3,"path":"doc/md_doc_markdown_tutorial-data-xml.md","ref":"doc/md_doc_markdown_tutorial-data-xml.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-data-csv.md","mtime":"2017-09-17T21:13:32.764Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-17T21:15:11.078Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

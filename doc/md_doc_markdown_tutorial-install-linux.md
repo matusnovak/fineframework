@@ -9,7 +9,7 @@ This tutorial will explain how to include any FFW module into your C++ project. 
 First, you will need to install GCC and other build files by running:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ sudo apt-get update</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ sudo apt-get update</span>
 <span class="hljs-normal">$ sudo apt-get install build-essential git curl</span>
 </div></pre>
 
@@ -18,7 +18,7 @@ First, you will need to install GCC and other build files by running:
 To test if you have GCC 4.9.2 or newer, simply run:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ gcc --version</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ gcc --version</span>
 </div></pre>
 
 
@@ -32,7 +32,7 @@ You will need the following install the third party libraries.
 To install the libary, simply run `sudo apt-get install <package-name>` To install all of the libraries, run the following commands:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ sudo apt-get install curl xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev libglfw3-dev</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ sudo apt-get install curl xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev libglfw3-dev</span>
 </div></pre>
 
 
@@ -42,7 +42,7 @@ Note: On Debian the `libjpeg8-dev` package might be renamed as `libjpeg-dev`
 Next, you will need to update glext.h to the newest version. If you are running latest Linux, for example Ubuntu 16.04 or newer, this is not needed. Run the following command, this will download official `glect.h` and puts it at the right place:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ sudo curl -o /usr/include/GL/glext.h https://www.khronos.org/registry/OpenGL/api/GL/glext.h</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ sudo curl -o /usr/include/GL/glext.h https://www.khronos.org/registry/OpenGL/api/GL/glext.h</span>
 </div></pre>
 
 
@@ -50,7 +50,7 @@ Next, you will need to update glext.h to the newest version. If you are running 
 If you **need to install glfw3.2 or newer** because your package manager downloads the old version, run the following commands:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ cd ~ # Go to the home directory</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ cd ~ # Go to the home directory</span>
 <span class="hljs-normal">$ git clone https://github.com/glfw/glfw # Will create a "glfw" directory</span>
 <span class="hljs-normal">$ mkdir glfw/build</span>
 <span class="hljs-normal">$ cd glfw/build</span>
@@ -67,7 +67,7 @@ If you **need to install glfw3.2 or newer** because your package manager downloa
 Clone (or download as zip or tar file) and run cmake by running the following commands:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ cd ~ # Go to the home directory</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ cd ~ # Go to the home directory</span>
 <span class="hljs-normal">$ git clone https://github.com/matusnovak/fineframework.git # Will create a "fineframework" directory</span>
 <span class="hljs-normal">$ mkdir fineframework/build</span>
 <span class="hljs-normal">$ cd fineframework/build</span>
@@ -79,7 +79,7 @@ Clone (or download as zip or tar file) and run cmake by running the following co
 Make sure that the dependencies (third party libraries) are found and C++11 is supported. The `LIBRARY-NOTFOUND` will be displayed if the given library was not found.
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"># The following output will be printed by cmake </span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"># The following output will be printed by cmake </span>
 <span class="hljs-normal">-- Performing Test COMPILER_SUPPORTS_CXX11</span>
 <span class="hljs-normal">-- Performing Test COMPILER_SUPPORTS_CXX11 - Success</span>
 <span class="hljs-normal">-- 1</span>
@@ -112,7 +112,7 @@ Make sure that the dependencies (third party libraries) are found and C++11 is s
 Lastly, compile and install:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ make all</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ make all</span>
 <span class="hljs-normal">$ sudo make install</span>
 </div></pre>
 
@@ -126,7 +126,7 @@ That's it!
 Your configuration is done, now test the project to make sure everything works. Copy paste the following example into empty cpp file:
 
 
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-keyword">class </span><span class="hljs-normal">App: </span><span class="hljs-keyword">public</span><span class="hljs-normal"> <a href="ffw_GLFWRenderWindow.html">ffw::GLFWRenderWindow</a> &#123;</span>
 <span class="hljs-normal"></span><span class="hljs-keyword">public</span><span class="hljs-normal">:</span>
@@ -251,7 +251,7 @@ Your configuration is done, now test the project to make sure everything works. 
 Now compile it using g++
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">$ g++ -c example.cpp -o example.o -std=c++11</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ g++ -c example.cpp -o example.o -std=c++11</span>
 <span class="hljs-normal">$ g++ -o example example.o -lfinegraphics</span>
 <span class="hljs-normal">$ ./example</span>
 </div></pre>

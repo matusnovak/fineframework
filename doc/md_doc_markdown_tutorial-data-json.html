@@ -3185,7 +3185,7 @@
 <p>This tutorial will explain how to decode and encode JSON structure.</p>
 <p><strong>The tutorial uses <a href="ffw_Var.html">ffw::Var</a> which is essential in the following examples. You must read <a href="md_doc_markdown_tutorial-var.html">Var - JSON-like data structure</a> tutorial first!</strong></p>
 <p>Make sure you add <code>finedata</code> into your linker and add the following headers into your project:</p>
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/data.h</a>&gt;</span>
 </div></pre>
 
@@ -3233,7 +3233,7 @@
 </table>
 <p>The strings that contain unicode characters encoded as &apos;\uXXXX&apos; will be converted into UTF-8</p>
 <p>Decoding can be done as the following:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> json;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> json;</span>
 <span class="hljs-normal"></span><span class="hljs-keyword">try</span><span class="hljs-normal"> {</span>
 <span class="hljs-normal">  json = <a href="ffw.html#6d044655">ffw::decodeJson</a>(</span>
 <span class="hljs-normal">    </span><span class="hljs-string">&quot;{\&quot;menu\&quot;: {&quot;</span><span class="hljs-normal"></span>
@@ -3321,7 +3321,7 @@
 <li><p>any of the values contain invalid data type, only the following are valid: (<a href="ffw_Object.html">ffw::Object</a>, <a href="ffw_Array.html">ffw::Array</a>, any signed or unsigned integer, bool, std::string or const char*, any floating point). For example, you can not encode a C++ reference, or pointer, or class, etc...</p>
 </li>
 </ul>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = { </span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = { </span>
 <span class="hljs-normal">  </span><span class="hljs-string">&quot;menu&quot;</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a>{</span>
 <span class="hljs-normal">    {</span><span class="hljs-string">&quot;id&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;file&quot;</span><span class="hljs-normal">,},</span>
 <span class="hljs-normal">    {</span><span class="hljs-string">&quot;value&quot;</span><span class="hljs-normal">, </span><span class="hljs-string">&quot;File&quot;</span><span class="hljs-normal">,},</span>
@@ -3353,7 +3353,7 @@
 
 
 <p>Will create the following equivalent JSON structure:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">{&quot;menu&quot;: {</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">{&quot;menu&quot;: {</span>
 <span class="hljs-normal">  &quot;id&quot;: &quot;file&quot;,</span>
 <span class="hljs-normal">  &quot;value&quot;: &quot;File&quot;,</span>
 <span class="hljs-normal">  &quot;popup&quot;: {</span>
@@ -3391,7 +3391,7 @@
 <li><p><a href="ffw_JsonReader_Node.html#e80ad8c5">ffw::JsonReader::Node::isFloat</a> returns true if the number is floating point (has decimal point)</p>
 </li>
 </ul>
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_JsonReader.html">ffw::JsonReader</a> json(</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_JsonReader.html">ffw::JsonReader</a> json(</span>
 <span class="hljs-normal">  </span><span class="hljs-string">&quot;{\&quot;menu\&quot;: {&quot;</span><span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-string">&quot;  \&quot;id\&quot;: \&quot;file\&quot;,&quot;</span><span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-string">&quot;  \&quot;value\&quot;: \&quot;File\&quot;,&quot;</span><span class="hljs-normal"></span>
@@ -3497,7 +3497,7 @@
 </li>
 </ul>
 <p><a href="ffw_JsonWriter.html">ffw::JsonWriter</a> supports arbitary stream, you can create one based on <a href="ffw_JsonWriter_Stream.html">ffw::JsonWriter::Stream</a> when you override one simple method. However, <a href="ffw_JsonWriter_StringStream.html">ffw::JsonWriter::StringStream</a> and <a href="ffw_JsonWriter_FileStream.html">ffw::JsonWriter::FileStream</a> are provided to you.</p>
-<pre><div class="lang-cpp"><span class="hljs-keyword">try</span><span class="hljs-normal"> {</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-keyword">try</span><span class="hljs-normal"> {</span>
 <span class="hljs-normal">  <a href="ffw_JsonWriter_StringStream.html">ffw::JsonWriter::StringStream</a> stream;</span>
 <span class="hljs-normal">  <a href="ffw_JsonWriter.html">ffw::JsonWriter</a> json(&amp;stream, </span><span class="hljs-string">&quot;    &quot;</span><span class="hljs-normal">, </span><span class="hljs-keyword">false</span><span class="hljs-normal">);</span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// If you wish to create compact JSON (no new lines, no indent)</span><span class="hljs-normal"></span>
@@ -3556,7 +3556,7 @@
 
 
 <p>Creates the following JSON structure:</p>
-<pre><div class="lang-cpp"><span class="hljs-normal">{</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">{</span>
 <span class="hljs-normal">    &quot;menu&quot;:{</span>
 <span class="hljs-normal">        &quot;id&quot;:&quot;file&quot;,</span>
 <span class="hljs-normal">        &quot;value&quot;:&quot;File&quot;,</span>
@@ -3625,7 +3625,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"next":{"title":"Encode and decode XML","level":"1.4.4.3","depth":3,"path":"doc/md_doc_markdown_tutorial-data-xml.md","ref":"doc/md_doc_markdown_tutorial-data-xml.md","articles":[]},"previous":{"title":"Decode CSV","level":"1.4.4.1","depth":3,"path":"doc/md_doc_markdown_tutorial-data-csv.md","ref":"doc/md_doc_markdown_tutorial-data-csv.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-data-json.md","mtime":"2017-09-16T14:51:44.160Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-16T14:51:55.130Z"},"basePath":"..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Encode and decode JSON","level":"1.4.4.2","depth":3,"next":{"title":"Encode and decode XML","level":"1.4.4.3","depth":3,"path":"doc/md_doc_markdown_tutorial-data-xml.md","ref":"doc/md_doc_markdown_tutorial-data-xml.md","articles":[]},"previous":{"title":"Decode CSV","level":"1.4.4.1","depth":3,"path":"doc/md_doc_markdown_tutorial-data-csv.md","ref":"doc/md_doc_markdown_tutorial-data-csv.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":["toggle-chapters","insert-logo"],"pluginsConfig":{"insert-logo":{"url":"http://matusnovak.github.io/fineframework/logo.png"},"toggle-chapters":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"doc/md_doc_markdown_tutorial-data-json.md","mtime":"2017-09-17T21:13:33.021Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2017-09-17T21:15:11.078Z"},"basePath":"..","book":{"language":""}});
         });
     </script>
 </div>

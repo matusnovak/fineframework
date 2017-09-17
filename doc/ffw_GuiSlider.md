@@ -208,6 +208,8 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 
+**Overrides:** [getMinimumWrapSize](/doc/ffw_GuiWidget.md#c12efa3f)
+
 ### <span style="opacity:0.5;">function</span> <a id="c1c637e7" href="#c1c637e7">setBarStyleGroup</a>
 
 ```cpp

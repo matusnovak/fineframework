@@ -107,6 +107,8 @@ virtual bool open (
 
 
 
+**Overrides:** [open](/doc/ffw_ImageWriter.md#c742773b)
+
 ### <span style="opacity:0.5;">function</span> <a id="fb7bfe34" href="#fb7bfe34">writeRow</a>
 
 ```cpp
@@ -117,6 +119,8 @@ virtual size_t writeRow (
 
 
 
+**Overrides:** [writeRow](/doc/ffw_ImageWriter.md#fb673e42)
+
 ### <span style="opacity:0.5;">function</span> <a id="f07405c5" href="#f07405c5">writeFooter</a>
 
 ```cpp
@@ -125,6 +129,8 @@ virtual bool writeFooter ()
 
 
 
+**Overrides:** [writeFooter](/doc/ffw_ImageWriter.md#5377830a)
+
 ### <span style="opacity:0.5;">function</span> <a id="62ad0f62" href="#62ad0f62">close</a>
 
 ```cpp
@@ -132,6 +138,8 @@ virtual void close ()
 ```
 
 
+
+**Overrides:** [close](/doc/ffw_ImageWriter.md#03dcc1a2)
 
 
 

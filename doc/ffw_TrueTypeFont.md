@@ -104,6 +104,8 @@ virtual void destroy ()
 
 
 
+**Overrides:** [destroy](/doc/ffw_Font.md#ad63e5d2)
+
 ### <span style="opacity:0.5;">function</span> <a id="28bdd97d" href="#28bdd97d">getChar</a>
 
 ```cpp
@@ -113,6 +115,8 @@ virtual const Char & getChar (
 ```
 
 
+
+**Overrides:** [getChar](/doc/ffw_Font.md#d843f542)
 
 ### <span style="opacity:0.5;">function</span> <a id="9a698e6e" href="#9a698e6e">operator=</a>
 

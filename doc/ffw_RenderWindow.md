@@ -87,7 +87,6 @@ virtual bool shouldRender () const = 0
 
 Returns true if the window is not closed. 
 
-#### Details:
 When [shouldClose()](ffw_RenderWindow.html#48c90ff6) is called with a 'true' boolean value, this function will then return false 
 ### <span style="opacity:0.5;">function</span> <a id="f1f7eabd" href="#f1f7eabd">renderFrame</a>
 
@@ -105,7 +104,6 @@ virtual void poolEvents () = 0
 
 Pools all user input events, if any. 
 
-#### Details:
 This is blocking function that will return whenever there are any events in the queue. If you wish to wait for the user first, see [waitForEvents()](ffw_RenderWindow.html#855f4a96) 
 ### <span style="opacity:0.5;">function</span> <a id="855f4a96" href="#855f4a96">waitForEvents</a>
 
@@ -115,7 +113,6 @@ virtual void waitForEvents () = 0
 
 Pools all user input events and waits if there is none. 
 
-#### Details:
 This is blocking function that will not return unless there is at least one user event. If you wish to have continuous rendering, even if there are no user events, use [poolEvents()](ffw_RenderWindow.html#a3426c98) 
 ### <span style="opacity:0.5;">function</span> <a id="16b82494" href="#16b82494">isInitialized</a>
 
@@ -175,7 +172,6 @@ virtual void maximize () = 0
 
 Maximizes the window in order to utilize whole screen. 
 
-#### Details:
 This is not the same as full screen mode! 
 ### <span style="opacity:0.5;">function</span> <a id="9fecce69" href="#9fecce69">setSingleBufferMode</a>
 

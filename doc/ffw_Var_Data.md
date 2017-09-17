@@ -52,6 +52,8 @@ inline virtual Data * createCopy ()
 
 
 
+**Overrides:** [createCopy](/doc/ffw_Var_Content.md#4ecd831b)
+
 ### <span style="opacity:0.5;">function</span> <a id="ec0c820c" href="#ec0c820c">getTypeid</a>
 
 ```cpp
@@ -59,6 +61,8 @@ inline virtual const std::type_info & getTypeid () const
 ```
 
 
+
+**Overrides:** [getTypeid](/doc/ffw_Var_Content.md#e3b1e597)
 
 ### <span style="opacity:0.5;">function</span> <a id="9ff25a0c" href="#9ff25a0c">get</a>
 
@@ -84,6 +88,8 @@ inline virtual bool toBool () const
 
 
 
+**Overrides:** [toBool](/doc/ffw_Var_Content.md#23688855)
+
 ### <span style="opacity:0.5;">function</span> <a id="0ad00ba7" href="#0ad00ba7">isInteger</a>
 
 ```cpp
@@ -92,6 +98,8 @@ inline virtual bool isInteger () const
 
 
 
+**Overrides:** [isInteger](/doc/ffw_Var_Content.md#180b884d)
+
 ### <span style="opacity:0.5;">function</span> <a id="0f5e4842" href="#0f5e4842">getInteger</a>
 
 ```cpp
@@ -99,6 +107,8 @@ inline virtual int getInteger () const
 ```
 
 
+
+**Overrides:** [getInteger](/doc/ffw_Var_Content.md#9839465b)
 
 ### <span style="opacity:0.5;">function</span> <a id="db834025" href="#db834025">compare</a>
 
@@ -109,6 +119,8 @@ inline virtual bool compare (
 ```
 
 
+
+**Overrides:** [compare](/doc/ffw_Var_Content.md#23dddefb)
 
 
 

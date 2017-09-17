@@ -102,6 +102,8 @@ virtual bool open (
 
 
 
+**Overrides:** [open](/doc/ffw_ImageReader.md#25e290f7)
+
 ### <span style="opacity:0.5;">function</span> <a id="8713c259" href="#8713c259">readRow</a>
 
 ```cpp
@@ -112,6 +114,8 @@ virtual size_t readRow (
 
 
 
+**Overrides:** [readRow](/doc/ffw_ImageReader.md#2b7cda9d)
+
 ### <span style="opacity:0.5;">function</span> <a id="f5d8f733" href="#f5d8f733">close</a>
 
 ```cpp
@@ -119,6 +123,8 @@ virtual void close ()
 ```
 
 
+
+**Overrides:** [close](/doc/ffw_ImageReader.md#f00a5543)
 
 
 

@@ -100,6 +100,8 @@ inline virtual void resize (
 
 
 
+**Overrides:** [resize](/doc/ffw_GuiBackend.md#be8428b8)
+
 ### <span style="opacity:0.5;">function</span> <a id="740b1c05" href="#740b1c05">drawRectangle</a>
 
 ```cpp
@@ -111,6 +113,8 @@ inline virtual void drawRectangle (
 ```
 
 
+
+**Overrides:** [drawRectangle](/doc/ffw_GuiBackend.md#233aa74d)
 
 ### <span style="opacity:0.5;">function</span> <a id="a86419f1" href="#a86419f1">drawRectangleRounded</a>
 
@@ -128,6 +132,8 @@ inline virtual void drawRectangleRounded (
 
 
 
+**Overrides:** [drawRectangleRounded](/doc/ffw_GuiBackend.md#ea95818a)
+
 ### <span style="opacity:0.5;">function</span> <a id="0167e18d" href="#0167e18d">drawLine</a>
 
 ```cpp
@@ -140,6 +146,8 @@ inline virtual void drawLine (
 
 
 
+**Overrides:** [drawLine](/doc/ffw_GuiBackend.md#f7ca2b3e)
+
 ### <span style="opacity:0.5;">function</span> <a id="0f6445d1" href="#0f6445d1">drawCircle</a>
 
 ```cpp
@@ -151,6 +159,8 @@ inline virtual void drawCircle (
 ```
 
 
+
+**Overrides:** [drawCircle](/doc/ffw_GuiBackend.md#e0694f55)
 
 ### <span style="opacity:0.5;">function</span> <a id="8391bc95" href="#8391bc95">drawArc</a>
 
@@ -167,6 +177,8 @@ inline virtual void drawArc (
 
 
 
+**Overrides:** [drawArc](/doc/ffw_GuiBackend.md#5b118ea9)
+
 ### <span style="opacity:0.5;">function</span> <a id="c4029e51" href="#c4029e51">drawQuad</a>
 
 ```cpp
@@ -180,6 +192,8 @@ inline virtual void drawQuad (
 ```
 
 
+
+**Overrides:** [drawQuad](/doc/ffw_GuiBackend.md#58486aa1)
 
 ### <span style="opacity:0.5;">function</span> <a id="14cf8c41" href="#14cf8c41">drawString</a>
 
@@ -196,6 +210,8 @@ inline virtual void drawString (
 
 
 
+**Overrides:** [drawString](/doc/ffw_GuiBackend.md#a9bb7183)
+
 ### <span style="opacity:0.5;">function</span> <a id="18183d03" href="#18183d03">drawTriangle</a>
 
 ```cpp
@@ -208,6 +224,8 @@ inline virtual void drawTriangle (
 ```
 
 
+
+**Overrides:** [drawTriangle](/doc/ffw_GuiBackend.md#9c057eb2)
 
 ### <span style="opacity:0.5;">function</span> <a id="bbb8269f" href="#bbb8269f">drawImage</a>
 
@@ -225,6 +243,8 @@ inline virtual void drawImage (
 
 
 
+**Overrides:** [drawImage](/doc/ffw_GuiBackend.md#ab89aa8e)
+
 ### <span style="opacity:0.5;">function</span> <a id="0ebe5781" href="#0ebe5781">startRender</a>
 
 ```cpp
@@ -233,6 +253,8 @@ inline virtual void startRender ()
 
 
 
+**Overrides:** [startRender](/doc/ffw_GuiBackend.md#5df1f915)
+
 ### <span style="opacity:0.5;">function</span> <a id="d5a627e1" href="#d5a627e1">endRender</a>
 
 ```cpp
@@ -240,6 +262,8 @@ inline virtual void endRender ()
 ```
 
 
+
+**Overrides:** [endRender](/doc/ffw_GuiBackend.md#588f911f)
 
 ### <span style="opacity:0.5;">function</span> <a id="6aefac1e" href="#6aefac1e">setScissors</a>
 
@@ -252,6 +276,8 @@ inline virtual void setScissors (
 
 
 
+**Overrides:** [setScissors](/doc/ffw_GuiBackend.md#d7bd7eac)
+
 ### <span style="opacity:0.5;">function</span> <a id="dc8b72a5" href="#dc8b72a5">clearWithColor</a>
 
 ```cpp
@@ -261,6 +287,8 @@ inline virtual void clearWithColor (
 ```
 
 
+
+**Overrides:** [clearWithColor](/doc/ffw_GuiBackend.md#6ea57df9)
 
 
 

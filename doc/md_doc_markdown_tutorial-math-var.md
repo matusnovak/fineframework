@@ -9,7 +9,7 @@ This tutorial will explain how the [ffw::Var](ffw_Var.html) class can accept and
 Before we start, make sure to add this to your project:
 
 
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;iostream&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;iostream&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span>
 </div></pre>
 
@@ -18,7 +18,7 @@ Before we start, make sure to add this to your project:
 A [ffw::Var](ffw_Var.html) can be initialized as any other variable and can be re-assigned into a different data type at runtime. There is not limit on what it can hold.
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a;</span>
 <span class="hljs-normal">a = 123; </span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Now holds an integer</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
@@ -37,7 +37,7 @@ A [ffw::Var](ffw_Var.html) can be initialized as any other variable and can be r
 At any time, you check which data type it holds.
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#b1a50abb">empty</a>())&#123;</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">"a holds nothing!"</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -59,7 +59,7 @@ At any time, you check which data type it holds.
 The [ffw::Var](ffw_Var.html) holds exactly the data type you put into it. This might raise some issues such as handling unsigned and signed integers
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (int)123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (int)123;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;())&#123;</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">"a holds an signed integer!"</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -85,7 +85,7 @@ The [ffw::Var](ffw_Var.html) holds exactly the data type you put into it. This m
 You can also modify the stored value. The [ffw::Var::getAs](ffw_Var.html#1be6ba0e) method will return a reference to the stored value.
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() = 100.0f;</span>
 <span class="hljs-normal"></span>
@@ -98,7 +98,7 @@ You can also modify the stored value. The [ffw::Var::getAs](ffw_Var.html#1be6ba0
 Note that storing a reference might be usefull, but after you re-assign a new value, the reference will be invalid! Imagine it as a pointer, you set a pointer to `float& ref = a.getAs<float>();` and when you create a new value `a = 200.0f` the address will change!
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-title">float</span><span class="hljs-normal">&amp; ref = a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;();</span>
 <span class="hljs-normal">ref = 100.0f;</span>
@@ -119,7 +119,7 @@ Note that storing a reference might be usefull, but after you re-assign a new va
 Trying to get a different data type than is stored inside of [ffw::Var](ffw_Var.html) will throw you an std::bad_cast
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = -0.0042f;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">"Value of var: "</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
 <span class="hljs-normal"></span><span class="hljs-comment">// OK Prints: "Value of var: 100"</span><span class="hljs-normal"></span>
@@ -147,7 +147,7 @@ Because [ffw::Var](ffw_Var.html) stores explicit type (if you store double, it's
 For example:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">"Hello World!"</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">"Hello World!"</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;std::string&gt;())&#123;</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">"a holds std::string!"</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -163,7 +163,7 @@ For example:
 A simple workaround is to always store value as std::string
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = std::string(</span><span class="hljs-string">"Hello World!"</span><span class="hljs-normal">);</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = std::string(</span><span class="hljs-string">"Hello World!"</span><span class="hljs-normal">);</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-keyword">if</span><span class="hljs-normal">(a.<a href="ffw_Var.html#2e070581">is</a>&lt;std::string&gt;())&#123;</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">"a holds std::string!"</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
@@ -179,7 +179,7 @@ A simple workaround is to always store value as std::string
 If you are using both std::string and const char* then you might would like to use [ffw::Var::isString](ffw_Var.html#f587f1a0) and [ffw::Var::toString](ffw_Var.html#1804ed51) methods. Note that the toString method will always return a copy of the original string. **If the [ffw::Var](ffw_Var.html) does not hold any kind of string, it will return an empty string.**
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">"Hello World!"</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = </span><span class="hljs-string">"Hello World!"</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> b = std::string(</span><span class="hljs-string">"Hello World!"</span><span class="hljs-normal">);</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Always true, even though they are different data types</span><span class="hljs-normal"></span>
@@ -199,7 +199,7 @@ If you are using both std::string and const char* then you might would like to u
 As mentioned above, storing an signed integer and then asking for unsigned integer will throw a std::bad_cast exception.
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> int)123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = (</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> int)123;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">"a: "</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl; </span><span class="hljs-comment">// Error! std::bad_cast</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">"a: "</span><span class="hljs-normal"> &lt;&lt; a.<a href="ffw_Var.html#1be6ba0e">getAs</a>&lt;</span><span class="hljs-title">unsigned</span><span class="hljs-normal"> </span><span class="hljs-title">int</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl; </span><span class="hljs-comment">// OK!</span>
@@ -225,7 +225,7 @@ The [ffw::Var](ffw_Var.html) offers the following methods, similarly to [ffw::Va
 If you heard about JSON, you will know what is this about. The [ffw::Object](ffw_Object.html) is a fancy std::unordered_map structure that contains keys as std::string and values as [ffw::Var](ffw_Var.html). With this, we can create a JSON-like object:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Insert into object</span><span class="hljs-normal"></span>
 <span class="hljs-normal">obj.<a href="ffw_Object.html#dc1d6d5e">insert</a>(std::make_pair(</span><span class="hljs-string">"value"</span><span class="hljs-normal">, 123));</span>
@@ -242,7 +242,7 @@ If you heard about JSON, you will know what is this about. The [ffw::Object](ffw
 You can then use the mapped values as any other [ffw::Var](ffw_Var.html)
 
 
-<pre><div class="lang-cpp"><span class="hljs-keyword">if</span><span class="hljs-normal">(obj[</span><span class="hljs-string">"value"</span><span class="hljs-normal">].isInt())&#123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-keyword">if</span><span class="hljs-normal">(obj[</span><span class="hljs-string">"value"</span><span class="hljs-normal">].isInt())&#123;</span>
 <span class="hljs-normal">  std::cout &lt;&lt; </span><span class="hljs-string">"value: "</span><span class="hljs-normal"> &lt;&lt; obj[</span><span class="hljs-string">"value"</span><span class="hljs-normal">].toInt() &lt;&lt; std::endl;</span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// obj["value"].getAs&lt;int&gt;() also works</span><span class="hljs-normal"></span>
 <span class="hljs-normal">&#125;</span>
@@ -259,7 +259,7 @@ You can then use the mapped values as any other [ffw::Var](ffw_Var.html)
 The [ffw::Object](ffw_Object.html) offers a braced list constructor which simplifies things even further:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = &#123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = &#123;</span>
 <span class="hljs-normal">  &#123;</span><span class="hljs-string">"integer"</span><span class="hljs-normal">, 123&#125;,</span>
 <span class="hljs-normal">  &#123;</span><span class="hljs-string">"float"</span><span class="hljs-normal">, 456.7f&#125;,</span>
 <span class="hljs-normal">  &#123;</span><span class="hljs-string">"double"</span><span class="hljs-normal">, 456.7&#125;,</span>
@@ -290,7 +290,7 @@ Note that [operator[] will insert a new value if the key does not exist](http://
 Also, when having an object inside of an object, you might think of doing this:
 
 
-<pre><div class="lang-cpp"><span class="hljs-comment">// Access object -&gt; first -&gt; int</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Access object -&gt; first -&gt; int</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; </span><span class="hljs-string">"object/first: "</span><span class="hljs-normal"> &lt;&lt; </span>
 <span class="hljs-normal">  obj[</span><span class="hljs-string">"object"</span><span class="hljs-normal">].getAs&lt;<a href="ffw_Object.html">ffw::Object</a>&gt;()[</span><span class="hljs-string">"first"</span><span class="hljs-normal">].toInt()</span>
 <span class="hljs-normal">  &lt;&lt; std::endl;</span>
@@ -302,7 +302,7 @@ Also, when having an object inside of an object, you might think of doing this:
 So how come the previous section does not have `getAs` and it still works? The [ffw::Var](ffw_Var.html) offers two [] operators. If you supply std::string, it will assume that you are treating it as [ffw::Object](ffw_Object.html), if you supply an integer, it will assume you are treating it as [ffw::Array](ffw_Array.html)
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = 123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> a = 123;</span>
 <span class="hljs-normal">a[</span><span class="hljs-string">"something"</span><span class="hljs-normal">] = 456; </span><span class="hljs-comment">// std::bad_cast the a is not an object</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">a = <a href="ffw_Object.html">ffw::Object</a>();</span>
@@ -328,7 +328,7 @@ So how come the previous section does not have `getAs` and it still works? The [
 Alongside [ffw::Object](ffw_Object.html) we have [ffw::Array](ffw_Array.html) which is fancy std::vector that holds [ffw::Var](ffw_Var.html). It works exactly such as a normal std::vector
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> a;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> a;</span>
 <span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(123); </span><span class="hljs-comment">// int</span><span class="hljs-normal"></span>
 <span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(456.7f); </span><span class="hljs-comment">// float</span><span class="hljs-normal"></span>
 <span class="hljs-normal">a.<a href="ffw_Array.html#805fb16c">push_back</a>(456.7); </span><span class="hljs-comment">// double</span><span class="hljs-normal"></span>
@@ -358,7 +358,7 @@ Alongside [ffw::Object](ffw_Object.html) we have [ffw::Array](ffw_Array.html) wh
 With both arrays and objects, you can create some fancy looking data structures:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> example1 = &#123; </span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> example1 = &#123; </span>
 <span class="hljs-normal">    </span><span class="hljs-string">"menu"</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a>&#123;</span>
 <span class="hljs-normal">        &#123;</span><span class="hljs-string">"id"</span><span class="hljs-normal">, </span><span class="hljs-string">"file"</span><span class="hljs-normal">,&#125;,</span>
 <span class="hljs-normal">        &#123;</span><span class="hljs-string">"value"</span><span class="hljs-normal">, </span><span class="hljs-string">"File"</span><span class="hljs-normal">,&#125;,</span>
@@ -378,7 +378,7 @@ With both arrays and objects, you can create some fancy looking data structures:
 Which is equivalent to the following JSON:
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">&#123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">&#123;</span>
 <span class="hljs-normal">  "menu": &#123;</span>
 <span class="hljs-normal">    "id": "file",</span>
 <span class="hljs-normal">    "value": "File",</span>

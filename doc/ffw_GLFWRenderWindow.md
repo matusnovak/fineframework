@@ -150,6 +150,8 @@ virtual void setPos (
 
 Sets the position of the window. 
 
+**Overrides:** [setPos](/doc/ffw_RenderWindow.md#f4d09f9e)
+
 ### <span style="opacity:0.5;">function</span> <a id="70055684" href="#70055684">setSize</a>
 
 ```cpp
@@ -161,6 +163,8 @@ virtual void setSize (
 
 Sets the size of the window. 
 
+**Overrides:** [setSize](/doc/ffw_RenderWindow.md#d362b545)
+
 ### <span style="opacity:0.5;">function</span> <a id="6e45fa20" href="#6e45fa20">getPos</a>
 
 ```cpp
@@ -169,6 +173,8 @@ virtual ffw::Vec2i getPos () const
 
 
 
+**Overrides:** [getPos](/doc/ffw_RenderWindow.md#9fd18e79)
+
 ### <span style="opacity:0.5;">function</span> <a id="70919473" href="#70919473">getSize</a>
 
 ```cpp
@@ -176,6 +182,8 @@ virtual ffw::Vec2i getSize () const
 ```
 
 
+
+**Overrides:** [getSize](/doc/ffw_RenderWindow.md#eec3ff16)
 
 ### <span style="opacity:0.5;">function</span> <a id="487f0d6e" href="#487f0d6e">create</a>
 
@@ -189,7 +197,6 @@ bool create (
 
 Creates the window. 
 
-#### Details:
 **Params:**
 * _args:_ Arguments and hints for the window 
 * _other:_ If another window is provided, their OpenGL context will be shared, otherwise NULL 
@@ -241,7 +248,6 @@ void setFullscreen (
 
 Sets the window into fullscreen mode. 
 
-#### Details:
 You will need to change the size of the window with [setSize()](ffw_GLFWRenderWindow.html#70055684) 
 ### <span style="opacity:0.5;">function</span> <a id="a6cd0e35" href="#a6cd0e35">destroy</a>
 
@@ -251,6 +257,8 @@ virtual void destroy ()
 
 Destroys the window and it's context. 
 
+**Overrides:** [destroy](/doc/ffw_RenderWindow.md#63395a3d)
+
 ### <span style="opacity:0.5;">function</span> <a id="a7405bd4" href="#a7405bd4">shouldRender</a>
 
 ```cpp
@@ -259,7 +267,8 @@ virtual bool shouldRender () const
 
 Returns true if the window is not closed. 
 
-#### Details:
+**Overrides:** [shouldRender](/doc/ffw_RenderWindow.md#32f37adc)
+
 When [shouldClose()](ffw_GLFWRenderWindow.html#f26e03bc) is called with a 'true' boolean value, this function will then return false 
 ### <span style="opacity:0.5;">function</span> <a id="72132dff" href="#72132dff">renderFrame</a>
 
@@ -269,6 +278,8 @@ virtual void renderFrame ()
 
 Renders a frame. 
 
+**Overrides:** [renderFrame](/doc/ffw_RenderWindow.md#f1f7eabd)
+
 ### <span style="opacity:0.5;">function</span> <a id="9e15cebe" href="#9e15cebe">poolEvents</a>
 
 ```cpp
@@ -277,7 +288,8 @@ virtual void poolEvents ()
 
 Pools all user input events, if any. 
 
-#### Details:
+**Overrides:** [poolEvents](/doc/ffw_RenderWindow.md#a3426c98)
+
 This is blocking function that will return whenever there are any events in the queue. If you wish to wait for the user first, see [waitForEvents()](ffw_GLFWRenderWindow.html#242fc91e) 
 ### <span style="opacity:0.5;">function</span> <a id="242fc91e" href="#242fc91e">waitForEvents</a>
 
@@ -287,7 +299,8 @@ virtual void waitForEvents ()
 
 Pools all user input events and waits if there is none. 
 
-#### Details:
+**Overrides:** [waitForEvents](/doc/ffw_RenderWindow.md#855f4a96)
+
 This is blocking function that will not return unless there is at least one user event. If you wish to have continuous rendering, even if there are no user events, use [poolEvents()](ffw_GLFWRenderWindow.html#9e15cebe) 
 ### <span style="opacity:0.5;">function</span> <a id="7ec0b6df" href="#7ec0b6df">isInitialized</a>
 
@@ -296,6 +309,8 @@ virtual bool isInitialized () const
 ```
 
 Returns true if the window is initialized. 
+
+**Overrides:** [isInitialized](/doc/ffw_RenderWindow.md#16b82494)
 
 ### <span style="opacity:0.5;">function</span> <a id="aa2500a8" href="#aa2500a8">getGlextFunc</a>
 
@@ -307,7 +322,8 @@ virtual void * getGlextFunc (
 
 Retuns the address of the GL extension function. 
 
-#### Details:
+**Overrides:** [getGlextFunc](/doc/ffw_RenderContext.md#16d7b686)
+
 The pointer to the GL extension function may not be the same on different GL contexts! 
 ### <span style="opacity:0.5;">function</span> <a id="e2a22288" href="#e2a22288">isGlextExtSupported</a>
 
@@ -319,7 +335,8 @@ virtual bool isGlextExtSupported (
 
 Returns true if the GL extension is suported. 
 
-#### Details:
+**Overrides:** [isGlextExtSupported](/doc/ffw_RenderContext.md#66742b2f)
+
 Checks if an GLEXT extension is supported, for example "GL_ARB_debug_output" 
 ### <span style="opacity:0.5;">function</span> <a id="c327f0a5" href="#c327f0a5">setSwapInterval</a>
 
@@ -341,6 +358,8 @@ virtual void shouldClose (
 
 Set whether the window should close or stay alive. 
 
+**Overrides:** [shouldClose](/doc/ffw_RenderWindow.md#48c90ff6)
+
 ### <span style="opacity:0.5;">function</span> <a id="810c9891" href="#810c9891">show</a>
 
 ```cpp
@@ -348,6 +367,8 @@ virtual void show ()
 ```
 
 Shows the window if the window has been hidden. 
+
+**Overrides:** [show](/doc/ffw_RenderWindow.md#b2af4bed)
 
 ### <span style="opacity:0.5;">function</span> <a id="22589352" href="#22589352">hide</a>
 
@@ -357,6 +378,8 @@ virtual void hide ()
 
 Hides the window if the window is visible. 
 
+**Overrides:** [hide](/doc/ffw_RenderWindow.md#ae91ff60)
+
 ### <span style="opacity:0.5;">function</span> <a id="778bb08b" href="#778bb08b">iconify</a>
 
 ```cpp
@@ -364,6 +387,8 @@ virtual void iconify ()
 ```
 
 Minimizes the window into the task bar. 
+
+**Overrides:** [iconify](/doc/ffw_RenderWindow.md#856cc4b7)
 
 ### <span style="opacity:0.5;">function</span> <a id="2d91152d" href="#2d91152d">restore</a>
 
@@ -373,6 +398,8 @@ virtual void restore ()
 
 Restores minimized window into a visible window. 
 
+**Overrides:** [restore](/doc/ffw_RenderWindow.md#17ce5fce)
+
 ### <span style="opacity:0.5;">function</span> <a id="129f289a" href="#129f289a">maximize</a>
 
 ```cpp
@@ -381,7 +408,8 @@ virtual void maximize ()
 
 Maximizes the window in order to utilize whole screen. 
 
-#### Details:
+**Overrides:** [maximize](/doc/ffw_RenderWindow.md#beeb16ff)
+
 This is not the same as full screen mode! 
 ### <span style="opacity:0.5;">function</span> <a id="44d7a377" href="#44d7a377">setSingleBufferMode</a>
 
@@ -392,6 +420,8 @@ virtual void setSingleBufferMode (
 ```
 
 Sets whether the window should operate using two buffets (back and front) or only in one. 
+
+**Overrides:** [setSingleBufferMode](/doc/ffw_RenderWindow.md#9fecce69)
 
 ### <span style="opacity:0.5;">function</span> <a id="3e315e2e" href="#3e315e2e">operator=</a>
 
@@ -564,7 +594,6 @@ virtual void filesDroppedEvent (
 
 Called when the user drags and drops one or multiple files. 
 
-#### Details:
 **note:** UTF-8 enabled 
 
 

@@ -30,6 +30,8 @@ inline virtual bool isCreated () const
 
 
 
+**Overrides:** [isCreated](/doc/ffw_GuiFont.md#b7a982fd)
+
 ### <span style="opacity:0.5;">function</span> <a id="536e36a5" href="#536e36a5">destroy</a>
 
 ```cpp
@@ -37,6 +39,8 @@ inline virtual void destroy ()
 ```
 
 
+
+**Overrides:** [destroy](/doc/ffw_TrueTypeFont.md#334df3a6)
 
 ### <span style="opacity:0.5;">function</span> <a id="9aa95559" href="#9aa95559">getStringSize</a>
 
@@ -49,6 +53,8 @@ inline virtual ffw::Vec2f getStringSize (
 
 
 
+**Overrides:** [getStringSize](/doc/ffw_GuiFont.md#6a839d84)
+
 ### <span style="opacity:0.5;">function</span> <a id="2483ef1f" href="#2483ef1f">getStringSize</a>
 
 ```cpp
@@ -60,6 +66,8 @@ inline virtual ffw::Vec2f getStringSize (
 
 
 
+**Overrides:** [getStringSize](/doc/ffw_GuiFont.md#239d33f2)
+
 ### <span style="opacity:0.5;">function</span> <a id="494c07f4" href="#494c07f4">getCharAdvance</a>
 
 ```cpp
@@ -70,6 +78,8 @@ inline virtual float getCharAdvance (
 
 
 
+**Overrides:** [getCharAdvance](/doc/ffw_GuiFont.md#1f5e756b)
+
 ### <span style="opacity:0.5;">function</span> <a id="2371dfb9" href="#2371dfb9">getSizeInPixels</a>
 
 ```cpp
@@ -77,6 +87,8 @@ inline virtual int getSizeInPixels () const
 ```
 
 
+
+**Overrides:** [getSizeInPixels](/doc/ffw_GuiFont.md#96e35353)
 
 
 

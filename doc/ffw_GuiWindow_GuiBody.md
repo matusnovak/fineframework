@@ -40,6 +40,8 @@ virtual void eventThemeChanged (
 
 
 
+**Overrides:** [eventThemeChanged](/doc/ffw_GuiLayout.md#9227ac54)
+
 ### <span style="opacity:0.5;">function</span> <a id="016a5b99" href="#016a5b99">~GuiBody</a>
 
 ```cpp

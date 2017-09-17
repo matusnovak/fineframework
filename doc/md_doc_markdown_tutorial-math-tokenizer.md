@@ -7,7 +7,7 @@ This tutorial will explain how to use string tokenizer using [ffw::Tokenizer](ff
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-comment">// The second parameter is the delimiter, based on which the tokenizer</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// The second parameter is the delimiter, based on which the tokenizer</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// will split the source string.</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::vector&lt;std::string&gt; tokens = <a href="ffw.html#07be8e2c">ffw::getTokens</a>(</span><span class="hljs-string">"  Hello    World!  "</span><span class="hljs-normal">, </span><span class="hljs-string">" "</span><span class="hljs-normal">);</span>
 <span class="hljs-normal"></span>
@@ -25,7 +25,7 @@ This tutorial will explain how to use string tokenizer using [ffw::Tokenizer](ff
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-comment">// Also works with std::wstring!</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Also works with std::wstring!</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Will work with any std::basic_string </span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::vector&lt;std::wstring&gt; tokens = <a href="ffw.html#07be8e2c">ffw::getTokens</a>(L</span><span class="hljs-string">"xyzHelloxyzWorld!xyzxyz"</span><span class="hljs-normal">, L</span><span class="hljs-string">"xyz"</span><span class="hljs-normal">);</span>
 <span class="hljs-normal"></span>
@@ -46,7 +46,7 @@ This tutorial will explain how to use string tokenizer using [ffw::Tokenizer](ff
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">std::string source = </span><span class="hljs-string">"  Hello    World!  "</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::string source = </span><span class="hljs-string">"  Hello    World!  "</span><span class="hljs-normal">;</span>
 <span class="hljs-normal">std::string delim = </span><span class="hljs-string">" "</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Create instance of ffw::Tokenizer.</span><span class="hljs-normal"></span>

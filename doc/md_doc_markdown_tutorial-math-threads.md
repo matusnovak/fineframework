@@ -11,7 +11,7 @@ Why another thread class? Why not std::thread? The ffw::Thread uses std::thread 
 Note that ffw::Thread uses std::function and due to many reasons you should avoid using references as function parameters for threads (pointers are welcome!). A ffw::Thread can accept both static or member functions. How to tell if a function is non-static? If the function belongs to the class and has no "static" keyword then it is not a static funtion.
 
 
-<pre><div class="lang-cpp"><span class="hljs-keyword">class </span><span class="hljs-normal">Foo &#123;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-keyword">class </span><span class="hljs-normal">Foo &#123;</span>
 <span class="hljs-normal"></span><span class="hljs-keyword">public</span><span class="hljs-normal">:</span>
 <span class="hljs-normal">  Foo(</span><span class="hljs-title">int</span><span class="hljs-normal"> v)&#123;</span>
 <span class="hljs-normal">    val = v;</span>
@@ -86,7 +86,7 @@ Note that ffw::Thread uses std::function and due to many reasons you should avoi
 Mutex can be used to lock specific areas of the program. You are required to understand basics of mutex and concurrency. There are many great tutorials out there and there is simply no reason to create another tutorial explaining it. The following code will only explain how to use [ffw::Mutex](ffw_Mutex.html).
 
 
-<pre><div class="lang-cpp"><span class="hljs-comment">// We will store some data here,</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// We will store some data here,</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// There is no great use for it, this is just for the purpose</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// of the tutorial.</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::vector&lt;int*&gt; data;</span>

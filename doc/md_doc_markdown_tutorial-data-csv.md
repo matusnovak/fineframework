@@ -8,7 +8,7 @@ This tutorial will explain how to decode CSV structure.
 Make sure you add `finedata` into your linker and add the following headers into your project:
 
 
-<pre><div class="lang-cpp"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/data.h</a>&gt;</span>
 </div></pre>
 
@@ -18,7 +18,7 @@ Make sure you add `finedata` into your linker and add the following headers into
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-comment">// Make sure the lines are separated by \n !!!</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Make sure the lines are separated by \n !!!</span><span class="hljs-normal"></span>
 <span class="hljs-normal">std::string str =</span>
 <span class="hljs-normal">    </span><span class="hljs-string">"Year,Make,Model,length\n\</span>
 <span class="hljs-string">    1997,Ford,E350,2.34\n\</span>
@@ -33,7 +33,7 @@ Make sure you add `finedata` into your linker and add the following headers into
 This will return an [ffw::Array](ffw_Array.html) that contains multiple [ffw::Array](ffw_Array.html) (s).
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">std::cout &lt;&lt; arr.<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::cout &lt;&lt; arr.<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
 </div></pre>
 
 
@@ -41,7 +41,7 @@ This will return an [ffw::Array](ffw_Array.html) that contains multiple [ffw::Ar
 This will print number 3 as there are only 3 lines in the source CSV. it is guaranteed that each element of the `arr` will contain [ffw::Array](ffw_Array.html) and nothing else!
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">std::cout &lt;&lt; arr[0].<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::cout &lt;&lt; arr[0].<a href="ffw_Array.html#d6795244">size</a>() &lt;&lt; std::endl;</span>
 </div></pre>
 
 
@@ -49,7 +49,7 @@ This will print number 3 as there are only 3 lines in the source CSV. it is guar
 This will print number 4 becuase there are 4 items in the first row. Now, to access individual items...
 
 
-<pre><div class="lang-cpp"><span class="hljs-comment">// We do not care about the first row, it's a header... </span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// We do not care about the first row, it's a header... </span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Most CSV files contain a header</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Returns false becuase the "1997" is not a string</span><span class="hljs-normal"></span>
@@ -70,7 +70,7 @@ This will print number 4 becuase there are 4 items in the first row. Now, to acc
 Why the following two lines below are equal?
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">std::cout &lt;&lt; arr[2].getAs&lt;<a href="ffw_Array.html">ffw::Array</a>&gt;()[3].getAs&lt;float&gt;() &lt;&lt; std::endl;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::cout &lt;&lt; arr[2].getAs&lt;<a href="ffw_Array.html">ffw::Array</a>&gt;()[3].getAs&lt;float&gt;() &lt;&lt; std::endl;</span>
 <span class="hljs-normal">std::cout &lt;&lt; arr[2][3].getAs&lt;</span><span class="hljs-title">float</span><span class="hljs-normal">&gt;() &lt;&lt; std::endl;</span>
 </div></pre>
 
@@ -84,7 +84,7 @@ The second line does exactly same thing. The [ffw::Var](ffw_Var.html) contains t
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> output;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> output;</span>
 <span class="hljs-normal"><a href="ffw_CsvLoader.html">ffw::CsvLoader</a> loader;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// First param: file path</span><span class="hljs-normal"></span>
@@ -108,7 +108,7 @@ You can also use `openFromData` which acceps a string instead. The `getRow` acce
 
 
 
-<pre><div class="lang-cpp"><span class="hljs-normal">std::string str = </span><span class="hljs-string">"1999,Chevy,\"Venture \"\"Extended Edition, Very Large\"\"\",,5000.00"</span><span class="hljs-normal">;</span>
+<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">std::string str = </span><span class="hljs-string">"1999,Chevy,\"Venture \"\"Extended Edition, Very Large\"\"\",,5000.00"</span><span class="hljs-normal">;</span>
 <span class="hljs-normal"><a href="ffw_Array.html">ffw::Array</a> arr = <a href="ffw_CsvLoader.html#1dd92eb0">ffw::CsvLoader::tokenize</a>(str, 0, str.size(), </span><span class="hljs-keyword">true</span><span class="hljs-normal">, </span><span class="hljs-string">','</span><span class="hljs-normal">, </span><span class="hljs-string">'\"'</span><span class="hljs-normal">);</span>
 </div></pre>
 

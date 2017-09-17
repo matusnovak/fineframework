@@ -414,7 +414,6 @@ inline ffw::Color & clamp ()
 
 Clamps all RGBA components so that all values are between 0.0 and 1.0. 
 
-#### Details:
 **note:** Does not perform a normalization! 
 
 
@@ -426,7 +425,6 @@ inline ffw::Color & normalize ()
 
 Normalises a color. 
 
-#### Details:
 **note:** [Color](ffw_Color.html) is treated as a 3D vector but alpha is ignored and clamped instead. 
 
 

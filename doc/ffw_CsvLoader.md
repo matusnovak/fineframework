@@ -61,7 +61,6 @@ bool openFromData (
 
 Opens CSV from data (string) 
 
-#### Details:
 **return:** Returns true on success 
 
 

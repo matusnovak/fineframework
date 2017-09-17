@@ -52,7 +52,6 @@ Vec3i bitDepth
 
 The current bith depth. 
 
-#### Details:
 
 * .x = RED
 

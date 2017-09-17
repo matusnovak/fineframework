@@ -33,7 +33,6 @@ Vec3i bitDepth
 
 Bith depth. 
 
-#### Details:
 
 * .x = RED
 

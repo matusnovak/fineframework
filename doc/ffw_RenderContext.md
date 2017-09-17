@@ -84,7 +84,6 @@ virtual void * getGlextFunc (
 
 Retuns the address of the GL extension function. 
 
-#### Details:
 The pointer to the GL extension function may not be the same on different GL contexts! 
 ### <span style="opacity:0.5;">function</span> <a id="66742b2f" href="#66742b2f">isGlextExtSupported</a>
 
@@ -96,7 +95,6 @@ virtual bool isGlextExtSupported (
 
 Returns true if the GL extension is suported. 
 
-#### Details:
 Checks if an GLEXT extension is supported, for example "GL_ARB_debug_output" 
 ### <span style="opacity:0.5;">function</span> <a id="1e515370" href="#1e515370">setViewport</a>
 
@@ -245,7 +243,6 @@ void drawTexture2DSub (
 
 Draws a rectangular subsection of the texture. 
 
-#### Details:
 The subsection coordinates are in pixels. 
 ### <span style="opacity:0.5;">function</span> <a id="d35d4e67" href="#d35d4e67">drawTexture2DSubMirror</a>
 
@@ -267,7 +264,6 @@ void drawTexture2DSubMirror (
 
 Draws a mirrored rectangular subsection of the texture. 
 
-#### Details:
 The subsection coordinates are in pixels and the mirroring affects the result subsection. 
 ### <span style="opacity:0.5;">function</span> <a id="df89b764" href="#df89b764">drawArc</a>
 
@@ -323,7 +319,6 @@ void drawString (
 
 Draws a string. 
 
-#### Details:
 This is not UTF-8 enabled! 
 ### <span style="opacity:0.5;">function</span> <a id="8c56a4f4" href="#8c56a4f4">drawString</a>
 
@@ -353,7 +348,6 @@ void drawString (
 
 Draws a string. 
 
-#### Details:
 This is not UTF-8 enabled! 
 ### <span style="opacity:0.5;">function</span> <a id="4a15697f" href="#4a15697f">drawString</a>
 
@@ -370,7 +364,6 @@ void drawString (
 
 Draws a string. 
 
-#### Details:
 This is not UTF-8 enabled! 
 ### <span style="opacity:0.5;">function</span> <a id="149b09e3" href="#149b09e3">drawString</a>
 

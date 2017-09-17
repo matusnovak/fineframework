@@ -311,7 +311,6 @@ inline Color rgb (
 
 Constructs [ffw::Color](ffw_Color.html) from a hexadecimal value. 
 
-#### Details:
 For example, ffw::rgb(0xFF0080) returns 100% red and 50% blue. Alpha is set to 100%. **warning:** Make sure to use 0xRRGGBB formula. For example, using 0xFF00 in this function would result of color with 0% red, 100% green, and 0% blue. Also, using 0xFF would result in complete blue color. 
 
 
@@ -327,7 +326,6 @@ inline Color rgb (
 
 Constructs [ffw::Color](ffw_Color.html) from three 8-bit balues. 
 
-#### Details:
 For example, ffw::rgb(255, 0, 128) returns 100% red and 50% blue. Alpha is set to 100%. 
 ### <span style="opacity:0.5;">function</span> <a id="efcb64d9" href="#efcb64d9">rgba</a>
 
@@ -339,7 +337,6 @@ inline Color rgba (
 
 Constructs [ffw::Color](ffw_Color.html) from a hexadecimal value with alpha. 
 
-#### Details:
 For example, ffw::rgba(0xFF0080BF) returns 100% red, 50% blue, and 80% alpha. **warning:** Make sure to use 0xRRGGBBAA formula. For example, using 0xFF0080 in this function would result of color with 0% red, 100% green, 0% blue, and 50% alpha. Also, using 0xFF would result in complete black color with 100% alpha. 
 
 
@@ -356,7 +353,6 @@ inline Color rgba (
 
 Constructs [ffw::Color](ffw_Color.html) from three 8-bit balues with alpha. 
 
-#### Details:
 For example, ffw::rgba(255, 0, 128, 191) returns 100% red, 50% blue, and 80% alpha. 
 ### <span style="opacity:0.5;">function</span> <a id="3ae66aa1" href="#3ae66aa1">normalize</a>
 
@@ -616,7 +612,6 @@ inline T stringToVal (
 
 
 
-#### Details:
 **Params:**
 * _Throws:_ std::invalid_argument (invalid conversion) or std::out_of_range (conversion is out of the range) 
 

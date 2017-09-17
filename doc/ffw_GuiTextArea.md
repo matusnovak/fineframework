@@ -75,5 +75,7 @@ virtual void eventThemeChanged (
 
 
 
+**Overrides:** [eventThemeChanged](/doc/ffw_GuiScrollable.md#9c82e7fd)
+
 
 

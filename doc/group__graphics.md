@@ -29,7 +29,7 @@ Contains functions for drawing various shapes with OpenGL, including Window mana
 | class [ffw::RenderExtensions](ffw_RenderExtensions.html) |
 | class [ffw::RenderWindow](ffw_RenderWindow.html) |
 | class [ffw::Shader](ffw_Shader.html) |
-| class [ffw::Texture](ffw_Texture.html) |
+| class [ffw::Texture](ffw_Texture.html) <span style="opacity:0.8;">Base class for all texture types. </span> |
 | class [ffw::Texture1D](ffw_Texture1D.html) |
 | class [ffw::Texture1DArray](ffw_Texture1DArray.html) |
 | class [ffw::Texture2D](ffw_Texture2D.html) |
