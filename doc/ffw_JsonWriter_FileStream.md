@@ -67,7 +67,7 @@ virtual bool write (
 
 
 
-**Overrides:** [write](/doc/ffw_JsonWriter_Stream.md#a7c9ef03)
+**Overrides:** [write](/doc/ffw_JsonWriter_Stream.md#a7c9ef03) from class [Stream](/doc/ffw_JsonWriter_Stream.md)
 
 
 

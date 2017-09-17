@@ -107,7 +107,7 @@ virtual bool open (
 
 
 
-**Overrides:** [open](/doc/ffw_ImageWriter.md#c742773b)
+**Overrides:** [open](/doc/ffw_ImageWriter.md#c742773b) from class [ImageWriter](/doc/ffw_ImageWriter.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="bd9fdd6c" href="#bd9fdd6c">writeRow</a>
 
@@ -119,7 +119,7 @@ virtual size_t writeRow (
 
 
 
-**Overrides:** [writeRow](/doc/ffw_ImageWriter.md#fb673e42)
+**Overrides:** [writeRow](/doc/ffw_ImageWriter.md#fb673e42) from class [ImageWriter](/doc/ffw_ImageWriter.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="9df45474" href="#9df45474">writeFooter</a>
 
@@ -129,7 +129,7 @@ virtual bool writeFooter ()
 
 
 
-**Overrides:** [writeFooter](/doc/ffw_ImageWriter.md#5377830a)
+**Overrides:** [writeFooter](/doc/ffw_ImageWriter.md#5377830a) from class [ImageWriter](/doc/ffw_ImageWriter.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="a4424d30" href="#a4424d30">close</a>
 
@@ -139,7 +139,7 @@ virtual void close ()
 
 
 
-**Overrides:** [close](/doc/ffw_ImageWriter.md#03dcc1a2)
+**Overrides:** [close](/doc/ffw_ImageWriter.md#03dcc1a2) from class [ImageWriter](/doc/ffw_ImageWriter.md)
 
 
 

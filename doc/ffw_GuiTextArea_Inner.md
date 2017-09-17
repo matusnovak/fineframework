@@ -48,7 +48,7 @@ virtual void eventThemeChanged (
 
 
 
-**Overrides:** [eventThemeChanged](/doc/ffw_GuiTextInput.md#46f21e1e)
+**Overrides:** [eventThemeChanged](/doc/ffw_GuiTextInput.md#46f21e1e) from class [GuiTextInput](/doc/ffw_GuiTextInput.md)
 
 
 

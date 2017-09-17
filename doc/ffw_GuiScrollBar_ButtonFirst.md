@@ -48,7 +48,7 @@ virtual void eventThemeChanged (
 
 
 
-**Overrides:** [eventThemeChanged](/doc/ffw_GuiButton.md#e9b0ba14)
+**Overrides:** [eventThemeChanged](/doc/ffw_GuiButton.md#e9b0ba14) from class [GuiButton](/doc/ffw_GuiButton.md)
 
 
 

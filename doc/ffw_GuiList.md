@@ -137,7 +137,7 @@ virtual void eventThemeChanged (
 
 
 
-**Overrides:** [eventThemeChanged](/doc/ffw_GuiWidget.md#d1726419)
+**Overrides:** [eventThemeChanged](/doc/ffw_GuiWidget.md#d1726419) from class [GuiWidget](/doc/ffw_GuiWidget.md)
 
 
 

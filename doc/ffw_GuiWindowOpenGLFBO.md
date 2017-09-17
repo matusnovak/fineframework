@@ -50,7 +50,7 @@ inline virtual bool create (
 
 
 
-**Overrides:** [create](/doc/ffw_GuiWindowOpenGL.md#c7df1c0d)
+**Overrides:** [create](/doc/ffw_GuiWindowOpenGL.md#c7df1c0d) from class [GuiWindowOpenGL](/doc/ffw_GuiWindowOpenGL.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="17a89158" href="#17a89158">destroy</a>
 
@@ -60,7 +60,7 @@ inline virtual void destroy ()
 
 
 
-**Overrides:** [destroy](/doc/ffw_GuiWindowOpenGL.md#69b35170)
+**Overrides:** [destroy](/doc/ffw_GuiWindowOpenGL.md#69b35170) from class [GuiWindowOpenGL](/doc/ffw_GuiWindowOpenGL.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="17470439" href="#17470439">resize</a>
 
@@ -73,7 +73,7 @@ inline virtual void resize (
 
 
 
-**Overrides:** [resize](/doc/ffw_GuiWindowOpenGL.md#b42ac84e)
+**Overrides:** [resize](/doc/ffw_GuiWindowOpenGL.md#b42ac84e) from class [GuiWindowOpenGL](/doc/ffw_GuiWindowOpenGL.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="0a4cdf90" href="#0a4cdf90">startRender</a>
 
@@ -83,7 +83,7 @@ inline virtual void startRender ()
 
 
 
-**Overrides:** [startRender](/doc/ffw_GuiWindowOpenGL.md#0ebe5781)
+**Overrides:** [startRender](/doc/ffw_GuiWindowOpenGL.md#0ebe5781) from class [GuiWindowOpenGL](/doc/ffw_GuiWindowOpenGL.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="222ae168" href="#222ae168">endRender</a>
 
@@ -93,7 +93,7 @@ inline virtual void endRender ()
 
 
 
-**Overrides:** [endRender](/doc/ffw_GuiWindowOpenGL.md#d5a627e1)
+**Overrides:** [endRender](/doc/ffw_GuiWindowOpenGL.md#d5a627e1) from class [GuiWindowOpenGL](/doc/ffw_GuiWindowOpenGL.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="c45e9c10" href="#c45e9c10">getFboTexture</a>
 

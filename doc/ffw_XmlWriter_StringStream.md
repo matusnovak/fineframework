@@ -47,7 +47,7 @@ virtual bool write (
 
 
 
-**Overrides:** [write](/doc/ffw_XmlWriter_Stream.md#26345587)
+**Overrides:** [write](/doc/ffw_XmlWriter_Stream.md#26345587) from class [Stream](/doc/ffw_XmlWriter_Stream.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="a594c552" href="#a594c552">get</a>
 

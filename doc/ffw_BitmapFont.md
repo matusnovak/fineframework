@@ -105,7 +105,7 @@ virtual void destroy ()
 
 
 
-**Overrides:** [destroy](/doc/ffw_Font.md#ad63e5d2)
+**Overrides:** [destroy](/doc/ffw_Font.md#ad63e5d2) from class [Font](/doc/ffw_Font.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="ba912469" href="#ba912469">getChar</a>
 
@@ -117,7 +117,7 @@ virtual const Font::Char & getChar (
 
 
 
-**Overrides:** [getChar](/doc/ffw_Font.md#d843f542)
+**Overrides:** [getChar](/doc/ffw_Font.md#d843f542) from class [Font](/doc/ffw_Font.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="f39e79f6" href="#f39e79f6">setCharData</a>
 

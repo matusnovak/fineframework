@@ -78,7 +78,7 @@ virtual std::string name () const
 
 
 
-**Overrides:** [name](/doc/ffw_XmlReader_Value.md#26734a66)
+**Overrides:** [name](/doc/ffw_XmlReader_Value.md#26734a66) from class [Value](/doc/ffw_XmlReader_Value.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="646813f4" href="#646813f4">isObject</a>
 
@@ -88,7 +88,7 @@ virtual bool isObject () const
 
 
 
-**Overrides:** [isObject](/doc/ffw_XmlReader_Value.md#b62b9097)
+**Overrides:** [isObject](/doc/ffw_XmlReader_Value.md#b62b9097) from class [Value](/doc/ffw_XmlReader_Value.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="329452d5" href="#329452d5">hasAttributes</a>
 
@@ -106,7 +106,7 @@ virtual const char * rawCstr () const
 
 
 
-**Overrides:** [rawCstr](/doc/ffw_XmlReader_Value.md#a52ffb86)
+**Overrides:** [rawCstr](/doc/ffw_XmlReader_Value.md#a52ffb86) from class [Value](/doc/ffw_XmlReader_Value.md)
 
 
 

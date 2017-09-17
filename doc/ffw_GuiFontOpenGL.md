@@ -30,7 +30,7 @@ inline virtual bool isCreated () const
 
 
 
-**Overrides:** [isCreated](/doc/ffw_GuiFont.md#b7a982fd)
+**Overrides:** [isCreated](/doc/ffw_GuiFont.md#b7a982fd) from class [GuiFont](/doc/ffw_GuiFont.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="536e36a5" href="#536e36a5">destroy</a>
 
@@ -40,7 +40,7 @@ inline virtual void destroy ()
 
 
 
-**Overrides:** [destroy](/doc/ffw_TrueTypeFont.md#334df3a6)
+**Overrides:** [destroy](/doc/ffw_TrueTypeFont.md#334df3a6) from class [TrueTypeFont](/doc/ffw_TrueTypeFont.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="9aa95559" href="#9aa95559">getStringSize</a>
 
@@ -53,7 +53,7 @@ inline virtual ffw::Vec2f getStringSize (
 
 
 
-**Overrides:** [getStringSize](/doc/ffw_GuiFont.md#6a839d84)
+**Overrides:** [getStringSize](/doc/ffw_GuiFont.md#6a839d84) from class [GuiFont](/doc/ffw_GuiFont.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="2483ef1f" href="#2483ef1f">getStringSize</a>
 
@@ -66,7 +66,7 @@ inline virtual ffw::Vec2f getStringSize (
 
 
 
-**Overrides:** [getStringSize](/doc/ffw_GuiFont.md#239d33f2)
+**Overrides:** [getStringSize](/doc/ffw_GuiFont.md#239d33f2) from class [GuiFont](/doc/ffw_GuiFont.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="494c07f4" href="#494c07f4">getCharAdvance</a>
 
@@ -78,7 +78,7 @@ inline virtual float getCharAdvance (
 
 
 
-**Overrides:** [getCharAdvance](/doc/ffw_GuiFont.md#1f5e756b)
+**Overrides:** [getCharAdvance](/doc/ffw_GuiFont.md#1f5e756b) from class [GuiFont](/doc/ffw_GuiFont.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="2371dfb9" href="#2371dfb9">getSizeInPixels</a>
 
@@ -88,7 +88,7 @@ inline virtual int getSizeInPixels () const
 
 
 
-**Overrides:** [getSizeInPixels](/doc/ffw_GuiFont.md#96e35353)
+**Overrides:** [getSizeInPixels](/doc/ffw_GuiFont.md#96e35353) from class [GuiFont](/doc/ffw_GuiFont.md)
 
 
 

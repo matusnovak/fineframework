@@ -67,7 +67,7 @@ virtual bool write (
 
 
 
-**Overrides:** [write](/doc/ffw_XmlWriter_Stream.md#26345587)
+**Overrides:** [write](/doc/ffw_XmlWriter_Stream.md#26345587) from class [Stream](/doc/ffw_XmlWriter_Stream.md)
 
 
 

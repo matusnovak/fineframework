@@ -19,7 +19,16 @@ Pre-compiled binaries can be found on **[Latest GitHub Release](https://github.c
 | ffw-x86_64-apple-darwin.zip | OS X | Apple Clang++ (64-bit)  |
 
 
-All windows and OSX versions have been compiled with statically linked third party libraries. Linux binary distribution may not work out of the box, as you will need to install the following dependencies:
+All windows and OSX versions have been compiled with statically linked third party libraries.
+
+### Instructions
+
+
+Don't know what to do? Look into or want to compile from source? Look up [tutorials located here](md_doc_markdown_tutorial-install.html)
+
+**For linux builds:**
+
+Linux binary distribution may not work out of the box, I highly recommend checking out the tutorials and compiling FineFramework from source. However, if you wish to download the pre-built binaries from github release, you will need to install the following dependencies:
 
 
 <pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">sudo apt-get install apt-get install xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev</span>
@@ -36,11 +45,6 @@ And the following libraries:
 
 
 Also, please make sure that your `glext.h` located in `/usr/local/include/GL` is updated with the latest release: [https://www.khronos.org/registry/OpenGL/api/GL/glext.h](https://www.khronos.org/registry/OpenGL/api/GL/glext.h)
-
-### Instructions
-
-
-Don't know what to do? Look into [tutorials located here](md_doc_markdown_tutorial-install.html)
 
 ### Source Code
 
