@@ -36,7 +36,6 @@ public:
 		}
 
 		textSize = font.getStringSize(STRING_TO_SHOW);
-		
 		return true;
 	}
 
@@ -159,12 +158,12 @@ int main(int argc, char *argv[]){
 		return 1;
 	}
 
-	app.setSingleBufferMode(true);
+	//app.setSingleBufferMode(true);
 
 	// The main window loop
 	while(app.shouldRender()){
 		app.renderFrame();
-		app.waitForEvents();
+		app.poolEvents();
 	}
 
 	// destroy window, this will delete all graphics data used by the window.

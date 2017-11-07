@@ -36,17 +36,18 @@ ffw::BmpSaver::~BmpSaver(){
 }
 
 ///=============================================================================
-bool ffw::BmpSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::BmpSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
 	(void)quality;
+	(void)mips;
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
-	quality = ffw::clamp(quality, 0, 100);
 
 	switch(type){
 		case ImageType::BITMAP_1:
 		case ImageType::GRAYSCALE_8:
 		case ImageType::GRAYSCALE_4:
 		case ImageType::RGB_888:
+		case ImageType::RGB_ALPHA_4444:
 		case ImageType::RGB_ALPHA_8888:
 			break;
 		default:
@@ -77,6 +78,8 @@ bool ffw::BmpSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     format = type;
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	switch(format){
 		case ffw::ImageType::BITMAP_1: {
@@ -118,6 +121,15 @@ bool ffw::BmpSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			dataOffset = 0x36;
 			bitsPerPixel = 24;
 			imageSize = width*height*3;
+			break;
+		}
+
+		case ffw::ImageType::RGB_ALPHA_4444: {
+			fileSize = 0x36 + width*height*2;
+			dataOffset = 0x36;
+			bitsPerPixel = 16;
+			imageSize = width*height*2;
+			compression = 3;
 			break;
 		}
 
@@ -192,6 +204,8 @@ void ffw::BmpSaver::close(){
 	width = 0;
 	height = 0;
 	loaded = 0;
+	depth = 0;
+	mipmaps = 0;
 	row = 0;
 	format = ImageType::INVALID;
 }
@@ -247,6 +261,19 @@ size_t ffw::BmpSaver::writeRow(const void* src){
 				output->write(&ptr[i + 0], 1);
 			}
 
+			break;
+		}
+
+		case ffw::ImageType::RGB_ALPHA_4444: {
+			output->seekg(pixelsOffset + rowOffset * scanline);
+			const char* ptr = (const char*)src;
+			for(size_t i = 0; i < size_t(scanline); i += 2){
+				const char t0 = ((ptr[i + 1] & 0x0F) << 4) | ((ptr[i + 0] & 0xF0) >> 4);
+				output->write(&t0, 1);
+
+				const char t1 = ((ptr[i + 0] & 0x0F) << 4) | ((ptr[i + 1] & 0xF0) >> 4);
+				output->write(&t1, 1);
+			}
 			break;
 		}
 

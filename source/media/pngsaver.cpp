@@ -42,7 +42,8 @@ ffw::PngSaver::~PngSaver(){
 }
 
 ///=============================================================================
-bool ffw::PngSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::PngSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
+	(void)mips;
 	(void)quality;
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
@@ -164,6 +165,8 @@ bool ffw::PngSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     format = type;
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	row = 0;
     loaded = true;
@@ -185,6 +188,8 @@ void ffw::PngSaver::close(){
 	width = 0;
 	height = 0;
 	loaded = 0;
+	depth = 0;
+	mipmaps = 0;
 	row = 0;
 	format = ImageType::INVALID;
 }

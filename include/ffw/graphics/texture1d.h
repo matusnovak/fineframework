@@ -4,6 +4,8 @@
 #include "texture.h"
 
 namespace ffw {
+	class ImageBuffer;
+
 	/**
 	 * @ingroup graphics
 	 */
@@ -14,10 +16,12 @@ namespace ffw {
 		Texture1D(const Texture1D& second) = delete;
 		Texture1D(Texture1D&& second);
         ~Texture1D();
-        bool create(const ffw::RenderContext* renderer, GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat);
+        bool create(const ffw::RenderContext* renderer, GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels = NULL);
 		bool resize(GLsizei width);
-        bool setPixels(GLint level, GLint xoffset, GLsizei width, const void* pixels);
-		bool getPixels(void* pixels);
+		bool createFromBuffer(const ffw::RenderContext* renderer, const ImageBuffer& buffer);
+		bool setPixels(GLint level, const GLvoid* pixels = NULL);
+        bool setPixels(GLint level, GLint xoffset, GLsizei width, const GLvoid* pixels);
+		bool getPixels(void* pixels) const;
 		Texture1D& operator = (const Texture1D& second) = delete;
 		Texture1D& operator = (Texture1D&& second);
     };

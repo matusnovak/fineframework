@@ -80,6 +80,8 @@ bool ffw::TgaLoader::open(const std::string& path){
 
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	// Read extra id
     if(idLength > 0){
@@ -138,6 +140,9 @@ void ffw::TgaLoader::close(){
 	height = 0;
 	loaded = 0;
 	row = 0;
+	depth = 0;
+	mipmaps = 0;
+	mipmapOffset = 0;
 	format = ImageType::INVALID;
 }
 

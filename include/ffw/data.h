@@ -1,7 +1,9 @@
 /**
  * @defgroup data data - XML, CSV, and JSON loaders
- * @brief Provised a way to encode and decode XML, CSV, or JSON
- * structures
+ * @brief Encode and decode XML, CSV, or JSON structures
+ * @details Provides a way to load and save XML, CSV, and JSON 
+ * data files. Uses third party library 
+ * [tinyxml-2](https://github.com/leethomason/tinyxml2)
  */
 #ifndef FFW_DATA_MODULE
 #define FFW_DATA_MODULE

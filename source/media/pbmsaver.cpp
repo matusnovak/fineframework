@@ -32,18 +32,19 @@ ffw::PbmSaver::~PbmSaver(){
 }
 
 ///=============================================================================
-bool ffw::PbmSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::PbmSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
+	(void)quality;
+	(void)mips;
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
-	quality = ffw::clamp(quality, 0, 100);
 
 	switch(type){
 		case ImageType::GRAYSCALE_8:
 		case ImageType::GRAYSCALE_16:
-		case ImageType::GRAYSCALE_32:
+		case ImageType::GRAYSCALE_32F:
 		case ImageType::RGB_888:
 		case ImageType::RGB_161616:
-		case ImageType::RGB_323232:
+		case ImageType::RGB_323232F:
 			break;
 		default:
 			return false;
@@ -72,7 +73,7 @@ bool ffw::PbmSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			header[3] = "65535\n";
 			break;
 		}
-		case ffw::ImageType::GRAYSCALE_32: {
+		case ffw::ImageType::GRAYSCALE_32F: {
 			header[0] = "Pf\n";
 			header[3] = "-1.0000\n";
 			break;
@@ -82,7 +83,7 @@ bool ffw::PbmSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			header[3] = "65535\n";
 			break;
 		}
-		case ffw::ImageType::RGB_323232: {
+		case ffw::ImageType::RGB_323232F: {
 			header[0] = "PF\n";
 			header[3] = "-1.0000\n";
 			break;
@@ -97,6 +98,8 @@ bool ffw::PbmSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     format = type;
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	output->write(header[0].c_str(), header[0].size());
 	output->write(header[1].c_str(), header[1].size());
@@ -114,6 +117,8 @@ void ffw::PbmSaver::close(){
 	width = 0;
 	height = 0;
 	loaded = 0;
+	depth = 0;
+	mipmaps = 0;
 	row = 0;
 	format = ImageType::INVALID;
 }
@@ -137,7 +142,7 @@ size_t ffw::PbmSaver::writeRow(const void* src){
 			}
 			break;
 		}
-		case ffw::ImageType::GRAYSCALE_32: {
+		case ffw::ImageType::GRAYSCALE_32F: {
 			output->write((const char*)src, width*4);
 			break;
 		}
@@ -153,7 +158,7 @@ size_t ffw::PbmSaver::writeRow(const void* src){
 			}
 			break;
 		}
-		case ffw::ImageType::RGB_323232: {
+		case ffw::ImageType::RGB_323232F: {
 			output->write((const char*)src, width*4*3);
 			break;
 		}

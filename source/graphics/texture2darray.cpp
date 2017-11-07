@@ -2,6 +2,7 @@
 
 #include "ffw/graphics/texture2darray.h"
 #include "ffw/graphics/rendercontext.h"
+#include <ffw/graphics.h>
 
 ///=============================================================================
 bool ffw::Texture2DArray::checkCompability(const ffw::RenderContext* renderer){
@@ -37,7 +38,7 @@ ffw::Texture2DArray::~Texture2DArray(){
 }
 
 ///=============================================================================
-bool ffw::Texture2DArray::create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat){
+bool ffw::Texture2DArray::create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels){
     if(loaded_)return false;
 	if(!checkCompability(renderer))return false;
 	loaded_ = true;
@@ -55,7 +56,15 @@ bool ffw::Texture2DArray::create(const ffw::RenderContext* renderer, GLsizei wid
     pixelformat_     = pixelformat;
 	samples_		 = 0;
 
-    gl_->glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalformat_, width_, height_, layers_, 0, format_, pixelformat_, NULL);
+	if (isCompressed()) {
+		if (gl_->glCompressedTexImage3D == NULL) {
+			destroy();
+			return false;
+		}
+		gl_->glCompressedTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalformat_, width_, height_, layers_, 0, getBlockSize(width, height, layers), pixels);
+	} else {
+		gl_->glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalformat_, width_, height_, layers_, 0, format_, pixelformat_, pixels);
+	}
 
     int test;
     glGetTexLevelParameteriv(GL_TEXTURE_2D_ARRAY, 0, GL_TEXTURE_WIDTH, &test);
@@ -79,22 +88,93 @@ bool ffw::Texture2DArray::resize(GLsizei width, GLsizei height, GLsizei layers){
 	height_ = height;
 	layers_ = layers;
 	glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
-	gl_->glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalformat_, width_, height_, layers_, 0, format_, pixelformat_, NULL);
+
+	if(isCompressed()) {
+		gl_->glCompressedTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalformat_, width_, height_, layers_, 0, getBlockSize(width, height, layers), NULL);
+	} else {
+		gl_->glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internalformat_, width_, height_, layers_, 0, format_, pixelformat_, NULL);
+	}
 	return true;
 }
 
 ///=============================================================================
-bool ffw::Texture2DArray::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint loffset, GLsizei width, GLsizei height, const void* pixels){
+bool ffw::Texture2DArray::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint loffset, GLsizei width, GLsizei height, const GLvoid* pixels){
     if(!loaded_)return false;
+
     glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
-    gl_->glTexSubImage3D(GL_TEXTURE_2D_ARRAY, level, xoffset, yoffset, loffset, width, height, 1, format_, pixelformat_, pixels);
+
+	if(isCompressed()) {
+		gl_->glCompressedTexSubImage3D(GL_TEXTURE_2D_ARRAY, level, xoffset, yoffset, loffset, width, height, 1, internalformat_, getBlockSize(width, height, 1), pixels);
+	} else {
+		gl_->glTexSubImage3D(GL_TEXTURE_2D_ARRAY, level, xoffset, yoffset, loffset, width, height, 1, format_, pixelformat_, pixels);
+	}
+
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture2DArray::getPixels(void* pixels){
+bool ffw::Texture2DArray::setPixels(GLint level, const GLvoid* pixels){
+    if(!loaded_)return false;
+    glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
+
+	auto w = width_ >> level;
+	auto h = height_ >> level;
+
+	if(isCompressed()) {
+		gl_->glCompressedTexImage3D(GL_TEXTURE_2D_ARRAY, level, internalformat_, w, h, layers_, 0, getBlockSize(w, h, layers_), pixels);
+	} else {
+		gl_->glTexImage3D(GL_TEXTURE_2D_ARRAY, level, internalformat_, w, h, layers_, 0, format_, pixelformat_, pixels);
+	}
+
+    return true;
+}
+
+///=============================================================================
+bool ffw::Texture2DArray::getPixels(void* pixels) const{
 	if(!loaded_)return false;
 	glBindTexture(GL_TEXTURE_2D_ARRAY, buffer_);
 	glGetTexImage(GL_TEXTURE_2D_ARRAY, 0, format_, pixelformat_, pixels);
     return true;
+}
+
+///=============================================================================
+bool ffw::Texture2DArray::setFromBuffer(const ImageBuffer& buffer, GLint level, bool inverse) {
+	if (!buffer.isAllocated())return false;
+	if (buffer.getDepth() > 1)return false;
+
+	ffw::OpenGLImageType openglType = ffw::getOpenGLImageType(buffer.getImageType());
+	if (!openglType) {
+		return false;
+	}
+
+	if (buffer.isCompressed() && inverse)return false;
+
+	if (isCreated()) {
+		for(int m = 0; m <= buffer.getNumOfMipMaps()-1; m++) {
+			
+			if(inverse) {
+				if (m != 0)setPixels(m, NULL); // Create mipmap
+				for (int i = 0; i < buffer.getHeight(m); i++) {
+					auto ptr = &buffer.getMipMapPtr(m)[buffer.getStrideSize(m) * i];
+					if(!setPixels(m, 0, buffer.getHeight(m) - i - 1, level, buffer.getWidth(m), 1, ptr)) {
+						return false;
+					}
+				}
+			}
+			else {
+				if(!setPixels(m, 0, 0, level, buffer.getWidth(m), buffer.getHeight(m), buffer.getMipMapPtr(m))) {
+					return false;
+				}
+			}
+		}
+
+		if(buffer.getNumOfMipMaps() > 0) {
+			glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_BASE_LEVEL, 0);
+			glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAX_LEVEL, buffer.getNumOfMipMaps()-1);
+		}
+	} else {
+		return false;
+	}
+
+	return true;
 }

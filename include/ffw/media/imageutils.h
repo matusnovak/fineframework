@@ -17,19 +17,15 @@ namespace ffw {
 	/**
 	* @ingroup media
 	*/
-	bool FFW_API readImage(const std::string& path, void** dest, int* width, int* height, ffw::ImageType* format);
+	bool FFW_API readImage(const std::string& path, void** dest, int* width, int* height, ffw::ImageType* format, int* mips = NULL);
 	/**
 	* @ingroup media
 	*/
-	bool FFW_API writeImage(const std::string& path, const void* src, int width, int height, ffw::ImageType format, int quality = 100);
+	bool FFW_API writeImage(const std::string& path, const void* src, int width, int height, ffw::ImageType format, int quality = 100, int mips = 1);
 	/**
 	* @ingroup media
 	*/
 	bool FFW_API readImage(const std::string& path, ffw::ImageBuffer& image);
-	/**
-	* @ingroup media
-	*/
-	ffw::ImageBuffer FFW_API readImage(const std::string& path);
 	/**
 	* @ingroup media
 	*/

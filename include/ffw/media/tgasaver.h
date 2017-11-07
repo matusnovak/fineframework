@@ -18,7 +18,7 @@ namespace ffw {
 		TgaSaver& operator = (TgaSaver&& other);
 		virtual ~TgaSaver();
 
-		bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100) override;
+		bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100, int mips = 1) override;
 		size_t writeRow(const void* src) override;
 		bool writeFooter() override;
 		void close() override;

@@ -126,19 +126,19 @@ bool ffw::TifLoader::open(const std::string& path){
 		case 32: {
 			switch(samplesPerPixel){
 				case 1: {
-					format = ffw::ImageType::GRAYSCALE_32;
+					format = ffw::ImageType::GRAYSCALE_32F;
 					break;
 				}
 				case 2: {
-					format = ffw::ImageType::GRAYSCALE_ALPHA_32;
+					format = ffw::ImageType::GRAYSCALE_ALPHA_32F;
 					break;
 				}
 				case 3: {
-					format = ffw::ImageType::RGB_323232;
+					format = ffw::ImageType::RGB_323232F;
 					break;
 				}
 				case 4: {
-					format = ffw::ImageType::RGB_ALPHA_32323232;
+					format = ffw::ImageType::RGB_ALPHA_32323232F;
 					break;
 				}
 				default: {
@@ -156,6 +156,8 @@ bool ffw::TifLoader::open(const std::string& path){
 
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	row = 0;
 	loaded = true;
@@ -172,6 +174,9 @@ void ffw::TifLoader::close(){
 	height = 0;
 	loaded = 0;
 	row = 0;
+	depth = 0;
+	mipmaps = 0;
+	mipmapOffset = 0;
 	format = ImageType::INVALID;
 }
 

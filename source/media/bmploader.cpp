@@ -2,6 +2,8 @@
 
 #include "ffw/media/bmploader.h"
 
+#define SWAP_4BITS(c) ((c & 0xf0) >> 4) | ((c & 0x0f) << 4);
+
 ///=============================================================================
 ffw::BmpLoader::BmpLoader():input(){
 	invertBits = false;
@@ -84,27 +86,37 @@ bool ffw::BmpLoader::open(const std::string& path){
     input->read((char*)&resolutionY,        sizeof(uint32_t));
     input->read((char*)&numberOfColors,     sizeof(uint32_t));
     input->read((char*)&importantColors,    sizeof(uint32_t));
+	depth = 0;
+	mipmaps = 1;
 
-    if(compression != 0)return false;
-    if(planes != 1)return false;
+	if(planes != 1)return false;
 
-	if(bitsPerPixel == 1){
-        format = ffw::ImageType::BITMAP_1;
+	format = ffw::ImageType::INVALID;
 
-    } else if(bitsPerPixel == 4){
-        format = ffw::ImageType::GRAYSCALE_4;
+	if(bitsPerPixel == 16 && compression == 3) {
+		format = ffw::ImageType::RGB_ALPHA_4444;
+	} else if(compression == 0){
+		if(bitsPerPixel == 1){
+			format = ffw::ImageType::BITMAP_1;
 
-    } else if(bitsPerPixel == 8){
-        format = ffw::ImageType::GRAYSCALE_8;
+		} else if(bitsPerPixel == 4){
+			format = ffw::ImageType::GRAYSCALE_4;
 
-    } else if(bitsPerPixel == 24){
-        format = ffw::ImageType::RGB_888;
+		} else if(bitsPerPixel == 8){
+			format = ffw::ImageType::GRAYSCALE_8;
 
-    } else if(bitsPerPixel == 32){
-        format = ffw::ImageType::RGB_ALPHA_8888;
+		} else if(bitsPerPixel == 24){
+			format = ffw::ImageType::RGB_888;
 
-    } else {
-        return false;
+		} else if(bitsPerPixel == 32){
+			format = ffw::ImageType::RGB_ALPHA_8888;
+
+		}
+	}
+
+    if(format == ffw::ImageType::INVALID) {
+		close();
+		return false;
     }
 
     // Check if file contains all pixels
@@ -137,6 +149,9 @@ void ffw::BmpLoader::close(){
 	input->close();
 	width = 0;
 	height = 0;
+	depth = 0;
+	mipmaps = 0;
+	mipmapOffset = 0;
 	loaded = 0;
 	row = 0;
 	invertBits = false;
@@ -155,14 +170,11 @@ size_t ffw::BmpLoader::readRow(void* dest){
 	int scanline = int(width * (getBitsPerPixel() / 8.0f) + offset);
 	int rowOffset = height - row - 1;
 
-	//std::cout << "offset: " << offset << " row: " << rowOffset << " scanline: " << scanline << std::endl;
-
 	switch(format){
 		case ffw::ImageType::BITMAP_1: {
 			size = (width) /8;
 			if(width % 8 > 0)size++;
 
-			//std::cout << "reading at: " << (pixelsOffset + rowOffset * scanline) << " size: " << size << std::endl;
 			input->seekg(pixelsOffset + rowOffset * scanline);
 			input->read((char*)dest, size);
 
@@ -171,7 +183,6 @@ size_t ffw::BmpLoader::readRow(void* dest){
 				for(size_t i = 0; i < size; i++)ptr[i] = ~ptr[i];
 			}
 			
-			//if(offset > 0)input->read(padding, 2);
 			break;
 		}
 
@@ -179,11 +190,9 @@ size_t ffw::BmpLoader::readRow(void* dest){
 			size = (width) /2;
 			if(width % 2 > 0)size++;
 
-			//std::cout << "reading: " << size << std::endl;
 			input->seekg(pixelsOffset + rowOffset * scanline);
 			input->read((char*)dest, size);
 			
-			//if(offset > 0)input->read(padding, 2);
 			break;
 		}
 
@@ -191,12 +200,31 @@ size_t ffw::BmpLoader::readRow(void* dest){
 			input->seekg(pixelsOffset + rowOffset * scanline);
 			input->read((char*)dest, width);
 			
-			//if(offset > 0)input->read(padding, offset);
+			break;
+		}
+
+		case ffw::ImageType::RGB_ALPHA_4444: {
+			input->seekg(pixelsOffset + rowOffset * scanline);
+			input->read((char*)dest, width * 2);
+
+			unsigned char* ptr = (unsigned char*)dest;
+			for(size_t i = 0; i < size_t(width)*2; i += 2) {
+				auto t = ptr[i + 0];
+				ptr[i + 0] = ((t & 0xf0) >> 4) | ((t & 0x0f) << 4);
+
+				t = ptr[i + 1];
+				ptr[i + 1] = ((t & 0xf0) >> 4) | ((t & 0x0f) << 4);
+
+				std::swap(ptr[i + 0], ptr[i + 1]);
+
+				t = ptr[i + 1] & 0xF0;
+				ptr[i + 1] = (ptr[i + 1] & 0x0F) | (ptr[i + 0] & 0xF0);
+				ptr[i + 0] = (ptr[i + 0] & 0x0F) | t;
+			}
 			break;
 		}
 		
 		case ffw::ImageType::RGB_888: {
-			//std::cout << "seek to: " << (pixelsOffset + ((height - row - 1) * scanline)) << std::endl;
 			input->seekg(pixelsOffset + rowOffset * scanline);
 
 			input->read((char*)dest, width * 3);
@@ -205,7 +233,6 @@ size_t ffw::BmpLoader::readRow(void* dest){
 				std::swap(ptr[i + 0], ptr[i + 2]);
 			}
 
-			//if(offset > 0)input->read(padding, offset);
 			break;
 		}
 
@@ -216,13 +243,8 @@ size_t ffw::BmpLoader::readRow(void* dest){
 			unsigned char* ptr = (unsigned char*)dest;
 			for(size_t i = 0; i < size_t(width)*4; i += 4){
 				std::swap(ptr[i + 0], ptr[i + 2]);
-				//ptr[i]   = ptr[i+2];
-				//ptr[i+1] = ptr[i+1];
-				//ptr[i+2] = ptr[i];
-				//ptr[i+3] = ptr[i+3];
 			}
 			
-			//if(offset > 0)input->read(padding, offset);
 			break;
 		}
 		default: return 0;

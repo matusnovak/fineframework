@@ -235,14 +235,14 @@ ffw::GuiList::Item* ffw::GuiList::addItem(const std::wstring& label) {
 }
 
 ///=============================================================================
-void ffw::GuiList::DeleteAllItems() {
+void ffw::GuiList::deleteAllItems() {
 	getInner()->deleteWidgets();
 	group.reset();
 	counter = 0;
 }
 
 ///=============================================================================
-bool ffw::GuiList::DeleteItem(const GuiList::Item* item) {
+bool ffw::GuiList::deleteItem(const GuiList::Item* item) {
 	return getInner()->deleteSingleWidget(item);
 }
 
@@ -252,7 +252,7 @@ void ffw::GuiList::setSelected(int index) {
 }
 
 ///=============================================================================
-void ffw::GuiList::ResetSelected() {
+void ffw::GuiList::resetSelected() {
 	group.setValue(-1);
 }
 

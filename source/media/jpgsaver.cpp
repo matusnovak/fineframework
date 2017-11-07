@@ -74,7 +74,8 @@ ffw::JpgSaver::~JpgSaver(){
 }
 
 ///=============================================================================
-bool ffw::JpgSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::JpgSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
+	(void)mips;
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
 	quality = ffw::clamp(quality, 0, 100);
@@ -160,6 +161,8 @@ bool ffw::JpgSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     format = type;
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	row = 0;
     loaded = true;
@@ -186,6 +189,8 @@ void ffw::JpgSaver::close(){
 	width = 0;
 	height = 0;
 	loaded = 0;
+	depth = 0;
+	mipmaps = 0;
 	row = 0;
 	format = ImageType::INVALID;
 }

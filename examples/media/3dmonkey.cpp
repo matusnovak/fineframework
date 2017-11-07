@@ -50,9 +50,14 @@ public:
 		}
 
 		// Load texture
-		if(!texture.createFromBuffer(this, ffw::readImage("uvgrid.png"))){
-			// Error while loading shader
-			std::cerr << "Failed to create texture from: uvgrid.bmp!" << std::endl;
+		ffw::ImageBuffer image;
+		if (ffw::readImage("uvgrid.png", image)) {
+			if (!texture.createFromBuffer(this, image)) {
+				// Error while loading shader
+				std::cerr << "Failed to create texture!" << std::endl;
+			}
+		} else {
+			std::cerr << "Failed to load texture: uvgrid.bmp!" << std::endl;
 		}
 
 		// Load OBJ directly into VBO

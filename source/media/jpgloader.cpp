@@ -136,6 +136,8 @@ bool ffw::JpgLoader::open(const std::string& path){
 
 	width = jpg_struct->cinfo.output_width;
 	height = jpg_struct->cinfo.output_height;
+	depth = 0;
+	mipmaps = 1;
 
 	row = 0;
 	loaded = true;
@@ -161,6 +163,9 @@ void ffw::JpgLoader::close(){
 	width = 0;
 	height = 0;
 	loaded = 0;
+	depth = 0;
+	mipmaps = 0;
+	mipmapOffset = 0;
 	row = 0;
 	format = ImageType::INVALID;
 }

@@ -14,7 +14,9 @@
 #include "ffw/media/tifloader.h"
 #include "ffw/media/tifsaver.h"
 #include "ffw/math/stringmath.h"
+#include "ffw/media/ddsloader.h"
 #include <memory>
+#include "ffw/media/ddssaver.h"
 
 ///=============================================================================
 ffw::ImageReader* ffw::openImageReader(const std::string& path){
@@ -28,6 +30,7 @@ ffw::ImageReader* ffw::openImageReader(const std::string& path){
 	else if(ext == "pbm")ret = new ffw::PbmLoader();
 	else if(ext == "tif")ret = new ffw::TifLoader();
 	else if(ext == "tiff")ret = new ffw::TifLoader();
+	else if(ext == "dds")ret = new ffw::DdsLoader();
 	else return NULL;
 
 	if(!ret->open(path)){
@@ -50,6 +53,7 @@ ffw::ImageWriter* ffw::openImageWriter(const std::string& path, int width, int h
 	else if(ext == "pbm")ret = new ffw::PbmSaver();
 	else if(ext == "tif")ret = new ffw::TifSaver();
 	else if(ext == "tiff")ret = new ffw::TifSaver();
+	else if(ext == "dds")ret = new ffw::DdsSaver();
 	else return NULL;
 
 	if(!ret->open(path, width, height, type, quality)){
@@ -61,36 +65,29 @@ ffw::ImageWriter* ffw::openImageWriter(const std::string& path, int width, int h
 }
 
 ///=============================================================================
-bool ffw::readImage(const std::string& path, void** dest, int* width, int* height, ffw::ImageType* format){
+bool ffw::readImage(const std::string& path, void** dest, int* width, int* height, ffw::ImageType* format, int* mips){
 	ffw::ImageReader* loader = openImageReader(path);
 	if(loader == NULL)return false;
 
-	if(width != NULL)*width = loader->getWidth();
-	if(height != NULL)*height = loader->getHeight();
-	if(format != NULL)*format = loader->getImageType();
+	bool res = true;
+	if (dest) {
+		*dest = new unsigned char[loader->getAllocationSize(loader->getNumOfMipMaps())];
 
-	if(dest == NULL){
-		delete loader;
-		return true;
+		res = loader->readAll(*dest);
+		if (!res)delete[] (unsigned char*)*dest;
 	}
 
-	*dest = new unsigned char[loader->getHeight() * loader->getStrideSize()];
-
-	while(!loader->eof()){
-		void* ptr = &((unsigned char*)(*dest))[loader->getRowOffset() * loader->getStrideSize()];
-		if(!loader->readRow(ptr)){
-			//std::cerr << "Error while reading row: " << loader->getRowOffset() << std::endl;
-			delete loader;
-			return false;
-		}
-	}
+	if (width)*width = loader->getWidth();
+	if (height)*height = loader->getHeight();
+	if (format)*format = loader->getImageType();
+	if (mips)*mips = loader->getNumOfMipMaps();
 
 	delete loader;
-	return true;
+	return res;
 }
 
 ///=============================================================================
-bool ffw::writeImage(const std::string& path, const void* src, int width, int height, ffw::ImageType format, int quality){
+bool ffw::writeImage(const std::string& path, const void* src, int width, int height, ffw::ImageType format, int quality, int mips){
 	if(src == NULL)return false;
 
 	ffw::ImageWriter* saver = openImageWriter(path, width, height, format, quality);
@@ -115,28 +112,10 @@ bool ffw::readImage(const std::string& path, ffw::ImageBuffer& image){
 	ffw::ImageReader* loader = openImageReader(path);
 	if(loader == NULL)return false;
 
-	if(!image.allocate(loader->getWidth(), loader->getHeight(), loader->getImageType()))return false;
-
-	unsigned char* dest = image.getPtr();
-
-	while(!loader->eof()){
-		void* ptr = &dest[loader->getRowOffset() * loader->getStrideSize()];
-		if(!loader->readRow(ptr)){
-			//std::cerr << "Error while reading row: " << loader->getRowOffset() << std::endl;
-			delete loader;
-			return false;
-		}
-	}
+	bool res = loader->readAll(image);
 
 	delete loader;
-	return true;
-}
-
-///=============================================================================
-ffw::ImageBuffer ffw::readImage(const std::string& path) {
-	ffw::ImageBuffer ret;
-	readImage(path, ret);
-	return ret;
+	return res;
 }
 
 ///=============================================================================

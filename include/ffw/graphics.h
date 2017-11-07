@@ -1,6 +1,11 @@
 /**
  * @defgroup graphics graphics - OpenGL drawing and window handling
- * @brief Provides basic graphical functionality via OpenGL
+ * @brief Basic graphical functionality via OpenGL
+ * @details Contains functions for drawing various shapes with OpenGL, 
+ * including Window management and user input event handling. Uses 
+ * third party library 
+ * [GLFW](http://www.glfw.org/) 
+ * and [FreeType](https://www.freetype.org/)
  */
 #ifndef FFW_GRAPHICS_MODULE
 #define FFW_GRAPHICS_MODULE

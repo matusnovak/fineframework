@@ -1,6 +1,15 @@
 cmake_minimum_required(VERSION 3.1)
 project (fineframework)
 
+if(UNITX OR APPLE)
+  if (NOT ${CMAKE_LIBRARY_PATH})
+    set(CMAKE_LIBRARY_PATH "/usr/local/lib")
+  endif()
+  if (NOT ${INCLUDE_DIRECTORIES})
+    set(INCLUDE_DIRECTORIES "/usr/local/include")
+  endif()
+endif()
+
 set (CMAKE_CXX_STANDARD 11)
 set(CMAKE_BUILD_TYPE "Release" CACHE STRING "Select build type")
 set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS "Debug" "Release" "RelWithDebInfo" "MinSizeRel")

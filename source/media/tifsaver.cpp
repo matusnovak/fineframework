@@ -38,24 +38,25 @@ ffw::TifSaver::~TifSaver(){
 }
 
 ///=============================================================================
-bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
+	(void)quality;
+	(void)mips;
 	if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
-	quality = ffw::clamp(quality, 0, 100);
 
 	switch(type){
 		case ImageType::GRAYSCALE_8:
 		case ImageType::GRAYSCALE_16:
-		case ImageType::GRAYSCALE_32:
+		case ImageType::GRAYSCALE_32F:
 		case ImageType::GRAYSCALE_ALPHA_8:
 		case ImageType::GRAYSCALE_ALPHA_16:
-		case ImageType::GRAYSCALE_ALPHA_32:
+		case ImageType::GRAYSCALE_ALPHA_32F:
 		case ImageType::RGB_888:
 		case ImageType::RGB_161616:
-		case ImageType::RGB_323232:
+		case ImageType::RGB_323232F:
 		case ImageType::RGB_ALPHA_8888:
 		case ImageType::RGB_ALPHA_16161616:
-		case ImageType::RGB_ALPHA_32323232:
+		case ImageType::RGB_ALPHA_32323232F:
 			break;
 		default:
 			return false;
@@ -90,7 +91,7 @@ bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			dataType = 0;
 			break;
 		}
-		case ImageType::GRAYSCALE_32:{
+		case ImageType::GRAYSCALE_32F:{
 			bitsPerPixel = 32;
 			samplesPerPixel = 1;
 			photometric = 1;
@@ -111,7 +112,7 @@ bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			dataType = 0;
 			break;
 		}
-		case ImageType::GRAYSCALE_ALPHA_32:{
+		case ImageType::GRAYSCALE_ALPHA_32F:{
 			bitsPerPixel = 32;
 			samplesPerPixel = 2;
 			photometric = 1;
@@ -132,7 +133,7 @@ bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			dataType = 0;
 			break;
 		}
-		case ImageType::RGB_323232:{
+		case ImageType::RGB_323232F:{
 			bitsPerPixel = 32;
 			samplesPerPixel = 3;
 			photometric = 2;
@@ -153,7 +154,7 @@ bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 			dataType = 0;
 			break;
 		}
-		case ImageType::RGB_ALPHA_32323232:{
+		case ImageType::RGB_ALPHA_32323232F:{
 			bitsPerPixel = 32;
 			samplesPerPixel = 4;
 			photometric = 2;
@@ -169,6 +170,8 @@ bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType t
 	format = type;
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH, w);
     TIFFSetField(tiff, TIFFTAG_IMAGELENGTH, h);
@@ -226,6 +229,8 @@ void ffw::TifSaver::close(){
 	height = 0;
 	loaded = 0;
 	row = 0;
+	depth = 0;
+	mipmaps = 0;
 	format = ImageType::INVALID;
 }
 

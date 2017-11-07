@@ -35,10 +35,11 @@ ffw::TgaSaver::~TgaSaver(){
 }
 
 ///=============================================================================
-bool ffw::TgaSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality){
+bool ffw::TgaSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
 	if(loaded)return false;
+	(void)quality;
+	(void)mips;
     if(w <= 0 || h <= 0)return false;
-	quality = ffw::clamp(quality, 0, 100);
 
 	switch(type){
 		case ImageType::GRAYSCALE_8:
@@ -118,6 +119,8 @@ bool ffw::TgaSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     format = type;
 	width = w;
 	height = h;
+	depth = 0;
+	mipmaps = 1;
 
 	pixelsOffset = (size_t)output->tellg();
 
@@ -138,6 +141,8 @@ void ffw::TgaSaver::close(){
 	height = 0;
 	loaded = 0;
 	row = 0;
+	depth = 0;
+	mipmaps = 0;
 	format = ImageType::INVALID;
 }
 

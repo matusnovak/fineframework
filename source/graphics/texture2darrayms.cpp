@@ -42,9 +42,6 @@ bool ffw::Texture2DArrayMS::create(const ffw::RenderContext* renderer, GLsizei w
 	loaded_ = true;
     gl_ = static_cast<const RenderExtensions*>(renderer);
 
-    glGenTextures(1, &buffer_);
-    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE_ARRAY, buffer_);
-
     width_           = width;
     height_          = height;
     layers_          = layers;
@@ -53,6 +50,14 @@ bool ffw::Texture2DArrayMS::create(const ffw::RenderContext* renderer, GLsizei w
     format_          = format;
     pixelformat_     = pixelformat;
 	samples_		 = samples;
+
+	if(isCompressed()) {
+		destroy();
+		return false;
+	}
+
+	glGenTextures(1, &buffer_);
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE_ARRAY, buffer_);
 
 	gl_->glTexImage3DMultisample(GL_TEXTURE_2D_MULTISAMPLE_ARRAY, samples_, internalformat_, width_, height_, layers_, GL_FALSE);
 

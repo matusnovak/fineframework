@@ -35,7 +35,14 @@ namespace ffw {
 	* @brief Thread class that accepts non-void static and member functions
 	* @details This thread class can accept any static or member function 
 	* with variable arguments. The output of the target function is stored
-	* and can begin retrieved after the thread execution.
+	* and can begin retrieved after the thread execution. Why another thread class? 
+	* Why not std::thread? The ffw::Thread uses std::thread only if the compiler allows it. 
+	* Some older GCC compilers do not have access to std::thread. If the std::thread 
+	* is not available, the ffw::Thread will use POSIX pthreads instead. This also 
+	* applies for ffw::Mutex. Secondly, there are minor differences between pthreads 
+	* and std::thread + std::mutex. The two classes: ffw::Thread and ffw::Mutex make 
+	* sure that no matter which thread backend is being used, the written code and the 
+	* behavior will be the same.
 	* @code
 	* // Some class
 	* class Foo {
@@ -174,7 +181,14 @@ namespace ffw {
 	* @details This thread class can accept any static or member function 
 	* with variable arguments. The output of the target function is NOT stored
 	* as this thread class accepts only void functions. To use non-void functions,
-	* see ffw::Thread< Ret(Args...)>
+	* see ffw::Thread< Ret(Args...)> Why another thread class? 
+	* Why not std::thread? The ffw::Thread uses std::thread only if the compiler allows it. 
+	* Some older GCC compilers do not have access to std::thread. If the std::thread 
+	* is not available, the ffw::Thread will use POSIX pthreads instead. This also 
+	* applies for ffw::Mutex. Secondly, there are minor differences between pthreads 
+	* and std::thread + std::mutex. The two classes: ffw::Thread and ffw::Mutex make 
+	* sure that no matter which thread backend is being used, the written code and the 
+	* behavior will be the same.
 	* @code
 	* // Some class
 	* class Foo {

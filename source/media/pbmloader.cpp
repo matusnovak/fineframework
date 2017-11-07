@@ -58,6 +58,8 @@ bool ffw::PbmLoader::open(const std::string& path){
 	try{
         width = stringToVal<unsigned long>(header[1]);
         height = stringToVal<unsigned long>(header[2]);
+		depth = 0;
+		mipmaps = 1;
     } catch(std::exception e){
 		close();
         return false;
@@ -78,7 +80,7 @@ bool ffw::PbmLoader::open(const std::string& path){
         dataLength = width*height*6;
 
     } else if(header[0] == "PF" && header[3] == "-1.0000"){
-        format = ffw::ImageType::RGB_323232;
+        format = ffw::ImageType::RGB_323232F;
         dataLength = width*height*12;
 
     } else if(header[0] == "P5" && header[3] == "255"){
@@ -90,7 +92,7 @@ bool ffw::PbmLoader::open(const std::string& path){
         dataLength = width*height*2;
 
     } else if(header[0] == "Pf" && header[3] == "-1.0000"){
-        format = ffw::ImageType::GRAYSCALE_32;
+        format = ffw::ImageType::GRAYSCALE_32F;
         dataLength = width*height*4;
 
     } else {
@@ -115,6 +117,9 @@ void ffw::PbmLoader::close(){
 	height = 0;
 	loaded = 0;
 	row = 0;
+	depth = 0;
+	mipmaps = 0;
+	mipmapOffset = 0;
 	format = ImageType::INVALID;
 }
 
@@ -137,7 +142,7 @@ size_t ffw::PbmLoader::readRow(void* dest){
 			}
 			break;
 		}
-		case ffw::ImageType::GRAYSCALE_32: {
+		case ffw::ImageType::GRAYSCALE_32F: {
 			input->read((char*)dest, width*4);
 			break;
 		}
@@ -153,7 +158,7 @@ size_t ffw::PbmLoader::readRow(void* dest){
 			}
 			break;
 		}
-		case ffw::ImageType::RGB_323232: {
+		case ffw::ImageType::RGB_323232F: {
 			input->read((char*)dest, width*4*3);
 			break;
 		}

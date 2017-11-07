@@ -60,10 +60,10 @@ namespace ffw {
 		virtual ~GuiList();
 		GuiList::Item* addItem(const std::string& label);
 		GuiList::Item* addItem(const std::wstring& label);
-		void DeleteAllItems();
-		bool DeleteItem(const GuiList::Item* item);
+		void deleteAllItems();
+		bool deleteItem(const GuiList::Item* item);
 		void setSelected(int index);
-		void ResetSelected();
+		void resetSelected();
 		void setSelected(const GuiList::Item* item);
 		GuiList::Item* getSelectedItem() const;
 		void eventThemeChanged(const GuiTheme* theme) override;

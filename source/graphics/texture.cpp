@@ -18,6 +18,7 @@ ffw::Texture::Texture() {
 	mipmaps_ = false;
 	initialized_ = false;
 	samples_ = 0;
+	compressed_ = false;
 	gl_ = NULL;
 }
 
@@ -36,6 +37,7 @@ ffw::Texture::Texture(Texture&& other) {
 	mipmaps_ = false;
 	initialized_ = false;
 	samples_ = 0;
+	compressed_ = false;
 	gl_ = NULL;
 	swap(other);
 }
@@ -57,6 +59,7 @@ void ffw::Texture::swap(Texture& other) {
 		swap(mipmaps_, other.mipmaps_);
 		swap(initialized_, other.initialized_);
 		swap(samples_, other.samples_);
+		swap(compressed_, other.compressed_);
 		swap(gl_, other.gl_);
 	}
 }
@@ -208,6 +211,7 @@ void ffw::Texture::destroy(){
 	mipmaps_ = false;
 	initialized_ = false;
 	samples_ = 0;
+	compressed_ = false;
 }
 
 

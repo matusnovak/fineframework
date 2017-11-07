@@ -82,11 +82,11 @@ namespace ffw {
 		* @param other If another window is provided, their OpenGL context will be shared, otherwise NULL
 		* @param monitor If a monitor is provided, the window will be fullscreen
 		* @return Will return false if:
-		*     - The window has already been created
+		*     - The window \c has already been created \c
 		*     - The target size (width or height) defined by args is zero or less
 		*     - The GLFW failed due to missing OpenGL or there is no display to output to (running in terminal only)
-		*     - The OS OpenGL version is less than 1.1
-		*     - The target size is not supported by the monitor (only when fullscreen)
+		*     - The \e OS OpenGL version \e is less than 1.1
+		*     - The \a target \a size is not supported by the \b monitor \b (only when fullscreen)
 		*/
 		bool create(const GLFWRenderWindowArgs& args, GLFWRenderWindow* other, Monitor* monitor = NULL);
 		/**

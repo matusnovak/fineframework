@@ -87,6 +87,8 @@ bool ffw::PngLoader::open(const std::string& path){
 
     width = png_get_image_width(pngPtr, infoPtr);
     height = png_get_image_height(pngPtr, infoPtr);
+	depth = 0;
+	mipmaps = 1;
     png_byte colorType = png_get_color_type(pngPtr, infoPtr);
     png_byte bits = png_get_bit_depth(pngPtr, infoPtr);
 
@@ -208,6 +210,9 @@ void ffw::PngLoader::close(){
 	width = 0;
 	height = 0;
 	loaded = 0;
+	depth = 0;
+	mipmaps = 0;
+	mipmapOffset = 0;
 	row = 0;
 	format = ImageType::INVALID;
 }

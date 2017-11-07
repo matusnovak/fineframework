@@ -1,12 +1,16 @@
 /**
  * @defgroup gui gui - Graphical User Interface
  * @brief Render engine independent graphic user interface 
- *
- * This module provides functions and classes to create and manage
- * GUI widgets and windows. This module does not use a specific
- * rendering backend. Instead, it provides an interface, which
- * can is provided for the user to implement any rendering
- * engine backend.
+ * @details This module allows creation of user interfaces (GUIs). 
+ * It takes care of widget layout, automatic spacing when resized, 
+ * spacing, callbacks, etc. This module provides several widgets 
+ * (buttons, check boxes, text edits, radios, sliders, etc..) however, 
+ * has a functionality to add custom widgets as well. All widgets 
+ * can be arranged in linear layouts, similarly how HTML works and can 
+ * be also styled. This GUI is not directly linked to OpenGL or any 
+ * other rendering engine! Instead, it can use any backend with any 
+ * renderer you wish to use. However, an OpenGL backend is 
+ * provided by default, if the user wishes it to use.
  */
 #ifndef FFW_GUI_MODULE
 #define FFW_GUI_MODULE

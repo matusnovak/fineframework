@@ -58,7 +58,7 @@ PROJECT_LOGO           =
 # entered, it will be relative to the location where doxygen was started. If
 # left blank the current directory will be used.
 
-OUTPUT_DIRECTORY       = ../fineframework-gh-pages
+OUTPUT_DIRECTORY       = doxygen-output
 
 # If the CREATE_SUBDIRS tag is set to YES then doxygen will create 4096 sub-
 # directories (in 2 levels) under the output directory of each output format and
@@ -920,7 +920,7 @@ FILTER_SOURCE_PATTERNS =
 # (index.html). This can be useful if you have a project on for instance GitHub
 # and want to reuse the introduction page also for the doxygen output.
 
-USE_MDFILE_AS_MAINPAGE = index.md
+USE_MDFILE_AS_MAINPAGE = 
 
 #---------------------------------------------------------------------------
 # Configuration options related to source browsing
@@ -1060,7 +1060,7 @@ IGNORE_PREFIX          =
 # If the GENERATE_HTML tag is set to YES, doxygen will generate HTML output
 # The default value is: YES.
 
-GENERATE_HTML          = YES
+GENERATE_HTML          = NO
 
 # The HTML_OUTPUT tag is used to specify where the HTML docs will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of
@@ -1095,7 +1095,7 @@ HTML_FILE_EXTENSION    = .html
 # of the possible markers and block names see the documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_HEADER            = doc/header.html
+HTML_HEADER            = 
 
 # The HTML_FOOTER tag can be used to specify a user-defined HTML footer for each
 # generated HTML page. If the tag is left blank doxygen will generate a standard
@@ -1105,7 +1105,7 @@ HTML_HEADER            = doc/header.html
 # that doxygen normally uses.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_FOOTER            = doc/footer.html
+HTML_FOOTER            = 
 
 # The HTML_STYLESHEET tag can be used to specify a user-defined cascading style
 # sheet that is used by each HTML page. It can be used to fine-tune the look of
@@ -1117,7 +1117,7 @@ HTML_FOOTER            = doc/footer.html
 # obsolete.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_STYLESHEET        = doc/docs.css
+HTML_STYLESHEET        = 
 
 # The HTML_EXTRA_STYLESHEET tag can be used to specify additional user-defined
 # cascading style sheets that are included after the standard style sheets
@@ -1130,7 +1130,7 @@ HTML_STYLESHEET        = doc/docs.css
 # list). For an example see the documentation.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_STYLESHEET  = doc/bootstrap.css
+HTML_EXTRA_STYLESHEET  = 
 
 # The HTML_EXTRA_FILES tag can be used to specify one or more extra images or
 # other source files which should be copied to the HTML output directory. Note
@@ -1140,42 +1140,7 @@ HTML_EXTRA_STYLESHEET  = doc/bootstrap.css
 # files will be copied as-is; there are no commands or markers available.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-HTML_EXTRA_FILES       = doc/logo.png \
-						 doc/jquery.min.js \
-						 doc/jquery.smartmenus.js \
-						 doc/tether.min.js \
-                         doc/bootstrap.min.js \
-                         doc/images/tutorial-cb-01.png \
-						 doc/images/tutorial-cb-02.png \
-						 doc/images/tutorial-cb-03.png \
-						 doc/images/tutorial-cb-04.png \
-						 doc/images/tutorial-cb-05.png \
-						 doc/images/tutorial-cb-06.png \
-						 doc/images/tutorial-cb-07.png \
-						 doc/images/tutorial-cb-08.png \
-						 doc/images/tutorial-vs12-01.png \
-						 doc/images/tutorial-vs12-02.png \
-						 doc/images/tutorial-vs12-03.png \
-						 doc/images/tutorial-vs12-04.png \
-						 doc/images/tutorial-vs12-05.png \
-						 doc/images/example-3d-monkey.jpg \
-						 doc/images/example-bitmap-font.jpg \
-						 doc/images/example-cube.jpg \
-						 doc/images/example-empty.jpg \
-						 doc/images/example-gui-all-widgets.jpg \
-						 doc/images/example-shapes.jpg \
-						 doc/images/example-texture-subsection.jpg \
-						 doc/images/example-tree.jpg \
-						 doc/images/example-true-type-font.jpg \
-						 doc/images/ubuntu-mono-rgba8.png \
-						 doc/images/modernflat.jpg \
-						 doc/images/simplelight.jpg \
-						 doc/images/simpledark.jpg \
-						 doc/images/windows.jpg \
-						 doc/images/clclosed.png \
-						 doc/images/clopen.png \
-						 doc/images/closed.png \
-						 doc/images/open.png
+HTML_EXTRA_FILES       = 
 
 # The HTML_COLORSTYLE_HUE tag controls the color of the HTML output. Doxygen
 # will adjust the colors in the style sheet and background images according to
@@ -1919,7 +1884,7 @@ MAN_LINKS              = NO
 # captures the structure of the code including all documentation.
 # The default value is: NO.
 
-GENERATE_XML           = NO
+GENERATE_XML           = YES
 
 # The XML_OUTPUT tag is used to specify where the XML pages will be put. If a
 # relative path is entered the value of OUTPUT_DIRECTORY will be put in front of

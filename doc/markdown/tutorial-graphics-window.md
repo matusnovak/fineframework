@@ -1,4 +1,4 @@
-Tutorial: Creating a Rendering Window
+Creating a Rendering Window
 ----------------------------------------
 
 This tutorial will explain how to create and manage an OpenGL rendering window using ffw::GLFWRenderWindow class.

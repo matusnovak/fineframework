@@ -8,6 +8,7 @@
 #include "texture2d.h"
 
 namespace ffw {
+	class Texture2DArray;
 	class Font;
 	/**
 	 * @ingroup graphics

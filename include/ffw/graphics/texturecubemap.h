@@ -16,7 +16,7 @@ namespace ffw {
 		TextureCubemap(const TextureCubemap& second) = delete;
 		TextureCubemap(TextureCubemap&& second);
         ~TextureCubemap();
-        bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat);
+        bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels = NULL);
 		bool resize(GLsizei width, GLsizei height);
 		/**
 		 * @brief Sets the pixels
@@ -29,7 +29,9 @@ namespace ffw {
 		 * * 4: GL_TEXTURE_CUBE_MAP_POSITIVE_Z (Back)
 		 * * 5: GL_TEXTURE_CUBE_MAP_NEGATIVE_Z (Front)
 		 */
-        bool setPixels(GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, int side, const void* pixels);
+        bool setPixels(GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLint side, const GLvoid* pixels);
+		bool setPixels(GLint level, GLint side, const GLvoid* pixels = NULL);
+		bool setFromBuffer(const ImageBuffer& buffer, GLint side, bool inverse = false);
 		bool getPixels(void* pixels);
 		TextureCubemap& operator = (const TextureCubemap& second) = delete;
 		TextureCubemap& operator = (TextureCubemap&& second);
