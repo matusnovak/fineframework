@@ -25,11 +25,12 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture2D](#036b8e3f) (const [Texture2D](ffw_Texture2D.html) & _second_) = delete  |
 |   | [Texture2D](#75e56eea) ([Texture2D](ffw_Texture2D.html) && _second_)  |
 |   | [~Texture2D](#3aeb91cf) ()  |
-|  bool | [create](#f59551b6) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _Width_, GLsizei _Height_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_)  |
+|  bool | [create](#96d774d3) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _Width_, GLsizei _Height_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
+|  bool | [setPixels](#c5b92473) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
 |  bool | [createFromBuffer](#e0034941) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, bool _inverse_ = false)  |
 |  bool | [resize](#d5d7f904) (GLsizei _width_, GLsizei _height_)  |
-|  bool | [setPixels](#713b96bd) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLsizei _width_, GLsizei _height_, const void * _pixels_)  |
-|  bool | [getPixels](#8efe1953) (void * _pixels_)  |
+|  bool | [setPixels](#32eb4d97) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLsizei _width_, GLsizei _height_, const GLvoid * _pixels_)  |
+|  bool | [getPixels](#2a22fac1) (void * _pixels_) const  |
 |  [Texture2D](ffw_Texture2D.html) & | [operator=](#176b4505) (const [Texture2D](ffw_Texture2D.html) & _second_) = delete  |
 |  [Texture2D](ffw_Texture2D.html) & | [operator=](#0d0ce047) ([Texture2D](ffw_Texture2D.html) && _second_)  |
 
@@ -86,7 +87,7 @@ static bool checkCompability (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="f59551b6" href="#f59551b6">create</a>
+### <span style="opacity:0.5;">function</span> <a id="96d774d3" href="#96d774d3">create</a>
 
 ```cpp
 bool create (
@@ -95,7 +96,19 @@ bool create (
     GLsizei Height,
     GLenum internalformat,
     GLenum format,
-    GLenum pixelformat
+    GLenum pixelformat,
+    const GLvoid * pixels = NULL
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="c5b92473" href="#c5b92473">setPixels</a>
+
+```cpp
+bool setPixels (
+    GLint level,
+    const GLvoid * pixels = NULL
 ) 
 ```
 
@@ -124,7 +137,7 @@ bool resize (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="713b96bd" href="#713b96bd">setPixels</a>
+### <span style="opacity:0.5;">function</span> <a id="32eb4d97" href="#32eb4d97">setPixels</a>
 
 ```cpp
 bool setPixels (
@@ -133,18 +146,18 @@ bool setPixels (
     GLint yoffset,
     GLsizei width,
     GLsizei height,
-    const void * pixels
+    const GLvoid * pixels
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="8efe1953" href="#8efe1953">getPixels</a>
+### <span style="opacity:0.5;">function</span> <a id="2a22fac1" href="#2a22fac1">getPixels</a>
 
 ```cpp
 bool getPixels (
     void * pixels
-) 
+) const 
 ```
 
 

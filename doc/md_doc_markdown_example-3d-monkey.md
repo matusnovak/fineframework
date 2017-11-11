@@ -9,7 +9,7 @@ The purpose of this example is to show how to load an obj model, texture, and a 
 **Requires finegraphics, finemedia, and finemath module to run**
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/media.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
@@ -60,9 +60,14 @@ The purpose of this example is to show how to load an obj model, texture, and a 
 <span class="hljs-normal">        &#125;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">        </span><span class="hljs-comment">// Load texture</span><span class="hljs-normal"></span>
-<span class="hljs-normal">        </span><span class="hljs-keyword">if</span><span class="hljs-normal">(!texture.createFromBuffer(</span><span class="hljs-keyword">this</span><span class="hljs-normal">, <a href="ffw.html#9f3c979a">ffw::readImage</a>(</span><span class="hljs-string">"uvgrid.png"</span><span class="hljs-normal">)))&#123;</span>
-<span class="hljs-normal">            </span><span class="hljs-comment">// Error while loading shader</span><span class="hljs-normal"></span>
-<span class="hljs-normal">            std::cerr &lt;&lt; </span><span class="hljs-string">"Failed to create texture from: uvgrid.bmp!"</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">        <a href="ffw_ImageBuffer.html">ffw::ImageBuffer</a> image;</span>
+<span class="hljs-normal">        </span><span class="hljs-keyword">if</span><span class="hljs-normal"> (<a href="ffw.html#2653599f">ffw::readImage</a>(</span><span class="hljs-string">"uvgrid.png"</span><span class="hljs-normal">, image)) &#123;</span>
+<span class="hljs-normal">            </span><span class="hljs-keyword">if</span><span class="hljs-normal"> (!texture.createFromBuffer(</span><span class="hljs-keyword">this</span><span class="hljs-normal">, image)) &#123;</span>
+<span class="hljs-normal">                </span><span class="hljs-comment">// Error while loading shader</span><span class="hljs-normal"></span>
+<span class="hljs-normal">                std::cerr &lt;&lt; </span><span class="hljs-string">"Failed to create texture!"</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
+<span class="hljs-normal">            &#125;</span>
+<span class="hljs-normal">        &#125; </span><span class="hljs-keyword">else</span><span class="hljs-normal"> &#123;</span>
+<span class="hljs-normal">            std::cerr &lt;&lt; </span><span class="hljs-string">"Failed to load texture: uvgrid.bmp!"</span><span class="hljs-normal"> &lt;&lt; std::endl;</span>
 <span class="hljs-normal">        &#125;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">        </span><span class="hljs-comment">// Load OBJ directly into VBO</span><span class="hljs-normal"></span>

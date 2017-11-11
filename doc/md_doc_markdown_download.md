@@ -31,7 +31,7 @@ Don't know what to do? Look into or want to compile from source? Look up [tutori
 Linux binary distribution may not work out of the box, I highly recommend checking out the tutorials and compiling FineFramework from source. However, if you wish to download the pre-built binaries from github release, you will need to install the following dependencies:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">sudo apt-get install apt-get install xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">sudo apt-get install apt-get install xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev</span>
 </div></pre>
 
 
@@ -39,7 +39,7 @@ Linux binary distribution may not work out of the box, I highly recommend checki
 And the following libraries:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">sudo apt-get install libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev libglfw3-dev</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">sudo apt-get install libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev libglfw3-dev</span>
 </div></pre>
 
 

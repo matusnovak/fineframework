@@ -16,12 +16,14 @@ This module is header only, it does not need to be compiled, and is used by all 
 | class [ffw::ImageFormat](ffw_ImageFormat.html) |
 | class [ffw::ImageBuffer](ffw_ImageBuffer.html) |
 | struct [ffw::Mat4x4](ffw_Mat4x4.html) |
-| class [ffw::Mutex](ffw_Mutex.html) |
+| class [ffw::PromiseI](ffw_PromiseI.html) <span style="opacity:0.8;">Promise interface class. </span> |
+| class [ffw::PromiseException](ffw_PromiseException.html) |
+| class [ffw::PromiseResult](ffw_PromiseResult.html) |
+| class [ffw::PromiseResult< void >](ffw_PromiseResult__void__.html) |
+| class [ffw::Promise](ffw_Promise.html) <span style="opacity:0.8;">A simple promise class with chainable lambdas. </span> |
 | struct [ffw::Quat](ffw_Quat.html) |
 | class [ffw::RingBuffer](ffw_RingBuffer.html) |
 | class [ffw::FileInfo](ffw_FileInfo.html) |
-| class [ffw::Thread< Ret(Args...)>](ffw_Thread__Ret_Args_____.html) <span style="opacity:0.8;">Thread class that accepts non-void static and member functions. </span> |
-| class [ffw::Thread< void(Args...)>](ffw_Thread__void_Args_____.html) <span style="opacity:0.8;">Thread class that accepts static and member void only functions. </span> |
 | class [ffw::Tokenizer](ffw_Tokenizer.html) |
 | class [ffw::Var](ffw_Var.html) |
 | class [ffw::Array](ffw_Array.html) |

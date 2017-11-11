@@ -35,6 +35,7 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |  bool | [initialized_](#78620727) |
 |  GLsizei | [samples_](#88c51f03) |
 |  const [RenderExtensions](ffw_RenderExtensions.html) * | [gl_](#52cddaa1) |
+|  bool | [compressed_](#660451b4) |
 
 
 ## Public Functions
@@ -60,6 +61,7 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |  GLenum | [getFormat](#af4e84ce) () const <div style="opacity:0.8;">Returns the format of the pixel data. </div> |
 |  GLenum | [getPixelFormat](#892d4b10) () const <div style="opacity:0.8;">Returns the data type of the pixel data. </div> |
 |  GLenum | [getTextureFormat](#2175a3f9) () const <div style="opacity:0.8;">Returns the type of the texture. </div> |
+|  bool | [isCompressed](#9f0fb04f) () const  |
 |  void | [setEnvParami](#c4d7b948) (GLenum _Target_, GLenum _Name_, GLint _Value_)  |
 |  void | [setEnvParamf](#06d0d348) (GLenum _Target_, GLenum _Name_, GLfloat _Value_)  |
 |  void | [setTexParami](#c59b22c3) (GLenum _Name_, GLint _Value_)  |
@@ -71,6 +73,13 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |  void | [setWrapping](#3edc29d4) ([Texture::Wrapping](ffw_Texture.html#e1626a42) _wrapping_)  |
 |  [Texture](ffw_Texture.html) & | [operator=](#eeca55f9) (const [Texture](ffw_Texture.html) & _other_) = delete  |
 |  [Texture](ffw_Texture.html) & | [operator=](#24b442db) ([Texture](ffw_Texture.html) && _other_)  |
+
+
+## Protected Functions
+
+| Type | Name |
+| -------: | :------- |
+|  GLsizei | [getBlockSize](#742809a8) (GLsizei _width_, GLsizei _height_ = 1, GLsizei _depth_ = 1) const  |
 
 
 ## Public Types Documentation
@@ -212,6 +221,14 @@ GLsizei samples_
 
 ```cpp
 const RenderExtensions * gl_
+```
+
+
+
+### <span style="opacity:0.5;">variable</span> <a id="660451b4" href="#660451b4">compressed_</a>
+
+```cpp
+bool compressed_
 ```
 
 
@@ -386,6 +403,14 @@ inline GLenum getTextureFormat () const
 Returns the type of the texture. 
 
 The texture format can be GL_TEXTURE_1D, GL_TEXTURE_2D, etc... 
+### <span style="opacity:0.5;">function</span> <a id="9f0fb04f" href="#9f0fb04f">isCompressed</a>
+
+```cpp
+inline bool isCompressed () const 
+```
+
+
+
 ### <span style="opacity:0.5;">function</span> <a id="c4d7b948" href="#c4d7b948">setEnvParami</a>
 
 ```cpp
@@ -498,6 +523,22 @@ Texture & operator= (
 Texture & operator= (
     Texture && other
 ) 
+```
+
+
+
+
+
+## Protected Functions Documentation
+
+### <span style="opacity:0.5;">function</span> <a id="742809a8" href="#742809a8">getBlockSize</a>
+
+```cpp
+inline GLsizei getBlockSize (
+    GLsizei width,
+    GLsizei height = 1,
+    GLsizei depth = 1
+) const 
 ```
 
 

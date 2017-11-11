@@ -19,7 +19,7 @@ The documentation for this class was generated from: `include/ffw/media/pbmsaver
 |  [PbmSaver](ffw_PbmSaver.html) & | [operator=](#0cda060d) (const [PbmSaver](ffw_PbmSaver.html) & _other_) = delete  |
 |  [PbmSaver](ffw_PbmSaver.html) & | [operator=](#26e21813) ([PbmSaver](ffw_PbmSaver.html) && _other_)  |
 |  virtual  | [~PbmSaver](#a5d31021) ()  |
-|  virtual bool | [open](#b4f34799) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100)  |
+|  virtual bool | [open](#85af26f4) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100, int _mips_ = 1)  |
 |  virtual size_t | [writeRow](#6e4d1fe7) (const void * _src_)  |
 |  virtual bool | [writeFooter](#17da0c00) ()  |
 |  virtual void | [close](#de921dfa) ()  |
@@ -93,7 +93,7 @@ virtual  ~PbmSaver ()
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="b4f34799" href="#b4f34799">open</a>
+### <span style="opacity:0.5;">function</span> <a id="85af26f4" href="#85af26f4">open</a>
 
 ```cpp
 virtual bool open (
@@ -101,13 +101,14 @@ virtual bool open (
     int width,
     int height,
     ffw::ImageType type,
-    int quality = 100
+    int quality = 100,
+    int mips = 1
 ) 
 ```
 
 
 
-**Overrides:** [open](/doc/ffw_ImageWriter.md#c742773b) from class [ImageWriter](/doc/ffw_ImageWriter.md)
+**Overrides:** [open](/doc/ffw_ImageWriter.md#9a8ff2c9) from class [ImageWriter](/doc/ffw_ImageWriter.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="6e4d1fe7" href="#6e4d1fe7">writeRow</a>
 

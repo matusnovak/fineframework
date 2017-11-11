@@ -6,7 +6,7 @@ The purpose of this example is to show how to load and render an image loaded fr
 **Requires finegraphics, finemedia, and finemath module to run**
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/media.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#define STRING_TO_SHOW "Drop image file here"</span><span class="hljs-normal"></span>
@@ -43,7 +43,6 @@ The purpose of this example is to show how to load and render an image loaded fr
 <span class="hljs-normal">        &#125;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">        textSize = font.getStringSize(STRING_TO_SHOW);</span>
-<span class="hljs-normal">        </span>
 <span class="hljs-normal">        </span><span class="hljs-keyword">return</span><span class="hljs-normal"> </span><span class="hljs-keyword">true</span><span class="hljs-normal">;</span>
 <span class="hljs-normal">    &#125;</span>
 <span class="hljs-normal"></span>
@@ -57,7 +56,7 @@ The purpose of this example is to show how to load and render an image loaded fr
 <span class="hljs-normal">            texture.destroy();</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">            <a href="ffw_ImageBuffer.html">ffw::ImageBuffer</a> buffer;</span>
-<span class="hljs-normal">            </span><span class="hljs-keyword">if</span><span class="hljs-normal">(<a href="ffw.html#9f3c979a">ffw::readImage</a>(imagePath, buffer))&#123;</span>
+<span class="hljs-normal">            </span><span class="hljs-keyword">if</span><span class="hljs-normal">(<a href="ffw.html#2653599f">ffw::readImage</a>(imagePath, buffer))&#123;</span>
 <span class="hljs-normal">                </span><span class="hljs-keyword">if</span><span class="hljs-normal"> (texture.createFromBuffer(</span><span class="hljs-keyword">this</span><span class="hljs-normal">, buffer)) &#123;</span>
 <span class="hljs-normal">                    </span><span class="hljs-comment">// Image loaded</span><span class="hljs-normal"></span>
 <span class="hljs-normal">                &#125; </span>
@@ -165,12 +164,12 @@ The purpose of this example is to show how to load and render an image loaded fr
 <span class="hljs-normal">        </span><span class="hljs-keyword">return</span><span class="hljs-normal"> 1;</span>
 <span class="hljs-normal">    &#125;</span>
 <span class="hljs-normal"></span>
-<span class="hljs-normal">    app.setSingleBufferMode(</span><span class="hljs-keyword">true</span><span class="hljs-normal">);</span>
+<span class="hljs-normal">    </span><span class="hljs-comment">//app.setSingleBufferMode(true);</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">    </span><span class="hljs-comment">// The main window loop</span><span class="hljs-normal"></span>
 <span class="hljs-normal">    </span><span class="hljs-keyword">while</span><span class="hljs-normal">(app.shouldRender())&#123;</span>
 <span class="hljs-normal">        app.renderFrame();</span>
-<span class="hljs-normal">        app.waitForEvents();</span>
+<span class="hljs-normal">        app.poolEvents();</span>
 <span class="hljs-normal">    &#125;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">    </span><span class="hljs-comment">// destroy window, this will delete all graphics data used by the window.</span><span class="hljs-normal"></span>

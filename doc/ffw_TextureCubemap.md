@@ -23,9 +23,11 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [TextureCubemap](#68ebeb64) (const [TextureCubemap](ffw_TextureCubemap.html) & _second_) = delete  |
 |   | [TextureCubemap](#32cf2aed) ([TextureCubemap](ffw_TextureCubemap.html) && _second_)  |
 |   | [~TextureCubemap](#60859573) ()  |
-|  bool | [create](#d1495999) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_)  |
+|  bool | [create](#4dcafea6) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
 |  bool | [resize](#2a4ff149) (GLsizei _width_, GLsizei _height_)  |
-|  bool | [setPixels](#0f362dae) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLsizei _width_, GLsizei _height_, int _side_, const void * _pixels_) <div style="opacity:0.8;">Sets the pixels. </div> |
+|  bool | [setPixels](#754cf479) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLsizei _width_, GLsizei _height_, GLint _side_, const GLvoid * _pixels_) <div style="opacity:0.8;">Sets the pixels. </div> |
+|  bool | [setPixels](#115f3c21) (GLint _level_, GLint _side_, const GLvoid * _pixels_ = NULL)  |
+|  bool | [setFromBuffer](#6f60d98a) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, GLint _side_, bool _inverse_ = false)  |
 |  bool | [getPixels](#9d17ed48) (void * _pixels_)  |
 |  [TextureCubemap](ffw_TextureCubemap.html) & | [operator=](#c94b49e8) (const [TextureCubemap](ffw_TextureCubemap.html) & _second_) = delete  |
 |  [TextureCubemap](ffw_TextureCubemap.html) & | [operator=](#6993cfe5) ([TextureCubemap](ffw_TextureCubemap.html) && _second_)  |
@@ -83,7 +85,7 @@ static bool checkCompability (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="d1495999" href="#d1495999">create</a>
+### <span style="opacity:0.5;">function</span> <a id="4dcafea6" href="#4dcafea6">create</a>
 
 ```cpp
 bool create (
@@ -92,7 +94,8 @@ bool create (
     GLsizei height,
     GLenum internalformat,
     GLenum format,
-    GLenum pixelformat
+    GLenum pixelformat,
+    const GLvoid * pixels = NULL
 ) 
 ```
 
@@ -109,7 +112,7 @@ bool resize (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="0f362dae" href="#0f362dae">setPixels</a>
+### <span style="opacity:0.5;">function</span> <a id="754cf479" href="#754cf479">setPixels</a>
 
 ```cpp
 bool setPixels (
@@ -118,8 +121,8 @@ bool setPixels (
     GLint yoffset,
     GLsizei width,
     GLsizei height,
-    int side,
-    const void * pixels
+    GLint side,
+    const GLvoid * pixels
 ) 
 ```
 
@@ -137,6 +140,30 @@ The side parameter corresponds to which side should be set. The accepted values 
 * 4: GL_TEXTURE_CUBE_MAP_POSITIVE_Z (Back)
 
 * 5: GL_TEXTURE_CUBE_MAP_NEGATIVE_Z (Front) 
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="115f3c21" href="#115f3c21">setPixels</a>
+
+```cpp
+bool setPixels (
+    GLint level,
+    GLint side,
+    const GLvoid * pixels = NULL
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="6f60d98a" href="#6f60d98a">setFromBuffer</a>
+
+```cpp
+bool setFromBuffer (
+    const ImageBuffer & buffer,
+    GLint side,
+    bool inverse = false
+) 
+```
 
 
 

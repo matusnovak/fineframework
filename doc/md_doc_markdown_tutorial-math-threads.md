@@ -1,9 +1,9 @@
 Threads
 =================
 
-This tutorial will explain how to create and launch threads using ffw::Thread and how [ffw::Mutex](ffw_Mutex.html) can be used alongside it. The threads are inside of [math module](group__math.html) which is a header only library. All you need to do is to add `#include <[ffw/math.h]()>` into your project. **This tutorial will not explain concurrency or basics of threads! You are required to know the basics.**
+This tutorial will explain how to create and launch threads using ffw::Thread and how ffw::Mutex can be used alongside it. The threads are inside of [math module](group__math.html) which is a header only library. All you need to do is to add `#include <[ffw/math.h]()>` into your project. **This tutorial will not explain concurrency or basics of threads! You are required to know the basics.**
 
-Why another thread class? Why not std::thread? The ffw::Thread uses std::thread only if the compiler allows it. Some older GCC compilers do not have access to std::thread. If the std::thread is not available, the ffw::Thread will use POSIX pthreads instead. This also applies for [ffw::Mutex](ffw_Mutex.html). Secondly, there are minor differences between pthreads and std::thread + std::mutex. The two classes: ffw::Thread and [ffw::Mutex](ffw_Mutex.html) make sure that no matter which thread backend is being used, the written code and the behavior will be the same. **If you can (your compiler allows it), use std::thread always!**
+Why another thread class? Why not std::thread? The ffw::Thread uses std::thread only if the compiler allows it. Some older GCC compilers do not have access to std::thread. If the std::thread is not available, the ffw::Thread will use POSIX pthreads instead. This also applies for ffw::Mutex. Secondly, there are minor differences between pthreads and std::thread + std::mutex. The two classes: ffw::Thread and ffw::Mutex make sure that no matter which thread backend is being used, the written code and the behavior will be the same. **If you can (your compiler allows it), use std::thread always!**
 
 #### Creating thread
 
@@ -83,7 +83,7 @@ Note that ffw::Thread uses std::function and due to many reasons you should avoi
 #### Mutex
 
 
-Mutex can be used to lock specific areas of the program. You are required to understand basics of mutex and concurrency. There are many great tutorials out there and there is simply no reason to create another tutorial explaining it. The following code will only explain how to use [ffw::Mutex](ffw_Mutex.html).
+Mutex can be used to lock specific areas of the program. You are required to understand basics of mutex and concurrency. There are many great tutorials out there and there is simply no reason to create another tutorial explaining it. The following code will only explain how to use ffw::Mutex.
 
 
 <pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// We will store some data here,</span><span class="hljs-normal"></span>
@@ -92,7 +92,7 @@ Mutex can be used to lock specific areas of the program. You are required to und
 <span class="hljs-normal">std::vector&lt;int*&gt; data;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Our mutex</span><span class="hljs-normal"></span>
-<span class="hljs-normal"><a href="ffw_Mutex.html">ffw::Mutex</a> mutex;</span>
+<span class="hljs-normal">ffw::Mutex mutex;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Some global function</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-title">void</span><span class="hljs-normal"> foo(</span><span class="hljs-title">size_t</span><span class="hljs-normal"> len, </span><span class="hljs-title">int</span><span class="hljs-normal"> start)&#123;</span>
@@ -104,13 +104,13 @@ Mutex can be used to lock specific areas of the program. You are required to und
 <span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// Lock the mutex. If there is already a lock by a different thread,</span><span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// the current thread will wait until the lock has been released.</span><span class="hljs-normal"></span>
-<span class="hljs-normal">  mutex.<a href="ffw_Mutex.html#e7eb5d3d">lock</a>();</span>
+<span class="hljs-normal">  mutex.lock();</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// We have a lock! Push data to our array!</span><span class="hljs-normal"></span>
-<span class="hljs-normal">  dara.push_back(arr);</span>
+<span class="hljs-normal">  dara.<a href="ffw_Array.html#805fb16c">push_back</a>(arr);</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// Release the lock.</span><span class="hljs-normal"></span>
-<span class="hljs-normal">  mutex.<a href="ffw_Mutex.html#6106acf1">unlock</a>();</span>
+<span class="hljs-normal">  mutex.unlock();</span>
 <span class="hljs-normal">&#125;</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-title">int</span><span class="hljs-normal"> main()&#123;</span>

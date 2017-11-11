@@ -19,7 +19,7 @@ The documentation for this class was generated from: `include/ffw/media/bmpsaver
 |  [BmpSaver](ffw_BmpSaver.html) & | [operator=](#91c62cf6) (const [BmpSaver](ffw_BmpSaver.html) & _other_) = delete  |
 |  [BmpSaver](ffw_BmpSaver.html) & | [operator=](#5a605eba) ([BmpSaver](ffw_BmpSaver.html) && _other_)  |
 |  virtual  | [~BmpSaver](#966dca03) ()  |
-|  virtual bool | [open](#1143a9c8) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100)  |
+|  virtual bool | [open](#f4ca5495) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100, int _mips_ = 1)  |
 |  virtual size_t | [writeRow](#fb7bfe34) (const void * _src_)  |
 |  virtual bool | [writeFooter](#f07405c5) ()  |
 |  virtual void | [close](#62ad0f62) ()  |
@@ -93,7 +93,7 @@ virtual  ~BmpSaver ()
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="1143a9c8" href="#1143a9c8">open</a>
+### <span style="opacity:0.5;">function</span> <a id="f4ca5495" href="#f4ca5495">open</a>
 
 ```cpp
 virtual bool open (
@@ -101,13 +101,14 @@ virtual bool open (
     int width,
     int height,
     ffw::ImageType type,
-    int quality = 100
+    int quality = 100,
+    int mips = 1
 ) 
 ```
 
 
 
-**Overrides:** [open](/doc/ffw_ImageWriter.md#c742773b) from class [ImageWriter](/doc/ffw_ImageWriter.md)
+**Overrides:** [open](/doc/ffw_ImageWriter.md#9a8ff2c9) from class [ImageWriter](/doc/ffw_ImageWriter.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="fb7bfe34" href="#fb7bfe34">writeRow</a>
 

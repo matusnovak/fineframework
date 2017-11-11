@@ -17,6 +17,8 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::BufferObject](ffw_BufferObject.html) |
 | struct [ffw::Color](ffw_Color.html) <span style="opacity:0.8;">Class that holds floating point color, OpenGL friendly. </span> |
 | class [ffw::CsvLoader](ffw_CsvLoader.html) |
+| class [ffw::DdsLoader](ffw_DdsLoader.html) |
+| class [ffw::DdsSaver](ffw_DdsSaver.html) |
 | class [ffw::FileInfo](ffw_FileInfo.html) |
 | class [ffw::Font](ffw_Font.html) |
 | class [ffw::Framebuffer](ffw_Framebuffer.html) |
@@ -80,7 +82,6 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::JsonWriter](ffw_JsonWriter.html) |
 | struct [ffw::Mat4x4](ffw_Mat4x4.html) |
 | struct [ffw::Monitor](ffw_Monitor.html) |
-| class [ffw::Mutex](ffw_Mutex.html) |
 | class [ffw::Object](ffw_Object.html) |
 | class [ffw::ObjLoader](ffw_ObjLoader.html) |
 | class [ffw::OpenGLImageType](ffw_OpenGLImageType.html) |
@@ -88,6 +89,11 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::PbmSaver](ffw_PbmSaver.html) |
 | class [ffw::PngLoader](ffw_PngLoader.html) |
 | class [ffw::PngSaver](ffw_PngSaver.html) |
+| class [ffw::Promise](ffw_Promise.html) <span style="opacity:0.8;">A simple promise class with chainable lambdas. </span> |
+| class [ffw::PromiseException](ffw_PromiseException.html) |
+| class [ffw::PromiseI](ffw_PromiseI.html) <span style="opacity:0.8;">Promise interface class. </span> |
+| class [ffw::PromiseResult](ffw_PromiseResult.html) |
+| class [ffw::PromiseResult< void >](ffw_PromiseResult__void__.html) |
 | struct [ffw::Quat](ffw_Quat.html) |
 | class [ffw::Renderbuffer](ffw_Renderbuffer.html) |
 | class [ffw::Renderbuffer2D](ffw_Renderbuffer2D.html) |
@@ -109,8 +115,6 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::TextureCubemap](ffw_TextureCubemap.html) |
 | class [ffw::TgaLoader](ffw_TgaLoader.html) |
 | class [ffw::TgaSaver](ffw_TgaSaver.html) |
-| class [ffw::Thread< Ret(Args...)>](ffw_Thread__Ret_Args_____.html) <span style="opacity:0.8;">Thread class that accepts non-void static and member functions. </span> |
-| class [ffw::Thread< void(Args...)>](ffw_Thread__void_Args_____.html) <span style="opacity:0.8;">Thread class that accepts static and member void only functions. </span> |
 | class [ffw::TifLoader](ffw_TifLoader.html) |
 | class [ffw::TifSaver](ffw_TifSaver.html) |
 | class [ffw::Tokenizer](ffw_Tokenizer.html) |
@@ -221,6 +225,7 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 |  [Mat4x4](ffw_Mat4x4.html)< T > | [makeLookAtMatrix](#c9109de4) (const [Vec3](ffw_Vec3.html)< T > & _Eyes_, const [Vec3](ffw_Vec3.html)< T > & _Target_, const [Vec3](ffw_Vec3.html)< T > & _UpVector_)  |
 |  [Mat4x4](ffw_Mat4x4.html)< T > | [makeFpsCameraMatrix](#834e22ad) (const [Vec3](ffw_Vec3.html)< T > & _Eyes_, float _Pitch_, float _Yaw_)  |
 |  [Mat4x4](ffw_Mat4x4.html)< T > | [makeOrthoMatrix](#7a7a57ed) (T _left_, T _right_, T _bottom_, T _top_, T _znear_, T _zfar_)  |
+|  [Promise](ffw_Promise.html)< R > * | [makePromise](#2b780c2f) ([Promise](ffw_Promise.html)< T > * _parent_, Then const & _then_, Fail const & _fail_)  |
 |  [ffw::Quat](ffw_Quat.html)< T > | [normalize](#b5735179) (const [Quat](ffw_Quat.html)< T > & _Q_)  |
 |  std::ostream & | [operator<<](#cb1ea679) (std::ostream & _os_, const [ffw::Quat](ffw_Quat.html)< T > & _quat_)  |
 |  T | [stringToVal](#eebabb4c) (const std::string & _str_)  |
@@ -289,10 +294,9 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 |  std::ostream & | [operator<<](#51221cac) (std::ostream & _os_, const [ffw::Vec](ffw_Vec.html)< T, S > & _vec_)  |
 |  [ImageReader](ffw_ImageReader.html) * | [openImageReader](#66d303c6) (const std::string & _path_)  |
 |  [ImageWriter](ffw_ImageWriter.html) * | [openImageWriter](#8ffae09c) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100)  |
-|  bool | [readImage](#9f3c979a) (const std::string & _path_, void ** _dest_, int * _width_, int * _height_, [ffw::ImageType](ffw.html#fa711f90) * _format_)  |
-|  bool | [writeImage](#26e62acf) (const std::string & _path_, const void * _src_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _format_, int _quality_ = 100)  |
+|  bool | [readImage](#2653599f) (const std::string & _path_, void ** _dest_, int * _width_, int * _height_, [ffw::ImageType](ffw.html#fa711f90) * _format_, int * _mips_ = NULL)  |
+|  bool | [writeImage](#ac1e49be) (const std::string & _path_, const void * _src_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _format_, int _quality_ = 100, int _mips_ = 1)  |
 |  bool | [readImage](#fd2661e9) (const std::string & _path_, [ffw::ImageBuffer](ffw_ImageBuffer.html) & _image_)  |
-|  [ffw::ImageBuffer](ffw_ImageBuffer.html) | [readImage](#07bb69e7) (const std::string & _path_)  |
 |  bool | [writeImage](#2c1dd671) (const std::string & _path_, const [ffw::ImageBuffer](ffw_ImageBuffer.html) & _image_, int _quality_ = 100)  |
 |  bool | [readObj](#d3cfdde0) (const std::string & _path_, float ** _vertices_, unsigned int * _numVertices_)  |
 
@@ -310,18 +314,33 @@ enum ImageType {
     GRAYSCALE_8,
     GRAYSCALE_ALPHA_8,
     GRAYSCALE_16,
+    GRAYSCALE_16F,
     GRAYSCALE_ALPHA_16,
-    GRAYSCALE_32,
-    GRAYSCALE_ALPHA_32,
+    GRAYSCALE_ALPHA_16F,
+    GRAYSCALE_32F,
+    GRAYSCALE_ALPHA_32F,
+    RG_88,
+    RG_1616,
+    RG_1616F,
+    RG_3232F,
     RGB_565,
     RGB_888,
     RGB_161616,
-    RGB_323232,
+    RGB_161616F,
+    RGB_323232F,
     RGB_ALPHA_5551,
     RGB_ALPHA_4444,
     RGB_ALPHA_8888,
     RGB_ALPHA_16161616,
-    RGB_ALPHA_32323232,
+    RGB_ALPHA_16161616F,
+    RGB_ALPHA_32323232F,
+    RGB_DXT1,
+    RGB_ALPHA_DXT3,
+    RGB_ALPHA_DXT5,
+    RED_RGTC1,
+    RED_GREEN_RGTC2,
+    SIGNED_RED_RGTC1,
+    SIGNED_RED_GREEN_RGTC2,
     CUSTOM,
 }
 ```
@@ -1209,6 +1228,18 @@ Mat4x4< T > makeOrthoMatrix (
 
 
 
+### <span style="opacity:0.5;">function</span> <a id="2b780c2f" href="#2b780c2f">makePromise</a>
+
+```cpp
+static Promise< R > * makePromise (
+    Promise< T > * parent,
+    Then const & then,
+    Fail const & fail
+) 
+```
+
+
+
 ### <span style="opacity:0.5;">function</span> <a id="b5735179" href="#b5735179">normalize</a>
 
 ```cpp
@@ -1933,7 +1964,7 @@ ImageWriter * openImageWriter (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="9f3c979a" href="#9f3c979a">readImage</a>
+### <span style="opacity:0.5;">function</span> <a id="2653599f" href="#2653599f">readImage</a>
 
 ```cpp
 bool readImage (
@@ -1941,13 +1972,14 @@ bool readImage (
     void ** dest,
     int * width,
     int * height,
-    ffw::ImageType * format
+    ffw::ImageType * format,
+    int * mips = NULL
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="26e62acf" href="#26e62acf">writeImage</a>
+### <span style="opacity:0.5;">function</span> <a id="ac1e49be" href="#ac1e49be">writeImage</a>
 
 ```cpp
 bool writeImage (
@@ -1956,7 +1988,8 @@ bool writeImage (
     int width,
     int height,
     ffw::ImageType format,
-    int quality = 100
+    int quality = 100,
+    int mips = 1
 ) 
 ```
 
@@ -1968,16 +2001,6 @@ bool writeImage (
 bool readImage (
     const std::string & path,
     ffw::ImageBuffer & image
-) 
-```
-
-
-
-### <span style="opacity:0.5;">function</span> <a id="07bb69e7" href="#07bb69e7">readImage</a>
-
-```cpp
-ffw::ImageBuffer readImage (
-    const std::string & path
 ) 
 ```
 

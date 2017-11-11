@@ -14,6 +14,8 @@ Provides functions and classes to load and save image files such as PNG, JPG, PB
 |:-----|
 | class [ffw::BmpLoader](ffw_BmpLoader.html) |
 | class [ffw::BmpSaver](ffw_BmpSaver.html) |
+| class [ffw::DdsLoader](ffw_DdsLoader.html) |
+| class [ffw::DdsSaver](ffw_DdsSaver.html) |
 | class [ffw::ImageReader](ffw_ImageReader.html) |
 | class [ffw::ImageWriter](ffw_ImageWriter.html) |
 | class [ffw::JpgLoader](ffw_JpgLoader.html) |
@@ -35,10 +37,9 @@ Provides functions and classes to load and save image files such as PNG, JPG, PB
 | -------: | :------- |
 |  ImageReader * | [openImageReader](#66d303c6) (const std::string & _path_)  |
 |  ImageWriter * | [openImageWriter](#8ffae09c) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100)  |
-|  bool | [readImage](#9f3c979a) (const std::string & _path_, void ** _dest_, int * _width_, int * _height_, [ffw::ImageType](ffw.html#fa711f90) * _format_)  |
-|  bool | [writeImage](#26e62acf) (const std::string & _path_, const void * _src_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _format_, int _quality_ = 100)  |
+|  bool | [readImage](#2653599f) (const std::string & _path_, void ** _dest_, int * _width_, int * _height_, [ffw::ImageType](ffw.html#fa711f90) * _format_, int * _mips_ = NULL)  |
+|  bool | [writeImage](#ac1e49be) (const std::string & _path_, const void * _src_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _format_, int _quality_ = 100, int _mips_ = 1)  |
 |  bool | [readImage](#fd2661e9) (const std::string & _path_, [ffw::ImageBuffer](ffw_ImageBuffer.html) & _image_)  |
-|  [ffw::ImageBuffer](ffw_ImageBuffer.html) | [readImage](#07bb69e7) (const std::string & _path_)  |
 |  bool | [writeImage](#2c1dd671) (const std::string & _path_, const [ffw::ImageBuffer](ffw_ImageBuffer.html) & _image_, int _quality_ = 100)  |
 |  bool | [readObj](#d3cfdde0) (const std::string & _path_, float ** _vertices_, unsigned int * _numVertices_)  |
 
@@ -69,7 +70,7 @@ ImageWriter * openImageWriter (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="9f3c979a" href="#9f3c979a">readImage</a>
+### <span style="opacity:0.5;">function</span> <a id="2653599f" href="#2653599f">readImage</a>
 
 ```cpp
 bool readImage (
@@ -77,13 +78,14 @@ bool readImage (
     void ** dest,
     int * width,
     int * height,
-    ffw::ImageType * format
+    ffw::ImageType * format,
+    int * mips = NULL
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="26e62acf" href="#26e62acf">writeImage</a>
+### <span style="opacity:0.5;">function</span> <a id="ac1e49be" href="#ac1e49be">writeImage</a>
 
 ```cpp
 bool writeImage (
@@ -92,7 +94,8 @@ bool writeImage (
     int width,
     int height,
     ffw::ImageType format,
-    int quality = 100
+    int quality = 100,
+    int mips = 1
 ) 
 ```
 
@@ -104,16 +107,6 @@ bool writeImage (
 bool readImage (
     const std::string & path,
     ffw::ImageBuffer & image
-) 
-```
-
-
-
-### <span style="opacity:0.5;">function</span> <a id="07bb69e7" href="#07bb69e7">readImage</a>
-
-```cpp
-ffw::ImageBuffer readImage (
-    const std::string & path
 ) 
 ```
 

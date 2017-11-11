@@ -24,10 +24,10 @@ The documentation for this class was generated from: `include/ffw/gui/guilist.h`
 |  virtual  | [~GuiList](#0f3ac750) ()  |
 |  [GuiList::Item](ffw_GuiList_Item.html) * | [addItem](#dbe62119) (const std::string & _label_)  |
 |  [GuiList::Item](ffw_GuiList_Item.html) * | [addItem](#d8db7b91) (const std::wstring & _label_)  |
-|  void | [DeleteAllItems](#acdb3ed2) ()  |
-|  bool | [DeleteItem](#e7a3d0e3) (const [GuiList::Item](ffw_GuiList_Item.html) * _item_)  |
+|  void | [deleteAllItems](#91f94fa7) ()  |
+|  bool | [deleteItem](#a671ea86) (const [GuiList::Item](ffw_GuiList_Item.html) * _item_)  |
 |  void | [setSelected](#622970ed) (int _index_)  |
-|  void | [ResetSelected](#724a77bf) ()  |
+|  void | [resetSelected](#8c4e7891) ()  |
 |  void | [setSelected](#7f9a1693) (const [GuiList::Item](ffw_GuiList_Item.html) * _item_)  |
 |  [GuiList::Item](ffw_GuiList_Item.html) * | [getSelectedItem](#2f1eb20c) () const  |
 |  virtual void | [eventThemeChanged](#86eb2b69) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
@@ -73,18 +73,18 @@ GuiList::Item * addItem (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="acdb3ed2" href="#acdb3ed2">DeleteAllItems</a>
+### <span style="opacity:0.5;">function</span> <a id="91f94fa7" href="#91f94fa7">deleteAllItems</a>
 
 ```cpp
-void DeleteAllItems () 
+void deleteAllItems () 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="e7a3d0e3" href="#e7a3d0e3">DeleteItem</a>
+### <span style="opacity:0.5;">function</span> <a id="a671ea86" href="#a671ea86">deleteItem</a>
 
 ```cpp
-bool DeleteItem (
+bool deleteItem (
     const GuiList::Item * item
 ) 
 ```
@@ -101,10 +101,10 @@ void setSelected (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="724a77bf" href="#724a77bf">ResetSelected</a>
+### <span style="opacity:0.5;">function</span> <a id="8c4e7891" href="#8c4e7891">resetSelected</a>
 
 ```cpp
-void ResetSelected () 
+void resetSelected () 
 ```
 
 

@@ -8,7 +8,7 @@ This tutorial will explain how to decode and encode JSON structure.
 Make sure you add `finedata` into your linker and add the following headers into your project:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/math.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/data.h</a>&gt;</span>
 </div></pre>
 
@@ -36,7 +36,7 @@ The strings that contain unicode characters encoded as '\uXXXX' will be converte
 Decoding can be done as the following:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> json;</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"><a href="ffw_Var.html">ffw::Var</a> json;</span>
 <span class="hljs-normal"></span><span class="hljs-keyword">try</span><span class="hljs-normal"> &#123;</span>
 <span class="hljs-normal">  json = <a href="ffw.html#6d044655">ffw::decodeJson</a>(</span>
 <span class="hljs-normal">    </span><span class="hljs-string">"&#123;\"menu\": &#123;"</span><span class="hljs-normal"></span>
@@ -133,7 +133,7 @@ The following code is a simple way to create a data structure using [ffw::Var](f
 
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = &#123; </span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"><a href="ffw_Object.html">ffw::Object</a> obj = &#123; </span>
 <span class="hljs-normal">  </span><span class="hljs-string">"menu"</span><span class="hljs-normal">, <a href="ffw_Object.html">ffw::Object</a>&#123;</span>
 <span class="hljs-normal">    &#123;</span><span class="hljs-string">"id"</span><span class="hljs-normal">, </span><span class="hljs-string">"file"</span><span class="hljs-normal">,&#125;,</span>
 <span class="hljs-normal">    &#123;</span><span class="hljs-string">"value"</span><span class="hljs-normal">, </span><span class="hljs-string">"File"</span><span class="hljs-normal">,&#125;,</span>
@@ -167,7 +167,7 @@ The following code is a simple way to create a data structure using [ffw::Var](f
 Will create the following equivalent JSON structure:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">&#123;"menu": &#123;</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">&#123;"menu": &#123;</span>
 <span class="hljs-normal">  "id": "file",</span>
 <span class="hljs-normal">  "value": "File",</span>
 <span class="hljs-normal">  "popup": &#123;</span>
@@ -218,7 +218,7 @@ Also, note that there is difference between integer, number, float:
 
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_JsonReader.html">ffw::JsonReader</a> json(</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"><a href="ffw_JsonReader.html">ffw::JsonReader</a> json(</span>
 <span class="hljs-normal">  </span><span class="hljs-string">"&#123;\"menu\": &#123;"</span><span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-string">"  \"id\": \"file\","</span><span class="hljs-normal"></span>
 <span class="hljs-normal">  </span><span class="hljs-string">"  \"value\": \"File\","</span><span class="hljs-normal"></span>
@@ -331,7 +331,7 @@ This method si very similar to the one above and again, it does not use [ffw::Va
 [ffw::JsonWriter](ffw_JsonWriter.html) supports arbitary stream, you can create one based on [ffw::JsonWriter::Stream](ffw_JsonWriter_Stream.html) when you override one simple method. However, [ffw::JsonWriter::StringStream](ffw_JsonWriter_StringStream.html) and [ffw::JsonWriter::FileStream](ffw_JsonWriter_FileStream.html) are provided to you.
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-keyword">try</span><span class="hljs-normal"> &#123;</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-keyword">try</span><span class="hljs-normal"> &#123;</span>
 <span class="hljs-normal">  <a href="ffw_JsonWriter_StringStream.html">ffw::JsonWriter::StringStream</a> stream;</span>
 <span class="hljs-normal">  <a href="ffw_JsonWriter.html">ffw::JsonWriter</a> json(&amp;stream, </span><span class="hljs-string">"    "</span><span class="hljs-normal">, </span><span class="hljs-keyword">false</span><span class="hljs-normal">);</span>
 <span class="hljs-normal">  </span><span class="hljs-comment">// If you wish to create compact JSON (no new lines, no indent)</span><span class="hljs-normal"></span>
@@ -392,7 +392,7 @@ This method si very similar to the one above and again, it does not use [ffw::Va
 Creates the following JSON structure:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">&#123;</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">&#123;</span>
 <span class="hljs-normal">    "menu":&#123;</span>
 <span class="hljs-normal">        "id":"file",</span>
 <span class="hljs-normal">        "value":"File",</span>

@@ -23,10 +23,11 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture1DArray](#696ead7a) (const [Texture1DArray](ffw_Texture1DArray.html) & _second_) = delete  |
 |   | [Texture1DArray](#0ef986ae) ([Texture1DArray](ffw_Texture1DArray.html) && _second_)  |
 |   | [~Texture1DArray](#84fa9c07) ()  |
-|  bool | [create](#8d9c7459) (const [ffw::RenderContext](ffw_RenderContext.html) * _Renderer_, GLsizei _width_, GLsizei _layers_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_)  |
+|  bool | [create](#be73f716) (const [ffw::RenderContext](ffw_RenderContext.html) * _Renderer_, GLsizei _width_, GLsizei _layers_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
 |  bool | [resize](#208caf07) (GLsizei _width_, GLsizei _layers_)  |
 |  bool | [setPixels](#fcbc24aa) (GLint _level_, GLint _xoffset_, GLint _loffset_, GLsizei _width_, const void * _pixels_)  |
-|  bool | [getPixels](#518ca08e) (void * _pixels_)  |
+|  bool | [setPixels](#ca4105ff) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
+|  bool | [getPixels](#97ceafb0) (void * _pixels_) const  |
 |  [Texture1DArray](ffw_Texture1DArray.html) & | [operator=](#0780bf4a) (const [Texture1DArray](ffw_Texture1DArray.html) & _second_) = delete  |
 |  [Texture1DArray](ffw_Texture1DArray.html) & | [operator=](#8d22d337) ([Texture1DArray](ffw_Texture1DArray.html) && _second_)  |
 
@@ -83,7 +84,7 @@ static bool checkCompability (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="8d9c7459" href="#8d9c7459">create</a>
+### <span style="opacity:0.5;">function</span> <a id="be73f716" href="#be73f716">create</a>
 
 ```cpp
 bool create (
@@ -92,7 +93,8 @@ bool create (
     GLsizei layers,
     GLenum internalformat,
     GLenum format,
-    GLenum pixelformat
+    GLenum pixelformat,
+    const GLvoid * pixels = NULL
 ) 
 ```
 
@@ -123,12 +125,23 @@ bool setPixels (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="518ca08e" href="#518ca08e">getPixels</a>
+### <span style="opacity:0.5;">function</span> <a id="ca4105ff" href="#ca4105ff">setPixels</a>
+
+```cpp
+bool setPixels (
+    GLint level,
+    const GLvoid * pixels = NULL
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="97ceafb0" href="#97ceafb0">getPixels</a>
 
 ```cpp
 bool getPixels (
     void * pixels
-) 
+) const 
 ```
 
 

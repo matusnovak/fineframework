@@ -17,7 +17,7 @@ _Please note, do not mistake `a * b` operation as a dot product! The asterisk wi
 Initializing vector can be done via the constructor, or via set() function. Note that the [ffw::Vec](ffw_Vec.html)<T, S> does not have a typical constructor!
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Initializing vector</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-comment">// Initializing vector</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec2.html">ffw::Vec2f</a> a;               </span><span class="hljs-comment">// Will be initialized to [0, 0]</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec2.html">ffw::Vec2f</a> b(10.0f, 20.0f); </span><span class="hljs-comment">// Will be initialized to [10, 20]</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec2.html">ffw::Vec2f</a> c(20.0f);        </span><span class="hljs-comment">// Will be initialized to [20, 20]</span><span class="hljs-normal"></span>
@@ -28,7 +28,7 @@ Initializing vector can be done via the constructor, or via set() function. Note
 
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Casting to a different data type is done explicitly!</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-comment">// Casting to a different data type is done explicitly!</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec2.html">ffw::Vec2i</a> e = a; </span><span class="hljs-comment">// ERROR, will not work, cannot convert ffw::Vec2f to ffw::Vec2i</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec2.html">ffw::Vec2i</a> e = (int)a; </span><span class="hljs-comment">// ERROR, will not work, cannot cast ffw::Vec2f to int</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec2.html">ffw::Vec2i</a> e = (<a href="ffw.html#e4e07ebe">ffw::Vec2i</a>)a; </span><span class="hljs-comment">// OK!</span>
@@ -37,7 +37,7 @@ Initializing vector can be done via the constructor, or via set() function. Note
 
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Setting it to a different value</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-comment">// Setting it to a different value</span><span class="hljs-normal"></span>
 <span class="hljs-normal">a.<a href="ffw_Vec2.html#e49a9b9e">set</a>(0.5f, 0.7f);          </span><span class="hljs-comment">// A is now [0.5, 0.7]</span><span class="hljs-normal"></span>
 <span class="hljs-normal">b.<a href="ffw_Var.html#27fd904e">set</a>(1.0f);                </span><span class="hljs-comment">// B is now [1.0, 1.0]</span><span class="hljs-normal"></span>
 <span class="hljs-normal">c = a;                      </span><span class="hljs-comment">// Copy A to C</span><span class="hljs-normal"></span>
@@ -49,7 +49,7 @@ Initializing vector can be done via the constructor, or via set() function. Note
 
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Accessing individual elements</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-comment">// Accessing individual elements</span><span class="hljs-normal"></span>
 <span class="hljs-normal">c.x = 55.0f;</span>
 <span class="hljs-normal">c.y = 66.0f;</span>
 <span class="hljs-normal"></span><span class="hljs-comment">// C is now [55, 66]</span><span class="hljs-normal"></span>
@@ -64,14 +64,14 @@ Initializing vector can be done via the constructor, or via set() function. Note
 
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Scalling</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-comment">// Scalling</span><span class="hljs-normal"></span>
 <span class="hljs-normal">c.scale(2.0);               </span><span class="hljs-comment">// C is now [110, 132]</span>
 </div></pre>
 
 
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Unary operator</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-comment">// Unary operator</span><span class="hljs-normal"></span>
 <span class="hljs-normal">b = -b;                     </span><span class="hljs-comment">// B is now [-1.0, -1.0]</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"></span><span class="hljs-comment">// Addition (component wise)</span><span class="hljs-normal"></span>
@@ -93,7 +93,7 @@ Initializing vector can be done via the constructor, or via set() function. Note
 All operations (addition, subtraction, multiplication, division) are component wise. Meaning that computing addition of 3 componet vector follows:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-comment">// Given a, b, and c are 3D vectors</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-comment">// Given a, b, and c are 3D vectors</span><span class="hljs-normal"></span>
 <span class="hljs-normal">c.x = a.<a href="ffw_Vec2.html#b2ccd122">x</a> + b.x;</span>
 <span class="hljs-normal">c.y = a.<a href="ffw_Vec2.html#370d6d90">y</a> + b.y;</span>
 <span class="hljs-normal">c.z = a.z + b.z;</span>
@@ -107,7 +107,7 @@ All operations (addition, subtraction, multiplication, division) are component w
 From linear algebra, we know that magnitude of a vector is sqrt(x^2 + y^2 + ...). Magnitude is also the length of a vector. To scale the vector so the magnitude/lengths equals 1.0 you can use **[vec.normalize()](ffw.html#3ae66aa1)**. Additionally, you can use **[ffw::normalize()](ffw.html#3ae66aa1)** (won't modify the original vector) which returns a copy of a normalized vector.
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, 0.0f, 0.0f);</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, 0.0f, 0.0f);</span>
 <span class="hljs-normal">std::cout &lt;&lt; a.<a href="ffw_Vec2.html#38c7d4a7">length</a>() &lt;&lt; std::endl; </span><span class="hljs-comment">// Prints "1.0"</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> b(2.0f, 0.0f, 0.0f);</span>
@@ -135,7 +135,7 @@ From linear algebra, we know that magnitude of a vector is sqrt(x^2 + y^2 + ...)
 All rotation is done in clockwise, as all vectors should do. Rotation can be done either on [ffw::Vec2](ffw_Vec2.html) in one axis or on [ffw::Vec3](ffw_Vec3.html) in X, Y, and Z axis.
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, 0.0f, 0.0f);</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, 0.0f, 0.0f);</span>
 <span class="hljs-normal">a.rotateZ(90.0); </span><span class="hljs-comment">// Rotate by 90 degrees clockwise</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; a &lt;&lt; std::endl; </span><span class="hljs-comment">// Prints "0, 1, 0"</span><span class="hljs-normal"></span>
@@ -151,7 +151,7 @@ All rotation is done in clockwise, as all vectors should do. Rotation can be don
 You can use [ffw::angle](ffw.html#b81562f6) or [ffw::angleRad](ffw.html#117a45b2) (for radians) on [ffw::Vec2](ffw_Vec2.html) and [ffw::Vec3](ffw_Vec3.html) which will give you an angle between those two vectors
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, 0.0f, 0.0f);</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, 0.0f, 0.0f);</span>
 <span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> b(0.0f, 1.0f, 0.0f);</span>
 <span class="hljs-normal"></span>
 <span class="hljs-normal">std::cout &lt;&lt; <a href="ffw.html#b81562f6">ffw::angle</a>(a, b) &lt;&lt; std::endl; </span><span class="hljs-comment">// Prints "90"</span><span class="hljs-normal"></span>
@@ -167,7 +167,7 @@ You can use [ffw::angle](ffw.html#b81562f6) or [ffw::angleRad](ffw.html#117a45b2
 Cross and dot product is provided, using [ffw::dot](ffw.html#71f5aa67) and [ffw::cross](ffw.html#9aaaf389). Note that dot product can be used with all vectors, but cross product can be used only with [ffw::Vec3](ffw_Vec3.html). However, you can not
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, -0.5f, 0.0f); </span><span class="hljs-comment">// Float</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> a(1.0f, -0.5f, 0.0f); </span><span class="hljs-comment">// Float</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3f</a> b(-0.2f, 1.0f, 0.5f); </span><span class="hljs-comment">// Float</span><span class="hljs-normal"></span>
 <span class="hljs-normal"><a href="ffw_Vec3.html">ffw::Vec3d</a> c(-0.2, 1.0, 0.5); </span><span class="hljs-comment">// Double equivalent of 'b'</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>

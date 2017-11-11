@@ -9,7 +9,7 @@ This tutorial will explain how to include any FFW module into your C++ project. 
 First, you will need to install Clang++ compiler (alias GCC) by running [Homebrew](https://brew.sh/):
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ brew install --with-clang llvm</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">$ brew install --with-clang llvm</span>
 <span class="hljs-normal">$ brew install cmake</span>
 </div></pre>
 
@@ -18,7 +18,7 @@ First, you will need to install Clang++ compiler (alias GCC) by running [Homebre
 To test if you have Clang++ 3.7 or newer, simply run:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ clang++ --version</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">$ clang++ --version</span>
 </div></pre>
 
 
@@ -26,7 +26,7 @@ To test if you have Clang++ 3.7 or newer, simply run:
 You will need the following install the following libraries via [Homebrew](https://brew.sh/):
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ brew install freetype libpng libjpeg libtiff zlib glfw</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">$ brew install freetype libpng libjpeg libtiff zlib glfw</span>
 </div></pre>
 
 
@@ -39,7 +39,7 @@ You can check if they are all present by executing `ls /usr/local/lib`
 Clone (or download as zip or tar file) and run cmake by running the following commands:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ cd ~ # Go to the home directory</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">$ cd ~ # Go to the home directory</span>
 <span class="hljs-normal">$ git clone https://github.com/matusnovak/fineframework.git # Will create a "fineframework" directory</span>
 <span class="hljs-normal">$ mkdir fineframework/build</span>
 <span class="hljs-normal">$ cd fineframework/build</span>
@@ -51,7 +51,7 @@ Clone (or download as zip or tar file) and run cmake by running the following co
 Make sure that the dependencies (third party libraries) are found. The `LIBRARY-NOTFOUND` will be displayed if the given library was not found.
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal"># The following output will be printed by cmake </span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal"># The following output will be printed by cmake </span>
 <span class="hljs-normal">-- glfw3 library path: /usr/local/lib/libglfw.dylib</span>
 <span class="hljs-normal">-- freetype library path: /usr/local/lib/libfreetype.dylib</span>
 <span class="hljs-normal">-- png library path: /usr/local/lib/libpng.dylib</span>
@@ -80,7 +80,7 @@ Make sure that the dependencies (third party libraries) are found. The `LIBRARY-
 Lastly, compile and install:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ make all</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">$ make all</span>
 <span class="hljs-normal">$ make install</span>
 </div></pre>
 
@@ -94,7 +94,7 @@ That's it!
 Your configuration is done, now test the project to make sure everything works. Copy paste the following example into empty cpp file:
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-meta-keyword">#include &lt;<a href="">ffw/graphics.h</a>&gt;</span><span class="hljs-normal"></span>
 <span class="hljs-normal"></span>
 <span class="hljs-keyword">class </span><span class="hljs-normal">App: </span><span class="hljs-keyword">public</span><span class="hljs-normal"> <a href="ffw_GLFWRenderWindow.html">ffw::GLFWRenderWindow</a> &#123;</span>
 <span class="hljs-normal"></span><span class="hljs-keyword">public</span><span class="hljs-normal">:</span>
@@ -219,7 +219,7 @@ Your configuration is done, now test the project to make sure everything works. 
 Now compile it using g++
 
 
-<pre><div class="lang-cpp" style="white-space: nowrap;"><span class="hljs-normal">$ clang++ -c example.cpp -o example.o -std=c++11 -I/usr/local/include</span>
+<pre><div class="lang-cpp" style="white-space: pre-wrap;"><span class="hljs-normal">$ clang++ -c example.cpp -o example.o -std=c++11 -I/usr/local/include</span>
 <span class="hljs-normal">$ clang++ -o example example.o -lfinegraphics -L/usr/local/lib</span>
 <span class="hljs-normal">$ ./example</span>
 </div></pre>

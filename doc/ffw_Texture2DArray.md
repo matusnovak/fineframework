@@ -23,10 +23,12 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture2DArray](#16e0c0c5) (const [Texture2DArray](ffw_Texture2DArray.html) & _second_) = delete  |
 |   | [Texture2DArray](#4f8e35bf) ([Texture2DArray](ffw_Texture2DArray.html) && _second_)  |
 |   | [~Texture2DArray](#ec5d141a) ()  |
-|  bool | [create](#038a94e5) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLsizei _layers_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_)  |
+|  bool | [create](#d3f89690) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLsizei _layers_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
 |  bool | [resize](#bea09c02) (GLsizei _width_, GLsizei _height_, GLsizei _layers_)  |
-|  bool | [setPixels](#0c652bd0) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLint _loffset_, GLsizei _width_, GLsizei _height_, const void * _pixels_)  |
-|  bool | [getPixels](#f79cfc98) (void * _pixels_)  |
+|  bool | [setFromBuffer](#c7317716) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, GLint _level_, bool _inverse_ = false)  |
+|  bool | [setPixels](#044eeef3) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
+|  bool | [setPixels](#39f9a304) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLint _loffset_, GLsizei _width_, GLsizei _height_, const GLvoid * _pixels_)  |
+|  bool | [getPixels](#d960542b) (void * _pixels_) const  |
 |  [Texture2DArray](ffw_Texture2DArray.html) & | [operator=](#0a941818) (const [Texture2DArray](ffw_Texture2DArray.html) & _second_) = delete  |
 |  [Texture2DArray](ffw_Texture2DArray.html) & | [operator=](#c66d14d9) ([Texture2DArray](ffw_Texture2DArray.html) && _second_)  |
 
@@ -83,7 +85,7 @@ static bool checkCompability (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="038a94e5" href="#038a94e5">create</a>
+### <span style="opacity:0.5;">function</span> <a id="d3f89690" href="#d3f89690">create</a>
 
 ```cpp
 bool create (
@@ -93,7 +95,8 @@ bool create (
     GLsizei layers,
     GLenum internalformat,
     GLenum format,
-    GLenum pixelformat
+    GLenum pixelformat,
+    const GLvoid * pixels = NULL
 ) 
 ```
 
@@ -111,7 +114,30 @@ bool resize (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="0c652bd0" href="#0c652bd0">setPixels</a>
+### <span style="opacity:0.5;">function</span> <a id="c7317716" href="#c7317716">setFromBuffer</a>
+
+```cpp
+bool setFromBuffer (
+    const ImageBuffer & buffer,
+    GLint level,
+    bool inverse = false
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="044eeef3" href="#044eeef3">setPixels</a>
+
+```cpp
+bool setPixels (
+    GLint level,
+    const GLvoid * pixels = NULL
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="39f9a304" href="#39f9a304">setPixels</a>
 
 ```cpp
 bool setPixels (
@@ -121,18 +147,18 @@ bool setPixels (
     GLint loffset,
     GLsizei width,
     GLsizei height,
-    const void * pixels
+    const GLvoid * pixels
 ) 
 ```
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="f79cfc98" href="#f79cfc98">getPixels</a>
+### <span style="opacity:0.5;">function</span> <a id="d960542b" href="#d960542b">getPixels</a>
 
 ```cpp
 bool getPixels (
     void * pixels
-) 
+) const 
 ```
 
 

@@ -23,9 +23,10 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture3D](#f429a6e4) (const [Texture3D](ffw_Texture3D.html) & _second_) = delete  |
 |   | [Texture3D](#227b8e99) ([Texture3D](ffw_Texture3D.html) && _second_)  |
 |   | [~Texture3D](#b52e5503) ()  |
-|  bool | [create](#523c4ba3) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLsizei _depth_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_)  |
+|  bool | [create](#10729189) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLsizei _depth_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
 |  bool | [resize](#e0d789c3) (GLsizei _width_, GLsizei _height_, GLsizei _depth_)  |
-|  bool | [setPixels](#b3bd025e) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLint _zoffset_, GLsizei _width_, GLsizei _height_, GLsizei _depth_, const void * _pixels_)  |
+|  bool | [setPixels](#7c3f0006) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLint _zoffset_, GLsizei _width_, GLsizei _height_, GLsizei _depth_, const GLvoid * _pixels_)  |
+|  bool | [setPixels](#26abeae1) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
 |  bool | [getPixels](#d7805468) (void * _pixels_)  |
 |  [Texture3D](ffw_Texture3D.html) & | [operator=](#c7760e97) (const [Texture3D](ffw_Texture3D.html) & _second_) = delete  |
 |  [Texture3D](ffw_Texture3D.html) & | [operator=](#594cafb2) ([Texture3D](ffw_Texture3D.html) && _second_)  |
@@ -83,7 +84,7 @@ static bool checkCompability (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="523c4ba3" href="#523c4ba3">create</a>
+### <span style="opacity:0.5;">function</span> <a id="10729189" href="#10729189">create</a>
 
 ```cpp
 bool create (
@@ -93,7 +94,8 @@ bool create (
     GLsizei depth,
     GLenum internalformat,
     GLenum format,
-    GLenum pixelformat
+    GLenum pixelformat,
+    const GLvoid * pixels = NULL
 ) 
 ```
 
@@ -111,7 +113,7 @@ bool resize (
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="b3bd025e" href="#b3bd025e">setPixels</a>
+### <span style="opacity:0.5;">function</span> <a id="7c3f0006" href="#7c3f0006">setPixels</a>
 
 ```cpp
 bool setPixels (
@@ -122,7 +124,18 @@ bool setPixels (
     GLsizei width,
     GLsizei height,
     GLsizei depth,
-    const void * pixels
+    const GLvoid * pixels
+) 
+```
+
+
+
+### <span style="opacity:0.5;">function</span> <a id="26abeae1" href="#26abeae1">setPixels</a>
+
+```cpp
+bool setPixels (
+    GLint level,
+    const GLvoid * pixels = NULL
 ) 
 ```
 

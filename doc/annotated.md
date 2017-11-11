@@ -4,6 +4,13 @@ Class Index
 Here are the classes, structs, unions and interfaces with brief descriptions:
 
 * namespace **[ffw](/doc/ffw.md)** 
+  * class **[Promise](/doc/ffw_Promise.md)** <span style="opacity:0.8;">A simple promise class with chainable lambdas. </span>
+    * struct **[arg1_traits_impl](/doc/ffw_Promise_arg1_traits_impl.md)** 
+    * struct **[arg1_traits_impl< R(C::*)(A1) const  >](/doc/ffw_Promise_arg1_traits_impl__R_C_____A1__const___.md)** 
+    * struct **[arg1_traits_impl< R(C::*)(A1)>](/doc/ffw_Promise_arg1_traits_impl__R_C_____A1__.md)** 
+    * struct **[arg1_traits_impl< R(C::*)(void) const  >](/doc/ffw_Promise_arg1_traits_impl__R_C_____void__const___.md)** 
+    * struct **[arg1_traits_impl< R(C::*)(void)>](/doc/ffw_Promise_arg1_traits_impl__R_C_____void__.md)** 
+    * struct **[SharedData](/doc/ffw_Promise_SharedData.md)** 
   * class **[Array](/doc/ffw_Array.md)** 
   * class **[XmlReader](/doc/ffw_XmlReader.md)** 
     * class **[Attribute](/doc/ffw_XmlReader_Attribute.md)** 
@@ -66,6 +73,8 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
   * class **[CsvLoader](/doc/ffw_CsvLoader.md)** 
   * class **[GuiCallback](/doc/ffw_GuiCallback.md)** 
     * class **[Data](/doc/ffw_GuiCallback_Data.md)** 
+  * class **[DdsLoader](/doc/ffw_DdsLoader.md)** 
+  * class **[DdsSaver](/doc/ffw_DdsSaver.md)** 
   * class **[GuiWidget](/doc/ffw_GuiWidget.md)** 
     * struct **[Flags](/doc/ffw_GuiWidget_Flags.md)** 
       * struct **[Events](/doc/ffw_GuiWidget_Flags_Events.md)** 
@@ -137,7 +146,6 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
   * struct **[Mat4x4](/doc/ffw_Mat4x4.md)** 
   * struct **[Monitor](/doc/ffw_Monitor.md)** 
     * struct **[Mode](/doc/ffw_Monitor_Mode.md)** 
-  * class **[Mutex](/doc/ffw_Mutex.md)** 
   * class **[Object](/doc/ffw_Object.md)** 
   * class **[ObjLoader](/doc/ffw_ObjLoader.md)** 
   * class **[OpenGLImageType](/doc/ffw_OpenGLImageType.md)** 
@@ -145,6 +153,10 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
   * class **[PbmSaver](/doc/ffw_PbmSaver.md)** 
   * class **[PngLoader](/doc/ffw_PngLoader.md)** 
   * class **[PngSaver](/doc/ffw_PngSaver.md)** 
+  * class **[PromiseException](/doc/ffw_PromiseException.md)** 
+  * class **[PromiseI](/doc/ffw_PromiseI.md)** <span style="opacity:0.8;">Promise interface class. </span>
+  * class **[PromiseResult](/doc/ffw_PromiseResult.md)** 
+  * class **[PromiseResult< void >](/doc/ffw_PromiseResult__void__.md)** 
   * struct **[Quat](/doc/ffw_Quat.md)** 
   * class **[Renderbuffer](/doc/ffw_Renderbuffer.md)** 
   * class **[Renderbuffer2D](/doc/ffw_Renderbuffer2D.md)** 
@@ -165,8 +177,6 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
   * class **[TextureCubemap](/doc/ffw_TextureCubemap.md)** 
   * class **[TgaLoader](/doc/ffw_TgaLoader.md)** 
   * class **[TgaSaver](/doc/ffw_TgaSaver.md)** 
-  * class **[Thread< Ret(Args...)>](/doc/ffw_Thread__Ret_Args_____.md)** <span style="opacity:0.8;">Thread class that accepts non-void static and member functions. </span>
-  * class **[Thread< void(Args...)>](/doc/ffw_Thread__void_Args_____.md)** <span style="opacity:0.8;">Thread class that accepts static and member void only functions. </span>
   * class **[TifLoader](/doc/ffw_TifLoader.md)** 
   * class **[TifSaver](/doc/ffw_TifSaver.md)** 
   * class **[Tokenizer](/doc/ffw_Tokenizer.md)** 

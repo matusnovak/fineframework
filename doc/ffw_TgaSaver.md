@@ -19,7 +19,7 @@ The documentation for this class was generated from: `include/ffw/media/tgasaver
 |  [TgaSaver](ffw_TgaSaver.html) & | [operator=](#d8702575) (const [TgaSaver](ffw_TgaSaver.html) & _other_) = delete  |
 |  [TgaSaver](ffw_TgaSaver.html) & | [operator=](#3ca94aae) ([TgaSaver](ffw_TgaSaver.html) && _other_)  |
 |  virtual  | [~TgaSaver](#a7e935b0) ()  |
-|  virtual bool | [open](#46f7595a) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100)  |
+|  virtual bool | [open](#c8a69307) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100, int _mips_ = 1)  |
 |  virtual size_t | [writeRow](#bd9fdd6c) (const void * _src_)  |
 |  virtual bool | [writeFooter](#9df45474) ()  |
 |  virtual void | [close](#a4424d30) ()  |
@@ -93,7 +93,7 @@ virtual  ~TgaSaver ()
 
 
 
-### <span style="opacity:0.5;">function</span> <a id="46f7595a" href="#46f7595a">open</a>
+### <span style="opacity:0.5;">function</span> <a id="c8a69307" href="#c8a69307">open</a>
 
 ```cpp
 virtual bool open (
@@ -101,13 +101,14 @@ virtual bool open (
     int width,
     int height,
     ffw::ImageType type,
-    int quality = 100
+    int quality = 100,
+    int mips = 1
 ) 
 ```
 
 
 
-**Overrides:** [open](/doc/ffw_ImageWriter.md#c742773b) from class [ImageWriter](/doc/ffw_ImageWriter.md)
+**Overrides:** [open](/doc/ffw_ImageWriter.md#9a8ff2c9) from class [ImageWriter](/doc/ffw_ImageWriter.md)
 
 ### <span style="opacity:0.5;">function</span> <a id="bd9fdd6c" href="#bd9fdd6c">writeRow</a>
 
