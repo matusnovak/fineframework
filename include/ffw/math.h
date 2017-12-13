@@ -25,7 +25,5 @@
 #include "math/stringmath.h"
 #include "math/ringbuffer.h"
 #include "math/imagebuffer.h"
-#include "math/thread.h"
-#include "math/mutex.h"
 #include "math/mvp.h"
 #endif

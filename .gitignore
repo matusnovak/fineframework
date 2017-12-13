@@ -52,3 +52,9 @@ dependencies/
 /Win32
 
 *.zip
+doxygen-output
+
+# GitBook stuff
+_book
+node_modules
+.publish

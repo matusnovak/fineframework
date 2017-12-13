@@ -11,12 +11,12 @@ link_directories(${CMAKE_BINARY_DIR})
 add_executable(TestsMathFileInfo math_fileinfo.cpp)
 add_executable(TestsMathFunctions math_functions.cpp)
 add_executable(TestsMathRingBuffer math_ringbuffer.cpp)
-add_executable(TestsMathThreads math_threads.cpp)
 add_executable(TestsMathUnicode math_unicode.cpp)
 add_executable(TestsMathVar math_var.cpp)
 add_executable(TestsMathVectors math_vectors.cpp)
+add_executable(TestsMathPromise math_promise.cpp)
 
-set(MATH_TESTS TestsMathFileInfo TestsMathFunctions TestsMathRingBuffer TestsMathThreads TestsMathUnicode TestsMathVar TestsMathVectors)
+set(MATH_TESTS TestsMathFileInfo TestsMathFunctions TestsMathRingBuffer TestsMathUnicode TestsMathVar TestsMathVectors TestsMathPromise)
 
 # Dependencies
 foreach(exmpl ${MATH_TESTS})

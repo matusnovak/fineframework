@@ -1,0 +1,11 @@
+# Introduction
+
+![appveyor](https://ci.appveyor.com/api/projects/status/skag9h1m8pthm4bp/branch/master?svg=true)
+![travis-ci](https://travis-ci.org/matusnovak/fineframework.svg?branch=master)
+![codacy](https://api.codacy.com/project/badge/Grade/5f3cdd8363c64a9ab7fb3904cb56cf00)
+
+FineFramework (FFW) is an open source framework written in C++ designed for developing applications. This framework provides basic simple structure to write things easily with less code. Anyone can use this framework without greater knowledge of programming. This framework provides functions which can be used as a building blocks for applications of any kind. The core functions should provide sufficient exploitation for the most of problems.
+
+FineFramework contains several modules, each module has a specific use and is compiled separately. If you wish to use only one module, you don't need to compile and link them all, except for the math module which is needed by all modules. **[The API documentation can be found here](/doxygen/modules.md)**.
+
+To get started, please read [How to install FineFramework tutorials](/installation/installation.md) where you can find instructions for Visual Studio, MinGW, Linux using GCC, and OS X using Clang.

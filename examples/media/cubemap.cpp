@@ -34,11 +34,13 @@ in vec3 v_position;
 uniform samplerCube sampler;
 uniform vec3 eyespos;
 
+const float brightness = 2.0;
+
 void main() {
 	vec3 I = normalize(v_position - eyespos);
     vec3 R = reflect(I, normalize(v_normals));
 	vec3 reflection = texture(sampler, R).rgb;
-	gl_FragColor = vec4(mix(R, reflection, 0.8), 1.0);
+	gl_FragColor = vec4(mix(R, reflection, 0.8), 1.0) * brightness;
 }
 );
 
@@ -64,8 +66,10 @@ in vec3 v_texcoords;
 
 uniform samplerCube sampler;
 
+const float brightness = 2.0;
+
 void main(){    
-    gl_FragColor = texture(sampler, v_texcoords);
+    gl_FragColor = texture(sampler, v_texcoords) * brightness;
 }
 );
 
