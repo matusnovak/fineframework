@@ -13,6 +13,7 @@ matrix:
       - ARCH=x86_64
       - TOOLSET=linux-gnu
   - os: osx
+    osx_image: xcode8
     addons:
       apt:
         sources:
@@ -28,7 +29,6 @@ before_install:
   - if [ $TRAVIS_OS_NAME == linux ]; then wget http://launchpadlibrarian.net/279734097/libglfw3_3.2.1-1_amd64.deb && sudo dpkg -i libglfw3_3.2.1-1_amd64.deb && sudo apt-get install -f; fi
   - if [ $TRAVIS_OS_NAME == linux ]; then wget http://launchpadlibrarian.net/279734093/libglfw3-dev_3.2.1-1_amd64.deb && sudo dpkg -i libglfw3-dev_3.2.1-1_amd64.deb && sudo apt-get install -f; fi
   - if [ $TRAVIS_OS_NAME == linux ]; then sudo curl -o /usr/include/GL/glext.h https://www.khronos.org/registry/OpenGL/api/GL/glext.h; fi
-  - if [ $TRAVIS_OS_NAME == osx ]; then rvm get stable; fi
 before_script:
   - chmod +x .ci/deps.sh
   - if [ $TRAVIS_OS_NAME == osx ]; then ./.ci/deps.sh; fi
