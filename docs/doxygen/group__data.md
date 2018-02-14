@@ -35,16 +35,16 @@ Provides a way to load and save XML, CSV, and JSON data files. Uses third party 
 |  bool | [stringisInteger](#0f301d2c) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
 |  bool | [stringisFloat](#42754420) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
 |  bool | [stringisBool](#f795143f) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeJson](#6d044655) (const char * _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeJson](#b4cddc87) (const std::string & _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeJsonFile](#0e979a8d) (const std::string & _path_)  |
-|  std::string | [encodeJson](#3b2e9a26) (const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  bool | [encodeJsonFile](#20155556) (const std::string & _path_, const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  [ffw::Var](ffw_Var.html) | [decodeXml](#39a9cfe3) (const char * _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeXml](#1f3cceee) (const std::string & _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeXmlFile](#3e9f5d3d) (const std::string & _path_)  |
-|  std::string | [encodeXml](#80464558) (const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  bool | [encodeXmlFile](#d92c62d9) (const std::string & _path_, const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  [ffw::Any](ffw_Any.html) | [decodeJson](#69d58e3a) (const char * _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeJson](#d294dc02) (const std::string & _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeJsonFile](#090e0ee4) (const std::string & _path_)  |
+|  std::string | [encodeJson](#3f450749) (const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  bool | [encodeJsonFile](#f3a0ad96) (const std::string & _path_, const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  [ffw::Any](ffw_Any.html) | [decodeXml](#2b32ec0f) (const char * _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeXml](#14f63b6b) (const std::string & _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeXmlFile](#d542e979) (const std::string & _path_)  |
+|  std::string | [encodeXml](#29241370) (const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  bool | [encodeXmlFile](#66c3b5fb) (const std::string & _path_, const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
 
 
 ## Functions Documentation
@@ -113,41 +113,41 @@ bool stringisBool (
 
 
 
-### _function_ <a id="6d044655" href="#6d044655">decodeJson</a>
+### _function_ <a id="69d58e3a" href="#69d58e3a">decodeJson</a>
 
 ```cpp
-ffw::Var decodeJson (
+ffw::Any decodeJson (
     const char * input
 ) 
 ```
 
 
 
-### _function_ <a id="b4cddc87" href="#b4cddc87">decodeJson</a>
+### _function_ <a id="d294dc02" href="#d294dc02">decodeJson</a>
 
 ```cpp
-ffw::Var decodeJson (
+ffw::Any decodeJson (
     const std::string & input
 ) 
 ```
 
 
 
-### _function_ <a id="0e979a8d" href="#0e979a8d">decodeJsonFile</a>
+### _function_ <a id="090e0ee4" href="#090e0ee4">decodeJsonFile</a>
 
 ```cpp
-ffw::Var decodeJsonFile (
+ffw::Any decodeJsonFile (
     const std::string & path
 ) 
 ```
 
 
 
-### _function_ <a id="3b2e9a26" href="#3b2e9a26">encodeJson</a>
+### _function_ <a id="3f450749" href="#3f450749">encodeJson</a>
 
 ```cpp
 std::string encodeJson (
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 
@@ -155,12 +155,12 @@ std::string encodeJson (
 
 
 
-### _function_ <a id="20155556" href="#20155556">encodeJsonFile</a>
+### _function_ <a id="f3a0ad96" href="#f3a0ad96">encodeJsonFile</a>
 
 ```cpp
 bool encodeJsonFile (
     const std::string & path,
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 
@@ -168,41 +168,41 @@ bool encodeJsonFile (
 
 
 
-### _function_ <a id="39a9cfe3" href="#39a9cfe3">decodeXml</a>
+### _function_ <a id="2b32ec0f" href="#2b32ec0f">decodeXml</a>
 
 ```cpp
-ffw::Var decodeXml (
+ffw::Any decodeXml (
     const char * input
 ) 
 ```
 
 
 
-### _function_ <a id="1f3cceee" href="#1f3cceee">decodeXml</a>
+### _function_ <a id="14f63b6b" href="#14f63b6b">decodeXml</a>
 
 ```cpp
-ffw::Var decodeXml (
+ffw::Any decodeXml (
     const std::string & input
 ) 
 ```
 
 
 
-### _function_ <a id="3e9f5d3d" href="#3e9f5d3d">decodeXmlFile</a>
+### _function_ <a id="d542e979" href="#d542e979">decodeXmlFile</a>
 
 ```cpp
-ffw::Var decodeXmlFile (
+ffw::Any decodeXmlFile (
     const std::string & path
 ) 
 ```
 
 
 
-### _function_ <a id="80464558" href="#80464558">encodeXml</a>
+### _function_ <a id="29241370" href="#29241370">encodeXml</a>
 
 ```cpp
 std::string encodeXml (
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 
@@ -210,12 +210,12 @@ std::string encodeXml (
 
 
 
-### _function_ <a id="d92c62d9" href="#d92c62d9">encodeXmlFile</a>
+### _function_ <a id="66c3b5fb" href="#66c3b5fb">encodeXmlFile</a>
 
 ```cpp
 bool encodeXmlFile (
     const std::string & path,
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 

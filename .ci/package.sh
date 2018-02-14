@@ -2,11 +2,7 @@
 set -e
 
 # Do Debug only on devel branch
-TARGETS=("Debug")
-# Do Debug+MinSizeRel only on master branch
-if [ "$TRAVIS_BRANCH"=="master" ]; then
-     TARGETS=("Debug" "MinSizeRel")
-fi
+TARGETS=("Debug" "MinSizeRel")
 
 for i in "${TARGETS[@]}"
 do
@@ -16,5 +12,9 @@ do
     cd ..
 done
 
+GCC_MACHINE=$(gcc -dumpmachine)
+GCC_VERSION=$(gcc -dumpversion)
+
 cd install
-zip -r "../ffw-$ARCH-$TOOLSET.zip" *
+gcc -v &> compiler-version.txt
+zip -r "../ffw-$GCC_MACHINE-$GCC_VERSION.zip" *

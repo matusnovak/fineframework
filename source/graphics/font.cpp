@@ -2,13 +2,15 @@
 
 #include "ffw/graphics/font.h"
 #include "ffw/graphics/rendercontext.h"
+#include "ffw/math/textwrapper.h"
+#include "ffw/math/stringmath.h"
 
 ///=============================================================================
 ffw::Font::Font() {
-	sizePoints = 0;
-	sizePixels = 0;
-	sizeDpi = 0;
-	loaded = 0;
+    sizePoints = 0;
+    sizePixels = 0;
+    sizeDpi = 0;
+    loaded = 0;
 }
 
 ///=============================================================================
@@ -16,41 +18,54 @@ ffw::Font::~Font() {
 }
 
 ///=============================================================================
-bool ffw::Font::checkCompability(const RenderContext* renderer) {
-	return (ffw::Texture2D::checkCompability(renderer));
-}
-
-///=============================================================================
 template<class T>
-ffw::Vec2f ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, float lineHeight) const {
-	if (!isCreated())return ffw::Vec2i(0, 0);
+ffw::Vec2f ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, float maxWidth, float lineHeight) const {
+    if (!isCreated())return ffw::Vec2i(0, 0);
 
-	float height = getSizePixels() * lineHeight;
-	ffw::Vec2f size(0, height);
-	float width = 0;
+    auto wrapper = ffw::TextWrapper<T>(&str[0], &str[0] + str.size());
+    ffw::Vec2f ret;
 
-	for(size_t i = 0; i < str.size(); i++) {
-		if(str[i] == '\n') {
-			size.y += height;
-			size.x = std::max(width, size.x);
-			width = 0;
-			continue;
-		}
+    auto height = 0.0f;
+    bool previousWasNewline = false;
+    while (auto token = wrapper.next(this, maxWidth)) {
+        auto advance = 0.0f;
 
-		const Font::Char& chr = getChar(str[i]);
-		size.x += chr.advance;
-	}
+        if (token.len > 0) {
+            const T* ptr = token.str;
+            while(ptr != token.str + token.len) {
+                const auto chr = getNextChar(ptr, token.str + token.len);
+                const ffw::Font::Char& chrData = this->getChar(chr);
 
-	size.x = std::max(width, size.x);
-	return ffw::Vec2f(ceil(size.x), ceil(size.y));
+                if (chrData.height == 0 || chrData.width == 0) {
+                    advance += chrData.advance;
+                    continue;
+                }
+
+                advance += chrData.advance;
+            }
+            height += lineHeight * this->getSizePixels();
+            previousWasNewline = false;
+        }
+        else {
+            if (previousWasNewline) {
+                height += lineHeight * this->getSizePixels();
+            }
+            previousWasNewline = true;
+        }
+
+        ret.y = std::max(ret.y, height);
+        ret.x = std::max(ret.x, advance);
+    }
+
+    return ret;
 }
 
 ///=============================================================================
-ffw::Vec2f ffw::Font::getStringSize(const std::wstring& str, float lineHeight) const {
-	return getStringSizeFunc<wchar_t>(str, lineHeight);
+ffw::Vec2f ffw::Font::getStringSize(const std::wstring& str, float maxWidth, float lineHeight) const {
+    return getStringSizeFunc<wchar_t>(str, maxWidth, lineHeight);
 }
 
 ///=============================================================================
-ffw::Vec2f ffw::Font::getStringSize(const std::string& str, float lineHeight) const {
-	return getStringSizeFunc<char>(str, lineHeight);
+ffw::Vec2f ffw::Font::getStringSize(const std::string& str, float maxWidth, float lineHeight) const {
+    return getStringSizeFunc<char>(str, maxWidth, lineHeight);
 }

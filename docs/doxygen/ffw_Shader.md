@@ -14,13 +14,6 @@ The documentation for this class was generated from: `include/ffw/graphics/shade
 | class [ffw::Shader::FileException](ffw_Shader_FileException.html) |
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#8e08f5b2) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -35,16 +28,16 @@ The documentation for this class was generated from: `include/ffw/graphics/shade
 |  bool | [isUsingFrag](#2f0dbbf2) () const  |
 |  bool | [isUsingGeom](#41f93ea7) () const  |
 |  bool | [isUsingVert](#f212a979) () const  |
-|  bool | [create](#0666e82a) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
+|  bool | [create](#a6185b76) ()  |
 |  void | [Link](#d4d71735) ()  |
 |  void | [compileFragFromData](#6ee9ed24) (const std::string & _code_)  |
 |  void | [compileGeomFromData](#0cc1953c) (const std::string & _code_)  |
 |  void | [compileVertFromData](#9902ad63) (const std::string & _code_)  |
-|  void | [createFromFile](#d1ec165d) (const [RenderContext](ffw_RenderContext.html) * _renderer_, const std::string & _geomfile_, const std::string & _vertfile_, const std::string & _fragfile_)  |
-|  void | [createFromData](#6f953245) (const [RenderContext](ffw_RenderContext.html) * _renderer_, const std::string & _geomdata_, const std::string & _vertdata_, const std::string & _fragdata_)  |
+|  void | [createFromFile](#31f6b4a0) (const std::string & _geomfile_, const std::string & _vertfile_, const std::string & _fragfile_)  |
+|  void | [createFromData](#e41c603b) (const std::string & _geomdata_, const std::string & _vertdata_, const std::string & _fragdata_)  |
 |  void | [destroy](#72cf3a57) ()  |
 |  unsigned int | [getHandle](#185cc4b2) () const  |
-|  void | [setAttributePointerf](#14e7ce8e) (int _location_, int _size_, int _stride_, const GLvoid * _offset_) const  |
+|  void | [setAttributePointerf](#14e7ce8e) (int _location_, int _size_, int _stride_, const [GLvoid]() * _offset_) const  |
 |  void | [setAttributeDivisor](#18bbb3b4) (unsigned int _index_, unsigned int _divisor_) const  |
 |  void | [drawArrays](#8f550b13) (unsigned int _mode_, int _first_, int _cnt_) const  |
 |  void | [drawArraysInstanced](#feffcb24) (unsigned int _mode_, int _First_, int _count_, int _instancecount_) const  |
@@ -91,20 +84,6 @@ The documentation for this class was generated from: `include/ffw/graphics/shade
 |  void | [setUniformMatrix4fv](#64f0b27e) (int _location_, const [Mat4x4f](ffw.html#029b468c) * _mat_, int _length_) const  |
 |  [Shader](ffw_Shader.html) & | [operator=](#133ecfaf) (const [Shader](ffw_Shader.html) & _other_) = delete  |
 |  [Shader](ffw_Shader.html) & | [operator=](#730a15ea) ([Shader](ffw_Shader.html) && _other_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="8e08f5b2" href="#8e08f5b2">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -195,12 +174,10 @@ inline bool isUsingVert () const
 
 
 
-### _function_ <a id="0666e82a" href="#0666e82a">create</a>
+### _function_ <a id="a6185b76" href="#a6185b76">create</a>
 
 ```cpp
-bool create (
-    const RenderContext * renderer
-) 
+bool create () 
 ```
 
 
@@ -243,11 +220,10 @@ void compileVertFromData (
 
 
 
-### _function_ <a id="d1ec165d" href="#d1ec165d">createFromFile</a>
+### _function_ <a id="31f6b4a0" href="#31f6b4a0">createFromFile</a>
 
 ```cpp
 void createFromFile (
-    const RenderContext * renderer,
     const std::string & geomfile,
     const std::string & vertfile,
     const std::string & fragfile
@@ -256,11 +232,10 @@ void createFromFile (
 
 
 
-### _function_ <a id="6f953245" href="#6f953245">createFromData</a>
+### _function_ <a id="e41c603b" href="#e41c603b">createFromData</a>
 
 ```cpp
 void createFromData (
-    const RenderContext * renderer,
     const std::string & geomdata,
     const std::string & vertdata,
     const std::string & fragdata

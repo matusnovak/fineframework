@@ -8,13 +8,6 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#03e784ec) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,28 +16,14 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [TextureCubemap](#68ebeb64) (const [TextureCubemap](ffw_TextureCubemap.html) & _second_) = delete  |
 |   | [TextureCubemap](#32cf2aed) ([TextureCubemap](ffw_TextureCubemap.html) && _second_)  |
 |   | [~TextureCubemap](#60859573) ()  |
-|  bool | [create](#4dcafea6) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [resize](#2a4ff149) (GLsizei _width_, GLsizei _height_)  |
-|  bool | [setPixels](#754cf479) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLsizei _width_, GLsizei _height_, GLint _side_, const GLvoid * _pixels_)  _Sets the pixels._ |
-|  bool | [setPixels](#115f3c21) (GLint _level_, GLint _side_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [setFromBuffer](#6f60d98a) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, GLint _side_, bool _inverse_ = false)  |
+|  bool | [create](#5879b551) ([GLsizei]() _width_, [GLsizei]() _height_, [GLenum]() _internalformat_, [GLenum]() _format_, [GLenum]() _pixelformat_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [resize](#2a4ff149) ([GLsizei]() _width_, [GLsizei]() _height_)  |
+|  bool | [setPixels](#754cf479) ([GLint]() _level_, [GLint]() _xoffset_, [GLint]() _yoffset_, [GLsizei]() _width_, [GLsizei]() _height_, [GLint]() _side_, const [GLvoid]() * _pixels_)  _Sets the pixels._ |
+|  bool | [setPixels](#115f3c21) ([GLint]() _level_, [GLint]() _side_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [setFromBuffer](#6f60d98a) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, [GLint]() _side_, bool _inverse_ = false)  |
 |  bool | [getPixels](#9d17ed48) (void * _pixels_)  |
 |  [TextureCubemap](ffw_TextureCubemap.html) & | [operator=](#c94b49e8) (const [TextureCubemap](ffw_TextureCubemap.html) & _second_) = delete  |
 |  [TextureCubemap](ffw_TextureCubemap.html) & | [operator=](#6993cfe5) ([TextureCubemap](ffw_TextureCubemap.html) && _second_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="03e784ec" href="#03e784ec">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -85,11 +64,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="4dcafea6" href="#4dcafea6">create</a>
+### _function_ <a id="5879b551" href="#5879b551">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * renderer,
     GLsizei width,
     GLsizei height,
     GLenum internalformat,

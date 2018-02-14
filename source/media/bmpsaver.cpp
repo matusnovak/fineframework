@@ -13,55 +13,55 @@ ffw::BmpSaver::BmpSaver(){
 
 ///=============================================================================
 ffw::BmpSaver::BmpSaver(BmpSaver&& other){
-	swap(other);
+    swap(other);
 }
 
 ///=============================================================================
 void ffw::BmpSaver::swap(BmpSaver& other){
-	std::swap(output, other.output);
-	std::swap(pixelsOffset, other.pixelsOffset);
+    std::swap(output, other.output);
+    std::swap(pixelsOffset, other.pixelsOffset);
 }
 
 ///=============================================================================
 ffw::BmpSaver& ffw::BmpSaver::operator = (BmpSaver&& other){
-	if(this != &other){
-		swap(other);
-	}
-	return *this;
+    if(this != &other){
+        swap(other);
+    }
+    return *this;
 }
 
 ///=============================================================================
 ffw::BmpSaver::~BmpSaver(){
-	close();
+    close();
 }
 
 ///=============================================================================
 bool ffw::BmpSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
-	(void)quality;
-	(void)mips;
-	if(loaded)return false;
+    (void)quality;
+    (void)mips;
+    if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
 
-	switch(type){
-		case ImageType::BITMAP_1:
-		case ImageType::GRAYSCALE_8:
-		case ImageType::GRAYSCALE_4:
-		case ImageType::RGB_888:
-		case ImageType::RGB_ALPHA_4444:
-		case ImageType::RGB_ALPHA_8888:
-			break;
-		default:
-			return false;
-	}
+    switch(type){
+        case ImageType::BITMAP_1:
+        case ImageType::GRAYSCALE_8:
+        case ImageType::GRAYSCALE_4:
+        case ImageType::RGB_888:
+        case ImageType::RGB_ALPHA_4444:
+        case ImageType::RGB_ALPHA_8888:
+            break;
+        default:
+            return false;
+    }
 
-	output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
+    output->open(path, std::ios::trunc | std::ios::out | std::ios::binary);
 
-	if(!output->is_open()){
-		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;
+    if(!output->is_open()){
+        //std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;
         return false;
     }
 
-	uint16_t fileType = 0x4D42;
+    uint16_t fileType = 0x4D42;
     uint32_t fileSize;
     uint32_t reserved = 0x00000000;
     uint32_t dataOffset;
@@ -76,77 +76,77 @@ bool ffw::BmpSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     uint32_t importantColors = 0x00000000;
 
     format = type;
-	width = w;
-	height = h;
-	depth = 0;
-	mipmaps = 1;
+    width = w;
+    height = h;
+    depth = 0;
+    mipmaps = 1;
 
-	switch(format){
-		case ffw::ImageType::BITMAP_1: {
-			size_t size = (width*height) / 8;
-			if((width*height) % 8 > 0){
-				size = (width*height) / 8 +1;
-			}
+    switch(format){
+        case ffw::ImageType::BITMAP_1: {
+            size_t size = (width*height) / 8;
+            if((width*height) % 8 > 0){
+                size = (width*height) / 8 +1;
+            }
 
-			fileSize = 0x36 + 8 + size;
-			dataOffset = 0x36 + 8;
-			bitsPerPixel = 1;
-			imageSize = size;
-			break;
-		}
+            fileSize = 0x36 + 8 + size;
+            dataOffset = 0x36 + 8;
+            bitsPerPixel = 1;
+            imageSize = size;
+            break;
+        }
 
-		case ffw::ImageType::GRAYSCALE_4: {
-			size_t size = (width*height) /2;
-			if((width*height) % 2 > 0){
-				size = (width*height) /2 +1;
-			}
+        case ffw::ImageType::GRAYSCALE_4: {
+            size_t size = (width*height) /2;
+            if((width*height) % 2 > 0){
+                size = (width*height) /2 +1;
+            }
 
-			fileSize = 0x36 + 64 + size;
-			dataOffset = 0x36 + 64;
-			bitsPerPixel = 4;
-			imageSize = size;
-			break;
-		}
+            fileSize = 0x36 + 64 + size;
+            dataOffset = 0x36 + 64;
+            bitsPerPixel = 4;
+            imageSize = size;
+            break;
+        }
 
-		case ffw::ImageType::GRAYSCALE_8: {
-			fileSize = 0x36 + 1024 + width*height;
-			dataOffset = 0x36 + 1024;
-			bitsPerPixel = 8;
-			imageSize = width*height;
-			break;
-		}
+        case ffw::ImageType::GRAYSCALE_8: {
+            fileSize = 0x36 + 1024 + width*height;
+            dataOffset = 0x36 + 1024;
+            bitsPerPixel = 8;
+            imageSize = width*height;
+            break;
+        }
 
-		case ffw::ImageType::RGB_888: {
-			fileSize = 0x36 + width*height*3;
-			dataOffset = 0x36;
-			bitsPerPixel = 24;
-			imageSize = width*height*3;
-			break;
-		}
+        case ffw::ImageType::RGB_888: {
+            fileSize = 0x36 + width*height*3;
+            dataOffset = 0x36;
+            bitsPerPixel = 24;
+            imageSize = width*height*3;
+            break;
+        }
 
-		case ffw::ImageType::RGB_ALPHA_4444: {
-			fileSize = 0x36 + width*height*2;
-			dataOffset = 0x36;
-			bitsPerPixel = 16;
-			imageSize = width*height*2;
-			compression = 3;
-			break;
-		}
+        case ffw::ImageType::RGB_ALPHA_4444: {
+            fileSize = 0x36 + width*height*2;
+            dataOffset = 0x36;
+            bitsPerPixel = 16;
+            imageSize = width*height*2;
+            compression = 3;
+            break;
+        }
 
-		case ffw::ImageType::RGB_ALPHA_8888: {
-			fileSize = 0x36 + width*height*4;
-			dataOffset = 0x36;
-			bitsPerPixel = 32;
-			imageSize = width*height*4;
-			break;
-		}
-		default: {
-			close();
-			return false;
-		}
-	}
+        case ffw::ImageType::RGB_ALPHA_8888: {
+            fileSize = 0x36 + width*height*4;
+            dataOffset = 0x36;
+            bitsPerPixel = 32;
+            imageSize = width*height*4;
+            break;
+        }
+        default: {
+            close();
+            return false;
+        }
+    }
 
-	output->write((char*)&fileType,           sizeof(uint16_t));
+    output->write((char*)&fileType,           sizeof(uint16_t));
     output->write((char*)&fileSize,           sizeof(uint32_t));
     output->write((char*)&reserved,           sizeof(uint32_t));
     output->write((char*)&dataOffset,         sizeof(uint32_t));
@@ -162,152 +162,152 @@ bool ffw::BmpSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     output->write((char*)&numberOfColors,     sizeof(uint32_t));
     output->write((char*)&importantColors,    sizeof(uint32_t));
 
-	switch(format){
-		case ffw::ImageType::BITMAP_1: {
-			output->write((char*)&bmpGrayscale1Header[0], sizeof(bmpGrayscale1Header));
-			break;
-		}
+    switch(format){
+        case ffw::ImageType::BITMAP_1: {
+            output->write((char*)&bmpGrayscale1Header[0], sizeof(bmpGrayscale1Header));
+            break;
+        }
 
-		case ffw::ImageType::GRAYSCALE_4: {
-			output->write((char*)&bmpGrayscale4Header[0], sizeof(bmpGrayscale4Header));
-			break;
-		}
+        case ffw::ImageType::GRAYSCALE_4: {
+            output->write((char*)&bmpGrayscale4Header[0], sizeof(bmpGrayscale4Header));
+            break;
+        }
 
-		case ffw::ImageType::GRAYSCALE_8: {
-			output->write((char*)&bmpGrayscale8Header[0], sizeof(bmpGrayscale8Header));
-			break;
-		}
-		default: break;
-	}
+        case ffw::ImageType::GRAYSCALE_8: {
+            output->write((char*)&bmpGrayscale8Header[0], sizeof(bmpGrayscale8Header));
+            break;
+        }
+        default: break;
+    }
 
-	pixelsOffset = (size_t)output->tellg();
+    pixelsOffset = (size_t)output->tellg();
 
-	size_t offset = 4 - size_t(width * (getBitsPerPixel() / 8.0f)) % 4;
-	if(format == ffw::ImageType::RGB_ALPHA_8888)offset = 0;
-	size_t scanline = size_t(width * (getBitsPerPixel() / 8.0f)) + offset;
+    size_t offset = 4 - size_t(width * (getBitsPerPixel() / 8.0f)) % 4;
+    if(format == ffw::ImageType::RGB_ALPHA_8888)offset = 0;
+    size_t scanline = size_t(width * (getBitsPerPixel() / 8.0f)) + offset;
 
-	// BMP is mirrored vertically
-	// Write all pixels now and fill the pixels later
-	for(size_t i = 0; i < size_t(height) * scanline; i++){
-		static const char data = 0x00;
-		output->write(&data, 1);
-	}
+    // BMP is mirrored vertically
+    // Write all pixels now and fill the pixels later
+    for(size_t i = 0; i < size_t(height) * scanline; i++){
+        static const char data = 0x00;
+        output->write(&data, 1);
+    }
 
-	row = 0;
+    row = 0;
     loaded = true;
-	return true;
+    return true;
 }
 
 ///=============================================================================
 void ffw::BmpSaver::close(){
-	output->close();
-	width = 0;
-	height = 0;
-	loaded = 0;
-	depth = 0;
-	mipmaps = 0;
-	row = 0;
-	format = ImageType::INVALID;
+    output->close();
+    width = 0;
+    height = 0;
+    loaded = 0;
+    depth = 0;
+    mipmaps = 0;
+    row = 0;
+    format = ImageType::INVALID;
 }
 
 ///=============================================================================
 size_t ffw::BmpSaver::writeRow(const void* src){
-	if(!loaded)return 0;
+    if(!loaded)return 0;
     if(row >= height)return 0;
     if(src == NULL)return 0;
 
-	size_t offset = 4 - size_t(width * (getBitsPerPixel() / 8.0f)) % 4;
-	if(format == ffw::ImageType::RGB_ALPHA_8888)offset = 0;
-	size_t scanline = size_t(width * (getBitsPerPixel() / 8.0f)) + offset;
-	size_t rowOffset = height - row - 1;
-	
-	size_t size = 0;
-	switch(format){
-		case ffw::ImageType::BITMAP_1: {
-			size = width / 8;
-			if(width % 8 > 0)size++;
+    size_t offset = 4 - size_t(width * (getBitsPerPixel() / 8.0f)) % 4;
+    if(format == ffw::ImageType::RGB_ALPHA_8888)offset = 0;
+    size_t scanline = size_t(width * (getBitsPerPixel() / 8.0f)) + offset;
+    size_t rowOffset = height - row - 1;
+    
+    size_t size = 0;
+    switch(format){
+        case ffw::ImageType::BITMAP_1: {
+            size = width / 8;
+            if(width % 8 > 0)size++;
 
-			//std::cout << "writing at: " << (pixelsOffset + rowOffset * scanline) << " size: " << size << std::endl;
-			output->seekg(pixelsOffset + rowOffset * scanline);
-			output->write((char*)src, size);
+            //std::cout << "writing at: " << (pixelsOffset + rowOffset * scanline) << " size: " << size << std::endl;
+            output->seekg(pixelsOffset + rowOffset * scanline);
+            output->write((char*)src, size);
 
-			break;
-		}
+            break;
+        }
 
-		case ffw::ImageType::GRAYSCALE_4: {
-			size = width /2;
-			if(width % 2 > 0)size++;
+        case ffw::ImageType::GRAYSCALE_4: {
+            size = width /2;
+            if(width % 2 > 0)size++;
 
-			//std::cout << "writing at: " << (pixelsOffset + rowOffset * scanline) << std::endl;
-			output->seekg(pixelsOffset + rowOffset * scanline);
-			output->write((char*)src, size);
+            //std::cout << "writing at: " << (pixelsOffset + rowOffset * scanline) << std::endl;
+            output->seekg(pixelsOffset + rowOffset * scanline);
+            output->write((char*)src, size);
 
-			break;
-		}
+            break;
+        }
 
-		case ffw::ImageType::GRAYSCALE_8: {
-			output->seekg(pixelsOffset + rowOffset * scanline);
-			output->write((char*)src, width);
+        case ffw::ImageType::GRAYSCALE_8: {
+            output->seekg(pixelsOffset + rowOffset * scanline);
+            output->write((char*)src, width);
 
-			break;
-		}
-		
-		case ffw::ImageType::RGB_888: {
-			output->seekg(pixelsOffset + rowOffset * scanline);
-			const char* ptr = (const char*) src;
-			for(size_t i = 0; i < size_t(scanline); i += 3){
-				output->write(&ptr[i + 2], 1);
-				output->write(&ptr[i + 1], 1);
-				output->write(&ptr[i + 0], 1);
-			}
+            break;
+        }
+        
+        case ffw::ImageType::RGB_888: {
+            output->seekg(pixelsOffset + rowOffset * scanline);
+            const char* ptr = (const char*) src;
+            for(size_t i = 0; i < size_t(scanline); i += 3){
+                output->write(&ptr[i + 2], 1);
+                output->write(&ptr[i + 1], 1);
+                output->write(&ptr[i + 0], 1);
+            }
 
-			break;
-		}
+            break;
+        }
 
-		case ffw::ImageType::RGB_ALPHA_4444: {
-			output->seekg(pixelsOffset + rowOffset * scanline);
-			const char* ptr = (const char*)src;
-			for(size_t i = 0; i < size_t(scanline); i += 2){
-				const char t0 = ((ptr[i + 1] & 0x0F) << 4) | ((ptr[i + 0] & 0xF0) >> 4);
-				output->write(&t0, 1);
+        case ffw::ImageType::RGB_ALPHA_4444: {
+            output->seekg(pixelsOffset + rowOffset * scanline);
+            const char* ptr = (const char*)src;
+            for(size_t i = 0; i < size_t(scanline); i += 2){
+                const char t0 = ((ptr[i + 1] & 0x0F) << 4) | ((ptr[i + 0] & 0xF0) >> 4);
+                output->write(&t0, 1);
 
-				const char t1 = ((ptr[i + 0] & 0x0F) << 4) | ((ptr[i + 1] & 0xF0) >> 4);
-				output->write(&t1, 1);
-			}
-			break;
-		}
+                const char t1 = ((ptr[i + 0] & 0x0F) << 4) | ((ptr[i + 1] & 0xF0) >> 4);
+                output->write(&t1, 1);
+            }
+            break;
+        }
 
-		case ffw::ImageType::RGB_ALPHA_8888: {
-			output->seekg(pixelsOffset + rowOffset * scanline);
-			output->write((const char*)src, scanline);
-			const char* ptr = (const char*) src;
-			for(size_t i = 0; i < size_t(scanline); i += 4){
-				output->write(&ptr[i + 2], 1);
-				output->write(&ptr[i + 1], 1);
-				output->write(&ptr[i + 0], 1);
-				output->write(&ptr[i + 3], 1);
-			}
+        case ffw::ImageType::RGB_ALPHA_8888: {
+            output->seekg(pixelsOffset + rowOffset * scanline);
+            output->write((const char*)src, scanline);
+            const char* ptr = (const char*) src;
+            for(size_t i = 0; i < size_t(scanline); i += 4){
+                output->write(&ptr[i + 2], 1);
+                output->write(&ptr[i + 1], 1);
+                output->write(&ptr[i + 0], 1);
+                output->write(&ptr[i + 3], 1);
+            }
 
-			break;
-		}
-		default: return 0;
-	}
+            break;
+        }
+        default: return 0;
+    }
 
-	row++;
+    row++;
 
-	return this->getStrideSize();
+    return this->getStrideSize();
 }
 
 ///=============================================================================
 bool ffw::BmpSaver::writeFooter(){
-	if(!loaded)return false;
+    if(!loaded)return false;
     if(row != height)return false;
 
-	size_t offset = 4 - size_t(width * (getBitsPerPixel() / 8.0f)) % 4;
-	if(format == ffw::ImageType::RGB_ALPHA_8888)offset = 0;
-	size_t scanline = size_t(width * (getBitsPerPixel() / 8.0f)) + offset;
+    size_t offset = 4 - size_t(width * (getBitsPerPixel() / 8.0f)) % 4;
+    if(format == ffw::ImageType::RGB_ALPHA_8888)offset = 0;
+    size_t scanline = size_t(width * (getBitsPerPixel() / 8.0f)) + offset;
 
-	output->seekg(pixelsOffset + height * scanline);
+    output->seekg(pixelsOffset + height * scanline);
 
     static const uint16_t footer = 0x0000;
     output->write((char*)&footer, sizeof(uint16_t));

@@ -1,18 +1,22 @@
 cmake_minimum_required(VERSION 3.0)
 project (finedata)
 
-FILE(GLOB SOURCES *.cpp)
+FILE(GLOB_RECURSE SOURCES *.cpp)
 FILE(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ffw/data/*.h)
 
 add_definitions(-DFFW_EXPORTS)
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
+set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER "fineframework/libs") 
   
 # Dependencies
-if(UNIX OR APPLE)
-  #target_link_libraries(${PROJECT_NAME})
+if(APPLE)
+  target_link_libraries(${PROJECT_NAME} ${TINYXML2_LIBRARY})
+elseif(UNIX)
+  target_link_libraries(${PROJECT_NAME} ${TINYXML2_LIBRARY})
 else()
-  #target_link_libraries(${PROJECT_NAME})
+  target_link_libraries(${PROJECT_NAME} ${TINYXML2_LIBRARY})
 endif()
+include_directories(${PROJECT_NAME} PUBLIC ${TINYXML2_INCLUDE_DIR})
 
 # Compile with static stdlib ?
 if(STATIC_STDLIB)

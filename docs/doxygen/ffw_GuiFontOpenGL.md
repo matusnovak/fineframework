@@ -14,8 +14,7 @@ The documentation for this class was generated from: `include/ffw/gui/guifontope
 | -------: | :------- |
 |  virtual bool | [isCreated](#a4e95e92) () const  |
 |  virtual void | [destroy](#536e36a5) ()  |
-|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSize](#9aa95559) (const std::wstring & _str_, float _lineHeight_ = 1.25) const  |
-|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSize](#2483ef1f) (const std::string & _str_, float _lineHeight_ = 1.25) const  |
+|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSize](#5a79ff54) (const std::string & _str_, float _maxWidth_, float _lineHeight_ = 1.25) const  |
 |  virtual float | [getCharAdvance](#494c07f4) (wchar_t _c_) const  |
 |  virtual int | [getSizeInPixels](#2371dfb9) () const  |
 
@@ -42,31 +41,19 @@ inline virtual void destroy ()
 
 **Overrides:** [destroy](/doxygen/ffw_TrueTypeFont.md#334df3a6) from class [TrueTypeFont](/doxygen/ffw_TrueTypeFont.md)
 
-### _function_ <a id="9aa95559" href="#9aa95559">getStringSize</a>
-
-```cpp
-inline virtual ffw::Vec2f getStringSize (
-    const std::wstring & str,
-    float lineHeight = 1.25
-) const 
-```
-
-
-
-**Overrides:** [getStringSize](/doxygen/ffw_GuiFont.md#6a839d84) from class [GuiFont](/doxygen/ffw_GuiFont.md)
-
-### _function_ <a id="2483ef1f" href="#2483ef1f">getStringSize</a>
+### _function_ <a id="5a79ff54" href="#5a79ff54">getStringSize</a>
 
 ```cpp
 inline virtual ffw::Vec2f getStringSize (
     const std::string & str,
+    float maxWidth,
     float lineHeight = 1.25
 ) const 
 ```
 
 
 
-**Overrides:** [getStringSize](/doxygen/ffw_GuiFont.md#239d33f2) from class [GuiFont](/doxygen/ffw_GuiFont.md)
+**Overrides:** [getStringSize](/doxygen/ffw_GuiFont.md#ba404fac) from class [GuiFont](/doxygen/ffw_GuiFont.md)
 
 ### _function_ <a id="494c07f4" href="#494c07f4">getCharAdvance</a>
 

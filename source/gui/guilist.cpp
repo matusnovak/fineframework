@@ -3,280 +3,256 @@
 #include "ffw/gui/guilist.h"
 #include "ffw/gui/guilayout.h"
 #include "ffw/gui/guiwindow.h"
+#include "ffw/gui/guitheme.h"
 
 ///=============================================================================
 ffw::GuiList::Value::Value(GuiList* list):parent(list) {
-	value = 0;
+    value = -1;
 }
 
 ///=============================================================================
-ffw::GuiList::Value::~Value() {
-}
+void ffw::GuiList::Value::setValue(const int value) {
+    auto found = false;
+    for (auto r : items) {
+        if (r->getBaseValue() == value) {
+            r->assignValue(true);
+            found = true;
+            this->value = value;
+        }
+        else {
+            r->assignValue(false);
+        }
+    }
 
-///=============================================================================
-void ffw::GuiList::Value::setValue(int val) {
-	value = val;
-	bool found = false;
-	for (auto r : items) {
-		if (r->getBaseValue() == value) {
-			r->assignValue(true);
-			found = true;
-		}
-		else {
-			r->assignValue(false);
-		}
-	}
+    if (value == -1){
+        this->value = -1;
+    }
 
-	if (found) {
-		GuiEvent::Data dat;
-		dat.changed.value = value;
-		parent->pushEvent(GuiEvent::Type::CHANGED, dat);
-	}
+    if (value == -1) {
+        GuiEvent::Data dat;
+        dat.action.value = this->value;
+        parent->pushEvent(GuiEventType::ACTION, dat);
+    }
 }
 
 ///=============================================================================
 void ffw::GuiList::Value::reset() {
-	items.clear();
+    items.clear();
 }
 
 ///=============================================================================
 int ffw::GuiList::Value::getValue() const {
-	return value;
+    return value;
 }
 
 ///=============================================================================
 void ffw::GuiList::Value::assign(GuiList::Item* item) {
-	if (item != NULL && std::find(items.begin(), items.end(), item) == items.end()) {
-		items.push_back(item);
-	}
+    if (item != nullptr && std::find(items.begin(), items.end(), item) == items.end()) {
+        items.push_back(item);
+    }
 }
 
 ///=============================================================================
 void ffw::GuiList::Value::remove(GuiList::Item* item) {
-	for(size_t i = 0; i < items.size(); i++) {
-		if(items[i] == item) {
-			items.erase(items.begin() + i);
-			break;
-		}
-	}
+    for(size_t i = 0; i < items.size(); i++) {
+        if(items[i] == item) {
+            items.erase(items.begin() + i);
+            break;
+        }
+    }
 }
 
 ///=============================================================================
 void ffw::GuiList::Value::clearAllExcept(const GuiList::Item* item) {
-	bool found = false;
-	for (auto r : items) {
-		if (r == item) {
-			value = r->getBaseValue();
-			found = true;
-			break;
-		}
-	}
+    bool found = false;
+    for (auto r : items) {
+        if (r == item) {
+            value = r->getBaseValue();
+            found = true;
+            break;
+        }
+    }
 
-	for (auto r : items) {
-		r->assignValue(r == item);
-	}
+    for (auto r : items) {
+        r->assignValue(r == item);
+    }
 
-	if (found) {
-		GuiEvent::Data dat;
-		dat.changed.value = value;
-		parent->pushEvent(GuiEvent::Type::CHANGED, dat);
-	}
+    if (found) {
+        GuiEvent::Data dat;
+        dat.action.value = value;
+        parent->pushEvent(GuiEventType::ACTION, dat);
+    }
 }
-
 ///=============================================================================
-ffw::GuiList::Item::Item(GuiWindow* context, const std::string& label_, int b, GuiList::Value* g) :
-	GuiList::Item(context, utf8ToWstr(label_), b, g) {
-}
-
-///=============================================================================
-ffw::GuiList::Item::Item(GuiWindow* context, const std::wstring& label_, int b, GuiList::Value* g) :
-	GuiWidget(context), label(label_), base(b), group(g) {
-	group->assign(this);
-	setStickyFocus();
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_LIST_ITEM");
-	setDefaults(&widgetStyle->defaults);
+ffw::GuiList::Item::Item(GuiWindow* context, const std::string& label, const int base, GuiList::Value* group) :
+    GuiWidget(context), label(label), base(base), group(group) {
+    group->assign(this);
+    setStickyFocus();
+    
+    setStyle(&context->getTheme()->list.item, true);
 }
 
 ///=============================================================================
 ffw::GuiList::Item::~Item() {
-	group->remove(this);
+    group->remove(this);
 }
 
 ///=============================================================================
-void ffw::GuiList::Item::setLabel(const std::wstring& label_) {
-	label = label_;
-	redraw();
+void ffw::GuiList::Item::setLabel(const std::string& label) {
+    this->label = label;
+    redraw();
 }
 
 ///=============================================================================
-const std::wstring& ffw::GuiList::Item::getLabel() const {
-	return label;
+const std::string& ffw::GuiList::Item::getLabel() const {
+    return label;
 }
 
 ///=============================================================================
-void ffw::GuiList::Item::assignValue(bool value) {
-	if (value) {
-		setFocus(true);
-		GuiEvent::Data dat;
-		dat.clicked.value = true;
-		pushEvent(GuiEvent::Type::CLICKED, dat);
-	}
-	else {
-		setFocus(false);
-	}
-	redraw();
+void ffw::GuiList::Item::assignValue(const bool value) {
+    if (value) {
+        setFocus(true);
+        GuiEvent::Data dat;
+        dat.action.value = true;
+        pushEvent(GuiEventType::ACTION, dat);
+    }
+    else {
+        setFocus(false);
+    }
+    redraw();
 }
 
 ///=============================================================================
 bool ffw::GuiList::Item::isSelected() const {
-	return (base == group->getValue());
+    return (base == group->getValue());
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
-	context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
-}
-
-///=============================================================================
-void ffw::GuiList::Item::eventPos(const ffw::Vec2f& p) {
-	(void)p;
-}
-
-///=============================================================================
-void ffw::GuiList::Item::eventSize(const ffw::Vec2f& s) {
-	(void)s;
+    context->drawStringAligned(contentoffset, contentsize, getCurrentFont(), getAlign(), label, getCurrentStyle()->text, getLineHeight());
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventHover(bool gained) {
-	(void)gained;
-	redraw();
+    (void)gained;
+    redraw();
 }
 
 ///=============================================================================
 void ffw::GuiList::Item::eventFocus(bool gained) {
-	if (gained) {
-		group->clearAllExcept(this);
-	}
-	redraw();
+    if (gained) {
+        group->clearAllExcept(this);
+    }
+    redraw();
 }
 
 ///=============================================================================
-void ffw::GuiList::Item::eventMouse(const ffw::Vec2f& mousePos) {
-	(void)mousePos;
+void ffw::GuiList::Item::eventThemeChanged(const GuiTheme* theme, const bool defaults) {
+    setStyle(&theme->list.item, defaults);
 }
 
 ///=============================================================================
-bool ffw::GuiList::Item::eventScroll(const ffw::Vec2f& scroll) {
-	(void)scroll;
-	return false;
-}
-
-///=============================================================================
-void ffw::GuiList::Item::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
-	(void)button;
-	(void)mode;
-}
-
-///=============================================================================
-void ffw::GuiList::Item::eventText(wchar_t chr) {
-	(void)chr;
-}
-
-///=============================================================================
-void ffw::GuiList::Item::eventKey(ffw::Key key, ffw::Mode mode) {
-	(void)key;
-	(void)mode;
-}
-
-///=============================================================================
-void ffw::GuiList::Item::eventDisabled(bool disabled) {
-	(void)disabled;
-}
-
-///=============================================================================
-void ffw::GuiList::Item::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_LIST_ITEM");
-	setDefaults(&widgetStyle->defaults);
+void ffw::GuiList::Item::setStyle(const Item::Style* style, const bool defaults) {
+    widgetStyle = &style->self;
+    if (defaults)setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::Vec2f ffw::GuiList::Item::getMinimumWrapSize() {
-	if (getCurrentFont() == NULL)return 0;
-	return getCurrentFont()->getStringSize(label, getLineHeight());
+    if (getCurrentFont() == nullptr)return 0;
+    return getCurrentFont()->getStringSize(label, -1.0f, getLineHeight());
 }
 
 ///=============================================================================
 ffw::GuiList::GuiList(GuiWindow* context):
-	GuiScrollableLayout(context, ffw::GuiLayout::Orientation::VERTICAL, false, true),group(this) {
-	getInner()->setPadding(0);
-	counter = 0;
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_LIST");
-	setDefaults(&widgetStyle->defaults);
-}
-
-///=============================================================================
-ffw::GuiList::~GuiList() {
+    GuiScrollableLayout(context, GuiOrientation::VERTICAL, false, true),group(this),style(nullptr) {
+    counter = -1;
+    
+    setStyle(&context->getTheme()->list, true);
 }
 
 ///=============================================================================
 ffw::GuiList::Item* ffw::GuiList::addItem(const std::string& label) {
-	auto item = new GuiList::Item(context, label, counter++, &group);
-	getInner()->addWidget(item);
-	return item;
-}
-
-///=============================================================================
-ffw::GuiList::Item* ffw::GuiList::addItem(const std::wstring& label) {
-	auto item = new GuiList::Item(context, label, counter++, &group);
-	getInner()->addWidget(item);
-	return item;
+    auto item = new GuiList::Item(context, label, ++counter, &group);
+    item->setStyle(&this->style->item);
+    getInner()->addWidget(item);
+    return item;
 }
 
 ///=============================================================================
 void ffw::GuiList::deleteAllItems() {
-	getInner()->deleteWidgets();
-	group.reset();
-	counter = 0;
+    getInner()->deleteWidgets();
+    group.reset();
+    counter = -1;
 }
 
 ///=============================================================================
 bool ffw::GuiList::deleteItem(const GuiList::Item* item) {
-	return getInner()->deleteSingleWidget(item);
+    return getInner()->deleteSingleWidget(item);
 }
 
 ///=============================================================================
-void ffw::GuiList::setSelected(int index) {
-	group.setValue(index);
+void ffw::GuiList::setSelectedIndex(const int index) {
+    group.setValue(index);
 }
 
 ///=============================================================================
 void ffw::GuiList::resetSelected() {
-	group.setValue(-1);
+    group.setValue(-1);
 }
 
 ///=============================================================================
 void ffw::GuiList::setSelected(const GuiList::Item* item) {
-	if (item != NULL) {
-		group.setValue(item->getBaseValue());
-	}
+    if (item != nullptr) {
+        group.setValue(item->getBaseValue());
+    }
 }
 
 ///=============================================================================
 ffw::GuiList::Item* ffw::GuiList::getSelectedItem() const {
-	auto value = group.getValue();
-	for (auto* w : getAllWidgets()) {
-		auto item = dynamic_cast<GuiList::Item*>(w);
-		if (item != NULL && item->getBaseValue() == value) {
-			return item;
-		}
-	}
-	return NULL;
+    const auto value = group.getValue();
+    for (auto* w : getInner()->getAllWidgets()) {
+        const auto item = dynamic_cast<GuiList::Item*>(w);
+        if (item != nullptr && item->getBaseValue() == value) {
+            return item;
+        }
+    }
+    return nullptr;
 }
 
 ///=============================================================================
-void ffw::GuiList::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_LIST");
-	setDefaults(&widgetStyle->defaults);
+int ffw::GuiList::getSelectedIndex() const {
+    return group.getValue();
+}
+
+///=============================================================================
+void ffw::GuiList::eventHover(bool gained) {
+    GuiScrollableLayout::eventHover(gained);
+    (void)gained;
+    redraw();
+}
+
+///=============================================================================
+void ffw::GuiList::eventFocus(bool gained) {
+    GuiScrollableLayout::eventFocus(gained);
+    (void)gained;
+    redraw();
+}
+
+///=============================================================================
+void ffw::GuiList::eventThemeChanged(const GuiTheme* theme, const bool defaults) {
+    setStyle(&theme->list, defaults);
+}
+
+///=============================================================================
+void ffw::GuiList::setStyle(const GuiList::Style* style, const bool defaults) {
+    this->style = style;
+    GuiScrollable::setStyle(&style->self, defaults);
+    if (defaults)setDefaults(&widgetStyle->defaults);
+    for(const auto widget : getInner()->getAllWidgets()) {
+        auto item = dynamic_cast<GuiList::Item*>(widget);
+        if (item != nullptr) {
+            item->setStyle(&style->item, defaults);
+        }
+    }
 }

@@ -12,6 +12,9 @@ This module is header only, it does not need to be compiled, and is used by all 
 
 | Name |
 |:-----|
+| class [ffw::Any](ffw_Any.html) |
+| class [ffw::Array](ffw_Array.html) |
+| class [ffw::Object](ffw_Object.html) |
 | struct [ffw::Color](ffw_Color.html) <span style="opacity:0.8;">Class that holds floating point color, OpenGL friendly. </span> |
 | class [ffw::ImageFormat](ffw_ImageFormat.html) |
 | class [ffw::ImageBuffer](ffw_ImageBuffer.html) |
@@ -24,10 +27,8 @@ This module is header only, it does not need to be compiled, and is used by all 
 | struct [ffw::Quat](ffw_Quat.html) |
 | class [ffw::RingBuffer](ffw_RingBuffer.html) |
 | class [ffw::FileInfo](ffw_FileInfo.html) |
+| class [ffw::TextWrapper](ffw_TextWrapper.html) |
 | class [ffw::Tokenizer](ffw_Tokenizer.html) |
-| class [ffw::Var](ffw_Var.html) |
-| class [ffw::Array](ffw_Array.html) |
-| class [ffw::Object](ffw_Object.html) |
 | struct [ffw::Vec2](ffw_Vec2.html) |
 | struct [ffw::Vec3](ffw_Vec3.html) |
 | struct [ffw::Vec4](ffw_Vec4.html) |
@@ -68,8 +69,8 @@ This module is header only, it does not need to be compiled, and is used by all 
 |  [ffw::Color](ffw_Color.html) | [normalize](#3ae66aa1) (const Color & _col_)  _Normalizes a color returning a copy (won't modify the original)_ |
 |  [ffw::Color](ffw_Color.html) | [clamp](#a1534183) (const [ffw::Color](ffw_Color.html) & _color_)  _Clamps a color between 0.0 and 1.0 values returning a copy (won't modify the original)_ |
 |  std::ostream & | [operator<<](#1b2c7668) (std::ostream & _os_, const [ffw::Color](ffw_Color.html) & _color_)  |
-|  T | [lerp](#b7b7ad6f) (const T & _a_, const T & _b_, float _w_)  |
 |  T | [clamp](#da694c2f) (T _Val_, T _Min_, T _Max_)  |
+|  T | [lerp](#b7b7ad6f) (const T & _a_, const T & _b_, float _w_)  |
 |  T | [radians](#98023008) (T _val_)  |
 |  T | [degrees](#0e1d2d7d) (T _val_)  |
 |  T | [remap](#e670592a) (T _value_, T _InMin_, T _InMax_, T _OutMin_, T _OutMax_)  |
@@ -118,14 +119,16 @@ This module is header only, it does not need to be compiled, and is used by all 
 |  std::string | [extension](#9c775320) (const std::basic_string< T, CharTrait, Allocator > & _path_)  |
 |  std::string | [toUpper](#ba3ebc58) (const std::string & _str_)  |
 |  std::string | [toLower](#ea42dc70) (const std::string & _str_)  |
-|  size_t | [wstrToUtf8](#4896137e) (SS * _Str_, const WS & _Wstr_)  |
-|  size_t | [utf8ToWstr](#e6d56e70) (WS * _Wstr_, const SS & _Str_)  |
-|  std::string | [wstrToUtf8](#94351482) (const std::wstring & _Wstr_)  |
-|  size_t | [wstrToUtf8Size](#b6880db9) (const std::wstring & _Wstr_)  |
-|  std::wstring | [utf8ToWstr](#34a4faf0) (const std::string & _Str_)  |
-|  size_t | [utf8ToWstrSize](#756009b5) (const std::string & _Str_)  |
+|  std::string | [unicodeToUtf8](#89cc4a52) (uint32_t _chr_)  |
+|  std::string | [wstrToUtf8](#e0a672bc) (const std::wstring & _wstr_)  |
+|  size_t | [wstrToUtf8Size](#8252d46f) (const std::wstring & _wstr_)  |
+|  std::wstring | [utf8ToWstr](#3b41c519) (const std::string & _str_)  |
+|  size_t | [utf8ToWstrSize](#3c6051ab) (const std::string & _str_)  |
 |  std::wstring | [valToWstring](#47ce4cde) (T _Value_)  |
 |  std::wstring | [valToWstring](#b47de7bb) (T _Value_, unsigned int _Dec_)  |
+|  uint32_t | [getNextChar](#40177abc) (const T *& _it_, const T * _end_)  |
+|  uint32_t | [getNextChar](#959aa92f) (const char *& _it_, const char * _end_)  |
+|  uint32_t | [getNextChar](#d06d5d33) (const wchar_t *& _it_, const wchar_t * _end_)  |
 |  T | [dot](#71f5aa67) (const [ffw::Vec2](ffw_Vec2.html)< T > & _V1_, const [ffw::Vec2](ffw_Vec2.html)< T > & _V2_)  |
 |  T | [distance](#c2f6a903) (const Vec2< T > & _v1_, const Vec2< T > & _v2_)  |
 |  Vec2< T > | [middle](#8cc46fe8) (const Vec2< T > & _v1_, const Vec2< T > & _v2_)  |
@@ -387,18 +390,6 @@ inline std::ostream & operator<< (
 
 
 
-### _function_ <a id="b7b7ad6f" href="#b7b7ad6f">lerp</a>
-
-```cpp
-inline T lerp (
-    const T & a,
-    const T & b,
-    float w
-) 
-```
-
-
-
 ### _function_ <a id="da694c2f" href="#da694c2f">clamp</a>
 
 ```cpp
@@ -406,6 +397,18 @@ inline T clamp (
     T Val,
     T Min,
     T Max
+) 
+```
+
+
+
+### _function_ <a id="b7b7ad6f" href="#b7b7ad6f">lerp</a>
+
+```cpp
+inline T lerp (
+    const T & a,
+    const T & b,
+    float w
 ) 
 ```
 
@@ -614,7 +617,7 @@ inline T stringToVal (
 
 
 
-**Params:**
+**Exceptions:**
 * _Throws:_ std::invalid_argument (invalid conversion) or std::out_of_range (conversion is out of the range) 
 
 
@@ -929,63 +932,51 @@ inline std::string toLower (
 
 
 
-### _function_ <a id="4896137e" href="#4896137e">wstrToUtf8</a>
+### _function_ <a id="89cc4a52" href="#89cc4a52">unicodeToUtf8</a>
 
 ```cpp
-size_t wstrToUtf8 (
-    SS * Str,
-    const WS & Wstr
+inline std::string unicodeToUtf8 (
+    uint32_t chr
 ) 
 ```
 
 
 
-### _function_ <a id="e6d56e70" href="#e6d56e70">utf8ToWstr</a>
-
-```cpp
-size_t utf8ToWstr (
-    WS * Wstr,
-    const SS & Str
-) 
-```
-
-
-
-### _function_ <a id="94351482" href="#94351482">wstrToUtf8</a>
+### _function_ <a id="e0a672bc" href="#e0a672bc">wstrToUtf8</a>
 
 ```cpp
 inline std::string wstrToUtf8 (
-    const std::wstring & Wstr
+    const std::wstring & wstr
 ) 
 ```
 
 
 
-### _function_ <a id="b6880db9" href="#b6880db9">wstrToUtf8Size</a>
+### _function_ <a id="8252d46f" href="#8252d46f">wstrToUtf8Size</a>
 
 ```cpp
 inline size_t wstrToUtf8Size (
-    const std::wstring & Wstr
+    const std::wstring & wstr
 ) 
 ```
 
 
 
-### _function_ <a id="34a4faf0" href="#34a4faf0">utf8ToWstr</a>
+### _function_ <a id="3b41c519" href="#3b41c519">utf8ToWstr</a>
 
 ```cpp
 inline std::wstring utf8ToWstr (
-    const std::string & Str
+    const std::string & str
 ) 
 ```
 
 
 
-### _function_ <a id="756009b5" href="#756009b5">utf8ToWstrSize</a>
+### _function_ <a id="3c6051ab" href="#3c6051ab">utf8ToWstrSize</a>
 
 ```cpp
 inline size_t utf8ToWstrSize (
-    const std::string & Str
+    const std::string & str
 ) 
 ```
 
@@ -1007,6 +998,39 @@ inline std::wstring valToWstring (
 inline std::wstring valToWstring (
     T Value,
     unsigned int Dec
+) 
+```
+
+
+
+### _function_ <a id="40177abc" href="#40177abc">getNextChar</a>
+
+```cpp
+inline uint32_t getNextChar (
+    const T *& it,
+    const T * end
+) 
+```
+
+
+
+### _function_ <a id="959aa92f" href="#959aa92f">getNextChar</a>
+
+```cpp
+inline uint32_t getNextChar (
+    const char *& it,
+    const char * end
+) 
+```
+
+
+
+### _function_ <a id="d06d5d33" href="#d06d5d33">getNextChar</a>
+
+```cpp
+inline uint32_t getNextChar (
+    const wchar_t *& it,
+    const wchar_t * end
 ) 
 ```
 

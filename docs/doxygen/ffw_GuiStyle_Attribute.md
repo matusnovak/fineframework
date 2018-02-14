@@ -2,7 +2,7 @@ Attribute
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/gui/guitheme.h`
+The documentation for this class was generated from: `include/ffw/gui/guistyle.h`
 
 
 
@@ -21,6 +21,7 @@ The documentation for this class was generated from: `include/ffw/gui/guitheme.h
 |   | [Attribute](#7938b748) (T _v_)  |
 |   | [Attribute](#bf980a66) (T _top_, T _right_, T _bottom_, T _left_)  |
 |   | [Attribute](#4820639b) (const [Attribute](ffw_GuiStyle_Attribute.html) & _other_)  |
+|   | [Attribute](#d52bf13b) (const std::initializer_list< float > & _list_)  |
 |  [Attribute](ffw_GuiStyle_Attribute.html) & | [operator=](#e7244f3f) (const T & _value_)  |
 |  T & | [operator[]](#9aacc278) (size_t _i_)  |
 |  const T & | [operator[]](#649f3382) (size_t _i_) const  |
@@ -85,6 +86,16 @@ inline  Attribute (
 ```cpp
 inline  Attribute (
     const Attribute & other
+) 
+```
+
+
+
+### _function_ <a id="d52bf13b" href="#d52bf13b">Attribute</a>
+
+```cpp
+inline  Attribute (
+    const std::initializer_list< float > & list
 ) 
 ```
 

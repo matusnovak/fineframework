@@ -8,21 +8,29 @@ The documentation for this class was generated from: `include/ffw/gui/guiimagevi
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiImageViewer::Style](ffw_GuiImageViewer_Style.html) |
+
+
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
 |   | [GuiImageViewer](#6855d9d2) ([GuiWindow](ffw_GuiWindow.html) * _context_, const [GuiImage](ffw_GuiImage.html) * _image_)  |
-|  virtual  | [~GuiImageViewer](#7677f6f8) ()  |
+|  virtual  | [~GuiImageViewer](#899a7cda) ()  |
 |  void | [setImage](#1b34fe44) (const [GuiImage](ffw_GuiImage.html) * _image_)  |
 |  void | [setSubsection](#9a424d79) (int _posx_, int _posy_, int _width_, int _height_)  |
 |  void | [setMirror](#cfce6e50) (bool _mirrorX_, bool _mirrorY_)  |
 |  const [GuiImage](ffw_GuiImage.html) * | [getImage](#a58bb1c0) () const  |
 |  const [ffw::Vec4i](ffw.html#fd5627df) | [getSubsection](#5c7dd086) () const  |
 |  const [ffw::Vec2](ffw_Vec2.html)< bool > | [getMirror](#6d972d68) () const  |
-|  void | [setLabel](#77fe8a18) (const std::wstring & _label_)  |
-|  const std::wstring & | [getLabel](#d405c588) () const  |
+|  void | [setLabel](#88203e70) (const std::string & _label_)  |
+|  const std::string & | [getLabel](#1be316a7) () const  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#27d6334f) ()  |
+|  void | [setStyle](#5d43b083) (const [GuiImageViewer::Style](ffw_GuiImageViewer_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -38,7 +46,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiimagevi
 
 
 
-### _function_ <a id="7677f6f8" href="#7677f6f8">~GuiImageViewer</a>
+### _function_ <a id="899a7cda" href="#899a7cda">~GuiImageViewer</a>
 
 ```cpp
 virtual  ~GuiImageViewer () 
@@ -104,20 +112,20 @@ inline const ffw::Vec2< bool > getMirror () const
 
 
 
-### _function_ <a id="77fe8a18" href="#77fe8a18">setLabel</a>
+### _function_ <a id="88203e70" href="#88203e70">setLabel</a>
 
 ```cpp
 void setLabel (
-    const std::wstring & label
+    const std::string & label
 ) 
 ```
 
 
 
-### _function_ <a id="d405c588" href="#d405c588">getLabel</a>
+### _function_ <a id="1be316a7" href="#1be316a7">getLabel</a>
 
 ```cpp
-const std::wstring & getLabel () const 
+const std::string & getLabel () const 
 ```
 
 
@@ -131,6 +139,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="5d43b083" href="#5d43b083">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiImageViewer::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

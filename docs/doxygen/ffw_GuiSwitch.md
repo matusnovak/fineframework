@@ -8,11 +8,18 @@ The documentation for this class was generated from: `include/ffw/gui/guiswitch.
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiSwitch::Style](ffw_GuiSwitch_Style.html) |
+
+
 ## Protected Attributes
 
 | Type | Name |
 | -------: | :------- |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [styleButton](#f3c6f984) |
+|  const [GuiWidget::Style](ffw_GuiWidget_Style.html) * | [styleButton](#5cbf5534) |
 
 
 ## Public Functions
@@ -20,18 +27,19 @@ The documentation for this class was generated from: `include/ffw/gui/guiswitch.
 | Type | Name |
 | -------: | :------- |
 |   | [GuiSwitch](#04bab948) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~GuiSwitch](#b61e48ee) ()  |
+|  virtual  | [~GuiSwitch](#dce6b533) ()  |
 |  void | [setValue](#561f3a03) (bool _value_)  |
 |  bool | [getValue](#1c90a8e7) () const  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#73a4ffeb) ()  |
+|  void | [setStyle](#653cef87) (const [GuiSwitch::Style](ffw_GuiSwitch_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Protected Attributes Documentation
 
-### _variable_ <a id="f3c6f984" href="#f3c6f984">styleButton</a>
+### _variable_ <a id="5cbf5534" href="#5cbf5534">styleButton</a>
 
 ```cpp
-const GuiStyleGroup * styleButton
+const GuiWidget::Style * styleButton
 ```
 
 
@@ -50,7 +58,7 @@ const GuiStyleGroup * styleButton
 
 
 
-### _function_ <a id="b61e48ee" href="#b61e48ee">~GuiSwitch</a>
+### _function_ <a id="dce6b533" href="#dce6b533">~GuiSwitch</a>
 
 ```cpp
 virtual  ~GuiSwitch () 
@@ -85,6 +93,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="653cef87" href="#653cef87">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiSwitch::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

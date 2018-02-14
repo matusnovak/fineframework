@@ -8,39 +8,36 @@ ffw::BufferObject::BufferObject(unsigned int objecttype):objecttype_(objecttype)
     loaded_ = false;
     type_ = GL_FALSE;
     size_ = 0;
-	buffer_ = 0;
-	gl_ = NULL;
+    buffer_ = 0;
 }
 
 ///=============================================================================
 ffw::BufferObject::BufferObject(BufferObject&& other):objecttype_(other.objecttype_) {
-	loaded_ = false;
-	type_ = GL_FALSE;
-	size_ = 0;
-	buffer_ = 0;
-	gl_ = NULL;
-	swap(other);
+    loaded_ = false;
+    type_ = GL_FALSE;
+    size_ = 0;
+    buffer_ = 0;
+    swap(other);
 }
 
 ///=============================================================================
 void ffw::BufferObject::swap(BufferObject& other) {
-	using std::swap;
-	if(this != &other) {
-		swap(objecttype_, other.objecttype_);
-		swap(loaded_, other.loaded_);
-		swap(type_, other.type_);
-		swap(size_, other.size_);
-		swap(buffer_, other.buffer_);
-		swap(gl_, other.gl_);
-	}
+    using std::swap;
+    if(this != &other) {
+        swap(objecttype_, other.objecttype_);
+        swap(loaded_, other.loaded_);
+        swap(type_, other.type_);
+        swap(size_, other.size_);
+        swap(buffer_, other.buffer_);
+    }
 }
 
 ///=============================================================================
 ffw::BufferObject& ffw::BufferObject::operator = (BufferObject&& other) {
-	if(this != &other) {
-		swap(other);
-	}
-	return *this;
+    if(this != &other) {
+        swap(other);
+    }
+    return *this;
 }
 
 ///=============================================================================
@@ -49,28 +46,8 @@ ffw::BufferObject::~BufferObject(){
 }
 
 ///=============================================================================
-bool ffw::BufferObject::checkCompability(const ffw::RenderContext* renderer){
-	if(renderer == NULL)return false;
-	const ffw::RenderExtensions* gl_ = static_cast<const RenderExtensions*>(renderer);
-
-	return (
-		gl_->glGenBuffers			!= NULL &&
-		gl_->glBindBuffer			!= NULL &&
-		gl_->glBufferData			!= NULL &&
-		gl_->glBufferSubData		!= NULL &&
-		gl_->glDeleteBuffers		!= NULL && 
-		gl_->glBufferSubData		!= NULL &&
-		//gl_->glCopyBufferSubData != NULL &&
-		gl_->glMapBuffer			!= NULL &&
-		gl_->glUnmapBuffer		!= NULL
-	);
-}
-
-///=============================================================================
-bool ffw::BufferObject::create(const RenderContext* renderer, const void* data, GLsizei size, GLenum type){
+bool ffw::BufferObject::create(const void* data, GLsizei size, GLenum type){
     if(loaded_)return false;
-	if(!checkCompability(renderer))return false;
-	gl_ = static_cast<const RenderExtensions*>(renderer);
 
     // is buffer type correct GL type?
     if(!(type == GL_STATIC_DRAW || type == GL_DYNAMIC_DRAW || type == GL_STREAM_DRAW)){
@@ -82,11 +59,11 @@ bool ffw::BufferObject::create(const RenderContext* renderer, const void* data, 
     // Remember length of buffer
     size_ = size;
     // Generate buffer
-    gl_->glGenBuffers(1, &buffer_);
+    glGenBuffers(1, &buffer_);
     // bind buffer
-    gl_->glBindBuffer(objecttype_, buffer_);
+    glBindBuffer(objecttype_, buffer_);
     // set buffer initial data
-    gl_->glBufferData(objecttype_, size, data, type);
+    glBufferData(objecttype_, size, data, type);
     // UnBind buffer
     //gl_->glBindBuffer(objecttype_, 0);
     loaded_ = true;
@@ -95,40 +72,34 @@ bool ffw::BufferObject::create(const RenderContext* renderer, const void* data, 
 
 ///=============================================================================
 bool ffw::BufferObject::resize(const void* data, GLsizei size) {
-	if (!loaded_)return false;
-	// bind buffer
-	gl_->glBindBuffer(objecttype_, buffer_);
-	// set buffer initial data
-	gl_->glBufferData(objecttype_, size, data, type_);
-	// Remember length of buffer
+    if (!loaded_)return false;
+    // bind buffer
+    glBindBuffer(objecttype_, buffer_);
+    // set buffer initial data
+    glBufferData(objecttype_, size, data, type_);
+    // Remember length of buffer
     size_ = size;
-	return true;
+    return true;
 }
 
 ///=============================================================================
 bool ffw::BufferObject::setData(const void* data, GLsizei offset, GLsizei size){
-	if (!loaded_)return false;
-	// Do not upload new data if buffer is not dynamic/stream
+    if (!loaded_)return false;
+    // Do not upload new data if buffer is not dynamic/stream
     if(!(type_ == GL_STREAM_DRAW || type_ == GL_DYNAMIC_DRAW))return false;
     // Upload new data
-    gl_->glBindBuffer(objecttype_, buffer_);
-    gl_->glBufferSubData(objecttype_, offset, size, data);
+    glBindBuffer(objecttype_, buffer_);
+    glBufferSubData(objecttype_, offset, size, data);
     //gl_->glBindBuffer(objecttype_, 0);
     return true;
 }
 
 ///=============================================================================
 bool ffw::BufferObject::getData(void* data, GLsizei offset, GLsizei size) {
-	if (!loaded_)return false;
-	gl_->glBindBuffer(objecttype_, buffer_);
-	gl_->glGetBufferSubData(objecttype_, offset, size, data);
-	return true;
-}
-
-///=============================================================================
-bool ffw::BufferObject::copyFromEnabled() const {
-	if (gl_ == NULL)return false;
-	return (gl_->glCopyBufferSubData != NULL);
+    if (!loaded_)return false;
+    glBindBuffer(objecttype_, buffer_);
+    glGetBufferSubData(objecttype_, offset, size, data);
+    return true;
 }
 
 ///=============================================================================
@@ -136,12 +107,11 @@ bool ffw::BufferObject::copyFrom(const BufferObject* other, GLintptr readoffset,
     if(other == NULL)return false;
     if(!loaded_)return false;
     if(!other->isCreated())return false;
-	if(!gl_->glCopyBufferSubData)return false;
 
-    gl_->glBindBuffer(GL_COPY_READ_BUFFER, other->getHandle());
-    gl_->glBindBuffer(GL_COPY_WRITE_BUFFER, buffer_);
+    glBindBuffer(GL_COPY_READ_BUFFER, other->getHandle());
+    glBindBuffer(GL_COPY_WRITE_BUFFER, buffer_);
 
-    gl_->glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, readoffset, writeoffset, size);
+    glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, readoffset, writeoffset, size);
 
     return true;
 }
@@ -168,21 +138,21 @@ ffw::BufferObject& ffw::BufferObject::operator = (const ffw::BufferObject& Other
 ///=============================================================================
 bool ffw::BufferObject::mapBuffer(void** pointer, GLenum access) const {
     if(!loaded_)return true;
-    *pointer = gl_->glMapBuffer(objecttype_, access);
+    *pointer = glMapBuffer(objecttype_, access);
     return true;
 }
 
 ///=============================================================================
 bool ffw::BufferObject::unMapBuffer() const {
     if(!loaded_)return true;
-    gl_->glUnmapBuffer(objecttype_);
+    glUnmapBuffer(objecttype_);
     return true;
 }
 
 ///=============================================================================
 void ffw::BufferObject::destroy(){
     // Delete buffer
-    if(loaded_)gl_->glDeleteBuffers(1, &buffer_);
+    if(loaded_)glDeleteBuffers(1, &buffer_);
     loaded_ = false;
     //initialized = false;
     size_ = 0;
@@ -192,13 +162,13 @@ void ffw::BufferObject::destroy(){
 ///=============================================================================
 void ffw::BufferObject::bind() const {
     // bind buffer
-    if(loaded_)gl_->glBindBuffer(objecttype_, buffer_);
+    if(loaded_)glBindBuffer(objecttype_, buffer_);
 }
 
 ///=============================================================================
 void ffw::BufferObject::unbind() const {
     // UnBind buffer
-    gl_->glBindBuffer(objecttype_, 0);
+    glBindBuffer(objecttype_, 0);
 }
 
 

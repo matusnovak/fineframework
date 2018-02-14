@@ -2,11 +2,7 @@
 set -e
 
 # Do Debug only on devel branch
-TARGETS=("Debug")
-# Do Debug+MinSizeRel only on master branch
-if [ "$TRAVIS_BRANCH"=="master" ]; then
-     TARGETS=("Debug" "MinSizeRel")
-fi
+TARGETS=("Debug" "MinSizeRel")
 
 for i in "${TARGETS[@]}"
 do

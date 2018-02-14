@@ -6,125 +6,154 @@ The documentation for this struct was generated from: `include/ffw/gui/guiwidget
 
 
 
-## Classes
-
-| Name |
-|:-----|
-| struct [ffw::GuiWidget::Flags::Events](ffw_GuiWidget_Flags_Events.html) |
-
-
 ## Public Attributes
 
 | Type | Name |
 | -------: | :------- |
-|  bool | [hover](#70c1c4df) |
-|  bool | [focus](#8d3814be) |
-|  bool | [disabled](#08933533) |
-|  bool | [hidden](#eebb345f) |
-|  bool | [wrap](#1702b2d6) |
-|  bool | [render](#1264b511) |
-|  bool | [invalidate](#59edb1c9) |
-|  [Focus](ffw_GuiWidget.html#5379607f) | [focusType](#6ba82cca) |
-|  bool | [ignore](#04a2db1d) |
-|  bool | [rearrange](#2f2f6afa) |
-|  bool | [first](#a544b594) |
-|  struct [ffw::GuiWidget::Flags::Events](ffw_GuiWidget_Flags_Events.html) | [events](#35d2db9b) |
+|  unsigned int | [hover](#380c3101) |
+|  unsigned int | [focus](#8d0af0b2) |
+|  unsigned int | [disabled](#1351a2a5) |
+|  unsigned int | [hidden](#6ea1c3b4) |
+|  unsigned int | [wrap](#d5b600f1) |
+|  unsigned int | [render](#3a013639) |
+|  unsigned int | [invalidate](#99b2ed56) |
+|  unsigned int | [ignore](#080fcc91) |
+|  unsigned int | [rearrange](#81290d26) |
+|  unsigned int | [first](#b7998bdb) |
+|  unsigned int | [eventpos](#ee4cd288) |
+|  unsigned int | [eventsize](#24019814) |
+|  unsigned int | [eventinner](#1648a742) |
+|  unsigned int | [eventdisabled](#3e7f2219) |
+|  unsigned int | [eventfocus](#b4a69119) |
+|  unsigned int | [eventhover](#817fddbb) |
 
 
 ## Public Attributes Documentation
 
-### _variable_ <a id="70c1c4df" href="#70c1c4df">hover</a>
+### _variable_ <a id="380c3101" href="#380c3101">hover</a>
 
 ```cpp
-bool hover
+unsigned int hover
 ```
 
 
 
-### _variable_ <a id="8d3814be" href="#8d3814be">focus</a>
+### _variable_ <a id="8d0af0b2" href="#8d0af0b2">focus</a>
 
 ```cpp
-bool focus
+unsigned int focus
 ```
 
 
 
-### _variable_ <a id="08933533" href="#08933533">disabled</a>
+### _variable_ <a id="1351a2a5" href="#1351a2a5">disabled</a>
 
 ```cpp
-bool disabled
+unsigned int disabled
 ```
 
 
 
-### _variable_ <a id="eebb345f" href="#eebb345f">hidden</a>
+### _variable_ <a id="6ea1c3b4" href="#6ea1c3b4">hidden</a>
 
 ```cpp
-bool hidden
+unsigned int hidden
 ```
 
 
 
-### _variable_ <a id="1702b2d6" href="#1702b2d6">wrap</a>
+### _variable_ <a id="d5b600f1" href="#d5b600f1">wrap</a>
 
 ```cpp
-bool wrap
+unsigned int wrap
 ```
 
 
 
-### _variable_ <a id="1264b511" href="#1264b511">render</a>
+### _variable_ <a id="3a013639" href="#3a013639">render</a>
 
 ```cpp
-bool render
+unsigned int render
 ```
 
 
 
-### _variable_ <a id="59edb1c9" href="#59edb1c9">invalidate</a>
+### _variable_ <a id="99b2ed56" href="#99b2ed56">invalidate</a>
 
 ```cpp
-bool invalidate
+unsigned int invalidate
 ```
 
 
 
-### _variable_ <a id="6ba82cca" href="#6ba82cca">focusType</a>
+### _variable_ <a id="080fcc91" href="#080fcc91">ignore</a>
 
 ```cpp
-Focus focusType
+unsigned int ignore
 ```
 
 
 
-### _variable_ <a id="04a2db1d" href="#04a2db1d">ignore</a>
+### _variable_ <a id="81290d26" href="#81290d26">rearrange</a>
 
 ```cpp
-bool ignore
+unsigned int rearrange
 ```
 
 
 
-### _variable_ <a id="2f2f6afa" href="#2f2f6afa">rearrange</a>
+### _variable_ <a id="b7998bdb" href="#b7998bdb">first</a>
 
 ```cpp
-bool rearrange
+unsigned int first
 ```
 
 
 
-### _variable_ <a id="a544b594" href="#a544b594">first</a>
+### _variable_ <a id="ee4cd288" href="#ee4cd288">eventpos</a>
 
 ```cpp
-bool first
+unsigned int eventpos
 ```
 
 
 
-### _variable_ <a id="35d2db9b" href="#35d2db9b">events</a>
+### _variable_ <a id="24019814" href="#24019814">eventsize</a>
 
 ```cpp
-struct ffw::GuiWidget::Flags::Events events
+unsigned int eventsize
+```
+
+
+
+### _variable_ <a id="1648a742" href="#1648a742">eventinner</a>
+
+```cpp
+unsigned int eventinner
+```
+
+
+
+### _variable_ <a id="3e7f2219" href="#3e7f2219">eventdisabled</a>
+
+```cpp
+unsigned int eventdisabled
+```
+
+
+
+### _variable_ <a id="b4a69119" href="#b4a69119">eventfocus</a>
+
+```cpp
+unsigned int eventfocus
+```
+
+
+
+### _variable_ <a id="817fddbb" href="#817fddbb">eventhover</a>
+
+```cpp
+unsigned int eventhover
 ```
 
 

@@ -5,15 +5,8 @@ FILE(GLOB SOURCES *.cpp)
 FILE(GLOB HEADERS ${CMAKE_CURRENT_SOURCE_DIR}/../../include/ffw/gui/*.h)
 
 add_definitions(-DFFW_EXPORTS)
-
 add_library(${PROJECT_NAME} SHARED ${SOURCES} ${HEADERS})
-  
-# Dependencies
-if(UNIX OR APPLE)
-  #target_link_libraries(${PROJECT_NAME})
-else()
-  #target_link_libraries(${PROJECT_NAME})
-endif()
+set_property(TARGET ${PROJECT_NAME} PROPERTY FOLDER "fineframework/libs") 
 
 # Compile with static stdlib ?
 if(STATIC_STDLIB)

@@ -2,7 +2,7 @@ Background
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/gui/guitheme.h`
+The documentation for this class was generated from: `include/ffw/gui/guistyle.h`
 
 
 
@@ -28,7 +28,8 @@ The documentation for this class was generated from: `include/ffw/gui/guitheme.h
 | Type | Name |
 | -------: | :------- |
 |   | [Background](#4a7f8b52) ()  |
-|   | [Background](#acaf001b) (const [Attribute](ffw_GuiStyle_Attribute.html)< float > & _r_, const [ffw::Color](ffw_Color.html) & _c_, [Type](ffw_GuiStyle_Background.html#213e4cfd) _t_)  |
+|   | [Background](#5a0dd7b3) (const [ffw::Color](ffw_Color.html) & _c_)  |
+|   | [Background](#d82b954a) (const [Attribute](ffw_GuiStyle_Attribute.html)< float > & _r_, const [ffw::Color](ffw_Color.html) & _c_)  |
 |   | [operator bool](#e36fa437) () const  |
 
 
@@ -93,13 +94,22 @@ inline  Background ()
 
 
 
-### _function_ <a id="acaf001b" href="#acaf001b">Background</a>
+### _function_ <a id="5a0dd7b3" href="#5a0dd7b3">Background</a>
+
+```cpp
+inline  Background (
+    const ffw::Color & c
+) 
+```
+
+
+
+### _function_ <a id="d82b954a" href="#d82b954a">Background</a>
 
 ```cpp
 inline  Background (
     const Attribute< float > & r,
-    const ffw::Color & c,
-    Type t
+    const ffw::Color & c
 ) 
 ```
 

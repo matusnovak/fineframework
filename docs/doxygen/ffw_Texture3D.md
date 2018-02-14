@@ -8,13 +8,6 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#1cd454d3) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,27 +16,13 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture3D](#f429a6e4) (const [Texture3D](ffw_Texture3D.html) & _second_) = delete  |
 |   | [Texture3D](#227b8e99) ([Texture3D](ffw_Texture3D.html) && _second_)  |
 |   | [~Texture3D](#b52e5503) ()  |
-|  bool | [create](#10729189) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLsizei _depth_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [resize](#e0d789c3) (GLsizei _width_, GLsizei _height_, GLsizei _depth_)  |
-|  bool | [setPixels](#7c3f0006) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLint _zoffset_, GLsizei _width_, GLsizei _height_, GLsizei _depth_, const GLvoid * _pixels_)  |
-|  bool | [setPixels](#26abeae1) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
+|  bool | [create](#f5693cdd) ([GLsizei]() _width_, [GLsizei]() _height_, [GLsizei]() _depth_, [GLenum]() _internalformat_, [GLenum]() _format_, [GLenum]() _pixelformat_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [resize](#e0d789c3) ([GLsizei]() _width_, [GLsizei]() _height_, [GLsizei]() _depth_)  |
+|  bool | [setPixels](#7c3f0006) ([GLint]() _level_, [GLint]() _xoffset_, [GLint]() _yoffset_, [GLint]() _zoffset_, [GLsizei]() _width_, [GLsizei]() _height_, [GLsizei]() _depth_, const [GLvoid]() * _pixels_)  |
+|  bool | [setPixels](#26abeae1) ([GLint]() _level_, const [GLvoid]() * _pixels_ = NULL)  |
 |  bool | [getPixels](#d7805468) (void * _pixels_)  |
 |  [Texture3D](ffw_Texture3D.html) & | [operator=](#c7760e97) (const [Texture3D](ffw_Texture3D.html) & _second_) = delete  |
 |  [Texture3D](ffw_Texture3D.html) & | [operator=](#594cafb2) ([Texture3D](ffw_Texture3D.html) && _second_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="1cd454d3" href="#1cd454d3">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -84,11 +63,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="10729189" href="#10729189">create</a>
+### _function_ <a id="f5693cdd" href="#f5693cdd">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * renderer,
     GLsizei width,
     GLsizei height,
     GLsizei depth,

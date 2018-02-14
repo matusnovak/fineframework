@@ -8,6 +8,13 @@ The documentation for this class was generated from: `include/ffw/gui/guiradio.h
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiRadio::Button::Style](ffw_GuiRadio_Button_Style.html) |
+
+
 ## Public Attributes
 
 | Type | Name |
@@ -21,8 +28,9 @@ The documentation for this class was generated from: `include/ffw/gui/guiradio.h
 | Type | Name |
 | -------: | :------- |
 |   | [Button](#bf6dcfa3) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~Button](#c75f7af0) ()  |
+|  virtual  | [~Button](#655c734d) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#fef6bf2b) ()  |
+|  void | [setStyle](#d5617a55) (const [Button::Style](ffw_GuiRadio_Button_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Attributes Documentation
@@ -57,7 +65,7 @@ GuiRadio * parentradio
 
 
 
-### _function_ <a id="c75f7af0" href="#c75f7af0">~Button</a>
+### _function_ <a id="655c734d" href="#655c734d">~Button</a>
 
 ```cpp
 virtual  ~Button () 
@@ -74,6 +82,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="d5617a55" href="#d5617a55">setStyle</a>
+
+```cpp
+void setStyle (
+    const Button::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

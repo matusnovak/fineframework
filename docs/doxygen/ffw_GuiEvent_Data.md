@@ -10,8 +10,7 @@ The documentation for this union was generated from: `include/ffw/gui/guiwidget.
 
 | Name |
 |:-----|
-| struct [ffw::GuiEvent::Data::ChangedData](ffw_GuiEvent_Data_ChangedData.html) |
-| struct [ffw::GuiEvent::Data::ClickedData](ffw_GuiEvent_Data_ClickedData.html) |
+| struct [ffw::GuiEvent::Data::ActionData](ffw_GuiEvent_Data_ActionData.html) |
 | struct [ffw::GuiEvent::Data::FocusData](ffw_GuiEvent_Data_FocusData.html) |
 | struct [ffw::GuiEvent::Data::HoverData](ffw_GuiEvent_Data_HoverData.html) |
 | struct [ffw::GuiEvent::Data::InnerData](ffw_GuiEvent_Data_InnerData.html) |
@@ -19,9 +18,7 @@ The documentation for this union was generated from: `include/ffw/gui/guiwidget.
 | struct [ffw::GuiEvent::Data::InputKey](ffw_GuiEvent_Data_InputKey.html) |
 | struct [ffw::GuiEvent::Data::MousebtnData](ffw_GuiEvent_Data_MousebtnData.html) |
 | struct [ffw::GuiEvent::Data::PosData](ffw_GuiEvent_Data_PosData.html) |
-| struct [ffw::GuiEvent::Data::SelectedData](ffw_GuiEvent_Data_SelectedData.html) |
 | struct [ffw::GuiEvent::Data::SizeData](ffw_GuiEvent_Data_SizeData.html) |
-| struct [ffw::GuiEvent::Data::SlidedData](ffw_GuiEvent_Data_SlidedData.html) |
 | struct [ffw::GuiEvent::Data::StateData](ffw_GuiEvent_Data_StateData.html) |
 
 
@@ -29,10 +26,7 @@ The documentation for this union was generated from: `include/ffw/gui/guiwidget.
 
 | Type | Name |
 | -------: | :------- |
-|  struct [ffw::GuiEvent::Data::ClickedData](ffw_GuiEvent_Data_ClickedData.html) | [clicked](#ec4f68b4) |
-|  struct [ffw::GuiEvent::Data::SelectedData](ffw_GuiEvent_Data_SelectedData.html) | [selected](#538cdab6) |
-|  struct [ffw::GuiEvent::Data::ChangedData](ffw_GuiEvent_Data_ChangedData.html) | [changed](#3bf0e1d2) |
-|  struct [ffw::GuiEvent::Data::SlidedData](ffw_GuiEvent_Data_SlidedData.html) | [slided](#63476087) |
+|  struct [ffw::GuiEvent::Data::ActionData](ffw_GuiEvent_Data_ActionData.html) | [action](#43a960ae) |
 |  struct [ffw::GuiEvent::Data::SizeData](ffw_GuiEvent_Data_SizeData.html) | [size](#553df5f3) |
 |  struct [ffw::GuiEvent::Data::InnerData](ffw_GuiEvent_Data_InnerData.html) | [inner](#40ba5551) |
 |  struct [ffw::GuiEvent::Data::PosData](ffw_GuiEvent_Data_PosData.html) | [pos](#7a1e8f20) |
@@ -46,34 +40,10 @@ The documentation for this union was generated from: `include/ffw/gui/guiwidget.
 
 ## Public Attributes Documentation
 
-### _variable_ <a id="ec4f68b4" href="#ec4f68b4">clicked</a>
+### _variable_ <a id="43a960ae" href="#43a960ae">action</a>
 
 ```cpp
-struct ffw::GuiEvent::Data::ClickedData clicked
-```
-
-
-
-### _variable_ <a id="538cdab6" href="#538cdab6">selected</a>
-
-```cpp
-struct ffw::GuiEvent::Data::SelectedData selected
-```
-
-
-
-### _variable_ <a id="3bf0e1d2" href="#3bf0e1d2">changed</a>
-
-```cpp
-struct ffw::GuiEvent::Data::ChangedData changed
-```
-
-
-
-### _variable_ <a id="63476087" href="#63476087">slided</a>
-
-```cpp
-struct ffw::GuiEvent::Data::SlidedData slided
+struct ffw::GuiEvent::Data::ActionData action
 ```
 
 

@@ -6,9 +6,7 @@ SET PATH=%PATH:C:\Program Files\Git\usr\bin;=%
 SET PATH=%PATH%;%MINGW_DIR_BIN%
 
 REM Do Debug only on devel branch
-set "TARGETS=Debug"
-REM Do Debug+MinSizeRel only on master branch
-if "%APPVEYOR_REPO_BRANCH%"=="master" (set "TARGETS=Debug MinSizeRel")
+set "TARGETS=Debug MinSizeRel"
 
 REM Which platform?
 if "%MAKE%"=="MSBuild.exe" goto :msvc
@@ -22,8 +20,8 @@ REM Visual Studio
 for %%i in (%TARGETS%) do  (
     echo "Building %%i..."
     mkdir build-%%i && cd build-%%i
-    cmake .. -G %GENERATOR% -DCMAKE_LIBRARY_PATH="%ABS_PATH%\dependencies\%ARCH%-%TOOLSET%\lib" -DINCLUDE_DIRECTORIES="%ABS_PATH%\dependencies\%ARCH%-%TOOLSET%\include" -DCMAKE_INSTALL_PREFIX="..\install" || exit /b
-    MSBuild.exe /p:Configuration=%%i "ALL_BUILD.vcxproj" /verbosity:minimal || exit /b
+    cmake .. -G %GENERATOR% -DCMAKE_INSTALL_PREFIX="..\install" || exit /b
+    MSBuild.exe /p:Configuration=%%i "ALL_BUILD.vcxproj" /nologo /verbosity:minimal /consoleloggerparameters:summar || exit /b
     cd ..
 )
 
@@ -35,7 +33,7 @@ REM MinGW
 for %%i in (%TARGETS%) do  (
     echo "Building %%i..."
     mkdir build-%%i && cd build-%%i
-    cmake .. -G %GENERATOR% -DCMAKE_BUILD_TYPE="%%i" -DCMAKE_LIBRARY_PATH="%ABS_PATH%\dependencies\%ARCH%-%TOOLSET%\lib" -DINCLUDE_DIRECTORIES="%ABS_PATH%\dependencies\%ARCH%-%TOOLSET%\include" -DCMAKE_INSTALL_PREFIX="..\install" || exit /b
+    cmake .. -G %GENERATOR% -DCMAKE_BUILD_TYPE="%%i" -DCMAKE_INSTALL_PREFIX="..\install" || exit /b
     mingw32-make.exe all
     cd ..
 )
@@ -43,4 +41,3 @@ for %%i in (%TARGETS%) do  (
 goto :end
 
 :end
-

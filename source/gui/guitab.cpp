@@ -2,221 +2,164 @@
 
 #include "ffw/gui/guitab.h"
 #include "ffw/gui/guiwindow.h"
+#include "ffw/gui/guitheme.h"
 
 ///=============================================================================
-ffw::GuiTabs::Button::Button(GuiWindow* context, const std::string& label):GuiButtonToggle(context, label) {
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TABS_BUTTON");
-	setDefaults(&widgetStyle->defaults);
+ffw::GuiTabs::Button::Button(GuiWindow* context, const std::string& label, GuiWidget* targetWidget):GuiButtonToggle(context, label), targetWidget(targetWidget) {
+    setStyle(&context->getTheme()->tabs.topBar.button, true);
+    setStickyFocus();
 }
 
 ///=============================================================================
-ffw::GuiTabs::Button::Button(GuiWindow* context, const std::wstring& label):GuiButtonToggle(context, label) {
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TABS_BUTTON");
-	setDefaults(&widgetStyle->defaults);
+void ffw::GuiTabs::Button::eventThemeChanged(const GuiTheme* theme, const bool defaults) {
+    setStyle(&theme->tabs.topBar.button, defaults);
 }
 
 ///=============================================================================
-ffw::GuiTabs::Button::~Button() {
+void ffw::GuiTabs::Button::setStyle(const Button::Style* style, const bool defaults) {
+    GuiButton::setStyle(&style->self);
+    if (defaults)setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
-void ffw::GuiTabs::Button::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_TABS_BUTTON");
-	setDefaults(&widgetStyle->defaults);
+ffw::GuiTabs::Content::Content(GuiWindow* context) :GuiLayout(context, ffw::GuiOrientation::FIXED) {
+    setStyle(&context->getTheme()->tabs.content, true);
 }
 
 ///=============================================================================
-ffw::GuiTabs::Content::Content(GuiWindow* context) :GuiLayout(context, ffw::GuiLayout::Orientation::FIXED) {
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TABS_CONTENT");
-	setDefaults(&widgetStyle->defaults);
+void ffw::GuiTabs::Content::eventThemeChanged(const GuiTheme* theme, const bool defaults) {
+    setStyle(&theme->tabs.content, defaults);
 }
 
 ///=============================================================================
-ffw::GuiTabs::Content::~Content() {
+void ffw::GuiTabs::Content::setStyle(const Content::Style* style, const bool defaults) {
+    GuiLayout::setStyle(&style->self, defaults);
 }
 
 ///=============================================================================
-void ffw::GuiTabs::Content::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_TABS_CONTENT");
-	setDefaults(&widgetStyle->defaults);
+ffw::GuiTabs::TopBar::TopBar(GuiWindow* context):GuiLayout(context, ffw::GuiOrientation::HORIZONTAL) {
+    setStyle(&context->getTheme()->tabs.topBar, true);
+    setWrap(true);
 }
 
 ///=============================================================================
-ffw::GuiTabs::TopBar::TopBar(GuiWindow* context):GuiLayout(context, ffw::GuiLayout::Orientation::HORIZONTAL) {
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TABS_BAR");
-	setDefaults(&widgetStyle->defaults);
-	setWrap(true);
+void ffw::GuiTabs::TopBar::eventThemeChanged(const GuiTheme* theme, const bool defaults) {
+    setStyle(&theme->tabs.topBar, defaults);
 }
 
 ///=============================================================================
-ffw::GuiTabs::TopBar::~TopBar() {
-}
-
-///=============================================================================
-void ffw::GuiTabs::TopBar::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_TABS_BAR");
-	setDefaults(&widgetStyle->defaults);
+void ffw::GuiTabs::TopBar::setStyle(const TopBar::Style* style, const bool defaults) {
+    GuiLayout::setStyle(&style->self, defaults);
+    for (auto widget : getAllWidgets()) {
+        auto btn = dynamic_cast<GuiTabs::Button*>(widget);
+        btn->setStyle(&style->button, defaults);
+    }
+    if (defaults)setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::GuiTabs::GuiTabs(GuiWindow* context):GuiWidget(context) {
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_TABS");
-	setDefaults(&widgetStyle->defaults);
+    bar = new GuiTabs::TopBar(context);
+    content = new GuiTabs::Content(context);
+    GuiWidget::addWidgetInternal(bar);
+    GuiWidget::addWidgetInternal(content);
 
-	bar = new GuiTabs::TopBar(context);
-	content = new GuiTabs::Content(context);
-	GuiWidget::addWidgetInternal(bar);
-	GuiWidget::addWidgetInternal(content);
+    setStyle(&context->getTheme()->tabs, true);
 }
 
 ///=============================================================================
-ffw::GuiTabs::~GuiTabs() {
-
-}
-
-///=============================================================================
-void ffw::GuiTabs::widgetEvent(GuiEvent e) {
-	if (e.type == GuiEvent::Type::CLICKED && e.data.clicked.value == true) {
-		hideAllExcept(e.widget);
-	}
+void ffw::GuiTabs::widgetEvent(const GuiEvent e) {
+    if (e.type == GuiEventType::ACTION && e.data.action.value) {
+        hideAllExcept(e.widget);
+    }
 }
 
 ///=============================================================================
 void ffw::GuiTabs::hideAllExcept(GuiWidget* widget) {
-	for (auto& pair : tabs) {
-		if (pair.first == widget) {
-			pair.first->setValue(true);
-			pair.second->setHidden(false);
-		}
-		else {
-			pair.first->setValue(false);
-			pair.second->setHidden(true);
-		}
-	}
+    for (const auto w : bar->getAllWidgets()) {
+        auto btn = dynamic_cast<GuiTabs::Button*>(w);
+        if (btn == widget) {
+            btn->setValue(true);
+            btn->getTargetWidget()->setHidden(false);
+        }
+        else {
+            btn->setValue(false);
+            btn->getTargetWidget()->setHidden(true);
+        }
+        content->redraw();
+    }
 }
 
 ///=============================================================================
-void ffw::GuiTabs::showTabByIndex(size_t index) {
-	for (size_t i = 0; i < tabs.size(); i++) {
-		if (i == index) {
-			tabs[i].first->setValue(true);
-			tabs[i].second->setHidden(false);
-		}
-		else {
-			tabs[i].first->setValue(false);
-			tabs[i].second->setHidden(true);
-		}
-	}
+void ffw::GuiTabs::showTabByIndex(const size_t index) {
+    for (size_t i = 0; i < bar->getAllWidgets().size(); i++) {
+        const auto w = bar->getAllWidgets()[i];
+        auto btn = dynamic_cast<GuiTabs::Button*>(w);
+        if (i == index) {
+            btn->setValue(true);
+            btn->getTargetWidget()->setHidden(false);
+        }
+        else {
+            btn->setValue(false);
+            btn->getTargetWidget()->setHidden(true);
+        }
+        content->redraw();
+    }
 }
 
 ///=============================================================================
 void ffw::GuiTabs::showTabByWidget(const GuiWidget *widget) {
-	for (auto& pair : tabs) {
-		if (pair.second == widget) {
-			pair.first->setValue(true);
-			pair.second->setHidden(false);
-		}
-		else {
-			pair.first->setValue(false);
-			pair.second->setHidden(true);
-		}
-	}
+    for (auto w : bar->getAllWidgets()) {
+        auto btn = dynamic_cast<GuiTabs::Button*>(w);
+        if (btn->getTargetWidget() == widget) {
+            btn->setValue(true);
+            btn->getTargetWidget()->setHidden(false);
+        }
+        else {
+            btn->setValue(false);
+            btn->getTargetWidget()->setHidden(true);
+        }
+        content->redraw();
+    }
 }
 
 ///=============================================================================
-std::pair<ffw::GuiButtonToggle*, ffw::GuiWidget*> ffw::GuiTabs::addTab(GuiButtonToggle* button, GuiWidget* widget) {
-	if (widget != NULL) {
-		button->addEventCallback(&GuiTabs::widgetEvent, this, true);
-		button->setValue(tabs.size() == 0);
-		widget->setHidden(tabs.size() != 0);
-		content->addWidget(widget);
-		bar->addWidget(button);
-		tabs.push_back(std::make_pair(button, widget));
-	}
-	return std::pair<ffw::GuiButtonToggle*, ffw::GuiWidget*>(button, widget);
+ffw::GuiTabs::Button* ffw::GuiTabs::addTab(GuiTabs::Button* button, GuiWidget* widget) {
+    if (widget != nullptr) {
+        button->addEventCallback(&GuiTabs::widgetEvent, this, GuiEventType::ACTION, true);
+        button->setValue(bar->getAllWidgets().empty());
+        widget->setHidden(!bar->getAllWidgets().empty());
+        content->addWidget(widget);
+        bar->addWidget(button);
+    }
+    return button;
 }
 
 ///=============================================================================
-std::pair<ffw::GuiButtonToggle*, ffw::GuiWidget*> ffw::GuiTabs::addTab(const std::string& label, GuiWidget* widget) {
-	return addTab(new ffw::GuiTabs::Button(context, label), widget);
-}
-
-///=============================================================================
-std::pair<ffw::GuiButtonToggle*, ffw::GuiWidget*> ffw::GuiTabs::addTab(const std::wstring& label, GuiWidget* widget) {
-	return addTab(new ffw::GuiTabs::Button(context, label), widget);
+ffw::GuiTabs::Button* ffw::GuiTabs::addTab(const std::string& label, GuiWidget* widget) {
+    return addTab(new ffw::GuiTabs::Button(context, label, widget), widget);
 }
 
 ///=============================================================================
 void ffw::GuiTabs::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) {
-	(void)contentoffset;
-	(void)contentsize;
+    (void)contentoffset;
+    (void)contentsize;
 }
 
 ///=============================================================================
-void ffw::GuiTabs::eventPos(const ffw::Vec2f& p) {
-	(void)p;
+void ffw::GuiTabs::eventThemeChanged(const GuiTheme* theme, const bool defaults) {
+    setStyle(&theme->tabs, defaults);
 }
 
 ///=============================================================================
-void ffw::GuiTabs::eventSize(const ffw::Vec2f& s) {
-	(void)s;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventHover(bool gained) {
-	(void)gained;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventFocus(bool gained) {
-	(void)gained;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventMouse(const ffw::Vec2f& mousePos) {
-	(void)mousePos;
-}
-
-///=============================================================================
-bool ffw::GuiTabs::eventScroll(const ffw::Vec2f& scroll) {
-	(void)scroll;
-	return false;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventMouseButton(ffw::MouseButton button, ffw::Mode mode) {
-	(void)button;
-	(void)mode;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventText(wchar_t chr) {
-	(void)chr;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventKey(ffw::Key key, ffw::Mode mode) {
-	(void)key;
-	(void)mode;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventDisabled(bool disabled) {
-	(void)disabled;
-}
-
-///=============================================================================
-void ffw::GuiTabs::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_TABS");
-	setDefaults(&widgetStyle->defaults);
+void ffw::GuiTabs::setStyle(const GuiTabs::Style* style, const bool defaults) {
+    widgetStyle = &style->self;
+    bar->setStyle(&style->topBar, defaults);
+    content->setStyle(&style->content, defaults);
+    if (defaults)setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::Vec2f ffw::GuiTabs::getMinimumWrapSize() {
-	return 0;
+    return 0;
 }

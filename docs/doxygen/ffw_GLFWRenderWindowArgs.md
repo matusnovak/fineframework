@@ -21,6 +21,7 @@ The documentation for this struct was generated from: `include/ffw/graphics/glfw
 |  bool | [focused](#f1d28cf8) _Should the window be automatically focused on creation?_ |
 |  bool | [visible](#7978feef) _Should the window be visible?_ |
 |  int | [samples](#17443f00) _Antialiasing samples, has to be in power of two._ |
+|  bool | [initDrawing](#73c075e9) _Should the window initialize drawing API?_ |
 
 
 ## Public Attributes Documentation
@@ -112,6 +113,14 @@ int samples
 ```
 
 Antialiasing samples, has to be in power of two. 
+
+### _variable_ <a id="73c075e9" href="#73c075e9">initDrawing</a>
+
+```cpp
+bool initDrawing
+```
+
+Should the window initialize drawing API? 
 
 
 

@@ -9,7 +9,7 @@ The documentation for this class was generated from: `include/ffw/math/promise.h
 
 ## Detailed description
 
-This is a very simple implementation of JavaScript like [Promise](ffw_Promise.html). This promise can accept any kind of template type, including void. Any further chain links can be added by creating new [Promise](ffw_Promise.html) instances using "then" and "fail" (or "thenOrFail") methods. The template type of those new chain links is defined based on the return type of the lambda methods passed into "then" and "fail" methods. 
+This is a very simple implementation of JavaScript like [Promise](ffw_Promise.html). This promise can accept any kind of template type, including void. [Any](ffw_Any.html) further chain links can be added by creating new [Promise](ffw_Promise.html) instances using "then" and "fail" (or "thenOrFail") methods. The template type of those new chain links is defined based on the return type of the lambda methods passed into "then" and "fail" methods. 
 
 **Example:**
 
@@ -21,7 +21,7 @@ ffw::Promise<void> promise([](ffw::Promise<void>& self) -> void {
     self.resolve();
 });
 
-ffw::Promise<float> last = promise.then([]() {
+ffw::Promise<float>& last = promise.then([]() {
     // I am the first chain block to be executed
     // and I will produce std::string
     return std::string("Hello World!");
@@ -60,9 +60,13 @@ std::cout << "Resolved with: " << last.getResult() << std::endl;
 | -------: | :------- |
 |   | [Promise](#fc73ee8d) ()  _Default constructor with no lambda function._ |
 |   | [Promise](#32e21e29) (F const & _lambda_)  _Constructor that accepts lambda._ |
+|   | [Promise](#66988dcf) ([Promise](ffw_Promise.html)< T > && _other_)  _Move constructor._ |
 |   | [Promise](#06f4ff0a) (const [Promise](ffw_Promise.html)< T > & _other_)  _Copy constructor._ |
-|  [Promise](ffw_Promise.html)< T > & | [operator=](#73adf2a6) (const [Promise](ffw_Promise.html)< T > & _other_)  _Copy operator._ |
-|  const std::exception_ptr & | [getException](#da619b4e) ()  _Returns the exception associated with this promise._ |
+|   | [~Promise](#f58967ab) ()  |
+|  [Promise](ffw_Promise.html)< T > & | [operator=](#73adf2a6) (const [Promise](ffw_Promise.html)< T > & _other_)  |
+|  [Promise](ffw_Promise.html)< T > & | [operator=](#4a253ce0) ([Promise](ffw_Promise.html)< T > && _other_)  _Move operator._ |
+|  void | [swap](#bb164a62) ([Promise](ffw_Promise.html)< T > & _other_)  |
+|  const std::exception_ptr & | [getException](#bfa2a7ec) () const  _Returns the exception associated with this promise._ |
 |  void | [resolve](#f9f6ea9a) ()  _Resolves the promise with a default value of type T._ |
 |  void | [resolve](#59d034e3) (const [PromiseResult](ffw_PromiseResult.html)< T > & _value_)  _Resolves the promise with a value of type T._ |
 |  virtual void | [reject](#57c902dd) (const std::exception_ptr & _eptr_)  _Rejects the promise with an exception._ |
@@ -108,6 +112,16 @@ ffw::Promise<int> p([](ffw::Promise<int>& self){
 p.call();
 ```
  
+### _function_ <a id="66988dcf" href="#66988dcf">Promise</a>
+
+```cpp
+inline  Promise (
+    Promise< T > && other
+) 
+```
+
+Move constructor. 
+
 ### _function_ <a id="06f4ff0a" href="#06f4ff0a">Promise</a>
 
 ```cpp
@@ -118,7 +132,14 @@ inline  Promise (
 
 Copy constructor. 
 
-No real copy is being made. Instead, the data is shared between all copies. If you have two identical copies and one gets resolved/rejected, the second copy will also be resolved or rejected. 
+### _function_ <a id="f58967ab" href="#f58967ab">~Promise</a>
+
+```cpp
+inline  ~Promise () 
+```
+
+
+
 ### _function_ <a id="73adf2a6" href="#73adf2a6">operator=</a>
 
 ```cpp
@@ -127,13 +148,32 @@ inline Promise< T > & operator= (
 ) 
 ```
 
-Copy operator. 
 
-No real copy is being made. Instead, the data is shared between all copies. If you have two identical copies and one gets resolved/rejected, the second copy will also be resolved or rejected. 
-### _function_ <a id="da619b4e" href="#da619b4e">getException</a>
+
+### _function_ <a id="4a253ce0" href="#4a253ce0">operator=</a>
 
 ```cpp
-inline const std::exception_ptr & getException () 
+inline Promise< T > & operator= (
+    Promise< T > && other
+) 
+```
+
+Move operator. 
+
+### _function_ <a id="bb164a62" href="#bb164a62">swap</a>
+
+```cpp
+inline void swap (
+    Promise< T > & other
+) 
+```
+
+
+
+### _function_ <a id="bfa2a7ec" href="#bfa2a7ec">getException</a>
+
+```cpp
+inline const std::exception_ptr & getException () const 
 ```
 
 Returns the exception associated with this promise. 
@@ -253,12 +293,12 @@ The lambda will be executed once the parent (the instance of the method you are 
 ```cpp
 ffw::Promise<std::string> p;
 
-ffw::Promise<int> next = p.then([](std::string str) -> int {
+ffw::Promise<int>& next = p.then([](std::string str) -> int {
     std::cout << "Parent promise was resolved with: " << str << std::endl;
     return str.size();
 });
 
-ffw::Promise<void> last = next.then([](int val) -> void {
+ffw::Promise<void>& last = next.then([](int val) -> void {
     std::cout << "Received integer of: " << val << std::endl;
 });
 
@@ -270,7 +310,7 @@ p.resolve("Hello!");
 // You can make them more simple as below:
 
 p.then([](std::string str) -> int {
-    std::cout << "Parent promise was resolved with: " << str << std::endl;
+      std::cout << "Parent promise was resolved with: " << str << std::endl;
     return str.size();
 }).then([](int val) -> void {
     std::cout << "Received integer of: " << val << std::endl;
@@ -295,15 +335,15 @@ The lambda will be executed once the parent (the instance of the method you are 
 ```cpp
 ffw::Promise<std::string> p;
 
-ffw::Promise<std::string> next = p.fail([](std::runtime_exception& e){
+ffw::Promise<std::string>& next = p.fail([](std::runtime_exception& e){
     std::cout << "runtime_exception has been thrown!" << std::endl;
 });
 
-ffw::Promise<std::string> last = next.fail([](std::exception& e){
+ffw::Promise<std::string>& last = next.fail([](std::exception& e){
     std::cout << "raw exception has been thrown!" << std::endl;
 });
 
-ffw::Promise<std::string> test = last.fail([](const std::exception_ptr& eptr){
+ffw::Promise<std::string>& test = last.fail([](const std::exception_ptr& eptr){
     try {
         std::rethrow_exception(eptr);
     } catch (std::runtime_exception& e){

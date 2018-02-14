@@ -32,7 +32,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiwindowo
 |  virtual void | [drawCircle](#0f6445d1) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p_, float _radius_, const [ffw::Color](ffw_Color.html) & _color_) const  |
 |  virtual void | [drawArc](#8391bc95) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p_, float _inner_, float _outer_, float _start_, float _end_, const [ffw::Color](ffw_Color.html) & _color_) const  |
 |  virtual void | [drawQuad](#c4029e51) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p0_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p1_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p2_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p3_, const [ffw::Color](ffw_Color.html) & _color_) const  |
-|  virtual void | [drawString](#14cf8c41) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p_, const [ffw::GuiFont](ffw_GuiFont.html) * _font_, const std::wstring::value_type * _str_, size_t _length_, const [ffw::Color](ffw_Color.html) & _color_, float _lineHeight_ = 1.25f) const  |
+|  virtual void | [drawString](#11713357) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p_, const [ffw::GuiFont](ffw_GuiFont.html) * _font_, const std::string::value_type * _str_, size_t _length_, const [ffw::Color](ffw_Color.html) & _color_, float _lineHeight_ = 1.25f) const  |
 |  virtual void | [drawTriangle](#18183d03) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p0_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p1_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p2_, const [ffw::Color](ffw_Color.html) & _color_) const  |
 |  virtual void | [drawImage](#bbb8269f) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _s_, const [GuiImage](ffw_GuiImage.html) * _image_, const [ffw::Vec4i](ffw.html#fd5627df) & _sub_, bool _mirrorX_, bool _mirrorY_, const [ffw::Color](ffw_Color.html) & _color_) const  |
 |  virtual void | [startRender](#0ebe5781) ()  |
@@ -195,13 +195,13 @@ inline virtual void drawQuad (
 
 **Overrides:** [drawQuad](/doxygen/ffw_GuiBackend.md#58486aa1) from class [GuiBackend](/doxygen/ffw_GuiBackend.md)
 
-### _function_ <a id="14cf8c41" href="#14cf8c41">drawString</a>
+### _function_ <a id="11713357" href="#11713357">drawString</a>
 
 ```cpp
 inline virtual void drawString (
     const ffw::Vec2f & p,
     const ffw::GuiFont * font,
-    const std::wstring::value_type * str,
+    const std::string::value_type * str,
     size_t length,
     const ffw::Color & color,
     float lineHeight = 1.25f
@@ -210,7 +210,7 @@ inline virtual void drawString (
 
 
 
-**Overrides:** [drawString](/doxygen/ffw_GuiBackend.md#a9bb7183) from class [GuiBackend](/doxygen/ffw_GuiBackend.md)
+**Overrides:** [drawString](/doxygen/ffw_GuiBackend.md#03f1116b) from class [GuiBackend](/doxygen/ffw_GuiBackend.md)
 
 ### _function_ <a id="18183d03" href="#18183d03">drawTriangle</a>
 

@@ -2,52 +2,52 @@
 
 #include "ffw/gui/guibuttontoggle.h"
 #include "ffw/gui/guiwindow.h"
+#include "ffw/gui/guitheme.h"
 
 ///=============================================================================
-ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label) :GuiButtonToggle(context, utf8ToWstr(label)) {
+ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::string& label) : GuiButton(context, label) {
+    setToggleFocus();
 }
 
 ///=============================================================================
-ffw::GuiButtonToggle::GuiButtonToggle(GuiWindow* context, const std::wstring& label) : GuiButton(context, label) {
-	setToggleFocus();
-}
-
-///=============================================================================
-ffw::GuiButtonToggle::~GuiButtonToggle() {
-}
-
-///=============================================================================
-void ffw::GuiButtonToggle::setValue(bool value) {
-	setFocus(value);
+void ffw::GuiButtonToggle::setValue(const bool value) {
+    setFocus(value);
 }
 
 ///=============================================================================
 bool ffw::GuiButtonToggle::getValue() const {
-	return hasFocus();
+    return hasFocus();
+}
+
+///=============================================================================
+void ffw::GuiButtonToggle::eventFocus(const bool gained) {
+    GuiEvent::Data data;
+    data.action.value = gained;
+    pushEvent(GuiEventType::ACTION, data);
+    redraw();
 }
 
 ///=============================================================================
 ffw::GuiButtonTogglePrimary::GuiButtonTogglePrimary(GuiWindow* context, const std::string& label) :
-	GuiButton(context, label) {
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_BUTTON_PRIMARY");
-	setDefaults(&widgetStyle->defaults);
+    GuiButtonPrimary(context, label) {
+
+    setToggleFocus();
 }
 
 ///=============================================================================
-ffw::GuiButtonTogglePrimary::GuiButtonTogglePrimary(GuiWindow* context, const std::wstring& label) :
-	GuiButton(context, label) {
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_BUTTON_PRIMARY");
-	setDefaults(&widgetStyle->defaults);
+void ffw::GuiButtonTogglePrimary::setValue(const bool value) {
+    setFocus(value);
 }
 
 ///=============================================================================
-ffw::GuiButtonTogglePrimary::~GuiButtonTogglePrimary() {
+bool ffw::GuiButtonTogglePrimary::getValue() const {
+    return hasFocus();
 }
 
 ///=============================================================================
-void ffw::GuiButtonTogglePrimary::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_BUTTON_PRIMARY");
-	setDefaults(&widgetStyle->defaults);
+void ffw::GuiButtonTogglePrimary::eventFocus(const bool gained) {
+    GuiEvent::Data data;
+    data.action.value = gained;
+    pushEvent(GuiEventType::ACTION, data);
+    redraw();
 }

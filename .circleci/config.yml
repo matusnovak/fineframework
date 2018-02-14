@@ -1,0 +1,87 @@
+compile_gcc: &compile_gcc
+  steps:
+    - checkout
+    - run:
+        name: Init dependencies
+        command: |
+          apt-get update
+          apt-get install zip xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev wget -y
+          wget https://cmake.org/files/v3.10/cmake-3.10.2-Linux-x86_64.tar.gz
+          tar -xvzf cmake-3.10.2-Linux-x86_64.tar.gz
+          chmod +x ./cmake-3.10.2-Linux-x86_64/bin/ccmake
+          chmod +x ./cmake-3.10.2-Linux-x86_64/bin/cmake
+          chmod +x ./cmake-3.10.2-Linux-x86_64/bin/cpack
+          chmod +x ./cmake-3.10.2-Linux-x86_64/bin/ctest
+          DIR=$(pwd)
+          ln -s $DIR/cmake-3.10.2-Linux-x86_64/bin/ccmake /usr/bin/ccmake
+          ln -s $DIR/cmake-3.10.2-Linux-x86_64/bin/cmake /usr/bin/cmake
+          ln -s $DIR/cmake-3.10.2-Linux-x86_64/bin/cpack /usr/bin/cpack
+          ln -s $DIR/cmake-3.10.2-Linux-x86_64/bin/ctest /usr/bin/ctest
+    - run:
+        name: Init submodules
+        command: |
+          git submodule init
+          git submodule update
+    - run:
+        name: Build
+        command: |
+          export CURRENT_BRANCH=$CIRCLE_BRANCH
+          chmod +x .ci/build.sh
+          ./.ci/build.sh
+    - run:
+        name: Test
+        command: |
+          export CURRENT_BRANCH=$CIRCLE_BRANCH
+          chmod +x .ci/test.sh
+          ./.ci/test.sh
+    - run:
+        name: Package
+        command: |
+          export CURRENT_BRANCH=$CIRCLE_BRANCH
+          chmod +x .ci/package.sh
+          ./.ci/package.sh
+          mkdir /tmp/install
+          cp *.zip /tmp/install
+    - store_artifacts:
+        path: /tmp/install
+
+version: 2
+jobs:
+  compile_gcc_550:
+    <<: *compile_gcc
+
+    docker:
+      - image: gcc:5.5.0
+        env:
+          - ARCH: 'x86_64'
+          - TOOLSET: 'linux-gnu'
+
+  compile_gcc_640:
+    <<: *compile_gcc
+
+    docker:
+      - image: gcc:6.4.0
+        env:
+          - ARCH: 'x86_64'
+          - TOOLSET: 'linux-gnu'
+  
+  compile_gcc_730:
+    <<: *compile_gcc
+
+    docker:
+      - image: gcc:7.3.0
+        env:
+          - ARCH: 'x86_64'
+          - TOOLSET: 'linux-gnu'
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - compile_gcc_550
+      - compile_gcc_640:
+          requires:
+            - compile_gcc_550
+      - compile_gcc_730:
+          requires:
+            - compile_gcc_640

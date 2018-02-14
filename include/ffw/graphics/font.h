@@ -10,60 +10,66 @@
 
 namespace ffw {
     class RenderContext;
-	/**
-	 * @ingroup graphics
-	 */
+    /**
+     * @ingroup graphics
+     */
     class FFW_API Font {
     public:
-		struct Char {
-			unsigned short x = 0;
-			unsigned short y = 0;
-			unsigned short width = 0;
-			unsigned short height = 0;
-			float bearingX = 0;
-			float bearingY = 0;
-			float advance = 0;
-		};
+        struct Char {
+            unsigned short x = 0;
+            unsigned short y = 0;
+            unsigned short width = 0;
+            unsigned short height = 0;
+            float bearingX = 0;
+            float bearingY = 0;
+            float advance = 0;
+        };
 
-		Font();
-		virtual ~Font();
-		static bool checkCompability(const RenderContext* renderer);
+        Font();
+        virtual ~Font();
 
-		virtual void destroy() = 0;
-		virtual const Char& getChar(wchar_t chr) const = 0;
-		virtual ffw::Vec2f getStringSize(const std::string& str, float lineHeight = 1.25f) const;
-		virtual ffw::Vec2f getStringSize(const std::wstring& str, float lineHeight = 1.25f) const;
-
-		inline int getSizePt() const {
-			return sizePoints;
-		}
-		inline int getSizePixels() const {
-			return sizePoints;
-		}
-		inline int getDpi() const  {
-			return sizePoints;
-		}
-		inline const ffw::Texture2D* getTexture() const {
-			return &texture;
-		}
-		inline bool isCreated() const {
-			return loaded;
-		}
-		inline float getCharVerticalOffset(const Font::Char& data) const {
-			return float(sizePixels - data.height) + float(data.height - data.bearingY);
-		}
-		inline bool isAlphaOnly() const {
-			return alphaOnlyFlag;
-		}
+        virtual void destroy() = 0;
+        virtual const Char& getChar(wchar_t chr) const = 0;
+        virtual int getCharIndex(wchar_t chr) const = 0;
+        virtual ffw::Vec2f getStringSize(const std::string& str, float maxWidth = -1.0f, float lineHeight = 1.25f) const;
+        virtual ffw::Vec2f getStringSize(const std::wstring& str, float maxWidth = -1.0f, float lineHeight = 1.25f) const;
+        inline float getCharAdvance(wchar_t chr) const {
+            return getChar(chr).advance;
+        }
+        inline int getSizePt() const {
+            return sizePoints;
+        }
+        inline int getSizePixels() const {
+            return sizePoints;
+        }
+        inline int getDpi() const  {
+            return sizePoints;
+        }
+        inline const ffw::Texture2D* getTexture() const {
+            return &texture;
+        }
+        inline const ffw::Vbo* getVbo() const {
+            return &vbo;
+        }
+        inline bool isCreated() const {
+            return loaded;
+        }
+        inline float getCharVerticalOffset(const Font::Char& data) const {
+            return float(sizePixels - data.height) + float(data.height - data.bearingY);
+        }
+        inline bool isAlphaOnly() const {
+            return alphaOnlyFlag;
+        }
     protected:
-		template<class T>
-		ffw::Vec2f getStringSizeFunc(const std::basic_string<T>& str, float lineHeight) const;
+        template<class T>
+        ffw::Vec2f getStringSizeFunc(const std::basic_string<T>& str, float maxWidth = -1.0f, float lineHeight = 1.25f) const;
         ffw::Texture2D texture;
-		int sizePoints;
-		int sizePixels;
-		int sizeDpi;
-		bool loaded;
-		bool alphaOnlyFlag;
+        ffw::Vbo vbo;
+        int sizePoints;
+        int sizePixels;
+        int sizeDpi;
+        bool loaded;
+        bool alphaOnlyFlag;
     };
 };
 #endif

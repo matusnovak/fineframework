@@ -4,53 +4,53 @@
 
 ///=============================================================================
 ffw::TgaLoader::TgaLoader(){
-	pixelsOffset = 0;
+    pixelsOffset = 0;
 }
 
 ///=============================================================================
 ffw::TgaLoader::TgaLoader(TgaLoader&& other){
-	swap(other);
+    swap(other);
 }
 
 ///=============================================================================
 void ffw::TgaLoader::swap(TgaLoader& other){
-	std::swap(input, other.input);
-	std::swap(pixelsOffset, other.pixelsOffset);
+    std::swap(input, other.input);
+    std::swap(pixelsOffset, other.pixelsOffset);
 }
 
 ///=============================================================================
 ffw::TgaLoader& ffw::TgaLoader::operator = (TgaLoader&& other){
-	if(this != &other){
-		swap(other);
-	}
-	return *this;
+    if(this != &other){
+        swap(other);
+    }
+    return *this;
 }
 
 ///=============================================================================
 ffw::TgaLoader::~TgaLoader(){
-	close();
+    close();
 }
 
 ///=============================================================================
 bool ffw::TgaLoader::open(const std::string& path){
-	if(loaded)return false;
+    if(loaded)return false;
 
-	input->open(path, std::ios::in | std::ios::binary);
+    input->open(path, std::ios::in | std::ios::binary);
 
-	if(!input->is_open()){
-		return false;
-	}
+    if(!input->is_open()){
+        return false;
+    }
 
-	input->seekg(0, std::ios::end);
-	size_t size = (size_t)input->tellg();
-	input->seekg(0, std::ios::beg);
+    input->seekg(0, std::ios::end);
+    size_t size = (size_t)input->tellg();
+    input->seekg(0, std::ios::beg);
 
-	if(size < 18){
-		close();
-		return false;
-	}
+    if(size < 18){
+        close();
+        return false;
+    }
 
-	uint8_t idLength;
+    uint8_t idLength;
     uint8_t colorMapType;
     uint8_t imageType;
     uint16_t colorMapEntry;
@@ -78,31 +78,31 @@ bool ffw::TgaLoader::open(const std::string& path){
     input->read((char*)&bits,               sizeof(uint8_t));
     input->read((char*)&imageDescriptor,    sizeof(uint8_t));
 
-	width = w;
-	height = h;
-	depth = 0;
-	mipmaps = 1;
+    width = w;
+    height = h;
+    depth = 0;
+    mipmaps = 1;
 
-	// Read extra id
+    // Read extra id
     if(idLength > 0){
-		char data;
-		for(uint8_t i = 0; i < idLength; i++){
-			input->read(&data, 1);
-		}
+        char data;
+        for(uint8_t i = 0; i < idLength; i++){
+            input->read(&data, 1);
+        }
     }
 
-	// Check if there is no compression
+    // Check if there is no compression
     if(colorMapType != 0){
-		close();
-		return false;
-	}
+        close();
+        return false;
+    }
 
     if(!(imageType == 2 || imageType == 3)){
-		close();
-		return false;
-	}
+        close();
+        return false;
+    }
 
-	// get number of channels
+    // get number of channels
     if(imageType == 3){
         format = ffw::ImageType::GRAYSCALE_8;
 
@@ -116,78 +116,78 @@ bool ffw::TgaLoader::open(const std::string& path){
         format = ffw::ImageType::RGB_ALPHA_8888;
 
     } else {
-		close();
+        close();
         return false;
     }
 
-	if(size < 18 + height * getStrideSize()){
-		std::cout << "size too low" << std::endl;
-		close();
-		return false;
-	}
+    if(size < 18 + height * getStrideSize()){
+        std::cout << "size too low" << std::endl;
+        close();
+        return false;
+    }
 
-	pixelsOffset = (size_t)input->tellg();
+    pixelsOffset = (size_t)input->tellg();
 
-	row = 0;
-	loaded = true;
-	return true;
+    row = 0;
+    loaded = true;
+    return true;
 }
 
 ///=============================================================================
 void ffw::TgaLoader::close(){
-	input->close();
-	width = 0;
-	height = 0;
-	loaded = 0;
-	row = 0;
-	depth = 0;
-	mipmaps = 0;
-	mipmapOffset = 0;
-	format = ImageType::INVALID;
+    input->close();
+    width = 0;
+    height = 0;
+    loaded = 0;
+    row = 0;
+    depth = 0;
+    mipmaps = 0;
+    mipmapOffset = 0;
+    format = ImageType::INVALID;
 }
 
 ///=============================================================================
 size_t ffw::TgaLoader::readRow(void* dest){
-	if(!loaded)return 0;
+    if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
 
-	input->seekg(pixelsOffset + (height - row - 1) * getStrideSize());
-	
-	switch(format){
-		case ffw::ImageType::GRAYSCALE_8: {
-			input->read((char*)dest, width);
-			break;
-		}
-		case ffw::ImageType::RGB_ALPHA_5551: {
-			input->read((char*)dest, width*2);
+    input->seekg(pixelsOffset + (height - row - 1) * getStrideSize());
+    
+    switch(format){
+        case ffw::ImageType::GRAYSCALE_8: {
+            input->read((char*)dest, width);
+            break;
+        }
+        case ffw::ImageType::RGB_ALPHA_5551: {
+            input->read((char*)dest, width*2);
 
-			unsigned char* ptr = (unsigned char*)dest;
-			for(size_t i = 0; i < (size_t)width*2; i += 2){
-				std::swap(ptr[i + 0], ptr[i + 1]);
-			}
-			break;
-		}
-		case ffw::ImageType::RGB_888: {
-			input->read((char*)dest, width*3);
+            unsigned char* ptr = (unsigned char*)dest;
+            for(size_t i = 0; i < (size_t)width*2; i += 2){
+                std::swap(ptr[i + 0], ptr[i + 1]);
+            }
+            break;
+        }
+        case ffw::ImageType::RGB_888: {
+            input->read((char*)dest, width*3);
 
-			unsigned char* ptr = (unsigned char*)dest;
-			for(size_t i = 0; i < (size_t)width*3; i += 3){
-				std::swap(ptr[i + 0], ptr[i + 2]);
-			}
-			break;
-		}
-		case ffw::ImageType::RGB_ALPHA_8888: {
-			input->read((char*)dest, width*4);
+            unsigned char* ptr = (unsigned char*)dest;
+            for(size_t i = 0; i < (size_t)width*3; i += 3){
+                std::swap(ptr[i + 0], ptr[i + 2]);
+            }
+            break;
+        }
+        case ffw::ImageType::RGB_ALPHA_8888: {
+            input->read((char*)dest, width*4);
 
-			unsigned char* ptr = (unsigned char*)dest;
-			for(size_t i = 0; i < (size_t)width*4; i += 4){
-				std::swap(ptr[i + 0], ptr[i + 2]);
-			}
-			break;
-		}
-	}
-	row++;
+            unsigned char* ptr = (unsigned char*)dest;
+            for(size_t i = 0; i < (size_t)width*4; i += 4){
+                std::swap(ptr[i + 0], ptr[i + 2]);
+            }
+            break;
+        }
+    }
+    row++;
 
-	return this->getStrideSize();
+    return this->getStrideSize();
 }

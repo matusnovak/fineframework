@@ -68,7 +68,8 @@ environment:
 #            steps                #
 #---------------------------------#
 install:
-  - call .ci\deps.bat
+  - git submodule init
+  - git submodule update
 
 before_build:
   - call .ci\gittag.bat

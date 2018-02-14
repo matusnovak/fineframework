@@ -12,67 +12,61 @@
 
 namespace ffw {
     class RenderContext;
-	class RenderExtensions;
-	/**
-	 * @ingroup graphics
-	 */
-	class FFW_API Shader {
+    class RenderExtensions;
+    /**
+     * @ingroup graphics
+     */
+    class FFW_API Shader {
     public:
-		class CompileException: public std::exception {
-		public:
-			inline CompileException(const std::string& log):msg(log) {
-			}
-			inline const char* what() const throw() {
-				return msg.c_str();
-			}
-			std::string msg;
-		};
-		class FileException : public std::exception {
-		public:
-			inline FileException(const std::string& file):msg("Error reading file: \"" + file + "\"") {
-			}
-			inline const char* what() const throw() {
-				return msg.c_str();
-			}
-			std::string msg;
-		};
-        static bool checkCompability(const RenderContext* renderer);
-		Shader();
-		Shader(const Shader& other) = delete;
-		Shader(Shader&& other);
-		void swap(Shader& other);
+        class CompileException: public std::exception {
+        public:
+            inline CompileException(const std::string& log):msg(log) {
+            }
+            inline const char* what() const throw() {
+                return msg.c_str();
+            }
+            std::string msg;
+        };
+        class FileException : public std::exception {
+        public:
+            inline FileException(const std::string& file):msg("Error reading file: \"" + file + "\"") {
+            }
+            inline const char* what() const throw() {
+                return msg.c_str();
+            }
+            std::string msg;
+        };
+        Shader();
+        Shader(const Shader& other) = delete;
+        Shader(Shader&& other);
+        void swap(Shader& other);
         virtual ~Shader();
-		inline bool isCreated() const {
-			return loaded;
-		}
-		inline bool isLinked() const {
-			return linked;
-		}
-		inline bool isUsingFrag() const {
-			return usingfrag;
-		}
-		inline bool isUsingGeom() const {
-			return usinggeom;
-		}
-		inline bool isUsingVert() const {
-			return usingvert;
-		}
-		bool create(const RenderContext* renderer);
-		void Link();
-		void compileFragFromData(const std::string& code);
-		void compileGeomFromData(const std::string& code);
-		void compileVertFromData(const std::string& code);
-		void createFromFile(const RenderContext* renderer, const std::string& geomfile, const std::string& vertfile, const std::string& fragfile);
-		void createFromData(const RenderContext* renderer, const std::string& geomdata, const std::string& vertdata, const std::string& fragdata);
-		/*bool createFromFile(const RenderContext* renderer, const std::string& geompath, const std::string& vertpath, const std::string& fragpath);
-        bool createFromData(const RenderContext* renderer, const std::string& geomdata, const std::string& vertdata, const std::string& fragdata){
-			return createFromData(renderer, geomdata.c_str(), vertdata.c_str(), fragdata.c_str());
-		}
-        bool createFromData(const RenderContext* renderer, const char* geomdata, const char* vertdata, const char* fragdata);*/
+        inline bool isCreated() const {
+            return loaded;
+        }
+        inline bool isLinked() const {
+            return linked;
+        }
+        inline bool isUsingFrag() const {
+            return usingfrag;
+        }
+        inline bool isUsingGeom() const {
+            return usinggeom;
+        }
+        inline bool isUsingVert() const {
+            return usingvert;
+        }
+        bool create();
+        void Link();
+        void compileFragFromData(const std::string& code);
+        void compileGeomFromData(const std::string& code);
+        void compileVertFromData(const std::string& code);
+        void createFromFile(const std::string& geomfile, const std::string& vertfile, const std::string& fragfile);
+        void createFromData(const std::string& geomdata, const std::string& vertdata, const std::string& fragdata);
         void destroy();
         inline unsigned int getHandle() const {
-			return program;
-		}
+            return program;
+        }
         void setAttributePointerf(int location, int size, int stride, const GLvoid* offset) const;
         void setAttributeDivisor(unsigned int index, unsigned int divisor) const;
         void drawArrays(unsigned int mode, int first, int cnt) const;
@@ -98,7 +92,7 @@ namespace ffw {
         void setUniform3iv(int location, const int* array, int length) const;
         void setUniform4f(int location, float x, float y, float z, float w) const;
         void setUniform4fv(int location, const float* array, int length) const;
-		void setUniform4i(int location, int x, int y, int z, int w) const;
+        void setUniform4i(int location, int x, int y, int z, int w) const;
         void setUniform4iv(int location, const int* array, int length) const;
         void setUniform2f(int location, const ffw::Vec2f& vec) const;
         void setUniform2fv(int location, const ffw::Vec2f* array, int length) const;
@@ -119,14 +113,14 @@ namespace ffw {
         void setUniformMatrix4fv(int location, const float* mat, int length) const;
         void setUniformMatrix4fv(int location, const Mat4x4f* mat, int length) const;
 
-		Shader& operator = (const Shader& other) = delete;
-		Shader& operator = (Shader&& other);
+        Shader& operator = (const Shader& other) = delete;
+        Shader& operator = (Shader&& other);
     private:
-		void compileShader(unsigned int &thisShader, const char* data, unsigned int ShaderType);
+        void compileShader(unsigned int &thisShader, const char* data, unsigned int ShaderType);
         bool checkForShaderErrors(unsigned int thisShader, std::string* ErrorStr);
         bool checkForProgramErrors(std::string* ErrorStr);
         bool loaded;
-		bool linked;
+        bool linked;
         unsigned int program;
         unsigned int geomshader;
         unsigned int vertshader;
@@ -139,6 +133,6 @@ namespace ffw {
 };
 
 inline void swap(ffw::Shader& first, ffw::Shader& second) {
-	first.swap(second);
+    first.swap(second);
 }
 #endif

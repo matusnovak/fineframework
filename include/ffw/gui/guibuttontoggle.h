@@ -3,26 +3,29 @@
 #define FFW_GUI_BUTTON_TOGGLE
 #include "guibutton.h"
 namespace ffw {
-	/**
-	* @ingroup gui
-	*/
-	class FFW_API GuiButtonToggle : public GuiButton {
-	public:
-		GuiButtonToggle(GuiWindow* context, const std::string& label);
-		GuiButtonToggle(GuiWindow* context, const std::wstring& label);
-		virtual ~GuiButtonToggle();
-		void setValue(bool value);
-		bool getValue() const;
-	};
-	/**
-	* @ingroup gui
-	*/
-	class FFW_API GuiButtonTogglePrimary : public GuiButton {
-	public:
-		GuiButtonTogglePrimary(GuiWindow* context, const std::string& label);
-		GuiButtonTogglePrimary(GuiWindow* context, const std::wstring& label);
-		virtual ~GuiButtonTogglePrimary();
-		void eventThemeChanged(const GuiTheme* theme) override;
-	};
+    /**
+    * @ingroup gui
+    */
+    class FFW_API GuiButtonToggle : public GuiButton {
+    public:
+        GuiButtonToggle(GuiWindow* context, const std::string& label);
+        virtual ~GuiButtonToggle() = default;
+        void setValue(bool value);
+        bool getValue() const;
+    private:
+        void eventFocus(bool gained) override;
+    };
+    /**
+    * @ingroup gui
+    */
+    class FFW_API GuiButtonTogglePrimary : public GuiButtonPrimary {
+    public:
+        GuiButtonTogglePrimary(GuiWindow* context, const std::string& label);
+        virtual ~GuiButtonTogglePrimary() = default;
+        void setValue(bool value);
+        bool getValue() const;
+    private:
+        void eventFocus(bool gained) override;
+    };
 }
 #endif

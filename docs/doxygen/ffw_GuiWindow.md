@@ -10,13 +10,6 @@ The documentation for this class was generated from: `include/ffw/gui/guiwindow.
 
 
 
-## Classes
-
-| Name |
-|:-----|
-| class [ffw::GuiWindow::GuiBody](ffw_GuiWindow_GuiBody.html) |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -39,10 +32,10 @@ The documentation for this class was generated from: `include/ffw/gui/guiwindow.
 |  void | [render](#57028522) ()  |
 |  void | [redraw](#ca2d8285) ()  |
 |  void | [invalidate](#259d7ad9) ()  |
-|  [GuiBody](ffw_GuiWindow_GuiBody.html) * | [getLayout](#a49898b5) ()  |
-|  const [GuiBody](ffw_GuiWindow_GuiBody.html) * | [getLayout](#d07c9698) () const  |
-|  void | [pushEvent](#0823111d) ([GuiCallback](ffw_GuiCallback.html) & _callback_, [GuiEvent](ffw_GuiEvent.html) _e_)  |
-|  void | [setTheme](#40af0639) (const [GuiTheme](ffw_GuiTheme.html) * _thm_)  |
+|  [GuiBody](ffw_GuiBody.html) * | [getLayout](#a49898b5) ()  |
+|  const [GuiBody](ffw_GuiBody.html) * | [getLayout](#d07c9698) () const  |
+|  void | [pushEvent](#ae9a1d7b) (std::vector< [GuiCallback](ffw_GuiCallback.html) > & _callbacks_, [GuiEvent](ffw_GuiEvent.html) _e_)  |
+|  void | [setTheme](#039e8d63) (const [GuiTheme](ffw_GuiTheme.html) * _thm_, bool _defaults_ = false)  |
 |  const [GuiTheme](ffw_GuiTheme.html) * | [getTheme](#85a09d54) () const  |
 |  T * | [findByID](#a132c39b) (unsigned long _id_)  |
 
@@ -231,22 +224,23 @@ inline const GuiBody * getLayout () const
 
 
 
-### _function_ <a id="0823111d" href="#0823111d">pushEvent</a>
+### _function_ <a id="ae9a1d7b" href="#ae9a1d7b">pushEvent</a>
 
 ```cpp
 void pushEvent (
-    GuiCallback & callback,
+    std::vector< GuiCallback > & callbacks,
     GuiEvent e
 ) 
 ```
 
 
 
-### _function_ <a id="40af0639" href="#40af0639">setTheme</a>
+### _function_ <a id="039e8d63" href="#039e8d63">setTheme</a>
 
 ```cpp
 void setTheme (
-    const GuiTheme * thm
+    const GuiTheme * thm,
+    bool defaults = false
 ) 
 ```
 

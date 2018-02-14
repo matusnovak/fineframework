@@ -25,8 +25,8 @@ Contains functions for drawing various shapes with OpenGL, including Window mana
 | class [ffw::Renderbuffer](ffw_Renderbuffer.html) |
 | class [ffw::Renderbuffer2D](ffw_Renderbuffer2D.html) |
 | class [ffw::Renderbuffer2DMS](ffw_Renderbuffer2DMS.html) |
-| class [ffw::RenderContext](ffw_RenderContext.html) |
-| class [ffw::RenderExtensions](ffw_RenderExtensions.html) |
+| struct [ffw::DrawPaint](ffw_DrawPaint.html) |
+| class [ffw::RenderContext](ffw_RenderContext.html) <span style="opacity:0.8;">Basic render context which can be used to draw shapes using nanovg on the screen. </span> |
 | class [ffw::RenderWindow](ffw_RenderWindow.html) |
 | class [ffw::Shader](ffw_Shader.html) |
 | class [ffw::Texture](ffw_Texture.html) <span style="opacity:0.8;">Base class for all texture types. </span> |
@@ -41,11 +41,62 @@ Contains functions for drawing various shapes with OpenGL, including Window mana
 | class [ffw::TrueTypeFont](ffw_TrueTypeFont.html) |
 
 
+## Enums
+
+| Type | Name |
+| -------: | :------- |
+| enum | [DrawMode](#642b0610) |
+| enum | [DrawPathWinding](#5ed40213) |
+| enum | [LineCap](#795eeb36) |
+
+
 ## Functions
 
 | Type | Name |
 | -------: | :------- |
 |  [ffw::OpenGLImageType](ffw_OpenGLImageType.html) | [getOpenGLImageType](#ed9106f9) ([ffw::ImageType](ffw.html#fa711f90) _type_)  |
+|  void | [loadGlCoreArb](#92805e56) (void *(*)(const char *) _glextLoader_)  |
+
+
+## Enums Documentation
+
+### _enum_ <a id="642b0610" href="#642b0610">DrawMode</a>
+
+```cpp
+enum DrawMode {
+    FILL,
+    STROKE,
+    FILL_AND_STROKE,
+}
+```
+
+
+
+### _enum_ <a id="5ed40213" href="#5ed40213">DrawPathWinding</a>
+
+```cpp
+enum DrawPathWinding {
+    CCW,
+    CW,
+}
+```
+
+
+
+### _enum_ <a id="795eeb36" href="#795eeb36">LineCap</a>
+
+```cpp
+enum LineCap {
+    BUTT,
+    ROUND,
+    SQUARE,
+    BEVEL,
+    MITER,
+}
+```
+
+
+
 
 
 ## Functions Documentation
@@ -55,6 +106,16 @@ Contains functions for drawing various shapes with OpenGL, including Window mana
 ```cpp
 ffw::OpenGLImageType getOpenGLImageType (
     ffw::ImageType type
+) 
+```
+
+
+
+### _function_ <a id="92805e56" href="#92805e56">loadGlCoreArb</a>
+
+```cpp
+void loadGlCoreArb (
+    void *(*)(const char *) glextLoader
 ) 
 ```
 

@@ -10,12 +10,19 @@ The documentation for this class was generated from: `include/ffw/gui/guislider.
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiSlider::Style](ffw_GuiSlider_Style.html) |
+
+
 ## Protected Attributes
 
 | Type | Name |
 | -------: | :------- |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [styleButton](#2e44fd50) |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [styleBar](#b62f702b) |
+|  const [GuiWidget::Style](ffw_GuiWidget_Style.html) * | [styleButton](#b2ffbd70) |
+|  const [GuiWidget::Style](ffw_GuiWidget_Style.html) * | [styleBar](#f3291468) |
 |  [ffw::Vec2](ffw_Vec2.html)< [GuiUnits](ffw_GuiUnits.html) > | [buttonSize](#824cf044) |
 |  [ffw::Vec2](ffw_Vec2.html)< [GuiUnits](ffw_GuiUnits.html) > | [barSize](#6fe843a0) |
 
@@ -25,7 +32,7 @@ The documentation for this class was generated from: `include/ffw/gui/guislider.
 | Type | Name |
 | -------: | :------- |
 |   | [GuiSlider](#82dc0131) ([GuiWindow](ffw_GuiWindow.html) * _context_, bool _vertical_)  |
-|  virtual  | [~GuiSlider](#9551a553) ()  |
+|  virtual  | [~GuiSlider](#b43da7db) ()  |
 |  bool | [isVertical](#d9ff4155) () const  |
 |  void | [setValue](#a849b991) (float _val_)  |
 |  float | [getValue](#59fbe0d1) () const  |
@@ -38,26 +45,27 @@ The documentation for this class was generated from: `include/ffw/gui/guislider.
 |  void | [setInversed](#4c378fbb) (bool _inversed_)  |
 |  bool | [getInversed](#f0ab2684) () const  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#5e6a579a) ()  |
-|  void | [setBarStyleGroup](#c1c637e7) (const [GuiStyleGroup](ffw_GuiStyleGroup.html) * _style_)  |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [getBarStyleGroup](#57c7411b) () const  |
-|  void | [setButtonStyleGroup](#c0ebf3ec) (const [GuiStyleGroup](ffw_GuiStyleGroup.html) * _style_)  |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [getButtonStyleGroup](#afa9e340) () const  |
+|  void | [setBarStyleGroup](#2f0e3bed) (const [GuiWidget::Style](ffw_GuiWidget_Style.html) * _style_)  |
+|  const [GuiWidget::Style](ffw_GuiWidget_Style.html) * | [getBarStyleGroup](#dd2a6ba3) () const  |
+|  void | [setButtonStyleGroup](#0f2af480) (const [GuiWidget::Style](ffw_GuiWidget_Style.html) * _style_)  |
+|  const [GuiWidget::Style](ffw_GuiWidget_Style.html) * | [getButtonStyleGroup](#dd4cedff) () const  |
+|  void | [setStyle](#1db6e6c8) (const [GuiSlider::Style](ffw_GuiSlider_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Protected Attributes Documentation
 
-### _variable_ <a id="2e44fd50" href="#2e44fd50">styleButton</a>
+### _variable_ <a id="b2ffbd70" href="#b2ffbd70">styleButton</a>
 
 ```cpp
-const GuiStyleGroup * styleButton
+const GuiWidget::Style * styleButton
 ```
 
 
 
-### _variable_ <a id="b62f702b" href="#b62f702b">styleBar</a>
+### _variable_ <a id="f3291468" href="#f3291468">styleBar</a>
 
 ```cpp
-const GuiStyleGroup * styleBar
+const GuiWidget::Style * styleBar
 ```
 
 
@@ -93,7 +101,7 @@ ffw::Vec2< GuiUnits > barSize
 
 
 
-### _function_ <a id="9551a553" href="#9551a553">~GuiSlider</a>
+### _function_ <a id="b43da7db" href="#b43da7db">~GuiSlider</a>
 
 ```cpp
 virtual  ~GuiSlider () 
@@ -210,38 +218,49 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
 
-### _function_ <a id="c1c637e7" href="#c1c637e7">setBarStyleGroup</a>
+### _function_ <a id="2f0e3bed" href="#2f0e3bed">setBarStyleGroup</a>
 
 ```cpp
-inline void setBarStyleGroup (
-    const GuiStyleGroup * style
+void setBarStyleGroup (
+    const GuiWidget::Style * style
 ) 
 ```
 
 
 
-### _function_ <a id="57c7411b" href="#57c7411b">getBarStyleGroup</a>
+### _function_ <a id="dd2a6ba3" href="#dd2a6ba3">getBarStyleGroup</a>
 
 ```cpp
-inline const GuiStyleGroup * getBarStyleGroup () const 
+inline const GuiWidget::Style * getBarStyleGroup () const 
 ```
 
 
 
-### _function_ <a id="c0ebf3ec" href="#c0ebf3ec">setButtonStyleGroup</a>
+### _function_ <a id="0f2af480" href="#0f2af480">setButtonStyleGroup</a>
 
 ```cpp
-inline void setButtonStyleGroup (
-    const GuiStyleGroup * style
+void setButtonStyleGroup (
+    const GuiWidget::Style * style
 ) 
 ```
 
 
 
-### _function_ <a id="afa9e340" href="#afa9e340">getButtonStyleGroup</a>
+### _function_ <a id="dd4cedff" href="#dd4cedff">getButtonStyleGroup</a>
 
 ```cpp
-inline const GuiStyleGroup * getButtonStyleGroup () const 
+inline const GuiWidget::Style * getButtonStyleGroup () const 
+```
+
+
+
+### _function_ <a id="1db6e6c8" href="#1db6e6c8">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiSlider::Style * style,
+    bool defaults = false
+) 
 ```
 
 

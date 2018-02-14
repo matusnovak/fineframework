@@ -5,33 +5,33 @@
 #include <fstream>
 
 namespace ffw {
-	/**
-	 * @ingroup media
-	 */
-	class FFW_API DdsSaver: public ImageWriter {
-	public:
-		DdsSaver();
-		DdsSaver(const DdsSaver& other) = delete;
-		DdsSaver(DdsSaver&& other);
-		void swap(DdsSaver& other);
-		DdsSaver& operator = (const DdsSaver& other) = delete;
-		DdsSaver& operator = (DdsSaver&& other);
-		virtual ~DdsSaver();
+    /**
+     * @ingroup media
+     */
+    class FFW_API DdsSaver: public ImageWriter {
+    public:
+        DdsSaver();
+        DdsSaver(const DdsSaver& other) = delete;
+        DdsSaver(DdsSaver&& other);
+        void swap(DdsSaver& other);
+        DdsSaver& operator = (const DdsSaver& other) = delete;
+        DdsSaver& operator = (DdsSaver&& other);
+        virtual ~DdsSaver();
 
-		bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100, int mips = 1) override;
-		size_t writeRow(const void* src) override;
-		bool writeFooter() override;
-		void close() override;
-		bool setMipMap(int level) override;
+        bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100, int mips = 1) override;
+        size_t writeRow(const void* src) override;
+        bool writeFooter() override;
+        void close() override;
+        bool setMipMap(int level) override;
 
-	private:
-		ffw::SwapWrapper<std::fstream> output;
-		size_t pixelsOffset;
-	};
+    private:
+        ffw::SwapWrapper<std::fstream> output;
+        size_t pixelsOffset;
+    };
 }
 
 inline void swap(ffw::DdsSaver& first, ffw::DdsSaver& second){
-	first.swap(second);
+    first.swap(second);
 }
 
 #endif

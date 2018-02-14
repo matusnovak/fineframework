@@ -4,20 +4,19 @@
 #include "texture.h"
 
 namespace ffw {
-	/**
-	 * @ingroup graphics
-	 */
-	class FFW_API Texture2DMS: public Texture {
+    /**
+     * @ingroup graphics
+     */
+    class FFW_API Texture2DMS: public Texture {
     public:
-        static bool checkCompability(const RenderContext* renderer);
-		Texture2DMS();
-		Texture2DMS(const Texture2DMS& second) = delete;
-		Texture2DMS(Texture2DMS&& second);
+        Texture2DMS();
+        Texture2DMS(const Texture2DMS& second) = delete;
+        Texture2DMS(Texture2DMS&& second);
         ~Texture2DMS();
-        bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, GLint samples);
-		bool resize(GLsizei width, GLsizei height, GLint samples);
-		Texture2DMS& operator = (const Texture2DMS& second) = delete;
-		Texture2DMS& operator = (Texture2DMS&& second);
-	};
+        bool create(GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, GLint samples);
+        bool resize(GLsizei width, GLsizei height, GLint samples);
+        Texture2DMS& operator = (const Texture2DMS& second) = delete;
+        Texture2DMS& operator = (Texture2DMS&& second);
+    };
 };
 #endif

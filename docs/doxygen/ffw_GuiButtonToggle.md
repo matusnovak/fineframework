@@ -15,8 +15,7 @@ The documentation for this class was generated from: `include/ffw/gui/guibuttont
 | Type | Name |
 | -------: | :------- |
 |   | [GuiButtonToggle](#6ffce9e1) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::string & _label_)  |
-|   | [GuiButtonToggle](#c249d1df) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::wstring & _label_)  |
-|  virtual  | [~GuiButtonToggle](#648e3c3d) ()  |
+|  virtual  | [~GuiButtonToggle](#a1afc21c) ()  |
 |  void | [setValue](#c70befa8) (bool _value_)  |
 |  bool | [getValue](#1cef72e0) () const  |
 
@@ -34,18 +33,7 @@ The documentation for this class was generated from: `include/ffw/gui/guibuttont
 
 
 
-### _function_ <a id="c249d1df" href="#c249d1df">GuiButtonToggle</a>
-
-```cpp
- GuiButtonToggle (
-    GuiWindow * context,
-    const std::wstring & label
-) 
-```
-
-
-
-### _function_ <a id="648e3c3d" href="#648e3c3d">~GuiButtonToggle</a>
+### _function_ <a id="a1afc21c" href="#a1afc21c">~GuiButtonToggle</a>
 
 ```cpp
 virtual  ~GuiButtonToggle () 

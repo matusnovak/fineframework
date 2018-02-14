@@ -10,43 +10,43 @@ static void DummyHandler(const char* module, const char* fmt, va_list ap){
 
 ///=============================================================================
 ffw::TifLoader::TifLoader(){
-	tiff = NULL;
+    tiff = NULL;
 }
 
 ///=============================================================================
 ffw::TifLoader::TifLoader(TifLoader&& other){
-	swap(other);
+    swap(other);
 }
 
 ///=============================================================================
 void ffw::TifLoader::swap(TifLoader& other){
-	std::swap(tiff, other.tiff);
+    std::swap(tiff, other.tiff);
 }
 
 ///=============================================================================
 ffw::TifLoader& ffw::TifLoader::operator = (TifLoader&& other){
-	if(this != &other){
-		swap(other);
-	}
-	return *this;
+    if(this != &other){
+        swap(other);
+    }
+    return *this;
 }
 
 ///=============================================================================
 ffw::TifLoader::~TifLoader(){
-	close();
+    close();
 }
 
 ///=============================================================================
 bool ffw::TifLoader::open(const std::string& path){
-	if(loaded)return false;
+    if(loaded)return false;
 
-	TIFFSetWarningHandler(DummyHandler);
+    TIFFSetWarningHandler(DummyHandler);
 
-	tiff = TIFFOpen(path.c_str(), "rb");
+    tiff = TIFFOpen(path.c_str(), "rb");
 
-	if(!tiff){
-		return false;
-	}
+    if(!tiff){
+        return false;
+    }
 
     size_t scanline;
     uint32_t w;
@@ -67,127 +67,127 @@ bool ffw::TifLoader::open(const std::string& path){
     TIFFGetField(tiff, TIFFTAG_SAMPLESPERPIXEL, &samplesPerPixel);
     TIFFGetField(tiff, TIFFTAG_DATATYPE, &dataType);
 
-	scanline = TIFFScanlineSize(tiff);
+    scanline = TIFFScanlineSize(tiff);
 
-	//std::cout << "bitsPerPixel: " << bitsPerPixel << std::endl;
-	//std::cout << "samplesPerPixel: " << samplesPerPixel << std::endl;
+    //std::cout << "bitsPerPixel: " << bitsPerPixel << std::endl;
+    //std::cout << "samplesPerPixel: " << samplesPerPixel << std::endl;
 
-	switch(bitsPerPixel){
-		case 8: {
-			switch(samplesPerPixel){
-				case 1: {
-					format = ffw::ImageType::GRAYSCALE_8;
-					break;
-				}
-				case 2: {
-					format = ffw::ImageType::GRAYSCALE_ALPHA_8;
-					break;
-				}
-				case 3: {
-					format = ffw::ImageType::RGB_888;
-					break;
-				}
-				case 4: {
-					format = ffw::ImageType::RGB_ALPHA_8888;
-					break;
-				}
-				default: {
-					close();
-					return false;
-				}
-			}
-			break;
-		}
-		case 16: {
-			switch(samplesPerPixel){
-				case 1: {
-					format = ffw::ImageType::GRAYSCALE_16;
-					break;
-				}
-				case 2: {
-					format = ffw::ImageType::GRAYSCALE_ALPHA_16;
-					break;
-				}
-				case 3: {
-					format = ffw::ImageType::RGB_161616;
-					break;
-				}
-				case 4: {
-					format = ffw::ImageType::RGB_ALPHA_16161616;
-					break;
-				}
-				default: {
-					close();
-					return false;
-				}
-			}
-			break;
-		}
-		case 32: {
-			switch(samplesPerPixel){
-				case 1: {
-					format = ffw::ImageType::GRAYSCALE_32F;
-					break;
-				}
-				case 2: {
-					format = ffw::ImageType::GRAYSCALE_ALPHA_32F;
-					break;
-				}
-				case 3: {
-					format = ffw::ImageType::RGB_323232F;
-					break;
-				}
-				case 4: {
-					format = ffw::ImageType::RGB_ALPHA_32323232F;
-					break;
-				}
-				default: {
-					close();
-					return false;
-				}
-			}
-			break;
-		}
-		default: {
-			close();
-			return false;
-		}
-	}
+    switch(bitsPerPixel){
+        case 8: {
+            switch(samplesPerPixel){
+                case 1: {
+                    format = ffw::ImageType::GRAYSCALE_8;
+                    break;
+                }
+                case 2: {
+                    format = ffw::ImageType::GRAYSCALE_ALPHA_8;
+                    break;
+                }
+                case 3: {
+                    format = ffw::ImageType::RGB_888;
+                    break;
+                }
+                case 4: {
+                    format = ffw::ImageType::RGB_ALPHA_8888;
+                    break;
+                }
+                default: {
+                    close();
+                    return false;
+                }
+            }
+            break;
+        }
+        case 16: {
+            switch(samplesPerPixel){
+                case 1: {
+                    format = ffw::ImageType::GRAYSCALE_16;
+                    break;
+                }
+                case 2: {
+                    format = ffw::ImageType::GRAYSCALE_ALPHA_16;
+                    break;
+                }
+                case 3: {
+                    format = ffw::ImageType::RGB_161616;
+                    break;
+                }
+                case 4: {
+                    format = ffw::ImageType::RGB_ALPHA_16161616;
+                    break;
+                }
+                default: {
+                    close();
+                    return false;
+                }
+            }
+            break;
+        }
+        case 32: {
+            switch(samplesPerPixel){
+                case 1: {
+                    format = ffw::ImageType::GRAYSCALE_32F;
+                    break;
+                }
+                case 2: {
+                    format = ffw::ImageType::GRAYSCALE_ALPHA_32F;
+                    break;
+                }
+                case 3: {
+                    format = ffw::ImageType::RGB_323232F;
+                    break;
+                }
+                case 4: {
+                    format = ffw::ImageType::RGB_ALPHA_32323232F;
+                    break;
+                }
+                default: {
+                    close();
+                    return false;
+                }
+            }
+            break;
+        }
+        default: {
+            close();
+            return false;
+        }
+    }
 
-	width = w;
-	height = h;
-	depth = 0;
-	mipmaps = 1;
+    width = w;
+    height = h;
+    depth = 0;
+    mipmaps = 1;
 
-	row = 0;
-	loaded = true;
-	return true;
+    row = 0;
+    loaded = true;
+    return true;
 }
 
 ///=============================================================================
 void ffw::TifLoader::close(){
-	if(tiff != NULL){
-		TIFFClose(tiff);
-	}
-	tiff = NULL;
-	width = 0;
-	height = 0;
-	loaded = 0;
-	row = 0;
-	depth = 0;
-	mipmaps = 0;
-	mipmapOffset = 0;
-	format = ImageType::INVALID;
+    if(tiff != NULL){
+        TIFFClose(tiff);
+    }
+    tiff = NULL;
+    width = 0;
+    height = 0;
+    loaded = 0;
+    row = 0;
+    depth = 0;
+    mipmaps = 0;
+    mipmapOffset = 0;
+    format = ImageType::INVALID;
 }
 
 ///=============================================================================
 size_t ffw::TifLoader::readRow(void* dest){
-	if(!loaded)return 0;
+    if(!loaded)return 0;
     if(row >= height)return 0;
     if(dest == NULL)return 0;
 
-	TIFFReadScanline(tiff, dest, row);
-	row++;
+    TIFFReadScanline(tiff, dest, row);
+    row++;
 
-	return this->getStrideSize();
+    return this->getStrideSize();
 }

@@ -8,13 +8,6 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#a27c506d) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,24 +16,10 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture2DMS](#33399f6a) (const [Texture2DMS](ffw_Texture2DMS.html) & _second_) = delete  |
 |   | [Texture2DMS](#567cb682) ([Texture2DMS](ffw_Texture2DMS.html) && _second_)  |
 |   | [~Texture2DMS](#3a6e50cb) ()  |
-|  bool | [create](#ae002398) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, GLint _samples_)  |
-|  bool | [resize](#8246b3d4) (GLsizei _width_, GLsizei _height_, GLint _samples_)  |
+|  bool | [create](#a48ad12c) ([GLsizei]() _width_, [GLsizei]() _height_, [GLenum]() _internalformat_, [GLenum]() _format_, [GLenum]() _pixelformat_, [GLint]() _samples_)  |
+|  bool | [resize](#8246b3d4) ([GLsizei]() _width_, [GLsizei]() _height_, [GLint]() _samples_)  |
 |  [Texture2DMS](ffw_Texture2DMS.html) & | [operator=](#16010e30) (const [Texture2DMS](ffw_Texture2DMS.html) & _second_) = delete  |
 |  [Texture2DMS](ffw_Texture2DMS.html) & | [operator=](#753f0c31) ([Texture2DMS](ffw_Texture2DMS.html) && _second_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="a27c506d" href="#a27c506d">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -81,11 +60,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="ae002398" href="#ae002398">create</a>
+### _function_ <a id="a48ad12c" href="#a48ad12c">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * renderer,
     GLsizei width,
     GLsizei height,
     GLenum internalformat,

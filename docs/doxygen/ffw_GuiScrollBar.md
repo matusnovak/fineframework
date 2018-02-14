@@ -12,9 +12,12 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrollb
 
 | Name |
 |:-----|
-| class [ffw::GuiScrollBar::ButtonFirst](ffw_GuiScrollBar_ButtonFirst.html) |
-| class [ffw::GuiScrollBar::ButtonSecond](ffw_GuiScrollBar_ButtonSecond.html) |
+| class [ffw::GuiScrollBar::ButtonBottom](ffw_GuiScrollBar_ButtonBottom.html) |
+| class [ffw::GuiScrollBar::ButtonLeft](ffw_GuiScrollBar_ButtonLeft.html) |
+| class [ffw::GuiScrollBar::ButtonRight](ffw_GuiScrollBar_ButtonRight.html) |
+| class [ffw::GuiScrollBar::ButtonTop](ffw_GuiScrollBar_ButtonTop.html) |
 | class [ffw::GuiScrollBar::Scroll](ffw_GuiScrollBar_Scroll.html) |
+| struct [ffw::GuiScrollBar::Style](ffw_GuiScrollBar_Style.html) |
 
 
 ## Public Functions
@@ -22,6 +25,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrollb
 | Type | Name |
 | -------: | :------- |
 |   | [GuiScrollBar](#4e5cf84b) ([GuiWindow](ffw_GuiWindow.html) * _context_, bool _vertical_)  |
+|  virtual  | [~GuiScrollBar](#258c608b) ()  |
 |  bool | [isVertical](#e0ecbca6) () const  |
 |  [GuiButton](ffw_GuiButton.html) * | [getButtonFirst](#7904b802) ()  |
 |  const [GuiButton](ffw_GuiButton.html) * | [getButtonFirst](#89599fef) () const  |
@@ -29,18 +33,18 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrollb
 |  const [GuiButton](ffw_GuiButton.html) * | [getButtonSecond](#69bef788) () const  |
 |  [GuiSlider](ffw_GuiSlider.html) * | [getSlider](#4c3087c2) ()  |
 |  const [GuiSlider](ffw_GuiSlider.html) * | [getSlider](#15fb371a) () const  |
-|  void | [setValue](#f27ee129) (float _val_)  |
+|  void | [setValue](#7729262d) (const float _val_)  |
 |  float | [getValue](#a01847a2) () const  |
 |  const [ffw::Vec2f](ffw.html#fcfaa6c5) & | [getRange](#5a9bbc62) () const  |
-|  void | [setRange](#234c17f2) (float _min_, float _max_)  |
-|  void | [setInversed](#7af1078a) (bool _inversed_)  |
+|  void | [setRange](#771325c2) (const float _min_, const float _max_)  |
+|  void | [setInversed](#1ab36503) (const bool _inversed_)  |
 |  bool | [getInversed](#be2d8168) () const  |
 |  void | [setIncrements](#49c0afe9) (float _inc_)  |
 |  float | [getIncrements](#96dd6fd0) () const  |
 |  void | [setButtonLength](#32013a28) ([GuiUnits](ffw_GuiUnits.html) _length_)  |
 |  [GuiUnits](ffw_GuiUnits.html) | [getButtonLength](#15695a30) () const  |
-|  virtual  | [~GuiScrollBar](#009ece11) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#fe8a0917) ()  |
+|  void | [setStyle](#e1632a1e) (const [GuiScrollBar::Style](ffw_GuiScrollBar_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -52,6 +56,14 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrollb
     GuiWindow * context,
     bool vertical
 ) 
+```
+
+
+
+### _function_ <a id="258c608b" href="#258c608b">~GuiScrollBar</a>
+
+```cpp
+virtual  ~GuiScrollBar () 
 ```
 
 
@@ -112,11 +124,11 @@ inline const GuiSlider * getSlider () const
 
 
 
-### _function_ <a id="f27ee129" href="#f27ee129">setValue</a>
+### _function_ <a id="7729262d" href="#7729262d">setValue</a>
 
 ```cpp
 inline void setValue (
-    float val
+    const float val
 ) 
 ```
 
@@ -138,22 +150,22 @@ inline const ffw::Vec2f & getRange () const
 
 
 
-### _function_ <a id="234c17f2" href="#234c17f2">setRange</a>
+### _function_ <a id="771325c2" href="#771325c2">setRange</a>
 
 ```cpp
 inline void setRange (
-    float min,
-    float max
+    const float min,
+    const float max
 ) 
 ```
 
 
 
-### _function_ <a id="7af1078a" href="#7af1078a">setInversed</a>
+### _function_ <a id="1ab36503" href="#1ab36503">setInversed</a>
 
 ```cpp
 inline void setInversed (
-    bool inversed
+    const bool inversed
 ) 
 ```
 
@@ -203,14 +215,6 @@ inline GuiUnits getButtonLength () const
 
 
 
-### _function_ <a id="009ece11" href="#009ece11">~GuiScrollBar</a>
-
-```cpp
-virtual  ~GuiScrollBar () 
-```
-
-
-
 ### _function_ <a id="fe8a0917" href="#fe8a0917">getMinimumWrapSize</a>
 
 ```cpp
@@ -220,6 +224,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="e1632a1e" href="#e1632a1e">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiScrollBar::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

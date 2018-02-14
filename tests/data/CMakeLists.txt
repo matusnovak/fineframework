@@ -32,4 +32,5 @@ foreach(exmpl ${DATA_TESTS})
   endif(STATIC_STDLIB)
   
   add_test(NAME ${exmpl} COMMAND ${exmpl})
+  set_property(TARGET ${exmpl} PROPERTY FOLDER "fineframework/tests") 
 endforeach(exmpl)

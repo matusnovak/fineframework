@@ -4,17 +4,16 @@
 #include "renderbuffer.h"
 
 namespace ffw {
-	class RenderContext;
-	/**
-	 * @ingroup graphics
-	 */
-	class FFW_API Renderbuffer2D: public Renderbuffer {
+    class RenderContext;
+    /**
+     * @ingroup graphics
+     */
+    class FFW_API Renderbuffer2D: public Renderbuffer {
     public:
-        static bool checkCompability(const RenderContext* renderer);
-		Renderbuffer2D();
+        Renderbuffer2D();
         ~Renderbuffer2D();
-		bool create(const ffw::RenderContext* renderer, GLsizei width, GLsizei height, GLenum internalformat);
-		bool resize(GLsizei width, GLsizei height);
+        bool create(GLsizei width, GLsizei height, GLenum internalformat);
+        bool resize(GLsizei width, GLsizei height);
     };
 };
 #endif

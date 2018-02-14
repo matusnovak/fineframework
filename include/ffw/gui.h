@@ -10,12 +10,13 @@
  * be also styled. This GUI is not directly linked to OpenGL or any 
  * other rendering engine! Instead, it can use any backend with any 
  * renderer you wish to use. However, an OpenGL backend is 
- * provided by default, if the user wishes it to use.
+ * provided by default, if the user wishes to use.
  */
 #ifndef FFW_GUI_MODULE
 #define FFW_GUI_MODULE
 #include "gui/guibackend.h"
 #include "gui/guibutton.h"
+#include "gui/guibox.h"
 #include "gui/guibuttontoggle.h"
 #include "gui/guicheckbox.h"
 #include "gui/guifont.h"
@@ -27,14 +28,14 @@
 #include "gui/guiprogressbar.h"
 #include "gui/guiprogresscircle.h"
 #include "gui/guiradio.h"
-#include "gui/guirichtext.h"
+#include "gui/guitext.h"
 #include "gui/guiscrollable.h"
 #include "gui/guiscrollbar.h"
 #include "gui/guislider.h"
 #include "gui/guiswitch.h"
 #include "gui/guitab.h"
 #include "gui/guitextedit.h"
-#include "gui/guitextwrapper.h"
 #include "gui/guiwidget.h"
 #include "gui/guiwindow.h"
+#include "gui/guitheme.h"
 #endif

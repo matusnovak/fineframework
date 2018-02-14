@@ -4,10 +4,17 @@ GuiButton
 
 **Inherits from:** [ffw::GuiWidget](ffw_GuiWidget.html)
 
-**Implemented by:** [ffw::GuiButtonPrimary](ffw_GuiButtonPrimary.html)[ffw::GuiButtonToggle](ffw_GuiButtonToggle.html), [ffw::GuiButtonTogglePrimary](ffw_GuiButtonTogglePrimary.html), [ffw::GuiScrollBar::ButtonFirst](ffw_GuiScrollBar_ButtonFirst.html), [ffw::GuiScrollBar::ButtonSecond](ffw_GuiScrollBar_ButtonSecond.html), 
+**Implemented by:** [ffw::GuiButtonPrimary](ffw_GuiButtonPrimary.html)[ffw::GuiButtonToggle](ffw_GuiButtonToggle.html), [ffw::GuiScrollBar::ButtonBottom](ffw_GuiScrollBar_ButtonBottom.html), [ffw::GuiScrollBar::ButtonLeft](ffw_GuiScrollBar_ButtonLeft.html), [ffw::GuiScrollBar::ButtonRight](ffw_GuiScrollBar_ButtonRight.html), [ffw::GuiScrollBar::ButtonTop](ffw_GuiScrollBar_ButtonTop.html), 
 
 The documentation for this class was generated from: `include/ffw/gui/guibutton.h`
 
+
+
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiButton::Style](ffw_GuiButton_Style.html) |
 
 
 ## Public Functions
@@ -15,11 +22,11 @@ The documentation for this class was generated from: `include/ffw/gui/guibutton.
 | Type | Name |
 | -------: | :------- |
 |   | [GuiButton](#c3dd01da) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::string & _label_)  |
-|   | [GuiButton](#721de8cc) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::wstring & _label_)  |
-|  virtual  | [~GuiButton](#9609e427) ()  |
-|  void | [setLabel](#1e40bfd6) (const std::wstring & _label_)  |
-|  const std::wstring & | [getLabel](#5ece1537) () const  |
+|  virtual  | [~GuiButton](#ff078370) ()  |
+|  void | [setLabel](#1b7ab665) (const std::string & _label_)  |
+|  const std::string & | [getLabel](#dde44fd6) () const  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#5aef96c3) ()  |
+|  void | [setStyle](#c68f3759) (const [GuiButton::Style](ffw_GuiButton_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -35,18 +42,7 @@ The documentation for this class was generated from: `include/ffw/gui/guibutton.
 
 
 
-### _function_ <a id="721de8cc" href="#721de8cc">GuiButton</a>
-
-```cpp
- GuiButton (
-    GuiWindow * context,
-    const std::wstring & label
-) 
-```
-
-
-
-### _function_ <a id="9609e427" href="#9609e427">~GuiButton</a>
+### _function_ <a id="ff078370" href="#ff078370">~GuiButton</a>
 
 ```cpp
 virtual  ~GuiButton () 
@@ -54,20 +50,20 @@ virtual  ~GuiButton ()
 
 
 
-### _function_ <a id="1e40bfd6" href="#1e40bfd6">setLabel</a>
+### _function_ <a id="1b7ab665" href="#1b7ab665">setLabel</a>
 
 ```cpp
 void setLabel (
-    const std::wstring & label
+    const std::string & label
 ) 
 ```
 
 
 
-### _function_ <a id="5ece1537" href="#5ece1537">getLabel</a>
+### _function_ <a id="dde44fd6" href="#dde44fd6">getLabel</a>
 
 ```cpp
-const std::wstring & getLabel () const 
+const std::string & getLabel () const 
 ```
 
 
@@ -81,6 +77,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="c68f3759" href="#c68f3759">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiButton::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

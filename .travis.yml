@@ -13,7 +13,7 @@ matrix:
       - ARCH=x86_64
       - TOOLSET=linux-gnu
   - os: osx
-    osx_image: xcode8
+    osx_image: xcode6.4
     addons:
       apt:
         sources:
@@ -25,15 +25,13 @@ matrix:
       - ARCH=x86_64
       - TOOLSET=apple-darwin
 before_install:
-  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get install xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev -y; fi
-  - if [ $TRAVIS_OS_NAME == linux ]; then wget http://launchpadlibrarian.net/279734097/libglfw3_3.2.1-1_amd64.deb && sudo dpkg -i libglfw3_3.2.1-1_amd64.deb && sudo apt-get install -f; fi
-  - if [ $TRAVIS_OS_NAME == linux ]; then wget http://launchpadlibrarian.net/279734093/libglfw3-dev_3.2.1-1_amd64.deb && sudo dpkg -i libglfw3-dev_3.2.1-1_amd64.deb && sudo apt-get install -f; fi
-  - if [ $TRAVIS_OS_NAME == linux ]; then sudo curl -o /usr/include/GL/glext.h https://www.khronos.org/registry/OpenGL/api/GL/glext.h; fi
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo apt-get install xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev -y; fi
 before_script:
-  - chmod +x .ci/deps.sh
-  - if [ $TRAVIS_OS_NAME == osx ]; then ./.ci/deps.sh; fi
+  - git submodule init
+  - git submodule update
 script:
-  - if [ $TRAVIS_OS_NAME == linux ];then sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc; fi
+  - export CURRENT_BRANCH=$TRAVIS_BRANCH
+  - if [ $TRAVIS_OS_NAME == linux ]; then sudo unlink /usr/bin/gcc && sudo ln -s /usr/bin/gcc-5 /usr/bin/gcc; fi
   - if [ $TRAVIS_OS_NAME == linux ]; then sudo unlink /usr/bin/g++ && sudo ln -s /usr/bin/g++-5 /usr/bin/g++; fi
   - gcc --version
   - g++ --version
@@ -54,6 +52,7 @@ notifications:
   on_success: always
   on_failure: always
 before_deploy:
+  - export CURRENT_BRANCH=$TRAVIS_BRANCH
   - chmod +x .ci/gittag.sh
   - source .ci/gittag.sh
   - echo "Exporting TRAVIS_TAG $GITHUB_RELEASE_TAG"

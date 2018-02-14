@@ -13,46 +13,20 @@ The documentation for this class was generated from: `include/ffw/gui/guiwidget.
 | union [ffw::GuiEvent::Data](ffw_GuiEvent_Data.html) |
 
 
-## Public Types
-
-| Type | Name |
-| -------: | :------- |
-| enum | [Type](#d7001c09) |
-
-
 ## Public Attributes
 
 | Type | Name |
 | -------: | :------- |
 |  [GuiWidget](ffw_GuiWidget.html) * | [widget](#85c7e3ea) |
-|  [Type](ffw_GuiEvent.html#d7001c09) | [type](#2209b284) |
+|  [GuiEventType](ffw.html#8b540a94) | [type](#fe01b4da) |
 |  [Data](ffw_GuiEvent_Data.html) | [data](#66edf752) |
 
 
-## Public Types Documentation
+## Public Functions
 
-### _enum_ <a id="d7001c09" href="#d7001c09">Type</a>
-
-```cpp
-enum Type {
-    CLICKED,
-    SELECTED,
-    CHANGED,
-    SLIDED,
-    SIZE,
-    INNER,
-    POSITION,
-    HOVER,
-    FOCUS,
-    STATE,
-    INPUT,
-    KEY,
-    MOUSEBTN,
-}
-```
-
-
-
+| Type | Name |
+| -------: | :------- |
+|   | [GuiEvent](#1d824147) ([GuiWidget](ffw_GuiWidget.html) * _widget_, [GuiEventType](ffw.html#8b540a94) _type_, [Data](ffw_GuiEvent_Data.html) _data_)  |
 
 
 ## Public Attributes Documentation
@@ -65,10 +39,10 @@ GuiWidget * widget
 
 
 
-### _variable_ <a id="2209b284" href="#2209b284">type</a>
+### _variable_ <a id="fe01b4da" href="#fe01b4da">type</a>
 
 ```cpp
-Type type
+GuiEventType type
 ```
 
 
@@ -77,6 +51,22 @@ Type type
 
 ```cpp
 Data data
+```
+
+
+
+
+
+## Public Functions Documentation
+
+### _function_ <a id="1d824147" href="#1d824147">GuiEvent</a>
+
+```cpp
+inline  GuiEvent (
+    GuiWidget * widget,
+    GuiEventType type,
+    Data data
+) 
 ```
 
 

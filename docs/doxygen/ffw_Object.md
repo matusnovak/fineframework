@@ -2,7 +2,7 @@ Object
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/math/var.h`
+The documentation for this class was generated from: `include/ffw/math/any.h`
 
 
 
@@ -10,7 +10,7 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 
 | Type | Name |
 | -------: | :------- |
-| typedef std::unordered_map< std::string, [Var](ffw_Var.html) > | [Map](#8edd00c7) |
+| typedef std::unordered_map< std::string, [Any](ffw_Any.html) > | [Map](#ed696246) |
 | typedef Map::allocator_type | [allocator_type](#2ee589c5) |
 | typedef Map::reference | [reference](#f7fca37f) |
 | typedef Map::const_reference | [const_reference](#a045426f) |
@@ -35,20 +35,20 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 | -------: | :------- |
 |   | [Object](#90c193cc) ()  |
 |  virtual  | [~Object](#2cdf4fed) ()  |
-|   | [Object](#acfa61b4) (const std::string & _key_, const [Var](ffw_Var.html) & _value_)  |
+|   | [Object](#d15ef8f0) (const std::string & _key_, const [Any](ffw_Any.html) & _value_)  |
 |   | [Object](#dfd5cecb) (const [Object](ffw_Object.html) & _other_)  |
 |   | [Object](#45fb540b) ([Object](ffw_Object.html) && _other_)  |
-|   | [Object](#ce022bc5) (const std::initializer_list< std::pair< std::string, [Var](ffw_Var.html) >> & _list_)  |
+|   | [Object](#9a42f51b) (const std::initializer_list< std::pair< std::string, [Any](ffw_Any.html) >> & _list_)  |
 |  bool | [exists](#1906a38b) (const std::string & _key_) const  |
 |  bool | [contains](#4ebd9a37) (const std::string & _key_) const  |
 |  bool | [has_key](#49739af4) (const std::string & _key_) const  |
 |  void | [swap](#490bed7d) ([Object](ffw_Object.html) & _other_)  |
 |  [Object](ffw_Object.html) & | [operator=](#72be0bf6) (const [Object](ffw_Object.html) & _other_)  |
 |  [Object](ffw_Object.html) & | [operator=](#45b31fd6) ([Object](ffw_Object.html) && _other_)  |
-|  [Object](ffw_Object.html) & | [operator=](#9a7b6b0a) (const std::initializer_list< std::pair< std::string, [Var](ffw_Var.html) >> & _list_)  |
-|  std::pair< [iterator](ffw_Object.html#cf3ec96f), bool > | [insert](#dc1d6d5e) (const std::string & _key_, const [Var](ffw_Var.html) & _value_)  |
-|  [Var](ffw_Var.html) & | [operator[]](#449c8a33) (const [key_type](ffw_Object.html#34ccb6a3) & _key_)  |
-|  const [Var](ffw_Var.html) & | [operator[]](#53c1e5a4) (const [key_type](ffw_Object.html#34ccb6a3) & _key_) const  |
+|  [Object](ffw_Object.html) & | [operator=](#c6f443d3) (const std::initializer_list< std::pair< std::string, [Any](ffw_Any.html) >> & _list_)  |
+|  std::pair< [iterator](ffw_Object.html#cf3ec96f), bool > | [insert](#47f2a9bf) (const std::string & _key_, const [Any](ffw_Any.html) & _value_)  |
+|  [Any](ffw_Any.html) & | [operator[]](#055a9716) (const [key_type](ffw_Object.html#34ccb6a3) & _key_)  |
+|  const [Any](ffw_Any.html) & | [operator[]](#0ce5be20) (const [key_type](ffw_Object.html#34ccb6a3) & _key_) const  |
 |  [mapped_type](ffw_Object.html#0ed80e48) & | [at](#a7ec28a3) (const [key_type](ffw_Object.html#34ccb6a3) & _key_)  |
 |  const [mapped_type](ffw_Object.html#0ed80e48) & | [at](#2d5309e7) (const [key_type](ffw_Object.html#34ccb6a3) & _key_) const  |
 |  [iterator](ffw_Object.html#cf3ec96f) | [begin](#6c60bd73) ()  |
@@ -99,10 +99,10 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 
 ## Public Types Documentation
 
-### _typedef_ <a id="8edd00c7" href="#8edd00c7">Map</a>
+### _typedef_ <a id="ed696246" href="#ed696246">Map</a>
 
 ```cpp
-std::unordered_map< std::string, Var > Map
+std::unordered_map< std::string, Any > Map
 ```
 
 
@@ -255,12 +255,12 @@ inline virtual  ~Object ()
 
 
 
-### _function_ <a id="acfa61b4" href="#acfa61b4">Object</a>
+### _function_ <a id="d15ef8f0" href="#d15ef8f0">Object</a>
 
 ```cpp
 inline  Object (
     const std::string & key,
-    const Var & value
+    const Any & value
 ) 
 ```
 
@@ -286,11 +286,11 @@ inline  Object (
 
 
 
-### _function_ <a id="ce022bc5" href="#ce022bc5">Object</a>
+### _function_ <a id="9a42f51b" href="#9a42f51b">Object</a>
 
 ```cpp
 inline  Object (
-    const std::initializer_list< std::pair< std::string, Var >> & list
+    const std::initializer_list< std::pair< std::string, Any >> & list
 ) 
 ```
 
@@ -356,41 +356,41 @@ inline Object & operator= (
 
 
 
-### _function_ <a id="9a7b6b0a" href="#9a7b6b0a">operator=</a>
+### _function_ <a id="c6f443d3" href="#c6f443d3">operator=</a>
 
 ```cpp
 inline Object & operator= (
-    const std::initializer_list< std::pair< std::string, Var >> & list
+    const std::initializer_list< std::pair< std::string, Any >> & list
 ) 
 ```
 
 
 
-### _function_ <a id="dc1d6d5e" href="#dc1d6d5e">insert</a>
+### _function_ <a id="47f2a9bf" href="#47f2a9bf">insert</a>
 
 ```cpp
 inline std::pair< iterator, bool > insert (
     const std::string & key,
-    const Var & value
+    const Any & value
 ) 
 ```
 
 
 
-### _function_ <a id="449c8a33" href="#449c8a33">operator[]</a>
+### _function_ <a id="055a9716" href="#055a9716">operator[]</a>
 
 ```cpp
-inline Var & operator[] (
+inline Any & operator[] (
     const key_type & key
 ) 
 ```
 
 
 
-### _function_ <a id="53c1e5a4" href="#53c1e5a4">operator[]</a>
+### _function_ <a id="0ce5be20" href="#0ce5be20">operator[]</a>
 
 ```cpp
-inline const Var & operator[] (
+inline const Any & operator[] (
     const key_type & key
 ) const 
 ```

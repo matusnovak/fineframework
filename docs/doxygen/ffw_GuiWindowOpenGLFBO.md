@@ -15,7 +15,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiwindowo
 |   | [GuiWindowOpenGLFBO](#54592615) ()  |
 |  virtual  | [~GuiWindowOpenGLFBO](#2dc56e4a) ()  |
 |  virtual bool | [create](#9d89fc93) ([RenderContext](ffw_RenderContext.html) * _ctx_)  |
-|  virtual void | [destroy](#17a89158) ()  |
+|  virtual void | [destroy](#5302fc58) ()  |
 |  virtual void | [resize](#17470439) (int _width_, int _height_)  |
 |  virtual void | [startRender](#0a4cdf90) ()  |
 |  virtual void | [endRender](#222ae168) ()  |
@@ -52,7 +52,7 @@ inline virtual bool create (
 
 **Overrides:** [create](/doxygen/ffw_GuiWindowOpenGL.md#c7df1c0d) from class [GuiWindowOpenGL](/doxygen/ffw_GuiWindowOpenGL.md)
 
-### _function_ <a id="17a89158" href="#17a89158">destroy</a>
+### _function_ <a id="5302fc58" href="#5302fc58">destroy</a>
 
 ```cpp
 inline virtual void destroy () 

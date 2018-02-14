@@ -2,7 +2,7 @@ Array
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/math/var.h`
+The documentation for this class was generated from: `include/ffw/math/any.h`
 
 
 
@@ -10,7 +10,7 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 
 | Type | Name |
 | -------: | :------- |
-| typedef std::vector< [Var](ffw_Var.html) > | [Vec](#c08d5335) |
+| typedef std::vector< [Any](ffw_Any.html) > | [Vec](#e2d66ca0) |
 | typedef Vec::allocator_type | [allocator_type](#b0fefb22) |
 | typedef Vec::reference | [reference](#1edc8f67) |
 | typedef Vec::const_reference | [const_reference](#b98ecfbd) |
@@ -31,18 +31,18 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 | -------: | :------- |
 |   | [Array](#442049bf) ()  |
 |  virtual  | [~Array](#4c4a34a2) ()  |
-|   | [Array](#b80b53e0) (const [Var](ffw_Var.html) & _value_)  |
+|   | [Array](#07595c3a) (const [Any](ffw_Any.html) & _value_)  |
 |   | [Array](#9b8d65f7) (const [Array](ffw_Array.html) & _other_)  |
 |   | [Array](#dc49b2e4) ([Array](ffw_Array.html) && _other_)  |
-|   | [Array](#6e0607a4) (const std::initializer_list< [Var](ffw_Var.html) > & _list_)  |
+|   | [Array](#947ea754) (const std::initializer_list< [Any](ffw_Any.html) > & _list_)  |
 |  void | [swap](#31b88183) ([Array](ffw_Array.html) & _other_)  |
 |  [Array](ffw_Array.html) & | [operator=](#702bf49f) (const [Array](ffw_Array.html) & _other_)  |
 |  [Array](ffw_Array.html) & | [operator=](#523bce17) ([Array](ffw_Array.html) && _other_)  |
-|  [Array](ffw_Array.html) & | [operator=](#ae4b3e03) (const std::initializer_list< [Var](ffw_Var.html) > & _list_)  |
-|  [Var](ffw_Var.html) & | [operator[]](#58408154) ([size_type](ffw_Array.html#38bb7cf4) _n_)  |
-|  const [Var](ffw_Var.html) & | [operator[]](#bc70b842) ([size_type](ffw_Array.html#38bb7cf4) _n_) const  |
+|  [Array](ffw_Array.html) & | [operator=](#b4fd8815) (const std::initializer_list< [Any](ffw_Any.html) > & _list_)  |
+|  [Any](ffw_Any.html) & | [operator[]](#4e24f2bf) ([size_type](ffw_Array.html#38bb7cf4) _n_)  |
+|  const [Any](ffw_Any.html) & | [operator[]](#1aec4887) ([size_type](ffw_Array.html#38bb7cf4) _n_) const  |
 |  void | [assign](#49491f38) (It _first_, It _last_)  |
-|  void | [assign](#cdd874c9) ([size_type](ffw_Array.html#38bb7cf4) _n_, const [Var](ffw_Var.html) & _value_)  |
+|  void | [assign](#08733ad9) ([size_type](ffw_Array.html#38bb7cf4) _n_, const [Any](ffw_Any.html) & _value_)  |
 |  [reference](ffw_Array.html#1edc8f67) | [at](#9f7c70b7) ([size_type](ffw_Array.html#38bb7cf4) _n_)  |
 |  [const_reference](ffw_Array.html#b98ecfbd) | [at](#76c27286) ([size_type](ffw_Array.html#38bb7cf4) _n_) const  |
 |  [reference](ffw_Array.html#1edc8f67) | [back](#67d72e1f) ()  |
@@ -85,10 +85,10 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 
 ## Public Types Documentation
 
-### _typedef_ <a id="c08d5335" href="#c08d5335">Vec</a>
+### _typedef_ <a id="e2d66ca0" href="#e2d66ca0">Vec</a>
 
 ```cpp
-std::vector< Var > Vec
+std::vector< Any > Vec
 ```
 
 
@@ -209,11 +209,11 @@ inline virtual  ~Array ()
 
 
 
-### _function_ <a id="b80b53e0" href="#b80b53e0">Array</a>
+### _function_ <a id="07595c3a" href="#07595c3a">Array</a>
 
 ```cpp
 inline  Array (
-    const Var & value
+    const Any & value
 ) 
 ```
 
@@ -239,11 +239,11 @@ inline  Array (
 
 
 
-### _function_ <a id="6e0607a4" href="#6e0607a4">Array</a>
+### _function_ <a id="947ea754" href="#947ea754">Array</a>
 
 ```cpp
 inline  Array (
-    const std::initializer_list< Var > & list
+    const std::initializer_list< Any > & list
 ) 
 ```
 
@@ -279,30 +279,30 @@ inline Array & operator= (
 
 
 
-### _function_ <a id="ae4b3e03" href="#ae4b3e03">operator=</a>
+### _function_ <a id="b4fd8815" href="#b4fd8815">operator=</a>
 
 ```cpp
 inline Array & operator= (
-    const std::initializer_list< Var > & list
+    const std::initializer_list< Any > & list
 ) 
 ```
 
 
 
-### _function_ <a id="58408154" href="#58408154">operator[]</a>
+### _function_ <a id="4e24f2bf" href="#4e24f2bf">operator[]</a>
 
 ```cpp
-inline Var & operator[] (
+inline Any & operator[] (
     size_type n
 ) 
 ```
 
 
 
-### _function_ <a id="bc70b842" href="#bc70b842">operator[]</a>
+### _function_ <a id="1aec4887" href="#1aec4887">operator[]</a>
 
 ```cpp
-inline const Var & operator[] (
+inline const Any & operator[] (
     size_type n
 ) const 
 ```
@@ -320,12 +320,12 @@ inline void assign (
 
 
 
-### _function_ <a id="cdd874c9" href="#cdd874c9">assign</a>
+### _function_ <a id="08733ad9" href="#08733ad9">assign</a>
 
 ```cpp
 inline void assign (
     size_type n,
-    const Var & value
+    const Any & value
 ) 
 ```
 

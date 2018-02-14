@@ -5,32 +5,32 @@
 #include <fstream>
 
 namespace ffw {
-	/**
-	 * @ingroup media
-	 */
-	class FFW_API TgaSaver: public ImageWriter {
-	public:
-		TgaSaver();
-		TgaSaver(const TgaSaver& other) = delete;
-		TgaSaver(TgaSaver&& other);
-		void swap(TgaSaver& other);
-		TgaSaver& operator = (const TgaSaver& other) = delete;
-		TgaSaver& operator = (TgaSaver&& other);
-		virtual ~TgaSaver();
+    /**
+     * @ingroup media
+     */
+    class FFW_API TgaSaver: public ImageWriter {
+    public:
+        TgaSaver();
+        TgaSaver(const TgaSaver& other) = delete;
+        TgaSaver(TgaSaver&& other);
+        void swap(TgaSaver& other);
+        TgaSaver& operator = (const TgaSaver& other) = delete;
+        TgaSaver& operator = (TgaSaver&& other);
+        virtual ~TgaSaver();
 
-		bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100, int mips = 1) override;
-		size_t writeRow(const void* src) override;
-		bool writeFooter() override;
-		void close() override;
+        bool open(const std::string& path, int width, int height, ffw::ImageType type, int quality = 100, int mips = 1) override;
+        size_t writeRow(const void* src) override;
+        bool writeFooter() override;
+        void close() override;
 
-	private:
-		ffw::SwapWrapper<std::fstream> output;
-		size_t pixelsOffset;
-	};
+    private:
+        ffw::SwapWrapper<std::fstream> output;
+        size_t pixelsOffset;
+    };
 }
 
 inline void swap(ffw::TgaSaver& first, ffw::TgaSaver& second){
-	first.swap(second);
+    first.swap(second);
 }
 
 #endif

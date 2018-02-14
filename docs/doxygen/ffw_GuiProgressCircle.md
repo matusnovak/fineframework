@@ -8,11 +8,11 @@ The documentation for this class was generated from: `include/ffw/gui/guiprogres
 
 
 
-## Protected Attributes
+## Classes
 
-| Type | Name |
-| -------: | :------- |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [innerStyle](#84096d24) |
+| Name |
+|:-----|
+| struct [ffw::GuiProgressCircle::Style](ffw_GuiProgressCircle_Style.html) |
 
 
 ## Public Functions
@@ -20,24 +20,13 @@ The documentation for this class was generated from: `include/ffw/gui/guiprogres
 | Type | Name |
 | -------: | :------- |
 |   | [GuiProgressCircle](#c9ddbdd1) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~GuiProgressCircle](#fd7ba3d6) ()  |
+|  virtual  | [~GuiProgressCircle](#412bac23) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#315121e1) ()  |
 |  void | [setValue](#80733d46) (float _value_)  |
 |  float | [getValue](#213f73b1) () const  |
 |  void | [setThickness](#7fb8165c) (float _val_)  |
 |  float | [getThickness](#6bc2ab1a) () const  |
-
-
-## Protected Attributes Documentation
-
-### _variable_ <a id="84096d24" href="#84096d24">innerStyle</a>
-
-```cpp
-const GuiStyleGroup * innerStyle
-```
-
-
-
+|  void | [setStyle](#5095e17b) (const [GuiProgressCircle::Style](ffw_GuiProgressCircle_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -52,7 +41,7 @@ const GuiStyleGroup * innerStyle
 
 
 
-### _function_ <a id="fd7ba3d6" href="#fd7ba3d6">~GuiProgressCircle</a>
+### _function_ <a id="412bac23" href="#412bac23">~GuiProgressCircle</a>
 
 ```cpp
 virtual  ~GuiProgressCircle () 
@@ -73,7 +62,7 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 ### _function_ <a id="80733d46" href="#80733d46">setValue</a>
 
 ```cpp
-inline void setValue (
+void setValue (
     float value
 ) 
 ```
@@ -91,7 +80,7 @@ inline float getValue () const
 ### _function_ <a id="7fb8165c" href="#7fb8165c">setThickness</a>
 
 ```cpp
-inline void setThickness (
+void setThickness (
     float val
 ) 
 ```
@@ -102,6 +91,17 @@ inline void setThickness (
 
 ```cpp
 inline float getThickness () const 
+```
+
+
+
+### _function_ <a id="5095e17b" href="#5095e17b">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiProgressCircle::Style * style,
+    bool defaults = false
+) 
 ```
 
 

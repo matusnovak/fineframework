@@ -2,7 +2,7 @@
 
 This tutorial will explain how to decode and encode JSON structure the more complicated way.
 
-**The tutorial uses ffw::Var which is essential in the following examples. You must read [Var - JSON-like data structure](math-var.html) tutorial first!**
+**The tutorial uses ffw::Any which is essential in the following examples. You must read [Any - JSON-like data structure](math-var.html) tutorial first!**
 
 Make sure you add `finedata` into your linker and add the following headers into your project:
 
@@ -13,7 +13,7 @@ Make sure you add `finedata` into your linker and add the following headers into
 
 ## Decoding
 
-With this more complicated method, you can decode JSON by step by step without using ffw::Var at all. It grants you the freedom you need. Any of the following commands (except constructor!) can throw ffw::JsonDecodeException at any time if the JSON string is broken in any way. Exception is thrown if:
+With this more complicated method, you can decode JSON by step by step without using ffw::Any at all. It grants you the freedom you need. Any of the following commands (except constructor!) can throw ffw::JsonDecodeException at any time if the JSON string is broken in any way. Exception is thrown if:
 
 * JSON syntax error
 * Unpexpected control or reserved character (for example \\p does not exist, but \\n \\t etc are all good)
@@ -27,7 +27,7 @@ Also, note that there is difference between integer, number, float:
 
 [import:'example0'](../../examples/data/json_advanced.cpp)
 
-This method si very similar to the one above and again, it does not use ffw::Var at all. An exception is thrown if:
+This method si very similar to the one above and again, it does not use ffw::Any at all. An exception is thrown if:
 
 * adding a node into an object with NULL key
 * you call xml.stepOut() too many times

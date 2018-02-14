@@ -4,83 +4,74 @@
 #include "guilabel.h"
 
 namespace ffw {
-	/**
-	 * @ingroup gui
-	 */
-	class FFW_API GuiRadio: public GuiWidget {
-	public:
-		class FFW_API Value {
-		public:
-			Value();
-			~Value();
-			void setValue(int value);
-			int getValue() const;
-			void assign(GuiRadio* radio);
-			void remove(GuiRadio* radio);
-			void clearAllExcept(const GuiRadio* radio);
-			size_t getNumOfAssigned() const;
-		private:
-			std::vector<GuiRadio*> radios;
-			int value;
-		};
-		
-		class FFW_API Button : public GuiWidget {
-		public:
-			Button(GuiWindow* context);
-			virtual ~Button();
-			ffw::Vec2f getMinimumWrapSize() override;
-			GuiRadio::Value* group;
-			GuiRadio* parentradio;
-		private:
-			void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
-			void eventPos(const ffw::Vec2f& pos) override;
-			void eventSize(const ffw::Vec2f& size) override;
-			void eventHover(bool gained) override;
-			void eventFocus(bool gained) override;
-			void eventMouse(const ffw::Vec2f& pos) override;
-			bool eventScroll(const ffw::Vec2f& scroll) override;
-			void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-			void eventText(wchar_t chr) override;
-			void eventKey(ffw::Key key, ffw::Mode mode) override;
-			void eventDisabled(bool disabled) override;
-			virtual void eventThemeChanged(const GuiTheme* theme) override;
-		};
-		
-		GuiRadio(GuiWindow* context, const std::string& label, int base, GuiRadio* other = NULL);
-		GuiRadio(GuiWindow* context, const std::wstring& label, int base, GuiRadio* other = NULL);
-		virtual ~GuiRadio();
-		void setLabel(const std::wstring& label);
-		const std::wstring& getLabel() const;
-		int getBaseValue() const;
-		void setValue(int value);
-		int getValue() const;
-		void assignValue(bool value);
-		void setButtonSize(float width);
-		inline const GuiRadio::Button* getButton() const {
-			return widgetbutton;
-		}
-		const GuiRadio::Button* getButton(){
-			return widgetbutton;
-		}
-		ffw::Vec2f getMinimumWrapSize() override;
-	private:
-		void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
-		void eventPos(const ffw::Vec2f& pos) override;
-		void eventSize(const ffw::Vec2f& size) override;
-		void eventHover(bool gained) override;
-		void eventFocus(bool gained) override;
-		void eventMouse(const ffw::Vec2f& pos) override;
-		bool eventScroll(const ffw::Vec2f& scroll) override;
-		void eventMouseButton(ffw::MouseButton button, ffw::Mode mode) override;
-		void eventText(wchar_t chr) override;
-		void eventKey(ffw::Key key, ffw::Mode mode) override;
-		void eventDisabled(bool disabled) override;
-		virtual void eventThemeChanged(const GuiTheme* theme) override;
-		GuiRadio::Button* widgetbutton;
-		std::wstring label;
-		int indent;
-		int basevalue;
-		GuiRadio::Value* group;
-	};
+    /**
+     * @ingroup gui
+     */
+    class FFW_API GuiRadio: public GuiWidget {
+    public:
+        class FFW_API Value {
+        public:
+            Value();
+            virtual ~Value() = default;
+            void setValue(int value);
+            int getValue() const;
+            void assign(GuiRadio* radio);
+            void remove(GuiRadio* radio);
+            void clearAllExcept(const GuiRadio* radio);
+            size_t getNumOfAssigned() const;
+        private:
+            std::vector<GuiRadio*> radios;
+            int value;
+        };
+        
+        class FFW_API Button : public GuiWidget {
+        public:
+            struct Style {
+                GuiWidget::Style self;
+            };
+
+            Button(GuiWindow* context);
+            virtual ~Button() = default;
+            ffw::Vec2f getMinimumWrapSize() override;
+            GuiRadio::Value* group;
+            GuiRadio* parentradio;
+            void setStyle(const Button::Style* style, bool defaults = false);
+        private:
+            void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
+            void eventHover(bool gained) override;
+            void eventFocus(bool gained) override;
+            virtual void eventThemeChanged(const GuiTheme* theme, bool defaults) override;
+        };
+        
+        struct Style {
+            GuiRadio::Button::Style button;
+            GuiWidget::Style self;
+        };
+        GuiRadio(GuiWindow* context, const std::string& label, int base, GuiRadio* other = nullptr);
+        virtual ~GuiRadio();
+        void setLabel(const std::string& label);
+        const std::string& getLabel() const;
+        int getBaseValue() const;
+        void setValue(int value);
+        int getValue() const;
+        void resetValue();
+        void assignValue(bool value);
+        void setButtonSize(float width);
+        inline const GuiRadio::Button* getButton() const {
+            return widgetbutton;
+        }
+        inline GuiRadio::Button* getButton(){
+            return widgetbutton;
+        }
+        ffw::Vec2f getMinimumWrapSize() override;
+        void setStyle(const GuiRadio::Style* style, bool defaults = false);
+    private:
+        void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
+        virtual void eventThemeChanged(const GuiTheme* theme, bool defaults) override;
+        GuiRadio::Button* widgetbutton;
+        std::string label;
+        int basevalue;
+        GuiRadio::Value* group;
+    };
 }
 #endif

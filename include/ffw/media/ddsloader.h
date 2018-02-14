@@ -5,43 +5,43 @@
 #include <fstream>
 
 namespace ffw {
-	/**
-	 * @ingroup media
-	 */
-	class FFW_API DdsLoader: public ImageReader {
-	public:
-		DdsLoader();
-		DdsLoader(const DdsLoader& other) = delete;
-		DdsLoader(DdsLoader&& other);
-		void swap(DdsLoader& other);
-		DdsLoader& operator = (const DdsLoader& other) = delete;
-		DdsLoader& operator = (DdsLoader&& other);
-		virtual ~DdsLoader();
+    /**
+     * @ingroup media
+     */
+    class FFW_API DdsLoader: public ImageReader {
+    public:
+        DdsLoader();
+        DdsLoader(const DdsLoader& other) = delete;
+        DdsLoader(DdsLoader&& other);
+        void swap(DdsLoader& other);
+        DdsLoader& operator = (const DdsLoader& other) = delete;
+        DdsLoader& operator = (DdsLoader&& other);
+        virtual ~DdsLoader();
 
-		bool open(const std::string& path) override;
-		size_t readRow(void* dest) override;
-		bool getMipMap(int level) override;
-		bool getCubemap(int side);
-		void close() override;
+        bool open(const std::string& path) override;
+        size_t readRow(void* dest) override;
+        bool getMipMap(int level) override;
+        bool getCubemap(int side);
+        void close() override;
 
-		inline bool isCubemap() const {
-			return iscubemap;
-		}
-		inline int getCubemapOffset() const {
-			return cubemapOffset;
-		}
-	private:
-		ffw::SwapWrapper<std::fstream> input;
-		size_t pixelsOffset;
-		bool invertBits;
-		bool swaprgb;
-		bool iscubemap;
-		int cubemapOffset;
-	};
+        inline bool isCubemap() const {
+            return iscubemap;
+        }
+        inline int getCubemapOffset() const {
+            return cubemapOffset;
+        }
+    private:
+        ffw::SwapWrapper<std::fstream> input;
+        size_t pixelsOffset;
+        bool invertBits;
+        bool swaprgb;
+        bool iscubemap;
+        int cubemapOffset;
+    };
 }
 
 inline void swap(ffw::DdsLoader& first, ffw::DdsLoader& second){
-	first.swap(second);
+    first.swap(second);
 }
 
 #endif

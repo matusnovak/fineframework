@@ -62,6 +62,7 @@ You can use this class to represent any RGBA color and pass it to your OpenGL fu
 |  double | [length](#52d2971e) () const  _Returns the length of a vector (color is treated as a vector)_ |
 |  float | [lengthf](#006193c9) () const  _Returns the length of a vector (color is treated as a vector)_ |
 |  float | [lengthSqrd](#093b3b39) () const  _Returns the squared length of a vector (color is treated as a vector)_ |
+|  [Color](ffw_Color.html) | [inverted](#d673e389) () const  _Returns the inverted R, G, and B components._ |
 
 
 ## Public Attributes Documentation
@@ -461,6 +462,14 @@ inline float lengthSqrd () const
 ```
 
 Returns the squared length of a vector (color is treated as a vector) 
+
+### _function_ <a id="d673e389" href="#d673e389">inverted</a>
+
+```cpp
+inline Color inverted () const 
+```
+
+Returns the inverted R, G, and B components. 
 
 
 

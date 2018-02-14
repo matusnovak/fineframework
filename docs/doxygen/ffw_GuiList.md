@@ -13,6 +13,7 @@ The documentation for this class was generated from: `include/ffw/gui/guilist.h`
 | Name |
 |:-----|
 | class [ffw::GuiList::Item](ffw_GuiList_Item.html) |
+| struct [ffw::GuiList::Style](ffw_GuiList_Style.html) |
 | class [ffw::GuiList::Value](ffw_GuiList_Value.html) |
 
 
@@ -21,16 +22,16 @@ The documentation for this class was generated from: `include/ffw/gui/guilist.h`
 | Type | Name |
 | -------: | :------- |
 |   | [GuiList](#ac9d0483) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~GuiList](#0f3ac750) ()  |
+|  virtual  | [~GuiList](#3b564686) ()  |
 |  [GuiList::Item](ffw_GuiList_Item.html) * | [addItem](#dbe62119) (const std::string & _label_)  |
-|  [GuiList::Item](ffw_GuiList_Item.html) * | [addItem](#d8db7b91) (const std::wstring & _label_)  |
 |  void | [deleteAllItems](#91f94fa7) ()  |
 |  bool | [deleteItem](#a671ea86) (const [GuiList::Item](ffw_GuiList_Item.html) * _item_)  |
-|  void | [setSelected](#622970ed) (int _index_)  |
+|  void | [setSelectedIndex](#e85efdb3) (int _index_)  |
 |  void | [resetSelected](#8c4e7891) ()  |
 |  void | [setSelected](#7f9a1693) (const [GuiList::Item](ffw_GuiList_Item.html) * _item_)  |
 |  [GuiList::Item](ffw_GuiList_Item.html) * | [getSelectedItem](#2f1eb20c) () const  |
-|  virtual void | [eventThemeChanged](#86eb2b69) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
+|  int | [getSelectedIndex](#3d192788) () const  |
+|  void | [setStyle](#b79ae37e) (const [GuiList::Style](ffw_GuiList_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -45,7 +46,7 @@ The documentation for this class was generated from: `include/ffw/gui/guilist.h`
 
 
 
-### _function_ <a id="0f3ac750" href="#0f3ac750">~GuiList</a>
+### _function_ <a id="3b564686" href="#3b564686">~GuiList</a>
 
 ```cpp
 virtual  ~GuiList () 
@@ -58,16 +59,6 @@ virtual  ~GuiList ()
 ```cpp
 GuiList::Item * addItem (
     const std::string & label
-) 
-```
-
-
-
-### _function_ <a id="d8db7b91" href="#d8db7b91">addItem</a>
-
-```cpp
-GuiList::Item * addItem (
-    const std::wstring & label
 ) 
 ```
 
@@ -91,10 +82,10 @@ bool deleteItem (
 
 
 
-### _function_ <a id="622970ed" href="#622970ed">setSelected</a>
+### _function_ <a id="e85efdb3" href="#e85efdb3">setSelectedIndex</a>
 
 ```cpp
-void setSelected (
+void setSelectedIndex (
     int index
 ) 
 ```
@@ -127,17 +118,24 @@ GuiList::Item * getSelectedItem () const
 
 
 
-### _function_ <a id="86eb2b69" href="#86eb2b69">eventThemeChanged</a>
+### _function_ <a id="3d192788" href="#3d192788">getSelectedIndex</a>
 
 ```cpp
-virtual void eventThemeChanged (
-    const GuiTheme * theme
-) 
+int getSelectedIndex () const 
 ```
 
 
 
-**Overrides:** [eventThemeChanged](/doxygen/ffw_GuiWidget.md#d1726419) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+### _function_ <a id="b79ae37e" href="#b79ae37e">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiList::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

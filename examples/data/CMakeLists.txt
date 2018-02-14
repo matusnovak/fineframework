@@ -40,6 +40,8 @@ foreach(exmpl ${DATA_EXAMPLES})
   if(STATIC_STDLIB)
     target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
   endif(STATIC_STDLIB)
+
+  set_property(TARGET ${exmpl} PROPERTY FOLDER "fineframework/examples") 
 endforeach(exmpl)
 
 add_test(NAME ExampleCsvSimple COMMAND ExampleCsvSimple)

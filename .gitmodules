@@ -1,0 +1,29 @@
+[submodule "libs/glfw"]
+	path = libs/glfw
+	url = https://github.com/glfw/glfw.git
+	ignore = untracked
+[submodule "libs/freetype2"]
+	path = libs/freetype2
+	url = https://github.com/aseprite/freetype2
+	ignore = untracked
+[submodule "libs/libpng"]
+	path = libs/libpng
+	url = https://github.com/glennrp/libpng
+	ignore = untracked
+[submodule "libs/libtiff"]
+	path = libs/libtiff
+	url = https://gitlab.com/libtiff/libtiff.git
+	ignore = untracked
+[submodule "libs/zlib"]
+	path = libs/zlib
+	url = https://github.com/madler/zlib
+	ignore = untracked
+[submodule "libs/libjpeg"]
+	path = libs/libjpeg
+	url = https://github.com/LuaDist/libjpeg.git
+[submodule "libs/tinyxml2"]
+	path = libs/tinyxml2
+	url = https://github.com/leethomason/tinyxml2
+[submodule "libs/bzip2-1.0.6"]
+	path = libs/bzip2-1.0.6
+	url = https://github.com/enthought/bzip2-1.0.6

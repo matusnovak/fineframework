@@ -8,13 +8,6 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#994d5252) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,27 +16,13 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture1DArray](#696ead7a) (const [Texture1DArray](ffw_Texture1DArray.html) & _second_) = delete  |
 |   | [Texture1DArray](#0ef986ae) ([Texture1DArray](ffw_Texture1DArray.html) && _second_)  |
 |   | [~Texture1DArray](#84fa9c07) ()  |
-|  bool | [create](#be73f716) (const [ffw::RenderContext](ffw_RenderContext.html) * _Renderer_, GLsizei _width_, GLsizei _layers_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [resize](#208caf07) (GLsizei _width_, GLsizei _layers_)  |
-|  bool | [setPixels](#fcbc24aa) (GLint _level_, GLint _xoffset_, GLint _loffset_, GLsizei _width_, const void * _pixels_)  |
-|  bool | [setPixels](#ca4105ff) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
+|  bool | [create](#e9977f9d) ([GLsizei]() _width_, [GLsizei]() _layers_, [GLenum]() _internalformat_, [GLenum]() _format_, [GLenum]() _pixelformat_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [resize](#208caf07) ([GLsizei]() _width_, [GLsizei]() _layers_)  |
+|  bool | [setPixels](#fcbc24aa) ([GLint]() _level_, [GLint]() _xoffset_, [GLint]() _loffset_, [GLsizei]() _width_, const void * _pixels_)  |
+|  bool | [setPixels](#ca4105ff) ([GLint]() _level_, const [GLvoid]() * _pixels_ = NULL)  |
 |  bool | [getPixels](#97ceafb0) (void * _pixels_) const  |
 |  [Texture1DArray](ffw_Texture1DArray.html) & | [operator=](#0780bf4a) (const [Texture1DArray](ffw_Texture1DArray.html) & _second_) = delete  |
 |  [Texture1DArray](ffw_Texture1DArray.html) & | [operator=](#8d22d337) ([Texture1DArray](ffw_Texture1DArray.html) && _second_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="994d5252" href="#994d5252">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -84,11 +63,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="be73f716" href="#be73f716">create</a>
+### _function_ <a id="e9977f9d" href="#e9977f9d">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * Renderer,
     GLsizei width,
     GLsizei layers,
     GLenum internalformat,

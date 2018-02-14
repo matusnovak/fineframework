@@ -22,19 +22,18 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 | Type | Name |
 | -------: | :------- |
 |  bool | [loaded_](#3712489e) |
-|  GLenum | [textureformat_](#c6a4f73a) |
-|  GLenum | [internalformat_](#89c39537) |
-|  GLenum | [format_](#961b7e69) |
-|  GLenum | [pixelformat_](#e7781fb9) |
-|  GLuint | [buffer_](#3f178b6f) |
-|  GLsizei | [width_](#9bab2969) |
-|  GLsizei | [height_](#e13b2a3f) |
-|  GLsizei | [depth_](#703d2c08) |
-|  GLsizei | [layers_](#abef61ff) |
+|  [GLenum]() | [textureformat_](#c6a4f73a) |
+|  [GLenum]() | [internalformat_](#89c39537) |
+|  [GLenum]() | [format_](#961b7e69) |
+|  [GLenum]() | [pixelformat_](#e7781fb9) |
+|  [GLuint]() | [buffer_](#3f178b6f) |
+|  [GLsizei]() | [width_](#9bab2969) |
+|  [GLsizei]() | [height_](#e13b2a3f) |
+|  [GLsizei]() | [depth_](#703d2c08) |
+|  [GLsizei]() | [layers_](#abef61ff) |
 |  bool | [mipmaps_](#68175277) |
 |  bool | [initialized_](#78620727) |
-|  GLsizei | [samples_](#88c51f03) |
-|  const [RenderExtensions](ffw_RenderExtensions.html) * | [gl_](#52cddaa1) |
+|  [GLsizei]() | [samples_](#88c51f03) |
 |  bool | [compressed_](#660451b4) |
 
 
@@ -51,23 +50,23 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |  void | [destroy](#97a0d99f) ()  _Destroys the texture._ |
 |  void | [bind](#7f4f9eff) () const  _Actives the texture._ |
 |  void | [unbind](#e194da6f) () const  |
-|  GLuint | [getHandle](#00fffa76) () const  _Returns the OpenGL pointer, a handle to the texture._ |
-|  GLsizei | [getWidth](#e923c54f) () const  _Returns the width of the texture._ |
-|  GLsizei | [getHeight](#7d5ac775) () const  _Returns the height of the texture._ |
-|  GLsizei | [getLayers](#14bc2e6b) () const  _Returns the number of layers._ |
-|  GLsizei | [getDepth](#5ed77603) () const  _Returns the depth of the texture._ |
-|  GLsizei | [getSamples](#386dc7e0) () const  |
-|  GLenum | [getInternalFormat](#8617d7f5) () const  _Returns the number of color components in the texture._ |
-|  GLenum | [getFormat](#af4e84ce) () const  _Returns the format of the pixel data._ |
-|  GLenum | [getPixelFormat](#892d4b10) () const  _Returns the data type of the pixel data._ |
-|  GLenum | [getTextureFormat](#2175a3f9) () const  _Returns the type of the texture._ |
+|  [GLuint]() | [getHandle](#00fffa76) () const  _Returns the OpenGL pointer, a handle to the texture._ |
+|  [GLsizei]() | [getWidth](#e923c54f) () const  _Returns the width of the texture._ |
+|  [GLsizei]() | [getHeight](#7d5ac775) () const  _Returns the height of the texture._ |
+|  [GLsizei]() | [getLayers](#14bc2e6b) () const  _Returns the number of layers._ |
+|  [GLsizei]() | [getDepth](#5ed77603) () const  _Returns the depth of the texture._ |
+|  [GLsizei]() | [getSamples](#386dc7e0) () const  |
+|  [GLenum]() | [getInternalFormat](#8617d7f5) () const  _Returns the number of color components in the texture._ |
+|  [GLenum]() | [getFormat](#af4e84ce) () const  _Returns the format of the pixel data._ |
+|  [GLenum]() | [getPixelFormat](#892d4b10) () const  _Returns the data type of the pixel data._ |
+|  [GLenum]() | [getTextureFormat](#2175a3f9) () const  _Returns the type of the texture._ |
 |  bool | [isCompressed](#9f0fb04f) () const  |
-|  void | [setEnvParami](#c4d7b948) (GLenum _Target_, GLenum _Name_, GLint _Value_)  |
-|  void | [setEnvParamf](#06d0d348) (GLenum _Target_, GLenum _Name_, GLfloat _Value_)  |
-|  void | [setTexParami](#c59b22c3) (GLenum _Name_, GLint _Value_)  |
-|  void | [setTexParamiv](#2d153939) (GLenum _Name_, GLint * _Values_)  |
-|  void | [setTexParamf](#70d91320) (GLenum _Name_, GLfloat _Value_)  |
-|  void | [setTexParamfv](#3a3ce5aa) (GLenum _Name_, GLfloat * _Values_)  |
+|  void | [setEnvParami](#c4d7b948) ([GLenum]() _Target_, [GLenum]() _Name_, [GLint]() _Value_)  |
+|  void | [setEnvParamf](#06d0d348) ([GLenum]() _Target_, [GLenum]() _Name_, [GLfloat]() _Value_)  |
+|  void | [setTexParami](#c59b22c3) ([GLenum]() _Name_, [GLint]() _Value_)  |
+|  void | [setTexParamiv](#2d153939) ([GLenum]() _Name_, [GLint]() * _Values_)  |
+|  void | [setTexParamf](#70d91320) ([GLenum]() _Name_, [GLfloat]() _Value_)  |
+|  void | [setTexParamfv](#3a3ce5aa) ([GLenum]() _Name_, [GLfloat]() * _Values_)  |
 |  bool | [generateMipmaps](#6add236e) ()  _Generates mip maps._ |
 |  void | [setFiltering](#c441998e) ([Texture::Filtering](ffw_Texture.html#0342016e) _filtering_)  |
 |  void | [setWrapping](#3edc29d4) ([Texture::Wrapping](ffw_Texture.html#e1626a42) _wrapping_)  |
@@ -79,7 +78,7 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 | Type | Name |
 | -------: | :------- |
-|  GLsizei | [getBlockSize](#742809a8) (GLsizei _width_, GLsizei _height_ = 1, GLsizei _depth_ = 1) const  |
+|  [GLsizei]() | [getBlockSize](#742809a8) ([GLsizei]() _width_, [GLsizei]() _height_ = 1, [GLsizei]() _depth_ = 1) const  |
 
 
 ## Public Types Documentation
@@ -213,14 +212,6 @@ bool initialized_
 
 ```cpp
 GLsizei samples_
-```
-
-
-
-### _variable_ <a id="52cddaa1" href="#52cddaa1">gl_</a>
-
-```cpp
-const RenderExtensions * gl_
 ```
 
 

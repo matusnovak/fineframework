@@ -1,9 +1,7 @@
 @ECHO OFF
 
 REM Do Debug only on devel branch
-set "TARGETS=Debug"
-REM Do Debug+MinSizeRel only on master branch
-if "%APPVEYOR_REPO_BRANCH%"=="master" (set "TARGETS=Debug MinSizeRel")
+set "TARGETS=Debug MinSizeRel"
 
 for %%i in (%TARGETS%) do  (
     if "%%i"=="Debug" (

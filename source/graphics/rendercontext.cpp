@@ -5,959 +5,793 @@
 #include "ffw/math/mvp.h"
 #include "ffw/math/mathconstants.h"
 #include "ffw/math/functions.h"
+#include "ffw/math/textwrapper.h"
+#include "ffw/math/stringmath.h"
+#include "third_party/nanovg/nanovg.h"
+
+#define FFW_COLOR_TO_NV_COLOR(C) *reinterpret_cast<const NVGcolor*>(&C)
+#define FFW_PAINT_TO_NV_PAINT(C) *reinterpret_cast<const NVGpaint*>(&C)
+#define NV_PAINT_TO_FFW_PAINT(C) *reinterpret_cast<const DrawPaint*>(&C)
+
+#define FILL_OR_STROKE(vg) \
+    switch(drawType){ \
+        case DrawMode::FILL: nvgFill(vg); break; \
+        case DrawMode::STROKE: nvgStroke(vg); break; \
+        case DrawMode::FILL_AND_STROKE: nvgFill(vg); nvgStroke(vg); break; \
+    }
 
 #define STRINGIFY(x) #x
 
 ///=============================================================================
-static const std::string defaultGenericShaderVert = "#version 130\n" STRINGIFY(
-	uniform mat4x4 proj;
-uniform vec2 pos[4];
-uniform vec2 uvs[4];
-out vec2 texPos;
-void main() {
-	texPos = uvs[gl_VertexID];
-	gl_Position = proj * vec4(pos[gl_VertexID], 1.0f, 1.0f);
-}
-);
-
-///=============================================================================
-static const std::string defaultGenericShaderFrag = "#version 130\n" STRINGIFY(
-	uniform vec4 color;
-uniform int branch;
-uniform sampler2D tex;
-in vec2 texPos;
-void main() {
-	if (branch == 2) {
-		gl_FragColor = vec4(color.r, color.g, color.b, texture2D(tex, texPos).a * color.a);
-	}
-	else if (branch == 1) {
-		gl_FragColor = texture2D(tex, texPos) * color;
-	}
-	else {
-		gl_FragColor = color;
-	}
-}
-);
-
-///=============================================================================
-static const std::string defaultArcShaderVert = "#version 130\n" STRINGIFY(
-	uniform mat4x4 proj;
-uniform vec2 pos;
-uniform vec2 inner;
-uniform vec2 outer;
-uniform vec2 radius;
-uniform vec2 angle;
-uniform int steps;
-void main() {
-	vec2 position = pos;
-	float rad = (angle.y - angle.x) / steps;
-	float step = (gl_VertexID / 2) * rad + angle.x;
-
-	if (mod(gl_VertexID, 2) == 0) {
-		position.x += outer.x*cos(step);
-		position.y += outer.y*sin(step);
-	}
-	else {
-		position.x += inner.x*cos(step);
-		position.y += inner.y*sin(step);
-	}
-	gl_Position = proj * vec4(position.xy, 1.0f, 1.0f);
-}
-);
-
-///=============================================================================
-static const std::string defaultArcShaderFrag = "#version 130\n" STRINGIFY(
-	uniform vec4 color;
-void main() {
-	gl_FragColor = color;
-}
-);
-
-///=============================================================================
-static const std::string defaultRectShaderVert = "#version 130\n" STRINGIFY(
+static const std::string fontShaderVert = "#version 120\n" STRINGIFY(
 uniform mat4x4 proj;
-uniform vec2 pos;
-uniform vec2 inner;
-uniform vec2 outer;
-uniform int steps;
-uniform float corner[4];
+uniform mat3x3 view;
+uniform vec2 offset;
 
-const vec2 offset[4] = vec2[4](
-	vec2(1, 1),
-	vec2(-1, 1),
-	vec2(-1, -1),
-	vec2(1, -1)
-	);
+attribute vec2 position;
+attribute vec2 uvpos;
+
+varying vec2 v_uvpos;
 
 void main() {
-	vec2 position = pos;
-
-	int vertex = gl_VertexID / 2;
-	float step = mod(vertex, steps) * (1.5708f / (steps - 1));
-	int index = int(mod(vertex / steps, 4));
-
-	vec2 weighted = vec2(corner[index], corner[index]);
-
-	if (mod(gl_VertexID, 2) == 0) {
-		weighted.x *= inner.x / float(outer.x);
-		weighted.y *= inner.y / float(outer.y);
-		position.x += offset[index].x * (inner.x - weighted.x) + weighted.x*cos(1.5708f * index + step);
-		position.y += offset[index].y * (inner.y - weighted.y) + weighted.y*sin(1.5708f * index + step);
-	}
-	else {
-		position.x += offset[index].x * (outer.x - weighted.x) + weighted.x*cos(1.5708f * index + step);
-		position.y += offset[index].y * (outer.y - weighted.y) + weighted.y*sin(1.5708f * index + step);
-	}
-
-	gl_Position = proj * vec4(position.xy, 1.0f, 1.0f);
+    v_uvpos = uvpos;
+    vec3 v = view * vec3(position + offset, 1.0);
+    gl_Position = proj * vec4(v, 1.0);
 }
 );
 
 ///=============================================================================
-static const std::string defaultRectShaderFrag = "#version 130\n" STRINGIFY(
-	uniform vec4 color;
-void main() {
-	gl_FragColor = color;
-}
-);
+static const std::string fontShaderFrag = "#version 120\n" STRINGIFY(
+uniform sampler2D tex;
+uniform vec4 color;
+uniform float rgbMixer;
 
-// https://en.wikipedia.org/wiki/B%C3%A9zier_curve#Cubic_B.C3.A9zier_curves
-// p = p0*((1.0f - t)*(1.0f - t)*(1.0f - t)) + p1*3.0f*((1.0f - t)*(1.0f - t))*t + p2*3.0f *(1.0f - t)*t*t + p3*t*t*t;
-///=============================================================================
-static std::string defaultBezierShaderVert = "#version 130\n" STRINGIFY(
-	uniform mat4x4 proj;
-uniform vec2 points[4];
-uniform int steps;
+varying vec2 v_uvpos;
 
 void main() {
-	float t = gl_VertexID / float(steps);
-	vec2 p0 = points[0] * ((1.0f - t)*(1.0f - t)*(1.0f - t));
-	vec2 p1 = points[1] * 3.0f*((1.0f - t)*(1.0f - t))*t;
-	vec2 p2 = points[2] * 3.0f *(1.0f - t)*t*t;
-	vec2 p3 = points[3] * t*t*t;
-	gl_Position = proj * vec4(p0 + p1 + p2 + p3, 1.0f, 1.0f);
+    vec4 texel = texture2D(tex, v_uvpos);
+    vec4 colored = texel * color;
+    vec4 alpha = vec4(color.rgb, texel.r * color.a);
+    gl_FragColor = mix(alpha, colored, rgbMixer);
 }
 );
 
 ///=============================================================================
-static std::string defaultBezierShaderFrag = "#version 130\n" STRINGIFY(
-	uniform vec4 color;
+static const std::string textureShaderVert = "#version 120\n" STRINGIFY(
+uniform mat4x4 proj;
+uniform mat3x3 view;
+
+attribute vec2 position;
+attribute vec2 uvpos;
+
+varying vec2 v_uvpos;
+
 void main() {
-	gl_FragColor = color;
+    v_uvpos = uvpos;
+    vec3 v = view * vec3(position, 1.0);
+    gl_Position = proj * vec4(v, 1.0);
 }
 );
 
 ///=============================================================================
-static std::string defaultBezierAdvShaderVert = "#version 130\n" STRINGIFY(
-	uniform mat4x4 proj;
-uniform vec2 points[4];
-uniform int steps;
-uniform int thick;
+static const std::string textureShaderFrag = "#version 120\n" STRINGIFY(
+uniform sampler2D tex;
+uniform vec4 color;
 
-vec2 getPoint(float t) {
-	return points[0] * ((1.0f - t)*(1.0f - t)*(1.0f - t))
-		+ points[1] * 3.0f*((1.0f - t)*(1.0f - t))*t
-		+ points[2] * 3.0f *(1.0f - t)*t*t
-		+ points[3] * t*t*t;
-}
+varying vec2 v_uvpos;
 
 void main() {
-	float t0 = ((gl_VertexID / 2) - 1) / float(steps);
-	float t1 = ((gl_VertexID / 2)) / float(steps);
-	float t2 = ((gl_VertexID / 2) + 1) / float(steps);
-
-	t0 = clamp(t0, 0.0f, 1.0f);
-	t2 = clamp(t2, 0.0f, 1.0f);
-
-	vec2 p0 = getPoint(t0);
-	vec2 p1 = getPoint(t1);
-	vec2 p2 = getPoint(t2);
-
-	vec2 n0 = p1 - p0;
-	float n0x = n0.x;
-	n0.x = n0.y;
-	n0.y = -n0x;
-
-	vec2 n1 = p2 - p1;
-	float n1x = n1.x;
-	n1.x = n1.y;
-	n1.y = -n1x;
-
-	vec2 n = n0 + n1;
-	n = normalize(n);
-
-	if (mod(gl_VertexID, 2) == 0) {
-		gl_Position = proj * vec4(p1 + n*thick, 1.0f, 1.0f);
-	}
-	else {
-		gl_Position = proj * vec4(p1 - n*thick, 1.0f, 1.0f);
-	}
+    vec4 texel = texture2D(tex, v_uvpos);
+    gl_FragColor = texel * color;
 }
 );
 
-///=============================================================================
-static std::string defaultBezierAdvShaderFrag = "#version 130\n" STRINGIFY(
-	uniform vec4 color;
-void main() {
-	gl_FragColor = color;
-}
-);
+extern NVGcontext* nanovgCreateGL3();
+extern NVGcontext* nanovgCreateGL2();
+extern NVGcontext* nanovgCreateGLES2();
+extern NVGcontext* nanovgCreateGLES3();
+extern void nanovgDestroyGL2(NVGcontext* vg);
+extern void nanovgDestroyGL3(NVGcontext* vg);
+extern void nanovgDestroyGLES2(NVGcontext* vg);
+extern void nanovgDestroyGLES3(NVGcontext* vg);
 
 ///=============================================================================
-ffw::RenderContext::RenderContext() {
-	bezierSteps = 1;
-	arcSteps = 1;
-	rectSteps = 1;
-	thickness = 1;
-	outlineMode = false;
-	usesOpenGL3 = false;
+ffw::RenderContext::RenderContext():drawType(DrawMode::FILL),vg(nullptr), drawExecuted(false), initialized(false), nvgType(0) {
 }
 
 ///=============================================================================
 ffw::RenderContext::~RenderContext() {
-	genericShader.destroy();
+    if(vg != nullptr) {
+        switch (nvgType) {
+            case 1: nanovgDestroyGL3(vg); break;
+            case 2: nanovgDestroyGL2(vg); break;
+            case 3: nanovgDestroyGLES3(vg); break;
+            case 4: nanovgDestroyGLES2(vg); break;
+            default: break;
+        }
+        vg = nullptr;
+        nvgType = 0;
+    }
+    fontShader.destroy();
 }
 
 ///=============================================================================
-static bool compileShader(const ffw::RenderContext* context, ffw::Shader& shdr, const std::string& vert, const std::string& frag) {
-	try {
-		shdr.createFromData(context, std::string(""), vert, frag);
-	}
-	catch (std::exception& e) {
+static bool compileShader(ffw::Shader& shdr, const std::string& vert, const std::string& frag) {
+    try {
+        shdr.createFromData(std::string(""), vert, frag);
+    }
+    catch (std::exception& e) {
 #ifndef NDEBUG
-		std::cerr << "Failed to compile RenderContext shaders:" << std::endl << e.what() << std::endl;
+        std::cerr << "Failed to compile RenderContext shaders:" << std::endl << e.what() << std::endl;
 #else
-		(void)e;
+        (void)e;
 #endif
-		return false;
-	}
-	return true;
+        return false;
+    }
+    return true;
 }
 
 ///=============================================================================
-bool ffw::RenderContext::compileShaders() {
-	usesOpenGL3 = compileShadersGL3();
-	if (usesOpenGL3) {
-		bezierSteps = 32;
-		arcSteps = 64;
-		rectSteps = 16;
-	}
-	else {
-		bezierSteps = 16;
-		arcSteps = 32;
-		rectSteps = 8;
-	}
-	return true;
+bool ffw::RenderContext::initDrawing() {
+    vg = nanovgCreateGL3();
+    nvgType = 1;
+    if (vg == nullptr) {
+        vg = nanovgCreateGL2();
+        nvgType = 2;
+    }
+    if (vg == nullptr) {
+        vg = nanovgCreateGLES3();
+        nvgType = 3;
+    }
+    if (vg == nullptr) {
+        vg = nanovgCreateGLES2();
+        nvgType = 4;
+    }
+    if (vg == nullptr) {
+        nvgType = 0;
+        return false;
+    }
+
+    setDrawColor(ffw::rgb(0xFFFFFF));
+    setFillMode();
+
+    if(!compileShader(fontShader, fontShaderVert, fontShaderFrag))return false;
+    if(!compileShader(textureShader, textureShaderVert, textureShaderFrag))return false;
+
+    fontShaderUniforms.color = fontShader.getUniformLocation("color");
+    fontShaderUniforms.offset = fontShader.getUniformLocation("offset");
+    fontShaderUniforms.position = fontShader.getAttributeLocation("position");
+    fontShaderUniforms.proj = fontShader.getUniformLocation("proj");
+    fontShaderUniforms.view = fontShader.getUniformLocation("view");
+    fontShaderUniforms.rgbMixer = fontShader.getUniformLocation("rgbMixer");
+    fontShaderUniforms.tex = fontShader.getUniformLocation("tex");
+    fontShaderUniforms.uvpos = fontShader.getAttributeLocation("uvpos");
+
+    textureShaderUniforms.position = textureShader.getAttributeLocation("position");
+    textureShaderUniforms.color = textureShader.getUniformLocation("color");
+    textureShaderUniforms.proj = textureShader.getUniformLocation("proj");
+    textureShaderUniforms.uvpos = textureShader.getAttributeLocation("uvpos");
+    textureShaderUniforms.tex = textureShader.getUniformLocation("tex");
+    textureShaderUniforms.view = textureShader.getUniformLocation("view");
+
+    float data[16] = {
+        0.0f, 0.0f,
+        0.0f, 0.0f,
+
+        0.0f, 100.0f,
+        0.0f, 1.0f,
+
+        100.0f, 100.0f,
+        1.0f, 1.0f,
+
+        100.0f, 0.0f,
+        1.0f, 0.0f
+    };
+
+    textureShaderVbo.create(data, 4 * 4 * sizeof(float), GL_DYNAMIC_DRAW);
+    initialized = true;
+    return true;
 }
 
 ///=============================================================================
-bool ffw::RenderContext::compileShadersGL3() {
-	//return false;
-	if (!ffw::Shader::checkCompability(this)) {
-#ifndef NDEBUG
-		std::cerr << "Shaders are not supported on this machine's OpenGL! Switching to OpenGL v1.1 drawing method!" << std::endl;
-#endif
-		return false;
-	}
+void ffw::RenderContext::beginFrame() const {
+    if (!initialized)return;
 
-	bool result =
-		compileShader(this, genericShader, defaultGenericShaderVert, defaultGenericShaderFrag) &&
-		compileShader(this, arcShader, defaultArcShaderVert, defaultArcShaderFrag) &&
-		compileShader(this, bezierShader, defaultBezierShaderVert, defaultBezierShaderFrag) &&
-		compileShader(this, bezierAdvShader, defaultBezierAdvShaderVert, defaultBezierAdvShaderFrag) &&
-		compileShader(this, rectShader, defaultRectShaderVert, defaultRectShaderFrag)
-		;
-
-	if (!result)return false;
-
-	genericShaderPosLoc = genericShader.getUniformLocation("pos");
-	genericShaderColorLoc = genericShader.getUniformLocation("color");
-	genericShaderProjLoc = genericShader.getUniformLocation("proj");
-	genericShaderUvsLoc = genericShader.getUniformLocation("uvs");
-	genericShaderTexLoc = genericShader.getUniformLocation("tex");
-	genericShaderBranchLoc = genericShader.getUniformLocation("branch");
-
-	arcShaderPosLoc = arcShader.getUniformLocation("pos");
-	arcShaderColorLoc = arcShader.getUniformLocation("color");
-	arcShaderProjLoc = arcShader.getUniformLocation("proj");
-	arcShaderInnerLoc = arcShader.getUniformLocation("inner");
-	arcShaderStepsLoc = arcShader.getUniformLocation("steps");
-	arcShaderAngleLoc = arcShader.getUniformLocation("angle");
-	arcShaderOuterLoc = arcShader.getUniformLocation("outer");
-
-	rectShaderPosLoc = rectShader.getUniformLocation("pos");
-	rectShaderColorLoc = rectShader.getUniformLocation("color");
-	rectShaderProjLoc = rectShader.getUniformLocation("proj");
-	rectShaderInnerLoc = rectShader.getUniformLocation("inner");
-	rectShaderStepsLoc = rectShader.getUniformLocation("steps");
-	rectShaderCornerLoc = rectShader.getUniformLocation("corner");
-	rectShaderOuterLoc = rectShader.getUniformLocation("outer");
-
-	bezierShaderProjLoc = bezierShader.getUniformLocation("proj");
-	bezierShaderPointsLoc = bezierShader.getUniformLocation("points");
-	bezierShaderColorLoc = bezierShader.getUniformLocation("color");
-	bezierShaderStepsLoc = bezierShader.getUniformLocation("steps");
-
-	bezierAdvShaderProjLoc = bezierAdvShader.getUniformLocation("proj");
-	bezierAdvShaderPointsLoc = bezierAdvShader.getUniformLocation("points");
-	bezierAdvShaderColorLoc = bezierAdvShader.getUniformLocation("color");
-	bezierAdvShaderStepsLoc = bezierAdvShader.getUniformLocation("steps");
-	bezierAdvShaderThickLoc = bezierAdvShader.getUniformLocation("thick");
-
-
-
-	return true;
+    glGetIntegerv(GL_VIEWPORT, &viewport.x);
+    float pxRatio = (float)viewport[2] / (float)viewport[3];
+    nvgBeginFrame(vg, viewport[2], viewport[3], pxRatio);
+    projection = ffw::makeOrthoMatrix<float>((float)viewport[0], (float)viewport[0] + viewport[2], (float)viewport[1] + viewport[3], (float)viewport[1], -1, 1);
+    drawExecuted = false;
 }
 
 ///=============================================================================
-void ffw::RenderContext::setViewport(int posx, int posy, int width, int height) {
-	if (!usesOpenGL3) {
-		glViewport(posx, posy, width, height);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(posx, posx + width, posy + height, posy, -1, 1);
-	}
-	else {
-		glViewport(posx, posy, width, height);
-		projection = ffw::makeOrthoMatrix<float>((float)posx, (float)posx + width, (float)posy + height, (float)posy, -1, 1);
-	}
+void ffw::RenderContext::endFrame() const  {
+    if (!initialized)return;
+
+    nvgEndFrame(vg);
+    drawExecuted = false;
 }
 
 ///=============================================================================
-void ffw::RenderContext::setDrawColor(const ffw::Color& color) {
-	if (!usesOpenGL3) {
-		glColor4f(color.r, color.g, color.b, color.a);
-	}
-	else {
-		drawColor = color;
-	}
+void ffw::RenderContext::setDrawColor(const ffw::Color& color) const {
+    if (!initialized)return;
+
+    nvgFillColor(vg, FFW_COLOR_TO_NV_COLOR(color));
+    nvgStrokeColor(vg, FFW_COLOR_TO_NV_COLOR(color));
+    fillColor = color;
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawQuad(float p0x, float p0y, float p1x, float p1y, float p2x, float p2y, float p3x, float p3y) {
-	vertices[0] = p0x; vertices[1] = p0y;
-	vertices[2] = p1x; vertices[3] = p1y;
-	vertices[4] = p2x; vertices[5] = p2y;
-	vertices[6] = p3x; vertices[7] = p3y;
-	
-	if (!usesOpenGL3) {
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(2, GL_FLOAT, 0, vertices);
-		glDrawArrays(GL_QUADS, 0, 4);
-		glDisableClientState(GL_VERTEX_ARRAY);
-	}
-	else {
-		genericShader.bind();
-		genericShader.setUniform1i(genericShaderBranchLoc, 0);
-		genericShader.setUniform4f(genericShaderColorLoc, drawColor);
-		genericShader.setUniformMatrix4fv(genericShaderProjLoc, &projection, 1);
-		genericShader.setUniform2fv(genericShaderPosLoc, vertices, 8);
-		genericShader.drawArrays(GL_QUADS, 0, 4);
-		//genericShader.unbind();
-	}
+void ffw::RenderContext::setFillColor(const ffw::Color& color) const {
+    if (!initialized)return;
+
+    nvgFillColor(vg, FFW_COLOR_TO_NV_COLOR(color));
+    fillColor = color;
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawRectangle(float posx, float posy, float width, float height) {
-	vertices[0] = posx; vertices[1] = posy;
-	vertices[2] = posx + width; vertices[3] = posy;
-	vertices[4] = posx + width; vertices[5] = posy + height;
-	vertices[6] = posx; vertices[7] = posy + height;
-	
-	if (!usesOpenGL3) {
-		if (outlineMode) {
-			auto temp = rectSteps;
-			rectSteps = 4;
-			drawRectangleRounded(posx, posy, width, height, 0, 0, 0, 0);
-			rectSteps = temp;
-		}
-		else {
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glVertexPointer(2, GL_FLOAT, 0, vertices);
-			glDrawArrays(GL_QUADS, 0, 4);
-			glDisableClientState(GL_VERTEX_ARRAY);
-		}
-	}
-	else {
-		if (outlineMode) {
-			auto temp = rectSteps;
-			rectSteps = 4;
-			drawRectangleRounded(posx, posy, width, height, 0, 0, 0, 0);
-			rectSteps = temp;
-		}
-		else {
-			genericShader.bind();
-			genericShader.setUniform1i(genericShaderBranchLoc, 0);
-			genericShader.setUniform4f(genericShaderColorLoc, drawColor);
-			genericShader.setUniformMatrix4fv(genericShaderProjLoc, &projection, 1);
-			genericShader.setUniform2fv(genericShaderPosLoc, vertices, 8);
-			genericShader.drawArrays(GL_QUADS, 0, 4);
-			//genericShader.unbind();
-		}
-	}
+void ffw::RenderContext::setStrokeColor(const ffw::Color& color) const {
+    if (!initialized)return;
+
+    nvgStrokeColor(vg, FFW_COLOR_TO_NV_COLOR(color));
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawRectangleRounded(float posx, float posy, float width, float height, float corners) {
-	drawRectangleRounded(posx, posy, width, height, corners, corners, corners, corners);
+void ffw::RenderContext::drawQuad(float p0x, float p0y, float p1x, float p1y, float p2x, float p2y, float p3x, float p3y) const {
+    if (!initialized)return;
+
+    nvgBeginPath(vg);
+    nvgMoveTo(vg, p0x, p0y);
+    nvgLineTo(vg, p1x, p1y);
+    nvgLineTo(vg, p2x, p2y);
+    nvgLineTo(vg, p3x, p3y);
+    nvgLineTo(vg, p0x, p0y);
+    FILL_OR_STROKE(vg);
+    drawExecuted = true;
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawRectangleRounded(float posx, float posy, float width, float height, float topLeft, float topRight, float bottomRight, float bottomLeft) {
-	if (!usesOpenGL3) {
-		static const ffw::Vec2f offset[4] = {
-			ffw::Vec2f(1, 1),
-			ffw::Vec2f(-1, 1),
-			ffw::Vec2f(-1, -1),
-			ffw::Vec2f(1, -1)
-		};
+void ffw::RenderContext::drawRectangle(float posx, float posy, float width, float height) const {
+    if (!initialized)return;
 
-		const float corner[4] = {
-			bottomRight,
-			bottomLeft,
-			topLeft,
-			topRight
-		};
-
-		ffw::Vec2f outer(width / 2, height / 2);
-		ffw::Vec2f inner(0, 0);
-
-		if (outlineMode) {
-			inner.set(float(width / 2 - thickness), float(height / 2 - thickness));
-		}
-
-		float rad = float(360.0f * DEG_TO_RAD) / (float)rectSteps;
-
-		glBegin(GL_QUAD_STRIP);
-		for (int i = 0; i < rectSteps * 8 + 2; i++) {
-			ffw::Vec2f position(posx + width / 2, posy + height / 2);
-
-			int vertex = i / 2;
-			float step = (vertex % rectSteps) * (1.5708f / (rectSteps - 1));
-			int index = int((vertex / rectSteps) % 4);
-
-			ffw::Vec2f weighted = ffw::Vec2f(corner[index], corner[index]);
-
-			if ((i % 2) == 0) {
-				weighted.x *= inner.x / float(outer.x);
-				weighted.y *= inner.y / float(outer.y);
-				position.x += offset[index].x * (inner.x - weighted.x) + weighted.x*cos(1.5708f * index + step);
-				position.y += offset[index].y * (inner.y - weighted.y) + weighted.y*sin(1.5708f * index + step);
-			}
-			else {
-				position.x += offset[index].x * (outer.x - weighted.x) + weighted.x*cos(1.5708f * index + step);
-				position.y += offset[index].y * (outer.y - weighted.y) + weighted.y*sin(1.5708f * index + step);
-			}
-
-			glVertex2f(position.x, position.y);
-		}
-		glEnd();
-	}
-	else {
-		vertices[0] = bottomRight; 
-		vertices[1] = bottomLeft; 
-		vertices[2] = topLeft;
-		vertices[3] = topRight;
-
-		rectShader.bind();
-		rectShader.setUniform4f(rectShaderColorLoc, drawColor);
-		rectShader.setUniformMatrix4fv(rectShaderProjLoc, &projection, 1);
-		rectShader.setUniform2f(rectShaderPosLoc, posx + width / 2, posy + height / 2);
-		if (outlineMode)rectShader.setUniform2f(rectShaderInnerLoc, width / 2 - thickness, width / 2 - thickness);
-		else rectShader.setUniform2f(rectShaderInnerLoc, 0, 0);
-		rectShader.setUniform2f(rectShaderOuterLoc, width / 2, height / 2);
-		rectShader.setUniform1fv(rectShaderCornerLoc, vertices, 4);
-		rectShader.setUniform1i(rectShaderStepsLoc, rectSteps);
-		rectShader.drawArrays(GL_QUAD_STRIP, 0, rectSteps * 8 + 2);
-		//arcShader.unbind();
-	}
+    nvgBeginPath(vg);
+    nvgRect(vg, posx, posy, width, height);
+    FILL_OR_STROKE(vg);
+    drawExecuted = true;
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawTriangle(float p0x, float p0y, float p1x, float p1y, float p2x, float p2y) {
-	vertices[0] = p0x; vertices[1] = p0y;
-	vertices[2] = p1x; vertices[3] = p1y;
-	vertices[4] = p2x; vertices[5] = p2y;
-	
-	if (!usesOpenGL3) {
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(2, GL_FLOAT, 0, vertices);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDisableClientState(GL_VERTEX_ARRAY);
-	}
-	else {
-		genericShader.bind();
-		genericShader.setUniform1i(genericShaderBranchLoc, 0);
-		genericShader.setUniform4f(genericShaderColorLoc, drawColor);
-		genericShader.setUniformMatrix4fv(genericShaderProjLoc, &projection, 1);
-		genericShader.setUniform2fv(genericShaderPosLoc, vertices, 6);
-		genericShader.drawArrays(GL_TRIANGLES, 0, 3);
-		//genericShader.unbind();
-	}
+void ffw::RenderContext::drawRectangleRounded(float posx, float posy, float width, float height, float corners) const {
+    if (!initialized)return;
+
+    nvgBeginPath(vg);
+    nvgRoundedRect(vg, posx, posy, width, height, corners);
+    FILL_OR_STROKE(vg);
+    drawExecuted = true;
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawTexture2D(float posx, float posy, float width, float height, const ffw::Texture2D* texture) {
-	if (texture == NULL || !texture->isCreated())return;
-	drawTexture2DSubMirror(posx, posy, width, height, texture, 0, 0, texture->getWidth(), texture->getHeight(), false, false);
+void ffw::RenderContext::drawRectangleRounded(float posx, float posy, float width, float height, float topLeft, float topRight, float bottomRight, float bottomLeft) const {
+    if (!initialized)return;
+
+    nvgBeginPath(vg);
+    nvgRoundedRectVarying(vg, posx, posy, width, height, topLeft, topRight, bottomRight, bottomLeft);
+    FILL_OR_STROKE(vg);
+    drawExecuted = true;
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawTexture2DMirror(float posx, float posy, float width, float height, const ffw::Texture2D* texture, bool mirrorx, bool mirrory) {
-	if (texture == NULL || !texture->isCreated())return;
-	drawTexture2DSubMirror(posx, posy, width, height, texture, 0, 0, texture->getWidth(), texture->getHeight(), mirrorx, mirrory);
+void ffw::RenderContext::drawTriangle(float p0x, float p0y, float p1x, float p1y, float p2x, float p2y) const  {
+    if (!initialized)return;
+
+    nvgBeginPath(vg);
+    nvgMoveTo(vg, p0x, p0y);
+    nvgLineTo(vg, p1x, p1y);
+    nvgLineTo(vg, p2x, p2y);
+    nvgLineTo(vg, p0x, p0y);
+    FILL_OR_STROKE(vg);
+    drawExecuted = true;
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawTexture2DSub(float posx, float posy, float width, float height, const ffw::Texture2D* texture, int subx, int suby, int subw, int subh) {
-	drawTexture2DSubMirror(posx, posy, width, height, texture, subx, suby, subw, subh, false, false);
+void ffw::RenderContext::drawTexture2D(float posx, float posy, float width, float height, const ffw::Texture2D* texture) const  {
+    if (!initialized)return;
+    if (texture == NULL || !texture->isCreated())return;
+    drawTexture2DSubMirror(posx, posy, width, height, texture, 0, 0, texture->getWidth(), texture->getHeight(), false, false);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawTexture2DSubMirror(float posx, float posy, float width, float height, const ffw::Texture2D* texture, int subx, int suby, int subw, int subh, bool mirrorx, bool mirrory) {
-	if (texture == NULL)return;
-	texture->bind();
-
-	float subxf = subx / (float)texture->getWidth();
-	float subyf = suby / (float)texture->getHeight();
-	float subwf = subw / (float)texture->getWidth();
-	float subhf = subh / (float)texture->getHeight();
-
-	if (!usesOpenGL3) {
-		vertices[0] = posx + width; vertices[1] = posy;
-		vertices[2] = posx; vertices[3] = posy;
-		vertices[4] = posx; vertices[5] = posy + height;
-		vertices[6] = posx + width; vertices[7] = posy + height;
-
-		float uvs[8] = {
-			subxf + subwf, subyf,
-			subxf, subyf,
-			subxf, subyf + subhf,
-			subxf + subwf, subyf + subhf
-		};
-
-		if (mirrory) {
-			std::swap(uvs[0], uvs[6]);
-			std::swap(uvs[1], uvs[7]);
-
-			std::swap(uvs[2], uvs[4]);
-			std::swap(uvs[3], uvs[5]);
-		}
-
-		if (mirrorx) {
-			std::swap(uvs[0], uvs[2]);
-			std::swap(uvs[1], uvs[3]);
-
-			std::swap(uvs[4], uvs[6]);
-			std::swap(uvs[5], uvs[7]);
-		}
-
-		glEnable(GL_TEXTURE_2D);
-		texture->bind();
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_FLOAT, 0, uvs);
-		glVertexPointer(2, GL_FLOAT, 0, vertices);
-		glDrawArrays(GL_QUADS, 0, 4);
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisable(GL_TEXTURE_2D);
-	}
-	else {
-		vertices[0] = posx; vertices[1] = posy;
-		vertices[2] = posx + width; vertices[3] = posy;
-		vertices[4] = posx + width; vertices[5] = posy + height;
-		vertices[6] = posx; vertices[7] = posy + height;
-
-		float uvs[2 * 4] = {
-			subxf, subyf, subxf + subwf, subyf,
-			subxf + subwf, subyf + subhf, subxf, subyf + subhf
-		};
-
-		if (mirrorx) {
-			std::swap(uvs[2], uvs[0]);
-			std::swap(uvs[3], uvs[1]);
-
-			std::swap(uvs[4], uvs[6]);
-			std::swap(uvs[5], uvs[7]);
-		}
-
-		if (mirrory) {
-			std::swap(uvs[6], uvs[0]);
-			std::swap(uvs[7], uvs[1]);
-
-			std::swap(uvs[4], uvs[2]);
-			std::swap(uvs[5], uvs[3]);
-		}
-
-		genericShader.bind();
-		genericShader.setUniform4f(genericShaderColorLoc, drawColor);
-		genericShader.setUniformMatrix4fv(genericShaderProjLoc, &projection, 1);
-		genericShader.setUniform1i(genericShaderBranchLoc, 1);
-		genericShader.setUniform1i(genericShaderTexLoc, 0);
-		genericShader.setUniform2fv(genericShaderPosLoc, vertices, 8);
-		genericShader.setUniform2fv(genericShaderUvsLoc, uvs, 8);
-		genericShader.drawArrays(GL_QUADS, 0, 4);
-	}
+void ffw::RenderContext::drawTexture2DMirror(float posx, float posy, float width, float height, const ffw::Texture2D* texture, bool mirrorx, bool mirrory) const  {
+    if (!initialized)return;
+    if (texture == NULL || !texture->isCreated())return;
+    drawTexture2DSubMirror(posx, posy, width, height, texture, 0, 0, texture->getWidth(), texture->getHeight(), mirrorx, mirrory);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawArc(float posx, float posy, float innerradius, float outerradius, double startangle, double endangle) {
-	if (!usesOpenGL3) {
-		double start = startangle * DEG_TO_RAD;
-		double end = endangle * DEG_TO_RAD;
-		double step = (end - start) / double(arcSteps);
-		double angle = start;
-
-		glEnableClientState(GL_VERTEX_ARRAY);
-
-		for (int i = 0; i < arcSteps; i++) {
-			double angleNew = angle + step;
-
-			double vertices[8] = {
-				double(innerradius * cos(angle) + posx), double(innerradius * sin(angle) + posy),
-				double(outerradius * cos(angle) + posx), double(outerradius * sin(angle) + posy),
-				double(outerradius * cos(angleNew) + posx), double(outerradius * sin(angleNew) + posy),
-				double(innerradius * cos(angleNew) + posx), double(innerradius * sin(angleNew) + posy),
-			};
-
-			glVertexPointer(2, GL_DOUBLE, 0, vertices);
-			glDrawArrays(GL_QUADS, 0, 4);
-
-			angle = angleNew;
-		}
-
-		glDisableClientState(GL_VERTEX_ARRAY);
-	}
-	else {
-		arcShader.bind();
-		arcShader.setUniform4f(arcShaderColorLoc, drawColor);
-		arcShader.setUniformMatrix4fv(arcShaderProjLoc, &projection, 1);
-		arcShader.setUniform2f(arcShaderPosLoc, posx, posy);
-		arcShader.setUniform2f(arcShaderInnerLoc, innerradius, innerradius);
-		arcShader.setUniform2f(arcShaderOuterLoc, outerradius, outerradius);
-		arcShader.setUniform2f(arcShaderAngleLoc, float(startangle*DEG_TO_RAD), float(endangle*DEG_TO_RAD));
-		arcShader.setUniform1i(arcShaderStepsLoc, arcSteps);
-		arcShader.drawArrays(GL_QUAD_STRIP, 0, arcSteps * 2 + 2);
-	}
+void ffw::RenderContext::drawTexture2DSub(float posx, float posy, float width, float height, const ffw::Texture2D* texture, int subx, int suby, int subw, int subh) const  {
+    if (!initialized)return;
+    drawTexture2DSubMirror(posx, posy, width, height, texture, subx, suby, subw, subh, false, false);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawCircle(float posx, float posy, float radius) {
-	if (!usesOpenGL3) {
-		if (outlineMode) {
-			drawArc(posx, posy, radius, radius - thickness, 0.0, 360.0);
-		}
-		else {
-			drawArc(posx, posy, 0, radius, 0, 360);
-		}
-	}
-	else {
-		arcShader.bind();
-		arcShader.setUniform4f(arcShaderColorLoc, drawColor);
-		arcShader.setUniformMatrix4fv(arcShaderProjLoc, &projection, 1);
-		arcShader.setUniform2f(arcShaderPosLoc, posx, posy);
-		if (outlineMode)arcShader.setUniform2f(arcShaderInnerLoc, radius - thickness, radius - thickness);
-		else arcShader.setUniform2f(arcShaderInnerLoc, 0, 0);
-		arcShader.setUniform2f(arcShaderOuterLoc, radius, radius);
-		arcShader.setUniform2f(arcShaderAngleLoc, float(0.0*DEG_TO_RAD), float(360.0*DEG_TO_RAD));
-		arcShader.setUniform1i(arcShaderStepsLoc, arcSteps);
-		arcShader.drawArrays(GL_QUAD_STRIP, 0, arcSteps * 2 + 2);
-		//arcShader.unbind();
-	}
+void ffw::RenderContext::drawTexture2DSubMirror(float posx, float posy, float width, float height, const ffw::Texture2D* texture, int subx, int suby, int subw, int subh, bool mirrorx, bool mirrory) const  {
+    if (!initialized)return;
+    if (texture == nullptr || !texture->isCreated())return;
+
+    const auto scissorW = vg->states->scissor.extent[0] * 2.0f;
+    const auto scissorH = vg->states->scissor.extent[1] * 2.0f;
+    const auto scissorX = (vg->states->scissor.xform[4] * 2.0f - scissorW) / 2.0f;
+    const auto scissorY = (vg->states->scissor.xform[5] * 2.0f - scissorH) / 2.0f;
+
+    if (drawExecuted)endFrame();
+
+    if (scissorW > 0.0f && scissorH > 0.0f) {
+        glEnable(GL_SCISSOR_TEST);
+        glScissor(int(floor(scissorX)), viewport.w - int(floor(scissorY) + ceil(scissorH)), int(ceil(scissorW)), int(ceil(scissorH)));
+    }
+
+    glEnable(GL_BLEND);
+    glEnable(GL_TEXTURE);
+    glActiveTexture(GL_TEXTURE0);
+
+    texture->bind();
+
+    float view[9];
+    getOpenGLTransform(view);
+
+    textureShader.bind();
+    textureShader.setUniform1i(textureShaderUniforms.tex, 0);
+    textureShader.setUniform4f(textureShaderUniforms.color, fillColor);
+    textureShader.setUniformMatrix4fv(textureShaderUniforms.proj, &projection, 1);
+    textureShader.setUniformMatrix3fv(textureShaderUniforms.view, view, 1);
+
+    const auto subxf = subx / float(texture->getWidth());
+    const auto subyf = suby / float(texture->getHeight());
+    const auto subwf = subw / float(texture->getWidth());
+    const auto subhf = subh / float(texture->getHeight());
+
+    Vec2f data[4*2] = {
+        // Vertex 1
+        Vec2f(posx, posy),
+        Vec2f(subxf, subyf),
+
+        // Vertex 2
+        Vec2f(posx, posy + height),
+        Vec2f(subxf, subyf + subhf),
+
+        // Vertex 3
+        Vec2f(posx + width, posy + height),
+        Vec2f(subxf + subwf, subyf + subhf),
+
+        // Vertex 4
+        Vec2f(posx + width, posy),
+        Vec2f(subxf + subwf, subyf),
+    };
+
+    if(mirrory) {
+        std::swap(data[1], data[3]);
+        std::swap(data[5], data[7]);
+    }
+
+    if (mirrorx) {
+        std::swap(data[1], data[7]);
+        std::swap(data[3], data[5]);
+    }
+
+    textureShaderVbo.bind();
+    textureShaderVbo.setData(&data[0].x, 0, 4 * 4 * sizeof(float));
+    textureShader.setAttributePointerf(textureShaderUniforms.position, 2, 4 * sizeof(float), (GLvoid*)(0 * sizeof(float)));
+    textureShader.setAttributePointerf(textureShaderUniforms.uvpos, 2, 4 * sizeof(float), (GLvoid*)(2 * sizeof(float)));
+
+    textureShader.drawArrays(GL_QUADS, 0, 4);
+    textureShader.unbind();
+
+    if (scissorW > 0.0f && scissorH > 0.0f) {
+        glDisable(GL_SCISSOR_TEST);
+    }
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawLine(float startx, float starty, float endx, float endy) {
-	if (!usesOpenGL3) {
-		if (thickness == 1) {
-			vertices[0] = startx; vertices[1] = starty;
-			vertices[2] = endx; vertices[3] = endy;
+void ffw::RenderContext::drawArc(float posx, float posy, float innerradius, float outerradius, double startangle, double endangle) const  {
+    if (!initialized)return;
 
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glVertexPointer(2, GL_FLOAT, 0, vertices);
-			glDrawArrays(GL_LINES, 0, 2);
-			glDisableClientState(GL_VERTEX_ARRAY);
-		}
-		else {
-			ffw::Vec2f dir(endx - startx, endy - starty);
-			dir = ffw::Vec2f(dir.y, -dir.x);
-			dir.normalize();
-			dir *= float(thickness / 2);
+    nvgBeginPath(vg);
+    const auto p0 = ffw::Vec2f(posx, posy) + ffw::Vec2f(outerradius, 0).rotate(startangle);
+    const auto p1 = ffw::Vec2f(posx, posy) + ffw::Vec2f(innerradius, 0).rotate(endangle);
+    nvgMoveTo(vg, p0.x, p0.y);
+    nvgArc(vg, posx, posy, outerradius, float(startangle * DEG_TO_RAD), float(endangle * DEG_TO_RAD), NVG_CW);
+    nvgLineTo(vg, p1.x, p1.y);
+    nvgArc(vg, posx, posy, innerradius, float(endangle * DEG_TO_RAD), float(startangle * DEG_TO_RAD), NVG_CCW);
+    nvgLineTo(vg, p0.x, p0.y);
+    FILL_OR_STROKE(vg);
+    drawExecuted = true;
+}
 
-			vertices[0] = startx + dir.x;
-			vertices[1] = starty + dir.y;
+///=============================================================================
+void ffw::RenderContext::drawCircle(float posx, float posy, float radius) const {
+    if (!initialized)return;
 
-			vertices[2] = endx + dir.x;
-			vertices[3] = endy + dir.y;
+    nvgBeginPath(vg);
+    nvgCircle(vg, posx, posy, radius);
+    FILL_OR_STROKE(vg);
+    drawExecuted = true;
+}
 
-			vertices[4] = endx - dir.x;
-			vertices[5] = endy - dir.y;
+///=============================================================================
+void ffw::RenderContext::drawLine(float startx, float starty, float endx, float endy) const  {
+    if (!initialized)return;
+    
+    nvgBeginPath(vg);
+    nvgMoveTo(vg, startx, starty);
+    nvgLineTo(vg, endx, endy);
+    nvgStroke(vg);
+    drawExecuted = true;
+}
 
-			vertices[6] = startx - dir.x;
-			vertices[7] = starty - dir.y;
+///=============================================================================
+void ffw::RenderContext::getOpenGLTransform(float* arr) const {
+    if (!initialized)return;
+    
+    float buffer[6];
 
-			glEnableClientState(GL_VERTEX_ARRAY);
-			glVertexPointer(2, GL_FLOAT, 0, vertices);
-			glDrawArrays(GL_QUADS, 0, 4);
-			glDisableClientState(GL_VERTEX_ARRAY);
-		}
-	}
-	else {
-		if (thickness == 1) {
-			vertices[0] = startx; vertices[1] = starty;
-			vertices[2] = endx; vertices[3] = endy;
+    nvgCurrentTransform(vg, buffer);
 
-			genericShader.bind();
-			genericShader.setUniform1i(genericShaderBranchLoc, 0);
-			genericShader.setUniform4f(genericShaderColorLoc, drawColor);
-			genericShader.setUniformMatrix4fv(genericShaderProjLoc, &projection, 1);
-			genericShader.setUniform2fv(genericShaderPosLoc, vertices, 4);
-			genericShader.drawArrays(GL_LINES, 0, 2);
-			//genericShader.unbind();
-		}
-		else {
-			ffw::Vec2f dir(endx - startx, endy - starty);
-			dir = ffw::Vec2f(dir.y, -dir.x);
-			dir.normalize();
-			dir *= float(thickness / 2);
+    arr[0] = buffer[0];
+    arr[3] = buffer[2];
+    arr[6] = buffer[4];
+    arr[1] = buffer[1];
+    arr[4] = buffer[3];
+    arr[7] = buffer[5];
 
-			vertices[0] = startx + dir.x;
-			vertices[1] = starty + dir.y;
-
-			vertices[2] = endx + dir.x;
-			vertices[3] = endy + dir.y;
-
-			vertices[4] = endx - dir.x;
-			vertices[5] = endy - dir.y;
-
-			vertices[6] = startx - dir.x;
-			vertices[7] = starty - dir.y;
-
-			genericShader.bind();
-			genericShader.setUniform1i(genericShaderBranchLoc, 0);
-			genericShader.setUniform4f(genericShaderColorLoc, drawColor);
-			genericShader.setUniformMatrix4fv(genericShaderProjLoc, &projection, 1);
-			genericShader.setUniform2fv(genericShaderPosLoc, vertices, 8);
-			genericShader.drawArrays(GL_QUADS, 0, 4);
-			genericShader.unbind();
-		}
-	}
+    arr[2] = 0.0f;
+    arr[5] = 0.0f;
+    arr[8] = 1.0f;
 }
 
 ///=============================================================================
 template <class T>
-void ffw::RenderContext::drawStringFunc(float posx, float posy, const ffw::Font* font, const T* str, size_t length, float lineHeight) {
-	if (font == NULL || !font->isCreated())return;
+void ffw::RenderContext::drawStringFunc(float posx, float posy, const ffw::Font* font, const T* str, size_t length, float maxWidth, float lineHeight) const {
+    if (!initialized)return;
+    
+    if (length == 0 || str == nullptr || font == nullptr || !font->isCreated())return;
 
-	if (!usesOpenGL3) {
-		glEnable(GL_TEXTURE_2D);
-	}
+    const auto scissorW = vg->states->scissor.extent[0] * 2.0f;
+    const auto scissorH = vg->states->scissor.extent[1] * 2.0f;
+    const auto scissorX = (vg->states->scissor.xform[4] * 2.0f - scissorW) / 2.0f;
+    const auto scissorY = (vg->states->scissor.xform[5] * 2.0f - scissorH) / 2.0f;
 
-	font->getTexture()->bind();
+    if (drawExecuted)endFrame();
 
-	if (!usesOpenGL3) {
-		glEnableClientState(GL_VERTEX_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-	}
-	else {
-		genericShader.bind();
-		if(font->isAlphaOnly())
-			genericShader.setUniform1i(genericShaderBranchLoc, 2);
-		else
-			genericShader.setUniform1i(genericShaderBranchLoc, 1);
-		genericShader.setUniform4f(genericShaderColorLoc, drawColor);
-		genericShader.setUniformMatrix4fv(genericShaderProjLoc, &projection, 1);
-		genericShader.setUniform1i(genericShaderTexLoc, 0);
-	}
+    if (scissorW > 0.0f && scissorH > 0.0f) {
+        glEnable(GL_SCISSOR_TEST);
+        glScissor(int(floor(scissorX)), viewport.w - int(floor(scissorY) + ceil(scissorH)), int(ceil(scissorW)), int(ceil(scissorH)));
+    }
 
-	auto advance = posx;
-	auto height = posy;
-	size_t cnt = 0;
-	float textureWidth = (float)font->getTexture()->getWidth();
-	float textureHeight = (float)font->getTexture()->getHeight();
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    fontShader.bind();
 
-	while (*str != '\0' && cnt < length) {
-		auto chr = *str;
-		str += 1;
-		cnt++;
+    float view[9];
+    getOpenGLTransform(view);
 
-		const ffw::Font::Char& chrData = font->getChar(chr);
+    font->getTexture()->bind();
+    fontShader.setUniform1i(fontShaderUniforms.tex, 0);
+    fontShader.setUniform1f(fontShaderUniforms.rgbMixer, font->isAlphaOnly() ? 0.0f : 1.0f);
+    fontShader.setUniform4f(fontShaderUniforms.color, fillColor);
+    fontShader.setUniformMatrix4fv(fontShaderUniforms.proj, &projection, 1);
+    fontShader.setUniformMatrix3fv(fontShaderUniforms.view, view, 1);
 
-		if (chr == 32 || chr == 9) {
-			advance += chrData.advance;
-			continue;
-		}
+    font->getVbo()->bind();
+    fontShader.setAttributePointerf(fontShaderUniforms.position, 2, 4 * sizeof(float), (GLvoid*)(0 * sizeof(float)));
+    fontShader.setAttributePointerf(fontShaderUniforms.uvpos, 2, 4 * sizeof(float), (GLvoid*)(2 * sizeof(float)));
 
-		else if (chr == '\n') {
-			height += lineHeight * font->getSizePixels();
-			advance = posx;
-			continue;
-		}
+    auto wrapper = ffw::TextWrapper<T>(str, str + length);
 
-		auto offset = font->getCharVerticalOffset(chrData);
+    const auto bottom = float(font->getSizePixels());
+    auto height = posy;
+    bool previousWasNewline = false;
+    while(auto token = wrapper.next(font, maxWidth)) {
+        auto advance = posx;
 
-		vertices[0] = floor(advance + chrData.width + chrData.bearingX); 
-		vertices[1] = floor(height + offset);
+        if(token.len > 0) {
+            const T* ptr = token.str;
+            while (ptr != token.str + token.len) {
+                const auto chr = getNextChar(ptr, token.str + token.len);
+                const ffw::Font::Char& chrData = font->getChar(chr);
 
-		vertices[2] = floor(advance + chrData.bearingX); 
-		vertices[3] = floor(height + offset);
+                if (chrData.height == 0 || chrData.width == 0) {
+                    advance += chrData.advance;
+                    continue;
+                }
 
-		vertices[4] = floor(advance + chrData.bearingX);  
-		vertices[5] = floor(height + chrData.height + offset);
+                fontShader.setUniform2f(fontShaderUniforms.offset, advance, height + (bottom - chrData.bearingY));
+                fontShader.drawArrays(GL_QUADS, font->getCharIndex(chr) * 4, 4);
 
-		vertices[6] = floor(advance + chrData.width + chrData.bearingX);  
-		vertices[7] = floor(height + chrData.height + offset);
+                advance += chrData.advance;
+            }
+            height += lineHeight * font->getSizePixels();
+            previousWasNewline = false;
+        } else {
+            if (previousWasNewline) {
+                height += lineHeight * font->getSizePixels();
+            }
+            previousWasNewline = true;
+        }
+    }
 
-		float uvs[8] = {
-			(chrData.x + chrData.width) / textureWidth, chrData.y / textureHeight,
-			chrData.x / textureWidth,                   chrData.y / textureHeight,
-			chrData.x / textureWidth,                   (chrData.y + chrData.height) / textureHeight,
-			(chrData.x + chrData.width) / textureWidth, (chrData.y + chrData.height) / textureHeight
-		};
+    fontShader.unbind();
 
-		if (!usesOpenGL3) {
-			glTexCoordPointer(2, GL_FLOAT, 0, uvs);
-			glVertexPointer(2, GL_FLOAT, 0, vertices);
-			glDrawArrays(GL_QUADS, 0, 4);
-		}
-		else {
-			genericShader.setUniform2fv(genericShaderPosLoc, vertices, 8);
-			genericShader.setUniform2fv(genericShaderUvsLoc, uvs, 8);
-			genericShader.drawArrays(GL_QUADS, 0, 4);
-		}
-
-		advance += chrData.advance;
-	}
-
-	if (!usesOpenGL3) {
-		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-		glDisableClientState(GL_VERTEX_ARRAY);
-		glDisable(GL_TEXTURE_2D);
-	}
+    if (scissorW > 0.0f && scissorH > 0.0f) {
+        glDisable(GL_SCISSOR_TEST);
+    }
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const std::string& str, float lineHeight) {
-	drawStringFunc(posx, posy, font, &str[0], str.size(), lineHeight);
+void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const std::string& str, float lineHeight) const {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, &str[0], str.size(), -1.0f, lineHeight);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const std::wstring& str, float lineHeight) {
-	drawStringFunc(posx, posy, font, &str[0], str.size(), lineHeight);
+void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const std::wstring& str, float lineHeight) const {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, &str[0], str.size(), -1.0f, lineHeight);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const char* str, float lineHeight) {
-	drawStringFunc(posx, posy, font, str, SIZE_MAX, lineHeight);
+void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const char* str, size_t length, float lineHeight) const  {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, str, length, -1.0f, lineHeight);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const char* str, size_t length, float lineHeight) {
-	drawStringFunc(posx, posy, font, str, length, lineHeight);
+void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const wchar_t* str, size_t length, float lineHeight) const {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, str, length, -1.0f, lineHeight);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const wchar_t* str, float lineHeight) {
-	drawStringFunc(posx, posy, font, str, SIZE_MAX, lineHeight);
+void ffw::RenderContext::drawStringBox(float posx, float posy, const ffw::Font* font, const char* str, size_t length, float maxWidth, float lineHeight) const {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, str, length, maxWidth, lineHeight);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawString(float posx, float posy, const ffw::Font* font, const wchar_t* str, size_t length, float lineHeight) {
-	drawStringFunc(posx, posy, font, str, length, lineHeight);
+void ffw::RenderContext::drawStringBox(float posx, float posy, const ffw::Font* font, const wchar_t* str, size_t length, float maxWidth, float lineHeight) const {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, str, length, maxWidth, lineHeight);
 }
 
 ///=============================================================================
-static ffw::Vec2f getBezierPoint(float t, const ffw::Vec2f& point0, const ffw::Vec2f& point1, const ffw::Vec2f& point2, const ffw::Vec2f& point3) {
-	return point0 * ((1.0f - t)*(1.0f - t)*(1.0f - t))
-		+ point1 * 3.0f*((1.0f - t)*(1.0f - t))*t
-		+ point2 * 3.0f *(1.0f - t)*t*t
-		+ point3 * t*t*t;
+void ffw::RenderContext::drawStringBox(float posx, float posy, const ffw::Font* font, const std::string& str, float maxWidth, float lineHeight) const {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, &str[0], str.size(), maxWidth, lineHeight);
 }
 
 ///=============================================================================
-void ffw::RenderContext::drawBezier(float startx, float starty, float cp0x, float cp0y, float cp1x, float cp1y, float endx, float endy) {
-	if (!usesOpenGL3) {
-		if (thickness == 1) {
-			glBegin(GL_LINE_STRIP);
-			for (int i = 0; i < bezierSteps + 1; i++) {
-				float t = i / float(bezierSteps);
-				auto p = ffw::Vec2f((float)startx, (float)starty) * ((1.0f - t)*(1.0f - t)*(1.0f - t)) +
-					ffw::Vec2f((float)cp0x, (float)cp0y) * 3.0f*((1.0f - t)*(1.0f - t))*t +
-					ffw::Vec2f((float)cp1x, (float)cp1y) * 3.0f *(1.0f - t)*t*t +
-					ffw::Vec2f((float)endx, (float)endy) * t*t*t;
+void ffw::RenderContext::drawStringBox(float posx, float posy, const ffw::Font* font, const std::wstring& str, float maxWidth, float lineHeight) const {
+    if (!initialized)return;
+    drawStringFunc(posx, posy, font, &str[0], str.size(), maxWidth, lineHeight);
+}
 
-				glVertex2f(p.x, p.y);
-			}
-			glEnd();
-		}
-		else {
-			auto point0 = ffw::Vec2f((float)startx, (float)starty);
-			auto point1 = ffw::Vec2f((float)cp0x, (float)cp0y);
-			auto point2 = ffw::Vec2f((float)cp1x, (float)cp1y);
-			auto point3 = ffw::Vec2f((float)endx, (float)endy);
+///=============================================================================
+void ffw::RenderContext::drawBezier(float startx, float starty, float cp0x, float cp0y, float cp1x, float cp1y, float endx, float endy) const  {
+    if (!initialized)return;
 
-			glBegin(GL_QUAD_STRIP);
-			for (int i = 0; i < bezierSteps * 2 + 2; i++) {
-				float t0 = ((i / 2) - 1) / float(bezierSteps);
-				float t1 = ((i / 2)) / float(bezierSteps);
-				float t2 = ((i / 2) + 1) / float(bezierSteps);
+    nvgBeginPath(vg);
+    nvgMoveTo(vg, startx, starty);
+    nvgBezierTo(vg, cp0x, cp0y, cp1x, cp1y, endx, endy);
+    nvgStroke(vg);
+    drawExecuted = true;
+}
 
-				t0 = ffw::clamp(t0, 0.0f, 1.0f);
-				t2 = ffw::clamp(t2, 0.0f, 1.0f);
+///=============================================================================
+void ffw::RenderContext::setDrawMode(DrawMode type) const  {
+    if (!initialized)return;
+    drawType = type;
+}
 
-				auto p0 = getBezierPoint(t0, point0, point1, point2, point3);
-				auto p1 = getBezierPoint(t1, point0, point1, point2, point3);
-				auto p2 = getBezierPoint(t2, point0, point1, point2, point3);
+///=============================================================================
+void ffw::RenderContext::setStrokeSize(float width) const  {
+    if (!initialized)return;
+    nvgStrokeWidth(vg, width);
+}
 
-				auto n0 = p1 - p0;
-				float n0x = n0.x;
-				n0.x = n0.y;
-				n0.y = -n0x;
+///=============================================================================
+void ffw::RenderContext::setShapeAntiAlis(bool enabled) const {
+    if (!initialized)return;
+    nvgShapeAntiAlias(vg, enabled);
+}
 
-				auto n1 = p2 - p1;
-				float n1x = n1.x;
-				n1.x = n1.y;
-				n1.y = -n1x;
+///=============================================================================
+void ffw::RenderContext::setLineCap(LineCap type) const {
+    if (!initialized)return;
+    nvgLineCap(vg, int(type));
+}
 
-				auto n = n0 + n1;
-				n = ffw::normalize(n);
+///=============================================================================
+void ffw::RenderContext::setLineJoin(LineCap type) const {
+    if (!initialized)return;
+    nvgLineJoin(vg, int(type));
+}
 
-				if (i % 2 == 0) {
-					p1 = p1 + n * (float)thickness / 2;
-				}
-				else {
-					p1 = p1 - n * (float)thickness / 2;
-				}
-				glVertex2f(p1.x, p1.y);
-			}
-			glEnd();
-		}
-	}
-	else {
-		vertices[0] = startx; vertices[1] = starty;
-		vertices[2] = cp0x; vertices[3] = cp0y;
-		vertices[4] = cp1x; vertices[5] = cp1y;
-		vertices[6] = endx; vertices[7] = endy;
+///=============================================================================
+void ffw::RenderContext::setStrokeMiterLimit(float limit) const {
+    if (!initialized)return;
+    nvgMiterLimit(vg, limit);
+}
 
-		if (thickness == 1) {
-			bezierShader.bind();
-			bezierShader.setUniform4f(bezierShaderColorLoc, drawColor);
-			bezierShader.setUniformMatrix4fv(bezierShaderProjLoc, &projection, 1);
-			bezierShader.setUniform2fv(bezierShaderPointsLoc, vertices, 8);
-			bezierShader.setUniform1i(bezierShaderStepsLoc, bezierSteps);
-			bezierShader.drawArrays(GL_LINE_STRIP, 0, bezierSteps + 1);
-		}
-		else {
-			bezierAdvShader.bind();
-			bezierAdvShader.setUniform4f(bezierAdvShaderColorLoc, drawColor);
-			bezierAdvShader.setUniformMatrix4fv(bezierAdvShaderProjLoc, &projection, 1);
-			bezierAdvShader.setUniform2fv(bezierAdvShaderPointsLoc, vertices, 8);
-			bezierAdvShader.setUniform1i(bezierAdvShaderStepsLoc, bezierSteps);
-			bezierAdvShader.setUniform1i(bezierAdvShaderThickLoc, thickness / 2);
-			bezierAdvShader.drawArrays(GL_QUAD_STRIP, 0, bezierSteps * 2 + 2);
-		}
-	}
+///=============================================================================
+void ffw::RenderContext::beginPath(float x, float y) const {
+    if (!initialized)return;
+    nvgBeginPath(vg);
+    nvgMoveTo(vg, x, y);
+}
+
+///=============================================================================
+void ffw::RenderContext::drawLineTo(float x, float y) const {
+    if (!initialized)return;
+    nvgLineTo(vg, x, y);
+}
+
+///=============================================================================
+void ffw::RenderContext::drawBezierTo(float cp0x, float cp0y, float cp1x, float cp1y, float endx, float endy) const {
+    if (!initialized)return;
+    nvgBezierTo(vg, cp0x, cp0y, cp1x, cp1y, endx, endy);
+}
+
+///=============================================================================
+void ffw::RenderContext::drawQuadTo(float cpx, float cpy, float endx, float endy) const {
+    if (!initialized)return;
+    nvgQuadTo(vg, cpx, cpy, endx, endy);
+}
+
+///=============================================================================
+void ffw::RenderContext::drawArcTo(float startx, float starty, float endx, float endy, float radius) const {
+    if (!initialized)return;
+    nvgArcTo(vg, startx, starty, endx, endy, radius);
+}
+
+///=============================================================================
+void ffw::RenderContext::closePath() const {
+    if (!initialized)return;
+    nvgClosePath(vg);
+}
+
+///=============================================================================
+void ffw::RenderContext::fillPath() const {
+    if (!initialized)return;
+    nvgFill(vg);
+    drawExecuted = true;
+}
+
+///=============================================================================
+void ffw::RenderContext::strokePath() const {
+    if (!initialized)return;
+    nvgStroke(vg);
+    drawExecuted = true;
+}
+
+///=============================================================================
+void ffw::RenderContext::setPathWinding(DrawPathWinding winding) const  {
+    if (!initialized)return;
+    nvgPathWinding(vg, int(winding));
+}
+
+///=============================================================================
+void ffw::RenderContext::saveDrawState() const {
+    if (!initialized)return;
+    nvgSave(vg);
+}
+
+///=============================================================================
+void ffw::RenderContext::restoreDrawState() const {
+    if (!initialized)return;
+    nvgRestore(vg);
+}
+
+///=============================================================================
+void ffw::RenderContext::resetDrawState() const {
+    if (!initialized)return;
+    nvgReset(vg);
+}
+
+///=============================================================================
+void ffw::RenderContext::setScissor(float posx, float posy, float width, float height) const {
+    if (!initialized)return;
+    nvgScissor(vg, posx, posy, width, height);
+}
+
+///=============================================================================
+void ffw::RenderContext::setIntersectScissor(float posx, float posy, float width, float height) const {
+    if (!initialized)return;
+    nvgIntersectScissor(vg, posx, posy, width, height);
+}
+
+///=============================================================================
+void ffw::RenderContext::resetScissor() const {
+    if (!initialized)return;
+    nvgResetScissor(vg);
+}
+
+///=============================================================================
+void ffw::RenderContext::setFillPaint(const DrawPaint& paint) const {
+    if (!initialized)return;
+    nvgFillPaint(vg, FFW_PAINT_TO_NV_PAINT(paint));
+}
+
+///=============================================================================
+void ffw::RenderContext::setStrokePaint(const DrawPaint& paint) const {
+    if (!initialized)return;
+    nvgStrokePaint(vg, FFW_PAINT_TO_NV_PAINT(paint));
+}
+
+///=============================================================================
+ffw::DrawPaint ffw::RenderContext::createLinearGradient(float sx, float sy, float ex, float ey, const ffw::Color& icol, const ffw::Color& ocol) const {
+    if (!initialized)return ffw::DrawPaint();
+    const auto ret = nvgLinearGradient(vg, sx, sy, ex, ey, FFW_COLOR_TO_NV_COLOR(icol), FFW_COLOR_TO_NV_COLOR(ocol));
+    return NV_PAINT_TO_FFW_PAINT(ret);
+}
+
+///=============================================================================
+ffw::DrawPaint ffw::RenderContext::createBoxGradient(float x, float y, float w, float h, float r, float f, const ffw::Color& icol, const ffw::Color& ocol) const {
+    if (!initialized)return ffw::DrawPaint();
+    const auto ret = nvgBoxGradient(vg, x, y, w, h, r, f, FFW_COLOR_TO_NV_COLOR(icol), FFW_COLOR_TO_NV_COLOR(ocol));
+    return NV_PAINT_TO_FFW_PAINT(ret);
+}
+
+///=============================================================================
+ffw::DrawPaint ffw::RenderContext::createRadialGradient(float cx, float cy, float inr, float outr, const ffw::Color& icol, const ffw::Color& ocol) const {
+    if (!initialized)return ffw::DrawPaint();
+    const auto ret = nvgRadialGradient(vg, cx, cy, inr, outr, FFW_COLOR_TO_NV_COLOR(icol), FFW_COLOR_TO_NV_COLOR(ocol));
+    return NV_PAINT_TO_FFW_PAINT(ret);
+}
+
+///=============================================================================
+void ffw::RenderContext::resetTransform() const {
+    if (!initialized)return;
+    nvgResetTransform(vg);
+}
+
+///=============================================================================
+void ffw::RenderContext::transformMove(float x, float y) const {
+    if (!initialized)return;
+    nvgTranslate(vg, x, y);
+}
+
+///=============================================================================
+void ffw::RenderContext::transformRotate(float degrees) const {
+    if (!initialized)return;
+    nvgRotate(vg, float(degrees * DEG_TO_RAD));
+}
+
+///=============================================================================
+void ffw::RenderContext::transformSkewX(float degrees) const {
+    if (!initialized)return;
+    nvgSkewX(vg, float(degrees * DEG_TO_RAD));
+}
+
+///=============================================================================
+void ffw::RenderContext::transformSkewY(float degrees) const {
+    if (!initialized)return;
+    nvgSkewY(vg, float(degrees * DEG_TO_RAD));
+}
+
+///=============================================================================
+void ffw::RenderContext::transformScale(float x, float y) const {
+    if (!initialized)return;
+    nvgScale(vg, x, y);
+}
+
+///=============================================================================
+void ffw::RenderContext::transform(float a, float b, float c, float d, float e, float f) const {
+    if (!initialized)return;
+    nvgTransform(vg, a, b, c, d, e, f);
+}
+
+///=============================================================================
+void ffw::RenderContext::getTransform(float* arr) const {
+    if (!initialized)return;
+    nvgCurrentTransform(vg, arr);
 }

@@ -2,64 +2,90 @@ GuiCallback
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/gui/guiwidget.h`
+The documentation for this struct was generated from: `include/ffw/gui/guiwidget.h`
 
-
-
-## Classes
-
-| Name |
-|:-----|
-| class [ffw::GuiCallback::Data](ffw_GuiCallback_Data.html) |
 
 
 ## Public Attributes
 
 | Type | Name |
 | -------: | :------- |
-|  std::vector< [Data](ffw_GuiCallback_Data.html) > | [callbacks](#5beb0dd2) |
+|  std::function< void([GuiEvent](ffw_GuiEvent.html))> | [func](#b4a8c322) |
+|  bool | [now](#78dee68b) |
+|  [GuiEventType](ffw.html#8b540a94) | [type](#feec5dcf) |
 
 
-## Public Functions
+## Public Static Functions
 
 | Type | Name |
 | -------: | :------- |
-|  void | [add](#e2d18be8) (void(T::*)([GuiEvent](ffw_GuiEvent.html)) _memfuncptr_, T * _instance_, bool _instant_)  |
-|  void | [add](#9dc24048) (const std::function< void([GuiEvent](ffw_GuiEvent.html))> & _function_, bool _instant_)  |
+|  [GuiCallback](ffw_GuiCallback.html) | [make](#570410f4) (void(T::*)([GuiEvent](ffw_GuiEvent.html)) _memfuncptr_, T * _instance_, [GuiEventType](ffw.html#8b540a94) _type_ = [GuiEventType::ALL](ffw_GuiEventType.html#1644ef86), bool _instant_ = false)  |
+|  [GuiCallback](ffw_GuiCallback.html) | [make](#42378cf2) (const std::function< void([GuiEvent](ffw_GuiEvent.html))> & _function_, [GuiEventType](ffw.html#8b540a94) _type_ = [GuiEventType::ALL](ffw_GuiEventType.html#1644ef86), bool _instant_ = false)  |
+|  [GuiCallback](ffw_GuiCallback.html) | [make](#743f75b0) (const F & _lambda_, [GuiEventType](ffw.html#8b540a94) _type_ = [GuiEventType::ALL](ffw_GuiEventType.html#1644ef86), bool _instant_ = false)  |
 
 
 ## Public Attributes Documentation
 
-### _variable_ <a id="5beb0dd2" href="#5beb0dd2">callbacks</a>
+### _variable_ <a id="b4a8c322" href="#b4a8c322">func</a>
 
 ```cpp
-std::vector< Data > callbacks
+std::function< void(GuiEvent)> func
+```
+
+
+
+### _variable_ <a id="78dee68b" href="#78dee68b">now</a>
+
+```cpp
+bool now
+```
+
+
+
+### _variable_ <a id="feec5dcf" href="#feec5dcf">type</a>
+
+```cpp
+GuiEventType type
 ```
 
 
 
 
 
-## Public Functions Documentation
+## Public Static Functions Documentation
 
-### _function_ <a id="e2d18be8" href="#e2d18be8">add</a>
+### _function_ <a id="570410f4" href="#570410f4">make</a>
 
 ```cpp
-inline void add (
+static inline GuiCallback make (
     void(T::*)(GuiEvent) memfuncptr,
     T * instance,
-    bool instant
+    GuiEventType type = GuiEventType::ALL,
+    bool instant = false
 ) 
 ```
 
 
 
-### _function_ <a id="9dc24048" href="#9dc24048">add</a>
+### _function_ <a id="42378cf2" href="#42378cf2">make</a>
 
 ```cpp
-inline void add (
+static inline GuiCallback make (
     const std::function< void(GuiEvent)> & function,
-    bool instant
+    GuiEventType type = GuiEventType::ALL,
+    bool instant = false
+) 
+```
+
+
+
+### _function_ <a id="743f75b0" href="#743f75b0">make</a>
+
+```cpp
+static inline GuiCallback make (
+    const F & lambda,
+    GuiEventType type = GuiEventType::ALL,
+    bool instant = false
 ) 
 ```
 

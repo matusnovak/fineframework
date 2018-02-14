@@ -14,6 +14,7 @@ The documentation for this class was generated from: `include/ffw/gui/guitab.h`
 |:-----|
 | class [ffw::GuiTabs::Button](ffw_GuiTabs_Button.html) |
 | class [ffw::GuiTabs::Content](ffw_GuiTabs_Content.html) |
+| struct [ffw::GuiTabs::Style](ffw_GuiTabs_Style.html) |
 | class [ffw::GuiTabs::TopBar](ffw_GuiTabs_TopBar.html) |
 
 
@@ -22,13 +23,13 @@ The documentation for this class was generated from: `include/ffw/gui/guitab.h`
 | Type | Name |
 | -------: | :------- |
 |   | [GuiTabs](#5c77c5c9) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~GuiTabs](#019aaccd) ()  |
+|  virtual  | [~GuiTabs](#ce79634e) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#01f7bcfe) ()  |
-|  std::pair< [GuiButtonToggle](ffw_GuiButtonToggle.html) *, [GuiWidget](ffw_GuiWidget.html) * > | [addTab](#6ffa5184) ([GuiButtonToggle](ffw_GuiButtonToggle.html) * _button_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
-|  std::pair< [GuiButtonToggle](ffw_GuiButtonToggle.html) *, [GuiWidget](ffw_GuiWidget.html) * > | [addTab](#54f7098b) (const std::string & _label_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
-|  std::pair< [GuiButtonToggle](ffw_GuiButtonToggle.html) *, [GuiWidget](ffw_GuiWidget.html) * > | [addTab](#28b7db76) (const std::wstring & _label_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
+|  [GuiTabs::Button](ffw_GuiTabs_Button.html) * | [addTab](#e6fdbb1b) ([GuiTabs::Button](ffw_GuiTabs_Button.html) * _button_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
+|  [GuiTabs::Button](ffw_GuiTabs_Button.html) * | [addTab](#c0dd7923) (const std::string & _label_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
 |  void | [showTabByIndex](#2b07bbf7) (size_t _index_)  |
 |  void | [showTabByWidget](#a278bdb3) (const [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
+|  void | [setStyle](#ca8fe06f) (const [GuiTabs::Style](ffw_GuiTabs_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -43,7 +44,7 @@ The documentation for this class was generated from: `include/ffw/gui/guitab.h`
 
 
 
-### _function_ <a id="019aaccd" href="#019aaccd">~GuiTabs</a>
+### _function_ <a id="ce79634e" href="#ce79634e">~GuiTabs</a>
 
 ```cpp
 virtual  ~GuiTabs () 
@@ -61,33 +62,22 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
 
-### _function_ <a id="6ffa5184" href="#6ffa5184">addTab</a>
+### _function_ <a id="e6fdbb1b" href="#e6fdbb1b">addTab</a>
 
 ```cpp
-std::pair< GuiButtonToggle *, GuiWidget * > addTab (
-    GuiButtonToggle * button,
+GuiTabs::Button * addTab (
+    GuiTabs::Button * button,
     GuiWidget * widget
 ) 
 ```
 
 
 
-### _function_ <a id="54f7098b" href="#54f7098b">addTab</a>
+### _function_ <a id="c0dd7923" href="#c0dd7923">addTab</a>
 
 ```cpp
-std::pair< GuiButtonToggle *, GuiWidget * > addTab (
+GuiTabs::Button * addTab (
     const std::string & label,
-    GuiWidget * widget
-) 
-```
-
-
-
-### _function_ <a id="28b7db76" href="#28b7db76">addTab</a>
-
-```cpp
-std::pair< GuiButtonToggle *, GuiWidget * > addTab (
-    const std::wstring & label,
     GuiWidget * widget
 ) 
 ```
@@ -109,6 +99,17 @@ void showTabByIndex (
 ```cpp
 void showTabByWidget (
     const GuiWidget * widget
+) 
+```
+
+
+
+### _function_ <a id="ca8fe06f" href="#ca8fe06f">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiTabs::Style * style,
+    bool defaults = false
 ) 
 ```
 

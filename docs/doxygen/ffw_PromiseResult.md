@@ -12,6 +12,7 @@ The documentation for this class was generated from: `include/ffw/math/promise.h
 | -------: | :------- |
 |   | [PromiseResult](#ef62fc5f) ()  |
 |   | [PromiseResult](#6a35ed4a) (const T & _result_)  |
+|   | [PromiseResult](#5cccee88) (T && _result_)  |
 |   | [operator T](#118a507f) () const  |
 |  const T & | [get](#148801c5) () const  |
 |  T & | [get](#59bfe66e) ()  |
@@ -32,6 +33,16 @@ inline  PromiseResult ()
 ```cpp
 inline  PromiseResult (
     const T & result
+) 
+```
+
+
+
+### _function_ <a id="5cccee88" href="#5cccee88">PromiseResult</a>
+
+```cpp
+inline  PromiseResult (
+    T && result
 ) 
 ```
 

@@ -8,11 +8,18 @@ The documentation for this class was generated from: `include/ffw/gui/guiprogres
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiProgressBar::Style](ffw_GuiProgressBar_Style.html) |
+
+
 ## Protected Attributes
 
 | Type | Name |
 | -------: | :------- |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [innerStyle](#2088ea0c) |
+|  const [GuiWidget::Style](ffw_GuiWidget_Style.html) * | [innerStyle](#981bdf6f) |
 
 
 ## Public Functions
@@ -20,20 +27,21 @@ The documentation for this class was generated from: `include/ffw/gui/guiprogres
 | Type | Name |
 | -------: | :------- |
 |   | [GuiProgressBar](#18ef4ac5) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~GuiProgressBar](#1cab6210) ()  |
+|  virtual  | [~GuiProgressBar](#4a8a05f6) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#f7d3b074) ()  |
-|  void | [setValue](#c0ac5c32) (float _value_)  |
+|  void | [setValue](#530ef1fe) (const float _value_)  |
 |  float | [getValue](#94910938) () const  |
-|  void | [setInnerStyleGroup](#e9d69b0b) (const [GuiStyleGroup](ffw_GuiStyleGroup.html) * _style_)  |
-|  const [GuiStyleGroup](ffw_GuiStyleGroup.html) * | [getInnerStyleGroup](#54530f35) () const  |
+|  void | [setInnerStyleGroup](#bcdcd097) (const [GuiWidget::Style](ffw_GuiWidget_Style.html) * _style_)  |
+|  const [GuiWidget::Style](ffw_GuiWidget_Style.html) * | [getInnerStyleGroup](#a94e5f02) () const  |
+|  void | [setStyle](#2b98cc61) (const [GuiProgressBar::Style](ffw_GuiProgressBar_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Protected Attributes Documentation
 
-### _variable_ <a id="2088ea0c" href="#2088ea0c">innerStyle</a>
+### _variable_ <a id="981bdf6f" href="#981bdf6f">innerStyle</a>
 
 ```cpp
-const GuiStyleGroup * innerStyle
+const GuiWidget::Style * innerStyle
 ```
 
 
@@ -52,7 +60,7 @@ const GuiStyleGroup * innerStyle
 
 
 
-### _function_ <a id="1cab6210" href="#1cab6210">~GuiProgressBar</a>
+### _function_ <a id="4a8a05f6" href="#4a8a05f6">~GuiProgressBar</a>
 
 ```cpp
 virtual  ~GuiProgressBar () 
@@ -70,11 +78,11 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
 
-### _function_ <a id="c0ac5c32" href="#c0ac5c32">setValue</a>
+### _function_ <a id="530ef1fe" href="#530ef1fe">setValue</a>
 
 ```cpp
-inline void setValue (
-    float value
+void setValue (
+    const float value
 ) 
 ```
 
@@ -88,20 +96,31 @@ inline float getValue () const
 
 
 
-### _function_ <a id="e9d69b0b" href="#e9d69b0b">setInnerStyleGroup</a>
+### _function_ <a id="bcdcd097" href="#bcdcd097">setInnerStyleGroup</a>
 
 ```cpp
-inline void setInnerStyleGroup (
-    const GuiStyleGroup * style
+void setInnerStyleGroup (
+    const GuiWidget::Style * style
 ) 
 ```
 
 
 
-### _function_ <a id="54530f35" href="#54530f35">getInnerStyleGroup</a>
+### _function_ <a id="a94e5f02" href="#a94e5f02">getInnerStyleGroup</a>
 
 ```cpp
-inline const GuiStyleGroup * getInnerStyleGroup () const 
+inline const GuiWidget::Style * getInnerStyleGroup () const 
+```
+
+
+
+### _function_ <a id="2b98cc61" href="#2b98cc61">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiProgressBar::Style * style,
+    bool defaults = false
+) 
 ```
 
 

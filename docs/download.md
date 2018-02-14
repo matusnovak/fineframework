@@ -27,13 +27,11 @@ Don't know what to do? Browse [tutorials located here](installation/installation
 Linux binary distribution may not work out of the box, I highly recommend checking out the tutorials and compiling FineFramework from source. However, if you wish to download the pre-built binaries from github release, you will need to install the following dependencies: 
 
 ```
-sudo apt-get install apt-get install xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev mesa-common-dev libfreetype6-dev libpng12-dev libjpeg8-dev libtiff5-dev zlib1g-dev libglfw3-dev
+sudo apt-get install apt-get install xorg-dev libgl1-mesa-glx libgl1-mesa-dev libglu1-mesa-dev freeglut3-dev mesa-common-dev
 ```
-
-Also, please make sure that your `glext.h` located in `/usr/local/include/GL` is updated with the latest release: <https://www.khronos.org/registry/OpenGL/api/GL/glext.h>
 
 ## Source Code
 
 [Download as ZIP](https://github.com/matusnovak/fineframework/archive/master.zip) or as [TAR.GZ](https://github.com/matusnovak/fineframework/archive/master.tar.gz)
 
-Use Git or checkout with SVN using: `https://github.com/matusnovak/fineframework.git`
+Use Git or checkout `https://github.com/matusnovak/fineframework.git`

@@ -4,26 +4,25 @@
 #include "texture.h"
 
 namespace ffw {
-	class ImageBuffer;
+    class ImageBuffer;
 
-	/**
-	 * @ingroup graphics
-	 */
-	class FFW_API Texture1D: public Texture {
+    /**
+     * @ingroup graphics
+     */
+    class FFW_API Texture1D: public Texture {
     public:
-        static bool checkCompability(const RenderContext* renderer);
-		Texture1D();
-		Texture1D(const Texture1D& second) = delete;
-		Texture1D(Texture1D&& second);
+        Texture1D();
+        Texture1D(const Texture1D& second) = delete;
+        Texture1D(Texture1D&& second);
         ~Texture1D();
-        bool create(const ffw::RenderContext* renderer, GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels = NULL);
-		bool resize(GLsizei width);
-		bool createFromBuffer(const ffw::RenderContext* renderer, const ImageBuffer& buffer);
-		bool setPixels(GLint level, const GLvoid* pixels = NULL);
+        bool create(GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels = NULL);
+        bool resize(GLsizei width);
+        bool createFromBuffer(const ImageBuffer& buffer);
+        bool setPixels(GLint level, const GLvoid* pixels = NULL);
         bool setPixels(GLint level, GLint xoffset, GLsizei width, const GLvoid* pixels);
-		bool getPixels(void* pixels) const;
-		Texture1D& operator = (const Texture1D& second) = delete;
-		Texture1D& operator = (Texture1D&& second);
+        bool getPixels(void* pixels) const;
+        Texture1D& operator = (const Texture1D& second) = delete;
+        Texture1D& operator = (Texture1D&& second);
     };
 };
 #endif

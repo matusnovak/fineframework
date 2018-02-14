@@ -58,3 +58,6 @@ doxygen-output
 _book
 node_modules
 .publish
+
+# Visual Studio Code settings
+.vscode

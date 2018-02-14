@@ -20,6 +20,7 @@ The documentation for this class was generated from: `include/ffw/graphics/font.
 | Type | Name |
 | -------: | :------- |
 |  [ffw::Texture2D](ffw_Texture2D.html) | [texture](#e7cda937) |
+|  [ffw::Vbo](ffw_Vbo.html) | [vbo](#e9e420ef) |
 |  int | [sizePoints](#db4ac3b4) |
 |  int | [sizePixels](#f4da172b) |
 |  int | [sizeDpi](#a1399e72) |
@@ -35,29 +36,25 @@ The documentation for this class was generated from: `include/ffw/graphics/font.
 |  virtual  | [~Font](#b5601d30) ()  |
 |  virtual void | [destroy](#ad63e5d2) () = 0  |
 |  virtual const [Char](ffw_Font_Char.html) & | [getChar](#d843f542) (wchar_t _chr_) const = 0  |
-|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSize](#9dcbaeb3) (const std::string & _str_, float _lineHeight_ = 1.25f) const  |
-|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSize](#ee16826e) (const std::wstring & _str_, float _lineHeight_ = 1.25f) const  |
+|  virtual int | [getCharIndex](#8a9e6bda) (wchar_t _chr_) const = 0  |
+|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSize](#ebff2323) (const std::string & _str_, float _maxWidth_ = -1.0f, float _lineHeight_ = 1.25f) const  |
+|  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSize](#75719c3f) (const std::wstring & _str_, float _maxWidth_ = -1.0f, float _lineHeight_ = 1.25f) const  |
+|  float | [getCharAdvance](#81cc15f3) (wchar_t _chr_) const  |
 |  int | [getSizePt](#222e6a2a) () const  |
 |  int | [getSizePixels](#c73bf9f3) () const  |
 |  int | [getDpi](#741652a0) () const  |
 |  const [ffw::Texture2D](ffw_Texture2D.html) * | [getTexture](#64226aa5) () const  |
+|  const [ffw::Vbo](ffw_Vbo.html) * | [getVbo](#b07e030b) () const  |
 |  bool | [isCreated](#65a9b796) () const  |
 |  float | [getCharVerticalOffset](#3a58ee86) (const [Font::Char](ffw_Font_Char.html) & _data_) const  |
 |  bool | [isAlphaOnly](#67cedb06) () const  |
-
-
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#2107f8ab) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
 
 
 ## Protected Functions
 
 | Type | Name |
 | -------: | :------- |
-|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSizeFunc](#067f8cc6) (const std::basic_string< T > & _str_, float _lineHeight_) const  |
+|  [ffw::Vec2f](ffw.html#fcfaa6c5) | [getStringSizeFunc](#59be59a7) (const std::basic_string< T > & _str_, float _maxWidth_ = -1.0f, float _lineHeight_ = 1.25f) const  |
 
 
 ## Protected Attributes Documentation
@@ -66,6 +63,14 @@ The documentation for this class was generated from: `include/ffw/graphics/font.
 
 ```cpp
 ffw::Texture2D texture
+```
+
+
+
+### _variable_ <a id="e9e420ef" href="#e9e420ef">vbo</a>
+
+```cpp
+ffw::Vbo vbo
 ```
 
 
@@ -148,23 +153,45 @@ virtual const Char & getChar (
 
 
 
-### _function_ <a id="9dcbaeb3" href="#9dcbaeb3">getStringSize</a>
+### _function_ <a id="8a9e6bda" href="#8a9e6bda">getCharIndex</a>
+
+```cpp
+virtual int getCharIndex (
+    wchar_t chr
+) const = 0 
+```
+
+
+
+### _function_ <a id="ebff2323" href="#ebff2323">getStringSize</a>
 
 ```cpp
 virtual ffw::Vec2f getStringSize (
     const std::string & str,
+    float maxWidth = -1.0f,
     float lineHeight = 1.25f
 ) const 
 ```
 
 
 
-### _function_ <a id="ee16826e" href="#ee16826e">getStringSize</a>
+### _function_ <a id="75719c3f" href="#75719c3f">getStringSize</a>
 
 ```cpp
 virtual ffw::Vec2f getStringSize (
     const std::wstring & str,
+    float maxWidth = -1.0f,
     float lineHeight = 1.25f
+) const 
+```
+
+
+
+### _function_ <a id="81cc15f3" href="#81cc15f3">getCharAdvance</a>
+
+```cpp
+inline float getCharAdvance (
+    wchar_t chr
 ) const 
 ```
 
@@ -202,6 +229,14 @@ inline const ffw::Texture2D * getTexture () const
 
 
 
+### _function_ <a id="b07e030b" href="#b07e030b">getVbo</a>
+
+```cpp
+inline const ffw::Vbo * getVbo () const 
+```
+
+
+
 ### _function_ <a id="65a9b796" href="#65a9b796">isCreated</a>
 
 ```cpp
@@ -230,28 +265,15 @@ inline bool isAlphaOnly () const
 
 
 
-## Public Static Functions Documentation
-
-### _function_ <a id="2107f8ab" href="#2107f8ab">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
-
-
 ## Protected Functions Documentation
 
-### _function_ <a id="067f8cc6" href="#067f8cc6">getStringSizeFunc</a>
+### _function_ <a id="59be59a7" href="#59be59a7">getStringSizeFunc</a>
 
 ```cpp
 ffw::Vec2f getStringSizeFunc (
     const std::basic_string< T > & str,
-    float lineHeight
+    float maxWidth = -1.0f,
+    float lineHeight = 1.25f
 ) const 
 ```
 

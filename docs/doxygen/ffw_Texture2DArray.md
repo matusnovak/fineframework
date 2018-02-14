@@ -8,13 +8,6 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#7e2e9515) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,28 +16,14 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture2DArray](#16e0c0c5) (const [Texture2DArray](ffw_Texture2DArray.html) & _second_) = delete  |
 |   | [Texture2DArray](#4f8e35bf) ([Texture2DArray](ffw_Texture2DArray.html) && _second_)  |
 |   | [~Texture2DArray](#ec5d141a) ()  |
-|  bool | [create](#d3f89690) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLsizei _layers_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [resize](#bea09c02) (GLsizei _width_, GLsizei _height_, GLsizei _layers_)  |
-|  bool | [setFromBuffer](#c7317716) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, GLint _level_, bool _inverse_ = false)  |
-|  bool | [setPixels](#044eeef3) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [setPixels](#39f9a304) (GLint _level_, GLint _xoffset_, GLint _yoffset_, GLint _loffset_, GLsizei _width_, GLsizei _height_, const GLvoid * _pixels_)  |
+|  bool | [create](#39b716a6) ([GLsizei]() _width_, [GLsizei]() _height_, [GLsizei]() _layers_, [GLenum]() _internalformat_, [GLenum]() _format_, [GLenum]() _pixelformat_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [resize](#bea09c02) ([GLsizei]() _width_, [GLsizei]() _height_, [GLsizei]() _layers_)  |
+|  bool | [setFromBuffer](#c7317716) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, [GLint]() _level_, bool _inverse_ = false)  |
+|  bool | [setPixels](#044eeef3) ([GLint]() _level_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [setPixels](#39f9a304) ([GLint]() _level_, [GLint]() _xoffset_, [GLint]() _yoffset_, [GLint]() _loffset_, [GLsizei]() _width_, [GLsizei]() _height_, const [GLvoid]() * _pixels_)  |
 |  bool | [getPixels](#d960542b) (void * _pixels_) const  |
 |  [Texture2DArray](ffw_Texture2DArray.html) & | [operator=](#0a941818) (const [Texture2DArray](ffw_Texture2DArray.html) & _second_) = delete  |
 |  [Texture2DArray](ffw_Texture2DArray.html) & | [operator=](#c66d14d9) ([Texture2DArray](ffw_Texture2DArray.html) && _second_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="7e2e9515" href="#7e2e9515">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -85,11 +64,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="d3f89690" href="#d3f89690">create</a>
+### _function_ <a id="39b716a6" href="#39b716a6">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * renderer,
     GLsizei width,
     GLsizei height,
     GLsizei layers,

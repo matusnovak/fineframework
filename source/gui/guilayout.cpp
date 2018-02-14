@@ -2,118 +2,70 @@
 
 #include "ffw/gui/guilayout.h"
 #include "ffw/gui/guiwindow.h"
+#include "ffw/gui/guitheme.h"
 
 ///=============================================================================
-ffw::GuiLayout::GuiLayout(GuiWindow* context, Orientation Orientation):GuiWidget(context){
-	GuiWidget::setOrientation(Orientation);
-	setIgnoreUserInput(true);
+ffw::GuiLayout::GuiLayout(GuiWindow* context, const GuiOrientation Orientation):GuiWidget(context){
+    GuiWidget::setOrientationInternal(Orientation);
+    setIgnoreUserInput(true);
 
-	// At this point, we are sure that the context and getTheme() are not NULL
-	widgetStyle = &context->getTheme()->getStyleGroup("GUI_LAYOUT");
-	setDefaults(&widgetStyle->defaults);
+    setStyle(&context->getTheme()->layout, true);
 }
 
 ///=============================================================================
 ffw::GuiLayout::~GuiLayout(){
-	deleteWidgets();
+    deleteWidgets();
 }
 
 ///=============================================================================
 ffw::GuiWidget* ffw::GuiLayout::addWidget(GuiWidget* widget){
-	return GuiWidget::addWidgetInternal(widget);
+    return GuiWidget::addWidgetInternal(widget);
 }
 
 ///=============================================================================
 ffw::GuiWidget* ffw::GuiLayout::addWidgetAfter(const GuiWidget* previous, GuiWidget* widget) {
-	return GuiWidget::addWidgetAfterInternal(previous, widget);
+    return GuiWidget::addWidgetAfterInternal(previous, widget);
 }
 
 ///=============================================================================
 ffw::GuiWidget* ffw::GuiLayout::addWidgetBefore(const GuiWidget* next, GuiWidget* widget) {
-	return GuiWidget::addWidgetBeforeInternal(next, widget);
+    return GuiWidget::addWidgetBeforeInternal(next, widget);
 }
 
 ///=============================================================================
 void ffw::GuiLayout::deleteWidgets(){
-	GuiWidget::deleteWidgetsInternal();
+    GuiWidget::deleteWidgetsInternal();
 }
 
 ///=============================================================================
 bool ffw::GuiLayout::deleteSingleWidget(const GuiWidget* widget){
-	return GuiWidget::deleteSingleWidgetInternal(widget);
+    return GuiWidget::deleteSingleWidgetInternal(widget);
 }
 
 ///=============================================================================
-void ffw::GuiLayout::setOrientation(Orientation orient){
-	GuiWidget::setOrientation(orient);
+void ffw::GuiLayout::setOrientation(const GuiOrientation orient){
+    setOrientationInternal(orient);
 }
 
 ///=============================================================================
 void ffw::GuiLayout::eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize){
-	(void)contentsize;
-	(void)contentoffset;
+    (void)contentsize;
+    (void)contentoffset;
 }
 
 ///=============================================================================
-void ffw::GuiLayout::eventPos(const ffw::Vec2f& p){
-	(void)p;
+void ffw::GuiLayout::eventThemeChanged(const GuiTheme* theme, const bool defaults) {
+    setStyle(&theme->layout, defaults);
 }
 
 ///=============================================================================
-void ffw::GuiLayout::eventSize(const ffw::Vec2f& s){
-	(void)s;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventHover(bool gained){
-	(void)gained;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventFocus(bool gained){
-	(void)gained;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventMouse(const ffw::Vec2f& mousePos){
-	(void)mousePos;
-}
-
-///=============================================================================
-bool ffw::GuiLayout::eventScroll(const ffw::Vec2f& scroll) {
-	(void)scroll;
-	return false;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventMouseButton(ffw::MouseButton button, ffw::Mode mode){
-	(void)button;
-	(void)mode;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventText(wchar_t chr){
-	(void)chr;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventKey(ffw::Key key, ffw::Mode mode){
-	(void)key;
-	(void)mode;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventDisabled(bool disabled) {
-	(void)disabled;
-}
-
-///=============================================================================
-void ffw::GuiLayout::eventThemeChanged(const GuiTheme* theme) {
-	widgetStyle = &theme->getStyleGroup("GUI_LAYOUT");
-	//setDefaults(&widgetStyle->defaults);
+void ffw::GuiLayout::setStyle(const GuiLayout::Style* style, const bool defaults) {
+    widgetStyle = &style->self;
+    if(defaults)setDefaults(&widgetStyle->defaults);
 }
 
 ///=============================================================================
 ffw::Vec2f ffw::GuiLayout::getMinimumWrapSize() {
-	return 0;
+    return 0;
 }
+

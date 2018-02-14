@@ -8,35 +8,14 @@ The documentation for this class was generated from: `include/ffw/graphics/rende
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#c20342c8) (const [RenderContext](ffw_RenderContext.html) * _Renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
 |   | [Renderbuffer2DMS](#c1971c15) ()  |
 |   | [~Renderbuffer2DMS](#f686be4f) ()  |
-|  bool | [create](#24ae7e80) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLenum _internalformat_, GLint _samples_)  |
-|  bool | [resize](#8fb1c9a3) (GLsizei _width_, GLsizei _height_, GLint _samples_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="c20342c8" href="#c20342c8">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * Renderer
-) 
-```
-
-
-
+|  bool | [create](#bd6ee409) ([GLsizei]() _width_, [GLsizei]() _height_, [GLenum]() _internalformat_, [GLint]() _samples_)  |
+|  bool | [resize](#8fb1c9a3) ([GLsizei]() _width_, [GLsizei]() _height_, [GLint]() _samples_)  |
 
 
 ## Public Functions Documentation
@@ -57,11 +36,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="24ae7e80" href="#24ae7e80">create</a>
+### _function_ <a id="bd6ee409" href="#bd6ee409">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * renderer,
     GLsizei width,
     GLsizei height,
     GLenum internalformat,

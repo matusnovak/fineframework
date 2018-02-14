@@ -11,169 +11,169 @@ static void DummyHandler(const char* module, const char* fmt, va_list ap){
 
 ///=============================================================================
 ffw::TifSaver::TifSaver(){
-	tiff = NULL;
+    tiff = NULL;
 }
 
 ///=============================================================================
 ffw::TifSaver::TifSaver(TifSaver&& other){
-	swap(other);
+    swap(other);
 }
 
 ///=============================================================================
 void ffw::TifSaver::swap(TifSaver& other){
-	std::swap(tiff, other.tiff);
+    std::swap(tiff, other.tiff);
 }
 
 ///=============================================================================
 ffw::TifSaver& ffw::TifSaver::operator = (TifSaver&& other){
-	if(this != &other){
-		swap(other);
-	}
-	return *this;
+    if(this != &other){
+        swap(other);
+    }
+    return *this;
 }
 
 ///=============================================================================
 ffw::TifSaver::~TifSaver(){
-	close();
+    close();
 }
 
 ///=============================================================================
 bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType type, int quality, int mips){
-	(void)quality;
-	(void)mips;
-	if(loaded)return false;
+    (void)quality;
+    (void)mips;
+    if(loaded)return false;
     if(w <= 0 || h <= 0)return false;
 
-	switch(type){
-		case ImageType::GRAYSCALE_8:
-		case ImageType::GRAYSCALE_16:
-		case ImageType::GRAYSCALE_32F:
-		case ImageType::GRAYSCALE_ALPHA_8:
-		case ImageType::GRAYSCALE_ALPHA_16:
-		case ImageType::GRAYSCALE_ALPHA_32F:
-		case ImageType::RGB_888:
-		case ImageType::RGB_161616:
-		case ImageType::RGB_323232F:
-		case ImageType::RGB_ALPHA_8888:
-		case ImageType::RGB_ALPHA_16161616:
-		case ImageType::RGB_ALPHA_32323232F:
-			break;
-		default:
-			return false;
-	}
+    switch(type){
+        case ImageType::GRAYSCALE_8:
+        case ImageType::GRAYSCALE_16:
+        case ImageType::GRAYSCALE_32F:
+        case ImageType::GRAYSCALE_ALPHA_8:
+        case ImageType::GRAYSCALE_ALPHA_16:
+        case ImageType::GRAYSCALE_ALPHA_32F:
+        case ImageType::RGB_888:
+        case ImageType::RGB_161616:
+        case ImageType::RGB_323232F:
+        case ImageType::RGB_ALPHA_8888:
+        case ImageType::RGB_ALPHA_16161616:
+        case ImageType::RGB_ALPHA_32323232F:
+            break;
+        default:
+            return false;
+    }
 
-	TIFFSetWarningHandler(DummyHandler);
+    TIFFSetWarningHandler(DummyHandler);
 
-	tiff = TIFFOpen(path.c_str(), "w");
+    tiff = TIFFOpen(path.c_str(), "w");
 
-	if(!tiff){
-		//std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;
+    if(!tiff){
+        //std::cerr << "Cannot open file: " << path << " for writing!" << std::endl;
         return false;
     }
 
-	uint16_t bitsPerPixel = 0;
+    uint16_t bitsPerPixel = 0;
     uint16_t samplesPerPixel = 0;
     uint16_t photometric = 0;
     uint16_t dataType = 0;
 
-	switch(type){
-		case ImageType::GRAYSCALE_8:{
-			bitsPerPixel = 8;
-			samplesPerPixel = 1;
-			photometric = 1;
-			dataType = 0;
-			break;
-		}
-		case ImageType::GRAYSCALE_16:{
-			bitsPerPixel = 16;
-			samplesPerPixel = 1;
-			photometric = 1;
-			dataType = 0;
-			break;
-		}
-		case ImageType::GRAYSCALE_32F:{
-			bitsPerPixel = 32;
-			samplesPerPixel = 1;
-			photometric = 1;
-			dataType = 3;
-			break;
-		}
-		case ImageType::GRAYSCALE_ALPHA_8:{
-			bitsPerPixel = 8;
-			samplesPerPixel = 2;
-			photometric = 1;
-			dataType = 0;
-			break;
-		}
-		case ImageType::GRAYSCALE_ALPHA_16:{
-			bitsPerPixel = 16;
-			samplesPerPixel = 2;
-			photometric = 1;
-			dataType = 0;
-			break;
-		}
-		case ImageType::GRAYSCALE_ALPHA_32F:{
-			bitsPerPixel = 32;
-			samplesPerPixel = 2;
-			photometric = 1;
-			dataType = 3;
-			break;
-		}
-		case ImageType::RGB_888:{
-			bitsPerPixel = 8;
-			samplesPerPixel = 3;
-			photometric = 2;
-			dataType = 0;
-			break;
-		}
-		case ImageType::RGB_161616:{
-			bitsPerPixel = 16;
-			samplesPerPixel = 3;
-			photometric = 2;
-			dataType = 0;
-			break;
-		}
-		case ImageType::RGB_323232F:{
-			bitsPerPixel = 32;
-			samplesPerPixel = 3;
-			photometric = 2;
-			dataType = 3;
-			break;
-		}
-		case ImageType::RGB_ALPHA_8888:{
-			bitsPerPixel = 8;
-			samplesPerPixel = 4;
-			photometric = 2;
-			dataType = 0;
-			break;
-		}
-		case ImageType::RGB_ALPHA_16161616:{
-			bitsPerPixel = 16;
-			samplesPerPixel = 4;
-			photometric = 2;
-			dataType = 0;
-			break;
-		}
-		case ImageType::RGB_ALPHA_32323232F:{
-			bitsPerPixel = 32;
-			samplesPerPixel = 4;
-			photometric = 2;
-			dataType = 3;
-			break;
-		}
-		default:{
-			close();
-			return false;
-		}
-	}
+    switch(type){
+        case ImageType::GRAYSCALE_8:{
+            bitsPerPixel = 8;
+            samplesPerPixel = 1;
+            photometric = 1;
+            dataType = 0;
+            break;
+        }
+        case ImageType::GRAYSCALE_16:{
+            bitsPerPixel = 16;
+            samplesPerPixel = 1;
+            photometric = 1;
+            dataType = 0;
+            break;
+        }
+        case ImageType::GRAYSCALE_32F:{
+            bitsPerPixel = 32;
+            samplesPerPixel = 1;
+            photometric = 1;
+            dataType = 3;
+            break;
+        }
+        case ImageType::GRAYSCALE_ALPHA_8:{
+            bitsPerPixel = 8;
+            samplesPerPixel = 2;
+            photometric = 1;
+            dataType = 0;
+            break;
+        }
+        case ImageType::GRAYSCALE_ALPHA_16:{
+            bitsPerPixel = 16;
+            samplesPerPixel = 2;
+            photometric = 1;
+            dataType = 0;
+            break;
+        }
+        case ImageType::GRAYSCALE_ALPHA_32F:{
+            bitsPerPixel = 32;
+            samplesPerPixel = 2;
+            photometric = 1;
+            dataType = 3;
+            break;
+        }
+        case ImageType::RGB_888:{
+            bitsPerPixel = 8;
+            samplesPerPixel = 3;
+            photometric = 2;
+            dataType = 0;
+            break;
+        }
+        case ImageType::RGB_161616:{
+            bitsPerPixel = 16;
+            samplesPerPixel = 3;
+            photometric = 2;
+            dataType = 0;
+            break;
+        }
+        case ImageType::RGB_323232F:{
+            bitsPerPixel = 32;
+            samplesPerPixel = 3;
+            photometric = 2;
+            dataType = 3;
+            break;
+        }
+        case ImageType::RGB_ALPHA_8888:{
+            bitsPerPixel = 8;
+            samplesPerPixel = 4;
+            photometric = 2;
+            dataType = 0;
+            break;
+        }
+        case ImageType::RGB_ALPHA_16161616:{
+            bitsPerPixel = 16;
+            samplesPerPixel = 4;
+            photometric = 2;
+            dataType = 0;
+            break;
+        }
+        case ImageType::RGB_ALPHA_32323232F:{
+            bitsPerPixel = 32;
+            samplesPerPixel = 4;
+            photometric = 2;
+            dataType = 3;
+            break;
+        }
+        default:{
+            close();
+            return false;
+        }
+    }
 
-	format = type;
-	width = w;
-	height = h;
-	depth = 0;
-	mipmaps = 1;
+    format = type;
+    width = w;
+    height = h;
+    depth = 0;
+    mipmaps = 1;
 
-	TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH, w);
+    TIFFSetField(tiff, TIFFTAG_IMAGEWIDTH, w);
     TIFFSetField(tiff, TIFFTAG_IMAGELENGTH, h);
     TIFFSetField(tiff, TIFFTAG_BITSPERSAMPLE, bitsPerPixel);
     TIFFSetField(tiff, TIFFTAG_SAMPLESPERPIXEL, samplesPerPixel);
@@ -214,44 +214,44 @@ bool ffw::TifSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     //TIFFSetField(tiff, TIFFTAG_PAGENUMBER, 1, 1);
     //TIFFSetField(tiff, TIFFTAG_PAGENAME, page_number);
 
-	row = 0;
+    row = 0;
     loaded = true;
-	return true;
+    return true;
 }
 
 ///=============================================================================
 void ffw::TifSaver::close(){
-	if(tiff != NULL){
-		TIFFClose(tiff);
-	}
-	tiff = NULL;
-	width = 0;
-	height = 0;
-	loaded = 0;
-	row = 0;
-	depth = 0;
-	mipmaps = 0;
-	format = ImageType::INVALID;
+    if(tiff != NULL){
+        TIFFClose(tiff);
+    }
+    tiff = NULL;
+    width = 0;
+    height = 0;
+    loaded = 0;
+    row = 0;
+    depth = 0;
+    mipmaps = 0;
+    format = ImageType::INVALID;
 }
 
 ///=============================================================================
 size_t ffw::TifSaver::writeRow(const void* src){
-	if(!loaded)return 0;
+    if(!loaded)return 0;
     if(row >= height)return 0;
     if(src == NULL)return 0;
 
-	if(TIFFWriteScanline(tiff, (void*)src, row, 0) == -1){
+    if(TIFFWriteScanline(tiff, (void*)src, row, 0) == -1){
         close();
         return false;
     }
-	row++;
+    row++;
 
-	return this->getStrideSize();
+    return this->getStrideSize();
 }
 
 ///=============================================================================
 bool ffw::TifSaver::writeFooter(){
-	if(!loaded)return false;
+    if(!loaded)return false;
     if(row != height)return false;
 
     return true;

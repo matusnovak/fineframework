@@ -20,10 +20,11 @@
 #include "math/vecx.h"
 #include "math/mat4.h"
 #include "math/color.h"
-#include "math/var.h"
+#include "math/any.h"
 #include "math/tokenizer.h"
 #include "math/stringmath.h"
 #include "math/ringbuffer.h"
 #include "math/imagebuffer.h"
 #include "math/mvp.h"
+#include "math/textwrapper.h"
 #endif
