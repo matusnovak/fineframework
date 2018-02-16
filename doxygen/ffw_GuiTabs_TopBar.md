@@ -8,13 +8,20 @@ The documentation for this class was generated from: `include/ffw/gui/guitab.h`
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiTabs::TopBar::Style](ffw_GuiTabs_TopBar_Style.html) |
+
+
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
 |   | [TopBar](#0c53aa9e) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~TopBar](#e98a66ac) ()  |
-|  virtual void | [eventThemeChanged](#103281b3) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
+|  virtual  | [~TopBar](#c94b8450) ()  |
+|  void | [setStyle](#979c54e7) (const [TopBar::Style](ffw_GuiTabs_TopBar_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -29,7 +36,7 @@ The documentation for this class was generated from: `include/ffw/gui/guitab.h`
 
 
 
-### _function_ <a id="e98a66ac" href="#e98a66ac">~TopBar</a>
+### _function_ <a id="c94b8450" href="#c94b8450">~TopBar</a>
 
 ```cpp
 virtual  ~TopBar () 
@@ -37,17 +44,16 @@ virtual  ~TopBar ()
 
 
 
-### _function_ <a id="103281b3" href="#103281b3">eventThemeChanged</a>
+### _function_ <a id="979c54e7" href="#979c54e7">setStyle</a>
 
 ```cpp
-virtual void eventThemeChanged (
-    const GuiTheme * theme
+void setStyle (
+    const TopBar::Style * style,
+    bool defaults = false
 ) 
 ```
 
 
-
-**Overrides:** [eventThemeChanged](/doxygen/ffw_GuiLayout.md#9227ac54) from class [GuiLayout](/doxygen/ffw_GuiLayout.md)
 
 
 

@@ -2,7 +2,7 @@
 
 This tutorial will explain how to decode and encode XML structure the advanced way.
 
-**The tutorial uses ffw::Var which is essential in the following examples. You must read [Var - JSON-like data structure](math-var.html) tutorial first!** 
+**The tutorial uses ffw::Any which is essential in the following examples. You must read [Any - JSON-like data structure](math-var.html) tutorial first!** 
 
 Make sure you add `finedata` into your linker and add the following headers into your project:
 
@@ -13,7 +13,7 @@ Make sure you add `finedata` into your linker and add the following headers into
 
 ## Decoding
 
-With this method, you can decode XML by step by step without using ffw::Var at all. It grants you the freedom you need. Any of the following commands (including constructor!) can throw ffw::XmlDecodeException at any time if the XML string is broken in any way. Exception is thrown if:
+With this method, you can decode XML by step by step without using ffw::Any at all. It grants you the freedom you need. Any of the following commands (including constructor!) can throw ffw::XmlDecodeException at any time if the XML string is broken in any way. Exception is thrown if:
 
 * XML syntax error
 * trying to cast from into c++ data type when the XML value is something completely else (for example, XML value is clearly a string: \<ket\>Something\</key\> but you try to use node.toInt() when clearly node.isInt() gives you false)
@@ -30,7 +30,7 @@ Also, note that ffw::XmlReader::Node::isString returns always true, (but returns
 
 ## Encoding
 
-This method si very similar to the one above and again, it does not use ffw::Var at all. An exception is thrown if:
+This method si very similar to the one above and again, it does not use ffw::Any at all. An exception is thrown if:
 
 * xml tag name is invalid
 * you call xml.stepOut() too many times

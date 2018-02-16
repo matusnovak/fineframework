@@ -4,8 +4,17 @@ GuiButtonPrimary
 
 **Inherits from:** [ffw::GuiButton](ffw_GuiButton.html)
 
+**Implemented by:** [ffw::GuiButtonTogglePrimary](ffw_GuiButtonTogglePrimary.html)
+
 The documentation for this class was generated from: `include/ffw/gui/guibutton.h`
 
+
+
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiButtonPrimary::Style](ffw_GuiButtonPrimary_Style.html) |
 
 
 ## Public Functions
@@ -13,9 +22,8 @@ The documentation for this class was generated from: `include/ffw/gui/guibutton.
 | Type | Name |
 | -------: | :------- |
 |   | [GuiButtonPrimary](#2f56acf4) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::string & _label_)  |
-|   | [GuiButtonPrimary](#6e7b82f9) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::wstring & _label_)  |
-|  virtual  | [~GuiButtonPrimary](#da6c4029) ()  |
-|  virtual void | [eventThemeChanged](#29811b25) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
+|  virtual  | [~GuiButtonPrimary](#51f46606) ()  |
+|  void | [setStyle](#96073c2f) (const [GuiButtonPrimary::Style](ffw_GuiButtonPrimary_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -31,18 +39,7 @@ The documentation for this class was generated from: `include/ffw/gui/guibutton.
 
 
 
-### _function_ <a id="6e7b82f9" href="#6e7b82f9">GuiButtonPrimary</a>
-
-```cpp
- GuiButtonPrimary (
-    GuiWindow * context,
-    const std::wstring & label
-) 
-```
-
-
-
-### _function_ <a id="da6c4029" href="#da6c4029">~GuiButtonPrimary</a>
+### _function_ <a id="51f46606" href="#51f46606">~GuiButtonPrimary</a>
 
 ```cpp
 virtual  ~GuiButtonPrimary () 
@@ -50,17 +47,16 @@ virtual  ~GuiButtonPrimary ()
 
 
 
-### _function_ <a id="29811b25" href="#29811b25">eventThemeChanged</a>
+### _function_ <a id="96073c2f" href="#96073c2f">setStyle</a>
 
 ```cpp
-virtual void eventThemeChanged (
-    const GuiTheme * theme
+void setStyle (
+    const GuiButtonPrimary::Style * style,
+    bool defaults = false
 ) 
 ```
 
 
-
-**Overrides:** [eventThemeChanged](/doxygen/ffw_GuiButton.md#e9b0ba14) from class [GuiButton](/doxygen/ffw_GuiButton.md)
 
 
 

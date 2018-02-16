@@ -4,10 +4,17 @@ GuiScrollable
 
 **Inherits from:** [ffw::GuiWidget](ffw_GuiWidget.html)
 
-**Implemented by:** [ffw::GuiScrollableLayout](ffw_GuiScrollableLayout.html)[ffw::GuiTextArea](ffw_GuiTextArea.html), 
+**Implemented by:** [ffw::GuiScrollableLayout](ffw_GuiScrollableLayout.html)[ffw::GuiScrollableTextInput](ffw_GuiScrollableTextInput.html), 
 
 The documentation for this class was generated from: `include/ffw/gui/guiscrollable.h`
 
+
+
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiScrollable::Style](ffw_GuiScrollable_Style.html) |
 
 
 ## Public Functions
@@ -15,7 +22,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrolla
 | Type | Name |
 | -------: | :------- |
 |   | [GuiScrollable](#9da48fbd) ([GuiWindow](ffw_GuiWindow.html) * _context_, [GuiWidget](ffw_GuiWidget.html) * _widget_, bool _hori_, bool _vert_)  |
-|  virtual  | [~GuiScrollable](#6c487500) ()  |
+|  virtual  | [~GuiScrollable](#5be95f84) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#58fd9b8a) ()  |
 |  void | [setScrollbarThickness](#9d03fe74) (float _px_)  |
 |  void | [setScrollValues](#d66b1e98) (float _hori_, float _vert_)  |
@@ -25,8 +32,9 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrolla
 |  const [ffw::GuiScrollBar](ffw_GuiScrollBar.html) * | [getVscroll](#9e4eb2e6) () const  |
 |  [ffw::GuiScrollBar](ffw_GuiScrollBar.html) * | [getHscroll](#0f65bc66) ()  |
 |  const [ffw::GuiScrollBar](ffw_GuiScrollBar.html) * | [getHscroll](#9482fb26) () const  |
-|  void | [setScrollIncrements](#c988a879) (float _inc_)  |
+|  void | [setScrollIncrements](#9af68e78) (const float _inc_)  |
 |  float | [getScrollIncrements](#368ce45e) () const  |
+|  void | [setStyle](#97e8826c) (const [GuiScrollable::Style](ffw_GuiScrollable_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Protected Functions
@@ -52,7 +60,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrolla
 
 
 
-### _function_ <a id="6c487500" href="#6c487500">~GuiScrollable</a>
+### _function_ <a id="5be95f84" href="#5be95f84">~GuiScrollable</a>
 
 ```cpp
 virtual  ~GuiScrollable () 
@@ -94,7 +102,7 @@ void setScrollValues (
 ### _function_ <a id="8f957bd8" href="#8f957bd8">getScrollValues</a>
 
 ```cpp
-inline ffw::Vec2f getScrollValues () const 
+ffw::Vec2f getScrollValues () const 
 ```
 
 
@@ -139,11 +147,11 @@ inline const ffw::GuiScrollBar * getHscroll () const
 
 
 
-### _function_ <a id="c988a879" href="#c988a879">setScrollIncrements</a>
+### _function_ <a id="9af68e78" href="#9af68e78">setScrollIncrements</a>
 
 ```cpp
 inline void setScrollIncrements (
-    float inc
+    const float inc
 ) 
 ```
 
@@ -153,6 +161,17 @@ inline void setScrollIncrements (
 
 ```cpp
 inline float getScrollIncrements () const 
+```
+
+
+
+### _function_ <a id="97e8826c" href="#97e8826c">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiScrollable::Style * style,
+    bool defaults = false
+) 
 ```
 
 

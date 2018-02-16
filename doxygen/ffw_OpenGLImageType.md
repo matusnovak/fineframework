@@ -10,9 +10,9 @@ The documentation for this class was generated from: `include/ffw/graphics/graph
 
 | Type | Name |
 | -------: | :------- |
-|  const GLint | [internalFormat](#0b147722) |
-|  const GLenum | [format](#691c1595) |
-|  const GLenum | [type](#9b5bbeb9) |
+|  const [GLint]() | [internalFormat](#0b147722) |
+|  const [GLenum]() | [format](#691c1595) |
+|  const [GLenum]() | [type](#9b5bbeb9) |
 
 
 ## Public Functions
@@ -20,7 +20,7 @@ The documentation for this class was generated from: `include/ffw/graphics/graph
 | Type | Name |
 | -------: | :------- |
 |   | [OpenGLImageType](#45933803) ()  |
-|   | [OpenGLImageType](#c1537584) (GLint _inter_, GLenum _form_, GLenum _typ_)  |
+|   | [OpenGLImageType](#c1537584) ([GLint]() _inter_, [GLenum]() _form_, [GLenum]() _typ_)  |
 |   | [operator bool](#906beae4) () const  |
 
 

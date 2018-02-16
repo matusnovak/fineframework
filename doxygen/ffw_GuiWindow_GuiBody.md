@@ -12,19 +12,19 @@ The documentation for this class was generated from: `include/ffw/gui/guiwindow.
 
 | Type | Name |
 | -------: | :------- |
-|   | [GuiBody](#2ff28ee4) ([GuiWindow](ffw_GuiWindow.html) * _context_, [GuiLayout::Orientation](ffw_GuiWidget.html#47f53876) _orient_)  |
+|   | [GuiBody](#3da2c5a5) ([GuiWindow](ffw_GuiWindow.html) * _context_, [GuiOrientation](ffw.html#32795b74) _orient_)  |
 |  virtual void | [eventThemeChanged](#cb199f2c) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
 |  virtual  | [~GuiBody](#016a5b99) ()  |
 
 
 ## Public Functions Documentation
 
-### _function_ <a id="2ff28ee4" href="#2ff28ee4">GuiBody</a>
+### _function_ <a id="3da2c5a5" href="#3da2c5a5">GuiBody</a>
 
 ```cpp
  GuiBody (
     GuiWindow * context,
-    GuiLayout::Orientation orient
+    GuiOrientation orient
 ) 
 ```
 

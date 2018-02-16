@@ -8,13 +8,21 @@ The documentation for this class was generated from: `include/ffw/gui/guicheckbo
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiCheckbox::Button::Style](ffw_GuiCheckbox_Button_Style.html) |
+
+
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
 |   | [Button](#cbe50d77) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~Button](#42745502) ()  |
+|  virtual  | [~Button](#722af5bc) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#b8a3ca77) ()  |
+|  void | [setStyle](#19565aa4) (const [Button::Style](ffw_GuiCheckbox_Button_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -29,7 +37,7 @@ The documentation for this class was generated from: `include/ffw/gui/guicheckbo
 
 
 
-### _function_ <a id="42745502" href="#42745502">~Button</a>
+### _function_ <a id="722af5bc" href="#722af5bc">~Button</a>
 
 ```cpp
 virtual  ~Button () 
@@ -46,6 +54,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="19565aa4" href="#19565aa4">setStyle</a>
+
+```cpp
+void setStyle (
+    const Button::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

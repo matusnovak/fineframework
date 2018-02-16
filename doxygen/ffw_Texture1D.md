@@ -8,13 +8,6 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#4b8f0914) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,28 +16,14 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture1D](#e0d3bc95) (const [Texture1D](ffw_Texture1D.html) & _second_) = delete  |
 |   | [Texture1D](#5c5335f8) ([Texture1D](ffw_Texture1D.html) && _second_)  |
 |   | [~Texture1D](#896d0709) ()  |
-|  bool | [create](#21512d35) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [resize](#7a8c5174) (GLsizei _width_)  |
-|  bool | [createFromBuffer](#901eee7d) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_)  |
-|  bool | [setPixels](#5a5ecedf) (GLint _level_, const GLvoid * _pixels_ = NULL)  |
-|  bool | [setPixels](#7e942146) (GLint _level_, GLint _xoffset_, GLsizei _width_, const GLvoid * _pixels_)  |
+|  bool | [create](#bb5b4a0f) ([GLsizei]() _width_, [GLenum]() _internalformat_, [GLenum]() _format_, [GLenum]() _pixelformat_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [resize](#7a8c5174) ([GLsizei]() _width_)  |
+|  bool | [createFromBuffer](#ea6fffde) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_)  |
+|  bool | [setPixels](#5a5ecedf) ([GLint]() _level_, const [GLvoid]() * _pixels_ = NULL)  |
+|  bool | [setPixels](#7e942146) ([GLint]() _level_, [GLint]() _xoffset_, [GLsizei]() _width_, const [GLvoid]() * _pixels_)  |
 |  bool | [getPixels](#44725987) (void * _pixels_) const  |
 |  [Texture1D](ffw_Texture1D.html) & | [operator=](#10fe2ad6) (const [Texture1D](ffw_Texture1D.html) & _second_) = delete  |
 |  [Texture1D](ffw_Texture1D.html) & | [operator=](#67d2be6d) ([Texture1D](ffw_Texture1D.html) && _second_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="4b8f0914" href="#4b8f0914">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -85,11 +64,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="21512d35" href="#21512d35">create</a>
+### _function_ <a id="bb5b4a0f" href="#bb5b4a0f">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * renderer,
     GLsizei width,
     GLenum internalformat,
     GLenum format,
@@ -110,11 +88,10 @@ bool resize (
 
 
 
-### _function_ <a id="901eee7d" href="#901eee7d">createFromBuffer</a>
+### _function_ <a id="ea6fffde" href="#ea6fffde">createFromBuffer</a>
 
 ```cpp
 bool createFromBuffer (
-    const ffw::RenderContext * renderer,
     const ImageBuffer & buffer
 ) 
 ```

@@ -1,4 +1,4 @@
-Var
+Any
 ===================================
 
 
@@ -10,22 +10,22 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 
 | Name |
 |:-----|
-| class [ffw::Var::Content](ffw_Var_Content.html) |
-| class [ffw::Var::Data](ffw_Var_Data.html) |
-| class [ffw::Var::Data< T, typename std::enable_if< std::is_integral< T >::value >::type >](ffw_Var_Data__T__typename_std__enable_if__std__is_integral__T____value____type__.html) |
+| class [ffw::Any::Content](ffw_Var_Content.html) |
+| class [ffw::Any::Data](ffw_Var_Data.html) |
+| class [ffw::Any::Data< T, typename std::enable_if< std::is_integral< T >::value >::type >](ffw_Var_Data__T__typename_std__enable_if__std__is_integral__T____value____type__.html) |
 
 
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
-|   | [Var](#908517a6) ()  |
-|   | [Var](#69443b49) (const [Var](ffw_Var.html) & _other_)  |
-|   | [Var](#a93b32b4) ([Var](ffw_Var.html) && _other_)  |
-|   | [Var](#66f2ad03) (T _value_)  |
-|   | [Var](#deddea8f) (std::initializer_list< std::pair< std::string, [Var](ffw_Var.html) >> _list_)  |
-|   | [Var](#231cde45) (std::initializer_list< [Var](ffw_Var.html) > _list_)  |
-|  virtual  | [~Var](#7f3c6d6f) ()  |
+|   | [Any](#908517a6) ()  |
+|   | [Any](#69443b49) (const [Any](ffw_Var.html) & _other_)  |
+|   | [Any](#a93b32b4) ([Any](ffw_Var.html) && _other_)  |
+|   | [Any](#66f2ad03) (T _value_)  |
+|   | [Any](#deddea8f) (std::initializer_list< std::pair< std::string, [Any](ffw_Var.html) >> _list_)  |
+|   | [Any](#231cde45) (std::initializer_list< [Any](ffw_Var.html) > _list_)  |
+|  virtual  | [~Any](#7f3c6d6f) ()  |
 |  bool | [empty](#b1a50abb) () const  |
 |  void | [reset](#42a4bc55) ()  |
 |  T & | [getAs](#1be6ba0e) ()  |
@@ -45,85 +45,85 @@ The documentation for this class was generated from: `include/ffw/math/var.h`
 |  explicit  | [operator T](#464fb31c) () const  |
 |  explicit  | [operator T &](#85c15e2c) ()  |
 |  explicit  | [operator const T &](#18a729a0) () const  |
-|  void | [swap](#2b4f1456) ([Var](ffw_Var.html) & _other_)  |
-|  [Var](ffw_Var.html) & | [operator=](#b01cc2e9) (const T & _value_)  |
-|  [Var](ffw_Var.html) & | [operator=](#7dc96c8f) (T && _value_)  |
-|  [Var](ffw_Var.html) & | [operator=](#c1ef422d) (const [Var](ffw_Var.html) & _other_)  |
-|  [Var](ffw_Var.html) & | [operator=](#728c84f8) ([Var](ffw_Var.html) && _other_)  |
-|  [Var](ffw_Var.html) & | [operator[]](#21a0229b) (const std::string & _key_)  |
-|  const [Var](ffw_Var.html) & | [operator[]](#269ca2b7) (const std::string & _key_) const  |
-|  [Var](ffw_Var.html) & | [operator[]](#8ed2476b) (size_t _n_)  |
-|  const [Var](ffw_Var.html) & | [operator[]](#45e908a4) (size_t _n_) const  |
+|  void | [swap](#2b4f1456) ([Any](ffw_Var.html) & _other_)  |
+|  [Any](ffw_Var.html) & | [operator=](#b01cc2e9) (const T & _value_)  |
+|  [Any](ffw_Var.html) & | [operator=](#7dc96c8f) (T && _value_)  |
+|  [Any](ffw_Var.html) & | [operator=](#c1ef422d) (const [Any](ffw_Var.html) & _other_)  |
+|  [Any](ffw_Var.html) & | [operator=](#728c84f8) ([Any](ffw_Var.html) && _other_)  |
+|  [Any](ffw_Var.html) & | [operator[]](#21a0229b) (const std::string & _key_)  |
+|  const [Any](ffw_Var.html) & | [operator[]](#269ca2b7) (const std::string & _key_) const  |
+|  [Any](ffw_Var.html) & | [operator[]](#8ed2476b) (size_t _n_)  |
+|  const [Any](ffw_Var.html) & | [operator[]](#45e908a4) (size_t _n_) const  |
 |  bool | [operator==](#a2fc8c80) (const T & _other_) const  |
 |  bool | [operator!=](#a5f57246) (const T & _other_) const  |
-|  bool | [operator==](#8c001813) (const [Var](ffw_Var.html) & _other_) const  |
-|  bool | [operator!=](#ee153879) (const [Var](ffw_Var.html) & _other_) const  |
+|  bool | [operator==](#8c001813) (const [Any](ffw_Var.html) & _other_) const  |
+|  bool | [operator!=](#ee153879) (const [Any](ffw_Var.html) & _other_) const  |
 
 
 ## Public Functions Documentation
 
-### _function_ <a id="908517a6" href="#908517a6">Var</a>
+### _function_ <a id="908517a6" href="#908517a6">Any</a>
 
 ```cpp
-inline  Var () 
+inline  Any () 
 ```
 
 
 
-### _function_ <a id="69443b49" href="#69443b49">Var</a>
+### _function_ <a id="69443b49" href="#69443b49">Any</a>
 
 ```cpp
-inline  Var (
-    const Var & other
+inline  Any (
+    const Any & other
 ) 
 ```
 
 
 
-### _function_ <a id="a93b32b4" href="#a93b32b4">Var</a>
+### _function_ <a id="a93b32b4" href="#a93b32b4">Any</a>
 
 ```cpp
-inline  Var (
-    Var && other
+inline  Any (
+    Any && other
 ) 
 ```
 
 
 
-### _function_ <a id="66f2ad03" href="#66f2ad03">Var</a>
+### _function_ <a id="66f2ad03" href="#66f2ad03">Any</a>
 
 ```cpp
-inline  Var (
+inline  Any (
     T value
 ) 
 ```
 
 
 
-### _function_ <a id="deddea8f" href="#deddea8f">Var</a>
+### _function_ <a id="deddea8f" href="#deddea8f">Any</a>
 
 ```cpp
-inline  Var (
-    std::initializer_list< std::pair< std::string, Var >> list
+inline  Any (
+    std::initializer_list< std::pair< std::string, Any >> list
 ) 
 ```
 
 
 
-### _function_ <a id="231cde45" href="#231cde45">Var</a>
+### _function_ <a id="231cde45" href="#231cde45">Any</a>
 
 ```cpp
-inline  Var (
-    std::initializer_list< Var > list
+inline  Any (
+    std::initializer_list< Any > list
 ) 
 ```
 
 
 
-### _function_ <a id="7f3c6d6f" href="#7f3c6d6f">~Var</a>
+### _function_ <a id="7f3c6d6f" href="#7f3c6d6f">~Any</a>
 
 ```cpp
-inline virtual  ~Var () 
+inline virtual  ~Any () 
 ```
 
 
@@ -286,7 +286,7 @@ explicit inline  operator const T & () const
 
 ```cpp
 inline void swap (
-    Var & other
+    Any & other
 ) 
 ```
 
@@ -295,7 +295,7 @@ inline void swap (
 ### _function_ <a id="b01cc2e9" href="#b01cc2e9">operator=</a>
 
 ```cpp
-inline Var & operator= (
+inline Any & operator= (
     const T & value
 ) 
 ```
@@ -305,7 +305,7 @@ inline Var & operator= (
 ### _function_ <a id="7dc96c8f" href="#7dc96c8f">operator=</a>
 
 ```cpp
-inline Var & operator= (
+inline Any & operator= (
     T && value
 ) 
 ```
@@ -315,8 +315,8 @@ inline Var & operator= (
 ### _function_ <a id="c1ef422d" href="#c1ef422d">operator=</a>
 
 ```cpp
-inline Var & operator= (
-    const Var & other
+inline Any & operator= (
+    const Any & other
 ) 
 ```
 
@@ -325,8 +325,8 @@ inline Var & operator= (
 ### _function_ <a id="728c84f8" href="#728c84f8">operator=</a>
 
 ```cpp
-inline Var & operator= (
-    Var && other
+inline Any & operator= (
+    Any && other
 ) 
 ```
 
@@ -335,7 +335,7 @@ inline Var & operator= (
 ### _function_ <a id="21a0229b" href="#21a0229b">operator[]</a>
 
 ```cpp
-inline Var & operator[] (
+inline Any & operator[] (
     const std::string & key
 ) 
 ```
@@ -345,7 +345,7 @@ inline Var & operator[] (
 ### _function_ <a id="269ca2b7" href="#269ca2b7">operator[]</a>
 
 ```cpp
-inline const Var & operator[] (
+inline const Any & operator[] (
     const std::string & key
 ) const 
 ```
@@ -355,7 +355,7 @@ inline const Var & operator[] (
 ### _function_ <a id="8ed2476b" href="#8ed2476b">operator[]</a>
 
 ```cpp
-inline Var & operator[] (
+inline Any & operator[] (
     size_t n
 ) 
 ```
@@ -365,7 +365,7 @@ inline Var & operator[] (
 ### _function_ <a id="45e908a4" href="#45e908a4">operator[]</a>
 
 ```cpp
-inline const Var & operator[] (
+inline const Any & operator[] (
     size_t n
 ) const 
 ```
@@ -396,7 +396,7 @@ inline bool operator!= (
 
 ```cpp
 inline bool operator== (
-    const Var & other
+    const Any & other
 ) const 
 ```
 
@@ -406,7 +406,7 @@ inline bool operator== (
 
 ```cpp
 inline bool operator!= (
-    const Var & other
+    const Any & other
 ) const 
 ```
 

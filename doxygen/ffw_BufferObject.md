@@ -17,14 +17,6 @@ The documentation for this class was generated from: `include/ffw/graphics/buffe
 |  bool | [loaded_](#ead20c4d) |
 |  unsigned int | [buffer_](#9ef21590) |
 |  int | [size_](#4282e25d) |
-|  const [RenderExtensions](ffw_RenderExtensions.html) * | [gl_](#935bafbe) |
-
-
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#a098027f) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
 
 
 ## Public Functions
@@ -37,10 +29,10 @@ The documentation for this class was generated from: `include/ffw/graphics/buffe
 |  void | [swap](#3754b15c) ([BufferObject](ffw_BufferObject.html) & _other_)  |
 |  virtual  | [~BufferObject](#628c58a6) ()  |
 |  bool | [isCreated](#498c595c) () const  |
-|  bool | [create](#8278afb4) (const [RenderContext](ffw_RenderContext.html) * _renderer_, const void * _data_, GLsizei _size_, GLenum _type_)  |
-|  bool | [resize](#94cb7030) (const void * _data_, GLsizei _size_)  |
-|  bool | [setData](#7bc1a9da) (const void * _data_, GLsizei _offset_, GLsizei _size_)  |
-|  bool | [mapBuffer](#b7b7a0b7) (void ** _pointer_, GLenum _access_) const  |
+|  bool | [create](#c2fb6808) (const void * _data_, [GLsizei]() _size_, [GLenum]() _type_)  |
+|  bool | [resize](#94cb7030) (const void * _data_, [GLsizei]() _size_)  |
+|  bool | [setData](#7bc1a9da) (const void * _data_, [GLsizei]() _offset_, [GLsizei]() _size_)  |
+|  bool | [mapBuffer](#b7b7a0b7) (void ** _pointer_, [GLenum]() _access_) const  |
 |  bool | [unMapBuffer](#19c8510b) () const  |
 |  void | [destroy](#5b2b7a5e) ()  |
 |  void | [bind](#cb82a7e8) () const  |
@@ -49,9 +41,9 @@ The documentation for this class was generated from: `include/ffw/graphics/buffe
 |  int | [getSize](#8f7c040b) () const  |
 |  unsigned int | [getType](#e815cc4a) () const  |
 |  unsigned int | [getObjectType](#9e1d37f4) () const  |
-|  bool | [copyFrom](#69f17217) (const [BufferObject](ffw_BufferObject.html) * _other_, GLintptr _readoffset_, GLintptr _writeoffset_, GLsizeiptr _size_)  |
+|  bool | [copyFrom](#69f17217) (const [BufferObject](ffw_BufferObject.html) * _other_, [GLintptr]() _readoffset_, [GLintptr]() _writeoffset_, [GLsizeiptr]() _size_)  |
 |  bool | [copyFromEnabled](#d94efb57) () const  |
-|  bool | [getData](#9e9300e1) (void * _data_, GLsizei _offset_, GLsizei _size_)  |
+|  bool | [getData](#9e9300e1) (void * _data_, [GLsizei]() _offset_, [GLsizei]() _size_)  |
 |  [BufferObject](ffw_BufferObject.html) & | [operator=](#7568e2c7) (const [BufferObject](ffw_BufferObject.html) & _other_) = delete  |
 |  [BufferObject](ffw_BufferObject.html) & | [operator=](#ccdf3d53) ([BufferObject](ffw_BufferObject.html) && _other_)  |
 
@@ -94,28 +86,6 @@ unsigned int buffer_
 
 ```cpp
 int size_
-```
-
-
-
-### _variable_ <a id="935bafbe" href="#935bafbe">gl_</a>
-
-```cpp
-const RenderExtensions * gl_
-```
-
-
-
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="a098027f" href="#a098027f">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
 ```
 
 
@@ -180,11 +150,10 @@ inline bool isCreated () const
 
 
 
-### _function_ <a id="8278afb4" href="#8278afb4">create</a>
+### _function_ <a id="c2fb6808" href="#c2fb6808">create</a>
 
 ```cpp
 bool create (
-    const RenderContext * renderer,
     const void * data,
     GLsizei size,
     GLenum type

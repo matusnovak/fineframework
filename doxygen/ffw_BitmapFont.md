@@ -16,11 +16,13 @@ The documentation for this class was generated from: `include/ffw/graphics/bitma
 |   | [BitmapFont](#7530436b) (const [BitmapFont](ffw_BitmapFont.html) & _other_) = delete  |
 |   | [BitmapFont](#adf8c444) ([BitmapFont](ffw_BitmapFont.html) && _other_)  |
 |  virtual  | [~BitmapFont](#0ee20c93) ()  |
-|  bool | [createFromData](#ba7618f3) (const [RenderContext](ffw_RenderContext.html) * _renderer_, const void * _pixels_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _format_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
-|  bool | [createFromBuffer](#e262df3e) (const [RenderContext](ffw_RenderContext.html) * _renderer_, const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
+|  bool | [createFromData](#9f1fd0ef) (const void * _pixels_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _format_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
+|  bool | [createFromBuffer](#6bf4aa85) (const [ImageBuffer](ffw_ImageBuffer.html) & _buffer_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
 |  virtual void | [destroy](#26f48bba) ()  |
 |  virtual const [Font::Char](ffw_Font_Char.html) & | [getChar](#ba912469) (wchar_t _chr_) const  |
-|  [Font::Char](ffw_Font_Char.html) & | [setCharData](#f39e79f6) (wchar_t _chr_)  |
+|  virtual int | [getCharIndex](#ea093966) (wchar_t _chr_) const  |
+|  void | [setCharData](#2e468b1a) (wchar_t _chr_, [Font::Char](ffw_Font_Char.html) & _data_)  |
+|  bool | [updateBuffer](#1d9678d1) ()  |
 |  [BitmapFont](ffw_BitmapFont.html) & | [operator=](#19702695) (const [BitmapFont](ffw_BitmapFont.html) & _other_) = delete  |
 |  [BitmapFont](ffw_BitmapFont.html) & | [operator=](#5aed97c9) ([BitmapFont](ffw_BitmapFont.html) && _other_)  |
 |  void | [swap](#8a5925cd) ([BitmapFont](ffw_BitmapFont.html) & _other_)  |
@@ -64,11 +66,10 @@ virtual  ~BitmapFont ()
 
 
 
-### _function_ <a id="ba7618f3" href="#ba7618f3">createFromData</a>
+### _function_ <a id="9f1fd0ef" href="#9f1fd0ef">createFromData</a>
 
 ```cpp
 bool createFromData (
-    const RenderContext * renderer,
     const void * pixels,
     int width,
     int height,
@@ -82,11 +83,10 @@ bool createFromData (
 
 
 
-### _function_ <a id="e262df3e" href="#e262df3e">createFromBuffer</a>
+### _function_ <a id="6bf4aa85" href="#6bf4aa85">createFromBuffer</a>
 
 ```cpp
 bool createFromBuffer (
-    const RenderContext * renderer,
     const ImageBuffer & buffer,
     int points,
     int dpi,
@@ -119,12 +119,33 @@ virtual const Font::Char & getChar (
 
 **Overrides:** [getChar](/doxygen/ffw_Font.md#d843f542) from class [Font](/doxygen/ffw_Font.md)
 
-### _function_ <a id="f39e79f6" href="#f39e79f6">setCharData</a>
+### _function_ <a id="ea093966" href="#ea093966">getCharIndex</a>
 
 ```cpp
-Font::Char & setCharData (
+virtual int getCharIndex (
     wchar_t chr
+) const 
+```
+
+
+
+**Overrides:** [getCharIndex](/doxygen/ffw_Font.md#8a9e6bda) from class [Font](/doxygen/ffw_Font.md)
+
+### _function_ <a id="2e468b1a" href="#2e468b1a">setCharData</a>
+
+```cpp
+void setCharData (
+    wchar_t chr,
+    Font::Char & data
 ) 
+```
+
+
+
+### _function_ <a id="1d9678d1" href="#1d9678d1">updateBuffer</a>
+
+```cpp
+bool updateBuffer () 
 ```
 
 

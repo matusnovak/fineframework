@@ -18,7 +18,6 @@ The documentation for this class was generated from: `include/ffw/graphics/rende
 |  int | [width_](#e83fcafd) |
 |  int | [height_](#c1c92dc3) |
 |  int | [samples_](#b3ddebd7) |
-|  const [RenderExtensions](ffw_RenderExtensions.html) * | [gl_](#c775c0fb) |
 
 
 ## Public Functions
@@ -89,14 +88,6 @@ int height_
 
 ```cpp
 int samples_
-```
-
-
-
-### _variable_ <a id="c775c0fb" href="#c775c0fb">gl_</a>
-
-```cpp
-const RenderExtensions * gl_
 ```
 
 

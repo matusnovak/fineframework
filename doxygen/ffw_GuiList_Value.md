@@ -11,7 +11,7 @@ The documentation for this class was generated from: `include/ffw/gui/guilist.h`
 | Type | Name |
 | -------: | :------- |
 |   | [Value](#da4598ce) ([GuiList](ffw_GuiList.html) * _list_)  |
-|   | [~Value](#1f535585) ()  |
+|   | [~Value](#b30ad796) ()  |
 |  void | [setValue](#885c6ce2) (int _value_)  |
 |  int | [getValue](#ebe0f2de) () const  |
 |  void | [assign](#e9ce5225) ([GuiList::Item](ffw_GuiList_Item.html) * _item_)  |
@@ -33,7 +33,7 @@ The documentation for this class was generated from: `include/ffw/gui/guilist.h`
 
 
 
-### _function_ <a id="1f535585" href="#1f535585">~Value</a>
+### _function_ <a id="b30ad796" href="#b30ad796">~Value</a>
 
 ```cpp
  ~Value () 
@@ -100,7 +100,7 @@ void reset ()
 ### _function_ <a id="35f17b67" href="#35f17b67">getNumOfassigned</a>
 
 ```cpp
-size_t getNumOfassigned () const 
+inline size_t getNumOfassigned () const 
 ```
 
 

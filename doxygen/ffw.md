@@ -10,6 +10,7 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 
 | Name |
 |:-----|
+| class [ffw::Any](ffw_Any.html) |
 | class [ffw::Array](ffw_Array.html) |
 | class [ffw::BitmapFont](ffw_BitmapFont.html) |
 | class [ffw::BmpLoader](ffw_BmpLoader.html) |
@@ -19,6 +20,7 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::CsvLoader](ffw_CsvLoader.html) |
 | class [ffw::DdsLoader](ffw_DdsLoader.html) |
 | class [ffw::DdsSaver](ffw_DdsSaver.html) |
+| struct [ffw::DrawPaint](ffw_DrawPaint.html) |
 | class [ffw::FileInfo](ffw_FileInfo.html) |
 | class [ffw::Font](ffw_Font.html) |
 | class [ffw::Framebuffer](ffw_Framebuffer.html) |
@@ -26,11 +28,13 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::GLFWRenderWindow](ffw_GLFWRenderWindow.html) |
 | struct [ffw::GLFWRenderWindowArgs](ffw_GLFWRenderWindowArgs.html) |
 | class [ffw::GuiBackend](ffw_GuiBackend.html) |
+| class [ffw::GuiBody](ffw_GuiBody.html) |
+| class [ffw::GuiBox](ffw_GuiBox.html) |
 | class [ffw::GuiButton](ffw_GuiButton.html) |
 | class [ffw::GuiButtonPrimary](ffw_GuiButtonPrimary.html) |
 | class [ffw::GuiButtonToggle](ffw_GuiButtonToggle.html) |
 | class [ffw::GuiButtonTogglePrimary](ffw_GuiButtonTogglePrimary.html) |
-| class [ffw::GuiCallback](ffw_GuiCallback.html) |
+| struct [ffw::GuiCallback](ffw_GuiCallback.html) |
 | class [ffw::GuiCheckbox](ffw_GuiCheckbox.html) |
 | class [ffw::GuiDefaults](ffw_GuiDefaults.html) |
 | class [ffw::GuiEvent](ffw_GuiEvent.html) |
@@ -47,19 +51,21 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::GuiProgressBar](ffw_GuiProgressBar.html) |
 | class [ffw::GuiProgressCircle](ffw_GuiProgressCircle.html) |
 | class [ffw::GuiRadio](ffw_GuiRadio.html) |
-| class [ffw::GuiRichText](ffw_GuiRichText.html) |
 | class [ffw::GuiScrollable](ffw_GuiScrollable.html) |
 | class [ffw::GuiScrollableLayout](ffw_GuiScrollableLayout.html) |
+| class [ffw::GuiScrollableTextInput](ffw_GuiScrollableTextInput.html) |
 | class [ffw::GuiScrollBar](ffw_GuiScrollBar.html) |
 | class [ffw::GuiSlider](ffw_GuiSlider.html) |
 | class [ffw::GuiStyle](ffw_GuiStyle.html) |
-| class [ffw::GuiStyleGroup](ffw_GuiStyleGroup.html) |
 | class [ffw::GuiSwitch](ffw_GuiSwitch.html) |
 | class [ffw::GuiTabs](ffw_GuiTabs.html) |
-| class [ffw::GuiTextArea](ffw_GuiTextArea.html) |
+| class [ffw::GuiText](ffw_GuiText.html) |
 | class [ffw::GuiTextInput](ffw_GuiTextInput.html) |
-| class [ffw::GuiTextWrapper](ffw_GuiTextWrapper.html) |
 | class [ffw::GuiTheme](ffw_GuiTheme.html) |
+| class [ffw::GuiThemeFlatDark](ffw_GuiThemeFlatDark.html) |
+| class [ffw::GuiThemeFlatLight](ffw_GuiThemeFlatLight.html) |
+| class [ffw::GuiThemeSimpleDark](ffw_GuiThemeSimpleDark.html) |
+| class [ffw::GuiThemeSimpleLight](ffw_GuiThemeSimpleLight.html) |
 | class [ffw::GuiUnits](ffw_GuiUnits.html) |
 | class [ffw::GuiUnits2D](ffw_GuiUnits2D.html) |
 | class [ffw::GuiUserInput](ffw_GuiUserInput.html) |
@@ -98,8 +104,7 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::Renderbuffer](ffw_Renderbuffer.html) |
 | class [ffw::Renderbuffer2D](ffw_Renderbuffer2D.html) |
 | class [ffw::Renderbuffer2DMS](ffw_Renderbuffer2DMS.html) |
-| class [ffw::RenderContext](ffw_RenderContext.html) |
-| class [ffw::RenderExtensions](ffw_RenderExtensions.html) |
+| class [ffw::RenderContext](ffw_RenderContext.html) <span style="opacity:0.8;">Basic render context which can be used to draw shapes using nanovg on the screen. </span> |
 | class [ffw::RenderWindow](ffw_RenderWindow.html) |
 | class [ffw::RingBuffer](ffw_RingBuffer.html) |
 | class [ffw::Shader](ffw_Shader.html) |
@@ -113,13 +118,13 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | class [ffw::Texture2DMS](ffw_Texture2DMS.html) |
 | class [ffw::Texture3D](ffw_Texture3D.html) |
 | class [ffw::TextureCubemap](ffw_TextureCubemap.html) |
+| class [ffw::TextWrapper](ffw_TextWrapper.html) |
 | class [ffw::TgaLoader](ffw_TgaLoader.html) |
 | class [ffw::TgaSaver](ffw_TgaSaver.html) |
 | class [ffw::TifLoader](ffw_TifLoader.html) |
 | class [ffw::TifSaver](ffw_TifSaver.html) |
 | class [ffw::Tokenizer](ffw_Tokenizer.html) |
 | class [ffw::TrueTypeFont](ffw_TrueTypeFont.html) |
-| class [ffw::Var](ffw_Var.html) |
 | class [ffw::Vbo](ffw_Vbo.html) |
 | class [ffw::Vec](ffw_Vec.html) |
 | struct [ffw::Vec2](ffw_Vec2.html) |
@@ -141,6 +146,13 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 | enum | [MouseButton](#f80e46cc) |
 | enum | [Mode](#e03b52d5) |
 | enum | [Key](#23661d50) |
+| enum | [DrawMode](#642b0610) |
+| enum | [DrawPathWinding](#5ed40213) |
+| enum | [LineCap](#795eeb36) |
+| enum | [GuiAlign](#38e5cadb) |
+| enum | [GuiEventType](#8b540a94) |
+| enum | [GuiFocusType](#ccd58d43) |
+| enum | [GuiOrientation](#32795b74) |
 
 
 ## Typedefs
@@ -185,17 +197,18 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 |  bool | [stringisInteger](#0f301d2c) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
 |  bool | [stringisFloat](#42754420) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
 |  bool | [stringisBool](#f795143f) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeJson](#6d044655) (const char * _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeJson](#b4cddc87) (const std::string & _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeJsonFile](#0e979a8d) (const std::string & _path_)  |
-|  std::string | [encodeJson](#3b2e9a26) (const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  bool | [encodeJsonFile](#20155556) (const std::string & _path_, const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  [ffw::Var](ffw_Var.html) | [decodeXml](#39a9cfe3) (const char * _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeXml](#1f3cceee) (const std::string & _input_)  |
-|  [ffw::Var](ffw_Var.html) | [decodeXmlFile](#3e9f5d3d) (const std::string & _path_)  |
-|  std::string | [encodeXml](#80464558) (const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  bool | [encodeXmlFile](#d92c62d9) (const std::string & _path_, const [ffw::Var](ffw_Var.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  [ffw::Any](ffw_Any.html) | [decodeJson](#69d58e3a) (const char * _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeJson](#d294dc02) (const std::string & _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeJsonFile](#090e0ee4) (const std::string & _path_)  |
+|  std::string | [encodeJson](#3f450749) (const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  bool | [encodeJsonFile](#f3a0ad96) (const std::string & _path_, const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  [ffw::Any](ffw_Any.html) | [decodeXml](#2b32ec0f) (const char * _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeXml](#14f63b6b) (const std::string & _input_)  |
+|  [ffw::Any](ffw_Any.html) | [decodeXmlFile](#d542e979) (const std::string & _path_)  |
+|  std::string | [encodeXml](#29241370) (const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|  bool | [encodeXmlFile](#66c3b5fb) (const std::string & _path_, const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
 |  [ffw::OpenGLImageType](ffw_OpenGLImageType.html) | [getOpenGLImageType](#ed9106f9) ([ffw::ImageType](ffw.html#fa711f90) _type_)  |
+|  void | [loadGlCoreArb](#92805e56) (void *(*)(const char *) _glextLoader_)  |
 |  bool | [operator==](#1f1a6f98) (float _left_, const [GuiUnits](ffw_GuiUnits.html) & _right_)  |
 |  bool | [operator!=](#ceb1364d) (float _left_, const [GuiUnits](ffw_GuiUnits.html) & _right_)  |
 |  [GuiUnits](ffw_GuiUnits.html) | [guiPixels](#66baed55) (float _pixels_)  |
@@ -208,8 +221,8 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 |  [ffw::Color](ffw_Color.html) | [normalize](#3ae66aa1) (const [Color](ffw_Color.html) & _col_)  _Normalizes a color returning a copy (won't modify the original)_ |
 |  [ffw::Color](ffw_Color.html) | [clamp](#a1534183) (const [ffw::Color](ffw_Color.html) & _color_)  _Clamps a color between 0.0 and 1.0 values returning a copy (won't modify the original)_ |
 |  std::ostream & | [operator<<](#1b2c7668) (std::ostream & _os_, const [ffw::Color](ffw_Color.html) & _color_)  |
-|  T | [lerp](#b7b7ad6f) (const T & _a_, const T & _b_, float _w_)  |
 |  T | [clamp](#da694c2f) (T _Val_, T _Min_, T _Max_)  |
+|  T | [lerp](#b7b7ad6f) (const T & _a_, const T & _b_, float _w_)  |
 |  T | [radians](#98023008) (T _val_)  |
 |  T | [degrees](#0e1d2d7d) (T _val_)  |
 |  T | [remap](#e670592a) (T _value_, T _InMin_, T _InMax_, T _OutMin_, T _OutMax_)  |
@@ -258,14 +271,16 @@ The documentation for this namespace was generated from: `include/ffw/constants.
 |  std::string | [extension](#9c775320) (const std::basic_string< T, CharTrait, Allocator > & _path_)  |
 |  std::string | [toUpper](#ba3ebc58) (const std::string & _str_)  |
 |  std::string | [toLower](#ea42dc70) (const std::string & _str_)  |
-|  size_t | [wstrToUtf8](#4896137e) (SS * _Str_, const WS & _Wstr_)  |
-|  size_t | [utf8ToWstr](#e6d56e70) (WS * _Wstr_, const SS & _Str_)  |
-|  std::string | [wstrToUtf8](#94351482) (const std::wstring & _Wstr_)  |
-|  size_t | [wstrToUtf8Size](#b6880db9) (const std::wstring & _Wstr_)  |
-|  std::wstring | [utf8ToWstr](#34a4faf0) (const std::string & _Str_)  |
-|  size_t | [utf8ToWstrSize](#756009b5) (const std::string & _Str_)  |
+|  std::string | [unicodeToUtf8](#89cc4a52) (uint32_t _chr_)  |
+|  std::string | [wstrToUtf8](#e0a672bc) (const std::wstring & _wstr_)  |
+|  size_t | [wstrToUtf8Size](#8252d46f) (const std::wstring & _wstr_)  |
+|  std::wstring | [utf8ToWstr](#3b41c519) (const std::string & _str_)  |
+|  size_t | [utf8ToWstrSize](#3c6051ab) (const std::string & _str_)  |
 |  std::wstring | [valToWstring](#47ce4cde) (T _Value_)  |
 |  std::wstring | [valToWstring](#b47de7bb) (T _Value_, unsigned int _Dec_)  |
+|  uint32_t | [getNextChar](#40177abc) (const T *& _it_, const T * _end_)  |
+|  uint32_t | [getNextChar](#959aa92f) (const char *& _it_, const char * _end_)  |
+|  uint32_t | [getNextChar](#d06d5d33) (const wchar_t *& _it_, const wchar_t * _end_)  |
 |  T | [dot](#71f5aa67) (const [ffw::Vec2](ffw_Vec2.html)< T > & _V1_, const [ffw::Vec2](ffw_Vec2.html)< T > & _V2_)  |
 |  T | [distance](#c2f6a903) (const [Vec2](ffw_Vec2.html)< T > & _v1_, const [Vec2](ffw_Vec2.html)< T > & _v2_)  |
 |  [Vec2](ffw_Vec2.html)< T > | [middle](#8cc46fe8) (const [Vec2](ffw_Vec2.html)< T > & _v1_, const [Vec2](ffw_Vec2.html)< T > & _v2_)  |
@@ -541,6 +556,106 @@ enum Key {
 
 
 
+### _enum_ <a id="642b0610" href="#642b0610">DrawMode</a>
+
+```cpp
+enum DrawMode {
+    FILL,
+    STROKE,
+    FILL_AND_STROKE,
+}
+```
+
+
+
+### _enum_ <a id="5ed40213" href="#5ed40213">DrawPathWinding</a>
+
+```cpp
+enum DrawPathWinding {
+    CCW,
+    CW,
+}
+```
+
+
+
+### _enum_ <a id="795eeb36" href="#795eeb36">LineCap</a>
+
+```cpp
+enum LineCap {
+    BUTT,
+    ROUND,
+    SQUARE,
+    BEVEL,
+    MITER,
+}
+```
+
+
+
+### _enum_ <a id="38e5cadb" href="#38e5cadb">GuiAlign</a>
+
+```cpp
+enum GuiAlign {
+    LEFT,
+    CENTER,
+    RIGHT,
+    TOP_LEFT,
+    TOP_CENTER,
+    TOP_RIGHT,
+    BOTTOM_LEFT,
+    BOTTOM_CENTER,
+    BOTTOM_RIGHT,
+}
+```
+
+
+
+### _enum_ <a id="8b540a94" href="#8b540a94">GuiEventType</a>
+
+```cpp
+enum GuiEventType {
+    ACTION,
+    SIZE,
+    INNER,
+    POSITION,
+    HOVER,
+    FOCUS,
+    STATE,
+    INPUT,
+    KEY,
+    MOUSEBTN,
+    ALL,
+}
+```
+
+
+
+### _enum_ <a id="ccd58d43" href="#ccd58d43">GuiFocusType</a>
+
+```cpp
+enum GuiFocusType {
+    DEFAULT,
+    STICKY,
+    DROP,
+    TOGGLE,
+}
+```
+
+
+
+### _enum_ <a id="32795b74" href="#32795b74">GuiOrientation</a>
+
+```cpp
+enum GuiOrientation {
+    FIXED,
+    VERTICAL,
+    HORIZONTAL,
+}
+```
+
+
+
 
 
 ## Typedefs Documentation
@@ -777,41 +892,41 @@ bool stringisBool (
 
 
 
-### _function_ <a id="6d044655" href="#6d044655">decodeJson</a>
+### _function_ <a id="69d58e3a" href="#69d58e3a">decodeJson</a>
 
 ```cpp
-ffw::Var decodeJson (
+ffw::Any decodeJson (
     const char * input
 ) 
 ```
 
 
 
-### _function_ <a id="b4cddc87" href="#b4cddc87">decodeJson</a>
+### _function_ <a id="d294dc02" href="#d294dc02">decodeJson</a>
 
 ```cpp
-ffw::Var decodeJson (
+ffw::Any decodeJson (
     const std::string & input
 ) 
 ```
 
 
 
-### _function_ <a id="0e979a8d" href="#0e979a8d">decodeJsonFile</a>
+### _function_ <a id="090e0ee4" href="#090e0ee4">decodeJsonFile</a>
 
 ```cpp
-ffw::Var decodeJsonFile (
+ffw::Any decodeJsonFile (
     const std::string & path
 ) 
 ```
 
 
 
-### _function_ <a id="3b2e9a26" href="#3b2e9a26">encodeJson</a>
+### _function_ <a id="3f450749" href="#3f450749">encodeJson</a>
 
 ```cpp
 std::string encodeJson (
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 
@@ -819,12 +934,12 @@ std::string encodeJson (
 
 
 
-### _function_ <a id="20155556" href="#20155556">encodeJsonFile</a>
+### _function_ <a id="f3a0ad96" href="#f3a0ad96">encodeJsonFile</a>
 
 ```cpp
 bool encodeJsonFile (
     const std::string & path,
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 
@@ -832,41 +947,41 @@ bool encodeJsonFile (
 
 
 
-### _function_ <a id="39a9cfe3" href="#39a9cfe3">decodeXml</a>
+### _function_ <a id="2b32ec0f" href="#2b32ec0f">decodeXml</a>
 
 ```cpp
-ffw::Var decodeXml (
+ffw::Any decodeXml (
     const char * input
 ) 
 ```
 
 
 
-### _function_ <a id="1f3cceee" href="#1f3cceee">decodeXml</a>
+### _function_ <a id="14f63b6b" href="#14f63b6b">decodeXml</a>
 
 ```cpp
-ffw::Var decodeXml (
+ffw::Any decodeXml (
     const std::string & input
 ) 
 ```
 
 
 
-### _function_ <a id="3e9f5d3d" href="#3e9f5d3d">decodeXmlFile</a>
+### _function_ <a id="d542e979" href="#d542e979">decodeXmlFile</a>
 
 ```cpp
-ffw::Var decodeXmlFile (
+ffw::Any decodeXmlFile (
     const std::string & path
 ) 
 ```
 
 
 
-### _function_ <a id="80464558" href="#80464558">encodeXml</a>
+### _function_ <a id="29241370" href="#29241370">encodeXml</a>
 
 ```cpp
 std::string encodeXml (
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 
@@ -874,12 +989,12 @@ std::string encodeXml (
 
 
 
-### _function_ <a id="d92c62d9" href="#d92c62d9">encodeXmlFile</a>
+### _function_ <a id="66c3b5fb" href="#66c3b5fb">encodeXmlFile</a>
 
 ```cpp
 bool encodeXmlFile (
     const std::string & path,
-    const ffw::Var & input,
+    const ffw::Any & input,
     const char * indent = NULL,
     bool escape = false
 ) 
@@ -892,6 +1007,16 @@ bool encodeXmlFile (
 ```cpp
 ffw::OpenGLImageType getOpenGLImageType (
     ffw::ImageType type
+) 
+```
+
+
+
+### _function_ <a id="92805e56" href="#92805e56">loadGlCoreArb</a>
+
+```cpp
+void loadGlCoreArb (
+    void *(*)(const char *) glextLoader
 ) 
 ```
 
@@ -1031,18 +1156,6 @@ inline std::ostream & operator<< (
 
 
 
-### _function_ <a id="b7b7ad6f" href="#b7b7ad6f">lerp</a>
-
-```cpp
-inline T lerp (
-    const T & a,
-    const T & b,
-    float w
-) 
-```
-
-
-
 ### _function_ <a id="da694c2f" href="#da694c2f">clamp</a>
 
 ```cpp
@@ -1050,6 +1163,18 @@ inline T clamp (
     T Val,
     T Min,
     T Max
+) 
+```
+
+
+
+### _function_ <a id="b7b7ad6f" href="#b7b7ad6f">lerp</a>
+
+```cpp
+inline T lerp (
+    const T & a,
+    const T & b,
+    float w
 ) 
 ```
 
@@ -1258,7 +1383,7 @@ inline T stringToVal (
 
 
 
-**Params:**
+**Exceptions:**
 * _Throws:_ std::invalid_argument (invalid conversion) or std::out_of_range (conversion is out of the range) 
 
 
@@ -1573,63 +1698,51 @@ inline std::string toLower (
 
 
 
-### _function_ <a id="4896137e" href="#4896137e">wstrToUtf8</a>
+### _function_ <a id="89cc4a52" href="#89cc4a52">unicodeToUtf8</a>
 
 ```cpp
-size_t wstrToUtf8 (
-    SS * Str,
-    const WS & Wstr
+inline std::string unicodeToUtf8 (
+    uint32_t chr
 ) 
 ```
 
 
 
-### _function_ <a id="e6d56e70" href="#e6d56e70">utf8ToWstr</a>
-
-```cpp
-size_t utf8ToWstr (
-    WS * Wstr,
-    const SS & Str
-) 
-```
-
-
-
-### _function_ <a id="94351482" href="#94351482">wstrToUtf8</a>
+### _function_ <a id="e0a672bc" href="#e0a672bc">wstrToUtf8</a>
 
 ```cpp
 inline std::string wstrToUtf8 (
-    const std::wstring & Wstr
+    const std::wstring & wstr
 ) 
 ```
 
 
 
-### _function_ <a id="b6880db9" href="#b6880db9">wstrToUtf8Size</a>
+### _function_ <a id="8252d46f" href="#8252d46f">wstrToUtf8Size</a>
 
 ```cpp
 inline size_t wstrToUtf8Size (
-    const std::wstring & Wstr
+    const std::wstring & wstr
 ) 
 ```
 
 
 
-### _function_ <a id="34a4faf0" href="#34a4faf0">utf8ToWstr</a>
+### _function_ <a id="3b41c519" href="#3b41c519">utf8ToWstr</a>
 
 ```cpp
 inline std::wstring utf8ToWstr (
-    const std::string & Str
+    const std::string & str
 ) 
 ```
 
 
 
-### _function_ <a id="756009b5" href="#756009b5">utf8ToWstrSize</a>
+### _function_ <a id="3c6051ab" href="#3c6051ab">utf8ToWstrSize</a>
 
 ```cpp
 inline size_t utf8ToWstrSize (
-    const std::string & Str
+    const std::string & str
 ) 
 ```
 
@@ -1651,6 +1764,39 @@ inline std::wstring valToWstring (
 inline std::wstring valToWstring (
     T Value,
     unsigned int Dec
+) 
+```
+
+
+
+### _function_ <a id="40177abc" href="#40177abc">getNextChar</a>
+
+```cpp
+inline uint32_t getNextChar (
+    const T *& it,
+    const T * end
+) 
+```
+
+
+
+### _function_ <a id="959aa92f" href="#959aa92f">getNextChar</a>
+
+```cpp
+inline uint32_t getNextChar (
+    const char *& it,
+    const char * end
+) 
+```
+
+
+
+### _function_ <a id="d06d5d33" href="#d06d5d33">getNextChar</a>
+
+```cpp
+inline uint32_t getNextChar (
+    const wchar_t *& it,
+    const wchar_t * end
 ) 
 ```
 

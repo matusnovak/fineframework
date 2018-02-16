@@ -6,13 +6,6 @@ The documentation for this class was generated from: `include/ffw/graphics/frame
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#0a2d30d0) (const [RenderContext](ffw_RenderContext.html) * _Renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,7 +16,7 @@ The documentation for this class was generated from: `include/ffw/graphics/frame
 |  void | [swap](#3ccaa21a) ([Framebuffer](ffw_Framebuffer.html) & _other_)  |
 |   | [~Framebuffer](#d20a7379) ()  |
 |  bool | [isCreated](#6e7996e6) () const  |
-|  bool | [create](#885dc8f1) (const [RenderContext](ffw_RenderContext.html) * _Renderer_)  |
+|  bool | [create](#48fb6571) ()  |
 |  bool | [addColorTexture](#22669d61) (const [ffw::Texture2D](ffw_Texture2D.html) * _texture_, int _mip_ = 0)  |
 |  bool | [addCubemapTexture](#36c3274b) (const [ffw::TextureCubemap](ffw_TextureCubemap.html) * _texture_, int _side_, int _mip_ = 0)  |
 |  bool | [addDepthTexture](#419f17e6) (const [ffw::Texture2D](ffw_Texture2D.html) * _texture_, int _mip_ = 0)  |
@@ -41,20 +34,6 @@ The documentation for this class was generated from: `include/ffw/graphics/frame
 |  void | [unbind](#1ab39037) () const  |
 |  [Framebuffer](ffw_Framebuffer.html) & | [operator=](#824e8bcd) (const [Framebuffer](ffw_Framebuffer.html) & _other_) = delete  |
 |  [Framebuffer](ffw_Framebuffer.html) & | [operator=](#98aced71) ([Framebuffer](ffw_Framebuffer.html) && _other_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="0a2d30d0" href="#0a2d30d0">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * Renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -113,12 +92,10 @@ inline bool isCreated () const
 
 
 
-### _function_ <a id="885dc8f1" href="#885dc8f1">create</a>
+### _function_ <a id="48fb6571" href="#48fb6571">create</a>
 
 ```cpp
-bool create (
-    const RenderContext * Renderer
-) 
+bool create () 
 ```
 
 

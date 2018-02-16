@@ -2,7 +2,7 @@ GuiDefaults
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/gui/guitheme.h`
+The documentation for this class was generated from: `include/ffw/gui/guistyle.h`
 
 
 
@@ -12,8 +12,8 @@ The documentation for this class was generated from: `include/ffw/gui/guitheme.h
 | -------: | :------- |
 |  [GuiStyle::Margin](ffw_GuiStyle.html#77df323f) | [margin](#f0f0b325) |
 |  [GuiStyle::Padding](ffw_GuiStyle.html#82b7d280) | [padding](#f436163d) |
-|  [GuiStyle::Align](ffw_GuiStyle.html#80d2c0e2) | [align](#6f088dd3) |
-|  [ffw::Vec2](ffw_Vec2.html)< [GuiUnits](ffw_GuiUnits.html) > | [size](#57a47007) |
+|  [GuiAlign](ffw.html#38e5cadb) | [align](#04bc6236) |
+|  [GuiUnits2D](ffw_GuiUnits2D.html) | [size](#ad51079a) |
 
 
 ## Public Functions
@@ -21,7 +21,8 @@ The documentation for this class was generated from: `include/ffw/gui/guitheme.h
 | Type | Name |
 | -------: | :------- |
 |   | [GuiDefaults](#381d80f5) ()  |
-|   | [GuiDefaults](#91caabfd) (const [GuiStyle::Margin](ffw_GuiStyle.html#77df323f) & _m_, const [GuiStyle::Padding](ffw_GuiStyle.html#82b7d280) & _p_, [GuiStyle::Align](ffw_GuiStyle.html#80d2c0e2) _a_, const [ffw::Vec2](ffw_Vec2.html)< [GuiUnits](ffw_GuiUnits.html) > & _s_)  |
+|   | [GuiDefaults](#cb375956) (const [GuiStyle::Margin](ffw_GuiStyle.html#77df323f) & _m_, const [GuiStyle::Padding](ffw_GuiStyle.html#82b7d280) & _p_, [GuiAlign](ffw.html#38e5cadb) _a_, const [GuiUnits2D](ffw_GuiUnits2D.html) & _s_)  |
+|   | [GuiDefaults](#051aecf4) (float _m_, float _p_, [GuiAlign](ffw.html#38e5cadb) _a_, const [GuiUnits2D](ffw_GuiUnits2D.html) & _s_)  |
 
 
 ## Public Attributes Documentation
@@ -42,18 +43,18 @@ GuiStyle::Padding padding
 
 
 
-### _variable_ <a id="6f088dd3" href="#6f088dd3">align</a>
+### _variable_ <a id="04bc6236" href="#04bc6236">align</a>
 
 ```cpp
-GuiStyle::Align align
+GuiAlign align
 ```
 
 
 
-### _variable_ <a id="57a47007" href="#57a47007">size</a>
+### _variable_ <a id="ad51079a" href="#ad51079a">size</a>
 
 ```cpp
-ffw::Vec2< GuiUnits > size
+GuiUnits2D size
 ```
 
 
@@ -70,14 +71,27 @@ inline  GuiDefaults ()
 
 
 
-### _function_ <a id="91caabfd" href="#91caabfd">GuiDefaults</a>
+### _function_ <a id="cb375956" href="#cb375956">GuiDefaults</a>
 
 ```cpp
 inline  GuiDefaults (
     const GuiStyle::Margin & m,
     const GuiStyle::Padding & p,
-    GuiStyle::Align a,
-    const ffw::Vec2< GuiUnits > & s
+    GuiAlign a,
+    const GuiUnits2D & s
+) 
+```
+
+
+
+### _function_ <a id="051aecf4" href="#051aecf4">GuiDefaults</a>
+
+```cpp
+inline  GuiDefaults (
+    float m,
+    float p,
+    GuiAlign a,
+    const GuiUnits2D & s
 ) 
 ```
 

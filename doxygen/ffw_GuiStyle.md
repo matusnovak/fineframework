@@ -2,7 +2,7 @@ GuiStyle
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/gui/guitheme.h`
+The documentation for this class was generated from: `include/ffw/gui/guistyle.h`
 
 
 
@@ -21,7 +21,6 @@ The documentation for this class was generated from: `include/ffw/gui/guitheme.h
 
 | Type | Name |
 | -------: | :------- |
-| enum | [Align](#80d2c0e2) |
 | typedef [Border](ffw_GuiStyle_Border.html) | [Outline](#45875f08) |
 | typedef [GuiStyle::Attribute](ffw_GuiStyle_Attribute.html)< [GuiUnits](ffw_GuiUnits.html) > | [Padding](#82b7d280) |
 | typedef [GuiStyle::Attribute](ffw_GuiStyle_Attribute.html)< [GuiUnits](ffw_GuiUnits.html) > | [Margin](#77df323f) |
@@ -47,24 +46,6 @@ The documentation for this class was generated from: `include/ffw/gui/guitheme.h
 
 
 ## Public Types Documentation
-
-### _enum_ <a id="80d2c0e2" href="#80d2c0e2">Align</a>
-
-```cpp
-enum Align {
-    LEFT,
-    CENTER,
-    RIGHT,
-    TOP_LEFT,
-    TOP_CENTER,
-    TOP_RIGHT,
-    BOTTOM_LEFT,
-    BOTTOM_CENTER,
-    BOTTOM_RIGHT,
-}
-```
-
-
 
 ### _typedef_ <a id="45875f08" href="#45875f08">Outline</a>
 

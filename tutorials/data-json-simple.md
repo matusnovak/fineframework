@@ -2,7 +2,7 @@
 
 This tutorial will explain how to decode and encode JSON structure. 
 
-**The tutorial uses ffw::Var which is essential in the following examples. You must read [Var - JSON-like data structure](math-var.html) tutorial first!**
+**The tutorial uses ffw::Any which is essential in the following examples. You must read [Any - JSON-like data structure](math-var.html) tutorial first!**
 
 Make sure you add `finedata` into your linker and add the following headers into your project:
 
@@ -19,11 +19,11 @@ When decoding a JSON, values are converted into C++ specific data types:
 | ----------- | -------------------------- |
 | { }         | ffw::Object                |
 | [ ]         | ffw::Array                 |
-| "string"    | ffw::Var as std::string    |
-| 123456      | ffw::Var as int            |
-| 123.456e-10 | ffw::Var as float          |
-| true false  | ffw::Var as bool           |
-| null        | empty ffw::Var             |
+| "string"    | ffw::Any as std::string    |
+| 123456      | ffw::Any as int            |
+| 123.456e-10 | ffw::Any as float          |
+| true false  | ffw::Any as bool           |
+| null        | empty ffw::Any             |
 
 The strings that contain unicode characters encoded as '\\uXXXX' will be converted into UTF-8 
 
@@ -38,7 +38,7 @@ Please note:
 
 ## Encoding
 
-The following code is a simple way to create a data structure using ffw::Var and encoding it as JSON. Note that an exception can be thrown if:
+The following code is a simple way to create a data structure using ffw::Any and encoding it as JSON. Note that an exception can be thrown if:
 
 * the root node of the data structure is not object or array
 * any of the values contain invalid data type, only the following are valid: (ffw::Object, ffw::Array, any signed or unsigned integer, bool, std::string or const char*, any floating point). For example, you can not encode a C++ reference, or pointer, or class, etc...

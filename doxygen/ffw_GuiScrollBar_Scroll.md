@@ -8,13 +8,20 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrollb
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiScrollBar::Scroll::Style](ffw_GuiScrollBar_Scroll_Style.html) |
+
+
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
 |   | [Scroll](#42b65b73) ([GuiWindow](ffw_GuiWindow.html) * _context_, bool _vertical_)  |
-|  virtual  | [~Scroll](#1bd04139) ()  |
-|  virtual void | [eventThemeChanged](#c15de817) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
+|  virtual  | [~Scroll](#df74ee00) ()  |
+|  void | [setStyle](#7d684a97) (const [Scroll::Style](ffw_GuiScrollBar_Scroll_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -30,7 +37,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiscrollb
 
 
 
-### _function_ <a id="1bd04139" href="#1bd04139">~Scroll</a>
+### _function_ <a id="df74ee00" href="#df74ee00">~Scroll</a>
 
 ```cpp
 virtual  ~Scroll () 
@@ -38,17 +45,16 @@ virtual  ~Scroll ()
 
 
 
-### _function_ <a id="c15de817" href="#c15de817">eventThemeChanged</a>
+### _function_ <a id="7d684a97" href="#7d684a97">setStyle</a>
 
 ```cpp
-virtual void eventThemeChanged (
-    const GuiTheme * theme
+void setStyle (
+    const Scroll::Style * style,
+    bool defaults = false
 ) 
 ```
 
 
-
-**Overrides:** [eventThemeChanged](/doxygen/ffw_GuiSlider.md#eefa90aa) from class [GuiSlider](/doxygen/ffw_GuiSlider.md)
 
 
 

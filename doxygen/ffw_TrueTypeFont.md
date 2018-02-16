@@ -18,10 +18,11 @@ The documentation for this class was generated from: `include/ffw/graphics/truet
 |   | [TrueTypeFont](#1bf4d6c5) (const [TrueTypeFont](ffw_TrueTypeFont.html) & _other_) = delete  |
 |   | [TrueTypeFont](#de6b4424) ([TrueTypeFont](ffw_TrueTypeFont.html) && _other_)  |
 |  virtual  | [~TrueTypeFont](#d020eb76) ()  |
-|  bool | [createFromData](#6a033f9d) (const [RenderContext](ffw_RenderContext.html) * _renderer_, const unsigned char * _buffer_, size_t _length_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
-|  bool | [createFromFile](#d2857644) (const [RenderContext](ffw_RenderContext.html) * _renderer_, const std::string & _path_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
+|  bool | [createFromData](#77522242) (const unsigned char * _buffer_, size_t _length_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
+|  bool | [createFromFile](#4cea694e) (const std::string & _path_, int _points_, int _dpi_, int _start_ = 0x00, int _end_ = 0x7F)  |
 |  virtual void | [destroy](#334df3a6) ()  |
 |  virtual const Char & | [getChar](#28bdd97d) (wchar_t _chr_) const  |
+|  virtual int | [getCharIndex](#e3b72864) (wchar_t _chr_) const  |
 |  [TrueTypeFont](ffw_TrueTypeFont.html) & | [operator=](#9a698e6e) (const [TrueTypeFont](ffw_TrueTypeFont.html) & _other_) = delete  |
 |  [TrueTypeFont](ffw_TrueTypeFont.html) & | [operator=](#8055e987) ([TrueTypeFont](ffw_TrueTypeFont.html) && _other_)  |
 |  void | [swap](#cc1a0984) ([TrueTypeFont](ffw_TrueTypeFont.html) & _other_)  |
@@ -65,11 +66,10 @@ virtual  ~TrueTypeFont ()
 
 
 
-### _function_ <a id="6a033f9d" href="#6a033f9d">createFromData</a>
+### _function_ <a id="77522242" href="#77522242">createFromData</a>
 
 ```cpp
 bool createFromData (
-    const RenderContext * renderer,
     const unsigned char * buffer,
     size_t length,
     int points,
@@ -81,11 +81,10 @@ bool createFromData (
 
 
 
-### _function_ <a id="d2857644" href="#d2857644">createFromFile</a>
+### _function_ <a id="4cea694e" href="#4cea694e">createFromFile</a>
 
 ```cpp
 bool createFromFile (
-    const RenderContext * renderer,
     const std::string & path,
     int points,
     int dpi,
@@ -117,6 +116,18 @@ virtual const Char & getChar (
 
 
 **Overrides:** [getChar](/doxygen/ffw_Font.md#d843f542) from class [Font](/doxygen/ffw_Font.md)
+
+### _function_ <a id="e3b72864" href="#e3b72864">getCharIndex</a>
+
+```cpp
+virtual int getCharIndex (
+    wchar_t chr
+) const 
+```
+
+
+
+**Overrides:** [getCharIndex](/doxygen/ffw_Font.md#8a9e6bda) from class [Font](/doxygen/ffw_Font.md)
 
 ### _function_ <a id="9a698e6e" href="#9a698e6e">operator=</a>
 

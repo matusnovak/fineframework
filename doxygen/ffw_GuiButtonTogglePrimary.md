@@ -2,7 +2,7 @@ GuiButtonTogglePrimary
 ===================================
 
 
-**Inherits from:** [ffw::GuiButton](ffw_GuiButton.html)
+**Inherits from:** [ffw::GuiButtonPrimary](ffw_GuiButtonPrimary.html)
 
 The documentation for this class was generated from: `include/ffw/gui/guibuttontoggle.h`
 
@@ -13,9 +13,9 @@ The documentation for this class was generated from: `include/ffw/gui/guibuttont
 | Type | Name |
 | -------: | :------- |
 |   | [GuiButtonTogglePrimary](#0619a462) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::string & _label_)  |
-|   | [GuiButtonTogglePrimary](#201a690d) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::wstring & _label_)  |
-|  virtual  | [~GuiButtonTogglePrimary](#a5863eff) ()  |
-|  virtual void | [eventThemeChanged](#1a7bfbbd) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
+|  virtual  | [~GuiButtonTogglePrimary](#192c5bb8) ()  |
+|  void | [setValue](#f7cd7972) (bool _value_)  |
+|  bool | [getValue](#dec13941) () const  |
 
 
 ## Public Functions Documentation
@@ -31,18 +31,7 @@ The documentation for this class was generated from: `include/ffw/gui/guibuttont
 
 
 
-### _function_ <a id="201a690d" href="#201a690d">GuiButtonTogglePrimary</a>
-
-```cpp
- GuiButtonTogglePrimary (
-    GuiWindow * context,
-    const std::wstring & label
-) 
-```
-
-
-
-### _function_ <a id="a5863eff" href="#a5863eff">~GuiButtonTogglePrimary</a>
+### _function_ <a id="192c5bb8" href="#192c5bb8">~GuiButtonTogglePrimary</a>
 
 ```cpp
 virtual  ~GuiButtonTogglePrimary () 
@@ -50,17 +39,23 @@ virtual  ~GuiButtonTogglePrimary ()
 
 
 
-### _function_ <a id="1a7bfbbd" href="#1a7bfbbd">eventThemeChanged</a>
+### _function_ <a id="f7cd7972" href="#f7cd7972">setValue</a>
 
 ```cpp
-virtual void eventThemeChanged (
-    const GuiTheme * theme
+void setValue (
+    bool value
 ) 
 ```
 
 
 
-**Overrides:** [eventThemeChanged](/doxygen/ffw_GuiButton.md#e9b0ba14) from class [GuiButton](/doxygen/ffw_GuiButton.md)
+### _function_ <a id="dec13941" href="#dec13941">getValue</a>
+
+```cpp
+bool getValue () const 
+```
+
+
 
 
 

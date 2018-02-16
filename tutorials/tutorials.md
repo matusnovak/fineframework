@@ -5,7 +5,7 @@
 * [Vectors](math-vectors.md)
 * [String tokenizer](math-tokenizer.md)
 * [Extra string functions](math-stringmath.md)
-* [Var class - a JSON-like data structure](math-var.md)
+* [Any class - a JSON-like data structure](math-var.md)
 
 ## Graphics Module
 

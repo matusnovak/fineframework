@@ -2,7 +2,7 @@
 
 This tutorial will explain how to decode CSV structure using more advanced method with more control. 
 
-**The tutorial uses ffw::Var which is essential in the following examples. You must read [Var - JSON-like data structure](math-var.html) tutorial first!**
+**The tutorial uses ffw::Any which is essential in the following examples. You must read [Any - JSON-like data structure](math-var.html) tutorial first!**
 
 Make sure you add `finedata` into your linker and add the following headers into your project:
 

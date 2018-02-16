@@ -2,7 +2,7 @@ Data
 ===================================
 
 
-**Inherits from:** [ffw::Var::Content](ffw_Var_Content.html)
+**Inherits from:** [ffw::Any::Content](ffw_Var_Content.html)
 
 The documentation for this class was generated from: `include/ffw/math/var.h`
 

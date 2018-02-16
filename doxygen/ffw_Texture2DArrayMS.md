@@ -8,13 +8,6 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 
 
 
-## Public Static Functions
-
-| Type | Name |
-| -------: | :------- |
-|  bool | [checkCompability](#bcd49afa) (const [RenderContext](ffw_RenderContext.html) * _renderer_)  |
-
-
 ## Public Functions
 
 | Type | Name |
@@ -23,24 +16,10 @@ The documentation for this class was generated from: `include/ffw/graphics/textu
 |   | [Texture2DArrayMS](#ca01d3de) (const [Texture2DArrayMS](ffw_Texture2DArrayMS.html) & _second_) = delete  |
 |   | [Texture2DArrayMS](#930b64ce) ([Texture2DArrayMS](ffw_Texture2DArrayMS.html) && _second_)  |
 |   | [~Texture2DArrayMS](#efefcb8b) ()  |
-|  bool | [create](#a26568ce) (const [ffw::RenderContext](ffw_RenderContext.html) * _renderer_, GLsizei _width_, GLsizei _height_, GLsizei _layers_, GLenum _internalformat_, GLenum _format_, GLenum _pixelformat_, GLint _samples_)  |
-|  bool | [resize](#e6b9d9f1) (GLsizei _width_, GLsizei _height_, GLsizei _layers_, GLint _samples_)  |
+|  bool | [create](#ddc8f804) ([GLsizei]() _width_, [GLsizei]() _height_, [GLsizei]() _layers_, [GLenum]() _internalformat_, [GLenum]() _format_, [GLenum]() _pixelformat_, [GLint]() _samples_)  |
+|  bool | [resize](#e6b9d9f1) ([GLsizei]() _width_, [GLsizei]() _height_, [GLsizei]() _layers_, [GLint]() _samples_)  |
 |  [Texture2DArrayMS](ffw_Texture2DArrayMS.html) & | [operator=](#87756faf) (const [Texture2DArrayMS](ffw_Texture2DArrayMS.html) & _second_) = delete  |
 |  [Texture2DArrayMS](ffw_Texture2DArrayMS.html) & | [operator=](#0fcd3833) ([Texture2DArrayMS](ffw_Texture2DArrayMS.html) && _second_)  |
-
-
-## Public Static Functions Documentation
-
-### _function_ <a id="bcd49afa" href="#bcd49afa">checkCompability</a>
-
-```cpp
-static bool checkCompability (
-    const RenderContext * renderer
-) 
-```
-
-
-
 
 
 ## Public Functions Documentation
@@ -81,11 +60,10 @@ static bool checkCompability (
 
 
 
-### _function_ <a id="a26568ce" href="#a26568ce">create</a>
+### _function_ <a id="ddc8f804" href="#ddc8f804">create</a>
 
 ```cpp
 bool create (
-    const ffw::RenderContext * renderer,
     GLsizei width,
     GLsizei height,
     GLsizei layers,

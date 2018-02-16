@@ -23,13 +23,12 @@ The documentation for this class was generated from: `include/ffw/gui/guibackend
 |  virtual void | [drawCircle](#e0694f55) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, float _radius_, const [ffw::Color](ffw_Color.html) & _color_) const = 0  |
 |  virtual void | [drawArc](#5b118ea9) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, float _inner_, float _outer_, float _start_, float _end_, const [ffw::Color](ffw_Color.html) & _color_) const = 0  |
 |  virtual void | [drawQuad](#58486aa1) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p0_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p1_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p2_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p3_, const [ffw::Color](ffw_Color.html) & _color_) const = 0  |
-|  virtual void | [drawString](#a9bb7183) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::GuiFont](ffw_GuiFont.html) * _font_, const std::wstring::value_type * _str_, size_t _length_, const [ffw::Color](ffw_Color.html) & _color_, float _lineHeight_ = 1.25f) const = 0  |
+|  virtual void | [drawString](#03f1116b) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::GuiFont](ffw_GuiFont.html) * _font_, const std::string::value_type * _str_, size_t _length_, const [ffw::Color](ffw_Color.html) & _color_, float _lineHeight_ = 1.25f) const = 0  |
 |  virtual void | [drawTriangle](#9c057eb2) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p0_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p1_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _p2_, const [ffw::Color](ffw_Color.html) & _color_) const = 0  |
 |  virtual void | [drawImage](#ab89aa8e) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_, const [GuiImage](ffw_GuiImage.html) * _image_, const [ffw::Vec4i](ffw.html#fd5627df) & _sub_, bool _mirrorX_, bool _mirrorY_, const [ffw::Color](ffw_Color.html) & _color_) const = 0  |
-|  void | [drawString](#d69ae2be) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::GuiFont](ffw_GuiFont.html) * _font_, const std::wstring & _str_, const [ffw::Color](ffw_Color.html) & _color_, float _lineHeight_ = 1.25f) const  |
 |  virtual void | [drawBackground](#405392f1) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_, const [ffw::GuiStyle::Background](ffw_GuiStyle_Background.html) & _background_, bool _ignore_ = false) const  |
 |  virtual void | [drawBorder](#c175e2f0) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_, const [ffw::GuiStyle::Border](ffw_GuiStyle_Border.html) & _border_) const  |
-|  virtual void | [drawStringAligned](#cef754a5) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_, const [ffw::GuiFont](ffw_GuiFont.html) * _font_, [ffw::GuiStyle::Align](ffw_GuiStyle.html#80d2c0e2) _align_, const std::wstring & _str_, const [ffw::GuiStyle::Text](ffw_GuiStyle_Text.html) & _text_, float _lineHeight_ = 1.25f) const  |
+|  virtual void | [drawStringAligned](#64cfb491) (const [ffw::Vec2f](ffw.html#fcfaa6c5) & _pos_, const [ffw::Vec2f](ffw.html#fcfaa6c5) & _size_, const [ffw::GuiFont](ffw_GuiFont.html) * _font_, [ffw::GuiAlign](ffw.html#38e5cadb) _align_, const std::string & _str_, const [ffw::GuiStyle::Text](ffw_GuiStyle_Text.html) & _text_, float _lineHeight_ = 1.25f) const  |
 
 
 ## Public Functions Documentation
@@ -163,13 +162,13 @@ virtual void drawQuad (
 
 
 
-### _function_ <a id="a9bb7183" href="#a9bb7183">drawString</a>
+### _function_ <a id="03f1116b" href="#03f1116b">drawString</a>
 
 ```cpp
 virtual void drawString (
     const ffw::Vec2f & pos,
     const ffw::GuiFont * font,
-    const std::wstring::value_type * str,
+    const std::string::value_type * str,
     size_t length,
     const ffw::Color & color,
     float lineHeight = 1.25f
@@ -207,20 +206,6 @@ virtual void drawImage (
 
 
 
-### _function_ <a id="d69ae2be" href="#d69ae2be">drawString</a>
-
-```cpp
-inline void drawString (
-    const ffw::Vec2f & pos,
-    const ffw::GuiFont * font,
-    const std::wstring & str,
-    const ffw::Color & color,
-    float lineHeight = 1.25f
-) const 
-```
-
-
-
 ### _function_ <a id="405392f1" href="#405392f1">drawBackground</a>
 
 ```cpp
@@ -246,15 +231,15 @@ virtual void drawBorder (
 
 
 
-### _function_ <a id="cef754a5" href="#cef754a5">drawStringAligned</a>
+### _function_ <a id="64cfb491" href="#64cfb491">drawStringAligned</a>
 
 ```cpp
 virtual void drawStringAligned (
     const ffw::Vec2f & pos,
     const ffw::Vec2f & size,
     const ffw::GuiFont * font,
-    ffw::GuiStyle::Align align,
-    const std::wstring & str,
+    ffw::GuiAlign align,
+    const std::string & str,
     const ffw::GuiStyle::Text & text,
     float lineHeight = 1.25f
 ) const 

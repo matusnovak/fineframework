@@ -11,7 +11,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiradio.h
 | Type | Name |
 | -------: | :------- |
 |   | [Value](#8bedcf1f) ()  |
-|   | [~Value](#713f7943) ()  |
+|  virtual  | [~Value](#ec96a582) ()  |
 |  void | [setValue](#996eca76) (int _value_)  |
 |  int | [getValue](#c9231fd6) () const  |
 |  void | [assign](#66f50361) ([GuiRadio](ffw_GuiRadio.html) * _radio_)  |
@@ -30,10 +30,10 @@ The documentation for this class was generated from: `include/ffw/gui/guiradio.h
 
 
 
-### _function_ <a id="713f7943" href="#713f7943">~Value</a>
+### _function_ <a id="ec96a582" href="#ec96a582">~Value</a>
 
 ```cpp
- ~Value () 
+virtual  ~Value () 
 ```
 
 

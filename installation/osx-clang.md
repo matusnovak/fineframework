@@ -17,13 +17,11 @@ To test if you have Clang++ 3.7 or newer, simply run:
 $ clang++ --version
 ```
 
-You will need the following install the following libraries via [Homebrew](https://brew.sh/):
+You also need cmake 3.0 or newer, you can verify it by running:
 
 ```
-$ brew install freetype libpng libjpeg libtiff zlib glfw
+$ cmake --version
 ```
-
-You can check if they are all present by executing `ls /usr/local/lib`
 
 ## Installing FFW (building from source code)
 
@@ -34,28 +32,10 @@ $ cd ~ # Go to the home directory
 $ git clone https://github.com/matusnovak/fineframework.git # Will create a "fineframework" directory
 $ mkdir fineframework/build
 $ cd fineframework/build
-$ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release
+$ cmake .. -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/local
 ```
 
-Make sure that the dependencies (third party libraries) are found. The `LIBRARY-NOTFOUND` will be displayed if the given library was not found.
-
-```
-# The following output will be printed by cmake 
--- glfw3 library path: /usr/local/lib/libglfw.dylib
--- freetype library path: /usr/local/lib/libfreetype.dylib
--- png library path: /usr/local/lib/libpng.dylib
--- jpeg library path: /usr/local/lib/libjpeg.dylib
--- tiff library path: /usr/local/lib/libtiff.dylib
--- zlib library path: /usr/lib/libz.dylib
--- gz2 library path: /usr/local/lib/libbz2.dylib 
-```
-
-**Note:** If you do not have those dependencies, you can download them in binary form from <https://github.com/matusnovak/fineframework/releases/tag/v0.2.5-deps> (search for `x86_64-apple-darwin.zip` file)
-
-* If you have problems locating the libraries, you can add `-DCMAKE_LIBRARY_PATH="/usr/local/lib"` into the cmake command. If you need more than one directory, you can append them with collon: `-DCMAKE_LIBRARY_PATH="/usr/local/lib:/home/test/libs"` or with semicollon on windows. If that does not work, use spaces.
-* You can also add additional include directories by adding `-DINCLUDE_DIRECTORIES="/usr/local/include"`
-* If you wish to link against static stdlib, add `-DSTATIC_STDLIB=ON` at the end of the cmake command.
-* To change the install directory, add `-DCMAKE_INSTALL_PREFIX:PATH=/path/to/install/dir`
+All third party libraries are included within the cmake configuration via git submodules. **All of the required libraries included from fineframework/libs are statically included in the final fineframework library.**
 
 Lastly, compile and install:
 
@@ -64,7 +44,9 @@ $ make all
 $ make install
 ```
 
-That's it!
+That's it! All of the necessary header files will be located in `/usr/local/include` under the folder `ffw` and all of the binaries (the `*.so` objects) will be located in `/usr/local/lib`. If you prefer to use different folder, modify the `-DCMAKE_INSTALL_PREFIX=/usr/local` argument during `cmake` configuration.
+
+If you are still not sure, check out CircleCI: <https://circleci.com/gh/matusnovak/workflows/fineframework/tree/master> which contains builds every time the master branch is updated. The build logs will show you all the commands used to produce the output library. Alternatively, checkout out master in Travis CI: <https://travis-ci.org/matusnovak/fineframework/branches>
 
 ## Your first code
 
@@ -76,7 +58,7 @@ Now compile it using g++
 
 ```
 $ clang++ -c example.cpp -o example.o -std=c++11 -I/usr/local/include
-$ clang++ -o example example.o -lfinegraphics -L/usr/local/lib
+$ clang++ -o example example.o -L/System/Library/Frameworks -L/usr/local/lib -framework OpenGL -lfinegraphics 
 $ ./example
 ```
 

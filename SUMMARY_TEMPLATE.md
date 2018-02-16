@@ -29,7 +29,7 @@
     * [Vectors](tutorials/math-vectors.md)
     * [String tokenizer](tutorials/math-tokenizer.md)
     * [Extra string functions](tutorials/math-stringmath.md)
-    * [Var class - a JSON-like data structure](tutorials/math-var.md)
+    * [Any class - a JSON-like data structure](tutorials/math-var.md)
     * [Creating your first window](tutorials/graphics-window.md)
     * [Encode and decode JSON - Simple](tutorials/data-json-simple.md)
     * [Encode and decode JSON - Advanced](tutorials/data-json-advanced.md)

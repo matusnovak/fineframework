@@ -2,7 +2,7 @@ Content
 ===================================
 
 
-**Implemented by:** [ffw::Var::Data< T, Enable >](ffw_Var_Data.html), [ffw::Var::Data< T, typename std::enable_if< std::is_integral< T >::value >::type >](ffw_Var_Data__T__typename_std__enable_if__std__is_integral__T____value____type__.html), 
+**Implemented by:** [ffw::Any::Data< T, Enable >](ffw_Var_Data.html), [ffw::Any::Data< T, typename std::enable_if< std::is_integral< T >::value >::type >](ffw_Var_Data__T__typename_std__enable_if__std__is_integral__T____value____type__.html), 
 
 The documentation for this class was generated from: `include/ffw/math/var.h`
 

@@ -4,54 +4,43 @@ GuiLayout
 
 **Inherits from:** [ffw::GuiWidget](ffw_GuiWidget.html)
 
-**Implemented by:** [ffw::GuiFixedLayout](ffw_GuiFixedLayout.html)[ffw::GuiHorizontalLayout](ffw_GuiHorizontalLayout.html), [ffw::GuiTabs::Content](ffw_GuiTabs_Content.html), [ffw::GuiTabs::TopBar](ffw_GuiTabs_TopBar.html), [ffw::GuiVerticalLayout](ffw_GuiVerticalLayout.html), [ffw::GuiWindow::GuiBody](ffw_GuiWindow_GuiBody.html), 
+**Implemented by:** [ffw::GuiBody](ffw_GuiBody.html)[ffw::GuiFixedLayout](ffw_GuiFixedLayout.html), [ffw::GuiHorizontalLayout](ffw_GuiHorizontalLayout.html), [ffw::GuiTabs::Content](ffw_GuiTabs_Content.html), [ffw::GuiTabs::TopBar](ffw_GuiTabs_TopBar.html), [ffw::GuiVerticalLayout](ffw_GuiVerticalLayout.html), 
 
 The documentation for this class was generated from: `include/ffw/gui/guilayout.h`
 
 
 
-## Public Types
+## Classes
 
-| Type | Name |
-| -------: | :------- |
-| typedef [GuiWidget::Orientation](ffw_GuiWidget.html#47f53876) | [Orientation](#f43fd4a4) |
+| Name |
+|:-----|
+| struct [ffw::GuiLayout::Style](ffw_GuiLayout_Style.html) |
 
 
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
-|   | [GuiLayout](#39058991) ([GuiWindow](ffw_GuiWindow.html) * _context_, [Orientation](ffw_GuiWidget.html#47f53876) _orientation_)  |
+|   | [GuiLayout](#a44666ac) ([GuiWindow](ffw_GuiWindow.html) * _context_, [GuiOrientation](ffw.html#32795b74) _orientation_)  |
 |  virtual  | [~GuiLayout](#cef04790) ()  |
 |  [GuiWidget](ffw_GuiWidget.html) * | [addWidget](#34aa50c1) ([GuiWidget](ffw_GuiWidget.html) * _widget_)  |
 |  [GuiWidget](ffw_GuiWidget.html) * | [addWidgetAfter](#524bcbab) (const [GuiWidget](ffw_GuiWidget.html) * _previous_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
 |  [GuiWidget](ffw_GuiWidget.html) * | [addWidgetBefore](#7ae67ff2) (const [GuiWidget](ffw_GuiWidget.html) * _next_, [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
 |  void | [deleteWidgets](#93db9dce) ()  |
 |  bool | [deleteSingleWidget](#7a7246b4) (const [GuiWidget](ffw_GuiWidget.html) * _widget_)  |
-|  void | [setOrientation](#6013d2d8) ([Orientation](ffw_GuiWidget.html#47f53876) _orient_)  |
+|  void | [setOrientation](#59fd5c3d) ([GuiOrientation](ffw.html#32795b74) _orient_)  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#26772cfd) ()  |
-
-
-## Public Types Documentation
-
-### _typedef_ <a id="f43fd4a4" href="#f43fd4a4">Orientation</a>
-
-```cpp
-GuiWidget::Orientation Orientation
-```
-
-
-
+|  void | [setStyle](#21253e06) (const [GuiLayout::Style](ffw_GuiLayout_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
 
-### _function_ <a id="39058991" href="#39058991">GuiLayout</a>
+### _function_ <a id="a44666ac" href="#a44666ac">GuiLayout</a>
 
 ```cpp
  GuiLayout (
     GuiWindow * context,
-    Orientation orientation
+    GuiOrientation orientation
 ) 
 ```
 
@@ -115,11 +104,11 @@ bool deleteSingleWidget (
 
 
 
-### _function_ <a id="6013d2d8" href="#6013d2d8">setOrientation</a>
+### _function_ <a id="59fd5c3d" href="#59fd5c3d">setOrientation</a>
 
 ```cpp
 void setOrientation (
-    Orientation orient
+    GuiOrientation orient
 ) 
 ```
 
@@ -134,6 +123,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="21253e06" href="#21253e06">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiLayout::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

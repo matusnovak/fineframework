@@ -2,7 +2,7 @@ Border
 ===================================
 
 
-The documentation for this class was generated from: `include/ffw/gui/guitheme.h`
+The documentation for this class was generated from: `include/ffw/gui/guistyle.h`
 
 
 

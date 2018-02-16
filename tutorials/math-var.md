@@ -1,6 +1,6 @@
-# Var - JSON-like data structure
+# Any - JSON-like data structure
 
-This tutorial will explain how the ffw::Var class can accept and hold any data type, including creating JSON like data structures via key value pairs and arrays.
+This tutorial will explain how the ffw::Any class can accept and hold any data type, including creating JSON like data structures via key value pairs and arrays.
 
 ## Basics
 
@@ -11,10 +11,10 @@ Before we start, make sure to add this to your project:
 #include <ffw/math.h>
 ```
 
-A ffw::Var can be initialized as any other variable and can be re-assigned into a different data type at runtime. There is not limit on what it can hold.
+A ffw::Any can be initialized as any other variable and can be re-assigned into a different data type at runtime. There is not limit on what it can hold.
 
 ```cpp
-ffw::Var a;
+ffw::Any a;
 a = 123; 
 // Now holds an integer
 
@@ -31,7 +31,7 @@ std::cout << "Value of var: " << a.getAs<float>() << std::endl;
 At any time, you check which data type it holds.
 
 ```cpp
-ffw::Var a = -0.0042f;
+ffw::Any a = -0.0042f;
 
 if(a.empty()){
   std::cout << "a holds nothing!" << std::endl;
@@ -48,10 +48,10 @@ else if(a.is<char>()){
 // Prints: "a holds a float!"
 ```
 
-The ffw::Var holds exactly the data type you put into it. This might raise some issues such as handling unsigned and signed integers
+The ffw::Any holds exactly the data type you put into it. This might raise some issues such as handling unsigned and signed integers
 
 ```cpp
-ffw::Var a = (int)123;
+ffw::Any a = (int)123;
 
 if(a.is<int>()){
   std::cout << "a holds an signed integer!" << std::endl;
@@ -72,10 +72,10 @@ else if(a.is<unsigned int>()){
 // Prints: "a holds an unsigned integer!"
 ```
 
-You can also modify the stored value. The ffw::Var::getAs method will return a reference to the stored value.
+You can also modify the stored value. The ffw::Any::getAs method will return a reference to the stored value.
 
 ```cpp
-ffw::Var a = -0.0042f;
+ffw::Any a = -0.0042f;
 
 a.getAs<float>() = 100.0f;
 
@@ -86,7 +86,7 @@ std::cout << "Value of var: " << a.getAs<float>() << std::endl;
 Note that storing a reference might be usefull, but after you re-assign a new value, the reference will be invalid! Imagine it as a pointer, you set a pointer to `float& ref = a.getAs<float>();` and when you create a new value `a = 200.0f` the address will change!
 
 ```cpp
-ffw::Var a = -0.0042f;
+ffw::Any a = -0.0042f;
 
 float& ref = a.getAs<float>();
 ref = 100.0f;
@@ -102,10 +102,10 @@ ref = 100.0f;
 // Prefer to access the value via a.getAs<float>()
 ```
 
-Trying to get a different data type than is stored inside of ffw::Var will throw you an std::bad_cast
+Trying to get a different data type than is stored inside of ffw::Any will throw you an std::bad_cast
 
 ```cpp
-ffw::Var a = -0.0042f;
+ffw::Any a = -0.0042f;
 
 std::cout << "Value of var: " << a.getAs<float>() << std::endl;
 // OK Prints: "Value of var: 100"
@@ -114,22 +114,22 @@ std::cout << "Value of var: " << a.getAs<int>() << std::endl;
 // ERROR: std::bad_cast
 ```
 
-The ffw::Var::getAs has to know the explicit type you are trying to retrieve!
+The ffw::Any::getAs has to know the explicit type you are trying to retrieve!
 
 ## With great power comes great responsibility
 
-The ffw::Var can tell you what data it holds via ffw::Var::getTypeid method. This can only tell you what is inside but it will never ever give you the true data. It simply can not, this is limited by the C++ language. 
+The ffw::Any can tell you what data it holds via ffw::Any::getTypeid method. This can only tell you what is inside but it will never ever give you the true data. It simply can not, this is limited by the C++ language. 
 
-You have to know what are you storing and you have to know exactly what are you looking for when trying to retrieve the value behind ffw::Var
+You have to know what are you storing and you have to know exactly what are you looking for when trying to retrieve the value behind ffw::Any
 
 ## The problem with strings
 
-Because ffw::Var stores explicit type (if you store double, it's double, not float... if you store int, it's not unsigned int, nor long, it's just an int...) there is an issue with C style strings (const char*), string arrays (const char[N]), and C++ std::strings.
+Because ffw::Any stores explicit type (if you store double, it's double, not float... if you store int, it's not unsigned int, nor long, it's just an int...) there is an issue with C style strings (const char*), string arrays (const char[N]), and C++ std::strings.
 
 For example:
 
 ```cpp
-ffw::Var a = "Hello World!";
+ffw::Any a = "Hello World!";
 
 if(a.is<std::string>()){
   std::cout << "a holds std::string!" << std::endl;
@@ -143,7 +143,7 @@ else if(a.is<const char*>()){
 A simple workaround is to always store value as std::string
 
 ```cpp
-ffw::Var a = std::string("Hello World!");
+ffw::Any a = std::string("Hello World!");
 
 if(a.is<std::string>()){
   std::cout << "a holds std::string!" << std::endl;
@@ -154,11 +154,11 @@ else if(a.is<const char*>()){
 // Prints: "a holds std::string!"
 ```
 
-If you are using both std::string and const char* then you might would like to use ffw::Var::isString and ffw::Var::toString methods. Note that the toString method will always return a copy of the original string. **If the ffw::Var does not hold any kind of string, it will return an empty string.**
+If you are using both std::string and const char* then you might would like to use ffw::Any::isString and ffw::Any::toString methods. Note that the toString method will always return a copy of the original string. **If the ffw::Any does not hold any kind of string, it will return an empty string.**
 
 ```cpp
-ffw::Var a = "Hello World!";
-ffw::Var b = std::string("Hello World!");
+ffw::Any a = "Hello World!";
+ffw::Any b = std::string("Hello World!");
 
 // Always true, even though they are different data types
 if(a.isString() && b.isString()){
@@ -174,21 +174,21 @@ if(a.isString() && b.isString()){
 As mentioned above, storing an signed integer and then asking for unsigned integer will throw a std::bad_cast exception. 
 
 ```cpp
-ffw::Var a = (unsigned int)123;
+ffw::Any a = (unsigned int)123;
 
 std::cout << "a: " << a.getAs<int>() << std::endl; // Error! std::bad_cast
 std::cout << "a: " << a.getAs<unsigned int>() << std::endl; // OK!
 ```
 
-The ffw::Var offers the following methods, similarly to ffw::Var::toString as explained above. All of the following methods do not throw an exception. For example, if the stored data type is std::string and you will call ffw::Var::toInt it will return an integer of value of zero. This applies to toBool (will return false) and toFloat (will return 0.0f).
+The ffw::Any offers the following methods, similarly to ffw::Any::toString as explained above. All of the following methods do not throw an exception. For example, if the stored data type is std::string and you will call ffw::Any::toInt it will return an integer of value of zero. This applies to toBool (will return false) and toFloat (will return 0.0f).
 
-* ffw::Var::toInt and ffw::Var::isInt for all integer data types (int, short, unsigned long, uint32_t, etc...)
-* ffw::Var::toFloat and ffw::Var::isFloat for all floating point data types (float, double, etc...)
-* ffw::Var::toBool and ffw::Var::isBool for booleans, will also work if any integer is stored
+* ffw::Any::toInt and ffw::Any::isInt for all integer data types (int, short, unsigned long, uint32_t, etc...)
+* ffw::Any::toFloat and ffw::Any::isFloat for all floating point data types (float, double, etc...)
+* ffw::Any::toBool and ffw::Any::isBool for booleans, will also work if any integer is stored
 
 ## Key value mapping
 
-If you heard about JSON, you will know what is this about. The ffw::Object is a fancy std::unordered_map structure that contains keys as std::string and values as ffw::Var. With this, we can create a JSON-like object:
+If you heard about JSON, you will know what is this about. The ffw::Object is a fancy std::unordered_map structure that contains keys as std::string and values as ffw::Any. With this, we can create a JSON-like object:
 
 ```cpp
 ffw::Object obj;
@@ -203,7 +203,7 @@ obj["boolean"] = true;
 obj.has_key("boolean"); // Returns true
 ```
 
-You can then use the mapped values as any other ffw::Var 
+You can then use the mapped values as any other ffw::Any 
 
 ```cpp
 if(obj["value"].isInt()){
@@ -252,22 +252,22 @@ Also, when having an object inside of an object, you might think of doing this:
 ```cpp
 // Access object -> first -> int
 std::cout << "object/first: " << 
-  obj["object"].getAs<ffw::Object>()["first"].toInt()
+  obj["object"].getAsObject()["first"].toInt()
   << std::endl;
 // Prints "object/first: 10"
 ```
 
-So how come the previous section does not have `getAs` and it still works? The ffw::Var offers two [] operators. If you supply std::string, it will assume that you are treating it as ffw::Object, if you supply an integer, it will assume you are treating it as ffw::Array
+So how come the previous section does not have `getAs` and it still works? The ffw::Any offers two [] operators. If you supply std::string, it will assume that you are treating it as ffw::Object, if you supply an integer, it will assume you are treating it as ffw::Array
 
 ```cpp
-ffw::Var a = 123;
+ffw::Any a = 123;
 a["something"] = 456; // std::bad_cast the a is not an object
 
 a = ffw::Object();
 
 // Both are exactly same:
 a["something"] = 456; // OK new value inserted
-a.getAs<ffw::Object>()["something"] = 456; // Also OK value modyfied
+a.getAsObject()["something"] = 456; // Also OK value modyfied
 
 a[0] = 456; // std::bad_cast the a is not an Array
 
@@ -275,12 +275,12 @@ a = ffw::Array();
 a[0] = 456; // Segmentation fault, array is empty!
 a.push_back(123);
 a[0] = 456; // OK!
-a.getAs<ffw::Array>()[0] = 456; // OK!
+a.getAsArray()[0] = 456; // OK!
 ```
 
 ## Arrays
 
-Alongside ffw::Object we have ffw::Array which is fancy std::vector that holds ffw::Var. It works exactly such as a normal std::vector
+Alongside ffw::Object we have ffw::Array which is fancy std::vector that holds ffw::Any. It works exactly such as a normal std::vector
 
 ```cpp
 ffw::Array a;
@@ -347,4 +347,4 @@ Which is equivalent to the following JSON:
 
 ## What about JSON or XML?
 
-Yes, you can use ffw::Var ffw::Object and ffw::Array to encode (serialize) or decode (deserialize) JSON and XML. See **[Encode and decode JSON](data-json-simple.html)** and **[Encode and decode XML](data-xml-simple.html)** tutorials.
+Yes, you can use ffw::Any ffw::Object and ffw::Array to encode (serialize) or decode (deserialize) JSON and XML. See **[Encode and decode JSON](data-json-simple.html)** and **[Encode and decode XML](data-xml-simple.html)** tutorials.

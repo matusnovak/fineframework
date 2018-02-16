@@ -13,6 +13,7 @@ The documentation for this class was generated from: `include/ffw/gui/guicheckbo
 | Name |
 |:-----|
 | class [ffw::GuiCheckbox::Button](ffw_GuiCheckbox_Button.html) |
+| struct [ffw::GuiCheckbox::Style](ffw_GuiCheckbox_Style.html) |
 
 
 ## Public Functions
@@ -20,15 +21,15 @@ The documentation for this class was generated from: `include/ffw/gui/guicheckbo
 | Type | Name |
 | -------: | :------- |
 |   | [GuiCheckbox](#1d9985e7) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::string & _label_)  |
-|   | [GuiCheckbox](#ff6184bc) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::wstring & _label_)  |
-|  virtual  | [~GuiCheckbox](#2d9ccddc) ()  |
-|  void | [setLabel](#7ade9272) (const std::wstring & _label_)  |
-|  const std::wstring & | [getLabel](#358f8b8c) () const  |
+|  virtual  | [~GuiCheckbox](#2682e1ea) ()  |
+|  void | [setLabel](#a1842d55) (const std::string & _label_)  |
+|  const std::string & | [getLabel](#aa71a486) () const  |
 |  void | [setValue](#5bb938ef) (bool _value_)  |
 |  bool | [getValue](#d7c2cb6d) () const  |
 |  const [GuiCheckbox::Button](ffw_GuiCheckbox_Button.html) * | [getButton](#dadc07df) () const  |
 |  [GuiCheckbox::Button](ffw_GuiCheckbox_Button.html) * | [getButton](#310aecbb) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#6569bd5d) ()  |
+|  void | [setStyle](#f766d555) (const [GuiCheckbox::Style](ffw_GuiCheckbox_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -44,18 +45,7 @@ The documentation for this class was generated from: `include/ffw/gui/guicheckbo
 
 
 
-### _function_ <a id="ff6184bc" href="#ff6184bc">GuiCheckbox</a>
-
-```cpp
- GuiCheckbox (
-    GuiWindow * context,
-    const std::wstring & label
-) 
-```
-
-
-
-### _function_ <a id="2d9ccddc" href="#2d9ccddc">~GuiCheckbox</a>
+### _function_ <a id="2682e1ea" href="#2682e1ea">~GuiCheckbox</a>
 
 ```cpp
 virtual  ~GuiCheckbox () 
@@ -63,20 +53,20 @@ virtual  ~GuiCheckbox ()
 
 
 
-### _function_ <a id="7ade9272" href="#7ade9272">setLabel</a>
+### _function_ <a id="a1842d55" href="#a1842d55">setLabel</a>
 
 ```cpp
 void setLabel (
-    const std::wstring & label
+    const std::string & label
 ) 
 ```
 
 
 
-### _function_ <a id="358f8b8c" href="#358f8b8c">getLabel</a>
+### _function_ <a id="aa71a486" href="#aa71a486">getLabel</a>
 
 ```cpp
-const std::wstring & getLabel () const 
+const std::string & getLabel () const 
 ```
 
 
@@ -124,6 +114,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="f766d555" href="#f766d555">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiCheckbox::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 

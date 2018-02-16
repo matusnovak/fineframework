@@ -8,13 +8,20 @@ The documentation for this class was generated from: `include/ffw/gui/guitab.h`
 
 
 
+## Classes
+
+| Name |
+|:-----|
+| struct [ffw::GuiTabs::Content::Style](ffw_GuiTabs_Content_Style.html) |
+
+
 ## Public Functions
 
 | Type | Name |
 | -------: | :------- |
 |   | [Content](#e6aac866) ([GuiWindow](ffw_GuiWindow.html) * _context_)  |
-|  virtual  | [~Content](#cec5a203) ()  |
-|  virtual void | [eventThemeChanged](#5827e17b) (const [GuiTheme](ffw_GuiTheme.html) * _theme_)  |
+|  virtual  | [~Content](#d557c1f7) ()  |
+|  void | [setStyle](#93a7b053) (const [Content::Style](ffw_GuiTabs_Content_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
@@ -29,7 +36,7 @@ The documentation for this class was generated from: `include/ffw/gui/guitab.h`
 
 
 
-### _function_ <a id="cec5a203" href="#cec5a203">~Content</a>
+### _function_ <a id="d557c1f7" href="#d557c1f7">~Content</a>
 
 ```cpp
 virtual  ~Content () 
@@ -37,17 +44,16 @@ virtual  ~Content ()
 
 
 
-### _function_ <a id="5827e17b" href="#5827e17b">eventThemeChanged</a>
+### _function_ <a id="93a7b053" href="#93a7b053">setStyle</a>
 
 ```cpp
-virtual void eventThemeChanged (
-    const GuiTheme * theme
+void setStyle (
+    const Content::Style * style,
+    bool defaults = false
 ) 
 ```
 
 
-
-**Overrides:** [eventThemeChanged](/doxygen/ffw_GuiLayout.md#9227ac54) from class [GuiLayout](/doxygen/ffw_GuiLayout.md)
 
 
 

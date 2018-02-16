@@ -13,6 +13,7 @@ The documentation for this class was generated from: `include/ffw/gui/guiradio.h
 | Name |
 |:-----|
 | class [ffw::GuiRadio::Button](ffw_GuiRadio_Button.html) |
+| struct [ffw::GuiRadio::Style](ffw_GuiRadio_Style.html) |
 | class [ffw::GuiRadio::Value](ffw_GuiRadio_Value.html) |
 
 
@@ -20,44 +21,32 @@ The documentation for this class was generated from: `include/ffw/gui/guiradio.h
 
 | Type | Name |
 | -------: | :------- |
-|   | [GuiRadio](#9fb9dff3) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::string & _label_, int _base_, [GuiRadio](ffw_GuiRadio.html) * _other_ = NULL)  |
-|   | [GuiRadio](#449e2be6) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::wstring & _label_, int _base_, [GuiRadio](ffw_GuiRadio.html) * _other_ = NULL)  |
+|   | [GuiRadio](#3811fa92) ([GuiWindow](ffw_GuiWindow.html) * _context_, const std::string & _label_, int _base_, [GuiRadio](ffw_GuiRadio.html) * _other_ = nullptr)  |
 |  virtual  | [~GuiRadio](#49046924) ()  |
-|  void | [setLabel](#39cedeea) (const std::wstring & _label_)  |
-|  const std::wstring & | [getLabel](#7774ed27) () const  |
+|  void | [setLabel](#be40fd05) (const std::string & _label_)  |
+|  const std::string & | [getLabel](#ed1aefce) () const  |
 |  int | [getBaseValue](#c93642f6) () const  |
 |  void | [setValue](#2b025679) (int _value_)  |
 |  int | [getValue](#04937874) () const  |
+|  void | [resetValue](#47f8eca1) ()  |
 |  void | [assignValue](#696f023d) (bool _value_)  |
 |  void | [setButtonSize](#c72925cc) (float _width_)  |
 |  const [GuiRadio::Button](ffw_GuiRadio_Button.html) * | [getButton](#6698d94c) () const  |
-|  const [GuiRadio::Button](ffw_GuiRadio_Button.html) * | [getButton](#206abf9f) ()  |
+|  [GuiRadio::Button](ffw_GuiRadio_Button.html) * | [getButton](#2bbba74e) ()  |
 |  virtual [ffw::Vec2f](ffw.html#fcfaa6c5) | [getMinimumWrapSize](#1b50dcea) ()  |
+|  void | [setStyle](#cc7dab70) (const [GuiRadio::Style](ffw_GuiRadio_Style.html) * _style_, bool _defaults_ = false)  |
 
 
 ## Public Functions Documentation
 
-### _function_ <a id="9fb9dff3" href="#9fb9dff3">GuiRadio</a>
+### _function_ <a id="3811fa92" href="#3811fa92">GuiRadio</a>
 
 ```cpp
  GuiRadio (
     GuiWindow * context,
     const std::string & label,
     int base,
-    GuiRadio * other = NULL
-) 
-```
-
-
-
-### _function_ <a id="449e2be6" href="#449e2be6">GuiRadio</a>
-
-```cpp
- GuiRadio (
-    GuiWindow * context,
-    const std::wstring & label,
-    int base,
-    GuiRadio * other = NULL
+    GuiRadio * other = nullptr
 ) 
 ```
 
@@ -71,20 +60,20 @@ virtual  ~GuiRadio ()
 
 
 
-### _function_ <a id="39cedeea" href="#39cedeea">setLabel</a>
+### _function_ <a id="be40fd05" href="#be40fd05">setLabel</a>
 
 ```cpp
 void setLabel (
-    const std::wstring & label
+    const std::string & label
 ) 
 ```
 
 
 
-### _function_ <a id="7774ed27" href="#7774ed27">getLabel</a>
+### _function_ <a id="ed1aefce" href="#ed1aefce">getLabel</a>
 
 ```cpp
-const std::wstring & getLabel () const 
+const std::string & getLabel () const 
 ```
 
 
@@ -111,6 +100,14 @@ void setValue (
 
 ```cpp
 int getValue () const 
+```
+
+
+
+### _function_ <a id="47f8eca1" href="#47f8eca1">resetValue</a>
+
+```cpp
+void resetValue () 
 ```
 
 
@@ -143,10 +140,10 @@ inline const GuiRadio::Button * getButton () const
 
 
 
-### _function_ <a id="206abf9f" href="#206abf9f">getButton</a>
+### _function_ <a id="2bbba74e" href="#2bbba74e">getButton</a>
 
 ```cpp
-inline const GuiRadio::Button * getButton () 
+inline GuiRadio::Button * getButton () 
 ```
 
 
@@ -160,6 +157,17 @@ virtual ffw::Vec2f getMinimumWrapSize ()
 
 
 **Overrides:** [getMinimumWrapSize](/doxygen/ffw_GuiWidget.md#c12efa3f) from class [GuiWidget](/doxygen/ffw_GuiWidget.md)
+
+### _function_ <a id="cc7dab70" href="#cc7dab70">setStyle</a>
+
+```cpp
+void setStyle (
+    const GuiRadio::Style * style,
+    bool defaults = false
+) 
+```
+
+
 
 
 
