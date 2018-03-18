@@ -1,11 +1,17 @@
 /**
  * @defgroup graphics graphics - OpenGL drawing and window handling
  * @brief Basic graphical functionality via OpenGL
- * @details Contains functions for drawing various shapes with OpenGL, 
- * including Window management and user input event handling. Uses 
- * third party library 
- * [GLFW](http://www.glfw.org/) 
- * and [FreeType](https://www.freetype.org/)
+ * @details This module contains the basic API wrappers around OpenGL
+ * (such as textures, framebuffers, renderbuffers), Window management and user
+ * input handling in easy to follow wrapper class using GLFW as the backend.
+ * This module also contains basic drawing API based on nanovg library, for drawing
+ * bitmap fonts, true type fonts, shapes, and textures.
+ * Uses the following third party libraries: 
+ * [GLFW](http://www.glfw.org/),
+ * [nanovg](https://github.com/memononen/nanovg),
+ * [FreeType](https://www.freetype.org/),
+ * [libpng](http://www.libpng.org/pub/png/libpng.html),
+ * and [libz](http://www.zlib.net/)
  */
 #ifndef FFW_GRAPHICS_MODULE
 #define FFW_GRAPHICS_MODULE

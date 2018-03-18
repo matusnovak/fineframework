@@ -296,7 +296,7 @@ void ffw::GuiWidget::arrangeWidgetsHorizontal(GuiWidget* ptr) {
             }
         }
 
-        w->pos.set(guiPixels(left + realmargin[3]), guiPixels(top + realmargin[0]));
+        w->pos.set(guiPixels(floor(left + realmargin[3])), guiPixels(floor(top + realmargin[0])));
         w->recalculatePos();
         left += w->getRealSize().x + realmargin[3] + realmargin[1];
 
@@ -318,6 +318,10 @@ void ffw::GuiWidget::arrangeWidgetsHorizontal(GuiWidget* ptr) {
     }
 
     realignWidgetsHorizontallyEnd(0, widgets.size(), getVisibleContentSize(), totalSize);
+
+    for (auto& w : widgets) {
+        w->posReal = w->posReal.floor();
+    }
 }
 
 ///=============================================================================
@@ -357,7 +361,7 @@ void ffw::GuiWidget::arrangeWidgetsVertical(GuiWidget* ptr) {
             }
         }
 
-        w->pos.set(guiPixels(left + realmargin[3]), guiPixels(top + realmargin[0]));
+        w->pos.set(guiPixels(floor(left + realmargin[3])), guiPixels(floor(top + realmargin[0])));
         w->recalculatePos();
         top += w->getRealSize().y + realmargin[0] + realmargin[2];
 
@@ -379,6 +383,10 @@ void ffw::GuiWidget::arrangeWidgetsVertical(GuiWidget* ptr) {
     }
 
     realignWidgetsVerticallyEnd(0, widgets.size(), getVisibleContentSize(), totalSize);
+
+    for(auto& w : widgets) {
+        w->posReal = w->posReal.floor();
+    }
 }
 
 ///=============================================================================
@@ -413,7 +421,7 @@ void ffw::GuiWidget::recalculateSize(GuiWidget* caller){
             sizeReal.x = 0;
         }
         else {
-            sizeReal.x = size.x.toReal(parent->getVisibleContentSize().x);
+            sizeReal.x = floor(size.x.toReal(parent->getVisibleContentSize().x));
         }
 
         // Y set to wrap?
@@ -421,12 +429,12 @@ void ffw::GuiWidget::recalculateSize(GuiWidget* caller){
             sizeReal.y = 0;
         }
         else {
-            sizeReal.y = size.y.toReal(parent->getVisibleContentSize().y);
+            sizeReal.y = floor(size.y.toReal(parent->getVisibleContentSize().y));
         }
     }
     else {
-        sizeReal.x = size.x.toReal(100);
-        sizeReal.y = size.y.toReal(100);
+        sizeReal.x = floor(size.x.toReal(100));
+        sizeReal.y = floor(size.y.toReal(100));
     }
 
     //sizeReal.x = ceil(sizeReal.x);

@@ -1,22 +1,6 @@
 # Download
 
-Pre-compiled binaries can be found on **[Latest GitHub Release](https://github.com/matusnovak/fineframework/releases/latest)** and download the correct ZIP file depending on your compiler and OS. All of the binaries have been compiled against master on [AppVeyor](https://ci.appveyor.com/project/matusnovak/fineframework/branch/master) and [Travis-ci](https://travis-ci.org/matusnovak/fineframework/branches) The release contains the following zip files for specific system and compiler:
-
-| File name | Operating System | Compiler |
-|-----------|------------------|----------|
-| ffw-mingw.zip                        | Windows  | MinGW (32-bit)              |
-| ffw-i686-w64-mingw32.zip             | Windows  | MinGW-w64 i686 (32-bit)     |
-| ffw-x86\_64-w64-mingw32.zip          | Windows  | MinGW-w64 x86_64 (64-bit)   |
-| ffw-win32-vc12.zip                   | Windows  | Visual Studio 2013 (32-bit) |
-| ffw-win64-vc12.zip                   | Windows  | Visual Studio 2013 (64-bit) |
-| ffw-win32-vc14.zip                   | Windows  | Visual Studio 2015 (32-bit) |
-| ffw-win64-vc14.zip                   | Windows  | Visual Studio 2015 (64-bit) |
-| ffw-win32-vc15.zip                   | Windows  | Visual Studio 2017 (32-bit) |
-| ffw-win64-vc14.zip                   | Windows  | Visual Studio 2017 (64-bit) |
-| ffw-x86_64-linux-gnu.zip             | Linux    | GCC (64-bit)                |
-| ffw-x86_64-apple-darwin.zip          | OS X     | Apple Clang++ (64-bit)      |
-
-All windows and OSX versions have been compiled with statically linked third party libraries.
+Pre-compiled binaries can be found on **[Latest GitHub Release](https://github.com/matusnovak/fineframework/releases/latest)** and download the correct ZIP file depending on your compiler and operating system.
 
 ## Instructions
 

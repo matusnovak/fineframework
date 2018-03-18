@@ -5,7 +5,7 @@ From basic up to advanced math function and additional data types such as vector
 
 ## Detailed description
 
-This module is header only, it does not need to be compiled, and is used by all modules listed here. Contains various math functions (calculating angles, creating model-view-projection matrices, colour management, UTF-8 to wide string conversion) and also provides several new types (2D, 3D, and 4D vectors, matrices, ring buffers, quaternions, and more). 
+This module is header only, it does not need to be compiled, and is used by all modules listed here. Contains various math functions (calculating angles, creating model-view-projection matrices, colour management, UTF-8 to wide string conversion and back) and also provides several new types (2D, 3D, and 4D vectors, matrices, ring buffers, quaternions, and more). Uses third party library [utfcpp](https://github.com/nemtrif/utfcpp) 
 
 
 ## Classes

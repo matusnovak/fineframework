@@ -6,9 +6,10 @@
  * be compiled, and is used by all modules listed here. Contains 
  * various math functions (calculating angles, creating 
  * model-view-projection matrices, colour management, UTF-8 to 
- * wide string conversion) and also provides several new types
+ * wide string conversion and back) and also provides several new types
  * (2D, 3D, and 4D vectors, matrices, ring buffers, quaternions, 
- * and more).
+ * and more). Uses third party library 
+ * [utfcpp](https://github.com/nemtrif/utfcpp)
  */
 #ifndef FFW_MATH_MODULE
 #define FFW_MATH_MODULE

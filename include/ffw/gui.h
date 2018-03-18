@@ -6,11 +6,12 @@
  * spacing, callbacks, etc. This module provides several widgets 
  * (buttons, check boxes, text edits, radios, sliders, etc..) however, 
  * has a functionality to add custom widgets as well. All widgets 
- * can be arranged in linear layouts, similarly how HTML works and can 
- * be also styled. This GUI is not directly linked to OpenGL or any 
+ * can be arranged in linear layouts, similarly how HTML works, and can 
+ * be also styled. This GUI is not directly linked to the OpenGL, or any 
  * other rendering engine! Instead, it can use any backend with any 
  * renderer you wish to use. However, an OpenGL backend is 
- * provided by default, if the user wishes to use.
+ * provided by default, if the user wishes to use. The entire module is
+ * UTF-8 enabled.
  */
 #ifndef FFW_GUI_MODULE
 #define FFW_GUI_MODULE

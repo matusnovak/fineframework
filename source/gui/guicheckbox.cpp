@@ -18,12 +18,14 @@ void ffw::GuiCheckbox::Button::eventRender(const ffw::Vec2f& contentoffset, cons
     context->drawLine(
         ffw::Vec2f(p.x - width, p.y).floor(),
         ffw::Vec2f(p.x - width / 2.0f, p.y + width).ceil(),
-        getCurrentStyle()->function.color
+        getCurrentStyle()->function.color,
+        2.0f
     );
     context->drawLine(
         ffw::Vec2f(p.x - width / 2.0f, p.y + width).ceil(),
         ffw::Vec2f(p.x + width, p.y - width).floor(),
-        getCurrentStyle()->function.color
+        getCurrentStyle()->function.color,
+        2.0f
     );
 }
 

@@ -59,12 +59,12 @@ ffw::Vec2f ffw::GuiScrollable::getScrollValues() const {
 void ffw::GuiScrollable::widgetEvent(const ffw::GuiEvent e) {
     if (e.widget == vscroll && e.type == ffw::GuiEventType::ACTION) {
         auto off = inner->getOffset();
-        inner->setOffset(ffw::Vec2f(off.x, -vscroll->getValue()));
+        inner->setOffset(ffw::Vec2f(off.x, -vscroll->getValue()).floor());
     }
 
     if (e.widget == hscroll && e.type == ffw::GuiEventType::ACTION) {
         auto off = inner->getOffset();
-        inner->setOffset(ffw::Vec2f(-hscroll->getValue(), off.y));
+        inner->setOffset(ffw::Vec2f(-hscroll->getValue(), off.y).floor());
     }
 
     if (e.widget == inner && e.type == ffw::GuiEventType::INNER) {

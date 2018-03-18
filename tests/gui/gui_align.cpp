@@ -370,9 +370,9 @@ TEST_CASE("Align to top center vertical") {
 
     TEST_UPDATE_AND_RENDER;
 
-    CHECK(first->getRealPos() == ffw::Vec2f(37.5f, 10.0f));
-    CHECK(second->getRealPos() == ffw::Vec2f(37.5f, 55.0f));
-    CHECK(third->getRealPos() == ffw::Vec2f(37.5f, 10.0f));
+    CHECK(first->getRealPos() == ffw::Vec2f(37.0f, 10.0f));
+    CHECK(second->getRealPos() == ffw::Vec2f(37.0f, 55.0f));
+    CHECK(third->getRealPos() == ffw::Vec2f(37.0f, 10.0f));
 }
 
 ///=============================================================================
@@ -463,9 +463,9 @@ TEST_CASE("Align to center vertical") {
 
     TEST_UPDATE_AND_RENDER;
 
-    CHECK(first->getRealPos() == ffw::Vec2f(37.5f, 15.0f));
-    CHECK(second->getRealPos() == ffw::Vec2f(37.5f, 60.0f));
-    CHECK(third->getRealPos() == ffw::Vec2f(37.5f, 15.0f));
+    CHECK(first->getRealPos() == ffw::Vec2f(37.0f, 15.0f));
+    CHECK(second->getRealPos() == ffw::Vec2f(37.0f, 60.0f));
+    CHECK(third->getRealPos() == ffw::Vec2f(37.0f, 15.0f));
 }
 
 ///=============================================================================
@@ -556,7 +556,7 @@ TEST_CASE("Align to bottom center vertical") {
 
     TEST_UPDATE_AND_RENDER;
 
-    CHECK(first->getRealPos() == ffw::Vec2f(37.5f, 20.0f));
-    CHECK(second->getRealPos() == ffw::Vec2f(37.5f, 65.0f));
-    CHECK(third->getRealPos() == ffw::Vec2f(37.5f, 20.0f));
+    CHECK(first->getRealPos() == ffw::Vec2f(37.0f, 20.0f));
+    CHECK(second->getRealPos() == ffw::Vec2f(37.0f, 65.0f));
+    CHECK(third->getRealPos() == ffw::Vec2f(37.0f, 20.0f));
 }

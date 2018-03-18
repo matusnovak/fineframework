@@ -73,6 +73,37 @@ TEST_CASE("Testing Any", "[Any]") {
     REQUIRE(c == std::string("Hello"));
 }
 
+TEST_CASE("Testing Any Conversion", "[Any]") {
+    ffw::Any a;
+    REQUIRE(a.isFloat() == false);
+    REQUIRE(a.isInt() == false);
+    REQUIRE(a.isNumber() == false);
+
+    a = float(1.23f);
+    REQUIRE(a.isFloat() == true);
+    REQUIRE(a.isInt() == false);
+    REQUIRE(a.isNumber() == true);
+    REQUIRE(a.toInt() == 1);
+    REQUIRE(a.toFloat() == Approx(1.23f));
+    REQUIRE(a.toDouble() == Approx(1.23));
+
+    a = double(1.23);
+    REQUIRE(a.isFloat() == true);
+    REQUIRE(a.isInt() == false);
+    REQUIRE(a.isNumber() == true);
+    REQUIRE(a.toInt() == 1);
+    REQUIRE(a.toFloat() == Approx(1.23f));
+    REQUIRE(a.toDouble() == Approx(1.23));
+
+    a = 123;
+    REQUIRE(a.isFloat() == false);
+    REQUIRE(a.isInt() == true);
+    REQUIRE(a.isNumber() == true);
+    REQUIRE(a.toInt() == 123);
+    REQUIRE(a.toFloat() == Approx(123.0f));
+    REQUIRE(a.toDouble() == Approx(123.0));
+}
+
 TEST_CASE("Testing Any Object", "[VarObject]") {
     ffw::Object o;
     REQUIRE(o.size() == 0);

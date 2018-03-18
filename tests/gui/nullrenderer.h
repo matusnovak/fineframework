@@ -130,10 +130,22 @@ public:
         (void)br;
         (void)bl;
     }
-    void drawLine(const ffw::Vec2f& start, const ffw::Vec2f& end, const ffw::Color& color) const override {
+    void drawBackground(const ffw::Vec2f& pos, const ffw::Vec2f& size, const ffw::GuiStyle::Background& background, bool ignore) const override {
+        (void)pos;
+        (void)size;
+        (void)background;
+        (void)ignore;
+    }
+    void drawBorder(const ffw::Vec2f& pos, const ffw::Vec2f& size, const ffw::GuiStyle::Border& border) const override {
+        (void)pos;
+        (void)size;
+        (void)border;
+    }
+    void drawLine(const ffw::Vec2f& start, const ffw::Vec2f& end, const ffw::Color& color, float width) const override {
         (void)start;
         (void)end;
         (void)color;
+        (void)width;
     }
     void drawCircle(const ffw::Vec2f& p, float radius, const ffw::Color& color) const override {
         (void)p;

@@ -24,7 +24,10 @@ namespace ffw {
             virtual const std::type_info& getTypeid() const = 0;
             virtual bool toBool() const = 0;
             virtual bool isInteger() const = 0;
+            virtual bool isFloat() const = 0;
             virtual int getInteger() const = 0;
+            virtual float getFloat() const = 0;
+            virtual double getDouble() const = 0;
             virtual bool compare(const Content* other) const = 0;
         };
 
@@ -54,8 +57,17 @@ namespace ffw {
             bool isInteger() const override {
                 return false;
             }
+            bool isFloat() const override {
+                return false;
+            }
             int getInteger() const override  {
                 return 0;
+            }
+            float getFloat() const override {
+                return 0.0f;
+            }
+            double getDouble() const override {
+                return 0.0;
             }
             bool compare(const Content* other) const override {
                 return value == static_cast<const Data<T>&>(*other).value;
@@ -90,8 +102,62 @@ namespace ffw {
             bool isInteger() const override  {
                 return true;
             }
+            bool isFloat() const override {
+                return false;
+            }
             int getInteger() const override {
                 return static_cast<int>(value);
+            }
+            float getFloat() const override {
+                return static_cast<float>(value);
+            }
+            double getDouble() const override {
+                return static_cast<double>(value);
+            }
+            bool compare(const Content* other) const override {
+                return value == static_cast<const Data<T>&>(*other).value;
+            }
+        private:
+            T value;
+        };
+
+        template<class T>
+        class Data<T, typename std::enable_if<std::is_floating_point<T>::value>::type> : public Content {
+        public:
+            template<class ... Args>
+            Data(Args&&... args) :value(std::forward<Args>(args)...) {
+            }
+            virtual ~Data() {
+            }
+            Data* createCopy() override {
+                return new Data{ value };
+            }
+            const std::type_info& getTypeid() const override {
+                return typeid(T);
+            }
+            T& get() {
+                return value;
+            }
+            const T& get() const {
+                return value;
+            }
+            bool toBool() const override {
+                return value != 0;
+            }
+            bool isInteger() const override {
+                return false;
+            }
+            bool isFloat() const override {
+                return true;
+            }
+            int getInteger() const override {
+                return static_cast<int>(value);
+            }
+            float getFloat() const override {
+                return static_cast<float>(value);
+            }
+            double getDouble() const override {
+                return static_cast<double>(value);
             }
             bool compare(const Content* other) const override {
                 return value == static_cast<const Data<T>&>(*other).value;
@@ -209,19 +275,23 @@ namespace ffw {
         }
 
         inline float toFloat() const {
-            if(empty())return 0;
-            const auto& type = content->getTypeid();
-            if(type == typeid(float)){
-                return getAs<float>();
-            } else if(type == typeid(double)){
-                return static_cast<float>(getAs<double>());
-            } else {
-                return 0.0f;
-            }
+            if (empty())return 0;
+            return content->getFloat();
+        }
+
+        inline double toDouble() const {
+            if (empty())return 0;
+            return content->getDouble();
         }
 
         inline bool isFloat() const {
-            return (is<float>() || is<double>());
+            if (empty())return false;
+            return content->isFloat();
+        }
+
+        inline bool isNumber() const {
+            if (empty())return false;
+            return content->isFloat() || content->isInteger();
         }
 
         inline bool isObject() const;

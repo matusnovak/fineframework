@@ -1,11 +1,11 @@
-media - Image and 3D object file loaders/savers
+media - Image and 3D object file load/write
 ===================================
 
-Provides classes for reading and writing image files and loadinf of 3D OBJ files. 
+Provides classes for reading and writing image files and loading of 3D OBJ files. 
 
 ## Detailed description
 
-Provides functions and classes to load and save image files such as PNG, JPG, PBM, BMP, TIF, TGA, and loading OBJ (3D objects) as well. Uses following third party libraries: [libjpeg](http://www.ijg.org/), [libpng](http://www.libpng.org/pub/png/libpng.html), [libtiff](http://www.libtiff.org/), and [libz](http://www.zlib.net/) 
+Uses the following third party libraries: [libjpeg](http://www.ijg.org/), [libpng](http://www.libpng.org/pub/png/libpng.html), [libtiff](http://www.libtiff.org/), and [libz](http://www.zlib.net/) 
 
 
 ## Classes

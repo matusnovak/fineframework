@@ -102,6 +102,7 @@ namespace ffw {
         * @endcode
         */
         void endFrame() const;
+        void moveTo(float x, float y) const;
         /**
          * @brief Sets the color of the next draw commands (fill and stroke color)
          */

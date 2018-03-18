@@ -429,7 +429,7 @@ TEST_CASE("Changing the size and position #2") {
         // window's width is 100
         // left layout is 50
         // 25% from 50 is 12.5 -> to int -> 12
-        REQUIRE(widget[1][1]->getRealPos().x == Approx(12.5f));
+        REQUIRE(widget[1][1]->getRealPos().x == Approx(12.0f));
         REQUIRE(widget[1][1]->getRealPos().y == Approx(0.0f));
 
         // all other neighbours are unchanged
@@ -584,7 +584,7 @@ TEST_CASE("Changing the padding and margin #2") {
 
         for (int l = 0; l < 2; l++) {
             for (int w = 0; w < 4; w++) {
-                REQUIRE(widget[w][l]->getRealSize().x == Approx(22.5f));
+                REQUIRE(widget[w][l]->getRealSize().x == Approx(22.0f));
                 REQUIRE(widget[w][l]->getRealSize().y == Approx(45.0f));
             }
         }

@@ -213,6 +213,13 @@ void ffw::RenderContext::endFrame() const  {
 }
 
 ///=============================================================================
+void ffw::RenderContext::moveTo(float x, float y) const {
+    if (!initialized)return;
+
+    nvgMoveTo(vg, x, y);
+}
+
+///=============================================================================
 void ffw::RenderContext::setDrawColor(const ffw::Color& color) const {
     if (!initialized)return;
 
