@@ -1,89 +1,90 @@
-gui - Graphical User Interface
-===================================
+---
+search:
+    keywords: ['gui', 'ffw::GuiBackend', 'ffw::GuiBody', 'ffw::GuiBox', 'ffw::GuiButton', 'ffw::GuiButtonPrimary', 'ffw::GuiButtonToggle', 'ffw::GuiButtonTogglePrimary', 'ffw::GuiCheckbox', 'ffw::GuiFont', 'ffw::GuiFontOpenGL', 'ffw::GuiImage', 'ffw::GuiImageOpenGL', 'ffw::GuiImageViewer', 'ffw::GuiLabel', 'ffw::GuiLayout', 'ffw::GuiVerticalLayout', 'ffw::GuiHorizontalLayout', 'ffw::GuiFixedLayout', 'ffw::GuiList', 'ffw::GuiProgressBar', 'ffw::GuiProgressCircle', 'ffw::GuiRadio', 'ffw::GuiScrollable', 'ffw::GuiScrollableLayout', 'ffw::GuiScrollBar', 'ffw::GuiSlider', 'ffw::GuiUnits', 'ffw::GuiUnits2D', 'ffw::GuiStyle', 'ffw::GuiDefaults', 'ffw::GuiSwitch', 'ffw::GuiTabs', 'ffw::GuiText', 'ffw::GuiTextInput', 'ffw::GuiScrollableTextInput', 'ffw::GuiTheme', 'ffw::GuiThemeSimpleLight', 'ffw::GuiThemeSimpleDark', 'ffw::GuiThemeFlatLight', 'ffw::GuiThemeFlatDark', 'ffw::GuiCallback', 'ffw::GuiUserInput', 'ffw::GuiWidget', 'ffw::GuiWindow', 'ffw::GuiWindowOpenGL', 'ffw::GuiWindowOpenGLFBO', 'GuiAlign', 'GuiEventType', 'guiPixels', 'guiPercent', 'guiWrap']
+---
 
-Render engine independent graphic user interface. 
+# group gui
 
-## Detailed description
-
-This module allows creation of user interfaces (GUIs). It takes care of widget layout, automatic spacing when resized, spacing, callbacks, etc. This module provides several widgets (buttons, check boxes, text edits, radios, sliders, etc..) however, has a functionality to add custom widgets as well. All widgets can be arranged in linear layouts, similarly how HTML works, and can be also styled. This GUI is not directly linked to the OpenGL, or any other rendering engine! Instead, it can use any backend with any renderer you wish to use. However, an OpenGL backend is provided by default, if the user wishes to use. The entire module is UTF-8 enabled. 
-
-
+Render engine independent graphic user interface. [More...](#detailed-description)
 ## Classes
 
-| Name |
-|:-----|
-| class [ffw::GuiBackend](ffw_GuiBackend.html) |
-| class [ffw::GuiBody](ffw_GuiBody.html) |
-| class [ffw::GuiBox](ffw_GuiBox.html) |
-| class [ffw::GuiButton](ffw_GuiButton.html) |
-| class [ffw::GuiButtonPrimary](ffw_GuiButtonPrimary.html) |
-| class [ffw::GuiButtonToggle](ffw_GuiButtonToggle.html) |
-| class [ffw::GuiButtonTogglePrimary](ffw_GuiButtonTogglePrimary.html) |
-| class [ffw::GuiCheckbox](ffw_GuiCheckbox.html) |
-| class [ffw::GuiFont](ffw_GuiFont.html) |
-| class [ffw::GuiFontOpenGL](ffw_GuiFontOpenGL.html) |
-| class [ffw::GuiImage](ffw_GuiImage.html) |
-| class [ffw::GuiImageOpenGL](ffw_GuiImageOpenGL.html) |
-| class [ffw::GuiImageViewer](ffw_GuiImageViewer.html) |
-| class [ffw::GuiLabel](ffw_GuiLabel.html) |
-| class [ffw::GuiLayout](ffw_GuiLayout.html) |
-| class [ffw::GuiVerticalLayout](ffw_GuiVerticalLayout.html) |
-| class [ffw::GuiHorizontalLayout](ffw_GuiHorizontalLayout.html) |
-| class [ffw::GuiFixedLayout](ffw_GuiFixedLayout.html) |
-| class [ffw::GuiList](ffw_GuiList.html) |
-| class [ffw::GuiProgressBar](ffw_GuiProgressBar.html) |
-| class [ffw::GuiProgressCircle](ffw_GuiProgressCircle.html) |
-| class [ffw::GuiRadio](ffw_GuiRadio.html) |
-| class [ffw::GuiScrollable](ffw_GuiScrollable.html) |
-| class [ffw::GuiScrollableLayout](ffw_GuiScrollableLayout.html) |
-| class [ffw::GuiScrollBar](ffw_GuiScrollBar.html) |
-| class [ffw::GuiSlider](ffw_GuiSlider.html) |
-| class [ffw::GuiUnits](ffw_GuiUnits.html) |
-| class [ffw::GuiUnits2D](ffw_GuiUnits2D.html) |
-| class [ffw::GuiStyle](ffw_GuiStyle.html) |
-| class [ffw::GuiDefaults](ffw_GuiDefaults.html) |
-| class [ffw::GuiSwitch](ffw_GuiSwitch.html) |
-| class [ffw::GuiTabs](ffw_GuiTabs.html) |
-| class [ffw::GuiText](ffw_GuiText.html) |
-| class [ffw::GuiTextInput](ffw_GuiTextInput.html) |
-| class [ffw::GuiScrollableTextInput](ffw_GuiScrollableTextInput.html) |
-| class [ffw::GuiTheme](ffw_GuiTheme.html) |
-| class [ffw::GuiThemeSimpleLight](ffw_GuiThemeSimpleLight.html) |
-| class [ffw::GuiThemeSimpleDark](ffw_GuiThemeSimpleDark.html) |
-| class [ffw::GuiThemeFlatLight](ffw_GuiThemeFlatLight.html) |
-| class [ffw::GuiThemeFlatDark](ffw_GuiThemeFlatDark.html) |
-| struct [ffw::GuiCallback](ffw_GuiCallback.html) |
-| class [ffw::GuiUserInput](ffw_GuiUserInput.html) |
-| class [ffw::GuiWidget](ffw_GuiWidget.html) |
-| class [ffw::GuiWindow](ffw_GuiWindow.html) |
-| class [ffw::GuiWindowOpenGL](ffw_GuiWindowOpenGL.html) |
-| class [ffw::GuiWindowOpenGLFBO](ffw_GuiWindowOpenGLFBO.html) |
+|Type|Name|
+|-----|-----|
+|class|[**ffw::GuiBackend**](classffw_1_1_gui_backend.md)|
+|class|[**ffw::GuiBody**](classffw_1_1_gui_body.md)|
+|class|[**ffw::GuiBox**](classffw_1_1_gui_box.md)|
+|class|[**ffw::GuiButton**](classffw_1_1_gui_button.md)|
+|class|[**ffw::GuiButtonPrimary**](classffw_1_1_gui_button_primary.md)|
+|class|[**ffw::GuiButtonToggle**](classffw_1_1_gui_button_toggle.md)|
+|class|[**ffw::GuiButtonTogglePrimary**](classffw_1_1_gui_button_toggle_primary.md)|
+|class|[**ffw::GuiCheckbox**](classffw_1_1_gui_checkbox.md)|
+|class|[**ffw::GuiFont**](classffw_1_1_gui_font.md)|
+|class|[**ffw::GuiFontOpenGL**](classffw_1_1_gui_font_open_g_l.md)|
+|class|[**ffw::GuiImage**](classffw_1_1_gui_image.md)|
+|class|[**ffw::GuiImageOpenGL**](classffw_1_1_gui_image_open_g_l.md)|
+|class|[**ffw::GuiImageViewer**](classffw_1_1_gui_image_viewer.md)|
+|class|[**ffw::GuiLabel**](classffw_1_1_gui_label.md)|
+|class|[**ffw::GuiLayout**](classffw_1_1_gui_layout.md)|
+|class|[**ffw::GuiVerticalLayout**](classffw_1_1_gui_vertical_layout.md)|
+|class|[**ffw::GuiHorizontalLayout**](classffw_1_1_gui_horizontal_layout.md)|
+|class|[**ffw::GuiFixedLayout**](classffw_1_1_gui_fixed_layout.md)|
+|class|[**ffw::GuiList**](classffw_1_1_gui_list.md)|
+|class|[**ffw::GuiProgressBar**](classffw_1_1_gui_progress_bar.md)|
+|class|[**ffw::GuiProgressCircle**](classffw_1_1_gui_progress_circle.md)|
+|class|[**ffw::GuiRadio**](classffw_1_1_gui_radio.md)|
+|class|[**ffw::GuiScrollable**](classffw_1_1_gui_scrollable.md)|
+|class|[**ffw::GuiScrollableLayout**](classffw_1_1_gui_scrollable_layout.md)|
+|class|[**ffw::GuiScrollBar**](classffw_1_1_gui_scroll_bar.md)|
+|class|[**ffw::GuiSlider**](classffw_1_1_gui_slider.md)|
+|class|[**ffw::GuiUnits**](classffw_1_1_gui_units.md)|
+|class|[**ffw::GuiUnits2D**](classffw_1_1_gui_units2_d.md)|
+|class|[**ffw::GuiStyle**](classffw_1_1_gui_style.md)|
+|class|[**ffw::GuiDefaults**](classffw_1_1_gui_defaults.md)|
+|class|[**ffw::GuiSwitch**](classffw_1_1_gui_switch.md)|
+|class|[**ffw::GuiTabs**](classffw_1_1_gui_tabs.md)|
+|class|[**ffw::GuiText**](classffw_1_1_gui_text.md)|
+|class|[**ffw::GuiTextInput**](classffw_1_1_gui_text_input.md)|
+|class|[**ffw::GuiScrollableTextInput**](classffw_1_1_gui_scrollable_text_input.md)|
+|class|[**ffw::GuiTheme**](classffw_1_1_gui_theme.md)|
+|class|[**ffw::GuiThemeSimpleLight**](classffw_1_1_gui_theme_simple_light.md)|
+|class|[**ffw::GuiThemeSimpleDark**](classffw_1_1_gui_theme_simple_dark.md)|
+|class|[**ffw::GuiThemeFlatLight**](classffw_1_1_gui_theme_flat_light.md)|
+|class|[**ffw::GuiThemeFlatDark**](classffw_1_1_gui_theme_flat_dark.md)|
+|struct|[**ffw::GuiCallback**](structffw_1_1_gui_callback.md)|
+|class|[**ffw::GuiUserInput**](classffw_1_1_gui_user_input.md)|
+|class|[**ffw::GuiWidget**](classffw_1_1_gui_widget.md)|
+|class|[**ffw::GuiWindow**](classffw_1_1_gui_window.md)|
+|class|[**ffw::GuiWindowOpenGL**](classffw_1_1_gui_window_open_g_l.md)|
+|class|[**ffw::GuiWindowOpenGLFBO**](classffw_1_1_gui_window_open_g_l_f_b_o.md)|
 
 
 ## Enums
 
-| Type | Name |
-| -------: | :------- |
-| enum | [GuiAlign](#38e5cadb) |
-| enum | [GuiEventType](#8b540a94) |
+|Type|Name|
+|-----|-----|
+|enum|[**GuiAlign**](group__gui_.md#ga98e6ace67ac3624f040ae5de12b2ca32) { **LEFT** = 0, **CENTER**, **RIGHT**, **TOP\_LEFT**, **TOP\_CENTER**, **TOP\_RIGHT**, **BOTTOM\_LEFT**, **BOTTOM\_CENTER**, **BOTTOM\_RIGHT** } |
+|enum|[**GuiEventType**](group__gui_.md#ga1e47d35cdb8925a93ca0dec3f77be4f0) { **ACTION** = 0x1, **SIZE** = 0x10, **INNER** = 0x20, **POSITION** = 0x40, **HOVER** = 0x80, **FOCUS** = 0x100, **STATE** = 0x200, **INPUT** = 0x400, **KEY** = 0x800, **MOUSEBTN** = 0x1000, **ALL** = 0x7FFFFFFF } |
 
 
 ## Functions
 
-| Type | Name |
-| -------: | :------- |
-|  GuiUnits | [guiPixels](#66baed55) (float _pixels_)  |
-|  GuiUnits | [guiPercent](#3107a022) (float _percent_)  |
-|  GuiUnits | [guiWrap](#9eb691c9) ()  |
+|Type|Name|
+|-----|-----|
+|GuiUnits|[**guiPixels**](group__gui_.md#ga1fd1232e97a1171a626b50316fa79c03) (float pixels) |
+|GuiUnits|[**guiPercent**](group__gui_.md#ga156aa094262db4a7900176e3366b714c) (float percent) |
+|GuiUnits|[**guiWrap**](group__gui_.md#gae5db716b2fdf7133b3590a09575081ef) () |
 
 
+## Detailed Description
+
+This module allows creation of user interfaces (GUIs). It takes care of widget layout, automatic spacing when resized, spacing, callbacks, etc. This module provides several widgets (buttons, check boxes, text edits, radios, sliders, etc..) however, has a functionality to add custom widgets as well. All widgets can be arranged in linear layouts, similarly how HTML works, and can be also styled. This GUI is not directly linked to the OpenGL, or any other rendering engine! Instead, it can use any backend with any renderer you wish to use. However, an OpenGL backend is provided by default, if the user wishes to use. The entire module is UTF-8 enabled. 
 ## Enums Documentation
 
-### _enum_ <a id="38e5cadb" href="#38e5cadb">GuiAlign</a>
+### enum <a id="ga98e6ace67ac3624f040ae5de12b2ca32" href="#ga98e6ace67ac3624f040ae5de12b2ca32">GuiAlign</a>
 
 ```cpp
-enum GuiAlign {
-    LEFT,
+enum gui::GuiAlign {
+    LEFT = 0,
     CENTER,
     RIGHT,
     TOP_LEFT,
@@ -92,62 +93,58 @@ enum GuiAlign {
     BOTTOM_LEFT,
     BOTTOM_CENTER,
     BOTTOM_RIGHT,
-}
+};
 ```
 
 
 
-### _enum_ <a id="8b540a94" href="#8b540a94">GuiEventType</a>
+### enum <a id="ga1e47d35cdb8925a93ca0dec3f77be4f0" href="#ga1e47d35cdb8925a93ca0dec3f77be4f0">GuiEventType</a>
 
 ```cpp
-enum GuiEventType {
-    ACTION,
-    SIZE,
-    INNER,
-    POSITION,
-    HOVER,
-    FOCUS,
-    STATE,
-    INPUT,
-    KEY,
-    MOUSEBTN,
-    ALL,
-}
+enum gui::GuiEventType {
+    ACTION = 0x1,
+    SIZE = 0x10,
+    INNER = 0x20,
+    POSITION = 0x40,
+    HOVER = 0x80,
+    FOCUS = 0x100,
+    STATE = 0x200,
+    INPUT = 0x400,
+    KEY = 0x800,
+    MOUSEBTN = 0x1000,
+    ALL = 0x7FFFFFFF,
+};
 ```
-
-
 
 
 
 ## Functions Documentation
 
-### _function_ <a id="66baed55" href="#66baed55">guiPixels</a>
+### function <a id="ga1fd1232e97a1171a626b50316fa79c03" href="#ga1fd1232e97a1171a626b50316fa79c03">guiPixels</a>
 
 ```cpp
-inline GuiUnits guiPixels (
+GuiUnits gui::guiPixels (
     float pixels
-) 
+)
 ```
 
 
 
-### _function_ <a id="3107a022" href="#3107a022">guiPercent</a>
+### function <a id="ga156aa094262db4a7900176e3366b714c" href="#ga156aa094262db4a7900176e3366b714c">guiPercent</a>
 
 ```cpp
-inline GuiUnits guiPercent (
+GuiUnits gui::guiPercent (
     float percent
-) 
+)
 ```
 
 
 
-### _function_ <a id="9eb691c9" href="#9eb691c9">guiWrap</a>
+### function <a id="gae5db716b2fdf7133b3590a09575081ef" href="#gae5db716b2fdf7133b3590a09575081ef">guiWrap</a>
 
 ```cpp
-inline GuiUnits guiWrap () 
+GuiUnits gui::guiWrap ()
 ```
-
-
 
 
 

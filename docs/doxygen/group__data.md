@@ -1,227 +1,226 @@
-data - XML, CSV, and JSON loaders
-===================================
+---
+search:
+    keywords: ['data', 'ffw::CsvLoader', 'ffw::JsonException', 'ffw::JsonDecodeException', 'ffw::JsonEncodeException', 'ffw::JsonReader', 'ffw::JsonWriter', 'ffw::XmlException', 'ffw::XmlDecodeException', 'ffw::XmlEncodeException', 'ffw::XmlReader', 'ffw::XmlWriter', 'decodeCsvFile', 'decodeCsv', 'stringContainsWhitespace', 'stringisInteger', 'stringisFloat', 'stringisBool', 'decodeJson', 'decodeJson', 'decodeJsonFile', 'encodeJson', 'encodeJsonFile', 'decodeXml', 'decodeXml', 'decodeXmlFile', 'encodeXml', 'encodeXmlFile']
+---
 
-Encode and decode XML, CSV, or JSON structures. 
+# group data
 
-## Detailed description
-
-Provides a way to load and save XML, CSV, and JSON data files. Uses third party library [tinyxml-2](https://github.com/leethomason/tinyxml2) 
-
-
+Encode and decode XML, CSV, or JSON structures. [More...](#detailed-description)
 ## Classes
 
-| Name |
-|:-----|
-| class [ffw::CsvLoader](ffw_CsvLoader.html) |
-| class [ffw::JsonException](ffw_JsonException.html) |
-| class [ffw::JsonDecodeException](ffw_JsonDecodeException.html) |
-| class [ffw::JsonEncodeException](ffw_JsonEncodeException.html) |
-| class [ffw::JsonReader](ffw_JsonReader.html) |
-| class [ffw::JsonWriter](ffw_JsonWriter.html) |
-| class [ffw::XmlException](ffw_XmlException.html) |
-| class [ffw::XmlDecodeException](ffw_XmlDecodeException.html) |
-| class [ffw::XmlEncodeException](ffw_XmlEncodeException.html) |
-| class [ffw::XmlReader](ffw_XmlReader.html) |
-| class [ffw::XmlWriter](ffw_XmlWriter.html) |
+|Type|Name|
+|-----|-----|
+|class|[**ffw::CsvLoader**](classffw_1_1_csv_loader.md)|
+|class|[**ffw::JsonException**](classffw_1_1_json_exception.md)|
+|class|[**ffw::JsonDecodeException**](classffw_1_1_json_decode_exception.md)|
+|class|[**ffw::JsonEncodeException**](classffw_1_1_json_encode_exception.md)|
+|class|[**ffw::JsonReader**](classffw_1_1_json_reader.md)|
+|class|[**ffw::JsonWriter**](classffw_1_1_json_writer.md)|
+|class|[**ffw::XmlException**](classffw_1_1_xml_exception.md)|
+|class|[**ffw::XmlDecodeException**](classffw_1_1_xml_decode_exception.md)|
+|class|[**ffw::XmlEncodeException**](classffw_1_1_xml_encode_exception.md)|
+|class|[**ffw::XmlReader**](classffw_1_1_xml_reader.md)|
+|class|[**ffw::XmlWriter**](classffw_1_1_xml_writer.md)|
 
 
 ## Functions
 
-| Type | Name |
-| -------: | :------- |
-|  [ffw::Array](ffw_Array.html) | [decodeCsvFile](#3888b141) (const std::string & _path_)  |
-|  [ffw::Array](ffw_Array.html) | [decodeCsv](#b7bf6532) (const std::string & _input_)  |
-|  bool | [stringContainsWhitespace](#86615814) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
-|  bool | [stringisInteger](#0f301d2c) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
-|  bool | [stringisFloat](#42754420) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
-|  bool | [stringisBool](#f795143f) (std::string::const_iterator _begin_, std::string::const_iterator _end_)  |
-|  [ffw::Any](ffw_Any.html) | [decodeJson](#69d58e3a) (const char * _input_)  |
-|  [ffw::Any](ffw_Any.html) | [decodeJson](#d294dc02) (const std::string & _input_)  |
-|  [ffw::Any](ffw_Any.html) | [decodeJsonFile](#090e0ee4) (const std::string & _path_)  |
-|  std::string | [encodeJson](#3f450749) (const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  bool | [encodeJsonFile](#f3a0ad96) (const std::string & _path_, const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  [ffw::Any](ffw_Any.html) | [decodeXml](#2b32ec0f) (const char * _input_)  |
-|  [ffw::Any](ffw_Any.html) | [decodeXml](#14f63b6b) (const std::string & _input_)  |
-|  [ffw::Any](ffw_Any.html) | [decodeXmlFile](#d542e979) (const std::string & _path_)  |
-|  std::string | [encodeXml](#29241370) (const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
-|  bool | [encodeXmlFile](#66c3b5fb) (const std::string & _path_, const [ffw::Any](ffw_Any.html) & _input_, const char * _indent_ = NULL, bool _escape_ = false)  |
+|Type|Name|
+|-----|-----|
+|**[ffw::Array](classffw_1_1_array.md)**|[**decodeCsvFile**](group__data_.md#ga168243fb4b76721254279383fad59359) (const std::string & path) |
+|**[ffw::Array](classffw_1_1_array.md)**|[**decodeCsv**](group__data_.md#ga3175e907023dd05a990340db32e2e632) (const std::string & input) |
+|bool|[**stringContainsWhitespace**](group__data_.md#gabd5c09c9d45df57a4232328dfe9a06fc) (std::string::const\_iterator begin, std::string::const\_iterator end) |
+|bool|[**stringisInteger**](group__data_.md#gac7c6fb6aedd4fa29a46e99d0fb2ca88e) (std::string::const\_iterator begin, std::string::const\_iterator end) |
+|bool|[**stringisFloat**](group__data_.md#gaead0c558093bc2b4735d5600d7fa9591) (std::string::const\_iterator begin, std::string::const\_iterator end) |
+|bool|[**stringisBool**](group__data_.md#ga6f21f9a74f57256078fa491a82d60f74) (std::string::const\_iterator begin, std::string::const\_iterator end) |
+|**[ffw::Any](classffw_1_1_any.md)**|[**decodeJson**](group__data_.md#ga6481e0e2a2b68f4c30b5e278e565bff1) (const char \* input) |
+|**[ffw::Any](classffw_1_1_any.md)**|[**decodeJson**](group__data_.md#gac25ee24bb87a37d1cdfbff6fd156857f) (const std::string & input) |
+|**[ffw::Any](classffw_1_1_any.md)**|[**decodeJsonFile**](group__data_.md#gaf614ae4902b967935f7c3e16c159b031) (const std::string & path) |
+|std::string|[**encodeJson**](group__data_.md#gada9f7c3ad3466d70b0ff1a809999b624) (const **[ffw::Any](classffw_1_1_any.md)** & input, const char \* indent = NULL, bool escape = false) |
+|bool|[**encodeJsonFile**](group__data_.md#ga0bd01fb3c58ac0e3c9ce5f4a134d92b0) (const std::string & path, const **[ffw::Any](classffw_1_1_any.md)** & input, const char \* indent = NULL, bool escape = false) |
+|**[ffw::Any](classffw_1_1_any.md)**|[**decodeXml**](group__data_.md#ga0ce451d306fe8e5e90d62a176afcb20a) (const char \* input) |
+|**[ffw::Any](classffw_1_1_any.md)**|[**decodeXml**](group__data_.md#ga40ab60116cfb071974894e6b8b9b4c9e) (const std::string & input) |
+|**[ffw::Any](classffw_1_1_any.md)**|[**decodeXmlFile**](group__data_.md#gaafbee1e48e69699545bec0939b89b2ef) (const std::string & path) |
+|std::string|[**encodeXml**](group__data_.md#ga08075eb23017653926f047828e2d4ed8) (const **[ffw::Any](classffw_1_1_any.md)** & input, const char \* indent = NULL, bool escape = false) |
+|bool|[**encodeXmlFile**](group__data_.md#gadf846737a7427d789c555ed7e0a5e753) (const std::string & path, const **[ffw::Any](classffw_1_1_any.md)** & input, const char \* indent = NULL, bool escape = false) |
 
 
+## Detailed Description
+
+Provides a way to load and save XML, CSV, and JSON data files. Uses third party library [tinyxml-2](https://github.com/leethomason/tinyxml2) 
 ## Functions Documentation
 
-### _function_ <a id="3888b141" href="#3888b141">decodeCsvFile</a>
+### function <a id="ga168243fb4b76721254279383fad59359" href="#ga168243fb4b76721254279383fad59359">decodeCsvFile</a>
 
 ```cpp
-ffw::Array decodeCsvFile (
+ffw::Array data::decodeCsvFile (
     const std::string & path
-) 
+)
 ```
 
 
 
-### _function_ <a id="b7bf6532" href="#b7bf6532">decodeCsv</a>
+### function <a id="ga3175e907023dd05a990340db32e2e632" href="#ga3175e907023dd05a990340db32e2e632">decodeCsv</a>
 
 ```cpp
-ffw::Array decodeCsv (
+ffw::Array data::decodeCsv (
     const std::string & input
-) 
+)
 ```
 
 
 
-### _function_ <a id="86615814" href="#86615814">stringContainsWhitespace</a>
+### function <a id="gabd5c09c9d45df57a4232328dfe9a06fc" href="#gabd5c09c9d45df57a4232328dfe9a06fc">stringContainsWhitespace</a>
 
 ```cpp
-bool stringContainsWhitespace (
-    std::string::const_iterator begin,
+bool data::stringContainsWhitespace (
+    std::string::const_iterator begin
     std::string::const_iterator end
-) 
+)
 ```
 
 
 
-### _function_ <a id="0f301d2c" href="#0f301d2c">stringisInteger</a>
+### function <a id="gac7c6fb6aedd4fa29a46e99d0fb2ca88e" href="#gac7c6fb6aedd4fa29a46e99d0fb2ca88e">stringisInteger</a>
 
 ```cpp
-bool stringisInteger (
-    std::string::const_iterator begin,
+bool data::stringisInteger (
+    std::string::const_iterator begin
     std::string::const_iterator end
-) 
+)
 ```
 
 
 
-### _function_ <a id="42754420" href="#42754420">stringisFloat</a>
+### function <a id="gaead0c558093bc2b4735d5600d7fa9591" href="#gaead0c558093bc2b4735d5600d7fa9591">stringisFloat</a>
 
 ```cpp
-bool stringisFloat (
-    std::string::const_iterator begin,
+bool data::stringisFloat (
+    std::string::const_iterator begin
     std::string::const_iterator end
-) 
+)
 ```
 
 
 
-### _function_ <a id="f795143f" href="#f795143f">stringisBool</a>
+### function <a id="ga6f21f9a74f57256078fa491a82d60f74" href="#ga6f21f9a74f57256078fa491a82d60f74">stringisBool</a>
 
 ```cpp
-bool stringisBool (
-    std::string::const_iterator begin,
+bool data::stringisBool (
+    std::string::const_iterator begin
     std::string::const_iterator end
-) 
+)
 ```
 
 
 
-### _function_ <a id="69d58e3a" href="#69d58e3a">decodeJson</a>
+### function <a id="ga6481e0e2a2b68f4c30b5e278e565bff1" href="#ga6481e0e2a2b68f4c30b5e278e565bff1">decodeJson</a>
 
 ```cpp
-ffw::Any decodeJson (
+ffw::Any data::decodeJson (
     const char * input
-) 
+)
 ```
 
 
 
-### _function_ <a id="d294dc02" href="#d294dc02">decodeJson</a>
+### function <a id="gac25ee24bb87a37d1cdfbff6fd156857f" href="#gac25ee24bb87a37d1cdfbff6fd156857f">decodeJson</a>
 
 ```cpp
-ffw::Any decodeJson (
+ffw::Any data::decodeJson (
     const std::string & input
-) 
+)
 ```
 
 
 
-### _function_ <a id="090e0ee4" href="#090e0ee4">decodeJsonFile</a>
+### function <a id="gaf614ae4902b967935f7c3e16c159b031" href="#gaf614ae4902b967935f7c3e16c159b031">decodeJsonFile</a>
 
 ```cpp
-ffw::Any decodeJsonFile (
+ffw::Any data::decodeJsonFile (
     const std::string & path
-) 
+)
 ```
 
 
 
-### _function_ <a id="3f450749" href="#3f450749">encodeJson</a>
+### function <a id="gada9f7c3ad3466d70b0ff1a809999b624" href="#gada9f7c3ad3466d70b0ff1a809999b624">encodeJson</a>
 
 ```cpp
-std::string encodeJson (
-    const ffw::Any & input,
-    const char * indent = NULL,
+std::string data::encodeJson (
+    const ffw::Any & input
+    const char * indent = NULL
     bool escape = false
-) 
+)
 ```
 
 
 
-### _function_ <a id="f3a0ad96" href="#f3a0ad96">encodeJsonFile</a>
+### function <a id="ga0bd01fb3c58ac0e3c9ce5f4a134d92b0" href="#ga0bd01fb3c58ac0e3c9ce5f4a134d92b0">encodeJsonFile</a>
 
 ```cpp
-bool encodeJsonFile (
-    const std::string & path,
-    const ffw::Any & input,
-    const char * indent = NULL,
+bool data::encodeJsonFile (
+    const std::string & path
+    const ffw::Any & input
+    const char * indent = NULL
     bool escape = false
-) 
+)
 ```
 
 
 
-### _function_ <a id="2b32ec0f" href="#2b32ec0f">decodeXml</a>
+### function <a id="ga0ce451d306fe8e5e90d62a176afcb20a" href="#ga0ce451d306fe8e5e90d62a176afcb20a">decodeXml</a>
 
 ```cpp
-ffw::Any decodeXml (
+ffw::Any data::decodeXml (
     const char * input
-) 
+)
 ```
 
 
 
-### _function_ <a id="14f63b6b" href="#14f63b6b">decodeXml</a>
+### function <a id="ga40ab60116cfb071974894e6b8b9b4c9e" href="#ga40ab60116cfb071974894e6b8b9b4c9e">decodeXml</a>
 
 ```cpp
-ffw::Any decodeXml (
+ffw::Any data::decodeXml (
     const std::string & input
-) 
+)
 ```
 
 
 
-### _function_ <a id="d542e979" href="#d542e979">decodeXmlFile</a>
+### function <a id="gaafbee1e48e69699545bec0939b89b2ef" href="#gaafbee1e48e69699545bec0939b89b2ef">decodeXmlFile</a>
 
 ```cpp
-ffw::Any decodeXmlFile (
+ffw::Any data::decodeXmlFile (
     const std::string & path
-) 
+)
 ```
 
 
 
-### _function_ <a id="29241370" href="#29241370">encodeXml</a>
+### function <a id="ga08075eb23017653926f047828e2d4ed8" href="#ga08075eb23017653926f047828e2d4ed8">encodeXml</a>
 
 ```cpp
-std::string encodeXml (
-    const ffw::Any & input,
-    const char * indent = NULL,
+std::string data::encodeXml (
+    const ffw::Any & input
+    const char * indent = NULL
     bool escape = false
-) 
+)
 ```
 
 
 
-### _function_ <a id="66c3b5fb" href="#66c3b5fb">encodeXmlFile</a>
+### function <a id="gadf846737a7427d789c555ed7e0a5e753" href="#gadf846737a7427d789c555ed7e0a5e753">encodeXmlFile</a>
 
 ```cpp
-bool encodeXmlFile (
-    const std::string & path,
-    const ffw::Any & input,
-    const char * indent = NULL,
+bool data::encodeXmlFile (
+    const std::string & path
+    const ffw::Any & input
+    const char * indent = NULL
     bool escape = false
-) 
+)
 ```
-
-
 
 
 

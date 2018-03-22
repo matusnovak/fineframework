@@ -1,0 +1,114 @@
+---
+search: false
+---
+
+# guiscrollable.h File Reference
+
+**[Go to the documentation of this file.](guiscrollable_8h.md)**
+Source: `include/ffw/gui/guiscrollable.h`
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+```cpp
+/* This file is part of FineFramework project */
+#ifndef FFW_GUI_SCROLLABLE
+#define FFW_GUI_SCROLLABLE
+#include "guiwidget.h"
+#include "guiscrollbar.h"
+#include "guilayout.h"
+namespace ffw {
+    class FFW_API GuiScrollable : public GuiWidget {
+    public:
+        struct Style {
+            GuiScrollBar::Style scrollbarV;
+            GuiScrollBar::Style scrollbarH;
+            GuiWidget::Style self;
+        };
+
+        GuiScrollable(GuiWindow* context, GuiWidget* widget, bool hori, bool vert);
+        virtual ~GuiScrollable() = default;
+        ffw::Vec2f getMinimumWrapSize() override;
+        void setScrollbarThickness(float px);
+        void setScrollValues(float hori, float vert);
+        ffw::Vec2f getScrollValues() const;
+        inline float getScrollbarThickness() const {
+            return thickness;
+        }
+        inline ffw::GuiScrollBar* getVscroll() {
+            return vscroll;
+        }
+        inline const ffw::GuiScrollBar* getVscroll() const {
+            return vscroll;
+        }
+        inline ffw::GuiScrollBar* getHscroll() {
+            return hscroll;
+        }
+        inline const ffw::GuiScrollBar* getHscroll() const {
+            return hscroll;
+        }
+        inline void setScrollIncrements(const float inc) {
+            scrollInc = inc;
+        }
+        inline float getScrollIncrements() const {
+            return scrollInc;
+        }
+        void setStyle(const GuiScrollable::Style* style, bool defaults = false);
+    protected:
+        inline ffw::GuiWidget* getInnerAsWidget() {
+            return inner;
+        }
+        inline const ffw::GuiWidget* getInnerAsWidget() const {
+            return inner;
+        }
+    private:
+        void widgetEvent(GuiEvent e);
+        void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
+        bool eventScroll(const ffw::Vec2f& scroll) override;
+        void eventSize(const ffw::Vec2f& size) override;
+        void eventThemeChanged(const GuiTheme* theme, bool defaults) override;
+        ffw::GuiScrollBar* vscroll;
+        ffw::GuiScrollBar* hscroll;
+        ffw::GuiWidget* inner;
+        float thickness;
+        float scrollInc;
+    };
+    class FFW_API GuiScrollableLayout : public GuiScrollable {
+    public:
+        struct Style {
+            GuiScrollable::Style self;
+            GuiLayout::Style inner;
+        };
+        GuiScrollableLayout(GuiWindow* context, GuiOrientation orientation, bool hori, bool vert);
+        virtual ~GuiScrollableLayout() = default;
+        inline GuiLayout* getInner(){
+            return dynamic_cast<ffw::GuiLayout*>(getInnerAsWidget());
+        }
+        inline const GuiLayout* getInner() const{
+            return dynamic_cast<const ffw::GuiLayout*>(getInnerAsWidget());
+        }
+        void eventThemeChanged(const GuiTheme* theme, bool defaults) override;
+        void setStyle(const GuiScrollableLayout::Style* style, bool defaults = false);
+    };
+}
+#endif
+```
+
+
+    
+  

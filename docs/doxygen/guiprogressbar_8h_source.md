@@ -1,0 +1,60 @@
+---
+search: false
+---
+
+# guiprogressbar.h File Reference
+
+**[Go to the documentation of this file.](guiprogressbar_8h.md)**
+Source: `include/ffw/gui/guiprogressbar.h`
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+```cpp
+/* This file is part of FineFramework project */
+#ifndef FFW_GUI_PROGRESSBAR
+#define FFW_GUI_PROGRESSBAR
+#include "guiwidget.h"
+namespace ffw {
+    class FFW_API GuiProgressBar : public GuiWidget {
+    public:
+        struct Style {
+            GuiWidget::Style inner;
+            GuiWidget::Style self;
+        };
+        
+        GuiProgressBar(GuiWindow* context);
+        virtual ~GuiProgressBar() = default;
+        ffw::Vec2f getMinimumWrapSize() override;
+        void setValue(const float value);
+        inline float getValue() const {
+            return percent;
+        }
+        void setInnerStyleGroup(const GuiWidget::Style* style);
+        const GuiWidget::Style* getInnerStyleGroup() const  {
+            return innerStyle;
+        }
+        void setStyle(const GuiProgressBar::Style* style, bool defaults = false);
+    protected:
+        const GuiWidget::Style* innerStyle;
+    private:
+        void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
+        virtual void eventThemeChanged(const GuiTheme* theme, bool defaults) override;
+        float percent;
+    };
+}
+#endif
+```
+
+
+    
+  

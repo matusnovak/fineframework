@@ -1,140 +1,139 @@
-media - Image and 3D object file load/write
-===================================
+---
+search:
+    keywords: ['media', 'ffw::BmpLoader', 'ffw::BmpSaver', 'ffw::DdsLoader', 'ffw::DdsSaver', 'ffw::ImageReader', 'ffw::ImageWriter', 'ffw::JpgLoader', 'ffw::JpgSaver', 'ffw::ObjLoader', 'ffw::PbmLoader', 'ffw::PbmSaver', 'ffw::PngLoader', 'ffw::PngSaver', 'ffw::TgaLoader', 'ffw::TgaSaver', 'ffw::TifLoader', 'ffw::TifSaver', 'openImageReader', 'openImageWriter', 'readImage', 'writeImage', 'readImage', 'writeImage', 'readObj']
+---
 
-Provides classes for reading and writing image files and loading of 3D OBJ files. 
+# group media
 
-## Detailed description
-
-Uses the following third party libraries: [libjpeg](http://www.ijg.org/), [libpng](http://www.libpng.org/pub/png/libpng.html), [libtiff](http://www.libtiff.org/), and [libz](http://www.zlib.net/) 
-
-
+Provides classes for reading and writing image files and loading of 3D OBJ files. [More...](#detailed-description)
 ## Classes
 
-| Name |
-|:-----|
-| class [ffw::BmpLoader](ffw_BmpLoader.html) |
-| class [ffw::BmpSaver](ffw_BmpSaver.html) |
-| class [ffw::DdsLoader](ffw_DdsLoader.html) |
-| class [ffw::DdsSaver](ffw_DdsSaver.html) |
-| class [ffw::ImageReader](ffw_ImageReader.html) |
-| class [ffw::ImageWriter](ffw_ImageWriter.html) |
-| class [ffw::JpgLoader](ffw_JpgLoader.html) |
-| class [ffw::JpgSaver](ffw_JpgSaver.html) |
-| class [ffw::ObjLoader](ffw_ObjLoader.html) |
-| class [ffw::PbmLoader](ffw_PbmLoader.html) |
-| class [ffw::PbmSaver](ffw_PbmSaver.html) |
-| class [ffw::PngLoader](ffw_PngLoader.html) |
-| class [ffw::PngSaver](ffw_PngSaver.html) |
-| class [ffw::TgaLoader](ffw_TgaLoader.html) |
-| class [ffw::TgaSaver](ffw_TgaSaver.html) |
-| class [ffw::TifLoader](ffw_TifLoader.html) |
-| class [ffw::TifSaver](ffw_TifSaver.html) |
+|Type|Name|
+|-----|-----|
+|class|[**ffw::BmpLoader**](classffw_1_1_bmp_loader.md)|
+|class|[**ffw::BmpSaver**](classffw_1_1_bmp_saver.md)|
+|class|[**ffw::DdsLoader**](classffw_1_1_dds_loader.md)|
+|class|[**ffw::DdsSaver**](classffw_1_1_dds_saver.md)|
+|class|[**ffw::ImageReader**](classffw_1_1_image_reader.md)|
+|class|[**ffw::ImageWriter**](classffw_1_1_image_writer.md)|
+|class|[**ffw::JpgLoader**](classffw_1_1_jpg_loader.md)|
+|class|[**ffw::JpgSaver**](classffw_1_1_jpg_saver.md)|
+|class|[**ffw::ObjLoader**](classffw_1_1_obj_loader.md)|
+|class|[**ffw::PbmLoader**](classffw_1_1_pbm_loader.md)|
+|class|[**ffw::PbmSaver**](classffw_1_1_pbm_saver.md)|
+|class|[**ffw::PngLoader**](classffw_1_1_png_loader.md)|
+|class|[**ffw::PngSaver**](classffw_1_1_png_saver.md)|
+|class|[**ffw::TgaLoader**](classffw_1_1_tga_loader.md)|
+|class|[**ffw::TgaSaver**](classffw_1_1_tga_saver.md)|
+|class|[**ffw::TifLoader**](classffw_1_1_tif_loader.md)|
+|class|[**ffw::TifSaver**](classffw_1_1_tif_saver.md)|
 
 
 ## Functions
 
-| Type | Name |
-| -------: | :------- |
-|  ImageReader * | [openImageReader](#66d303c6) (const std::string & _path_)  |
-|  ImageWriter * | [openImageWriter](#8ffae09c) (const std::string & _path_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _type_, int _quality_ = 100)  |
-|  bool | [readImage](#2653599f) (const std::string & _path_, void ** _dest_, int * _width_, int * _height_, [ffw::ImageType](ffw.html#fa711f90) * _format_, int * _mips_ = NULL)  |
-|  bool | [writeImage](#ac1e49be) (const std::string & _path_, const void * _src_, int _width_, int _height_, [ffw::ImageType](ffw.html#fa711f90) _format_, int _quality_ = 100, int _mips_ = 1)  |
-|  bool | [readImage](#fd2661e9) (const std::string & _path_, [ffw::ImageBuffer](ffw_ImageBuffer.html) & _image_)  |
-|  bool | [writeImage](#2c1dd671) (const std::string & _path_, const [ffw::ImageBuffer](ffw_ImageBuffer.html) & _image_, int _quality_ = 100)  |
-|  bool | [readObj](#d3cfdde0) (const std::string & _path_, float ** _vertices_, unsigned int * _numVertices_)  |
+|Type|Name|
+|-----|-----|
+|ImageReader \*|[**openImageReader**](group__media_.md#ga87e5ca033117b5fbfb132649d75185f5) (const std::string & path) |
+|ImageWriter \*|[**openImageWriter**](group__media_.md#ga48161b9edfec370464b0f34e44f5cfe1) (const std::string & path, int width, int height, **[ffw::ImageType](namespaceffw.md#1a92226423d9aa0edfe0ca1dde2141e028)** type, int quality = 100) |
+|bool|[**readImage**](group__media_.md#ga25c072f18cc450f158787ef898a40b0c) (const std::string & path, void \*\* dest, int \* width, int \* height, **[ffw::ImageType](namespaceffw.md#1a92226423d9aa0edfe0ca1dde2141e028)** \* format, int \* mips = NULL) |
+|bool|[**writeImage**](group__media_.md#gad6dc94a496288bc08a7a16b20e509ac0) (const std::string & path, const void \* src, int width, int height, **[ffw::ImageType](namespaceffw.md#1a92226423d9aa0edfe0ca1dde2141e028)** format, int quality = 100, int mips = 1) |
+|bool|[**readImage**](group__media_.md#gac28da3874e34bde73f3d8b116c34dda0) (const std::string & path, **[ffw::ImageBuffer](classffw_1_1_image_buffer.md)** & image) |
+|bool|[**writeImage**](group__media_.md#ga23e75b6f8951cfb8067a2682229aacb6) (const std::string & path, const **[ffw::ImageBuffer](classffw_1_1_image_buffer.md)** & image, int quality = 100) |
+|bool|[**readObj**](group__media_.md#ga6c79e9458a338f0003e5313f667641b3) (const std::string & path, float \*\* vertices, unsigned int \* numVertices) |
 
 
+## Detailed Description
+
+Uses the following third party libraries: [libjpeg](http://www.ijg.org/), [libpng](http://www.libpng.org/pub/png/libpng.html), [libtiff](http://www.libtiff.org/), and [libz](http://www.zlib.net/) 
 ## Functions Documentation
 
-### _function_ <a id="66d303c6" href="#66d303c6">openImageReader</a>
+### function <a id="ga87e5ca033117b5fbfb132649d75185f5" href="#ga87e5ca033117b5fbfb132649d75185f5">openImageReader</a>
 
 ```cpp
-ImageReader * openImageReader (
+ImageReader * media::openImageReader (
     const std::string & path
-) 
+)
 ```
 
 
 
-### _function_ <a id="8ffae09c" href="#8ffae09c">openImageWriter</a>
+### function <a id="ga48161b9edfec370464b0f34e44f5cfe1" href="#ga48161b9edfec370464b0f34e44f5cfe1">openImageWriter</a>
 
 ```cpp
-ImageWriter * openImageWriter (
-    const std::string & path,
-    int width,
-    int height,
-    ffw::ImageType type,
+ImageWriter * media::openImageWriter (
+    const std::string & path
+    int width
+    int height
+    ffw::ImageType type
     int quality = 100
-) 
+)
 ```
 
 
 
-### _function_ <a id="2653599f" href="#2653599f">readImage</a>
+### function <a id="ga25c072f18cc450f158787ef898a40b0c" href="#ga25c072f18cc450f158787ef898a40b0c">readImage</a>
 
 ```cpp
-bool readImage (
-    const std::string & path,
-    void ** dest,
-    int * width,
-    int * height,
-    ffw::ImageType * format,
+bool media::readImage (
+    const std::string & path
+    void ** dest
+    int * width
+    int * height
+    ffw::ImageType * format
     int * mips = NULL
-) 
+)
 ```
 
 
 
-### _function_ <a id="ac1e49be" href="#ac1e49be">writeImage</a>
+### function <a id="gad6dc94a496288bc08a7a16b20e509ac0" href="#gad6dc94a496288bc08a7a16b20e509ac0">writeImage</a>
 
 ```cpp
-bool writeImage (
-    const std::string & path,
-    const void * src,
-    int width,
-    int height,
-    ffw::ImageType format,
-    int quality = 100,
-    int mips = 1
-) 
-```
-
-
-
-### _function_ <a id="fd2661e9" href="#fd2661e9">readImage</a>
-
-```cpp
-bool readImage (
-    const std::string & path,
-    ffw::ImageBuffer & image
-) 
-```
-
-
-
-### _function_ <a id="2c1dd671" href="#2c1dd671">writeImage</a>
-
-```cpp
-bool writeImage (
-    const std::string & path,
-    const ffw::ImageBuffer & image,
+bool media::writeImage (
+    const std::string & path
+    const void * src
+    int width
+    int height
+    ffw::ImageType format
     int quality = 100
-) 
+    int mips = 1
+)
 ```
 
 
 
-### _function_ <a id="d3cfdde0" href="#d3cfdde0">readObj</a>
+### function <a id="gac28da3874e34bde73f3d8b116c34dda0" href="#gac28da3874e34bde73f3d8b116c34dda0">readImage</a>
 
 ```cpp
-bool readObj (
-    const std::string & path,
-    float ** vertices,
-    unsigned int * numVertices
-) 
+bool media::readImage (
+    const std::string & path
+    ffw::ImageBuffer & image
+)
 ```
 
 
+
+### function <a id="ga23e75b6f8951cfb8067a2682229aacb6" href="#ga23e75b6f8951cfb8067a2682229aacb6">writeImage</a>
+
+```cpp
+bool media::writeImage (
+    const std::string & path
+    const ffw::ImageBuffer & image
+    int quality = 100
+)
+```
+
+
+
+### function <a id="ga6c79e9458a338f0003e5313f667641b3" href="#ga6c79e9458a338f0003e5313f667641b3">readObj</a>
+
+```cpp
+bool media::readObj (
+    const std::string & path
+    float ** vertices
+    unsigned int * numVertices
+)
+```
 
 
 
