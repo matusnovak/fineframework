@@ -2,17 +2,17 @@
 
 This tutorial will explain the basics hidden behind vectors. However, you are expected to know basics of linear algebra, such as vector addition.
 
-There are four vector classes you can use: ffw::Vec2 ffw::Vec3 ffw::Vec4 and ffw::Vec. All of these classes are templates and can hold any data type you choose to use. For example, if you want 3 component vector, for example to represent a position in 3D space, you might use **ffw::Vec3\<double\>** or **ffw::Vec3\<float\>**. For less typing, multiple typedefs are provided to you such as ffw::Vec3d (double) ffw::Vec3f (float) ffw::Vec3i (int), this also applies for 2D and 4D vectors: **ffw::Vec2d, ffw::Vec2f, ffw::Vec2i, ffw::Vec4d, ffw::Vec4f, ffw::Vec4i.** 
+There are four vector classes you can use: ffw::Vec2 ffw::Vec3 ffw::Vec4 and ffw::Vec. All of these classes are templates and can hold any data type you choose to use. For example, if you want 3 component vector, for example to represent a position in 3D space, you might use **ffw::Vec3<double>** or **ffw::Vec3<float>**. For less typing, multiple typedefs are provided to you such as ffw::Vec3d (double) ffw::Vec3f (float) ffw::Vec3i (int), this also applies for 2D and 4D vectors: **ffw::Vec2d, ffw::Vec2f, ffw::Vec2i, ffw::Vec4d, ffw::Vec4f, ffw::Vec4i.** 
 
-The ffw::Vec (notice no number) is a special vector, as it can hold any number of components. Do you need 1000 component vector? No problem. The maximum number of components it can hold is the limit of std::size_t (or SIZE_MAX) which is more than plenty. Note that when declaring your massive vector, you have to provide data type (same as ffw::Vec2\<double\> etc...) but also number of components. For example: **ffw::Vec\<double, 1000\>**
+The ffw::Vec (notice no number) is a special vector, as it can hold any number of components. Do you need 1000 component vector? No problem. The maximum number of components it can hold is the limit of std::size_t (or SIZE_MAX) which is more than plenty. Note that when declaring your massive vector, you have to provide data type (same as ffw::Vec2<double> etc...) but also number of components. For example: **ffw::Vec<double, 1000>**
 
-The **ffw::Vec\<double, 1000\>** does not have a constructor that acceps 1000 parameters. However, it acceps an initializer list, which is a curly bracket list such as: `ffw::Vec<double, 6> vec({1, 2, 3, 4, 5, 6})`. You can also use the [ ] operator to access individual elements: `vec[0] = 2.0; // 1st component is now 2.0`
+The **ffw::Vec<double, 1000>** does not have a constructor that acceps 1000 parameters. However, it acceps an initializer list, which is a curly bracket list such as: `ffw::Vec<double, 6> vec({1, 2, 3, 4, 5, 6})`. You can also use the [ ] operator to access individual elements: `vec[0] = 2.0; // 1st component is now 2.0`
 
 *Please note, do not mistake `a * b` operation as a dot product! The asterisk will multiply all components in component wise order and return a new vector. To use dot use `ffw::dot(a, b)` instead.*
 
 ## The basic operations
 
-Initializing vector can be done via the constructor, or via set() function. Note that the ffw::Vec\<T, S\> does not have a typical constructor!
+Initializing vector can be done via the constructor, or via set() function. Note that the ffw::Vec<T, S> does not have a typical constructor!
 
 ```cpp
 // Initializing vector

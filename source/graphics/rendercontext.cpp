@@ -474,8 +474,7 @@ void ffw::RenderContext::drawStringFunc(float posx, float posy, const ffw::Font*
         glScissor(int(floor(scissorX)), viewport.w - int(floor(scissorY) + ceil(scissorH)), int(ceil(scissorW)), int(ceil(scissorH)));
     }
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glBlendFuncSeparate(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA, GL_ONE, GL_ONE);
     
     fontShader.bind();
 
