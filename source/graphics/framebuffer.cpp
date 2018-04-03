@@ -54,132 +54,22 @@ bool ffw::Framebuffer::create(){
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addDepthTexture(const ffw::Texture2D* depthtexture, int mip){
-    if(!created_ || depthtexture == NULL)return false;
-    
+bool ffw::Framebuffer::addTexture(GLenum attachment, GLuint textype, GLuint texture, GLint level) const {
+    if (!created_ || texture == NULL)return false;
+
     bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthtexture->getHandle(), mip);
-    
+    glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, textype, texture, level);
+
     return true;
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addColorTexture(const ffw::Texture2D* colortexture, int mip){
-    if(!created_ || colortexture == NULL)return false;
-
-    // Check if number of color attachments is lower than the maximum
-    GLint maxColorAttachments;
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxColorAttachments);
-    if (colorcount_ > maxColorAttachments){
-        return false;
-    }
+bool ffw::Framebuffer::addRenderbuffer(GLenum attachment, GLuint texture) const {
+    if (!created_ || texture == NULL)return false;
 
     bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D, colortexture->getHandle(), mip);
-    
-    colorcount_++;
-    return true;
-}
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, texture);
 
-///=============================================================================
-bool ffw::Framebuffer::addCubemapTexture(const ffw::TextureCubemap* texture, int side, int mip) {
-    if(!created_ || texture == NULL)return false;
-
-    // Check if number of color attachments is lower than the maximum
-    GLint maxColorAttachments;
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxColorAttachments);
-    if (colorcount_ > maxColorAttachments){
-        return false;
-    }
-
-    bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, texture->getHandle(), mip);
-    
-    colorcount_++;
-    return true;
-}
-
-///=============================================================================
-bool ffw::Framebuffer::addDepthRenderbuffer(const ffw::Renderbuffer2D* depthrenderbuffer){
-    if(!created_ || depthrenderbuffer == NULL)return false;
-    
-    bind();
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
-    
-    return true;
-}
-
-///=============================================================================
-bool ffw::Framebuffer::addColorRenderbuffer(const ffw::Renderbuffer2D* colorrenderbuffer){
-    if(!created_ || colorrenderbuffer == NULL)return false;
-
-    // Check if number of color attachments is lower than the maximum
-    GLint maxColorAttachments;
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxColorAttachments);
-    if (colorcount_ > maxColorAttachments){
-        return false;
-    }
-
-    bind();
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
-    
-    colorcount_++;
-    return true;
-}
-
-///=============================================================================
-bool ffw::Framebuffer::addDepthTextureMS(const ffw::Texture2DMS* depthtexture, int mip){
-    if(!created_ || depthtexture == NULL)return false;
-    
-    bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D_MULTISAMPLE, depthtexture->getHandle(), mip);
-    
-    return true;
-}
-
-///=============================================================================
-bool ffw::Framebuffer::addColorTextureMS(const ffw::Texture2DMS* colortexture, int mip){
-    if(!created_ || colortexture == NULL)return false;
-
-    // Check if number of color attachments is lower than the maximum
-    GLint maxColorAttachments;
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxColorAttachments);
-    if (colorcount_ > maxColorAttachments){
-        return false;
-    }
-
-    bind();
-    glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_TEXTURE_2D_MULTISAMPLE, colortexture->getHandle(), mip);
-    
-    colorcount_++;
-    return true;
-}
-
-///=============================================================================
-bool ffw::Framebuffer::addDepthRenderbufferMS(const ffw::Renderbuffer2DMS* depthrenderbuffer){
-    if(!created_ || depthrenderbuffer == NULL)return false;
-    
-    bind();
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthrenderbuffer->getHandle());
-    
-    return true;
-}
-
-///=============================================================================
-bool ffw::Framebuffer::addColorRenderbufferMS(const ffw::Renderbuffer2DMS* colorrenderbuffer){
-    if(!created_ || colorrenderbuffer == NULL)return false;
-    
-    // Check if number of color attachments is lower than the maximum
-    GLint maxColorAttachments;
-    glGetIntegerv(GL_MAX_COLOR_ATTACHMENTS, &maxColorAttachments);
-    if (colorcount_ > maxColorAttachments){
-        return false;
-    }
-
-    bind();
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0 + colorcount_, GL_RENDERBUFFER, colorrenderbuffer->getHandle());
-    
-    colorcount_++;
     return true;
 }
 
