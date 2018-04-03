@@ -88,7 +88,8 @@ namespace ffw {
     public:
         PromiseResult() {
         }
-        PromiseResult(const T& result):result(result) {
+        template<typename E>
+        PromiseResult(const E& result):result(result) {
         }
         PromiseResult(T&& result):result(result) {
         }
@@ -232,6 +233,30 @@ namespace ffw {
         template<typename TT>
         static typename arg1_traits_impl<TT>::arg1_type arg1_type_helper(TT);
 #endif
+        static Promise<T> makeResolved(PromiseResult<T>&& value) {
+            Promise<T> ret;
+            ret.resolve(std::forward<T>(value));
+            return ret;
+        }
+
+        static Promise<T> makeResolved() {
+            Promise<T> ret;
+            ret.resolve(PromiseResult<T>());
+            return ret;
+        }
+
+        template<typename E, typename... Args>
+        static Promise<T> makeRejected(Args&&... args) {
+            Promise<T> ret;
+            try {
+                throw E(std::forward<Args>(args)...);
+            }
+            catch (...) {
+                ret.reject(std::current_exception());
+            }
+            return ret;
+        }
+
         /**
          * @brief Default constructor with no lambda function
          */

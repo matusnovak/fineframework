@@ -819,3 +819,42 @@ TEST_CASE("Resolve via std::thread advanced") {
     REQUIRE(p.getResult().get() == "1764");
     REQUIRE(p2.getResult().get() == 1764);
 }
+
+TEST_CASE("Resolve promise on instantination") {
+    SECTION("integer type") {
+        auto p = ffw::Promise<int>::makeResolved(123);
+        REQUIRE(p.isResolved() == true);
+        REQUIRE(p.getResult() == 123);
+    }
+
+    SECTION("void type") {
+        auto p = ffw::Promise<void>::makeResolved();
+        REQUIRE(p.isResolved() == true);
+    }
+
+    SECTION("string type") {
+        auto p = ffw::Promise<std::string>::makeResolved("Hello World");
+        REQUIRE(p.isResolved() == true);
+        REQUIRE(p.getResult().get() == "Hello World");
+    }
+}
+
+TEST_CASE("Reject promise on instantination") {
+    SECTION("integer type") {
+        auto p = ffw::Promise<int>::makeRejected<std::out_of_range>("Some error message");
+        REQUIRE(p.isRejected() == true);
+        REQUIRE_THROWS_AS(p.getResult(), std::out_of_range);
+    }
+
+    SECTION("void type") {
+        auto p = ffw::Promise<void>::makeRejected<std::exception>();
+        REQUIRE(p.isRejected() == true);
+        REQUIRE_THROWS_AS(p.getResult(), std::exception);
+    }
+
+    SECTION("string type") {
+        auto p = ffw::Promise<std::string>::makeRejected<std::runtime_error>("Some error message");
+        REQUIRE(p.isRejected() == true);
+        REQUIRE_THROWS_AS(p.getResult(), std::runtime_error);
+    }
+}

@@ -198,8 +198,7 @@ void ffw::RenderContext::beginFrame() const {
     if (!initialized)return;
 
     glGetIntegerv(GL_VIEWPORT, &viewport.x);
-    float pxRatio = (float)viewport[2] / (float)viewport[3];
-    nvgBeginFrame(vg, viewport[2], viewport[3], pxRatio);
+    nvgBeginFrame(vg, viewport[2], viewport[3], 1);
     projection = ffw::makeOrthoMatrix<float>((float)viewport[0], (float)viewport[0] + viewport[2], (float)viewport[1] + viewport[3], (float)viewport[1], -1, 1);
     drawExecuted = false;
 }

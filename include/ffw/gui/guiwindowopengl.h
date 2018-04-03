@@ -228,7 +228,7 @@ namespace ffw {
         }
         virtual void setScissors(const ffw::Vec2f& p, const ffw::Vec2f& s) const override {
             context->setScissor(floor(p.x), floor(p.y), ceil(s.x), ceil(s.y));
-            scissors.set(p.x, p.y, s.x, s.y);
+            scissors.set(int(p.x), int(p.y), int(s.x), int(s.y));
         }
         virtual void clearWithColor(const ffw::Color& color) const override {
             ffw::Vec4i viewport;
@@ -260,26 +260,32 @@ namespace ffw {
         inline bool create(RenderContext* ctx) override {
             if(ctx == NULL)return false;
             context = ctx;
+            const auto width = std::min(int(getSize().x), 4);
+            const auto height = std::min(int(getSize().x), 4);
             
-            if(!fboTexture.create(128, 128, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE))
+            if (!fboTexture.create(width, height, GL_RGBA8, GL_RGBA, GL_UNSIGNED_BYTE))
+                return false;
+
+            if (!fboStencil.create(width, height, GL_STENCIL_INDEX8))
                 return false;
             
-            if(!fbo.create())
+            if (!fbo.create())
                 return false;
             
             fbo.bind();
-            if(!fbo.addColorTexture(&fboTexture))
-                return false;
-            
+            fbo.addColorTexture(&fboTexture);
+            fbo.addStencilBuffer(&fboStencil);
             fbo.unbind();
             return true;
         }
         inline void destroy() override {
             fboTexture.destroy();
+            fboStencil.destroy();
             fbo.destroy();
         }
         inline void resize(int width, int height) override {
             fboTexture.resize(width, height);
+            fboStencil.resize(width, height);
         }
         inline void startRender() override {
             fbo.bind();
@@ -300,6 +306,7 @@ namespace ffw {
     private:
         ffw::Framebuffer fbo;
         ffw::Texture2D fboTexture;
+        ffw::Renderbuffer2D fboStencil;
         ffw::Vec4i viewport;
     };
 }
