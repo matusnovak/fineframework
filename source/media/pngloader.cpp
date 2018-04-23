@@ -52,10 +52,10 @@ bool ffw::PngLoader::open(const std::string& path){
         return false;
     }
 
-    uint8_t* header = new uint8_t[8];
-    fread(header, 1, 8, input);
+    std::unique_ptr<uint8_t[]> header(new uint8_t[8]);
+    fread(header.get(), 1, 8, input);
 
-    if(png_sig_cmp(header, 0, 8)){
+    if(png_sig_cmp(header.get(), 0, 8)){
         fclose(input);
         return false;
     }

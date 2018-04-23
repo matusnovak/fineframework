@@ -77,7 +77,7 @@ static void TestImage(
 
     REQUIRE(size == height * stride);
 
-    std::unique_ptr<unsigned char> rawbytes(new unsigned char[size]);
+    std::unique_ptr<unsigned char[]> rawbytes(new unsigned char[size]);
 
     // Read RAW image
     raw.read((char*)rawbytes.get(), size);

@@ -189,7 +189,7 @@ TEST_CASE("Reject promise within its body") {
 }
 
 TEST_CASE("Resolve chaining") {
-    static std::shared_ptr<int> somePtr(new int[10]);
+    static std::shared_ptr<int> somePtr(new int[10], std::default_delete<int[]>());
     static float resolvedFloat = 0;
     static bool resolvedBool = false;
     static std::string resolvedString;
@@ -300,7 +300,7 @@ TEST_CASE("Resolve chaining with middle fail and catch at the end") {
     });
 
 
-    ffw::Promise<int>& f4 = p2.fail([&](const std::exception_ptr& eptr) -> void {
+    ffw::Promise<int> f4 = p2.fail([&](const std::exception_ptr& eptr) -> void {
         try {
             std::rethrow_exception(eptr);
         } catch (std::invalid_argument& e) {

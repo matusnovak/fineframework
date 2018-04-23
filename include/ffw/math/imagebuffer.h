@@ -275,9 +275,7 @@ namespace ffw {
             std::swap(mipmaps, second.mipmaps);
         }
         inline void destroy() {
-            if (ptr != NULL) {
-                ptr.reset();
-            }
+            ptr.reset();
             format = ffw::ImageType::INVALID;
             width = 0;
             depth = 0;
@@ -325,7 +323,7 @@ namespace ffw {
             return ImageFormat::operator==(other) && mipmaps == other.mipmaps && ptr == other.ptr;
         }
     private:
-        std::unique_ptr<unsigned char> ptr;
+        std::unique_ptr<unsigned char[]> ptr;
         int mipmaps;
     };
     /**

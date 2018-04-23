@@ -190,7 +190,7 @@ namespace ffw {
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
         struct Data {
             std::function<void(Promise<T>&)> func;
-            std::list<PromiseI*> next;
+            std::list<std::unique_ptr<PromiseI>> next;
             std::exception_ptr eptr;
             PromiseResult<T> result;
             std::atomic<Status> status;
@@ -434,7 +434,7 @@ namespace ffw {
         Promise<R>& then(Then const& lambda) {
             const auto& lambdaFail = [](const std::exception_ptr& eptr) {(void)eptr; };
             Promise<R>* ret = makePromise<const std::exception_ptr&, Then, decltype(lambdaFail), R>(data.get(), lambda, lambdaFail);
-            data->next.push_back(ret);
+            data->next.push_back(std::unique_ptr<PromiseI>(ret));
             if(data->status.load() != Status::WAITING) {
                 ret->call();
             }
@@ -479,7 +479,7 @@ namespace ffw {
         Promise<T>& fail(Fail const& lambdaFail) {
             const auto& lambdaThen = [](T val) -> T {return val; };
             Promise<T>* ret = makePromise<typename std::decay<decltype(arg1_type_helper(&Fail::operator()))>::type, decltype(lambdaThen), Fail, T>(data.get(), lambdaThen, lambdaFail);
-            data->next.push_back(ret);
+            data->next.push_back(std::unique_ptr<PromiseI>(ret));
             if(data->status.load() != Status::WAITING) {
                 ret->call();
             }
@@ -493,7 +493,7 @@ namespace ffw {
         template<typename Then, typename Fail, typename R = typename PromiseLambdaHelper<Then, T>::returnType>
         Promise<R>& thenOrFail(Then const& lambdaThen, Fail const& lambdaFail) {
             Promise<R>* ret = makePromise<typename std::decay<decltype(arg1_type_helper(&Fail::operator()))>::type, Then, decltype(lambdaFail), R>(data.get(), lambdaThen, lambdaFail);
-            data->next.push_back(ret);
+            data->next.push_back(std::unique_ptr<PromiseI>(ret));
             if(data->status.load() != Status::WAITING) {
                 ret->call();
             }
@@ -632,7 +632,7 @@ namespace ffw {
     Promise<void>& Promise<void>::fail(Fail const& lambdaFail) {
         const auto& lambdaThen = []() -> void {return; };
         Promise<void>* ret = makePromise<typename std::decay<decltype(arg1_type_helper(&Fail::operator()))>::type, decltype(lambdaThen), Fail, void>(data.get(), lambdaThen, lambdaFail);
-        data->next.push_back(ret);
+        data->next.push_back(std::unique_ptr<PromiseI>(ret));
         if(data->status.load() != Status::WAITING) {
             ret->call();
         }
