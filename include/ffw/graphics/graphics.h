@@ -15,7 +15,7 @@ namespace ffw{
             format(0),
             type(0){
         }
-        inline OpenGLImageType(GLint inter, GLenum form, GLenum typ):
+        inline OpenGLImageType(const GLint inter, const GLenum form, const GLenum typ):
             internalFormat(inter),
             format(form),
             type(typ){

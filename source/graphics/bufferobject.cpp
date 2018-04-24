@@ -4,36 +4,36 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-ffw::BufferObject::BufferObject(unsigned int objecttype):objecttype_(objecttype) {
-    loaded_ = false;
-    type_ = GL_FALSE;
-    size_ = 0;
-    buffer_ = 0;
+ffw::BufferObject::BufferObject(const GLenum objecttype):objecttype(objecttype) {
+    loaded = false;
+    type = GL_FALSE;
+    size = 0;
+    buffer = 0;
 }
 
 ///=============================================================================
-ffw::BufferObject::BufferObject(BufferObject&& other):objecttype_(other.objecttype_) {
-    loaded_ = false;
-    type_ = GL_FALSE;
-    size_ = 0;
-    buffer_ = 0;
+ffw::BufferObject::BufferObject(BufferObject&& other) NOEXCEPT :objecttype(other.objecttype) {
+    loaded = false;
+    type = GL_FALSE;
+    size = 0;
+    buffer = 0;
     swap(other);
 }
 
 ///=============================================================================
-void ffw::BufferObject::swap(BufferObject& other) {
+void ffw::BufferObject::swap(BufferObject& other) NOEXCEPT {
     using std::swap;
     if(this != &other) {
-        swap(objecttype_, other.objecttype_);
-        swap(loaded_, other.loaded_);
-        swap(type_, other.type_);
-        swap(size_, other.size_);
-        swap(buffer_, other.buffer_);
+        swap(objecttype, other.objecttype);
+        swap(loaded, other.loaded);
+        swap(type, other.type);
+        swap(size, other.size);
+        swap(buffer, other.buffer);
     }
 }
 
 ///=============================================================================
-ffw::BufferObject& ffw::BufferObject::operator = (BufferObject&& other) {
+ffw::BufferObject& ffw::BufferObject::operator = (BufferObject&& other) NOEXCEPT {
     if(this != &other) {
         swap(other);
     }
@@ -46,8 +46,8 @@ ffw::BufferObject::~BufferObject(){
 }
 
 ///=============================================================================
-bool ffw::BufferObject::create(const void* data, GLsizei size, GLenum type){
-    if(loaded_)return false;
+bool ffw::BufferObject::create(const GLvoid* data, const GLsizei size, const GLenum type){
+    if(loaded)return false;
 
     // is buffer type correct GL type?
     if(!(type == GL_STATIC_DRAW || type == GL_DYNAMIC_DRAW || type == GL_STREAM_DRAW)){
@@ -55,120 +55,127 @@ bool ffw::BufferObject::create(const void* data, GLsizei size, GLenum type){
     }
 
     // Remember the type of buffer we are going to create
-    type_ = type;
+    this->type = type;
     // Remember length of buffer
-    size_ = size;
+    this->size = size;
     // Generate buffer
-    glGenBuffers(1, &buffer_);
+    glGenBuffers(1, &buffer);
     // bind buffer
-    glBindBuffer(objecttype_, buffer_);
+    glBindBuffer(objecttype, buffer);
     // set buffer initial data
-    glBufferData(objecttype_, size, data, type);
+    glBufferData(objecttype, size, data, type);
     // UnBind buffer
-    //gl_->glBindBuffer(objecttype_, 0);
-    loaded_ = true;
+    loaded = true;
     return true;
 }
 
 ///=============================================================================
-bool ffw::BufferObject::resize(const void* data, GLsizei size) {
-    if (!loaded_)return false;
+bool ffw::BufferObject::resize(const GLvoid* data, const GLsizei size) {
+    if (!loaded)return false;
     // bind buffer
-    glBindBuffer(objecttype_, buffer_);
+    glBindBuffer(objecttype, buffer);
     // set buffer initial data
-    glBufferData(objecttype_, size, data, type_);
+    glBufferData(objecttype, size, data, type);
     // Remember length of buffer
-    size_ = size;
+    this->size = size;
     return true;
 }
 
 ///=============================================================================
-bool ffw::BufferObject::setData(const void* data, GLsizei offset, GLsizei size){
-    if (!loaded_)return false;
+bool ffw::BufferObject::setData(const GLvoid* data, const GLsizei offset, const GLsizei size) {
+    if (!loaded)return false;
     // Do not upload new data if buffer is not dynamic/stream
-    if(!(type_ == GL_STREAM_DRAW || type_ == GL_DYNAMIC_DRAW))return false;
+    if(!(type == GL_STREAM_DRAW || type == GL_DYNAMIC_DRAW))return false;
     // Upload new data
-    glBindBuffer(objecttype_, buffer_);
-    glBufferSubData(objecttype_, offset, size, data);
-    //gl_->glBindBuffer(objecttype_, 0);
+    glBindBuffer(objecttype, buffer);
+    glBufferSubData(objecttype, offset, size, data);
     return true;
 }
 
 ///=============================================================================
-bool ffw::BufferObject::getData(void* data, GLsizei offset, GLsizei size) {
-    if (!loaded_)return false;
-    glBindBuffer(objecttype_, buffer_);
-    glGetBufferSubData(objecttype_, offset, size, data);
+bool ffw::BufferObject::getData(GLvoid* data, const GLsizei offset, const GLsizei size) {
+    if (!loaded)return false;
+    glBindBuffer(objecttype, buffer);
+    glGetBufferSubData(objecttype, offset, size, data);
     return true;
 }
 
 ///=============================================================================
-bool ffw::BufferObject::copyFrom(const BufferObject* other, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size){
-    if(other == NULL)return false;
-    if(!loaded_)return false;
+std::vector<uint8_t> ffw::BufferObject::getData(const GLsizei offset, const GLsizei size) {
+    std::vector<uint8_t> ret;
+    if (!loaded)return ret;
+
+    ret.resize(size);
+    getData(&ret[0], offset, size);
+    return ret;
+}
+
+///=============================================================================
+bool ffw::BufferObject::copyFrom(const BufferObject* other, const GLintptr readoffset, 
+    const GLintptr writeoffset, const GLsizeiptr size){
+
+    if(other == nullptr)return false;
+    if(!loaded)return false;
     if(!other->isCreated())return false;
 
     glBindBuffer(GL_COPY_READ_BUFFER, other->getHandle());
-    glBindBuffer(GL_COPY_WRITE_BUFFER, buffer_);
+    glBindBuffer(GL_COPY_WRITE_BUFFER, buffer);
 
     glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, readoffset, writeoffset, size);
 
     return true;
 }
 
-/*///=============================================================================
-ffw::BufferObject& ffw::BufferObject::operator = (const ffw::BufferObject& Other){
-    if(!Other.destroy())return *this;
-
-    type = Other.getType();
-    size = Other.getSize();
-    objectType = Other.getObjectType();
-
-    if(loaded)gl_->glDeleteBuffers(1, &buffer);
-    CreateBuffer(NULL, size, type);
-
-    gl_->glBindBuffer(GL_COPY_READ_BUFFER, Other.getHandle());
-    gl_->glBindBuffer(GL_COPY_WRITE_BUFFER, buffer);
-
-    gl_->glCopyBufferSubData(GL_COPY_READ_BUFFER, GL_COPY_WRITE_BUFFER, 0, 0, Other.getSize());
-    loaded = true;
-    return *this;
-}*/
-
 ///=============================================================================
-bool ffw::BufferObject::mapBuffer(void** pointer, GLenum access) const {
-    if(!loaded_)return true;
-    *pointer = glMapBuffer(objecttype_, access);
+bool ffw::BufferObject::mapBuffer(GLvoid** pointer, const GLenum access) const {
+    if(!loaded || pointer == nullptr)return false;
+    *pointer = glMapBuffer(objecttype, access);
     return true;
 }
 
 ///=============================================================================
 bool ffw::BufferObject::unMapBuffer() const {
-    if(!loaded_)return true;
-    glUnmapBuffer(objecttype_);
+    if(!loaded)return false;
+    glUnmapBuffer(objecttype);
+    return true;
+}
+
+///=============================================================================
+bool ffw::BufferObject::mapBufferRange(GLvoid** pointer, const GLenum access, 
+    const GLsizei offset, const GLsizei size) const {
+
+    if (!loaded || pointer == nullptr)return false;
+    *pointer = glMapBufferRange(objecttype, offset, size, access);
+    return true;
+}
+
+///=============================================================================
+bool ffw::BufferObject::flushMappedBufferRange(const GLsizei offset, const GLsizei size) const {
+    if (!loaded)return false;
+    glFlushMappedBufferRange(objecttype, offset, size);
     return true;
 }
 
 ///=============================================================================
 void ffw::BufferObject::destroy(){
     // Delete buffer
-    if(loaded_)glDeleteBuffers(1, &buffer_);
-    loaded_ = false;
+    if(loaded)glDeleteBuffers(1, &buffer);
+    loaded = false;
     //initialized = false;
-    size_ = 0;
-    type_ = GL_FALSE;
+    size = 0;
+    type = GL_FALSE;
 }
 
 ///=============================================================================
 void ffw::BufferObject::bind() const {
     // bind buffer
-    if(loaded_)glBindBuffer(objecttype_, buffer_);
+    if(loaded)glBindBuffer(objecttype, buffer);
 }
 
 ///=============================================================================
 void ffw::BufferObject::unbind() const {
     // UnBind buffer
-    glBindBuffer(objecttype_, 0);
+    glBindBuffer(objecttype, 0);
 }
 
 

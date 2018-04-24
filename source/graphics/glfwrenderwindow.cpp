@@ -494,14 +494,14 @@ bool ffw::GLFWRenderWindow::isGlextExtSupported(const std::string& name) const {
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::setSwapInterval(int Interval){
+void ffw::GLFWRenderWindow::setSwapInterval(int interval){
     if(!pimpl->initialized)return;
-    glfwSwapInterval(Interval);
+    glfwSwapInterval(interval);
 }
 
 ///=============================================================================
-void ffw::GLFWRenderWindow::setSingleBufferMode(bool Enabled){
-    pimpl->singleBuffer = Enabled;
+void ffw::GLFWRenderWindow::setSingleBufferMode(bool enabled){
+    pimpl->singleBuffer = enabled;
 }
 
 ///=============================================================================

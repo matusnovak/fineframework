@@ -22,7 +22,7 @@ namespace ffw {
         /**
         * @brief Pointer to an icon image buffer
         */
-        const ImageBuffer* icon = NULL;
+        const ImageBuffer* icon = nullptr;
         /**
         * @brief Can the user resize the window?
         */
@@ -75,6 +75,8 @@ namespace ffw {
         static std::vector<Monitor::Mode> getMonitorModes(Monitor monitor);
 
         GLFWRenderWindow();
+        GLFWRenderWindow(const GLFWRenderWindow&) = delete;
+        GLFWRenderWindow(GLFWRenderWindow&& other) NOEXCEPT;
         virtual ~GLFWRenderWindow();
         void setPos(int posx, int posy) override;
         void setSize(int width, int height) override;
@@ -92,7 +94,7 @@ namespace ffw {
         *     - The \e OS OpenGL version \e is less than 1.1
         *     - The \a target \a size is not supported by the \b monitor \b (only when fullscreen)
         */
-        bool create(const GLFWRenderWindowArgs& args, GLFWRenderWindow* other, Monitor* monitor = NULL);
+        bool create(const GLFWRenderWindowArgs& args, GLFWRenderWindow* other, Monitor* monitor = nullptr);
         /**
         * @brief Sets the window into windowed mode, if the window was in maximized mode
         */
@@ -127,9 +129,7 @@ namespace ffw {
         void setSingleBufferMode(bool enabled) override;
         // Disable copy operator and copy constructor
         GLFWRenderWindow& operator = (const GLFWRenderWindow&) = delete;
-        GLFWRenderWindow(const GLFWRenderWindow&) = delete;
-        GLFWRenderWindow(GLFWRenderWindow&& other);
-        GLFWRenderWindow& operator = (GLFWRenderWindow&& other);
+        GLFWRenderWindow& operator = (GLFWRenderWindow&& other) NOEXCEPT;
         struct windowCallback;
         friend struct windowCallback;
     protected:

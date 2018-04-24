@@ -10,23 +10,22 @@ ffw::Font::Font() {
     sizePoints = 0;
     sizePixels = 0;
     sizeDpi = 0;
-    loaded = 0;
-}
-
-///=============================================================================
-ffw::Font::~Font() {
+    loaded = false;
+    alphaOnlyFlag = false;
 }
 
 ///=============================================================================
 template<class T>
-ffw::Vec2f ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, float maxWidth, float lineHeight) const {
+ffw::Vec2f ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, 
+    const float maxWidth, const float lineHeight) const {
+
     if (!isCreated())return ffw::Vec2i(0, 0);
 
     auto wrapper = ffw::TextWrapper<T>(&str[0], &str[0] + str.size());
     ffw::Vec2f ret;
 
     auto height = 0.0f;
-    bool previousWasNewline = false;
+    auto previousWasNewline = false;
     while (auto token = wrapper.next(this, maxWidth)) {
         auto advance = 0.0f;
 
@@ -61,11 +60,15 @@ ffw::Vec2f ffw::Font::getStringSizeFunc(const std::basic_string<T>& str, float m
 }
 
 ///=============================================================================
-ffw::Vec2f ffw::Font::getStringSize(const std::wstring& str, float maxWidth, float lineHeight) const {
+ffw::Vec2f ffw::Font::getStringSize(const std::wstring& str, 
+    const float maxWidth, const float lineHeight) const {
+
     return getStringSizeFunc<wchar_t>(str, maxWidth, lineHeight);
 }
 
 ///=============================================================================
-ffw::Vec2f ffw::Font::getStringSize(const std::string& str, float maxWidth, float lineHeight) const {
+ffw::Vec2f ffw::Font::getStringSize(const std::string& str, 
+    const float maxWidth, const float lineHeight) const {
+
     return getStringSizeFunc<char>(str, maxWidth, lineHeight);
 }
