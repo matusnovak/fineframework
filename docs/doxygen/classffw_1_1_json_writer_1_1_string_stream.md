@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::JsonWriter::StringStream', 'StringStream', '~StringStream', 'write', 'get', 'write']
+search: false
 ---
 
 # class ffw::JsonWriter::StringStream

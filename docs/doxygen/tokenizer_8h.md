@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['tokenizer.h', 'ffw::Tokenizer']
+search: false
 ---
 
 # file tokenizer.h

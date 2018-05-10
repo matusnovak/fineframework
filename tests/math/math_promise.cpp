@@ -18,14 +18,55 @@ TEST_CASE("Resolve promise and get status") {
     REQUIRE(p.isResolved() == true);
     REQUIRE(p.getStatus() == ffw::Promise<int>::Status::RESOLVED);
     REQUIRE(p.getResult() == 123);
+}
 
-    p.resolve(456);
+TEST_CASE("Resolve promise and get std::future") {
+    ffw::Promise<int> p;
+
+    std::future<int> future = p.getFuture();
+    REQUIRE(future.valid() == true);
+
+    std::future_status status = future.wait_for(std::chrono::milliseconds(10));
+    REQUIRE(status == std::future_status::timeout);
+
+    p.resolve(123);
+
+    status = future.wait_for(std::chrono::milliseconds(10));
+    REQUIRE(status == std::future_status::ready);
+
+    REQUIRE(future.valid() == true);
+    REQUIRE(future.get() == 123);
+}
+
+TEST_CASE("Resolve promise second time must fail") {
+    ffw::Promise<int> p;
+
+    REQUIRE(p.isFinished() == false);
+    REQUIRE(p.isRejected() == false);
+    REQUIRE(p.isResolved() == false);
+    REQUIRE(p.getStatus() == ffw::Promise<int>::Status::WAITING);
+
+    p.resolve(123);
+
+    REQUIRE_THROWS_AS(p.resolve(456), std::future_error);
+}
+
+TEST_CASE("Resolve void promise and get status") {
+    ffw::Promise<void> p;
+
+    REQUIRE(p.isFinished() == false);
+    REQUIRE(p.isRejected() == false);
+    REQUIRE(p.isResolved() == false);
+    REQUIRE(p.getStatus() == ffw::Promise<int>::Status::WAITING);
+    p.getResult();
+
+    p.resolve();
 
     REQUIRE(p.isFinished() == true);
     REQUIRE(p.isRejected() == false);
     REQUIRE(p.isResolved() == true);
     REQUIRE(p.getStatus() == ffw::Promise<int>::Status::RESOLVED);
-    REQUIRE(p.getResult() == 456);
+    p.getResult();
 }
 
 TEST_CASE("Reject promise and get status") {
@@ -48,19 +89,6 @@ TEST_CASE("Reject promise and get status") {
     REQUIRE(p.getStatus() == ffw::Promise<int>::Status::REJECTED);
     
     REQUIRE_THROWS_AS(p.getResult(), std::runtime_error);
-
-    try {
-        throw std::invalid_argument("Something went wrong invalid argument!");
-    } catch(...) {
-        p.reject(std::current_exception());
-    }
-
-    REQUIRE(p.isFinished() == true);
-    REQUIRE(p.isRejected() == true);
-    REQUIRE(p.isResolved() == false);
-    REQUIRE(p.getStatus() == ffw::Promise<int>::Status::REJECTED);
-    
-    REQUIRE_THROWS_AS(p.getResult(), std::invalid_argument);
 }
 
 TEST_CASE("Resolve promise and call child") {
@@ -82,11 +110,6 @@ TEST_CASE("Resolve promise and call child") {
 
     REQUIRE(called == true);
     REQUIRE(calledResult == 123);
-
-    p.resolve(456);
-
-    REQUIRE(called == true);
-    REQUIRE(calledResult == 456);
 }
 
 TEST_CASE("Reject promise and call child") {
@@ -121,16 +144,6 @@ TEST_CASE("Reject promise and call child") {
     REQUIRE(called == false);
     REQUIRE(exception == true);
     REQUIRE(exceptionMsg == "Something went wrong!");
-
-    try {
-        throw std::invalid_argument("Hello World!");
-    } catch (...) {
-        p.reject(std::current_exception());
-    }
-
-    REQUIRE(called == false);
-    REQUIRE(exception == true);
-    REQUIRE(exceptionMsg == "Hello World!");
 }
 
 TEST_CASE("Resolve promise within its body") {
@@ -691,6 +704,72 @@ TEST_CASE("Capture any exception") {
     REQUIRE(then1 == false);
 }
 
+TEST_CASE("Resolve promise chain and get std::future") {
+    ffw::Promise<int> p;
+
+    ffw::Promise<std::string> result = p.then([](int val) -> bool {
+        return true;
+    }).then([](bool val) -> float {
+        return 123.456f;
+    }).then([](float val) -> std::string {
+        return "Hello World!";
+    });
+
+    std::future<std::string> future = result.getFuture();
+
+    p.resolve(123);
+
+    std::future_status status = future.wait_for(std::chrono::milliseconds(10));
+    REQUIRE(status == std::future_status::ready);
+
+    REQUIRE(future.valid() == true);
+    REQUIRE(future.get() == "Hello World!");
+}
+
+std::thread doThreadStuffThread;
+ffw::Promise<int> doThreadStuffPromise;
+
+ffw::Promise<int> doThreadStuff(int value) {
+    doThreadStuffPromise = ffw::Promise<int>([=](ffw::Promise<int>& self){
+        self.resolve(value * value);
+    });
+
+    doThreadStuffThread = std::thread([&](){
+        std::this_thread::sleep_for(std::chrono::microseconds(100));
+        doThreadStuffPromise.call();
+    });
+
+    return doThreadStuffPromise;
+}
+
+TEST_CASE("Resolve promise within thread and get std::future") {
+    ffw::Promise<int> result = doThreadStuff(5);
+    std::future<int> future = result.getFuture();
+
+    doThreadStuffThread.join();
+
+    std::future_status status = future.wait_for(std::chrono::milliseconds(10));
+    REQUIRE(status == std::future_status::ready);
+
+    REQUIRE(future.valid() == true);
+    REQUIRE(future.get() == 25);
+}
+
+TEST_CASE("Resolve promise chain within thread and get std::future") {
+    ffw::Promise<int> result = doThreadStuff(5);
+    std::future<float> future = result.then([](int val) -> float {
+        return float(val);
+    }).getFuture();
+
+    doThreadStuffThread.join();
+
+    std::future_status status = future.wait_for(std::chrono::milliseconds(10));
+    REQUIRE(status == std::future_status::ready);
+
+    REQUIRE(future.valid() == true);
+    REQUIRE(future.get() == Approx(25.0f));
+}
+
 TEST_CASE("Doc example") {
     static bool lastCalled = false;
 
@@ -753,7 +832,7 @@ public:
     }
 
     void threadFunc() {
-        for(ffw::PromiseI* promise : promises) {
+        for(ffw::PromiseInterface* promise : promises) {
             promise->call();
             delete promise;
         }
@@ -766,7 +845,7 @@ public:
     }
 
     // Not thread safe but good enough for the test
-    std::vector<ffw::PromiseI*> promises;
+    std::vector<ffw::PromiseInterface*> promises;
     std::thread thread;
 };
 
@@ -788,8 +867,8 @@ TEST_CASE("Resolve via std::thread") {
         return std::stoi(str);
     });
 
-    REQUIRE(p2.getResult().get() == "1764");
-    REQUIRE(p3.getResult().get() == 1764);
+    REQUIRE(p2.getResult() == "1764");
+    REQUIRE(p3.getResult() == 1764);
 }
 
 ffw::Promise<std::string> doStuff(ffw::Promise<std::string>& ret, Worker* worker) {
@@ -816,8 +895,8 @@ TEST_CASE("Resolve via std::thread advanced") {
     worker.execute();
     worker.join();
 
-    REQUIRE(p.getResult().get() == "1764");
-    REQUIRE(p2.getResult().get() == 1764);
+    REQUIRE(p.getResult() == "1764");
+    REQUIRE(p2.getResult() == 1764);
 }
 
 TEST_CASE("Resolve promise on instantination") {
@@ -833,9 +912,9 @@ TEST_CASE("Resolve promise on instantination") {
     }
 
     SECTION("string type") {
-        auto p = ffw::Promise<std::string>::makeResolved("Hello World");
+        auto p = ffw::Promise<std::string>::makeResolved(std::string("Hello World"));
         REQUIRE(p.isResolved() == true);
-        REQUIRE(p.getResult().get() == "Hello World");
+        REQUIRE(p.getResult() == "Hello World");
     }
 }
 

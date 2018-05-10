@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiwindowopengl.h', 'ffw::GuiWindowOpenGL', 'ffw::GuiWindowOpenGLFBO', 'FFW_GUI_WINDOW_OPENGL', 'FLOAT_EQUAL']
+search: false
 ---
 
 # file guiwindowopengl.h

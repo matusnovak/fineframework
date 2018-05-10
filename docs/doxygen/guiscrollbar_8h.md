@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiscrollbar.h', 'ffw::GuiScrollBar', 'ffw::GuiScrollBar::ButtonLeft', 'ffw::GuiScrollBar::ButtonLeft::Style', 'ffw::GuiScrollBar::ButtonRight', 'ffw::GuiScrollBar::ButtonRight::Style', 'ffw::GuiScrollBar::ButtonTop', 'ffw::GuiScrollBar::ButtonTop::Style', 'ffw::GuiScrollBar::ButtonBottom', 'ffw::GuiScrollBar::ButtonBottom::Style', 'ffw::GuiScrollBar::Scroll', 'ffw::GuiScrollBar::Scroll::Style', 'ffw::GuiScrollBar::Style']
+search: false
 ---
 
 # file guiscrollbar.h

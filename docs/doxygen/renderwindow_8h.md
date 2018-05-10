@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['renderwindow.h', 'ffw::RenderWindow']
+search: false
 ---
 
 # file renderwindow.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guibuttontoggle.h', 'ffw::GuiButtonToggle', 'ffw::GuiButtonTogglePrimary']
+search: false
 ---
 
 # file guibuttontoggle.h

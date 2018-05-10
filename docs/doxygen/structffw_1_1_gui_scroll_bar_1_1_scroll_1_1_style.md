@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiScrollBar::Scroll::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiScrollBar::Scroll::Style

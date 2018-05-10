@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['stringmath.h', 'ffw::FileInfo']
+search: false
 ---
 
 # file stringmath.h

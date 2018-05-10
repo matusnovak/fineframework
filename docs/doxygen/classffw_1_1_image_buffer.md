@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::ImageBuffer', 'ImageBuffer', 'ImageBuffer', 'ImageBuffer', '~ImageBuffer', 'isAllocated', 'operator bool', 'getNumOfMipMaps', 'swap', 'destroy', 'allocate', 'getPtr', 'getPtr', 'getMipMapPtr', 'getMipMapPtr', 'getSize', 'operator=', 'operator=', 'operator==', 'ImageFormat', 'ImageFormat', 'ImageFormat', 'getImageType', 'getWidth', 'getHeight', 'getDepth', 'getStrideSize', 'getBitsPerPixel', 'getBitDepth', 'getNumberOfChannels', 'isCompressed', 'getMipMapSize', 'getMipMapPtrOffset', 'swap', 'operator=', 'getAllocationSize', 'operator==']
+search: false
 ---
 
 # class ffw::ImageBuffer

@@ -1,6 +1,7 @@
 #include <ffw/graphics.h>
 #include <ffw/math.h>
 #include <fstream>
+#include <iostream>
 
 #define TEXTURE_SIZE (512*512*3)
 static unsigned char pixels[TEXTURE_SIZE];

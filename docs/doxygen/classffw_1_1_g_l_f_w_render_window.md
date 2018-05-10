@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GLFWRenderWindow', 'windowCallback', 'getMonitors', 'getPrimaryMonitor', 'getMonitorModes', 'GLFWRenderWindow', '~GLFWRenderWindow', 'setPos', 'setSize', 'getPos', 'getSize', 'create', 'setWindowedMode', 'setWindowedMode', 'setFullscreen', 'destroy', 'shouldRender', 'renderFrame', 'poolEvents', 'waitForEvents', 'isInitialized', 'getGlextFunc', 'isGlextExtSupported', 'setSwapInterval', 'shouldClose', 'show', 'hide', 'iconify', 'restore', 'maximize', 'setSingleBufferMode', 'operator=', 'GLFWRenderWindow', 'GLFWRenderWindow', 'operator=', 'setPos', 'setSize', 'getPos', 'getSize', 'destroy', 'shouldRender', 'renderFrame', 'poolEvents', 'waitForEvents', 'isInitialized', 'shouldClose', 'show', 'hide', 'iconify', 'restore', 'maximize', 'setSingleBufferMode', 'RenderContext', '~RenderContext', 'getGlextFunc', 'isGlextExtSupported', 'initDrawing', 'beginFrame', 'endFrame', 'moveTo', 'setDrawColor', 'setFillColor', 'setStrokeColor', 'setFillPaint', 'setStrokePaint', 'createLinearGradient', 'createBoxGradient', 'createRadialGradient', 'drawQuad', 'drawRectangle', 'drawRectangleRounded', 'drawRectangleRounded', 'drawTriangle', 'drawTexture2D', 'drawTexture2DMirror', 'drawTexture2DSub', 'drawTexture2DSubMirror', 'drawArc', 'drawCircle', 'drawLine', 'drawString', 'drawString', 'drawString', 'drawString', 'drawStringBox', 'drawStringBox', 'drawStringBox', 'drawStringBox', 'drawBezier', 'setDrawMode', 'setFillMode', 'setStrokeMode', 'setFillAndStrokeMode', 'setShapeAntiAlis', 'setStrokeSize', 'setStrokeMiterLimit', 'setLineCap', 'setLineJoin', 'setScissor', 'setIntersectScissor', 'resetScissor', 'beginPath', 'drawLineTo', 'drawBezierTo', 'drawQuadTo', 'drawArcTo', 'closePath', 'fillPath', 'strokePath', 'setPathWinding', 'saveDrawState', 'restoreDrawState', 'resetDrawState', 'resetTransform', 'transformMove', 'transformRotate', 'transformSkewX', 'transformSkewY', 'transformScale', 'transform', 'getTransform', 'getOpenGLTransform', 'setup', 'render', 'close', 'textInputEvent', 'keyPressedEvent', 'mouseMovedEvent', 'mouseScrollEvent', 'mouseButtonEvent', 'windowResizedEvent', 'windowMovedEvent', 'windowCloseEvent', 'windowFocusEvent', 'filesDroppedEvent']
+search: false
 ---
 
 # class ffw::GLFWRenderWindow
@@ -13,7 +12,7 @@ Inherits the following classes: **[ffw::RenderWindow](classffw_1_1_render_window
 
 |Type|Name|
 |-----|-----|
-|friend struct|[**windowCallback**](classffw_1_1_g_l_f_w_render_window.md#1a32cd6707329e9a8ab3327e355b0b86cf)|
+|friend struct|[**WindowCallback**](classffw_1_1_g_l_f_w_render_window.md#1aa9ce49bf936f0534f9a65485ec2948ab)|
 
 
 ## Public Static Functions
@@ -22,7 +21,7 @@ Inherits the following classes: **[ffw::RenderWindow](classffw_1_1_render_window
 |-----|-----|
 |static std::vector< **[Monitor](structffw_1_1_monitor.md)** >|[**getMonitors**](classffw_1_1_g_l_f_w_render_window.md#1a9322f71069b0a8eca7a2ffbed380d747) () <br>Returns a vector of all physical monitors available. |
 |static **[Monitor](structffw_1_1_monitor.md)**|[**getPrimaryMonitor**](classffw_1_1_g_l_f_w_render_window.md#1a194bb6f61cb37b82e5bc36044038ecca) () <br>Returns the primary monitor defined by the OS. |
-|static std::vector< **[Monitor::Mode](structffw_1_1_monitor_1_1_mode.md)** >|[**getMonitorModes**](classffw_1_1_g_l_f_w_render_window.md#1a2e26de6f763e57f759dc37ef21ea7d43) (**[Monitor](structffw_1_1_monitor.md)** monitor) <br>Returns all possible modes for the given monitor. |
+|static std::vector< **[Monitor::Mode](structffw_1_1_monitor_1_1_mode.md)** >|[**getMonitorModes**](classffw_1_1_g_l_f_w_render_window.md#1a3f30fab4dcd88712adf0c2f86605b4e5) (const **[Monitor](structffw_1_1_monitor.md)** & monitor) <br>Returns all possible modes for the given monitor. |
 
 
 ## Public Functions
@@ -30,35 +29,42 @@ Inherits the following classes: **[ffw::RenderWindow](classffw_1_1_render_window
 |Type|Name|
 |-----|-----|
 ||[**GLFWRenderWindow**](classffw_1_1_g_l_f_w_render_window.md#1ad7b858761fcfdcff4231e934aa953bbb) () |
-|virtual |[**~GLFWRenderWindow**](classffw_1_1_g_l_f_w_render_window.md#1ae324e9a10f9443609e0d276d03e325dc) () |
-|virtual void|[**setPos**](classffw_1_1_g_l_f_w_render_window.md#1aca827a5d7969a24e8d46bac1d4d4802a) (int posx, int posy) override <br>Sets the position of the window. |
-|virtual void|[**setSize**](classffw_1_1_g_l_f_w_render_window.md#1a3d8f1ff605e89c2a57692a71d585d3f3) (int width, int height) override <br>Sets the size of the window. |
-|virtual **[ffw::Vec2i](group__math_.md#ga8ac6bae8a24d96d0223a29ecfff14570)**|[**getPos**](classffw_1_1_g_l_f_w_render_window.md#1a458bda82627135f13216484261f51385) () override const |
-|virtual **[ffw::Vec2i](group__math_.md#ga8ac6bae8a24d96d0223a29ecfff14570)**|[**getSize**](classffw_1_1_g_l_f_w_render_window.md#1a0a1fc0217f145e7908f85f31b6556114) () override const |
-|bool|[**create**](classffw_1_1_g_l_f_w_render_window.md#1a762e6bc42f85bd389534b83785aed85f) (const **[GLFWRenderWindowArgs](structffw_1_1_g_l_f_w_render_window_args.md)** & args, **[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** \* other, **[Monitor](structffw_1_1_monitor.md)** \* monitor = NULL) <br>Creates the window. |
-|void|[**setWindowedMode**](classffw_1_1_g_l_f_w_render_window.md#1ad9cef4fd74e3f331b7da512ff6e70e0d) () <br>Sets the window into windowed mode, if the window was in maximized mode. |
-|void|[**setWindowedMode**](classffw_1_1_g_l_f_w_render_window.md#1ae4e3d3c032aac8c77584d218a4144b78) (int posx, int posy, int width, int height) <br>Sets the window into windowed mode with specific size and position. |
-|void|[**setFullscreen**](classffw_1_1_g_l_f_w_render_window.md#1a5a59d5ac1c38901701cf15b673535794) (const **[Monitor](structffw_1_1_monitor.md)** \* monitor) <br>Sets the window into fullscreen mode. |
-|virtual void|[**destroy**](classffw_1_1_g_l_f_w_render_window.md#1a9878a9b746d9ef330b37487b7bdbcbaa) () override <br>Destroys the window and it's context. |
-|virtual bool|[**shouldRender**](classffw_1_1_g_l_f_w_render_window.md#1a5f3698cf9788b2f958d74491cd6e7d84) () override const <br>Returns true if the window is not closed. |
-|virtual void|[**renderFrame**](classffw_1_1_g_l_f_w_render_window.md#1aab017fb39fee155108bd31340b3c291d) () override <br>Renders a frame. |
-|virtual void|[**poolEvents**](classffw_1_1_g_l_f_w_render_window.md#1ae25f76f373e20a7c1b8212ed579674a7) () override <br>Pools all user input events, if any. |
-|virtual void|[**waitForEvents**](classffw_1_1_g_l_f_w_render_window.md#1ab5a5f146c818f7860e9efcdc930b0977) () override <br>Pools all user input events and waits if there is none. |
-|virtual bool|[**isInitialized**](classffw_1_1_g_l_f_w_render_window.md#1ab6c7e6dd7db988ac6b0e882a9bdfd0d5) () override const <br>Returns true if the window is initialized. |
-|virtual void \*|[**getGlextFunc**](classffw_1_1_g_l_f_w_render_window.md#1acb0a1fa3a63717bf115c4054af0bc554) (const std::string & name) override const <br>Retuns the address of the GL extension function. |
-|virtual bool|[**isGlextExtSupported**](classffw_1_1_g_l_f_w_render_window.md#1afbb6742cf5c16894a2dfb37a290a036a) (const std::string & name) override const <br>Returns true if the GL extension is suported. |
-|void|[**setSwapInterval**](classffw_1_1_g_l_f_w_render_window.md#1a1135d7e9261e9b484e03ea10edddb110) (int interval) |
-|virtual void|[**shouldClose**](classffw_1_1_g_l_f_w_render_window.md#1a8f82af7870873ad5926f7ed401622aee) (bool close) override <br>Set whether the window should close or stay alive. |
-|virtual void|[**show**](classffw_1_1_g_l_f_w_render_window.md#1a0e98b25541b758258360aa23a7d15170) () override <br>Shows the window if the window has been hidden. |
-|virtual void|[**hide**](classffw_1_1_g_l_f_w_render_window.md#1a5a491781ee464bb3728b6d61aae65c1b) () override <br>Hides the window if the window is visible. |
-|virtual void|[**iconify**](classffw_1_1_g_l_f_w_render_window.md#1ae12d6561764be7e94708fd614c2d1cbd) () override <br>Minimizes the window into the task bar. |
-|virtual void|[**restore**](classffw_1_1_g_l_f_w_render_window.md#1a19a534b8551ee1e7620d0d166267faa9) () override <br>Restores minimized window into a visible window. |
-|virtual void|[**maximize**](classffw_1_1_g_l_f_w_render_window.md#1ab0e4d8b3e04eb3a192a3d78b3a265567) () override <br>Maximizes the window in order to utilize whole screen. |
-|virtual void|[**setSingleBufferMode**](classffw_1_1_g_l_f_w_render_window.md#1ac1760a20cdd503e090568cbb0e865b21) (bool enabled) override <br>Sets whether the window should operate using two buffets (back and front) or only in one. |
-|**[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** &|[**operator=**](classffw_1_1_g_l_f_w_render_window.md#1a7e4c5c6a7178bac96d24867ebf339701) (const **[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** &) = delete |
 ||[**GLFWRenderWindow**](classffw_1_1_g_l_f_w_render_window.md#1aa76cc1468168f5c9b0f5df80b96b53e5) (const **[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** &) = delete |
 ||[**GLFWRenderWindow**](classffw_1_1_g_l_f_w_render_window.md#1a3ddd9b8e36d3d696b55cd42e4467bc88) (**[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** && other) |
+|virtual |[**~GLFWRenderWindow**](classffw_1_1_g_l_f_w_render_window.md#1ae324e9a10f9443609e0d276d03e325dc) () |
+|virtual void|[**setPos**](classffw_1_1_g_l_f_w_render_window.md#1aca827a5d7969a24e8d46bac1d4d4802a) (int posx, int posy) override <br>Sets the position of the window relative to the framebuffer. |
+|virtual void|[**setSize**](classffw_1_1_g_l_f_w_render_window.md#1a3d8f1ff605e89c2a57692a71d585d3f3) (int width, int height) override <br>Sets the size of the window's framebuffer. |
+|virtual **[ffw::Vec2i](group__math_.md#ga8ac6bae8a24d96d0223a29ecfff14570)**|[**getPos**](classffw_1_1_g_l_f_w_render_window.md#1a458bda82627135f13216484261f51385) () override const <br>Returns the position of the window relative to the framebuffer (not relative to the OS specific border around the window) |
+|virtual **[ffw::Vec2i](group__math_.md#ga8ac6bae8a24d96d0223a29ecfff14570)**|[**getSize**](classffw_1_1_g_l_f_w_render_window.md#1a0a1fc0217f145e7908f85f31b6556114) () override const <br>Returns the size of the window's framebuffer (does not include the OS specific border) |
+|bool|[**create**](classffw_1_1_g_l_f_w_render_window.md#1ab4e6f58daec03aea68f7a25c29d05bfd) (const **[GLFWRenderWindowArgs](structffw_1_1_g_l_f_w_render_window_args.md)** & args, **[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** \* other, **[Monitor](structffw_1_1_monitor.md)** \* monitor = nullptr) <br>Creates the window. |
+|void|[**setWindowedMode**](classffw_1_1_g_l_f_w_render_window.md#1adee8f61afec51f6d36fef46fdaca9be9) () const <br>Sets the window into windowed mode, if the window was in maximized mode. |
+|void|[**setWindowedMode**](classffw_1_1_g_l_f_w_render_window.md#1ad4dd2e28a2749b6408ad2a80016f7567) (int posx, int posy, int width, int height) const <br>Sets the window into windowed mode with specific size and position. |
+|void|[**setFullscreen**](classffw_1_1_g_l_f_w_render_window.md#1a03b05f858f76ab4ae9c600d671fafd8f) (const **[Monitor](structffw_1_1_monitor.md)** \* monitor) const <br>Sets the window into fullscreen mode. |
+|virtual void|[**destroy**](classffw_1_1_g_l_f_w_render_window.md#1a9878a9b746d9ef330b37487b7bdbcbaa) () override <br>Destroys the window and its context. |
+|virtual bool|[**shouldRender**](classffw_1_1_g_l_f_w_render_window.md#1a5f3698cf9788b2f958d74491cd6e7d84) () override const <br>Returns true if **[shouldClose()](classffw_1_1_g_l_f_w_render_window.md#1a8f82af7870873ad5926f7ed401622aee)** has been set to true. |
+|virtual void|[**renderFrame**](classffw_1_1_g_l_f_w_render_window.md#1aab017fb39fee155108bd31340b3c291d) () override <br>Renders the frame by setting up the context and calling protected method **[render()](classffw_1_1_g_l_f_w_render_window.md#1a3e6badb607370da3adc99b42f88314ff)** |
+|virtual void|[**poolEvents**](classffw_1_1_g_l_f_w_render_window.md#1ae25f76f373e20a7c1b8212ed579674a7) () override <br>Processes all user events. |
+|virtual void|[**waitForEvents**](classffw_1_1_g_l_f_w_render_window.md#1ab5a5f146c818f7860e9efcdc930b0977) () override <br>Waits for user events and processes them all. |
+|virtual bool|[**isInitialized**](classffw_1_1_g_l_f_w_render_window.md#1ab6c7e6dd7db988ac6b0e882a9bdfd0d5) () override const <br>Returns true if the window has been initialized. |
+|virtual void \*|[**getGlextFunc**](classffw_1_1_g_l_f_w_render_window.md#1acb0a1fa3a63717bf115c4054af0bc554) (const std::string & name) override const <br>Returns the address of the specified function for the current context. |
+|virtual bool|[**isGlextExtSupported**](classffw_1_1_g_l_f_w_render_window.md#1afbb6742cf5c16894a2dfb37a290a036a) (const std::string & name) override const <br>Returns wheter given GL extension is supported. |
+|void|[**setSwapInterval**](classffw_1_1_g_l_f_w_render_window.md#1ac971cae93c26a2019f943e2a5fb05e24) (int interval) const <br>Sets swap interval (enables or disables V-sync) |
+|virtual void|[**shouldClose**](classffw_1_1_g_l_f_w_render_window.md#1a8f82af7870873ad5926f7ed401622aee) (bool close) override <br>Sets the internal should close flag. |
+|virtual void|[**show**](classffw_1_1_g_l_f_w_render_window.md#1a0e98b25541b758258360aa23a7d15170) () override <br>Makes the window visible. |
+|virtual void|[**hide**](classffw_1_1_g_l_f_w_render_window.md#1a5a491781ee464bb3728b6d61aae65c1b) () override <br>Makes the window hidden. |
+|virtual void|[**iconify**](classffw_1_1_g_l_f_w_render_window.md#1ae12d6561764be7e94708fd614c2d1cbd) () override <br>Iconifies the specified window. |
+|virtual void|[**restore**](classffw_1_1_g_l_f_w_render_window.md#1a19a534b8551ee1e7620d0d166267faa9) () override <br>Restores the specified window. |
+|virtual void|[**maximize**](classffw_1_1_g_l_f_w_render_window.md#1ab0e4d8b3e04eb3a192a3d78b3a265567) () override <br>Maximizes the specified window. |
+|virtual void|[**setSingleBufferMode**](classffw_1_1_g_l_f_w_render_window.md#1ac1760a20cdd503e090568cbb0e865b21) (bool enabled) override <br>Sets single buffer mode. |
+|**[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** &|[**operator=**](classffw_1_1_g_l_f_w_render_window.md#1a7e4c5c6a7178bac96d24867ebf339701) (const **[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** &) = delete |
 |**[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** &|[**operator=**](classffw_1_1_g_l_f_w_render_window.md#1a4fd98edb7a0aa7683147388b6ca6afc0) (**[GLFWRenderWindow](classffw_1_1_g_l_f_w_render_window.md)** && other) |
+
+
+#### Public Functions inherited from [ffw::RenderWindow](classffw_1_1_render_window.md)
+
+|Type|Name|
+|-----|-----|
+|virtual |[**~RenderWindow**](classffw_1_1_render_window.md#1a0c1ec1126da519d82a2281cbf9c8736a) () = default |
 
 
 #### Public Functions inherited from [ffw::RenderContext](classffw_1_1_render_context.md)
@@ -172,10 +178,10 @@ Inherits the following classes: **[ffw::RenderWindow](classffw_1_1_render_window
 
 ## Friends Documentation
 
-### friend <a id="1a32cd6707329e9a8ab3327e355b0b86cf" href="#1a32cd6707329e9a8ab3327e355b0b86cf">windowCallback</a>
+### friend <a id="1aa9ce49bf936f0534f9a65485ec2948ab" href="#1aa9ce49bf936f0534f9a65485ec2948ab">WindowCallback</a>
 
 ```cpp
-friend struct windowCallback;
+friend struct WindowCallback;
 ```
 
 
@@ -200,11 +206,11 @@ static Monitor ffw::GLFWRenderWindow::getPrimaryMonitor ()
 Returns the primary monitor defined by the OS. 
 
 
-### function <a id="1a2e26de6f763e57f759dc37ef21ea7d43" href="#1a2e26de6f763e57f759dc37ef21ea7d43">getMonitorModes</a>
+### function <a id="1a3f30fab4dcd88712adf0c2f86605b4e5" href="#1a3f30fab4dcd88712adf0c2f86605b4e5">getMonitorModes</a>
 
 ```cpp
 static std::vector< Monitor::Mode > ffw::GLFWRenderWindow::getMonitorModes (
-    Monitor monitor
+    const Monitor & monitor
 )
 ```
 
@@ -217,6 +223,26 @@ Returns all possible modes for the given monitor.
 
 ```cpp
 ffw::GLFWRenderWindow::GLFWRenderWindow ()
+```
+
+
+
+### function <a id="1aa76cc1468168f5c9b0f5df80b96b53e5" href="#1aa76cc1468168f5c9b0f5df80b96b53e5">GLFWRenderWindow</a>
+
+```cpp
+ffw::GLFWRenderWindow::GLFWRenderWindow (
+    const GLFWRenderWindow & 
+) = delete
+```
+
+
+
+### function <a id="1a3ddd9b8e36d3d696b55cd42e4467bc88" href="#1a3ddd9b8e36d3d696b55cd42e4467bc88">GLFWRenderWindow</a>
+
+```cpp
+ffw::GLFWRenderWindow::GLFWRenderWindow (
+    GLFWRenderWindow && other
+)
 ```
 
 
@@ -239,7 +265,15 @@ virtual void ffw::GLFWRenderWindow::setPos (
 ```
 
 Overrides **[RenderWindow::setPos](classffw_1_1_render_window.md#1a555c078b31cabb0093fe2775949617a1)**
-Sets the position of the window. 
+Sets the position of the window relative to the framebuffer. 
+
+
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1a3d8f1ff605e89c2a57692a71d585d3f3" href="#1a3d8f1ff605e89c2a57692a71d585d3f3">setSize</a>
@@ -252,7 +286,15 @@ virtual void ffw::GLFWRenderWindow::setSize (
 ```
 
 Overrides **[RenderWindow::setSize](classffw_1_1_render_window.md#1a5e8e8ff90cc10668fd094f014a1d4443)**
-Sets the size of the window. 
+Sets the size of the window's framebuffer. 
+
+
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1a458bda82627135f13216484261f51385" href="#1a458bda82627135f13216484261f51385">getPos</a>
@@ -262,6 +304,7 @@ virtual ffw::Vec2i ffw::GLFWRenderWindow::getPos () const
 ```
 
 Overrides **[RenderWindow::getPos](classffw_1_1_render_window.md#1aa315da9361cd782570780a3cc2c774af)**
+Returns the position of the window relative to the framebuffer (not relative to the OS specific border around the window) 
 
 
 ### function <a id="1a0a1fc0217f145e7908f85f31b6556114" href="#1a0a1fc0217f145e7908f85f31b6556114">getSize</a>
@@ -271,15 +314,16 @@ virtual ffw::Vec2i ffw::GLFWRenderWindow::getSize () const
 ```
 
 Overrides **[RenderWindow::getSize](classffw_1_1_render_window.md#1a595588b6d95c29495cd0928e8af747ca)**
+Returns the size of the window's framebuffer (does not include the OS specific border) 
 
 
-### function <a id="1a762e6bc42f85bd389534b83785aed85f" href="#1a762e6bc42f85bd389534b83785aed85f">create</a>
+### function <a id="1ab4e6f58daec03aea68f7a25c29d05bfd" href="#1ab4e6f58daec03aea68f7a25c29d05bfd">create</a>
 
 ```cpp
 bool ffw::GLFWRenderWindow::create (
     const GLFWRenderWindowArgs & args
     GLFWRenderWindow * other
-    Monitor * monitor = NULL
+    Monitor * monitor = nullptr
 )
 ```
 
@@ -296,6 +340,13 @@ Creates the window.
 
 
 
+**Note:**
+
+This function must only be called from the main thread. 
+
+
+
+
 **Returns:**
 
 Will return false if:
@@ -303,23 +354,33 @@ Will return false if:
 * The target size (width or height) defined by args is zero or less
 * The GLFW failed due to missing OpenGL or there is no display to output to (running in terminal only)
 * The _OS_ OpenGL version _is_ less than 1.1
-* The _target_ _size_ is not supported by the **monitor** ****(only when fullscreen) 
+* The _target_ _size_ is not supported by the **monitor** ****(only when fullscreen)
+* The Microsoft GDI software OpenGL implementation is the only one available.
+* Some X11 window managers will not respect the placement of initially hidden windows. 
 
 
 
 
 
 
-### function <a id="1ad9cef4fd74e3f331b7da512ff6e70e0d" href="#1ad9cef4fd74e3f331b7da512ff6e70e0d">setWindowedMode</a>
+### function <a id="1adee8f61afec51f6d36fef46fdaca9be9" href="#1adee8f61afec51f6d36fef46fdaca9be9">setWindowedMode</a>
 
 ```cpp
-void ffw::GLFWRenderWindow::setWindowedMode ()
+void ffw::GLFWRenderWindow::setWindowedMode () const
 ```
 
 Sets the window into windowed mode, if the window was in maximized mode. 
 
 
-### function <a id="1ae4e3d3c032aac8c77584d218a4144b78" href="#1ae4e3d3c032aac8c77584d218a4144b78">setWindowedMode</a>
+
+**Note:**
+
+This function must only be called from the main thread.
+
+
+This function sets the window in windowed mode. This function does not update the height, width, or position. Instead, it uses the last size and position before entering fullscreen mode. 
+
+### function <a id="1ad4dd2e28a2749b6408ad2a80016f7567" href="#1ad4dd2e28a2749b6408ad2a80016f7567">setWindowedMode</a>
 
 ```cpp
 void ffw::GLFWRenderWindow::setWindowedMode (
@@ -327,23 +388,38 @@ void ffw::GLFWRenderWindow::setWindowedMode (
     int posy
     int width
     int height
-)
+) const
 ```
 
 Sets the window into windowed mode with specific size and position. 
 
 
-### function <a id="1a5a59d5ac1c38901701cf15b673535794" href="#1a5a59d5ac1c38901701cf15b673535794">setFullscreen</a>
+
+**Note:**
+
+This function must only be called from the main thread.
+
+
+This function sets the window in windowed mode. This function also updates the widh, height, and position. 
+
+### function <a id="1a03b05f858f76ab4ae9c600d671fafd8f" href="#1a03b05f858f76ab4ae9c600d671fafd8f">setFullscreen</a>
 
 ```cpp
 void ffw::GLFWRenderWindow::setFullscreen (
     const Monitor * monitor
-)
+) const
 ```
 
 Sets the window into fullscreen mode. 
 
-You will need to change the size of the window with **[setSize()](classffw_1_1_g_l_f_w_render_window.md#1a3d8f1ff605e89c2a57692a71d585d3f3)** 
+
+
+**Note:**
+
+This function must only be called from the main thread.
+
+
+This function sets the monitor that the window uses for full screen mode. When setting a monitor, this function updates the width, height and refresh rate of the desired video mode and switches to the video mode closest to it. The window position is ignored when setting a monitor. 
 
 ### function <a id="1a9878a9b746d9ef330b37487b7bdbcbaa" href="#1a9878a9b746d9ef330b37487b7bdbcbaa">destroy</a>
 
@@ -352,7 +428,15 @@ virtual void ffw::GLFWRenderWindow::destroy ()
 ```
 
 Overrides **[RenderWindow::destroy](classffw_1_1_render_window.md#1aa2da20ab3804b6087420b48c8eb18736)**
-Destroys the window and it's context. 
+Destroys the window and its context. 
+
+
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1a5f3698cf9788b2f958d74491cd6e7d84" href="#1a5f3698cf9788b2f958d74491cd6e7d84">shouldRender</a>
@@ -362,9 +446,8 @@ virtual bool ffw::GLFWRenderWindow::shouldRender () const
 ```
 
 Overrides **[RenderWindow::shouldRender](classffw_1_1_render_window.md#1a1ebad2106b42ec4f771a69bc3a3fb082)**
-Returns true if the window is not closed. 
+Returns true if **[shouldClose()](classffw_1_1_g_l_f_w_render_window.md#1a8f82af7870873ad5926f7ed401622aee)** has been set to true. 
 
-When **[shouldClose()](classffw_1_1_g_l_f_w_render_window.md#1a8f82af7870873ad5926f7ed401622aee)** is called with a 'true' boolean value, this function will then return false 
 
 ### function <a id="1aab017fb39fee155108bd31340b3c291d" href="#1aab017fb39fee155108bd31340b3c291d">renderFrame</a>
 
@@ -373,8 +456,9 @@ virtual void ffw::GLFWRenderWindow::renderFrame ()
 ```
 
 Overrides **[RenderWindow::renderFrame](classffw_1_1_render_window.md#1adca1e202f3dc76ab2423090551676a3c)**
-Renders a frame. 
+Renders the frame by setting up the context and calling protected method **[render()](classffw_1_1_g_l_f_w_render_window.md#1a3e6badb607370da3adc99b42f88314ff)** 
 
+This function makes the OpenGL or OpenGL ES context of the specified window current on the calling thread. A context can only be made current on a single thread at a time and each thread can have only a single current context at a time. This function also calls glViewport with the current window's framebuffer size. 
 
 ### function <a id="1ae25f76f373e20a7c1b8212ed579674a7" href="#1ae25f76f373e20a7c1b8212ed579674a7">poolEvents</a>
 
@@ -383,9 +467,9 @@ virtual void ffw::GLFWRenderWindow::poolEvents ()
 ```
 
 Overrides **[RenderWindow::poolEvents](classffw_1_1_render_window.md#1ab804b9ad96a1c7c1b21d90860f01e01c)**
-Pools all user input events, if any. 
+Processes all user events. 
 
-This is blocking function that will return whenever there are any events in the queue. If you wish to wait for the user first, see **[waitForEvents()](classffw_1_1_g_l_f_w_render_window.md#1ab5a5f146c818f7860e9efcdc930b0977)** 
+This function processes only those events that are already in the event queue and then returns immediately. Processing events will cause the window and input callbacks associated with those events to be called. On some platforms, a window move, resize will cause event processing to block. This is due to how event processing is designed on those platforms. You can use the window refresh callback to redraw the contents of your window when necessary during such operations. 
 
 ### function <a id="1ab5a5f146c818f7860e9efcdc930b0977" href="#1ab5a5f146c818f7860e9efcdc930b0977">waitForEvents</a>
 
@@ -394,9 +478,16 @@ virtual void ffw::GLFWRenderWindow::waitForEvents ()
 ```
 
 Overrides **[RenderWindow::waitForEvents](classffw_1_1_render_window.md#1ae421509ca35010cbd7db71f8c11946ca)**
-Pools all user input events and waits if there is none. 
+Waits for user events and processes them all. 
 
-This is blocking function that will not return unless there is at least one user event. If you wish to have continuous rendering, even if there are no user events, use **[poolEvents()](classffw_1_1_g_l_f_w_render_window.md#1ae25f76f373e20a7c1b8212ed579674a7)** 
+
+
+**Note:**
+
+This function must only be called from the main thread.
+
+
+This function puts the calling thread to sleep until at least one event is available in the event queue. Once one or more events are available, it behaves exactly like poolEvents, i.e. the events in the queue are processed and the function then returns immediately. Processing events will cause the window and input callbacks associated with those events to be called. Since not all events are associated with callbacks, this function may return without a callback having been called even if you are monitoring all callbacks. On some platforms, a window move, resize or menu operation will cause event processing to block. This is due to how event processing is designed on those platforms. You can use the window refresh callback to redraw the contents of your window when necessary during such operations. 
 
 ### function <a id="1ab6c7e6dd7db988ac6b0e882a9bdfd0d5" href="#1ab6c7e6dd7db988ac6b0e882a9bdfd0d5">isInitialized</a>
 
@@ -405,7 +496,15 @@ virtual bool ffw::GLFWRenderWindow::isInitialized () const
 ```
 
 Overrides **[RenderWindow::isInitialized](classffw_1_1_render_window.md#1a72fc237b45f777dd7f4dbeb014b0b616)**
-Returns true if the window is initialized. 
+Returns true if the window has been initialized. 
+
+
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1acb0a1fa3a63717bf115c4054af0bc554" href="#1acb0a1fa3a63717bf115c4054af0bc554">getGlextFunc</a>
@@ -417,9 +516,17 @@ virtual void * ffw::GLFWRenderWindow::getGlextFunc (
 ```
 
 Overrides **[RenderContext::getGlextFunc](classffw_1_1_render_context.md#1add007968b520cde93577b6b858f029a9)**
-Retuns the address of the GL extension function. 
+Returns the address of the specified function for the current context. 
 
-The pointer to the GL extension function may not be the same on different GL contexts! 
+This function returns the address of the specified OpenGL or OpenGL ES core or extension function, if it is supported by the current context. A context must be current on the calling thread. Calling this function without a current context will cause a GLFW\_NO\_CURRENT\_CONTEXT error. 
+```cpp
+PFNGLACTIVETEXTUREPROC myGlActiveTexture = getGlextFunc("glActiveTexture");
+if (myGlActiveTexture != nullptr) {
+    std::cout << "myGlActiveTexture is loaded" << std::endl;
+}
+```
+
+ 
 
 ### function <a id="1afbb6742cf5c16894a2dfb37a290a036a" href="#1afbb6742cf5c16894a2dfb37a290a036a">isGlextExtSupported</a>
 
@@ -430,17 +537,25 @@ virtual bool ffw::GLFWRenderWindow::isGlextExtSupported (
 ```
 
 Overrides **[RenderContext::isGlextExtSupported](classffw_1_1_render_context.md#1a3e75b86b22be32db52bd370ad435fd34)**
-Returns true if the GL extension is suported. 
+Returns wheter given GL extension is supported. 
 
-Checks if an GLEXT extension is supported, for example "GL\_ARB\_debug\_output" 
 
-### function <a id="1a1135d7e9261e9b484e03ea10edddb110" href="#1a1135d7e9261e9b484e03ea10edddb110">setSwapInterval</a>
+### function <a id="1ac971cae93c26a2019f943e2a5fb05e24" href="#1ac971cae93c26a2019f943e2a5fb05e24">setSwapInterval</a>
 
 ```cpp
 void ffw::GLFWRenderWindow::setSwapInterval (
     int interval
-)
+) const
 ```
+
+Sets swap interval (enables or disables V-sync) 
+
+
+
+**Note:**
+
+This function must only be called from the main thread. 
+
 
 
 
@@ -453,8 +568,9 @@ virtual void ffw::GLFWRenderWindow::shouldClose (
 ```
 
 Overrides **[RenderWindow::shouldClose](classffw_1_1_render_window.md#1a8aa07a645357b06812e23fa06bee8076)**
-Set whether the window should close or stay alive. 
+Sets the internal should close flag. 
 
+This function sets the swap interval for the current OpenGL or OpenGL ES context, i.e. the number of screen updates to wait from the time glfwSwapBuffers was called before swapping the buffers and returning. This is sometimes called vertical synchronization, vertical retrace synchronization or just vsync. 
 
 ### function <a id="1a0e98b25541b758258360aa23a7d15170" href="#1a0e98b25541b758258360aa23a7d15170">show</a>
 
@@ -463,7 +579,15 @@ virtual void ffw::GLFWRenderWindow::show ()
 ```
 
 Overrides **[RenderWindow::show](classffw_1_1_render_window.md#1ab8eb2be9cfb3aefc8dffdb1228482d6a)**
-Shows the window if the window has been hidden. 
+Makes the window visible. 
+
+This function makes the specified window visible if it was previously hidden. If the window is already visible or is in full screen mode, this function does nothing. 
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1a5a491781ee464bb3728b6d61aae65c1b" href="#1a5a491781ee464bb3728b6d61aae65c1b">hide</a>
@@ -473,7 +597,15 @@ virtual void ffw::GLFWRenderWindow::hide ()
 ```
 
 Overrides **[RenderWindow::hide](classffw_1_1_render_window.md#1ae2a8b392e2537be361ee7c1eea547e31)**
-Hides the window if the window is visible. 
+Makes the window hidden. 
+
+This function hides the specified window if it was previously visible. If the window is already hidden or is in full screen mode, this function does nothing. 
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1ae12d6561764be7e94708fd614c2d1cbd" href="#1ae12d6561764be7e94708fd614c2d1cbd">iconify</a>
@@ -483,7 +615,15 @@ virtual void ffw::GLFWRenderWindow::iconify ()
 ```
 
 Overrides **[RenderWindow::iconify](classffw_1_1_render_window.md#1a7544a3014cddfcce5a51b44a82efaa73)**
-Minimizes the window into the task bar. 
+Iconifies the specified window. 
+
+This function iconifies (minimizes) the specified window if it was previously restored. If the window is already iconified, this function does nothing.If the specified window is a full screen window, the original monitor resolution is restored until the window is restored. 
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1a19a534b8551ee1e7620d0d166267faa9" href="#1a19a534b8551ee1e7620d0d166267faa9">restore</a>
@@ -493,7 +633,15 @@ virtual void ffw::GLFWRenderWindow::restore ()
 ```
 
 Overrides **[RenderWindow::restore](classffw_1_1_render_window.md#1a5d09d206980971cf8640360ac331730d)**
-Restores minimized window into a visible window. 
+Restores the specified window. 
+
+This function restores the specified window if it was previously iconified (minimized) or maximized. If the window is already restored, this function does nothing. If the specified window is a full screen window, the resolution chosen for the window is restored on the selected monitor. 
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1ab0e4d8b3e04eb3a192a3d78b3a265567" href="#1ab0e4d8b3e04eb3a192a3d78b3a265567">maximize</a>
@@ -503,9 +651,16 @@ virtual void ffw::GLFWRenderWindow::maximize ()
 ```
 
 Overrides **[RenderWindow::maximize](classffw_1_1_render_window.md#1aed21fdd74781cf3cc44fd11c7da0c17a)**
-Maximizes the window in order to utilize whole screen. 
+Maximizes the specified window. 
 
-This is not the same as full screen mode! 
+This function maximizes the specified window if it was previously not maximized. If the window is already maximized, this function does nothing. If the specified window is a full screen window, this function does nothing. 
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
+
 
 ### function <a id="1ac1760a20cdd503e090568cbb0e865b21" href="#1ac1760a20cdd503e090568cbb0e865b21">setSingleBufferMode</a>
 
@@ -516,7 +671,15 @@ virtual void ffw::GLFWRenderWindow::setSingleBufferMode (
 ```
 
 Overrides **[RenderWindow::setSingleBufferMode](classffw_1_1_render_window.md#1aaf2199e736ae4006c75d1564d8dcb402)**
-Sets whether the window should operate using two buffets (back and front) or only in one. 
+Sets single buffer mode. 
+
+In single buffer mode, no back and front buffer swapping is done. Instead, glFlush and glFinish is used. 
+
+**Note:**
+
+This function must only be called from the main thread. 
+
+
 
 
 ### function <a id="1a7e4c5c6a7178bac96d24867ebf339701" href="#1a7e4c5c6a7178bac96d24867ebf339701">operator=</a>
@@ -525,26 +688,6 @@ Sets whether the window should operate using two buffets (back and front) or onl
 GLFWRenderWindow & ffw::GLFWRenderWindow::operator= (
     const GLFWRenderWindow & 
 ) = delete
-```
-
-
-
-### function <a id="1aa76cc1468168f5c9b0f5df80b96b53e5" href="#1aa76cc1468168f5c9b0f5df80b96b53e5">GLFWRenderWindow</a>
-
-```cpp
-ffw::GLFWRenderWindow::GLFWRenderWindow (
-    const GLFWRenderWindow & 
-) = delete
-```
-
-
-
-### function <a id="1a3ddd9b8e36d3d696b55cd42e4467bc88" href="#1a3ddd9b8e36d3d696b55cd42e4467bc88">GLFWRenderWindow</a>
-
-```cpp
-ffw::GLFWRenderWindow::GLFWRenderWindow (
-    GLFWRenderWindow && other
-)
 ```
 
 

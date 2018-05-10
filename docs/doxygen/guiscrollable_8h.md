@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiscrollable.h', 'ffw::GuiScrollable', 'ffw::GuiScrollable::Style', 'ffw::GuiScrollableLayout', 'ffw::GuiScrollableLayout::Style']
+search: false
 ---
 
 # file guiscrollable.h

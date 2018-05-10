@@ -2,6 +2,7 @@
 #ifndef FFW_DATA_HELPERS
 #define FFW_DATA_HELPERS
 
+#include <string>
 #include "../config.h"
 
 namespace ffw {

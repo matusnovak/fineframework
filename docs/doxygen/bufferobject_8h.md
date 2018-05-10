@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['bufferobject.h', 'ffw::BufferObject', 'ffw::Vbo', 'ffw::Ibo', 'swap', 'swap', 'swap']
+search: false
 ---
 
 # file bufferobject.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiwindow.h', 'ffw::GuiWindow']
+search: false
 ---
 
 # file guiwindow.h

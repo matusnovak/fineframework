@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiStyle::Attribute', 'val', 'Attribute', 'Attribute', 'Attribute', 'Attribute', 'Attribute', 'operator=', 'operator[]', 'operator[]', 'operator==', 'operator!=', 'operator<<']
+search: false
 ---
 
 # class ffw::GuiStyle::Attribute

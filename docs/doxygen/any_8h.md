@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['any.h', 'ffw::Any', 'ffw::Any::Content', 'ffw::Any::Data', 'ffw::Any::Data< T, typename std::enable_if< std::is_integral< T >::value >::type >', 'ffw::Any::Data< T, typename std::enable_if< std::is_floating_point< T >::value >::type >', 'ffw::Array', 'ffw::Object', 'swap', 'swap', 'swap']
+search: false
 ---
 
 # file any.h

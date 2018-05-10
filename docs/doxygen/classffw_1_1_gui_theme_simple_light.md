@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiThemeSimpleLight', 'singleton', 'GuiThemeSimpleLight']
+search: false
 ---
 
 # class ffw::GuiThemeSimpleLight

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['objloader.h', 'ffw::ObjLoader', 'swap']
+search: false
 ---
 
 # file objloader.h

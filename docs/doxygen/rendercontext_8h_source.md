@@ -56,13 +56,13 @@ namespace ffw {
         MITER,
     };
     struct DrawPaint {
-        float xform[6];
-        float extent[2];
-        float radius;
-        float feather;
+        float xform[6] = {0};
+        float extent[2] = {0};
+        float radius = 0;
+        float feather = 0;
         ffw::Color innerColor;
         ffw::Color outerColor;
-        int image;
+        int image = 0;
     };
     class FFW_API RenderContext {
     public:

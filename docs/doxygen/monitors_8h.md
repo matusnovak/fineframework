@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['monitors.h', 'ffw::Monitor', 'ffw::Monitor::Mode']
+search: false
 ---
 
 # file monitors.h

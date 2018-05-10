@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['tgaloader.h', 'ffw::TgaLoader', 'swap']
+search: false
 ---
 
 # file tgaloader.h

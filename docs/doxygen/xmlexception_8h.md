@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['xmlexception.h', 'ffw::XmlException', 'ffw::XmlDecodeException', 'ffw::XmlEncodeException', 'FFW_XML_EXCEPTION']
+search: false
 ---
 
 # file xmlexception.h

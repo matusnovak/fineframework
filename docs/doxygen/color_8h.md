@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['color.h', 'ffw::Color']
+search: false
 ---
 
 # file color.h

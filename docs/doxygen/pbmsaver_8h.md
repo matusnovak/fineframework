@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['pbmsaver.h', 'ffw::PbmSaver', 'swap']
+search: false
 ---
 
 # file pbmsaver.h

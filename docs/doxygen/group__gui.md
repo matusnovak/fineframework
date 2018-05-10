@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['gui', 'ffw::GuiBackend', 'ffw::GuiBody', 'ffw::GuiBox', 'ffw::GuiButton', 'ffw::GuiButtonPrimary', 'ffw::GuiButtonToggle', 'ffw::GuiButtonTogglePrimary', 'ffw::GuiCheckbox', 'ffw::GuiFont', 'ffw::GuiFontOpenGL', 'ffw::GuiImage', 'ffw::GuiImageOpenGL', 'ffw::GuiImageViewer', 'ffw::GuiLabel', 'ffw::GuiLayout', 'ffw::GuiVerticalLayout', 'ffw::GuiHorizontalLayout', 'ffw::GuiFixedLayout', 'ffw::GuiList', 'ffw::GuiProgressBar', 'ffw::GuiProgressCircle', 'ffw::GuiRadio', 'ffw::GuiScrollable', 'ffw::GuiScrollableLayout', 'ffw::GuiScrollBar', 'ffw::GuiSlider', 'ffw::GuiUnits', 'ffw::GuiUnits2D', 'ffw::GuiStyle', 'ffw::GuiDefaults', 'ffw::GuiSwitch', 'ffw::GuiTabs', 'ffw::GuiText', 'ffw::GuiTextInput', 'ffw::GuiScrollableTextInput', 'ffw::GuiTheme', 'ffw::GuiThemeSimpleLight', 'ffw::GuiThemeSimpleDark', 'ffw::GuiThemeFlatLight', 'ffw::GuiThemeFlatDark', 'ffw::GuiCallback', 'ffw::GuiUserInput', 'ffw::GuiWidget', 'ffw::GuiWindow', 'ffw::GuiWindowOpenGL', 'ffw::GuiWindowOpenGLFBO', 'GuiAlign', 'GuiEventType', 'guiPixels', 'guiPercent', 'guiWrap']
+search: false
 ---
 
 # group gui

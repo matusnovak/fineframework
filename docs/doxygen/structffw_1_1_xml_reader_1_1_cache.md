@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlReader::Cache', 'child', 'parent']
+search: false
 ---
 
 # struct ffw::XmlReader::Cache

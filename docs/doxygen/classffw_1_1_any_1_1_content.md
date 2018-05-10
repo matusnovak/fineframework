@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Any::Content', '~Content', 'createCopy', 'getTypeid', 'toBool', 'isInteger', 'isFloat', 'getInteger', 'getFloat', 'getDouble', 'compare']
+search: false
 ---
 
 # class ffw::Any::Content

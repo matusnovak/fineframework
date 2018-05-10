@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['data.h']
+search: false
 ---
 
 # file data.h

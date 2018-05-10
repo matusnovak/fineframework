@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['texture.h', 'ffw::Texture', 'swap']
+search: false
 ---
 
 # file texture.h

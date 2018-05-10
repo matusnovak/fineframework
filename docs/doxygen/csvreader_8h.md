@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['csvreader.h', 'ffw::CsvLoader']
+search: false
 ---
 
 # file csvreader.h

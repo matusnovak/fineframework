@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiStyle', 'Attribute', 'Background', 'Border', 'Function', 'Text', 'Outline', 'Padding', 'Margin', 'background', 'border', 'outline', 'text', 'function', 'GuiStyle', 'GuiStyle']
+search: false
 ---
 
 # class ffw::GuiStyle

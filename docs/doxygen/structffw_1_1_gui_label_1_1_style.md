@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiLabel::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiLabel::Style

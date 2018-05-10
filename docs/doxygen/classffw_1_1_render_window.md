@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::RenderWindow', 'setPos', 'setSize', 'getPos', 'getSize', 'destroy', 'shouldRender', 'renderFrame', 'poolEvents', 'waitForEvents', 'isInitialized', 'shouldClose', 'show', 'hide', 'iconify', 'restore', 'maximize', 'setSingleBufferMode']
+search: false
 ---
 
 # class ffw::RenderWindow
@@ -13,6 +12,7 @@ Inherited by the following classes: **[ffw::GLFWRenderWindow](classffw_1_1_g_l_f
 
 |Type|Name|
 |-----|-----|
+|virtual |[**~RenderWindow**](classffw_1_1_render_window.md#1a0c1ec1126da519d82a2281cbf9c8736a) () = default |
 |virtual void|[**setPos**](classffw_1_1_render_window.md#1a555c078b31cabb0093fe2775949617a1) (int posx, int posy) = 0<br>Sets the position of the window. |
 |virtual void|[**setSize**](classffw_1_1_render_window.md#1a5e8e8ff90cc10668fd094f014a1d4443) (int width, int height) = 0<br>Sets the size of the window. |
 |virtual **[ffw::Vec2i](group__math_.md#ga8ac6bae8a24d96d0223a29ecfff14570)**|[**getPos**](classffw_1_1_render_window.md#1aa315da9361cd782570780a3cc2c774af) () const = 0|
@@ -33,6 +33,14 @@ Inherited by the following classes: **[ffw::GLFWRenderWindow](classffw_1_1_g_l_f
 
 
 ## Public Functions Documentation
+
+### function <a id="1a0c1ec1126da519d82a2281cbf9c8736a" href="#1a0c1ec1126da519d82a2281cbf9c8736a">~RenderWindow</a>
+
+```cpp
+virtual ffw::RenderWindow::~RenderWindow () = default
+```
+
+
 
 ### function <a id="1a555c078b31cabb0093fe2775949617a1" href="#1a555c078b31cabb0093fe2775949617a1">setPos</a>
 

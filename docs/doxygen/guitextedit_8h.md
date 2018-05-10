@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guitextedit.h', 'ffw::GuiTextInput', 'ffw::GuiTextInput::Style', 'ffw::GuiTextInput::Line', 'ffw::GuiScrollableTextInput', 'ffw::GuiScrollableTextInput::Inner', 'ffw::GuiScrollableTextInput::Inner::Style', 'ffw::GuiScrollableTextInput::Style']
+search: false
 ---
 
 # file guitextedit.h

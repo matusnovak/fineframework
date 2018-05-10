@@ -2,6 +2,7 @@
 
 #include "ffw/graphics/bitmapfont.h"
 #include "ffw/graphics/rendercontext.h"
+#include "ffw/math/imagebuffer.h"
 
 ///=============================================================================
 ffw::BitmapFont::BitmapFont(){
@@ -176,7 +177,7 @@ void ffw::BitmapFont::destroy() {
 ///=============================================================================
 const ffw::Font::Char& ffw::BitmapFont::getChar(const unsigned int chr) const {
     // Is outside of the range?
-    if (chr < offsetStart || chr > offsetEnd)return characters[errorChar];
+    if (chr < unsigned(offsetStart) || chr > unsigned(offsetEnd)) return characters[errorChar];
     // Return actual character
     return characters[chr - offsetStart];
 }
@@ -184,7 +185,7 @@ const ffw::Font::Char& ffw::BitmapFont::getChar(const unsigned int chr) const {
 ///=============================================================================
 int ffw::BitmapFont::getCharIndex(const unsigned int chr) const {
     // Is outside of the range?
-    if (chr < offsetStart || chr > offsetEnd)return 0;
+    if (chr < unsigned(offsetStart) || chr > unsigned(offsetEnd)) return 0;
     // Return actual character
     return chr - offsetStart;
 }

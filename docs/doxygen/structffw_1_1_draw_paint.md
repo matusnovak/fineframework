@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::DrawPaint', 'xform', 'extent', 'radius', 'feather', 'innerColor', 'outerColor', 'image']
+search: false
 ---
 
 # struct ffw::DrawPaint

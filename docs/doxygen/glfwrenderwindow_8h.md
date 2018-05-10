@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['glfwrenderwindow.h', 'ffw::GLFWRenderWindowArgs', 'ffw::GLFWRenderWindow']
+search: false
 ---
 
 # file glfwrenderwindow.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guistyle.h', 'ffw::GuiUnits', 'ffw::GuiUnits2D', 'ffw::GuiStyle', 'ffw::GuiStyle::Attribute', 'ffw::GuiStyle::Border', 'ffw::GuiStyle::Background', 'ffw::GuiStyle::Text', 'ffw::GuiStyle::Function', 'ffw::GuiDefaults']
+search: false
 ---
 
 # file guistyle.h

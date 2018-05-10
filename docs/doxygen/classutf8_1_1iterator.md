@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['utf8::iterator', 'iterator', 'iterator', 'base', 'operator*', 'operator==', 'operator!=', 'operator++', 'operator++', 'operator--', 'operator--']
+search: false
 ---
 
 # class utf8::iterator

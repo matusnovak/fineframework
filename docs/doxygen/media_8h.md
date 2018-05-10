@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['media.h']
+search: false
 ---
 
 # file media.h

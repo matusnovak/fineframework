@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['vecx.h', 'ffw::Vec']
+search: false
 ---
 
 # file vecx.h

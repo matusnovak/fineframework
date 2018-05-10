@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guitab.h', 'ffw::GuiTabs', 'ffw::GuiTabs::Button', 'ffw::GuiTabs::Button::Style', 'ffw::GuiTabs::TopBar', 'ffw::GuiTabs::TopBar::Style', 'ffw::GuiTabs::Content', 'ffw::GuiTabs::Content::Style', 'ffw::GuiTabs::Style']
+search: false
 ---
 
 # file guitab.h

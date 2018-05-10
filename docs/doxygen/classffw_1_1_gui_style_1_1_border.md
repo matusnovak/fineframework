@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiStyle::Border', 'Size', 'Radius', 'Color', 'size', 'radius', 'color', 'Border', 'Border', 'operator bool']
+search: false
 ---
 
 # class ffw::GuiStyle::Border

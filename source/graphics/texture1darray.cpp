@@ -4,17 +4,17 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-ffw::Texture1DArray::Texture1DArray():Texture(){
-    textureformat_   = GL_TEXTURE_1D_ARRAY;
+ffw::Texture1DArray::Texture1DArray(){
+    textureformat   = GL_TEXTURE_1D_ARRAY;
 }
 
 ///=============================================================================
-ffw::Texture1DArray::Texture1DArray(Texture1DArray&& second) : Texture1DArray() {
-    Texture::swap(second);
+ffw::Texture1DArray::Texture1DArray(Texture1DArray&& other) NOEXCEPT {
+    Texture::swap(other);
 }
 
 ///=============================================================================
-ffw::Texture1DArray& ffw::Texture1DArray::operator = (ffw::Texture1DArray&& other) {
+ffw::Texture1DArray& ffw::Texture1DArray::operator = (ffw::Texture1DArray&& other) NOEXCEPT {
     if (this != &other) {
         Texture::swap(other);
     }
@@ -22,34 +22,39 @@ ffw::Texture1DArray& ffw::Texture1DArray::operator = (ffw::Texture1DArray&& othe
 }
 
 ///=============================================================================
-ffw::Texture1DArray::~Texture1DArray(){
-}
+bool ffw::Texture1DArray::create(const GLsizei width, const GLsizei layers, 
+    const GLenum internalformat, const GLenum format, const GLenum pixelformat, 
+    const GLvoid* pixels){
 
-///=============================================================================
-bool ffw::Texture1DArray::create(GLsizei width, GLsizei layers, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels){
-    if(loaded_)return false;
-    loaded_ = true;
+    if(loaded)return false;
+    loaded = true;
 
-    glGenTextures(1, &buffer_);
-    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer_);
+    glGenTextures(1, &buffer);
+    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer);
 
-    width_           = width;
-    height_          = 1;
-    layers_          = layers;
-    depth_           = 0;
-    internalformat_  = internalformat;
-    format_          = format;
-    pixelformat_     = pixelformat;
-    samples_         = 0;
+    this->width           = width;
+    this->height          = 1;
+    this->layers          = layers;
+    this->depth           = 0;
+    this->internalformat  = internalformat;
+    this->format          = format;
+    this->pixelformat     = pixelformat;
+    this->samples         = 0;
 
     if(isCompressed()) {
-        if(glCompressedTexImage2D == NULL) {
+        if(glCompressedTexImage2D == nullptr) {
             destroy();
             return false;
         }
-        glCompressedTexImage2D(GL_TEXTURE_1D_ARRAY, 0, internalformat_, width_, layers_, 0, getBlockSize(width, layers_), pixels);
+        glCompressedTexImage2D(
+            GL_TEXTURE_1D_ARRAY, 0, internalformat, width, layers, 0, 
+            getBlockSize(width, layers), pixels
+        );
     } else {
-        glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, internalformat_, width_, layers_, 0, format_, pixelformat_, pixels);
+        glTexImage2D(
+            GL_TEXTURE_1D_ARRAY, 0, internalformat, width, layers, 0, 
+            format, pixelformat, pixels
+        );
     }
 
     int test;
@@ -68,43 +73,69 @@ bool ffw::Texture1DArray::create(GLsizei width, GLsizei layers, GLenum internalf
 }
 
 ///=============================================================================
-bool ffw::Texture1DArray::resize(GLsizei width, GLsizei layers){
-    if(!loaded_)return false;
-    width_ = width;
-    layers_ = layers;
-    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer_);
-    glTexImage2D(GL_TEXTURE_1D_ARRAY, 0, internalformat_, width_, layers_, 0, format_, pixelformat_, NULL);
-    return true;
-}
-
-///=============================================================================
-bool ffw::Texture1DArray::setPixels(GLint level, GLint xoffset, GLint loffset, GLsizei width, const void* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer_);
-    if(isCompressed()) {
-        glCompressedTexSubImage2D(GL_TEXTURE_1D_ARRAY, level, xoffset, loffset, width, 1, internalformat_, getBlockSize(width, 1), pixels);
-    } else {
-        glTexSubImage2D(GL_TEXTURE_1D_ARRAY, level, xoffset, loffset, width, 1, format_, pixelformat_, pixels);
+bool ffw::Texture1DArray::resize(const GLsizei width, const GLsizei layers, const GLvoid* pixels){
+    if(!loaded)return false;
+    this->width = width;
+    this->layers = layers;
+    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer);
+    if (isCompressed()) {
+        if (glCompressedTexImage2D == nullptr) return false;
+        glCompressedTexImage2D(
+            GL_TEXTURE_1D_ARRAY, 0, internalformat, width, layers, 0,
+            getBlockSize(width, layers), pixels
+        );
+    }
+    else {
+        glTexImage2D(
+            GL_TEXTURE_1D_ARRAY, 0, internalformat, width, layers, 0,
+            format, pixelformat, pixels
+        );
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture1DArray::setPixels(GLint level, const void* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer_);
+bool ffw::Texture1DArray::setPixels(const GLint level, const GLint xoffset, const GLint loffset, 
+    const GLsizei width, const GLvoid* pixels){
+
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer);
     if(isCompressed()) {
-        glCompressedTexImage2D(GL_TEXTURE_1D_ARRAY, level, internalformat_, width_, layers_, 0, getBlockSize(width_, layers_), pixels);
+        glCompressedTexSubImage2D(
+            GL_TEXTURE_1D_ARRAY, level, xoffset, loffset, width, 1, 
+            internalformat, getBlockSize(width, 1), pixels
+        );
     } else {
-        glTexImage2D(GL_TEXTURE_1D_ARRAY, level, internalformat_, width_, layers_, 0, format_, pixelformat_, pixels);
+        glTexSubImage2D(
+            GL_TEXTURE_1D_ARRAY, level, xoffset, loffset, width, 1, 
+            format, pixelformat, pixels
+        );
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture1DArray::getPixels(void* pixels) const {
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer_);
-    glGetTexImage(GL_TEXTURE_1D_ARRAY, 0, format_, pixelformat_, pixels);
+bool ffw::Texture1DArray::setPixels(const GLint level, const GLvoid* pixels){
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer);
+    if(isCompressed()) {
+        glCompressedTexImage2D(
+            GL_TEXTURE_1D_ARRAY, level, internalformat, width, layers, 
+            0, getBlockSize(width, layers), pixels
+        );
+    } else {
+        glTexImage2D(
+            GL_TEXTURE_1D_ARRAY, level, internalformat, width, layers, 
+            0, format, pixelformat, pixels
+        );
+    }
+    return true;
+}
+
+///=============================================================================
+bool ffw::Texture1DArray::getPixels(GLvoid* pixels) const {
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_1D_ARRAY, buffer);
+    glGetTexImage(GL_TEXTURE_1D_ARRAY, 0, format, pixelformat, pixels);
     return true;
 }

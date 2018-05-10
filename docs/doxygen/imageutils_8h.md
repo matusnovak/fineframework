@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['imageutils.h']
+search: false
 ---
 
 # file imageutils.h

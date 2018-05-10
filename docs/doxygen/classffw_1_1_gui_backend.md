@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiBackend', 'resize', 'startRender', 'endRender', 'setScissors', 'clearWithColor', 'drawRectangle', 'drawRectangleRounded', 'drawLine', 'drawCircle', 'drawArc', 'drawQuad', 'drawString', 'drawTriangle', 'drawImage', 'drawBackground', 'drawBorder', 'drawStringAligned']
+search: false
 ---
 
 # class ffw::GuiBackend

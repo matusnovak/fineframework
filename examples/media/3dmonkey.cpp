@@ -1,6 +1,7 @@
 #include <ffw/graphics.h>
 #include <ffw/media.h>
 #include <ffw/math.h>
+#include <iostream>
 
 ///=============================================================================
 class App: public ffw::GLFWRenderWindow {

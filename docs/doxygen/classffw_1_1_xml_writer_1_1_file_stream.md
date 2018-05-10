@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlWriter::FileStream', 'FileStream', '~FileStream', 'isOpen', 'close', 'write', 'write']
+search: false
 ---
 
 # class ffw::XmlWriter::FileStream

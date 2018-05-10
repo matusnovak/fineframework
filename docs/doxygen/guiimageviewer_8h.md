@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiimageviewer.h', 'ffw::GuiImageViewer', 'ffw::GuiImageViewer::Style']
+search: false
 ---
 
 # file guiimageviewer.h

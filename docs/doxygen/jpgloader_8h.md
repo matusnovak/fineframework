@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['jpgloader.h', 'ffw::JpgLoader', 'swap']
+search: false
 ---
 
 # file jpgloader.h

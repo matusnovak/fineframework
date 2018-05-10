@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['rendercontext.h', 'ffw::DrawPaint', 'ffw::RenderContext']
+search: false
 ---
 
 # file rendercontext.h

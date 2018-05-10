@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiDefaults', 'margin', 'padding', 'align', 'size', 'GuiDefaults', 'GuiDefaults', 'GuiDefaults']
+search: false
 ---
 
 # class ffw::GuiDefaults

@@ -3,23 +3,12 @@
 #include "ffw/graphics/truetypefont.h"
 #include "ffw/graphics/rendercontext.h"
 
-static int totalTextureW = 7;
-static int availableTextureW[7] = { 64, 128, 256, 512, 1024, 2048, 4096 };
-static int pow2[7] = { 4, 8, 16, 32, 64, 128, 256 };
-static int padding = 1;
+static const int padding = 1;
 
 template<class T>
-static T GetUpperMultiple(T val, T mul) {
+static T getUpperMultiple(T val, T mul) {
     if(val % mul == 0) return val;
     return ((val / mul) + 1) * mul;
-}
-
-///=============================================================================
-static int next_p2(int a) {
-    for (int i = 0; i < 8; i++) {
-        if (a < pow2[i])return pow2[i];
-    }
-    return 2;
 }
 
 ///=============================================================================
@@ -29,14 +18,14 @@ ffw::TrueTypeFont::TrueTypeFont(){
 }
 
 ///=============================================================================
-ffw::TrueTypeFont::TrueTypeFont(TrueTypeFont&& other) {
+ffw::TrueTypeFont::TrueTypeFont(TrueTypeFont&& other) NOEXCEPT {
     offsetStart = 0;
     offsetEnd = 0;
     swap(other);
 }
 
 ///=============================================================================
-void ffw::TrueTypeFont::swap(TrueTypeFont& other) {
+void ffw::TrueTypeFont::swap(TrueTypeFont& other) NOEXCEPT {
     using std::swap;
     if(this != &other) {
         swap(texture, other.texture);
@@ -53,7 +42,7 @@ void ffw::TrueTypeFont::swap(TrueTypeFont& other) {
 }
 
 ///=============================================================================
-ffw::TrueTypeFont& ffw::TrueTypeFont::operator = (TrueTypeFont&& other) {
+ffw::TrueTypeFont& ffw::TrueTypeFont::operator = (TrueTypeFont&& other) NOEXCEPT {
     if(this != &other) {
         swap(other);
     }
@@ -66,7 +55,9 @@ ffw::TrueTypeFont::~TrueTypeFont() {
 }
 
 ///=============================================================================
-bool ffw::TrueTypeFont::createFromData(const unsigned char* buffer, size_t length, int points, int dpi, int start, int end) {
+bool ffw::TrueTypeFont::createFromData(const unsigned char* buffer, const size_t length,
+    const int points, const int dpi, const int start, const int end) {
+
     if (end <= start)return false;
     if (end == 0)return false;
     if (!freeType.createFromData(buffer, length))return false;
@@ -78,7 +69,9 @@ bool ffw::TrueTypeFont::createFromData(const unsigned char* buffer, size_t lengt
 }
 
 ///=============================================================================
-bool ffw::TrueTypeFont::createFromFile(const std::string& path, int points, int dpi, int start, int end) {
+bool ffw::TrueTypeFont::createFromFile(const std::string& path, const int points, 
+    const int dpi, const int start, const int end) {
+
     if (end <= start)return false;
     if (end == 0)return false;
     if (!freeType.createFromFile(path))return false;
@@ -90,7 +83,7 @@ bool ffw::TrueTypeFont::createFromFile(const std::string& path, int points, int 
 }
 
 ///=============================================================================
-bool ffw::TrueTypeFont::fillData(int start, int end) {
+bool ffw::TrueTypeFont::fillData(const int start, const int end) {
     if(loaded) {
         characters.clear();
         texture.destroy();
@@ -103,7 +96,7 @@ bool ffw::TrueTypeFont::fillData(int start, int end) {
         return false;
     }
 
-    int total = end - start + 2;
+    const auto total = end - start + 2;
     offsetEnd = end;
     offsetStart = start;
 
@@ -119,9 +112,9 @@ bool ffw::TrueTypeFont::fillData(int start, int end) {
     }
 
     // Render all glyphs
-    for(int i = start; i <= end; i++) {
-        int index = i - start + 1;
-        int unicode = i;
+    for(auto i = start; i <= end; i++) {
+        const auto index = i - start + 1;
+        const auto unicode = i;
 
         if (!freeType.findGlyph(unicode)) {
             continue;
@@ -136,17 +129,15 @@ bool ffw::TrueTypeFont::fillData(int start, int end) {
 
     static const int widths[] = {64, 128, 256, 512, 1024, 2048, 4096};
 
-    int posx = 0;
-    int posy = 0;
-    int lineHeight = 0;
-    bool found = true;
-    int lastPosY = 0;
-    int textureHeight = 0;
-    int textureWidth = 0;
+    auto lineHeight = 0;
+    auto found = true;
+    auto lastPosY = 0;
+    auto textureHeight = 0;
+    auto textureWidth = 0;
 
     for(int totalWidth : widths) {
-        posx = 0;
-        posy = 0;
+        auto posx = 0;
+        auto posy = 0;
         lineHeight = 0;
         found = true;
         textureHeight = totalWidth;
@@ -160,8 +151,8 @@ bool ffw::TrueTypeFont::fillData(int start, int end) {
                 continue;
             }
 
-            int texWidth = GetUpperMultiple((int)chr.width, 4);
-            int texHeight = GetUpperMultiple((int)chr.height, 4);
+            const auto texWidth = getUpperMultiple(int(chr.width), 4);
+            const auto texHeight = getUpperMultiple(int(chr.height), 4);
 
             // Check horizontal space
             if(posx + texWidth + 3 > totalWidth) {
@@ -183,7 +174,7 @@ bool ffw::TrueTypeFont::fillData(int start, int end) {
             }
 
             // get highest character in row
-            lineHeight = std::max(lineHeight, (int)chr.height);
+            lineHeight = std::max(lineHeight, int(chr.height));
             lastPosY = posy + lineHeight;
 
             characters[i].x = posx + padding;
@@ -247,8 +238,8 @@ bool ffw::TrueTypeFont::fillData(int start, int end) {
         if (charsTemp[i].pixels == nullptr)continue;
 
         // Upload pixels to texture
-        int texWidth = GetUpperMultiple((int)chr.width, 4);
-        int texHeight = GetUpperMultiple((int)chr.height, 4);
+        const auto texWidth = getUpperMultiple(int(chr.width), 4);
+        const auto texHeight = getUpperMultiple(int(chr.height), 4);
         texture.setPixels(0, chr.x, chr.y, texWidth, texHeight, charsTemp[i].pixels);
         delete[] charsTemp[i].pixels;
         charsTemp[i].pixels = NULL;
@@ -296,21 +287,17 @@ void ffw::TrueTypeFont::destroy() {
 }
 
 ///=============================================================================
-const ffw::Font::Char& ffw::TrueTypeFont::getChar(wchar_t chr) const {
+const ffw::Font::Char& ffw::TrueTypeFont::getChar(const unsigned int chr) const {
     // Is outside of the range?
     if (chr < offsetStart || chr > offsetEnd)return characters[0];
-    // Is the character not rendered?
-    if (characters[chr - offsetStart + 1].x < 0)return characters[0];
     // Return actual character
     return characters[chr - offsetStart + 1];
 }
 
 ///=============================================================================
-int ffw::TrueTypeFont::getCharIndex(wchar_t chr) const {
+int ffw::TrueTypeFont::getCharIndex(const unsigned int chr) const {
     // Is outside of the range?
     if (chr < offsetStart || chr > offsetEnd)return 0;
-    // Is the character not rendered?
-    if (characters[chr - offsetStart + 1].x < 0)return 0;
     // Return actual character
     return chr - offsetStart + 1;
 }

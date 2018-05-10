@@ -5,28 +5,29 @@
 #include FT_GLYPH_H
 #include "ffw/graphics/freetypeloader.h"
 
+///=============================================================================
 template<class T>
-static T GetUpperMultiple(T val, T mul) {
+static T getUpperMultiple(T val, T mul) {
     if (val % mul == 0) return val;
     return ((val / mul) + 1) * mul;
 }
 
 ///=============================================================================
-class ftLibrary{
+class FtLibrary {
 public:
-    ftLibrary(){
+    FtLibrary():lib(nullptr){
         FT_Init_FreeType(&lib);
     }
 
-    ~ftLibrary(){
+    ~FtLibrary(){
         FT_Done_FreeType(lib);
-        lib = NULL;
+        lib = nullptr;
     }
 
     static FT_Library get(){
-        static ftLibrary* instance = NULL;
-        if(instance == NULL){
-            instance = new ftLibrary();
+        static FtLibrary* instance = nullptr;
+        if(instance == nullptr){
+            instance = new FtLibrary();
         }
         return instance->lib;
     }
@@ -37,23 +38,23 @@ private:
 
 ///=============================================================================
 ffw::FreeTypeLoader::FreeTypeLoader() {
-    fontFace = NULL;
-    currentGlyph = NULL;
+    fontFace = nullptr;
+    currentGlyph = nullptr;
     loaded = false;
     sizePixels = 0;
 }
 
 ///=============================================================================
-ffw::FreeTypeLoader::FreeTypeLoader(FreeTypeLoader&& other) {
-    fontFace = NULL;
-    currentGlyph = NULL;
+ffw::FreeTypeLoader::FreeTypeLoader(FreeTypeLoader&& other) NOEXCEPT {
+    fontFace = nullptr;
+    currentGlyph = nullptr;
     loaded = false;
     sizePixels = 0;
     swap(other);
 }
 
 ///=============================================================================
-void ffw::FreeTypeLoader::swap(FreeTypeLoader& other) {
+void ffw::FreeTypeLoader::swap(FreeTypeLoader& other) NOEXCEPT {
     using std::swap;
     if(this != &other) {
         swap(fontFace, other.fontFace);
@@ -64,7 +65,7 @@ void ffw::FreeTypeLoader::swap(FreeTypeLoader& other) {
 }
 
 ///=============================================================================
-ffw::FreeTypeLoader& ffw::FreeTypeLoader::operator = (FreeTypeLoader&& other) {
+ffw::FreeTypeLoader& ffw::FreeTypeLoader::operator = (FreeTypeLoader&& other) NOEXCEPT {
     if(this != &other) {
         swap(other);
     }
@@ -80,7 +81,7 @@ ffw::FreeTypeLoader::~FreeTypeLoader() {
 bool ffw::FreeTypeLoader::createFromData(const unsigned char* buffer, size_t length) {
     destroy();
     
-    int error = FT_New_Memory_Face(ftLibrary::get(), buffer, length, 0, &fontFace);
+    const auto error = FT_New_Memory_Face(FtLibrary::get(), buffer, length, 0, &fontFace);
     return checkForErrors(error);
 }
 
@@ -88,67 +89,59 @@ bool ffw::FreeTypeLoader::createFromData(const unsigned char* buffer, size_t len
 bool ffw::FreeTypeLoader::createFromFile(const std::string& path) {
     destroy();
 
-    int error = FT_New_Face(ftLibrary::get(), path.c_str(), 0, &fontFace);
+    const auto error = FT_New_Face(FtLibrary::get(), path.c_str(), 0, &fontFace);
     return checkForErrors(error);
 }
 
 ///=============================================================================
-bool ffw::FreeTypeLoader::checkForErrors(int error) {
+bool ffw::FreeTypeLoader::checkForErrors(const int error) {
     if (error == FT_Err_Unknown_File_Format) {
-        //std::cout << "FT_Err_Unknown_File_Format" << std::endl;
         return false;
 
     }
     else if (error) {
-        //std::cout << "Unknown error" << std::endl;
         return false;
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::FreeTypeLoader::setSize(int points, int dpi) {
-    int error = FT_Set_Char_Size(fontFace, 0, points * 64, dpi, dpi);
+bool ffw::FreeTypeLoader::setSize(const int points, const int dpi) {
+    const auto error = FT_Set_Char_Size(fontFace, 0, points * 64, dpi, dpi);
     sizePixels = int((points / 72.0f) * dpi);
 
-    if (error == FT_Err_Unknown_File_Format) {
-        std::cout << "ffw::FreeTypeLoader::setSize FT_Err_Unknown_File_Format" << std::endl;
-        return false;
-    }
-    return true;
+    return error != FT_Err_Unknown_File_Format;
 }
 
 ///=============================================================================
 void ffw::FreeTypeLoader::destroy() {
-    if(fontFace != NULL) {
+    if(fontFace != nullptr) {
         FT_Done_Face(fontFace);
     }
-    if (currentGlyph != NULL) {
+    if (currentGlyph != nullptr) {
         FT_Done_Glyph(currentGlyph);
     }
-    fontFace = NULL;
-    currentGlyph = NULL;
+    fontFace = nullptr;
+    currentGlyph = nullptr;
 }
 
 ///=============================================================================
-bool ffw::FreeTypeLoader::findGlyph(int unicode) {
-    if(currentGlyph != NULL) {
+bool ffw::FreeTypeLoader::findGlyph(const unsigned int unicode) {
+    if(currentGlyph != nullptr) {
         FT_Done_Glyph(currentGlyph);
-        currentGlyph = NULL;
+        currentGlyph = nullptr;
     }
 
-    int glyphIndex = FT_Get_Char_Index(fontFace, unicode);
+    const auto glyphIndex = FT_Get_Char_Index(fontFace, unicode);
     
     if (FT_Load_Glyph(fontFace, glyphIndex, FT_LOAD_DEFAULT)) {
         // Can not load glyph
-        std::cout << "Can not load glyph error" << std::endl;
         return false;
     }
 
     // get glyph object
     if (FT_Get_Glyph(fontFace->glyph, &currentGlyph)) {
         // Failed to get glyph
-        std::cout << "Failed to get glyph error" << std::endl;
         return false;
     }
 
@@ -157,21 +150,19 @@ bool ffw::FreeTypeLoader::findGlyph(int unicode) {
 
 ///=============================================================================
 bool ffw::FreeTypeLoader::findErrorGlyph() {
-    if (currentGlyph != NULL) {
+    if (currentGlyph != nullptr) {
         FT_Done_Glyph(currentGlyph);
-        currentGlyph = NULL;
+        currentGlyph = nullptr;
     }
 
     if (FT_Load_Glyph(fontFace, 0, FT_LOAD_DEFAULT)) {
         // Can not load glyph
-        std::cout << "Can not load glyph error" << std::endl;
         return false;
     }
 
     // get glyph object
     if (FT_Get_Glyph(fontFace->glyph, &currentGlyph)) {
         // Failed to get glyph
-        std::cout << "Failed to get glyph error" << std::endl;
         return false;
     }
 
@@ -180,27 +171,27 @@ bool ffw::FreeTypeLoader::findErrorGlyph() {
 
 ///=============================================================================
 bool ffw::FreeTypeLoader::getGlyphData(CharData* data) {
-    if (data == NULL)return false;
+    if (data == nullptr)return false;
 
     // Convert glyph to bitmap
-    FT_Glyph_To_Bitmap(&currentGlyph, FT_RENDER_MODE_NORMAL, 0, 1);
+    FT_Glyph_To_Bitmap(&currentGlyph, FT_RENDER_MODE_NORMAL, nullptr, 1);
 
     // Type cast
-    FT_BitmapGlyph bitmap_glyph = (FT_BitmapGlyph)currentGlyph;
+    const auto bitmapGlyph = reinterpret_cast<FT_BitmapGlyph>(currentGlyph);
 
     // Reference to bitmap for easier access
-    FT_Bitmap& bitmap = bitmap_glyph->bitmap;
+    const auto& bitmap = bitmapGlyph->bitmap;
 
     // get nearest power of two width and height
-    int texWidth = GetUpperMultiple((int)bitmap.width, 4);
-    int texHeight = GetUpperMultiple((int)bitmap.rows, 4);
+    const auto texWidth = getUpperMultiple(static_cast<int>(bitmap.width), 4);
+    const auto texHeight = getUpperMultiple(static_cast<int>(bitmap.rows), 4);
 
     // get pixels from glyph bitmap
-    if(data->pixels != NULL)delete[] data->pixels;
+    delete[] data->pixels;
     data->pixels = new unsigned char[texWidth*texHeight];
-    for (int y = 0; y < texHeight; y++) {
-        for (int x = 0; x < texWidth; x++) {
-            if (x < (int)bitmap.width && y < (int)bitmap.rows) {
+    for (auto y = 0; y < texHeight; y++) {
+        for (auto x = 0; x < texWidth; x++) {
+            if (x < static_cast<int>(bitmap.width) && y < static_cast<int>(bitmap.rows)) {
                 data->pixels[x + y*texWidth] = bitmap.buffer[x + bitmap.width*y];
             }
             else {

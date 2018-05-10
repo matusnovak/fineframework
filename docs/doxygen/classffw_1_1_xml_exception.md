@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlException', 'XmlException']
+search: false
 ---
 
 # class ffw::XmlException

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['renderextensionsgl.h']
+search: false
 ---
 
 # file renderextensionsgl.h

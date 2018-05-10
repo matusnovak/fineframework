@@ -1,6 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_GRAPHICS_DRAW
 #define FFW_GRAPHICS_DRAW
+
 #include "../config.h"
 #include "renderextensionsgl.h"
 

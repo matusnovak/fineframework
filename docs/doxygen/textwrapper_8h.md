@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['textwrapper.h', 'ffw::TextWrapper', 'ffw::TextWrapper::Token']
+search: false
 ---
 
 # file textwrapper.h

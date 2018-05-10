@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlReader::Node', 'elem', 'Node', 'Node', 'getNextAttribute', 'name', 'isObject', 'hasAttributes', 'rawCstr', 'name', 'isObject', 'isEmpty', 'isString', 'isNumber', 'isInteger', 'isFloat', 'isBoolean', 'isNull', 'toString', 'toInteger', 'toDouble', 'toFloat', 'toBoolean', 'getType', 'rawCstr']
+search: false
 ---
 
 # class ffw::XmlReader::Node

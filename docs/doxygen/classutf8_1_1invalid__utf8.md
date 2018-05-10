@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['utf8::invalid_utf8', 'invalid_utf8', 'what', 'utf8_octet']
+search: false
 ---
 
 # class utf8::invalid\_utf8

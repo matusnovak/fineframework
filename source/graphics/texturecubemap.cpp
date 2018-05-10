@@ -2,19 +2,21 @@
 
 #include "ffw/graphics/texturecubemap.h"
 #include "ffw/graphics/rendercontext.h"
-#include <ffw/graphics.h>
+#include "ffw/math/imagebuffer.h"
+#include "ffw/graphics/graphics.h"
+
 ///=============================================================================
-ffw::TextureCubemap::TextureCubemap():Texture(){
-    textureformat_ = GL_TEXTURE_CUBE_MAP;
+ffw::TextureCubemap::TextureCubemap(){
+    textureformat = GL_TEXTURE_CUBE_MAP;
 }
 
 ///=============================================================================
-ffw::TextureCubemap::TextureCubemap(TextureCubemap&& second) : TextureCubemap() {
-    Texture::swap(second);
+ffw::TextureCubemap::TextureCubemap(TextureCubemap&& other) NOEXCEPT : TextureCubemap() {
+    Texture::swap(other);
 }
 
 ///=============================================================================
-ffw::TextureCubemap& ffw::TextureCubemap::operator = (ffw::TextureCubemap&& other) {
+ffw::TextureCubemap& ffw::TextureCubemap::operator = (ffw::TextureCubemap&& other) NOEXCEPT {
     if (this != &other) {
         Texture::swap(other);
     }
@@ -22,37 +24,41 @@ ffw::TextureCubemap& ffw::TextureCubemap::operator = (ffw::TextureCubemap&& othe
 }
 
 ///=============================================================================
-ffw::TextureCubemap::~TextureCubemap(){
-    destroy();
-}
+bool ffw::TextureCubemap::create(const GLsizei width, const GLsizei height, 
+    const GLenum internalformat, const GLenum format, const GLenum pixelformat, 
+    const GLvoid* pixels){
 
-///=============================================================================
-bool ffw::TextureCubemap::create(GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels){
-    if(loaded_)return false;
-    loaded_ = true;
+    if(loaded)return false;
+    loaded = true;
 
-    glGenTextures(1, &buffer_);
-    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer_);
+    glGenTextures(1, &buffer);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer);
 
-    width_           = width;
-    height_          = height;
-    layers_          = 0;
-    depth_           = 0;
-    internalformat_  = internalformat;
-    format_          = format;
-    pixelformat_     = pixelformat;
-    samples_         = 0;
+    this->width           = width;
+    this->height          = height;
+    this->layers          = 0;
+    this->depth           = 0;
+    this->internalformat  = internalformat;
+    this->format          = format;
+    this->pixelformat     = pixelformat;
+    this->samples         = 0;
 
-    if(isCompressed() && glCompressedTexImage2D == NULL) {
+    if(isCompressed() && glCompressedTexImage2D == nullptr) {
         destroy();
         return false;
     }
 
-    for (int i = 0; i < 6; i++) {
+    for (auto i = 0; i < 6; i++) {
         if(isCompressed()) {
-            glCompressedTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat_, width_, height_, 0, getBlockSize(width, height), pixels);
+            glCompressedTexImage2D(
+                GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat, width, 
+                height, 0, getBlockSize(width, height), pixels
+            );
         } else {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat_, width_, height_, 0, format_, pixelformat_, pixels);
+            glTexImage2D(
+                GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat, width, 
+                height, 0, format, pixelformat, pixels
+            );
         }
 
         int test;
@@ -73,87 +79,128 @@ bool ffw::TextureCubemap::create(GLsizei width, GLsizei height, GLenum internalf
 }
 
 ///=============================================================================
-bool ffw::TextureCubemap::resize(GLsizei width, GLsizei height){
-    if(!loaded_)return false;
+bool ffw::TextureCubemap::resize(const GLsizei width, const GLsizei height){
+    if(!loaded)return false;
     if(width <= 0)return false;
-    width_ = width;
-    height_ = height;
-    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer_);
-    for (int i = 0; i < 6; i++) {
+    this->width = width;
+    this->height = height;
+    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer);
+    for (auto i = 0; i < 6; i++) {
         if(isCompressed()) {
-            glCompressedTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat_, width_, height_, 0, getBlockSize(width, height), NULL);
+            glCompressedTexImage2D(
+                GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat, 
+                width, height, 0, getBlockSize(width, height), nullptr
+            );
         } else {
-            glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat_, width_, height_, 0, format_, pixelformat_, NULL);
+            glTexImage2D(
+                GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, internalformat, 
+                width, height, 0, format, pixelformat, nullptr
+            );
         }
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::TextureCubemap::setPixels(GLint level, GLint side, const void* pixels) {
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer_);
+bool ffw::TextureCubemap::setPixels(const GLint level, const GLint side, const GLvoid* pixels) {
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer);
 
-    auto w = width_ >> level;
-    auto h = height_ >> level;
+    setPixelsInternal(level, side, pixels);
+    return true;
+}
+
+///=============================================================================
+void ffw::TextureCubemap::setPixelsInternal(const GLint level, const GLint side, 
+    const GLvoid* pixels) {
+
+    const auto w = width >> level;
+    const auto h = height >> level;
 
     if (isCompressed()) {
-        glCompressedTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, internalformat_, w, h, 0, getBlockSize(w, h), pixels);
-    } else {
-        glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, internalformat_, w, h, 0, format_, pixelformat_, pixels);
+        glCompressedTexImage2D(
+            GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, internalformat,
+            w, h, 0, getBlockSize(w, h), pixels
+        );
     }
-    return true;
+    else {
+        glTexImage2D(
+            GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, internalformat,
+            w, h, 0, format, pixelformat, pixels
+        );
+    }
 }
 
 ///=============================================================================
-bool ffw::TextureCubemap::setPixels(GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLint side, const void* pixels){
-    if(!loaded_)return false;
+bool ffw::TextureCubemap::setPixels(const GLint level, const GLint xoffset, const GLint yoffset, 
+    const GLsizei width, const GLsizei height, const GLint side, const GLvoid* pixels){
+
+    if(!loaded)return false;
     if (side < 0 || side >= 6)return false;
-    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer_);
+    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer);
 
-    if(isCompressed()) {
-        glCompressedTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, xoffset, yoffset, width, height, internalformat_, getBlockSize(width, height), pixels);
-    } else {
-        glTexSubImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, xoffset, yoffset, width, height, format_, pixelformat_, pixels);
-    }
+    setPixelsInternal(level, xoffset, yoffset, width, height, side, pixels);
     return true;
 }
 
 ///=============================================================================
-bool ffw::TextureCubemap::setFromBuffer(const ImageBuffer& buffer, GLint side, bool inverse) {
-    if (!buffer.isAllocated())return false;
-    if (buffer.getDepth() > 1)return false;
+void ffw::TextureCubemap::setPixelsInternal(const GLint level, const GLint xoffset, 
+    const GLint yoffset, const GLsizei width, const GLsizei height, const GLint side, 
+    const GLvoid* pixels) {
 
-    ffw::OpenGLImageType openglType = ffw::getOpenGLImageType(buffer.getImageType());
+    if (isCompressed()) {
+        glCompressedTexSubImage2D(
+            GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, xoffset, yoffset, width,
+            height, internalformat, getBlockSize(width, height), pixels
+        );
+    }
+    else {
+        glTexSubImage2D(
+            GL_TEXTURE_CUBE_MAP_POSITIVE_X + side, level, xoffset, yoffset, width,
+            height, format, pixelformat, pixels
+        );
+    }
+}
+
+///=============================================================================
+bool ffw::TextureCubemap::setFromBuffer(const ImageBuffer& image, const GLint side, 
+    const bool inverse) {
+
+    if (!image.isAllocated())return false;
+    if (image.getDepth() > 1)return false;
+
+    const auto openglType = ffw::getOpenGLImageType(image.getImageType());
     if (!openglType) {
         return false;
     }
 
-    if (buffer.isCompressed() && inverse)return false;
+    if (image.isCompressed() && inverse)return false;
 
     if (isCreated()) {
-        for(int m = 0; m <= buffer.getNumOfMipMaps()-1; m++) {
+        for(auto m = 0; m <= image.getNumOfMipMaps()-1; m++) {
             
             if(inverse) {
-                if (m != 0)setPixels(m, side, NULL); // Create mipmap
-                for (int i = 0; i < buffer.getHeight(m); i++) {
-                    auto ptr = &buffer.getMipMapPtr(m)[buffer.getStrideSize(m) * i];
-                    if(!setPixels(m, 0, buffer.getHeight(m) - i - 1, buffer.getWidth(m), 1, side, ptr)) {
-                        return false;
-                    }
+                if (m != 0)setPixelsInternal(m, side, nullptr); // Create mipmap
+                for (auto i = 0; i < image.getHeight(m); i++) {
+                    const auto ptr = &image.getMipMapPtr(m)[image.getStrideSize(m) * i];
+                    setPixelsInternal(
+                        m, 0, image.getHeight(m) - i - 1, 
+                        image.getWidth(m), 1, side, ptr
+                    );
                 }
             }
             else {
-                if (m != 0)setPixels(m, side, NULL); // Create mipmap
-                if(!setPixels(m, 0, 0, buffer.getWidth(m), buffer.getHeight(m), side, buffer.getMipMapPtr(m))) {
-                    return false;
-                }
+                if (m != 0)setPixelsInternal(m, side, nullptr); // Create mipmap
+                setPixelsInternal(
+                    m, 0, 0, image.getWidth(m), image.getHeight(m), 
+                    side, image.getMipMapPtr(m)
+                );
             }
         }
 
-        if(buffer.getNumOfMipMaps() > 0) {
+        if(image.getNumOfMipMaps() > 0) {
             glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_BASE_LEVEL, 0);
-            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, buffer.getNumOfMipMaps()-1);
+            glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_MAX_LEVEL, image.getNumOfMipMaps()-1);
         }
     } else {
         return false;
@@ -163,9 +210,9 @@ bool ffw::TextureCubemap::setFromBuffer(const ImageBuffer& buffer, GLint side, b
 }
 
 ///=============================================================================
-bool ffw::TextureCubemap::getPixels(void* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer_);
-    glGetTexImage(GL_TEXTURE_CUBE_MAP, 0, format_, pixelformat_, pixels);
+bool ffw::TextureCubemap::getPixels(GLvoid* pixels){
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_CUBE_MAP, buffer);
+    glGetTexImage(GL_TEXTURE_CUBE_MAP, 0, format, pixelformat, pixels);
     return true;
 }

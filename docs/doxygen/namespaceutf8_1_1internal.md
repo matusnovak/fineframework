@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['utf8::internal', 'utf_error', 'LEAD_SURROGATE_MIN', 'LEAD_SURROGATE_MAX', 'TRAIL_SURROGATE_MIN', 'TRAIL_SURROGATE_MAX', 'LEAD_OFFSET', 'SURROGATE_OFFSET', 'CODE_POINT_MAX', 'mask8', 'mask16', 'is_trail', 'is_lead_surrogate', 'is_trail_surrogate', 'is_surrogate', 'is_code_point_valid', 'sequence_length', 'is_overlong_sequence', 'increase_safely', 'get_sequence_1', 'get_sequence_2', 'get_sequence_3', 'get_sequence_4', 'validate_next', 'validate_next']
+search: false
 ---
 
 # namespace utf8::internal

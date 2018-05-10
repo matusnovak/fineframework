@@ -23,7 +23,6 @@ Source: `include/ffw/graphics/shader.h`
     
     
     
-    
       
     
     
@@ -32,13 +31,13 @@ Source: `include/ffw/graphics/shader.h`
 /* This file is part of FineFramework project */
 #ifndef FFW_GRAPHICS_SHADER
 #define FFW_GRAPHICS_SHADER
-#include "../config.h"
+
+#include "renderextensionsgl.h"
 #include "../math/vec2.h"
 #include "../math/vec3.h"
 #include "../math/vec4.h"
 #include "../math/color.h"
 #include "../math/mat4.h"
-#include "renderextensionsgl.h"
 #include <string>
 
 namespace ffw {
@@ -156,7 +155,6 @@ namespace ffw {
         bool usinggeom;
         bool usingvert;
         bool usingfrag;
-        const RenderExtensions* gl_;
     };
 };
 

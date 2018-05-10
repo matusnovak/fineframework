@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::ImageFormat', 'format', 'width', 'height', 'depth', 'ImageFormat', 'ImageFormat', 'ImageFormat', 'getImageType', 'getWidth', 'getHeight', 'getDepth', 'getStrideSize', 'getBitsPerPixel', 'getBitDepth', 'getNumberOfChannels', 'isCompressed', 'getMipMapSize', 'getMipMapPtrOffset', 'swap', 'operator=', 'getAllocationSize', 'operator==']
+search: false
 ---
 
 # class ffw::ImageFormat

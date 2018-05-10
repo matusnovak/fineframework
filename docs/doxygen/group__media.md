@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['media', 'ffw::BmpLoader', 'ffw::BmpSaver', 'ffw::DdsLoader', 'ffw::DdsSaver', 'ffw::ImageReader', 'ffw::ImageWriter', 'ffw::JpgLoader', 'ffw::JpgSaver', 'ffw::ObjLoader', 'ffw::PbmLoader', 'ffw::PbmSaver', 'ffw::PngLoader', 'ffw::PngSaver', 'ffw::TgaLoader', 'ffw::TgaSaver', 'ffw::TifLoader', 'ffw::TifSaver', 'openImageReader', 'openImageWriter', 'readImage', 'writeImage', 'readImage', 'writeImage', 'readObj']
+search: false
 ---
 
 # group media

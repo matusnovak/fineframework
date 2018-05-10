@@ -121,7 +121,6 @@ bool ffw::TgaLoader::open(const std::string& path){
     }
 
     if(size < 18 + height * getStrideSize()){
-        std::cout << "size too low" << std::endl;
         close();
         return false;
     }

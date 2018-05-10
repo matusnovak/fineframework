@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlReader::Value', 'name', 'isObject', 'isEmpty', 'isString', 'isNumber', 'isInteger', 'isFloat', 'isBoolean', 'isNull', 'toString', 'toInteger', 'toDouble', 'toFloat', 'toBoolean', 'getType', 'rawCstr']
+search: false
 ---
 
 # class ffw::XmlReader::Value

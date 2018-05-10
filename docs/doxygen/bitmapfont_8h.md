@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['bitmapfont.h', 'ffw::BitmapFont', 'swap']
+search: false
 ---
 
 # file bitmapfont.h

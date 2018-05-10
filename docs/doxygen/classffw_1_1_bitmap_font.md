@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::BitmapFont', 'BitmapFont', 'BitmapFont', 'BitmapFont', '~BitmapFont', 'createFromData', 'createFromBuffer', 'destroy', 'getChar', 'getCharIndex', 'setCharData', 'updateBuffer', 'operator=', 'operator=', 'swap', 'Font', '~Font', 'destroy', 'getChar', 'getCharIndex', 'getStringSize', 'getStringSize', 'getCharAdvance', 'getSizePt', 'getSizePixels', 'getDpi', 'getTexture', 'getVbo', 'isCreated', 'getCharVerticalOffset', 'isAlphaOnly']
+search: false
 ---
 
 # class ffw::BitmapFont
@@ -17,12 +16,12 @@ Inherits the following classes: **[ffw::Font](classffw_1_1_font.md)**
 ||[**BitmapFont**](classffw_1_1_bitmap_font.md#1a4d41c66bfb70dc247ec709471836e0f9) (const **[BitmapFont](classffw_1_1_bitmap_font.md)** & other) = delete |
 ||[**BitmapFont**](classffw_1_1_bitmap_font.md#1a98008c5f211aeb6c9a374fca15576f62) (**[BitmapFont](classffw_1_1_bitmap_font.md)** && other) |
 |virtual |[**~BitmapFont**](classffw_1_1_bitmap_font.md#1a3fc686a3f4f3c33ce58a87cae5bd80a1) () |
-|bool|[**createFromData**](classffw_1_1_bitmap_font.md#1af55375606c317f92f4423dd18f9c307d) (const void \* pixels, int width, int height, **[ffw::ImageType](namespaceffw.md#1a92226423d9aa0edfe0ca1dde2141e028)** format, int points, int dpi, int start = 0x00, int end = 0x7F) |
-|bool|[**createFromBuffer**](classffw_1_1_bitmap_font.md#1a811b27e1ebce4ec73cb3b0449ecc51f0) (const **[ImageBuffer](classffw_1_1_image_buffer.md)** & buffer, int points, int dpi, int start = 0x00, int end = 0x7F) |
-|virtual void|[**destroy**](classffw_1_1_bitmap_font.md#1a764ca69c555b775fd879afac66abbe6c) () override |
-|virtual const **[Font::Char](structffw_1_1_font_1_1_char.md)** &|[**getChar**](classffw_1_1_bitmap_font.md#1a1ab3ebc2c6e91c34d3aaedeca11d9b16) (wchar\_t chr) override const |
-|virtual int|[**getCharIndex**](classffw_1_1_bitmap_font.md#1af0b3d82ffc22393c1232216c34ef2096) (wchar\_t chr) override const |
-|void|[**setCharData**](classffw_1_1_bitmap_font.md#1af050da8420585987de7ac8ebf45aca24) (wchar\_t chr, **[Font::Char](structffw_1_1_font_1_1_char.md)** & data) |
+|bool|[**createFromData**](classffw_1_1_bitmap_font.md#1af55375606c317f92f4423dd18f9c307d) (const void \* pixels, int width, int height, **[ffw::ImageType](namespaceffw.md#1a92226423d9aa0edfe0ca1dde2141e028)** format, int points, int dpi, int start = 0x00, int end = 0x7F) <br>Creates a bitmap font from raw pixels of data. |
+|bool|[**createFromBuffer**](classffw_1_1_bitmap_font.md#1a811b27e1ebce4ec73cb3b0449ecc51f0) (const **[ImageBuffer](classffw_1_1_image_buffer.md)** & buffer, int points, int dpi, int start = 0x00, int end = 0x7F) <br>Creates a bitmap font from raw pixels using **[ImageBuffer](classffw_1_1_image_buffer.md)**. |
+|void|[**destroy**](classffw_1_1_bitmap_font.md#1a5094d5e65e0fda707ff6b17f1381662e) () <br>Releases all resources. |
+|virtual const **[Font::Char](structffw_1_1_font_1_1_char.md)** &|[**getChar**](classffw_1_1_bitmap_font.md#1a0785ff6eee3e85c5501e5c85df74f72a) (unsigned int chr) override const |
+|virtual int|[**getCharIndex**](classffw_1_1_bitmap_font.md#1ab897a764b7b18180a24f8e1cae0931ed) (unsigned int chr) override const |
+|void|[**setCharData**](classffw_1_1_bitmap_font.md#1a14884030d06c4d5a184b849363715ef6) (unsigned int chr, const **[Font::Char](structffw_1_1_font_1_1_char.md)** & data) |
 |bool|[**updateBuffer**](classffw_1_1_bitmap_font.md#1a00aa0bda3fa051d03e4828fb8cff941c) () |
 |**[BitmapFont](classffw_1_1_bitmap_font.md)** &|[**operator=**](classffw_1_1_bitmap_font.md#1a2ec5a588263487c8300501c6d3ae7d04) (const **[BitmapFont](classffw_1_1_bitmap_font.md)** & other) = delete |
 |**[BitmapFont](classffw_1_1_bitmap_font.md)** &|[**operator=**](classffw_1_1_bitmap_font.md#1a42dfd5bfbdd748aa381db7f7e2fd3d1b) (**[BitmapFont](classffw_1_1_bitmap_font.md)** && other) |
@@ -34,10 +33,14 @@ Inherits the following classes: **[ffw::Font](classffw_1_1_font.md)**
 |Type|Name|
 |-----|-----|
 ||[**Font**](classffw_1_1_font.md#1a61607295e4f95fba5cf189f0bf46e972) () |
-|virtual |[**~Font**](classffw_1_1_font.md#1a232e75baded001562f4aa1ba3c270490) () |
+||[**Font**](classffw_1_1_font.md#1a625968999be1f55607ba2c241e99c2bb) (const **[Font](classffw_1_1_font.md)** & other) = delete |
+||[**Font**](classffw_1_1_font.md#1a7b07abd846095b2b3211e1d1e41775c5) (**[Font](classffw_1_1_font.md)** && other) = default |
+|**[Font](classffw_1_1_font.md)** &|[**operator=**](classffw_1_1_font.md#1a1506af1c9de421dac45dad7a9d1b0e26) (const **[Font](classffw_1_1_font.md)** & other) = delete |
+|**[Font](classffw_1_1_font.md)** &|[**operator=**](classffw_1_1_font.md#1adc829453376092c01873ccf869e3b905) (**[Font](classffw_1_1_font.md)** && other) = default |
+|virtual |[**~Font**](classffw_1_1_font.md#1af64aa991e6e53e3b55105a2eb0239ea4) () = default |
 |virtual **[ffw::Vec2f](group__math_.md#ga44573357c25b7969b4391ca0ae427636)**|[**getStringSize**](classffw_1_1_font.md#1a954e31facabcb58c18608283156390ee) (const std::string & str, float maxWidth = -1.0f, float lineHeight = 1.25f) const |
 |virtual **[ffw::Vec2f](group__math_.md#ga44573357c25b7969b4391ca0ae427636)**|[**getStringSize**](classffw_1_1_font.md#1a447d1fb84909315000d1d568e2561b86) (const std::wstring & str, float maxWidth = -1.0f, float lineHeight = 1.25f) const |
-|float|[**getCharAdvance**](classffw_1_1_font.md#1a2ce2045030c495ace3edaab3c6ea6852) (wchar\_t chr) const |
+|float|[**getCharAdvance**](classffw_1_1_font.md#1ab41de9dad062dd9c58ddc360c8acc32b) (const unsigned int chr) const |
 |int|[**getSizePt**](classffw_1_1_font.md#1a1444b58cd884fcfb51258bebfe44a66c) () const |
 |int|[**getSizePixels**](classffw_1_1_font.md#1a546770fa3a6e1f7283aac00b517663bb) () const |
 |int|[**getDpi**](classffw_1_1_font.md#1a1a54d225c828f3002d968be8029fe4e7) () const |
@@ -123,6 +126,7 @@ bool ffw::BitmapFont::createFromData (
 )
 ```
 
+Creates a bitmap font from raw pixels of data. 
 
 
 ### function <a id="1a811b27e1ebce4ec73cb3b0449ecc51f0" href="#1a811b27e1ebce4ec73cb3b0449ecc51f0">createFromBuffer</a>
@@ -137,45 +141,46 @@ bool ffw::BitmapFont::createFromBuffer (
 )
 ```
 
+Creates a bitmap font from raw pixels using **[ImageBuffer](classffw_1_1_image_buffer.md)**. 
 
 
-### function <a id="1a764ca69c555b775fd879afac66abbe6c" href="#1a764ca69c555b775fd879afac66abbe6c">destroy</a>
+### function <a id="1a5094d5e65e0fda707ff6b17f1381662e" href="#1a5094d5e65e0fda707ff6b17f1381662e">destroy</a>
 
 ```cpp
-virtual void ffw::BitmapFont::destroy ()
+void ffw::BitmapFont::destroy ()
 ```
 
-Overrides **[Font::destroy](classffw_1_1_font.md#1a7c097bfaf58c965bdd49727bcca734c5)**
+Releases all resources. 
 
 
-### function <a id="1a1ab3ebc2c6e91c34d3aaedeca11d9b16" href="#1a1ab3ebc2c6e91c34d3aaedeca11d9b16">getChar</a>
+### function <a id="1a0785ff6eee3e85c5501e5c85df74f72a" href="#1a0785ff6eee3e85c5501e5c85df74f72a">getChar</a>
 
 ```cpp
 virtual const Font::Char & ffw::BitmapFont::getChar (
-    wchar_t chr
+    unsigned int chr
 ) const
 ```
 
-Overrides **[Font::getChar](classffw_1_1_font.md#1a18f6eba85473c37a0606b91d8601c323)**
+Overrides **[Font::getChar](classffw_1_1_font.md#1ac377ea34f700ab2c2281e66a93610a75)**
 
 
-### function <a id="1af0b3d82ffc22393c1232216c34ef2096" href="#1af0b3d82ffc22393c1232216c34ef2096">getCharIndex</a>
+### function <a id="1ab897a764b7b18180a24f8e1cae0931ed" href="#1ab897a764b7b18180a24f8e1cae0931ed">getCharIndex</a>
 
 ```cpp
 virtual int ffw::BitmapFont::getCharIndex (
-    wchar_t chr
+    unsigned int chr
 ) const
 ```
 
-Overrides **[Font::getCharIndex](classffw_1_1_font.md#1a3f420f3d7a5f7ad6014bb3f08aaa0493)**
+Overrides **[Font::getCharIndex](classffw_1_1_font.md#1ac41292d33971a660fe9bed10ea39504e)**
 
 
-### function <a id="1af050da8420585987de7ac8ebf45aca24" href="#1af050da8420585987de7ac8ebf45aca24">setCharData</a>
+### function <a id="1a14884030d06c4d5a184b849363715ef6" href="#1a14884030d06c4d5a184b849363715ef6">setCharData</a>
 
 ```cpp
 void ffw::BitmapFont::setCharData (
-    wchar_t chr
-    Font::Char & data
+    unsigned int chr
+    const Font::Char & data
 )
 ```
 

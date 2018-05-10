@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Tokenizer', 'Tokenizer', 'getNext', 'getNext', 'skipNext', 'hasNext', 'getPos']
+search: false
 ---
 
 # class ffw::Tokenizer

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::ImageWriter', 'loaded', 'row', 'mipmapOffset', 'mipmaps', 'format', 'width', 'height', 'depth', 'ImageWriter', '~ImageWriter', 'open', 'close', 'writeRow', 'writeAll', 'writeAll', 'setMipMap', 'writeFooter', 'eof', 'operator bool', 'getRowOffset', 'isOpen', 'getNumOfMipMaps', 'getMipMapOffset', 'ImageFormat', 'ImageFormat', 'ImageFormat', 'getImageType', 'getWidth', 'getHeight', 'getDepth', 'getStrideSize', 'getBitsPerPixel', 'getBitDepth', 'getNumberOfChannels', 'isCompressed', 'getMipMapSize', 'getMipMapPtrOffset', 'swap', 'operator=', 'getAllocationSize', 'operator==']
+search: false
 ---
 
 # class ffw::ImageWriter

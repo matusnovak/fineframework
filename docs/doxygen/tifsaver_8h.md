@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['tifsaver.h', 'ffw::TifSaver', 'swap']
+search: false
 ---
 
 # file tifsaver.h

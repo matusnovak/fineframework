@@ -28,8 +28,8 @@ namespace ffw {
     class RenderContext;
     class FFW_API Renderbuffer2DMS: public Renderbuffer {
     public:
-        Renderbuffer2DMS();
-        ~Renderbuffer2DMS();
+        Renderbuffer2DMS() = default;
+        virtual ~Renderbuffer2DMS() = default;
         bool create(GLsizei width, GLsizei height, GLenum internalformat, GLint samples);
         bool resize(GLsizei width, GLsizei height, GLint samples);
     };

@@ -8,6 +8,7 @@
 #include "ffw/math/textwrapper.h"
 #include "ffw/math/stringmath.h"
 #include "third_party/nanovg/nanovg.h"
+#include <iostream>
 
 #define FFW_COLOR_TO_NV_COLOR(C) *reinterpret_cast<const NVGcolor*>(&C)
 #define FFW_PAINT_TO_NV_PAINT(C) *reinterpret_cast<const NVGpaint*>(&C)

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiFont', 'isCreated', 'destroy', 'getStringSize', 'getCharAdvance', 'getSizeInPixels']
+search: false
 ---
 
 # class ffw::GuiFont

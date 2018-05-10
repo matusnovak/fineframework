@@ -27,70 +27,79 @@ Source: `include/ffw/graphics/bufferobject.h`
 /* This file is part of FineFramework project */
 #ifndef FFW_BUFFER_OBJECT
 #define FFW_BUFFER_OBJECT
-#include "../config.h"
+
+#include <vector>
 #include "renderextensionsgl.h"
+
 namespace ffw {
     class RenderContext;
     class FFW_API BufferObject {
     public:
-        BufferObject(unsigned int objecttype);
+        BufferObject(GLenum objecttype);
         BufferObject(const BufferObject& other) = delete;
-        BufferObject(BufferObject&& other);
-        void swap(BufferObject& other);
+        BufferObject(BufferObject&& other) NOEXCEPT;
+        void swap(BufferObject& other) NOEXCEPT;
 
         virtual ~BufferObject();
         inline bool isCreated() const {
-            return loaded_;
+            return loaded;
         }
-        bool create(const void* data, GLsizei size, GLenum type);
-        bool resize(const void* data, GLsizei size);
-        bool setData(const void* data, GLsizei offset, GLsizei size);
-        bool mapBuffer(void** pointer, GLenum access) const;
+        bool create(const GLvoid* data, GLsizei size, GLenum type);
+        bool resize(const GLvoid* data, GLsizei size);
+        bool setData(const GLvoid* data, GLsizei offset, GLsizei size);
+        bool mapBuffer(GLvoid** pointer, GLenum access) const;
+        bool mapBufferRange(GLvoid** pointer, GLsizei offset, GLsizei size, GLenum access) const;
+        bool flushMappedBufferRange(GLsizei offset, GLsizei size) const;
         bool unMapBuffer() const;
         void destroy();
         void bind() const;
         void unbind() const;
-        inline unsigned int getHandle() const {
-            return buffer_;
+        inline GLuint getHandle() const {
+            return buffer;
         }
-        inline int getSize() const {
-            return size_;
+        inline GLsizei getSize() const {
+            return size;
         }
-        inline unsigned int getType() const {
-            return type_;
+        inline GLenum getType() const {
+            return type;
         }
-        inline unsigned int getObjectType() const {
-            return objecttype_;
+        inline GLenum getObjectType() const {
+            return objecttype;
         }
-        bool copyFrom(const BufferObject* other, GLintptr readoffset, GLintptr writeoffset, GLsizeiptr size);
-        bool copyFromEnabled() const;
-        bool getData(void* data, GLsizei offset, GLsizei size);
+        bool copyFrom(const BufferObject* other, GLintptr readoffset,
+            GLintptr writeoffset, GLsizeiptr size);
+        bool getData(GLvoid* data, GLsizei offset, GLsizei size);
+        std::vector<uint8_t> getData(GLsizei offset, GLsizei size);
         BufferObject& operator = (const BufferObject& other) = delete;
-        BufferObject& operator = (BufferObject&& other);
+        BufferObject& operator = (BufferObject&& other) NOEXCEPT;
     protected:
-        unsigned int type_;
-        unsigned int objecttype_;
-        bool loaded_;
-        unsigned int buffer_;
-        int size_;
+        GLenum type;
+        GLenum objecttype;
+        bool loaded;
+        GLuint buffer;
+        GLsizei size;
     };
     class FFW_API Vbo: public BufferObject {
     public:
-        Vbo():BufferObject(GL_ARRAY_BUFFER){}
+        Vbo():BufferObject(GL_ARRAY_BUFFER) {
+            
+        }
     };
     class FFW_API Ibo: public BufferObject {
     public:
-        Ibo():BufferObject(GL_ELEMENT_ARRAY_BUFFER){}
+        Ibo():BufferObject(GL_ELEMENT_ARRAY_BUFFER) {
+            
+        }
     };
 };
 
-inline void swap(ffw::BufferObject& first, ffw::BufferObject& second) {
+inline void swap(ffw::BufferObject& first, ffw::BufferObject& second) NOEXCEPT {
     first.swap(second);
 }
-inline void swap(ffw::Vbo& first, ffw::Vbo& second) {
+inline void swap(ffw::Vbo& first, ffw::Vbo& second) NOEXCEPT {
     first.swap(second);
 }
-inline void swap(ffw::Ibo& first, ffw::Ibo& second) {
+inline void swap(ffw::Ibo& first, ffw::Ibo& second) NOEXCEPT {
     first.swap(second);
 }
 #endif

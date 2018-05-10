@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiStyle::Background', 'Type', 'Radius', 'radius', 'color', 'type', 'Background', 'Background', 'Background', 'operator bool']
+search: false
 ---
 
 # class ffw::GuiStyle::Background

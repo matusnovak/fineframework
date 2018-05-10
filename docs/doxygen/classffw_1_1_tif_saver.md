@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::TifSaver', 'TifSaver', 'TifSaver', 'TifSaver', 'swap', 'operator=', 'operator=', '~TifSaver', 'open', 'writeRow', 'writeFooter', 'close', 'ImageWriter', '~ImageWriter', 'open', 'close', 'writeRow', 'writeAll', 'writeAll', 'setMipMap', 'writeFooter', 'eof', 'operator bool', 'getRowOffset', 'isOpen', 'getNumOfMipMaps', 'getMipMapOffset', 'ImageFormat', 'ImageFormat', 'ImageFormat', 'getImageType', 'getWidth', 'getHeight', 'getDepth', 'getStrideSize', 'getBitsPerPixel', 'getBitDepth', 'getNumberOfChannels', 'isCompressed', 'getMipMapSize', 'getMipMapPtrOffset', 'swap', 'operator=', 'getAllocationSize', 'operator==']
+search: false
 ---
 
 # class ffw::TifSaver

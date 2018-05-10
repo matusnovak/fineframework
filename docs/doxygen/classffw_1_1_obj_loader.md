@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::ObjLoader', 'ObjLoader', 'ObjLoader', 'ObjLoader', '~ObjLoader', 'swap', 'open', 'getNextObject', 'getPolygon', 'calculatePolyCount', 'isOpen', 'operator bool', 'getMtllibName', 'getCurrentLineNum', 'getCurrentMaterialName', 'getMaterialFoundFlag', 'resetMaterialFoundFlag', 'objectHasNormals', 'objectHasTexcoords', 'getIndex0', 'getIndex1', 'getIndex2', 'getVertex', 'getNormal', 'getTexCoord2', 'getTexCoord3', 'gotObject', 'fillData', 'close', 'operator=', 'operator=']
+search: false
 ---
 
 # class ffw::ObjLoader

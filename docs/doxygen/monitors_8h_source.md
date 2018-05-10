@@ -19,31 +19,28 @@ Source: `include/ffw/graphics/monitors.h`
     
     
     
-    
-    
 ```cpp
 /* This file is part of FineFramework project */
 #ifndef FFW_GL_MONITORS
 #define FFW_GL_MONITORS
-#include "../config.h"
+
 #include "../math/vec3.h"
 #include <string>
-#include <vector>
 
 namespace ffw{
     struct Monitor {
         struct Mode {
             Vec2i resolution;
             Vec3i bitDepth;
-            int refreshRate;
+            int refreshRate = 0;
         };
         std::string name;
         Vec2i resolution;
         Vec3i bitDepth;
-        int refreshRate;
+        int refreshRate = 0;
         Vec2i position;
         Vec2i physicalSize;
-        void* ptr = NULL;
+        void* ptr = nullptr;
     };
 };
 #endif

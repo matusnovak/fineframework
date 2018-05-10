@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::TextWrapper::Token', 'str', 'len', 'width', 'Token', 'Token', 'operator bool']
+search: false
 ---
 
 # struct ffw::TextWrapper::Token

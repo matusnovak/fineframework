@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiUserInput', 'mousebtn', 'mousemode', 'chr', 'key', 'keymode', 'scroll']
+search: false
 ---
 
 # class ffw::GuiUserInput

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guilabel.h', 'ffw::GuiLabel', 'ffw::GuiLabel::Style']
+search: false
 ---
 
 # file guilabel.h

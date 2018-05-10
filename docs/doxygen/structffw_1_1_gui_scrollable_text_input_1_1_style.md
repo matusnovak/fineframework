@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiScrollableTextInput::Style', 'self', 'inner']
+search: false
 ---
 
 # struct ffw::GuiScrollableTextInput::Style

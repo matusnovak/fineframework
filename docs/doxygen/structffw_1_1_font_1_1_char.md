@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Font::Char', 'x', 'y', 'width', 'height', 'bearingX', 'bearingY', 'advance']
+search: false
 ---
 
 # struct ffw::Font::Char

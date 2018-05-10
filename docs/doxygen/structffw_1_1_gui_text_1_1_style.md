@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiText::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiText::Style

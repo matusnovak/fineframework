@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['jsonexception.h', 'ffw::JsonException', 'ffw::JsonDecodeException', 'ffw::JsonEncodeException', 'FFW_JSON_EXCEPTION']
+search: false
 ---
 
 # file jsonexception.h

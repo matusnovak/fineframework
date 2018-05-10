@@ -5,64 +5,64 @@
 
 ///=============================================================================
 ffw::Texture::Texture() {
-    loaded_ = false;
-    textureformat_ = 0;
-    internalformat_ = 0;
-    format_ = 0;
-    pixelformat_ = 0;
-    buffer_ = 0;
-    width_ = 0;
-    height_ = 0;
-    depth_ = 0;
-    layers_ = 0;
-    mipmaps_ = false;
-    initialized_ = false;
-    samples_ = 0;
-    compressed_ = false;
+    loaded = false;
+    textureformat = 0;
+    internalformat = 0;
+    format = 0;
+    pixelformat = 0;
+    buffer = 0;
+    width = 0;
+    height = 0;
+    depth = 0;
+    layers = 0;
+    mipmaps = false;
+    initialized = false;
+    samples = 0;
+    compressed = false;
 }
 
 ///=============================================================================
-ffw::Texture::Texture(Texture&& other) {
-    loaded_ = false;
-    textureformat_ = 0;
-    internalformat_ = 0;
-    format_ = 0;
-    pixelformat_ = 0;
-    buffer_ = 0;
-    width_ = 0;
-    height_ = 0;
-    depth_ = 0;
-    layers_ = 0;
-    mipmaps_ = false;
-    initialized_ = false;
-    samples_ = 0;
-    compressed_ = false;
+ffw::Texture::Texture(Texture&& other) NOEXCEPT {
+    loaded = false;
+    textureformat = 0;
+    internalformat = 0;
+    format = 0;
+    pixelformat = 0;
+    buffer = 0;
+    width = 0;
+    height = 0;
+    depth = 0;
+    layers = 0;
+    mipmaps = false;
+    initialized = false;
+    samples = 0;
+    compressed = false;
     swap(other);
 }
 
 ///=============================================================================
-void ffw::Texture::swap(Texture& other) {
+void ffw::Texture::swap(Texture& other) NOEXCEPT {
     if (this != &other) {
         using std::swap;
-        swap(loaded_, other.loaded_);
-        swap(textureformat_, other.textureformat_);
-        swap(internalformat_, other.internalformat_);
-        swap(format_, other.format_);
-        swap(pixelformat_, other.pixelformat_);
-        swap(buffer_, other.buffer_);
-        swap(width_, other.width_);
-        swap(height_, other.height_);
-        swap(depth_, other.depth_);
-        swap(layers_, other.layers_);
-        swap(mipmaps_, other.mipmaps_);
-        swap(initialized_, other.initialized_);
-        swap(samples_, other.samples_);
-        swap(compressed_, other.compressed_);
+        swap(loaded, other.loaded);
+        swap(textureformat, other.textureformat);
+        swap(internalformat, other.internalformat);
+        swap(format, other.format);
+        swap(pixelformat, other.pixelformat);
+        swap(buffer, other.buffer);
+        swap(width, other.width);
+        swap(height, other.height);
+        swap(depth, other.depth);
+        swap(layers, other.layers);
+        swap(mipmaps, other.mipmaps);
+        swap(initialized, other.initialized);
+        swap(samples, other.samples);
+        swap(compressed, other.compressed);
     }
 }
 
 ///=============================================================================
-ffw::Texture& ffw::Texture::operator = (Texture&& other) {
+ffw::Texture& ffw::Texture::operator = (Texture&& other) NOEXCEPT {
     if (this != &other) {
         swap(other);
     }
@@ -76,51 +76,51 @@ ffw::Texture::~Texture(){
 
 ///=============================================================================
 bool ffw::Texture::generateMipmaps(){
-    if(!loaded_)return false;
+    if(!loaded)return false;
     bind();
-    glGenerateMipmap(textureformat_);
-    mipmaps_ = true;
+    glGenerateMipmap(textureformat);
+    mipmaps = true;
     return true;
 }
 
 ///=============================================================================
-void ffw::Texture::setEnvParami(GLenum target, GLenum name, GLint value){
-    glBindTexture(textureformat_, buffer_);
+void ffw::Texture::setEnvParami(const GLenum target, const GLenum name, const GLint value) const {
+    glBindTexture(textureformat, buffer);
     glTexEnvi(target, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::setEnvParamf(GLenum target, GLenum name, GLfloat value){
-    glBindTexture(textureformat_, buffer_);
+void ffw::Texture::setEnvParamf(const GLenum target, const GLenum name, const GLfloat value) const {
+    glBindTexture(textureformat, buffer);
     glTexEnvf(target, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::setTexParami(GLenum name, GLint value){
-    glBindTexture(textureformat_, buffer_);
-    glTexParameteri(textureformat_, name, value);
+void ffw::Texture::setTexParami(const GLenum name, const GLint value) const {
+    glBindTexture(textureformat, buffer);
+    glTexParameteri(textureformat, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::setTexParamf(GLenum name, GLfloat value){
-    glBindTexture(textureformat_, buffer_);
-    glTexParameterf(textureformat_, name, value);
+void ffw::Texture::setTexParamf(const GLenum name, const GLfloat value) const {
+    glBindTexture(textureformat, buffer);
+    glTexParameterf(textureformat, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::setTexParamiv(GLenum name, GLint* value){
-    glBindTexture(textureformat_, buffer_);
-    glTexParameteriv(textureformat_, name, value);
+void ffw::Texture::setTexParamiv(const GLenum name, const GLint* value) const {
+    glBindTexture(textureformat, buffer);
+    glTexParameteriv(textureformat, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::setTexParamfv(GLenum name, GLfloat* value){
-    glBindTexture(textureformat_, buffer_);
-    glTexParameterfv(textureformat_, name, value);
+void ffw::Texture::setTexParamfv(const GLenum name, const GLfloat* value) const {
+    glBindTexture(textureformat, buffer);
+    glTexParameterfv(textureformat, name, value);
 }
 
 ///=============================================================================
-void ffw::Texture::setFiltering(Texture::Filtering filtering) {
+void ffw::Texture::setFiltering(const Texture::Filtering filtering) const {
     switch (filtering) {
         case Texture::Filtering::NEAREST: {
             setTexParami(GL_TEXTURE_MAG_FILTER, GL_NEAREST);
@@ -149,7 +149,7 @@ void ffw::Texture::setFiltering(Texture::Filtering filtering) {
 }
 
 ///=============================================================================
-void ffw::Texture::setWrapping(Texture::Wrapping wrapping){
+void ffw::Texture::setWrapping(const Texture::Wrapping wrapping) const {
     bind();
     switch (wrapping) {
         case Texture::Wrapping::REPEAT: {
@@ -179,33 +179,33 @@ void ffw::Texture::setWrapping(Texture::Wrapping wrapping){
 
 ///=============================================================================
 void ffw::Texture::bind() const{
-    if(loaded_)glBindTexture(textureformat_, buffer_);
+    if(loaded)glBindTexture(textureformat, buffer);
 }
 
 ///=============================================================================
 void ffw::Texture::unbind() const{
-    if(loaded_)glBindTexture(textureformat_, 0);
+    if(loaded)glBindTexture(textureformat, 0);
 }
 
 ///=============================================================================
 void ffw::Texture::destroy(){
     // Delete texture
-    if(loaded_)glDeleteTextures(1, &buffer_);
+    if(loaded)glDeleteTextures(1, &buffer);
     // reset variables
-    loaded_ = false;
-    textureformat_ = 0;
-    internalformat_ = 0;
-    format_ = 0;
-    pixelformat_ = 0;
-    buffer_ = 0;
-    width_ = 0;
-    height_ = 0;
-    depth_ = 0;
-    layers_ = 0;
-    mipmaps_ = false;
-    initialized_ = false;
-    samples_ = 0;
-    compressed_ = false;
+    loaded = false;
+    textureformat = 0;
+    internalformat = 0;
+    format = 0;
+    pixelformat = 0;
+    buffer = 0;
+    width = 0;
+    height = 0;
+    depth = 0;
+    layers = 0;
+    mipmaps = false;
+    initialized = false;
+    samples = 0;
+    compressed = false;
 }
 
 

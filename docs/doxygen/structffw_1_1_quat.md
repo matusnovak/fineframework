@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Quat', 'x', 'y', 'z', 'w', 'Quat', 'Quat', 'Quat', 'set', 'set', 'rotate', 'rotateRad', 'operator-', 'operator*', 'operator*=', 'operator*', 'operator*=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'normalize', 'getEuler', 'length', 'lengthSqrd', 'getConjugate', 'getInversed', 'inverse']
+search: false
 ---
 
 # struct ffw::Quat

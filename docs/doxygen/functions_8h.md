@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['functions.h']
+search: false
 ---
 
 # file functions.h

@@ -4,31 +4,23 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-ffw::Renderbuffer2DMS::Renderbuffer2DMS() {
-}
+bool ffw::Renderbuffer2DMS::create(const GLsizei width, const GLsizei height, const GLenum internalformat, const GLint samples){
+    if(loaded)return false;
+    loaded = true;
 
-///=============================================================================
-ffw::Renderbuffer2DMS::~Renderbuffer2DMS(){
-}
+    glGenRenderbuffers(1, &buffer);
+    glBindRenderbuffer(GL_RENDERBUFFER, buffer);
 
-///=============================================================================
-bool ffw::Renderbuffer2DMS::create(GLsizei width, GLsizei height, GLenum internalformat, GLint samples){
-    if(loaded_)return false;
-    loaded_ = true;
+    this->width = width;
+    this->height = height;
+    this->samples = samples;
+    this->internalformat = internalformat;
 
-    glGenRenderbuffers(1, &buffer_);
-    glBindRenderbuffer(GL_RENDERBUFFER, buffer_);
-
-    width_            = width;
-    height_            = height;
-    samples_        = samples;
-    internalformat_    = internalformat;
-
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples_, internalformat_, width_, height_);
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, internalformat, width, height);
 
     int test;
     glGetRenderbufferParameteriv(GL_RENDERBUFFER, GL_RENDERBUFFER_INTERNAL_FORMAT, &test);
-    if(test != (int)internalformat_){
+    if(test != int(internalformat)) {
         destroy();
         return false;
     }
@@ -37,12 +29,12 @@ bool ffw::Renderbuffer2DMS::create(GLsizei width, GLsizei height, GLenum interna
 }
 
 ///=============================================================================
-bool ffw::Renderbuffer2DMS::resize(GLsizei width, GLsizei height, GLint samples){
-    if(!loaded_)return false;
-    width_ = width;
-    height_ = height;
-    samples_ = samples;
-    glBindRenderbuffer(GL_RENDERBUFFER, buffer_);
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples_, internalformat_, width_, height_);
+bool ffw::Renderbuffer2DMS::resize(const GLsizei width, const GLsizei height, const GLint samples){
+    if(!loaded)return false;
+    this->width = width;
+    this->height = height;
+    this->samples = samples;
+    glBindRenderbuffer(GL_RENDERBUFFER, buffer);
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, samples, internalformat, width, height);
     return true;
 }

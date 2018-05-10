@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiBox::Style', 'label', 'inner', 'self']
+search: false
 ---
 
 # struct ffw::GuiBox::Style

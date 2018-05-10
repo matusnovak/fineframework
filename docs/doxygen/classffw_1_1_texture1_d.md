@@ -1,10 +1,10 @@
 ---
-search:
-    keywords: ['ffw::Texture1D', 'Texture1D', 'Texture1D', 'Texture1D', '~Texture1D', 'create', 'resize', 'createFromBuffer', 'setPixels', 'setPixels', 'getPixels', 'operator=', 'operator=', 'Texture', 'Texture', 'Texture', 'swap', '~Texture', 'isCreated', 'destroy', 'bind', 'unbind', 'getHandle', 'getWidth', 'getHeight', 'getLayers', 'getDepth', 'getSamples', 'getInternalFormat', 'getFormat', 'getPixelFormat', 'getTextureFormat', 'isCompressed', 'setEnvParami', 'setEnvParamf', 'setTexParami', 'setTexParamiv', 'setTexParamf', 'setTexParamfv', 'generateMipmaps', 'setFiltering', 'setWrapping', 'operator=', 'operator=']
+search: false
 ---
 
 # class ffw::Texture1D
 
+OpenGL texture of type GL\_TEXTURE\_1D. 
 
 
 Inherits the following classes: **[ffw::Texture](classffw_1_1_texture.md)**
@@ -14,17 +14,17 @@ Inherits the following classes: **[ffw::Texture](classffw_1_1_texture.md)**
 |Type|Name|
 |-----|-----|
 ||[**Texture1D**](classffw_1_1_texture1_d.md#1ab5c6d4f175272fabe50dbc4ee70319a9) () |
-||[**Texture1D**](classffw_1_1_texture1_d.md#1abe64586df97e49974bde4a1be1563f14) (const **[Texture1D](classffw_1_1_texture1_d.md)** & second) = delete |
-||[**Texture1D**](classffw_1_1_texture1_d.md#1a4193b7a3308b76aec4767ffc44ed8f54) (**[Texture1D](classffw_1_1_texture1_d.md)** && second) |
-||[**~Texture1D**](classffw_1_1_texture1_d.md#1ad4341cf80de7af28adf83842127df279) () |
-|bool|[**create**](classffw_1_1_texture1_d.md#1ac8373b7d48936b87b6aa69e0b6c44559) (**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** internalformat, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** format, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** pixelformat, const **[GLvoid](glcorearb_8h.md#1a1e5eb1ac5e47603cc80ab58338b92393)** \* pixels = NULL) |
-|bool|[**resize**](classffw_1_1_texture1_d.md#1ab1f48f825b2854f2cad380fef1a58cf3) (**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width) |
-|bool|[**createFromBuffer**](classffw_1_1_texture1_d.md#1a6562e8f04ed1fe959f7c6a86068ab410) (const **[ImageBuffer](classffw_1_1_image_buffer.md)** & buffer) |
-|bool|[**setPixels**](classffw_1_1_texture1_d.md#1af62d6dc86154aac186cc2173e836b9b9) (**[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** level, const **[GLvoid](glcorearb_8h.md#1a1e5eb1ac5e47603cc80ab58338b92393)** \* pixels = NULL) |
-|bool|[**setPixels**](classffw_1_1_texture1_d.md#1aaa28a5f9b29f2fc4ce0c4fcd2808ffb3) (**[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** level, **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** xoffset, **[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width, const **[GLvoid](glcorearb_8h.md#1a1e5eb1ac5e47603cc80ab58338b92393)** \* pixels) |
-|bool|[**getPixels**](classffw_1_1_texture1_d.md#1ac49e5a0fdbd866011bb0b739046f4cd7) (void \* pixels) const |
-|**[Texture1D](classffw_1_1_texture1_d.md)** &|[**operator=**](classffw_1_1_texture1_d.md#1af58456d19cb9ddf8559393d17d66da40) (const **[Texture1D](classffw_1_1_texture1_d.md)** & second) = delete |
-|**[Texture1D](classffw_1_1_texture1_d.md)** &|[**operator=**](classffw_1_1_texture1_d.md#1a6cc07391bbc96db4a5e6c112d431a4a2) (**[Texture1D](classffw_1_1_texture1_d.md)** && second) |
+||[**Texture1D**](classffw_1_1_texture1_d.md#1ab1f8a3a60ef39829165f0d4b8f219ddb) (const **[Texture1D](classffw_1_1_texture1_d.md)** & other) = delete |
+||[**Texture1D**](classffw_1_1_texture1_d.md#1a61d98ffe73edaf92edb8a58516f4991e) (**[Texture1D](classffw_1_1_texture1_d.md)** && other) |
+|virtual |[**~Texture1D**](classffw_1_1_texture1_d.md#1a8aacc87fef334a6d3931100069607fd5) () = default |
+|bool|[**create**](classffw_1_1_texture1_d.md#1a92c36674f70b362a33bee26b281bcdd5) (**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** internalformat, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** format, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** pixelformat, const **[GLvoid](glcorearb_8h.md#1a1e5eb1ac5e47603cc80ab58338b92393)** \* pixels = nullptr) <br>Allocates the texture. |
+|bool|[**resize**](classffw_1_1_texture1_d.md#1a45ae1b2f7f6bcf11a0f93db51e234f1b) (**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width, const **[GLvoid](glcorearb_8h.md#1a1e5eb1ac5e47603cc80ab58338b92393)** \* pixels = nullptr) <br>Resizes the texture. |
+|bool|[**createFromBuffer**](classffw_1_1_texture1_d.md#1ae7818ca7cc3f2dfe7f9d7eedbb66c6e5) (const **[ImageBuffer](classffw_1_1_image_buffer.md)** & image) <br>Creates the texture using **[ImageBuffer](classffw_1_1_image_buffer.md)**. |
+|bool|[**setPixels**](classffw_1_1_texture1_d.md#1ae60b2d4ce7cf6f40e3c612e351625884) (**[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** level, const **[GLvoid](glcorearb_8h.md#1a1e5eb1ac5e47603cc80ab58338b92393)** \* pixels) <br>Sets the pixels of the entire texture. |
+|bool|[**setPixels**](classffw_1_1_texture1_d.md#1aaa28a5f9b29f2fc4ce0c4fcd2808ffb3) (**[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** level, **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** xoffset, **[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width, const **[GLvoid](glcorearb_8h.md#1a1e5eb1ac5e47603cc80ab58338b92393)** \* pixels) <br>Sets the pixels of the texture section. |
+|bool|[**getPixels**](classffw_1_1_texture1_d.md#1ac49e5a0fdbd866011bb0b739046f4cd7) (void \* pixels) const <br>Returns the pixels of the entire texture. |
+|**[Texture1D](classffw_1_1_texture1_d.md)** &|[**operator=**](classffw_1_1_texture1_d.md#1a301d91e0b59bdb47f4b55b3f028bd57e) (const **[Texture1D](classffw_1_1_texture1_d.md)** & other) = delete |
+|**[Texture1D](classffw_1_1_texture1_d.md)** &|[**operator=**](classffw_1_1_texture1_d.md#1a1e28f2d60af892b52bc69e956feec607) (**[Texture1D](classffw_1_1_texture1_d.md)** && other) |
 
 
 #### Public Functions inherited from [ffw::Texture](classffw_1_1_texture.md)
@@ -38,8 +38,8 @@ Inherits the following classes: **[ffw::Texture](classffw_1_1_texture.md)**
 |virtual |[**~Texture**](classffw_1_1_texture.md#1a92f6d3f0a74b1576fc0df896a66123d8) () |
 |bool|[**isCreated**](classffw_1_1_texture.md#1a4c626452bcf98127b1f90cf46e772c23) () const |
 |void|[**destroy**](classffw_1_1_texture.md#1a1d28a1db53503aca75464215787e80d2) () <br>Destroys the texture. |
-|void|[**bind**](classffw_1_1_texture.md#1a5323f06246ce65e8e3065a82373ae44b) () const <br>Actives the texture. |
-|void|[**unbind**](classffw_1_1_texture.md#1aedaefef2e0f7b86d0c6668dce06e1526) () const |
+|void|[**bind**](classffw_1_1_texture.md#1a5323f06246ce65e8e3065a82373ae44b) () const <br>Binds the texture. |
+|void|[**unbind**](classffw_1_1_texture.md#1aedaefef2e0f7b86d0c6668dce06e1526) () const <br>Unbinds the texture. |
 |**[GLuint](glcorearb_8h.md#1aa311c7f0d6ec4f1a33f9235c3651b86b)**|[**getHandle**](classffw_1_1_texture.md#1ab2f1590889105d77250004ac23398043) () const <br>Returns the OpenGL pointer, a handle to the texture. |
 |**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**getWidth**](classffw_1_1_texture.md#1a3f7b57f4cdfa1b232106a68591717a1b) () const <br>Returns the width of the texture. |
 |**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**getHeight**](classffw_1_1_texture.md#1a4ba29b096c33e1b7d28a9f6317277f35) () const <br>Returns the height of the texture. |
@@ -51,15 +51,15 @@ Inherits the following classes: **[ffw::Texture](classffw_1_1_texture.md)**
 |**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**getPixelFormat**](classffw_1_1_texture.md#1ab45a9e7e41d35873b5d8fe1e1f233eab) () const <br>Returns the data type of the pixel data. |
 |**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**getTextureFormat**](classffw_1_1_texture.md#1af159308541e6890fbef23885af5a3a29) () const <br>Returns the type of the texture. |
 |bool|[**isCompressed**](classffw_1_1_texture.md#1a41775e9136435ddc35d2d4e489538257) () const |
-|void|[**setEnvParami**](classffw_1_1_texture.md#1a06b0473757276f674de0fd94f3ef935f) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Target, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Name, **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** Value) |
-|void|[**setEnvParamf**](classffw_1_1_texture.md#1a71b3c33ec227eb0081f7220df54dd5fe) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Target, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Name, **[GLfloat](glcorearb_8h.md#1a31aeedaeef29442c9c015ab355c8f5ab)** Value) |
-|void|[**setTexParami**](classffw_1_1_texture.md#1a4cf2259077d89f0aa63dcae0117b4aa7) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Name, **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** Value) |
-|void|[**setTexParamiv**](classffw_1_1_texture.md#1acd5e83d24ac5ce6e8bf72cb8fc975be7) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Name, **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** \* Values) |
-|void|[**setTexParamf**](classffw_1_1_texture.md#1ad3f3912c551e38f3b81076471d6773db) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Name, **[GLfloat](glcorearb_8h.md#1a31aeedaeef29442c9c015ab355c8f5ab)** Value) |
-|void|[**setTexParamfv**](classffw_1_1_texture.md#1a9a31a25b65ecf9a4295ea1a2a83e69a5) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** Name, **[GLfloat](glcorearb_8h.md#1a31aeedaeef29442c9c015ab355c8f5ab)** \* Values) |
+|void|[**setEnvParami**](classffw_1_1_texture.md#1a5d20a05faca666e58dc412e0b03c1c54) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** target, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** name, **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** value) const |
+|void|[**setEnvParamf**](classffw_1_1_texture.md#1a78fdaef9fd7ca20f8eaa10b42a84df47) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** target, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** name, **[GLfloat](glcorearb_8h.md#1a31aeedaeef29442c9c015ab355c8f5ab)** value) const |
+|void|[**setTexParami**](classffw_1_1_texture.md#1a50a65d93e33cd7950c55f90b452446e2) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** name, **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** value) const |
+|void|[**setTexParamiv**](classffw_1_1_texture.md#1a499fc6c77ef9bd3955489d2751654df1) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** name, const **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** \* value) const |
+|void|[**setTexParamf**](classffw_1_1_texture.md#1a532c6e914e88bd15ca03e0c08dd7b6fc) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** name, **[GLfloat](glcorearb_8h.md#1a31aeedaeef29442c9c015ab355c8f5ab)** value) const |
+|void|[**setTexParamfv**](classffw_1_1_texture.md#1ab8e3f7f1e884f1b5c97dbdaf7b2a6339) (**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** name, const **[GLfloat](glcorearb_8h.md#1a31aeedaeef29442c9c015ab355c8f5ab)** \* value) const |
 |bool|[**generateMipmaps**](classffw_1_1_texture.md#1a3fd71b9f3a431b19ade9080b0770093a) () <br>Generates mip maps. |
-|void|[**setFiltering**](classffw_1_1_texture.md#1a3ddca54f72c9b5d5472f56890a6e85de) (**[Texture::Filtering](classffw_1_1_texture.md#1a95ded8440101d9ca5418a2de34e76cff)** filtering) |
-|void|[**setWrapping**](classffw_1_1_texture.md#1aefb80cf00f0d75f94869603e99e00eed) (**[Texture::Wrapping](classffw_1_1_texture.md#1af4ed8c06fbd5c85d6daf479489afa51f)** wrapping) |
+|void|[**setFiltering**](classffw_1_1_texture.md#1a161a46a6b95d0d339b2c391726b56218) (**[Texture::Filtering](classffw_1_1_texture.md#1a95ded8440101d9ca5418a2de34e76cff)** filtering) const |
+|void|[**setWrapping**](classffw_1_1_texture.md#1a2309fb9ddb9d209266e2f3cd27592ed4) (**[Texture::Wrapping](classffw_1_1_texture.md#1af4ed8c06fbd5c85d6daf479489afa51f)** wrapping) const |
 |**[Texture](classffw_1_1_texture.md)** &|[**operator=**](classffw_1_1_texture.md#1a1a98a152f13b47387bc363547c24e623) (const **[Texture](classffw_1_1_texture.md)** & other) = delete |
 |**[Texture](classffw_1_1_texture.md)** &|[**operator=**](classffw_1_1_texture.md#1a9142dbb77bd8cef188111f53ef636f3c) (**[Texture](classffw_1_1_texture.md)** && other) |
 
@@ -78,27 +78,27 @@ Inherits the following classes: **[ffw::Texture](classffw_1_1_texture.md)**
 
 |Type|Name|
 |-----|-----|
-|bool|[**loaded\_**](classffw_1_1_texture.md#1a4fa9b19ac847297d85b496f3955b5f24)|
-|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**textureformat\_**](classffw_1_1_texture.md#1ade528cbd1bb6791279248d27c36ee1fb)|
-|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**internalformat\_**](classffw_1_1_texture.md#1a8a29b9261a41fc0c27e1ff1fa8609083)|
-|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**format\_**](classffw_1_1_texture.md#1a05b2711ceace763883507b0119afe0d5)|
-|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**pixelformat\_**](classffw_1_1_texture.md#1a9ce795602443b97f3c849c67284f423f)|
-|**[GLuint](glcorearb_8h.md#1aa311c7f0d6ec4f1a33f9235c3651b86b)**|[**buffer\_**](classffw_1_1_texture.md#1a8489fadc322df2ad19dc6d810764c7c8)|
-|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**width\_**](classffw_1_1_texture.md#1abe084eac3a4938c96102255b4a7e54d8)|
-|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**height\_**](classffw_1_1_texture.md#1ab5af68aeb7ae950e0f48c4069424f82b)|
-|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**depth\_**](classffw_1_1_texture.md#1adfce6fe7991889ecf2a273f5443a13fe)|
-|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**layers\_**](classffw_1_1_texture.md#1aafb95dd9ba881d8f86d8619091f1c68d)|
-|bool|[**mipmaps\_**](classffw_1_1_texture.md#1a5eb92b144de35407966a91b8d1d8cc55)|
-|bool|[**initialized\_**](classffw_1_1_texture.md#1a87020c26beb5ef768c6850e7d43c48c9)|
-|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**samples\_**](classffw_1_1_texture.md#1a7ad86f3686b3115dca3d9475ffdc320f)|
-|bool|[**compressed\_**](classffw_1_1_texture.md#1a14f94267f4b30f9989a30ed018dfd169)|
+|bool|[**loaded**](classffw_1_1_texture.md#1ad73c95a919b154830dabf275cb06f454)|
+|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**textureformat**](classffw_1_1_texture.md#1a8b337b6301c0e75f1bd756aaae3f059b)|
+|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**internalformat**](classffw_1_1_texture.md#1a6d98ce4dc95fc3a5ad93b5e0e77388be)|
+|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**format**](classffw_1_1_texture.md#1a730be3ef8c1aaa7cc3d7f283f48c16ae)|
+|**[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)**|[**pixelformat**](classffw_1_1_texture.md#1a6fd40a35948a532ad09e4ba0af676a76)|
+|**[GLuint](glcorearb_8h.md#1aa311c7f0d6ec4f1a33f9235c3651b86b)**|[**buffer**](classffw_1_1_texture.md#1a8f8b0002ea889579e0a6b0f2cc40f863)|
+|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**width**](classffw_1_1_texture.md#1ae080fd244a9eccc0ad70ac7c0e96da86)|
+|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**height**](classffw_1_1_texture.md#1a9844e008a64fde84ad77ad277a276180)|
+|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**depth**](classffw_1_1_texture.md#1ab452871de894b98ae3e95a38d1126e23)|
+|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**layers**](classffw_1_1_texture.md#1ae57c3b6572bcd9e381385e54e0ca7194)|
+|bool|[**mipmaps**](classffw_1_1_texture.md#1ae8069b54c3a76db8e934f48209c9fec1)|
+|bool|[**initialized**](classffw_1_1_texture.md#1a13b6effbf702392f30440c6b3b6b4420)|
+|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**samples**](classffw_1_1_texture.md#1a6c6f6c9ddc6b382491b02f7da9d0f9b3)|
+|bool|[**compressed**](classffw_1_1_texture.md#1a0097135ba9fc805a46e4a6a492403086)|
 
 
 #### Protected Functions inherited from [ffw::Texture](classffw_1_1_texture.md)
 
 |Type|Name|
 |-----|-----|
-|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**getBlockSize**](classffw_1_1_texture.md#1a7e16f150d265ba52d21581f42dc828da) (**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width, **[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** height = 1, **[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** depth = 1) const |
+|**[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)**|[**getBlockSize**](classffw_1_1_texture.md#1a5960bd362a716e6b622e1b979d7094bd) (const **[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** width, const **[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** height = 1, const **[GLsizei](glcorearb_8h.md#1a9289d5b99dc1f27f01480360f2e18ae0)** depth = 1) const |
 
 
 ## Public Functions Documentation
@@ -111,35 +111,35 @@ ffw::Texture1D::Texture1D ()
 
 
 
-### function <a id="1abe64586df97e49974bde4a1be1563f14" href="#1abe64586df97e49974bde4a1be1563f14">Texture1D</a>
+### function <a id="1ab1f8a3a60ef39829165f0d4b8f219ddb" href="#1ab1f8a3a60ef39829165f0d4b8f219ddb">Texture1D</a>
 
 ```cpp
 ffw::Texture1D::Texture1D (
-    const Texture1D & second
+    const Texture1D & other
 ) = delete
 ```
 
 
 
-### function <a id="1a4193b7a3308b76aec4767ffc44ed8f54" href="#1a4193b7a3308b76aec4767ffc44ed8f54">Texture1D</a>
+### function <a id="1a61d98ffe73edaf92edb8a58516f4991e" href="#1a61d98ffe73edaf92edb8a58516f4991e">Texture1D</a>
 
 ```cpp
 ffw::Texture1D::Texture1D (
-    Texture1D && second
+    Texture1D && other
 )
 ```
 
 
 
-### function <a id="1ad4341cf80de7af28adf83842127df279" href="#1ad4341cf80de7af28adf83842127df279">~Texture1D</a>
+### function <a id="1a8aacc87fef334a6d3931100069607fd5" href="#1a8aacc87fef334a6d3931100069607fd5">~Texture1D</a>
 
 ```cpp
-ffw::Texture1D::~Texture1D ()
+virtual ffw::Texture1D::~Texture1D () = default
 ```
 
 
 
-### function <a id="1ac8373b7d48936b87b6aa69e0b6c44559" href="#1ac8373b7d48936b87b6aa69e0b6c44559">create</a>
+### function <a id="1a92c36674f70b362a33bee26b281bcdd5" href="#1a92c36674f70b362a33bee26b281bcdd5">create</a>
 
 ```cpp
 bool ffw::Texture1D::create (
@@ -147,40 +147,97 @@ bool ffw::Texture1D::create (
     GLenum internalformat
     GLenum format
     GLenum pixelformat
-    const GLvoid * pixels = NULL
+    const GLvoid * pixels = nullptr
 )
 ```
 
+Allocates the texture. 
 
 
-### function <a id="1ab1f48f825b2854f2cad380fef1a58cf3" href="#1ab1f48f825b2854f2cad380fef1a58cf3">resize</a>
+
+**Parameters:**
+
+
+* _width_ Specifies the width of the texture image. 
+* _internalformat_ Specifies the number of color components in the texture. 
+* _format_ Specifies the format of the pixel data. The following symbolic values are accepted: GL\_RED, GL\_RG, GL\_RGB, GL\_BGR, GL\_RGBA, GL\_BGRA, GL\_RED\_INTEGER, GL\_RG\_INTEGER, GL\_RGB\_INTEGER, GL\_BGR\_INTEGER, GL\_RGBA\_INTEGER, GL\_BGRA\_INTEGER, GL\_STENCIL\_INDEX, GL\_DEPTH\_COMPONENT, GL\_DEPTH\_STENCIL. 
+* _pixelformat_ Specifies the data type of the pixel data. The following symbolic values are accepted: GL\_UNSIGNED\_BYTE, GL\_BYTE, GL\_UNSIGNED\_SHORT, GL\_SHORT, GL\_UNSIGNED\_INT, GL\_INT, GL\_FLOAT, GL\_UNSIGNED\_BYTE\_3\_3\_2, GL\_UNSIGNED\_BYTE\_2\_3\_3\_REV, GL\_UNSIGNED\_SHORT\_5\_6\_5, GL\_UNSIGNED\_SHORT\_5\_6\_5\_REV, GL\_UNSIGNED\_SHORT\_4\_4\_4\_4, GL\_UNSIGNED\_SHORT\_4\_4\_4\_4\_REV, GL\_UNSIGNED\_SHORT\_5\_5\_5\_1, GL\_UNSIGNED\_SHORT\_1\_5\_5\_5\_REV, GL\_UNSIGNED\_INT\_8\_8\_8\_8, GL\_UNSIGNED\_INT\_8\_8\_8\_8\_REV, GL\_UNSIGNED\_INT\_10\_10\_10\_2, and GL\_UNSIGNED\_INT\_2\_10\_10\_10\_REV. Compressed formats are also supported. 
+* _pixels_ Optional array to the pixels buffer that will be used to initialise the texture storage. The pixel array must be correct size, otherwise a segmentation fault will occur. If null, the texture storage is not set and initialised with random data.
+
+The following compressed internalformats are allowed: GL\_COMPRESSED\_RGB\_S3TC\_DXT1\_EXT, GL\_COMPRESSED\_RGBA\_S3TC\_DXT1\_EXT, GL\_COMPRESSED\_RGBA\_S3TC\_DXT3\_EXT, GL\_COMPRESSED\_RGBA\_S3TC\_DXT5\_EXT, GL\_COMPRESSED\_RED\_RGTC1, GL\_COMPRESSED\_RG\_RGTC2, GL\_COMPRESSED\_SIGNED\_RED\_RGTC1, GL\_COMPRESSED\_SIGNED\_RG\_RGTC2 
+
+**Note:**
+
+The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.md#1a1d28a1db53503aca75464215787e80d2)** is called, or the instance of this texture class is freed. 
+
+
+
+
+### function <a id="1a45ae1b2f7f6bcf11a0f93db51e234f1b" href="#1a45ae1b2f7f6bcf11a0f93db51e234f1b">resize</a>
 
 ```cpp
 bool ffw::Texture1D::resize (
     GLsizei width
+    const GLvoid * pixels = nullptr
 )
 ```
 
+Resizes the texture. 
 
 
-### function <a id="1a6562e8f04ed1fe959f7c6a86068ab410" href="#1a6562e8f04ed1fe959f7c6a86068ab410">createFromBuffer</a>
+
+**Parameters:**
+
+
+* _width_ The new width of the texture 
+* _pixels_ Optional array to the pixels buffer that will be used to initialise the texture storage. The pixel array must be correct size, otherwise a segmentation fault will occur. If null, the texture storage is not set and initialised with random data. 
+
+
+
+**Note:**
+
+The format, internalformat, and pixelformat are unchanged. 
+
+
+
+
+### function <a id="1ae7818ca7cc3f2dfe7f9d7eedbb66c6e5" href="#1ae7818ca7cc3f2dfe7f9d7eedbb66c6e5">createFromBuffer</a>
 
 ```cpp
 bool ffw::Texture1D::createFromBuffer (
-    const ImageBuffer & buffer
+    const ImageBuffer & image
 )
 ```
 
+Creates the texture using **[ImageBuffer](classffw_1_1_image_buffer.md)**. 
 
 
-### function <a id="1af62d6dc86154aac186cc2173e836b9b9" href="#1af62d6dc86154aac186cc2173e836b9b9">setPixels</a>
+
+**Parameters:**
+
+
+* _image_ The instance of the image buffer
+
+The width of the buffer will be used to resize the texture. The buffer must be allocated, otherwise false is returned. If the buffer's height is more than 1, only the first row of pixels will be used. 
+
+### function <a id="1ae60b2d4ce7cf6f40e3c612e351625884" href="#1ae60b2d4ce7cf6f40e3c612e351625884">setPixels</a>
 
 ```cpp
 bool ffw::Texture1D::setPixels (
     GLint level
-    const GLvoid * pixels = NULL
+    const GLvoid * pixels
 )
 ```
+
+Sets the pixels of the entire texture. 
+
+
+
+**Parameters:**
+
+
+* _level_ The mipmap level to set. Zero by default. 
+* _pixels_ Non null pointer to the array of the pixels to upload. 
 
 
 
@@ -195,6 +252,18 @@ bool ffw::Texture1D::setPixels (
 )
 ```
 
+Sets the pixels of the texture section. 
+
+
+
+**Parameters:**
+
+
+* _level_ The mipmap level to set. Zero by default. 
+* _xoffset_ The x offset of the target area to set. 
+* _width_ The width of the area to set. 
+* _pixels_ Non null pointer to the array of the pixels to upload. 
+
 
 
 ### function <a id="1ac49e5a0fdbd866011bb0b739046f4cd7" href="#1ac49e5a0fdbd866011bb0b739046f4cd7">getPixels</a>
@@ -205,23 +274,32 @@ bool ffw::Texture1D::getPixels (
 ) const
 ```
 
+Returns the pixels of the entire texture. 
 
 
-### function <a id="1af58456d19cb9ddf8559393d17d66da40" href="#1af58456d19cb9ddf8559393d17d66da40">operator=</a>
+
+**Parameters:**
+
+
+* _pixels_ Non null pointer to an allocated array that will hold the entire texture data. 
+
+
+
+### function <a id="1a301d91e0b59bdb47f4b55b3f028bd57e" href="#1a301d91e0b59bdb47f4b55b3f028bd57e">operator=</a>
 
 ```cpp
 Texture1D & ffw::Texture1D::operator= (
-    const Texture1D & second
+    const Texture1D & other
 ) = delete
 ```
 
 
 
-### function <a id="1a6cc07391bbc96db4a5e6c112d431a4a2" href="#1a6cc07391bbc96db4a5e6c112d431a4a2">operator=</a>
+### function <a id="1a1e28f2d60af892b52bc69e956feec607" href="#1a1e28f2d60af892b52bc69e956feec607">operator=</a>
 
 ```cpp
 Texture1D & ffw::Texture1D::operator= (
-    Texture1D && second
+    Texture1D && other
 )
 ```
 

@@ -16,6 +16,7 @@ Source: `include/ffw/graphics/freetypeloader.h`
     
     
     
+    
       
     
     
@@ -25,6 +26,7 @@ Source: `include/ffw/graphics/freetypeloader.h`
 #ifndef FFW_GRAPHICS_FREE_TYPE_LOADER
 #define FFW_GRAPHICS_FREE_TYPE_LOADER
 
+#include <string>
 #include "../config.h"
 
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
@@ -42,26 +44,28 @@ namespace ffw {
     public:
         class CharData {
         public:
-            inline CharData(){}
-            inline ~CharData() {
-                if(pixels != NULL)delete[] pixels;
+            CharData() = default;
+            CharData(const CharData& other) = default;
+            CharData& operator = (const CharData& other) = default;
+            ~CharData() {
+                delete[] pixels;
             }
             short width = 0;
             short height = 0;
             float bearingX = 0;
             float bearingY = 0;
             float advance = 0;
-            unsigned char* pixels = NULL;
+            unsigned char* pixels = nullptr;
         };
         FreeTypeLoader();
         FreeTypeLoader(const FreeTypeLoader& other) = delete;
-        FreeTypeLoader(FreeTypeLoader&& other);
+        FreeTypeLoader(FreeTypeLoader&& other) NOEXCEPT;
         virtual ~FreeTypeLoader();
 
         bool createFromData(const unsigned char* buffer, size_t length);
         bool createFromFile(const std::string& path);
         bool setSize(int points, int dpi);
-        bool findGlyph(int unicode);
+        bool findGlyph(unsigned int unicode);
         bool findErrorGlyph();
         bool getGlyphData(CharData* data);
 
@@ -73,11 +77,11 @@ namespace ffw {
         }
         void destroy();
 
-        void swap(FreeTypeLoader& other);
+        void swap(FreeTypeLoader& other) NOEXCEPT;
         FreeTypeLoader& operator = (const FreeTypeLoader& other) = delete;
-        FreeTypeLoader& operator = (FreeTypeLoader&& other);
+        FreeTypeLoader& operator = (FreeTypeLoader&& other) NOEXCEPT;
     private:
-        bool checkForErrors(int error);
+        static bool checkForErrors(int error);
         bool loaded;
         FT_Face fontFace;
         FT_Glyph currentGlyph;
@@ -87,7 +91,7 @@ namespace ffw {
     extern FFW_API const size_t defaultFontSize;
 };
 
-inline void swap(ffw::FreeTypeLoader& first, ffw::FreeTypeLoader& second) {
+inline void swap(ffw::FreeTypeLoader& first, ffw::FreeTypeLoader& second) NOEXCEPT {
     first.swap(second);
 }
 #endif

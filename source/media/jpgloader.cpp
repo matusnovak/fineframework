@@ -11,7 +11,6 @@ METHODDEF(void) my_error_exit (j_common_ptr cinfo){
 
     // Always display the message.
     // We could postpone this until after returning, if we chose.
-    std::cerr << "my_error_exit error:" << std::endl;
     (*cinfo->err->output_message) (cinfo);
 
     // Return control to the setjmp point

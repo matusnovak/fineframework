@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['utf8::not_enough_room', 'what']
+search: false
 ---
 
 # class utf8::not\_enough\_room

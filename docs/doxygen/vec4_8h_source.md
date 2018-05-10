@@ -28,7 +28,8 @@ Source: `include/ffw/math/vec4.h`
 /* This file is part of FineFramework project */
 #ifndef FFW_VEC4
 #define FFW_VEC4
-#include "../config.h"
+
+#include <ostream>
 #include <limits>
 #include <cmath>
 

@@ -1,10 +1,9 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_GL_MONITORS
 #define FFW_GL_MONITORS
-#include "../config.h"
+
 #include "../math/vec3.h"
 #include <string>
-#include <vector>
 
 namespace ffw{
     /**
@@ -27,7 +26,7 @@ namespace ffw{
             /**
             * @brief The prefered refresh rate (V-sync)
             */
-            int refreshRate;
+            int refreshRate = 0;
         };
         /**
         * @brief Name of the physical monitor
@@ -48,7 +47,7 @@ namespace ffw{
         /**
         * @brief The current refresh rate (V-sync)
         */
-        int refreshRate;
+        int refreshRate = 0;
         /**
         * @brief The relative position to the primary monitor, in pixels
         */
@@ -60,7 +59,7 @@ namespace ffw{
         /**
         * @brief GLFW specific pointer
         */
-        void* ptr = NULL;
+        void* ptr = nullptr;
     };
 };
 #endif

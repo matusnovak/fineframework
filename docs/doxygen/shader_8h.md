@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['shader.h', 'ffw::Shader', 'ffw::Shader::CompileException', 'ffw::Shader::FileException', 'swap']
+search: false
 ---
 
 # file shader.h

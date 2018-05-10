@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guibody.h', 'ffw::GuiBody', 'ffw::GuiBody::Style']
+search: false
 ---
 
 # file guibody.h

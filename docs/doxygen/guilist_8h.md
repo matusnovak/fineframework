@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guilist.h', 'ffw::GuiList', 'ffw::GuiList::Value', 'ffw::GuiList::Item', 'ffw::GuiList::Item::Style', 'ffw::GuiList::Style']
+search: false
 ---
 
 # file guilist.h

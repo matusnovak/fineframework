@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['mathconstants.h']
+search: false
 ---
 
 # file mathconstants.h

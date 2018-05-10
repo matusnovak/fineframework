@@ -24,16 +24,17 @@ Source: `include/ffw/graphics/glfwrenderwindow.h`
 /* This file is part of FineFramework project */
 #ifndef FFW_GLFW_RENDER_WINDOW
 #define FFW_GLFW_RENDER_WINDOW
+
 #include "../math/vec2.h"
 #include "renderwindow.h"
 #include "monitors.h"
 
 namespace ffw {
-    struct FFW_API GLFWRenderWindowArgs{
+    struct FFW_API GLFWRenderWindowArgs {
         ffw::Vec2i pos = ffw::Vec2i(-1, -1);
         ffw::Vec2i size = ffw::Vec2i(400, 400);
         std::string title;
-        const ImageBuffer* icon = NULL;
+        const ImageBuffer* icon = nullptr;
         bool resizable = true;
         bool border = true;
         bool maximize = true;
@@ -47,18 +48,19 @@ namespace ffw {
     public:
         static std::vector<Monitor> getMonitors();
         static Monitor getPrimaryMonitor();
-        static std::vector<Monitor::Mode> getMonitorModes(Monitor monitor);
-
+        static std::vector<Monitor::Mode> getMonitorModes(const Monitor& monitor);
         GLFWRenderWindow();
+        GLFWRenderWindow(const GLFWRenderWindow&) = delete;
+        GLFWRenderWindow(GLFWRenderWindow&& other) NOEXCEPT;
         virtual ~GLFWRenderWindow();
         void setPos(int posx, int posy) override;
         void setSize(int width, int height) override;
         ffw::Vec2i getPos() const override;
         ffw::Vec2i getSize() const override;
-        bool create(const GLFWRenderWindowArgs& args, GLFWRenderWindow* other, Monitor* monitor = NULL);
-        void setWindowedMode();
-        void setWindowedMode(int posx, int posy, int width, int height);
-        void setFullscreen(const Monitor* monitor);
+        bool create(const GLFWRenderWindowArgs& args, GLFWRenderWindow* other, Monitor* monitor = nullptr);
+        void setWindowedMode() const;
+        void setWindowedMode(int posx, int posy, int width, int height) const;
+        void setFullscreen(const Monitor* monitor) const;
         void destroy() override;
         bool shouldRender() const override;
         void renderFrame() override;
@@ -67,7 +69,7 @@ namespace ffw {
         bool isInitialized() const override;
         void* getGlextFunc(const std::string& name) const override;
         bool isGlextExtSupported(const std::string& name) const override;
-        void setSwapInterval(int interval);
+        void setSwapInterval(int interval) const;
         void shouldClose(bool close) override;
         void show() override;
         void hide() override;
@@ -75,13 +77,10 @@ namespace ffw {
         void restore() override;
         void maximize() override;
         void setSingleBufferMode(bool enabled) override;
-        // Disable copy operator and copy constructor
         GLFWRenderWindow& operator = (const GLFWRenderWindow&) = delete;
-        GLFWRenderWindow(const GLFWRenderWindow&) = delete;
-        GLFWRenderWindow(GLFWRenderWindow&& other);
-        GLFWRenderWindow& operator = (GLFWRenderWindow&& other);
-        struct windowCallback;
-        friend struct windowCallback;
+        GLFWRenderWindow& operator = (GLFWRenderWindow&& other) NOEXCEPT;
+        struct WindowCallback;
+        friend struct WindowCallback;
     protected:
         virtual bool setup() = 0;
         virtual void render() = 0;

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiTabs::TopBar::Style', 'button', 'self']
+search: false
 ---
 
 # struct ffw::GuiTabs::TopBar::Style

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['jsonreader.h', 'ffw::JsonReader', 'ffw::JsonReader::Node', 'ffw::JsonReader::Cache', 'FFW_JSON_READER']
+search: false
 ---
 
 # file jsonreader.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['helpers.h']
+search: false
 ---
 
 # file helpers.h

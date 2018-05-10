@@ -26,7 +26,8 @@ Source: `include/ffw/math/color.h`
 /* This file is part of FineFramework project */
 #ifndef FFW_COLOR
 #define FFW_COLOR
-#include "../config.h"
+
+#include <ostream>
 #include <math.h>
 #include <algorithm>
 namespace ffw {

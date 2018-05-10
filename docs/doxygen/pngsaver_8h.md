@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['pngsaver.h', 'ffw::PngSaver', 'swap']
+search: false
 ---
 
 # file pngsaver.h

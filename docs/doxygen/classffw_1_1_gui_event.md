@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiEvent', 'Data', 'widget', 'type', 'data', 'GuiEvent']
+search: false
 ---
 
 # class ffw::GuiEvent

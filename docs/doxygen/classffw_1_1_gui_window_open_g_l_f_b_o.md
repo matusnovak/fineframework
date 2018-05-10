@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiWindowOpenGLFBO', 'GuiWindowOpenGLFBO', '~GuiWindowOpenGLFBO', 'create', 'destroy', 'resize', 'startRender', 'endRender', 'getFboTexture', 'GuiWindowOpenGL', '~GuiWindowOpenGL', 'create', 'destroy', 'resize', 'drawBackground', 'drawBorder', 'drawRectangle', 'drawRectangleRounded', 'drawLine', 'drawCircle', 'drawArc', 'drawQuad', 'drawString', 'drawTriangle', 'drawImage', 'startRender', 'endRender', 'setScissors', 'clearWithColor', 'GuiWindow', '~GuiWindow', 'setSize', 'setPos', 'getSize', 'getPos', 'setDefaultFont', 'getDefaultFont', 'injectMousePos', 'injectScroll', 'injectMouseButton', 'injectText', 'injectKey', 'update', 'poolEvents', 'render', 'redraw', 'invalidate', 'getLayout', 'getLayout', 'pushEvent', 'setTheme', 'getTheme', 'findByID', 'resize', 'startRender', 'endRender', 'setScissors', 'clearWithColor', 'drawRectangle', 'drawRectangleRounded', 'drawLine', 'drawCircle', 'drawArc', 'drawQuad', 'drawString', 'drawTriangle', 'drawImage', 'drawBackground', 'drawBorder', 'drawStringAligned']
+search: false
 ---
 
 # class ffw::GuiWindowOpenGLFBO

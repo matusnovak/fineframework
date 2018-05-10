@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiCallback', 'func', 'now', 'type', 'make', 'make', 'make']
+search: false
 ---
 
 # struct ffw::GuiCallback

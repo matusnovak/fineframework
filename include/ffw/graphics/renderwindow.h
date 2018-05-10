@@ -9,6 +9,7 @@ namespace ffw {
     */
     class FFW_API RenderWindow {
     public:
+        virtual ~RenderWindow() = default;
         /**
          * @brief Sets the position of the window
          */

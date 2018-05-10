@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlReader', 'Attribute', 'Cache', 'Node', 'Value', 'Type', 'XmlReader', 'XmlReader', '~XmlReader', 'getNext', 'stepInto', 'stepOut']
+search: false
 ---
 
 # class ffw::XmlReader

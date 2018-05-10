@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['tifloader.h', 'ffw::TifLoader', 'swap']
+search: false
 ---
 
 # file tifloader.h

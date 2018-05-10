@@ -1,6 +1,7 @@
 #include <ffw/math.h>
 #include <ffw/data.h>
 #include <cassert>
+#include <iostream>
 
 int main() {
 

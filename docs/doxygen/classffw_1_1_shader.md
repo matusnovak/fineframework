@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Shader', 'CompileException', 'FileException', 'Shader', 'Shader', 'Shader', 'swap', '~Shader', 'isCreated', 'isLinked', 'isUsingFrag', 'isUsingGeom', 'isUsingVert', 'create', 'Link', 'compileFragFromData', 'compileGeomFromData', 'compileVertFromData', 'createFromFile', 'createFromData', 'destroy', 'getHandle', 'setAttributePointerf', 'setAttributeDivisor', 'drawArrays', 'drawArraysInstanced', 'drawElements', 'drawElementsRange', 'drawElementsInstanced', 'bind', 'unbind', 'getUniformLocation', 'getAttributeLocation', 'setUniform1f', 'setUniform1fv', 'setUniform1i', 'setUniform1iv', 'setUniform2f', 'setUniform2fv', 'setUniform2i', 'setUniform2iv', 'setUniform3f', 'setUniform3fv', 'setUniform3i', 'setUniform3iv', 'setUniform4f', 'setUniform4fv', 'setUniform4i', 'setUniform4iv', 'setUniform2f', 'setUniform2fv', 'setUniform2i', 'setUniform2iv', 'setUniform3f', 'setUniform3fv', 'setUniform3i', 'setUniform3iv', 'setUniform4f', 'setUniform4fv', 'setUniform4i', 'setUniform4iv', 'setUniform4f', 'setUniform4fv', 'setUniformMatrix2fv', 'setUniformMatrix3fv', 'setUniformMatrix4fv', 'setUniformMatrix4fv', 'operator=', 'operator=']
+search: false
 ---
 
 # class ffw::Shader

@@ -1,6 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_Quat
 #define FFW_Quat
+#include <sstream>
 #include "../config.h"
 
 namespace ffw {

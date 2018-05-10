@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['imagebuffer.h', 'ffw::ImageFormat', 'ffw::ImageBuffer', 'swap']
+search: false
 ---
 
 # file imagebuffer.h

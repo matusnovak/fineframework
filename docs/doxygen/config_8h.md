@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['config.h', 'FFW_API']
+search: false
 ---
 
 # file config.h
@@ -11,6 +10,7 @@ search:
 |Type|Name|
 |-----|-----|
 ||[**FFW\_API**](config_8h.md#1a66b14d142de0be39106b81c86b2422c5)|
+||[**NOEXCEPT**](config_8h.md#1a10a59554805ac7ce3905fd3540f98137)|
 
 
 ## Defines Documentation
@@ -19,6 +19,14 @@ search:
 
 ```cpp
 define FFW_API;
+```
+
+
+
+### define <a id="1a10a59554805ac7ce3905fd3540f98137" href="#1a10a59554805ac7ce3905fd3540f98137">NOEXCEPT</a>
+
+```cpp
+define NOEXCEPT;
 ```
 
 

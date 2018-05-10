@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiimageopengl.h', 'ffw::GuiImageOpenGL']
+search: false
 ---
 
 # file guiimageopengl.h

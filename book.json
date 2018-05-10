@@ -10,10 +10,6 @@
         "include-codeblock": {
             "unindent": true,
             "template": "docs/include-code.hbs"
-        },
-        "lunr": {
-            "maxIndexSize": 100000,
-            "ignoreSpecialCharacters": true
         }
     },
     "root": "./docs"

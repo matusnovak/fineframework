@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['bmploader.h', 'ffw::BmpLoader', 'swap']
+search: false
 ---
 
 # file bmploader.h

@@ -22,7 +22,6 @@ Source: `include/ffw/math/imagebuffer.h`
     
     
     
-    
       
     
     

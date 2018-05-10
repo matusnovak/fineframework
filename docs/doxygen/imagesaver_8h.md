@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['imagesaver.h', 'ffw::ImageWriter']
+search: false
 ---
 
 # file imagesaver.h

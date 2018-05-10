@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['truetypefont.h', 'ffw::TrueTypeFont', 'swap']
+search: false
 ---
 
 # file truetypefont.h

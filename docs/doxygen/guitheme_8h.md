@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guitheme.h', 'ffw::GuiTheme', 'ffw::GuiThemeSimpleLight', 'ffw::GuiThemeSimpleDark', 'ffw::GuiThemeFlatLight', 'ffw::GuiThemeFlatDark']
+search: false
 ---
 
 # file guitheme.h

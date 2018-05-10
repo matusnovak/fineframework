@@ -141,8 +141,8 @@ bool ffw::BufferObject::unMapBuffer() const {
 }
 
 ///=============================================================================
-bool ffw::BufferObject::mapBufferRange(GLvoid** pointer, const GLenum access, 
-    const GLsizei offset, const GLsizei size) const {
+bool ffw::BufferObject::mapBufferRange(GLvoid** pointer, const GLsizei offset,
+    const GLsizei size, const GLenum access) const {
 
     if (!loaded || pointer == nullptr)return false;
     *pointer = glMapBufferRange(objecttype, offset, size, access);

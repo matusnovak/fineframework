@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiprogressbar.h', 'ffw::GuiProgressBar', 'ffw::GuiProgressBar::Style']
+search: false
 ---
 
 # file guiprogressbar.h

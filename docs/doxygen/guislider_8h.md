@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guislider.h', 'ffw::GuiSlider', 'ffw::GuiSlider::Style']
+search: false
 ---
 
 # file guislider.h

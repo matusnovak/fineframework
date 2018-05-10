@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiRadio::Style', 'button', 'self']
+search: false
 ---
 
 # struct ffw::GuiRadio::Style

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Font', 'Char', 'texture', 'vbo', 'sizePoints', 'sizePixels', 'sizeDpi', 'loaded', 'alphaOnlyFlag', 'Font', '~Font', 'destroy', 'getChar', 'getCharIndex', 'getStringSize', 'getStringSize', 'getCharAdvance', 'getSizePt', 'getSizePixels', 'getDpi', 'getTexture', 'getVbo', 'isCreated', 'getCharVerticalOffset', 'isAlphaOnly', 'getStringSizeFunc']
+search: false
 ---
 
 # class ffw::Font
@@ -34,13 +33,16 @@ Inherited by the following classes: **[ffw::BitmapFont](classffw_1_1_bitmap_font
 |Type|Name|
 |-----|-----|
 ||[**Font**](classffw_1_1_font.md#1a61607295e4f95fba5cf189f0bf46e972) () |
-|virtual |[**~Font**](classffw_1_1_font.md#1a232e75baded001562f4aa1ba3c270490) () |
-|virtual void|[**destroy**](classffw_1_1_font.md#1a7c097bfaf58c965bdd49727bcca734c5) () = 0|
-|virtual const **[Char](structffw_1_1_font_1_1_char.md)** &|[**getChar**](classffw_1_1_font.md#1a18f6eba85473c37a0606b91d8601c323) (wchar\_t chr) const = 0|
-|virtual int|[**getCharIndex**](classffw_1_1_font.md#1a3f420f3d7a5f7ad6014bb3f08aaa0493) (wchar\_t chr) const = 0|
+||[**Font**](classffw_1_1_font.md#1a625968999be1f55607ba2c241e99c2bb) (const **[Font](classffw_1_1_font.md)** & other) = delete |
+||[**Font**](classffw_1_1_font.md#1a7b07abd846095b2b3211e1d1e41775c5) (**[Font](classffw_1_1_font.md)** && other) = default |
+|**[Font](classffw_1_1_font.md)** &|[**operator=**](classffw_1_1_font.md#1a1506af1c9de421dac45dad7a9d1b0e26) (const **[Font](classffw_1_1_font.md)** & other) = delete |
+|**[Font](classffw_1_1_font.md)** &|[**operator=**](classffw_1_1_font.md#1adc829453376092c01873ccf869e3b905) (**[Font](classffw_1_1_font.md)** && other) = default |
+|virtual |[**~Font**](classffw_1_1_font.md#1af64aa991e6e53e3b55105a2eb0239ea4) () = default |
+|virtual const **[Char](structffw_1_1_font_1_1_char.md)** &|[**getChar**](classffw_1_1_font.md#1ac377ea34f700ab2c2281e66a93610a75) (unsigned int chr) const = 0|
+|virtual int|[**getCharIndex**](classffw_1_1_font.md#1ac41292d33971a660fe9bed10ea39504e) (unsigned int chr) const = 0|
 |virtual **[ffw::Vec2f](group__math_.md#ga44573357c25b7969b4391ca0ae427636)**|[**getStringSize**](classffw_1_1_font.md#1a954e31facabcb58c18608283156390ee) (const std::string & str, float maxWidth = -1.0f, float lineHeight = 1.25f) const |
 |virtual **[ffw::Vec2f](group__math_.md#ga44573357c25b7969b4391ca0ae427636)**|[**getStringSize**](classffw_1_1_font.md#1a447d1fb84909315000d1d568e2561b86) (const std::wstring & str, float maxWidth = -1.0f, float lineHeight = 1.25f) const |
-|float|[**getCharAdvance**](classffw_1_1_font.md#1a2ce2045030c495ace3edaab3c6ea6852) (wchar\_t chr) const |
+|float|[**getCharAdvance**](classffw_1_1_font.md#1ab41de9dad062dd9c58ddc360c8acc32b) (const unsigned int chr) const |
 |int|[**getSizePt**](classffw_1_1_font.md#1a1444b58cd884fcfb51258bebfe44a66c) () const |
 |int|[**getSizePixels**](classffw_1_1_font.md#1a546770fa3a6e1f7283aac00b517663bb) () const |
 |int|[**getDpi**](classffw_1_1_font.md#1a1a54d225c828f3002d968be8029fe4e7) () const |
@@ -126,37 +128,69 @@ ffw::Font::Font ()
 
 
 
-### function <a id="1a232e75baded001562f4aa1ba3c270490" href="#1a232e75baded001562f4aa1ba3c270490">~Font</a>
+### function <a id="1a625968999be1f55607ba2c241e99c2bb" href="#1a625968999be1f55607ba2c241e99c2bb">Font</a>
 
 ```cpp
-virtual ffw::Font::~Font ()
+ffw::Font::Font (
+    const Font & other
+) = delete
 ```
 
 
 
-### function <a id="1a7c097bfaf58c965bdd49727bcca734c5" href="#1a7c097bfaf58c965bdd49727bcca734c5">destroy</a>
+### function <a id="1a7b07abd846095b2b3211e1d1e41775c5" href="#1a7b07abd846095b2b3211e1d1e41775c5">Font</a>
 
 ```cpp
-virtual void ffw::Font::destroy () = 0
+ffw::Font::Font (
+    Font && other
+) = default
 ```
 
 
 
-### function <a id="1a18f6eba85473c37a0606b91d8601c323" href="#1a18f6eba85473c37a0606b91d8601c323">getChar</a>
+### function <a id="1a1506af1c9de421dac45dad7a9d1b0e26" href="#1a1506af1c9de421dac45dad7a9d1b0e26">operator=</a>
+
+```cpp
+Font & ffw::Font::operator= (
+    const Font & other
+) = delete
+```
+
+
+
+### function <a id="1adc829453376092c01873ccf869e3b905" href="#1adc829453376092c01873ccf869e3b905">operator=</a>
+
+```cpp
+Font & ffw::Font::operator= (
+    Font && other
+) = default
+```
+
+
+
+### function <a id="1af64aa991e6e53e3b55105a2eb0239ea4" href="#1af64aa991e6e53e3b55105a2eb0239ea4">~Font</a>
+
+```cpp
+virtual ffw::Font::~Font () = default
+```
+
+
+
+### function <a id="1ac377ea34f700ab2c2281e66a93610a75" href="#1ac377ea34f700ab2c2281e66a93610a75">getChar</a>
 
 ```cpp
 virtual const Char & ffw::Font::getChar (
-    wchar_t chr
+    unsigned int chr
 ) const = 0
 ```
 
 
 
-### function <a id="1a3f420f3d7a5f7ad6014bb3f08aaa0493" href="#1a3f420f3d7a5f7ad6014bb3f08aaa0493">getCharIndex</a>
+### function <a id="1ac41292d33971a660fe9bed10ea39504e" href="#1ac41292d33971a660fe9bed10ea39504e">getCharIndex</a>
 
 ```cpp
 virtual int ffw::Font::getCharIndex (
-    wchar_t chr
+    unsigned int chr
 ) const = 0
 ```
 
@@ -186,11 +220,11 @@ virtual ffw::Vec2f ffw::Font::getStringSize (
 
 
 
-### function <a id="1a2ce2045030c495ace3edaab3c6ea6852" href="#1a2ce2045030c495ace3edaab3c6ea6852">getCharAdvance</a>
+### function <a id="1ab41de9dad062dd9c58ddc360c8acc32b" href="#1ab41de9dad062dd9c58ddc360c8acc32b">getCharAdvance</a>
 
 ```cpp
 float ffw::Font::getCharAdvance (
-    wchar_t chr
+    const unsigned int chr
 ) const
 ```
 

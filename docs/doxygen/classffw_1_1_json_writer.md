@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::JsonWriter', 'FileStream', 'Stream', 'StringStream', 'JsonWriter', '~JsonWriter', 'addObject', 'addArray', 'stepOut', 'addInteger', 'addString', 'addBoolean', 'addFloat', 'addNull']
+search: false
 ---
 
 # class ffw::JsonWriter

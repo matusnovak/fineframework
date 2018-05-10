@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['vec3.h', 'ffw::Vec3']
+search: false
 ---
 
 # file vec3.h

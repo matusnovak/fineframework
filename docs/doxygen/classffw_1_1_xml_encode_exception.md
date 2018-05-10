@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlEncodeException', 'XmlEncodeException', 'XmlException']
+search: false
 ---
 
 # class ffw::XmlEncodeException

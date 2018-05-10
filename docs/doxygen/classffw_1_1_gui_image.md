@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiImage', 'isCreated', 'destroy', 'getWidth', 'getHeight']
+search: false
 ---
 
 # class ffw::GuiImage

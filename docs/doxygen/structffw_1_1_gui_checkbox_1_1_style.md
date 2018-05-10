@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiCheckbox::Style', 'button', 'self']
+search: false
 ---
 
 # struct ffw::GuiCheckbox::Style

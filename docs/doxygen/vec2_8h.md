@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['vec2.h', 'ffw::Vec2']
+search: false
 ---
 
 # file vec2.h

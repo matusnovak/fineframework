@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Any::Data< T, typename std::enable_if< std::is_integral< T >::value >::type >', 'Data', '~Data', 'createCopy', 'getTypeid', 'get', 'get', 'toBool', 'isInteger', 'isFloat', 'getInteger', 'getFloat', 'getDouble', 'compare', '~Content', 'createCopy', 'getTypeid', 'toBool', 'isInteger', 'isFloat', 'getInteger', 'getFloat', 'getDouble', 'compare']
+search: false
 ---
 
 # class ffw::Any::Data< T, typename std::enable\_if< std::is\_integral< T >::value >::type >

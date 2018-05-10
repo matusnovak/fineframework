@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guitext.h', 'ffw::GuiText', 'ffw::GuiText::Style', 'ffw::GuiText::Paragraph']
+search: false
 ---
 
 # file guitext.h

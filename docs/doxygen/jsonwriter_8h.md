@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['jsonwriter.h', 'ffw::JsonWriter', 'ffw::JsonWriter::Stream', 'ffw::JsonWriter::StringStream', 'ffw::JsonWriter::FileStream', 'FFW_JSON_WRITER']
+search: false
 ---
 
 # file jsonwriter.h

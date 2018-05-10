@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['jpgsaver.h', 'ffw::JpgSaver', 'swap']
+search: false
 ---
 
 # file jpgsaver.h

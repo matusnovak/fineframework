@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['math', 'ffw::Any', 'ffw::Array', 'ffw::Object', 'ffw::Color', 'ffw::ImageFormat', 'ffw::ImageBuffer', 'ffw::Mat4x4', 'ffw::PromiseI', 'ffw::PromiseException', 'ffw::PromiseResult', 'ffw::PromiseResult< void >', 'ffw::Promise', 'ffw::Quat', 'ffw::RingBuffer', 'ffw::FileInfo', 'ffw::TextWrapper', 'ffw::Tokenizer', 'ffw::Vec2', 'ffw::Vec3', 'ffw::Vec4', 'Mat4x4f', 'Quatf', 'Quatd', 'Vec2f', 'Vec2i', 'Vec2s', 'Vec2ll', 'Vec2d', 'Vec3f', 'Vec3i', 'Vec3s', 'Vec3ll', 'Vec3d', 'Vec4f', 'Vec4i', 'Vec4s', 'Vec4ll', 'Vec4d', 'rgb', 'rgb', 'rgba', 'rgba', 'normalize', 'clamp', 'operator<<', 'clamp', 'lerp', 'radians', 'degrees', 'remap', 'nextPowOfTwo', 'byteSwap16', 'byteSwap32', 'byteSwap64', 'containImage', 'coverImage', 'makeRotationMatrix', 'getRotationMatrix', 'makeProjectionMatrix', 'makeLookAtMatrix', 'makeFpsCameraMatrix', 'makeOrthoMatrix', 'normalize', 'operator<<', 'stringToVal', 'stringToVal< float >', 'stringToVal< double >', 'stringToVal< long double >', 'stringToVal< short >', 'stringToVal< int >', 'stringToVal< long >', 'stringToVal< long long >', 'stringToVal< unsigned short >', 'stringToVal< unsigned int >', 'stringToVal< unsigned long >', 'stringToVal< unsigned long long >', 'valToString', 'valToString', 'hexToVal', 'valToHex', 'getTokensFunc', 'getTokens', 'getTokens', 'getTokens', 'getTokens', 'getTokensNum', 'getTokensNum', 'getTokensNum', 'getTokensNum', 'getFileInfo', 'basename', 'dirname', 'extension', 'toUpper', 'toLower', 'unicodeToUtf8', 'wstrToUtf8', 'wstrToUtf8Size', 'utf8ToWstr', 'utf8ToWstrSize', 'valToWstring', 'valToWstring', 'getNextChar', 'getNextChar', 'getNextChar', 'dot', 'distance', 'middle', 'normalize', 'angle', 'angleRad', 'operator<<', 'dot', 'cross', 'distance', 'middle', 'normalize', 'angle', 'angleRad', 'operator<<', 'dot', 'distance', 'middle', 'normalize', 'operator<<', 'dot', 'distance', 'middle', 'normalize', 'operator<<']
+search: false
 ---
 
 # group math
@@ -17,10 +16,8 @@ From basic up to advanced math function and additional data types such as vector
 |class|[**ffw::ImageFormat**](classffw_1_1_image_format.md)|
 |class|[**ffw::ImageBuffer**](classffw_1_1_image_buffer.md)|
 |struct|[**ffw::Mat4x4**](structffw_1_1_mat4x4.md)|
-|class|[**ffw::PromiseI**](classffw_1_1_promise_i.md)|
+|class|[**ffw::PromiseInterface**](classffw_1_1_promise_interface.md)|
 |class|[**ffw::PromiseException**](classffw_1_1_promise_exception.md)|
-|class|[**ffw::PromiseResult**](classffw_1_1_promise_result.md)|
-|class|[**ffw::PromiseResult< void >**](classffw_1_1_promise_result_3_01void_01_4.md)|
 |class|[**ffw::Promise**](classffw_1_1_promise.md)|
 |struct|[**ffw::Quat**](structffw_1_1_quat.md)|
 |class|[**ffw::RingBuffer**](classffw_1_1_ring_buffer.md)|

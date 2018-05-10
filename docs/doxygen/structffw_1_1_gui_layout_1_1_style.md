@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiLayout::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiLayout::Style

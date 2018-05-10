@@ -44,7 +44,7 @@ namespace ffw {
         bool createFromData(const unsigned char* buffer, size_t length);
         bool createFromFile(const std::string& path);
         bool setSize(int points, int dpi);
-        bool findGlyph(int unicode);
+        bool findGlyph(unsigned int unicode);
         bool findErrorGlyph();
         bool getGlyphData(CharData* data);
 
@@ -60,7 +60,7 @@ namespace ffw {
         FreeTypeLoader& operator = (const FreeTypeLoader& other) = delete;
         FreeTypeLoader& operator = (FreeTypeLoader&& other) NOEXCEPT;
     private:
-        bool checkForErrors(int error);
+        static bool checkForErrors(int error);
         bool loaded;
         FT_Face fontFace;
         FT_Glyph currentGlyph;

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiWidget::Flags', 'hover', 'focus', 'disabled', 'hidden', 'wrap', 'render', 'invalidate', 'ignore', 'rearrange', 'first', 'eventpos', 'eventsize', 'eventinner', 'eventdisabled', 'eventfocus', 'eventhover']
+search: false
 ---
 
 # struct ffw::GuiWidget::Flags

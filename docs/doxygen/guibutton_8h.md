@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guibutton.h', 'ffw::GuiButton', 'ffw::GuiButton::Style', 'ffw::GuiButtonPrimary', 'ffw::GuiButtonPrimary::Style']
+search: false
 ---
 
 # file guibutton.h

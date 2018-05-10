@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::FreeTypeLoader::CharData', 'width', 'height', 'bearingX', 'bearingY', 'advance', 'pixels', 'CharData', '~CharData']
+search: false
 ---
 
 # class ffw::FreeTypeLoader::CharData
@@ -21,7 +20,9 @@ search:
 
 |Type|Name|
 |-----|-----|
-||[**CharData**](classffw_1_1_free_type_loader_1_1_char_data.md#1a48e78a4d6456e7a48dd564b0b84e9363) () |
+||[**CharData**](classffw_1_1_free_type_loader_1_1_char_data.md#1a0e2ae2437ca41739d2a716a28df9cd6e) () = default |
+||[**CharData**](classffw_1_1_free_type_loader_1_1_char_data.md#1a820b977541f03b4a50bd8ee84b178423) (const **[CharData](classffw_1_1_free_type_loader_1_1_char_data.md)** & other) = default |
+|**[CharData](classffw_1_1_free_type_loader_1_1_char_data.md)** &|[**operator=**](classffw_1_1_free_type_loader_1_1_char_data.md#1af02786f61bebc824be70f8ca61ecc8c3) (const **[CharData](classffw_1_1_free_type_loader_1_1_char_data.md)** & other) = default |
 ||[**~CharData**](classffw_1_1_free_type_loader_1_1_char_data.md#1a3acf9756f5ff0618505bea6695e02e3c) () |
 
 
@@ -77,10 +78,30 @@ unsigned char* ffw::FreeTypeLoader::CharData::pixels;
 
 ## Public Functions Documentation
 
-### function <a id="1a48e78a4d6456e7a48dd564b0b84e9363" href="#1a48e78a4d6456e7a48dd564b0b84e9363">CharData</a>
+### function <a id="1a0e2ae2437ca41739d2a716a28df9cd6e" href="#1a0e2ae2437ca41739d2a716a28df9cd6e">CharData</a>
 
 ```cpp
-ffw::FreeTypeLoader::CharData::CharData ()
+ffw::FreeTypeLoader::CharData::CharData () = default
+```
+
+
+
+### function <a id="1a820b977541f03b4a50bd8ee84b178423" href="#1a820b977541f03b4a50bd8ee84b178423">CharData</a>
+
+```cpp
+ffw::FreeTypeLoader::CharData::CharData (
+    const CharData & other
+) = default
+```
+
+
+
+### function <a id="1af02786f61bebc824be70f8ca61ecc8c3" href="#1af02786f61bebc824be70f8ca61ecc8c3">operator=</a>
+
+```cpp
+CharData & ffw::FreeTypeLoader::CharData::operator= (
+    const CharData & other
+) = default
 ```
 
 

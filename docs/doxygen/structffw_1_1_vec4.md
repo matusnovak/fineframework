@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Vec4', 'x', 'y', 'z', 'w', 'Vec4', 'Vec4', 'Vec4', 'Vec4', 'Vec4', 'set', 'set', 'set', 'set', 'operator-', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator!=', 'operator==', 'normalize', 'scale', 'length', 'lengthf', 'lengthSqrd', 'operator[]', 'operator[]', 'operator ffw::Vec4< S >', 'round', 'floor', 'ceil', 'operator==', 'operator==']
+search: false
 ---
 
 # struct ffw::Vec4

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['data', 'ffw::CsvLoader', 'ffw::JsonException', 'ffw::JsonDecodeException', 'ffw::JsonEncodeException', 'ffw::JsonReader', 'ffw::JsonWriter', 'ffw::XmlException', 'ffw::XmlDecodeException', 'ffw::XmlEncodeException', 'ffw::XmlReader', 'ffw::XmlWriter', 'decodeCsvFile', 'decodeCsv', 'stringContainsWhitespace', 'stringisInteger', 'stringisFloat', 'stringisBool', 'decodeJson', 'decodeJson', 'decodeJsonFile', 'encodeJson', 'encodeJsonFile', 'decodeXml', 'decodeXml', 'decodeXmlFile', 'encodeXml', 'encodeXmlFile']
+search: false
 ---
 
 # group data

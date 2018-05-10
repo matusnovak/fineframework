@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiswitch.h', 'ffw::GuiSwitch', 'ffw::GuiSwitch::Style']
+search: false
 ---
 
 # file guiswitch.h

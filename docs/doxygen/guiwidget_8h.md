@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiwidget.h', 'ffw::GuiEvent', 'ffw::GuiEvent::Data', 'ffw::GuiEvent::Data::ActionData', 'ffw::GuiEvent::Data::SizeData', 'ffw::GuiEvent::Data::InnerData', 'ffw::GuiEvent::Data::PosData', 'ffw::GuiEvent::Data::HoverData', 'ffw::GuiEvent::Data::FocusData', 'ffw::GuiEvent::Data::StateData', 'ffw::GuiEvent::Data::InputData', 'ffw::GuiEvent::Data::InputKey', 'ffw::GuiEvent::Data::MousebtnData', 'ffw::GuiCallback', 'ffw::GuiUserInput', 'ffw::GuiWidget', 'ffw::GuiWidget::Style', 'ffw::GuiWidget::Flags']
+search: false
 ---
 
 # file guiwidget.h

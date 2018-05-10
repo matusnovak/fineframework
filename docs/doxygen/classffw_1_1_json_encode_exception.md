@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::JsonEncodeException', 'JsonEncodeException', 'JsonException']
+search: false
 ---
 
 # class ffw::JsonEncodeException

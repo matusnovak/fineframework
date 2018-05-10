@@ -1,5 +1,6 @@
 ---
-search: false
+search:
+    keywords: ['ffw', 'Any', 'Content', 'Data', 'Data< T, typename std::enable_if< std::is_floating_point< T >::value >::type >', 'Data< T, typename std::enable_if< std::is_integral< T >::value >::type >', 'Array', 'BitmapFont', 'BmpLoader', 'BmpSaver', 'BufferObject', 'Color', 'CsvLoader', 'DdsLoader', 'DdsSaver', 'DrawPaint', 'FileInfo', 'Font', 'Char', 'Framebuffer', 'FreeTypeLoader', 'CharData', 'GLFWRenderWindow', 'GLFWRenderWindowArgs', 'GuiBackend', 'GuiBody', 'Style', 'GuiBox', 'Style', 'GuiButton', 'Style', 'GuiButtonPrimary', 'Style', 'GuiButtonToggle', 'GuiButtonTogglePrimary', 'GuiCallback', 'GuiCheckbox', 'Button', 'Style', 'Style', 'GuiDefaults', 'GuiEvent', 'GuiFixedLayout', 'GuiFont', 'GuiFontOpenGL', 'GuiHorizontalLayout', 'GuiImage', 'GuiImageOpenGL', 'GuiImageViewer', 'Style', 'GuiLabel', 'Style', 'GuiLayout', 'Style', 'GuiList', 'Item', 'Style', 'Style', 'Value', 'GuiProgressBar', 'Style', 'GuiProgressCircle', 'Style', 'GuiRadio', 'Button', 'Style', 'Style', 'Value', 'GuiScrollBar', 'ButtonBottom', 'Style', 'ButtonLeft', 'Style', 'ButtonRight', 'Style', 'ButtonTop', 'Style', 'Scroll', 'Style', 'Style', 'GuiScrollable', 'Style', 'GuiScrollableLayout', 'Style', 'GuiScrollableTextInput', 'Inner', 'Style', 'Style', 'GuiSlider', 'Style', 'GuiStyle', 'Attribute', 'Background', 'Border', 'Function', 'Text', 'GuiSwitch', 'Style', 'GuiTabs', 'Button', 'Style', 'Content', 'Style', 'Style', 'TopBar', 'Style', 'GuiText', 'Paragraph', 'Style', 'GuiTextInput', 'Line', 'Style', 'GuiTheme', 'GuiThemeFlatDark', 'GuiThemeFlatLight', 'GuiThemeSimpleDark', 'GuiThemeSimpleLight', 'GuiUnits', 'GuiUnits2D', 'GuiUserInput', 'GuiVerticalLayout', 'GuiWidget', 'Flags', 'Style', 'GuiWindow', 'GuiWindowOpenGL', 'GuiWindowOpenGLFBO', 'Ibo', 'ImageBuffer', 'ImageFormat', 'ImageReader', 'ImageWriter', 'JpgLoader', 'JpgSaver', 'JsonDecodeException', 'JsonEncodeException', 'JsonException', 'JsonReader', 'Cache', 'Node', 'JsonWriter', 'FileStream', 'Stream', 'StringStream', 'Mat4x4', 'Monitor', 'Mode', 'ObjLoader', 'Object', 'OpenGLImageType', 'PbmLoader', 'PbmSaver', 'PngLoader', 'PngSaver', 'Promise', 'PromiseException', 'PromiseInterface', 'Quat', 'RenderContext', 'RenderWindow', 'Renderbuffer', 'Renderbuffer2D', 'Renderbuffer2DMS', 'RingBuffer', 'Shader', 'CompileException', 'FileException', 'SwapWrapper', 'TextWrapper', 'Token', 'Texture', 'Texture1D', 'Texture1DArray', 'Texture2D', 'Texture2DArray', 'Texture2DArrayMS', 'Texture2DMS', 'Texture3D', 'TextureCubemap', 'TgaLoader', 'TgaSaver', 'TifLoader', 'TifSaver', 'Tokenizer', 'TrueTypeFont', 'Vbo', 'Vec', 'Vec2', 'Vec3', 'Vec4', 'XmlDecodeException', 'XmlEncodeException', 'XmlException', 'XmlReader', 'Attribute', 'Cache', 'Node', 'Value', 'XmlWriter', 'FileStream', 'Stream', 'StringStream', 'gl', 'utf8', 'exception', 'internal', 'invalid_code_point', 'invalid_utf16', 'invalid_utf8', 'iterator', 'not_enough_room']
 ---
 
 # Class List
@@ -161,9 +162,7 @@ Here are the classes, structs, unions and interfaces with brief descriptions:
   * class [**PngSaver**](classffw_1_1_png_saver.md)
   * class [**Promise**](classffw_1_1_promise.md)
   * class [**PromiseException**](classffw_1_1_promise_exception.md)
-  * class [**PromiseI**](classffw_1_1_promise_i.md)
-  * class [**PromiseResult**](classffw_1_1_promise_result.md)
-  * class [**PromiseResult< void >**](classffw_1_1_promise_result_3_01void_01_4.md)
+  * class [**PromiseInterface**](classffw_1_1_promise_interface.md)
   * struct [**Quat**](structffw_1_1_quat.md)
   * class [**RenderContext**](classffw_1_1_render_context.md)
   * class [**RenderWindow**](classffw_1_1_render_window.md)

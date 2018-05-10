@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Shader::FileException', 'msg', 'FileException', 'what']
+search: false
 ---
 
 # class ffw::Shader::FileException

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['utf8', 'exception', 'invalid_code_point', 'invalid_utf16', 'invalid_utf8', 'iterator', 'not_enough_room', 'uint8_t', 'uint16_t', 'uint32_t', 'bom', 'append', 'replace_invalid', 'replace_invalid', 'next', 'peek_next', 'prior', 'previous', 'advance', 'distance', 'utf16to8', 'utf8to16', 'utf32to8', 'utf8to32', 'find_invalid', 'is_valid', 'starts_with_bom', 'is_bom']
+search: false
 ---
 
 # namespace utf8

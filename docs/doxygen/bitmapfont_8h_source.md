@@ -32,19 +32,23 @@ namespace ffw {
     public:
         BitmapFont();
         BitmapFont(const BitmapFont& other) = delete;
-        BitmapFont(BitmapFont&& other);
+        BitmapFont(BitmapFont&& other) NOEXCEPT;
         virtual ~BitmapFont();
-        bool createFromData(const void* pixels, int width, int height, ffw::ImageType format, int points, int dpi, int start = 0x00, int end = 0x7F);
-        bool createFromBuffer(const ImageBuffer& buffer, int points, int dpi, int start = 0x00, int end = 0x7F);
-        void destroy() override;
-        const Font::Char& getChar(wchar_t chr) const override;
-        int getCharIndex(wchar_t chr) const override;
-        void setCharData(wchar_t chr, Font::Char& data);
+        bool createFromData(
+            const void* pixels, int width, int height, ffw::ImageType format, 
+            int points, int dpi, int start = 0x00, int end = 0x7F);
+        bool createFromBuffer(
+            const ImageBuffer& buffer, int points, int dpi, 
+            int start = 0x00, int end = 0x7F);
+        void destroy();
+        const Font::Char& getChar(unsigned int chr) const override;
+        int getCharIndex(unsigned int chr) const override;
+        void setCharData(unsigned int chr, const Font::Char& data);
         bool updateBuffer();
 
         BitmapFont& operator = (const BitmapFont& other) = delete;
-        BitmapFont& operator = (BitmapFont&& other);
-        void swap(BitmapFont& other);
+        BitmapFont& operator = (BitmapFont&& other) NOEXCEPT;
+        void swap(BitmapFont& other) NOEXCEPT;
     private:
         std::vector<Font::Char> characters;
         int offsetStart;
@@ -53,7 +57,7 @@ namespace ffw {
     };
 };
 
-inline void swap(ffw::BitmapFont& first, ffw::BitmapFont& second) {
+inline void swap(ffw::BitmapFont& first, ffw::BitmapFont& second) NOEXCEPT {
     first.swap(second);
 }
 #endif

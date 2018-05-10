@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ddsloader.h', 'ffw::DdsLoader', 'swap']
+search: false
 ---
 
 # file ddsloader.h

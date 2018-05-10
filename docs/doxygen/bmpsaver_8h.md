@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['bmpsaver.h', 'ffw::BmpSaver', 'swap']
+search: false
 ---
 
 # file bmpsaver.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['framebuffer.h', 'ffw::Framebuffer', 'swap']
+search: false
 ---
 
 # file framebuffer.h

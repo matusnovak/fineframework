@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ddssaver.h', 'ffw::DdsSaver', 'swap']
+search: false
 ---
 
 # file ddssaver.h

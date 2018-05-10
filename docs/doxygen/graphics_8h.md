@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['graphics.h']
+search: false
 ---
 
 # file graphics.h

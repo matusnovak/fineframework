@@ -1,3 +1,4 @@
+#include <iostream>
 #include <ffw/graphics.h>
 #include <ffw/math.h>
 

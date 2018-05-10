@@ -1,7 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_TEXTURE_BASE
 #define FFW_TEXTURE_BASE
-#include "../config.h"
+
 #include "renderextensionsgl.h"
 
 namespace ffw {
@@ -26,34 +26,38 @@ namespace ffw {
         };
         Texture();
         Texture(const Texture& other) = delete;
-        Texture(Texture&& other);
-        void swap(Texture& other);
+        Texture(Texture&& other) NOEXCEPT;
+        void swap(Texture& other) NOEXCEPT;
         virtual ~Texture();
         inline bool isCreated() const {
-            return loaded_;
+            return loaded;
         }
         /**
          * @brief Destroys the texture
          * @details Destroys the texture and the allocated memory to it.
-         * Calling this on already deleted texture does nothing.
+         * Calling this on already deleted texture has no effect.
          */
         void destroy();
         /**
-         * @brief Actives the texture
+         * @brief Binds the texture
          */
         void bind() const;
+        /**
+         * @brief Unbinds the texture
+         * @note After the unbind the active texture will be set to no handle (zero)
+         */
         void unbind() const;
         /**
          * @brief Returns the OpenGL pointer, a handle to the texture
          */
         inline GLuint getHandle() const {
-            return buffer_;
+            return buffer;
         }
         /**
          * @brief Returns the width of the texture
          */
         inline GLsizei getWidth() const {
-            return width_;
+            return width;
         }
         /**
          * @brief Returns the height of the texture
@@ -61,7 +65,7 @@ namespace ffw {
          * type is always 1.
          */
         inline GLsizei getHeight() const {
-            return height_;
+            return height;
         }
         /**
          * @brief Returns the number of layers
@@ -69,7 +73,7 @@ namespace ffw {
          * value is always 1.
          */
         inline GLsizei getLayers() const {
-            return layers_;
+            return layers;
         }
         /**
          * @brief Returns the depth of the texture
@@ -77,7 +81,7 @@ namespace ffw {
          * returns 1.
          */
         inline GLsizei getDepth() const {
-            return depth_;
+            return depth;
         }
         /***
          * @brief Returns the number of samples
@@ -85,38 +89,38 @@ namespace ffw {
          * otherwise returns 1.
          */
         inline GLsizei getSamples() const {
-            return samples_;
+            return samples;
         }
         /**
          * @brief Returns the number of color components in the texture
          * @details The internal format can be GL_RGB8, GL_RGBA8, GL_RGB32F, etc...
          */
         inline GLenum getInternalFormat() const {
-            return internalformat_;
+            return internalformat;
         }
         /**
          * @brief Returns the format of the pixel data
          * @details The format can be GL_RGB, GL_RED, GL_RGBA, etc...
          */
         inline GLenum getFormat() const {
-            return format_;
+            return format;
         }
         /**
          * @brief Returns the data type of the pixel data
          * @details The pixel format can be GL_UNSIGNED_BYTE, GL_FLOAT, etc...
          */
         inline GLenum getPixelFormat() const {
-            return pixelformat_;
+            return pixelformat;
         }
         /**
          * @brief Returns the type of the texture
          * @details The texture format can be GL_TEXTURE_1D, GL_TEXTURE_2D, etc...
          */
         inline GLenum getTextureFormat() const {
-            return textureformat_;
+            return textureformat;
         }
         inline bool isCompressed() const {
-            switch (internalformat_) {
+            switch (internalformat) {
                 case GL_COMPRESSED_RGB_S3TC_DXT1_EXT:
                 case GL_COMPRESSED_RGBA_S3TC_DXT1_EXT:
                 case GL_COMPRESSED_RGBA_S3TC_DXT3_EXT:
@@ -130,24 +134,24 @@ namespace ffw {
                     return false;
             }
         }
-        void setEnvParami(GLenum Target, GLenum Name, GLint Value);
-        void setEnvParamf(GLenum Target, GLenum Name, GLfloat Value);
-        void setTexParami(GLenum Name, GLint Value);
-        void setTexParamiv(GLenum Name, GLint* Values);
-        void setTexParamf(GLenum Name, GLfloat Value);
-        void setTexParamfv(GLenum Name, GLfloat* Values);
+        void setEnvParami(GLenum target, GLenum name, GLint value) const;
+        void setEnvParamf(GLenum target, GLenum name, GLfloat value) const;
+        void setTexParami(GLenum name, GLint value) const;
+        void setTexParamiv(GLenum name, const GLint* value) const;
+        void setTexParamf(GLenum name, GLfloat value) const;
+        void setTexParamfv(GLenum name, const GLfloat* value) const;
         /**
          * @brief Generates mip maps
          */
         bool generateMipmaps();
-        void setFiltering(Texture::Filtering filtering);
-        void setWrapping(Texture::Wrapping wrapping);
+        void setFiltering(Texture::Filtering filtering) const;
+        void setWrapping(Texture::Wrapping wrapping) const;
         Texture& operator = (const Texture& other) = delete;
-        Texture& operator = (Texture&& other);
+        Texture& operator = (Texture&& other) NOEXCEPT;
     protected:
-        inline GLsizei getBlockSize(GLsizei width, GLsizei height = 1, GLsizei depth = 1) const {
+        inline GLsizei getBlockSize(const GLsizei width, const GLsizei height = 1, const GLsizei depth = 1) const {
             //if (width < 4 || height < 4)return width * height * depth;
-            switch(internalformat_) {
+            switch(internalformat) {
                 case GL_COMPRESSED_RED_RGTC1:
                 case GL_COMPRESSED_SIGNED_RED_RGTC1:
                 case GL_COMPRESSED_RGB_S3TC_DXT1_EXT:
@@ -162,24 +166,24 @@ namespace ffw {
                     return 0;
             }
         }
-        bool loaded_;
-        GLenum textureformat_;
-        GLenum internalformat_;
-        GLenum format_;
-        GLenum pixelformat_;
-        GLuint buffer_;
-        GLsizei width_;
-        GLsizei height_;
-        GLsizei depth_;
-        GLsizei layers_;
-        bool mipmaps_;
-        bool initialized_;
-        GLsizei samples_;
-        bool compressed_;
+        bool loaded;
+        GLenum textureformat;
+        GLenum internalformat;
+        GLenum format;
+        GLenum pixelformat;
+        GLuint buffer;
+        GLsizei width;
+        GLsizei height;
+        GLsizei depth;
+        GLsizei layers;
+        bool mipmaps;
+        bool initialized;
+        GLsizei samples;
+        bool compressed;
     };
 };
 
-inline void swap(ffw::Texture& first, ffw::Texture& second) {
+inline void swap(ffw::Texture& first, ffw::Texture& second) NOEXCEPT {
     first.swap(second);
 }
 #endif

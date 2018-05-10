@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['pbmloader.h', 'ffw::PbmLoader', 'swap']
+search: false
 ---
 
 # file pbmloader.h

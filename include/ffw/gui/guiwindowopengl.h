@@ -2,6 +2,9 @@
 #pragma once
 #ifndef FFW_GUI_WINDOW_OPENGL
 #define FFW_GUI_WINDOW_OPENGL
+#ifndef FFW_RENDER_CONTEXT
+#error Please add #include <ffw/graphics/rendercontext.h> before including guiwindowopengl.h!
+#endif
 #include "guibackend.h"
 #include "guifontopengl.h"
 #include "guiimageopengl.h"

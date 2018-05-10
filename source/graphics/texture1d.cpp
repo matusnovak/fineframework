@@ -2,20 +2,21 @@
 
 #include "ffw/graphics/texture1d.h"
 #include "ffw/graphics/rendercontext.h"
-#include <ffw/graphics.h>
+#include "ffw/math/imagebuffer.h"
+#include "ffw/graphics/graphics.h"
 
 ///=============================================================================
-ffw::Texture1D::Texture1D():Texture(){
-    textureformat_ = GL_TEXTURE_1D;
+ffw::Texture1D::Texture1D(){
+    textureformat = GL_TEXTURE_1D;
 }
 
 ///=============================================================================
-ffw::Texture1D::Texture1D(Texture1D&& second) : Texture1D() {
-    Texture::swap(second);
+ffw::Texture1D::Texture1D(Texture1D&& other) NOEXCEPT : Texture1D() {
+    Texture::swap(other);
 }
 
 ///=============================================================================
-ffw::Texture1D& ffw::Texture1D::operator = (ffw::Texture1D&& other) {
+ffw::Texture1D& ffw::Texture1D::operator = (ffw::Texture1D&& other) NOEXCEPT {
     if (this != &other) {
         Texture::swap(other);
     }
@@ -23,35 +24,35 @@ ffw::Texture1D& ffw::Texture1D::operator = (ffw::Texture1D&& other) {
 }
 
 ///=============================================================================
-ffw::Texture1D::~Texture1D(){
-    destroy();
-}
+bool ffw::Texture1D::create(const GLsizei width, const GLenum internalformat, const GLenum format, 
+    const GLenum pixelformat, const GLvoid* pixels){
 
-///=============================================================================
-bool ffw::Texture1D::create(GLsizei width, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels){
-    if(loaded_)return false;
-    loaded_ = true;
+    if(loaded)return false;
+    loaded = true;
 
-    glGenTextures(1, &buffer_);
-    glBindTexture(GL_TEXTURE_1D, buffer_);
+    glGenTextures(1, &buffer);
+    glBindTexture(GL_TEXTURE_1D, buffer);
 
-    width_           = width;
-    height_          = 1;
-    layers_          = 0;
-    depth_           = 0;
-    internalformat_  = internalformat;
-    format_          = format;
-    pixelformat_     = pixelformat;
-    samples_         = 0;
+    this->width           = width;
+    this->height          = 1;
+    this->layers          = 0;
+    this->depth           = 0;
+    this->internalformat  = internalformat;
+    this->format          = format;
+    this->pixelformat     = pixelformat;
+    this->samples         = 0;
 
     if(isCompressed()) {
-        if(glCompressedTexImage1D == NULL) {
+        if(glCompressedTexImage1D == nullptr) {
             destroy();
             return false;
         }
-        glCompressedTexImage1D(GL_TEXTURE_2D, 0, internalformat_, width_, 0, getBlockSize(width), pixels);
+        glCompressedTexImage1D(
+            GL_TEXTURE_2D, 0, internalformat, 
+            width, 0, getBlockSize(width), pixels
+        );
     } else {
-        glTexImage1D(GL_TEXTURE_1D, 0, internalformat_, width_, 0, format_, pixelformat_, pixels);
+        glTexImage1D(GL_TEXTURE_1D, 0, internalformat, width, 0, format, pixelformat, pixels);
     }
 
     int test;
@@ -70,75 +71,86 @@ bool ffw::Texture1D::create(GLsizei width, GLenum internalformat, GLenum format,
 }
 
 ///=============================================================================
-bool ffw::Texture1D::resize(GLsizei width){
-    if(!loaded_)return false;
+bool ffw::Texture1D::resize(const GLsizei width, const GLvoid* pixels){
+    if(!loaded)return false;
     if(width <= 0)return false;
-    width_ = width;
-    glBindTexture(GL_TEXTURE_1D, buffer_);
+    this->width = width;
+    glBindTexture(GL_TEXTURE_1D, buffer);
     if(isCompressed()) {
-        glCompressedTexImage1D(GL_TEXTURE_2D, 0, internalformat_, width_, 0, getBlockSize(width), NULL);
+        glCompressedTexImage1D(
+            GL_TEXTURE_2D, 0, internalformat, 
+            width, 0, getBlockSize(width), pixels
+        );
     } else {
-        glTexImage1D(GL_TEXTURE_1D, 0, internalformat_, width_, 0, format_, pixelformat_, NULL);
+        glTexImage1D(
+            GL_TEXTURE_1D, 0, internalformat, 
+            width, 0, format, pixelformat, pixels
+        );
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture1D::setPixels(GLint level, GLint xoffset, GLsizei width, const GLvoid* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_1D, buffer_);
+bool ffw::Texture1D::setPixels(const GLint level, const GLint xoffset, 
+    const GLsizei width, const GLvoid* pixels){
+
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_1D, buffer);
     if(isCompressed()) {
-        glCompressedTexSubImage1D(GL_TEXTURE_2D, level, xoffset, width_, internalformat_, getBlockSize(width_), pixels);
+        glCompressedTexSubImage1D(
+            GL_TEXTURE_2D, level, xoffset, width, 
+            internalformat, getBlockSize(width), pixels
+        );
     } else {
-        glTexSubImage1D(GL_TEXTURE_1D, level, xoffset, width, format_, pixelformat_, pixels);
+        glTexSubImage1D(GL_TEXTURE_1D, level, xoffset, width, format, pixelformat, pixels);
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture1D::setPixels(GLint level, const GLvoid* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_1D, buffer_);
+bool ffw::Texture1D::setPixels(const GLint level, const GLvoid* pixels){
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_1D, buffer);
 
-    auto w = width_ >> level;
+    const auto w = width >> level;
 
     if(isCompressed()) {
-        glCompressedTexImage1D(GL_TEXTURE_2D, level, internalformat_, w, 0, getBlockSize(w), pixels);
+        glCompressedTexImage1D(GL_TEXTURE_2D, level, internalformat, w, 0, getBlockSize(w), pixels);
     } else {
-        glTexImage1D(GL_TEXTURE_1D, level, internalformat_, w, 0, format_, pixelformat_, pixels);
+        glTexImage1D(GL_TEXTURE_1D, level, internalformat, w, 0, format, pixelformat, pixels);
     }
     return true;
 }
 
 ///=============================================================================
 bool ffw::Texture1D::getPixels(void* pixels) const {
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_1D, buffer_);
-    glGetTexImage(GL_TEXTURE_1D, 0, format_, pixelformat_, pixels);
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_1D, buffer);
+    glGetTexImage(GL_TEXTURE_1D, 0, format, pixelformat, pixels);
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture1D::createFromBuffer(const ImageBuffer& buffer) {
-    if (!buffer.isAllocated())return false;
-    if (buffer.getDepth() > 1 || buffer.getHeight() > 1)return false;
+bool ffw::Texture1D::createFromBuffer(const ImageBuffer& image) {
+    if (!image.isAllocated())return false;
+    if (image.getDepth() > 1 || image.getHeight() > 1)return false;
 
-    ffw::OpenGLImageType openglType = ffw::getOpenGLImageType(buffer.getImageType());
+    const auto openglType = ffw::getOpenGLImageType(image.getImageType());
     if (!openglType) {
         return false;
     }
 
-    if (create(buffer.getWidth(), openglType.internalFormat, openglType.format, openglType.type)) {
-        for(int m = 0; m <= buffer.getNumOfMipMaps()-1; m++) {
+    if (create(image.getWidth(), openglType.internalFormat, openglType.format, openglType.type)) {
+        for(int m = 0; m <= image.getNumOfMipMaps()-1; m++) {
             
-            if(!setPixels(m, buffer.getMipMapPtr(m))) {
+            if(!setPixels(m, image.getMipMapPtr(m))) {
                 return false;
             }
         }
 
-        if(buffer.getNumOfMipMaps() > 0) {
+        if(image.getNumOfMipMaps() > 0) {
             glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_BASE_LEVEL, 0);
-            glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAX_LEVEL, buffer.getNumOfMipMaps()-1);
+            glTexParameteri(GL_TEXTURE_1D, GL_TEXTURE_MAX_LEVEL, image.getNumOfMipMaps()-1);
         }
     } else {
         return false;

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guifont.h', 'ffw::GuiFont']
+search: false
 ---
 
 # file guifont.h

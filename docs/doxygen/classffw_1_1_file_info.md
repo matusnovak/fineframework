@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::FileInfo', 'base', 'dir', 'ext', 'FileInfo', 'FileInfo']
+search: false
 ---
 
 # class ffw::FileInfo

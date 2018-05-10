@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::TextWrapper', 'Token', 'TextWrapper', 'next']
+search: false
 ---
 
 # class ffw::TextWrapper

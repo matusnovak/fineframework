@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guibox.h', 'ffw::GuiBox', 'ffw::GuiBox::Style']
+search: false
 ---
 
 # file guibox.h

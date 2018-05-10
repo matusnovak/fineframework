@@ -4,6 +4,7 @@
 #include <regex>
 #include <fstream>
 #include <memory>
+#include <iostream>
 
 ///=============================================================================
 class App: public ffw::GLFWRenderWindow {

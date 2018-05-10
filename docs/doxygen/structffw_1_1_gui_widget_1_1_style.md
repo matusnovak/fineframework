@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiWidget::Style', 'normal', 'hover', 'active', 'disabled', 'defaults']
+search: false
 ---
 
 # struct ffw::GuiWidget::Style

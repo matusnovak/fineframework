@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Promise', 'Promise', 'Promise', 'Promise', 'Promise', '~Promise', 'operator=', 'operator=', 'swap', 'getException', 'resolve', 'resolve', 'reject', 'call', 'getResult', 'then', 'fail', 'thenOrFail', 'isResolved', 'isRejected', 'isFinished', 'getStatus', 'PromiseI', '~PromiseI', 'call', 'reject', 'rejectWith']
+search: false
 ---
 
 # class ffw::Promise
@@ -8,7 +7,16 @@ search:
 A simple promise class with chainable lambdas. [More...](#detailed-description)
 
 
-Inherits the following classes: **[ffw::PromiseI](classffw_1_1_promise_i.md)**
+Inherits the following classes: **[ffw::PromiseInterface](classffw_1_1_promise_interface.md)**
+
+## Public Static Functions
+
+|Type|Name|
+|-----|-----|
+|static std::enable\_if< std::is\_same< Q, void >::value, **[Promise](classffw_1_1_promise.md)**< Q > >::type|[**makeResolved**](classffw_1_1_promise.md#1add0fd95412e722ae36d2fd46130d82f5) () |
+|static std::enable\_if<!std::is\_same< Q, void >::value, **[Promise](classffw_1_1_promise.md)**< Q > >::type|[**makeResolved**](classffw_1_1_promise.md#1a8c45dfc82161bd783d9dbecef95fce62) (PromiseValue< T > && value) |
+|static **[Promise](classffw_1_1_promise.md)**< T >|[**makeRejected**](classffw_1_1_promise.md#1a3087c46e0750817a76a3592eb2c8bd5c) (Args &&... args) |
+
 
 ## Public Functions
 
@@ -18,41 +26,43 @@ Inherits the following classes: **[ffw::PromiseI](classffw_1_1_promise_i.md)**
 ||[**Promise**](classffw_1_1_promise.md#1ac3b6244d0b418e543ee0b68f1821d610) (F const & lambda) <br>Constructor that accepts lambda. |
 ||[**Promise**](classffw_1_1_promise.md#1acb4a8421775c9f6ed8d1741361633e23) (**[Promise](classffw_1_1_promise.md)**< T > && other) <br>Move constructor. |
 ||[**Promise**](classffw_1_1_promise.md#1a389f2bacf6ca596528a331e5b3b20f5e) (const **[Promise](classffw_1_1_promise.md)**< T > & other) <br>Copy constructor. |
-||[**~Promise**](classffw_1_1_promise.md#1ad8cb6e01c6620f50b9e9169fe4a8ba42) () |
+||[**~Promise**](classffw_1_1_promise.md#1a5a014be23dae63a53bf0c9e723dd46ae) () = default |
 |**[Promise](classffw_1_1_promise.md)**< T > &|[**operator=**](classffw_1_1_promise.md#1aa6fee550e32660c8df364ccca4f09632) (const **[Promise](classffw_1_1_promise.md)**< T > & other) |
 |**[Promise](classffw_1_1_promise.md)**< T > &|[**operator=**](classffw_1_1_promise.md#1a7805e9abe36608c3445a117c35a090e6) (**[Promise](classffw_1_1_promise.md)**< T > && other) <br>Move operator. |
 |void|[**swap**](classffw_1_1_promise.md#1ac7197b5996f466c2ba5ca8cee8da18d2) (**[Promise](classffw_1_1_promise.md)**< T > & other) |
 |const std::exception\_ptr &|[**getException**](classffw_1_1_promise.md#1a69a3bb96bccf1dfbe0c2ce185a136c36) () const <br>Returns the exception associated with this promise. |
-|void|[**resolve**](classffw_1_1_promise.md#1ae7eaf71dc4980ffbfcca7f290cb9f3a4) () <br>Resolves the promise with a default value of type T. |
-|void|[**resolve**](classffw_1_1_promise.md#1a5d9e203229f9474ea996a04934c7fa5f) (const **[PromiseResult](classffw_1_1_promise_result.md)**< T > & value) <br>Resolves the promise with a value of type T. |
+|std::enable\_if< std::is\_void< Q >::value, void >::type|[**resolve**](classffw_1_1_promise.md#1afcfb081aeb65383882cc1d8bfc8c54dc) () <br>Resolves the promise with a default value of type T. |
+|std::enable\_if<!std::is\_void< Q >::value, void >::type|[**resolve**](classffw_1_1_promise.md#1a23593dc8f8a4b1771b53e3d73a884883) (PromiseValue< T > && value) <br>Resolves the promise with a value of type T. |
 |virtual void|[**reject**](classffw_1_1_promise.md#1ad62235d8682a6ff0d45d12198d00ff01) (const std::exception\_ptr & eptr) override <br>Rejects the promise with an exception. |
 |virtual void|[**call**](classffw_1_1_promise.md#1a2981ea16e4a02e8d79ecbab4013cd7c1) () override <br>Calls the function within this promise. |
-|const **[PromiseResult](classffw_1_1_promise_result.md)**< T > &|[**getResult**](classffw_1_1_promise.md#1aca6b6d532a750877153ff06dc4853504) () const |
+|std::enable\_if<!std::is\_void< Q >::value, Q >::type|[**getResult**](classffw_1_1_promise.md#1a5378ac161f30b63a01861cb0998649a8) () const |
+|std::enable\_if< std::is\_void< Q >::value, void >::type|[**getResult**](classffw_1_1_promise.md#1a31f5d64823738c79fe7112e5e8d99fa1) () const |
+|std::future< T >|[**getFuture**](classffw_1_1_promise.md#1a0f0c181fa4a76bf2e8bd7f9f6613a856) () const <br>Returns std::future<T> |
 |**[Promise](classffw_1_1_promise.md)**< R > &|[**then**](classffw_1_1_promise.md#1a4d53141c6125f75faf765139b611f0fc) (Then const & lambda) |
 |**[Promise](classffw_1_1_promise.md)**< T > &|[**fail**](classffw_1_1_promise.md#1ac9af0fa7d493d0856f260073df6f4d61) (Fail const & lambdaFail) |
 |**[Promise](classffw_1_1_promise.md)**< R > &|[**thenOrFail**](classffw_1_1_promise.md#1af37fbc7bab8c67707030eb9080f023d8) (Then const & lambdaThen, Fail const & lambdaFail) |
 |bool|[**isResolved**](classffw_1_1_promise.md#1a0e4fd94936d132272692d35a0444b51b) () const <br>Returns true if the promise has been resolved. |
 |bool|[**isRejected**](classffw_1_1_promise.md#1a147172b6ca46b0063c92d387f588322b) () const <br>Returns true if the promise has been rejected. |
 |bool|[**isFinished**](classffw_1_1_promise.md#1a5e7f47e4c8163a5e9bed5ca9189eebf8) () const <br>Returns true if the promise has been either resolved or rejected. |
-|**[Status](classffw_1_1_promise_i.md#1a73260cec543571ae5d4ad4fb9301d6ef)**|[**getStatus**](classffw_1_1_promise.md#1aedaea065c148ff26731d1ed68dbbf744) () const <br>Returns the status of the promise (REJECTED, RESOLVED, or WAITING) |
+|**[Status](classffw_1_1_promise_interface.md#1a94e5c52cddb7f15b34b2fa0480601d1c)**|[**getStatus**](classffw_1_1_promise.md#1aedaea065c148ff26731d1ed68dbbf744) () const <br>Returns the status of the promise (REJECTED, RESOLVED, or WAITING) |
 
 
-#### Public Functions inherited from [ffw::PromiseI](classffw_1_1_promise_i.md)
+#### Public Functions inherited from [ffw::PromiseInterface](classffw_1_1_promise_interface.md)
 
 |Type|Name|
 |-----|-----|
-||[**PromiseI**](classffw_1_1_promise_i.md#1a02a1f66c9d4e938989de792d497bd9fc) () |
-|virtual |[**~PromiseI**](classffw_1_1_promise_i.md#1a9d6f92a0485888f35f07a1211105fd64) () |
-|void|[**rejectWith**](classffw_1_1_promise_i.md#1a3bf075f87cd539ddeaa86b2385d741a5) (Args &&... args) <br>Rejects this promise with an exception. |
+||[**PromiseInterface**](classffw_1_1_promise_interface.md#1ac72ff553a0327d8df9dc11e79ab36f54) () = default |
+|virtual |[**~PromiseInterface**](classffw_1_1_promise_interface.md#1af0e4917bf35b192e89b5bc3b955fbcdc) () = default |
+|void|[**rejectWith**](classffw_1_1_promise_interface.md#1a3e56631958ba2c914e01e10dcf5de6ae) (Args &&... args) <br>Rejects this promise with an exception. |
 
 
 ## Additional Inherited Members
 
-#### Public Types inherited from [ffw::PromiseI](classffw_1_1_promise_i.md)
+#### Public Types inherited from [ffw::PromiseInterface](classffw_1_1_promise_interface.md)
 
 |Type|Name|
 |-----|-----|
-|enum|[**Status**](classffw_1_1_promise_i.md#1a73260cec543571ae5d4ad4fb9301d6ef) { **WAITING**, **RESOLVED**, **REJECTED** } <br>The status of the promise. |
+|enum|[**Status**](classffw_1_1_promise_interface.md#1a94e5c52cddb7f15b34b2fa0480601d1c) { **WAITING**, **RESOLVED**, **REJECTED** } <br>The status of the promise. |
 
 
 ## Detailed Description
@@ -98,6 +108,36 @@ std::cout << "Resolved with: " << last.getResult() << std::endl;
 ```
 
  
+## Public Static Functions Documentation
+
+### function <a id="1add0fd95412e722ae36d2fd46130d82f5" href="#1add0fd95412e722ae36d2fd46130d82f5">makeResolved</a>
+
+```cpp
+static std::enable_if< std::is_same< Q, void >::value, Promise< Q > >::type ffw::Promise::makeResolved ()
+```
+
+
+
+### function <a id="1a8c45dfc82161bd783d9dbecef95fce62" href="#1a8c45dfc82161bd783d9dbecef95fce62">makeResolved</a>
+
+```cpp
+static std::enable_if<!std::is_same< Q, void >::value, Promise< Q > >::type ffw::Promise::makeResolved (
+    PromiseValue< T > && value
+)
+```
+
+
+
+### function <a id="1a3087c46e0750817a76a3592eb2c8bd5c" href="#1a3087c46e0750817a76a3592eb2c8bd5c">makeRejected</a>
+
+```cpp
+static Promise< T > ffw::Promise::makeRejected (
+    Args &&... args
+)
+```
+
+
+
 ## Public Functions Documentation
 
 ### function <a id="1af321194a48d16a8b6c00141f3133dda5" href="#1af321194a48d16a8b6c00141f3133dda5">Promise</a>
@@ -151,10 +191,10 @@ ffw::Promise::Promise (
 Copy constructor. 
 
 
-### function <a id="1ad8cb6e01c6620f50b9e9169fe4a8ba42" href="#1ad8cb6e01c6620f50b9e9169fe4a8ba42">~Promise</a>
+### function <a id="1a5a014be23dae63a53bf0c9e723dd46ae" href="#1a5a014be23dae63a53bf0c9e723dd46ae">~Promise</a>
 
 ```cpp
-ffw::Promise::~Promise ()
+ffw::Promise::~Promise () = default
 ```
 
 
@@ -199,25 +239,81 @@ const std::exception_ptr & ffw::Promise::getException () const
 Returns the exception associated with this promise. 
 
 
-### function <a id="1ae7eaf71dc4980ffbfcca7f290cb9f3a4" href="#1ae7eaf71dc4980ffbfcca7f290cb9f3a4">resolve</a>
+### function <a id="1afcfb081aeb65383882cc1d8bfc8c54dc" href="#1afcfb081aeb65383882cc1d8bfc8c54dc">resolve</a>
 
 ```cpp
-void ffw::Promise::resolve ()
+std::enable_if< std::is_void< Q >::value, void >::type ffw::Promise::resolve ()
 ```
 
 Resolves the promise with a default value of type T. 
 
-Use this parameter-less resolve function if the template argument is void 
 
-### function <a id="1a5d9e203229f9474ea996a04934c7fa5f" href="#1a5d9e203229f9474ea996a04934c7fa5f">resolve</a>
+
+**Note:**
+
+This function is only enabled on void types
+
+
+You can resolve the promis only once! Otherwise an exception std::future\_error is thrown with error category of promise\_already\_satisfied is void 
+
+**Exception:**
+
+
+* _std::future\_error_ if the promise has already been resolved 
+```cpp
+ffw::Promise<void> p;
+std::cout << "Is resolved? " << p.isResolved() << std::endl;
+// prints: Is resolved? 0
+
+p.resolve();
+
+std::cout << "Is resolved? " << p.isResolved() << std::endl;
+// prints: Is resolved? 1
+```
+
+ 
+
+
+
+### function <a id="1a23593dc8f8a4b1771b53e3d73a884883" href="#1a23593dc8f8a4b1771b53e3d73a884883">resolve</a>
 
 ```cpp
-void ffw::Promise::resolve (
-    const PromiseResult< T > & value
+std::enable_if<!std::is_void< Q >::value, void >::type ffw::Promise::resolve (
+    PromiseValue< T > && value
 )
 ```
 
 Resolves the promise with a value of type T. 
+
+You can resolve the promis only once! Otherwise an exception std::future\_error is thrown with error category of promise\_already\_satisfied 
+
+**Note:**
+
+This function is only enabled on non-void types 
+
+
+
+
+**Exception:**
+
+
+* _std::future\_error_ if the promise has already been resolved 
+```cpp
+ffw::Promise<int> p;
+std::cout << "Is resolved? " << p.isResolved() << std::endl;
+// prints: Is resolved? 0
+
+p.resolve(123);
+
+std::cout << "Is resolved? " << p.isResolved() << std::endl;
+// prints: Is resolved? 1
+
+std::cout << "result: " << p.getResult() << std::endl;
+// prints: result: 123
+```
+
+ 
+
 
 
 ### function <a id="1ad62235d8682a6ff0d45d12198d00ff01" href="#1ad62235d8682a6ff0d45d12198d00ff01">reject</a>
@@ -228,10 +324,15 @@ virtual void ffw::Promise::reject (
 )
 ```
 
-Overrides **[PromiseI::reject](classffw_1_1_promise_i.md#1a1413b97844d303ee4c44a437c33323a6)**
+Overrides **[PromiseInterface::reject](classffw_1_1_promise_interface.md#1a4dfbf5c43cdd6310451378028f6d6802)**
 Rejects the promise with an exception. 
 
+You can reject the promis only once! Otherwise an exception std::future\_error is thrown with error category of promise\_already\_satisfied 
 
+**Exception:**
+
+
+* _std::future\_error_ if the promise has already been rejected 
 ```cpp
 Promise<int> p;
 try {
@@ -243,13 +344,15 @@ try {
 
  
 
+
+
 ### function <a id="1a2981ea16e4a02e8d79ecbab4013cd7c1" href="#1a2981ea16e4a02e8d79ecbab4013cd7c1">call</a>
 
 ```cpp
 virtual void ffw::Promise::call ()
 ```
 
-Overrides **[PromiseI::call](classffw_1_1_promise_i.md#1ac537a66eb049fa2af0b5dd770fd1dd86)**
+Overrides **[PromiseInterface::call](classffw_1_1_promise_interface.md#1a9c9f2629454b7e18f00836a471049565)**
 Calls the function within this promise. 
 
 
@@ -262,32 +365,97 @@ p.call();
 
  
 
-### function <a id="1aca6b6d532a750877153ff06dc4853504" href="#1aca6b6d532a750877153ff06dc4853504">getResult</a>
+### function <a id="1a5378ac161f30b63a01861cb0998649a8" href="#1a5378ac161f30b63a01861cb0998649a8">getResult</a>
 
 ```cpp
-const PromiseResult< T > & ffw::Promise::getResult () const
+std::enable_if<!std::is_void< Q >::value, Q >::type ffw::Promise::getResult () const
 ```
 
 
 Returns the resul of this promise 
+
+**Note:**
+
+This function is only enabled on non-void types 
+
+
+
+
+**Exception:**
+
+
+* _std::future\_error_ if the promise has not yet been resolved or rejected 
+* _E_ if the promise has been rejected with exception of type E 
 ```cpp
 ffw::Promise<int> p;
 p.resolve(42);
 
 std::cout << "Result: " << p.getResult() << std::endl;
 // Prints "Result: 42"
+```
 
-p.rejectWith<std::runtime_error>("Something went wrong");
+ 
 
-std::cout << "Result: " << p.getResult() << std::endl;
-// Will not print!
-// Throws std::runtime_error
 
-ffw::Promise<int> unresolved;
 
-std::cout << "Result: " << p.getResult() << std::endl;
-// Will not print!
-// Throws PromiseException: Promise is not resolved
+### function <a id="1a31f5d64823738c79fe7112e5e8d99fa1" href="#1a31f5d64823738c79fe7112e5e8d99fa1">getResult</a>
+
+```cpp
+std::enable_if< std::is_void< Q >::value, void >::type ffw::Promise::getResult () const
+```
+
+
+Returns the resul of this promise 
+
+**Note:**
+
+This function is only enabled on void types 
+
+
+
+
+**Exception:**
+
+
+* _std::future\_error_ if the promise has not yet been resolved or rejected 
+* _E_ if the promise has been rejected with exception of type E 
+```cpp
+ffw::Promise<void> p;
+p.resolve();
+
+std::cout << "Resolved? " << p.isResolved() << std::endl;
+// Prints "Resolved? 1"
+```
+
+ 
+
+
+
+### function <a id="1a0f0c181fa4a76bf2e8bd7f9f6613a856" href="#1a0f0c181fa4a76bf2e8bd7f9f6613a856">getFuture</a>
+
+```cpp
+std::future< T > ffw::Promise::getFuture () const
+```
+
+Returns std::future<T> 
+
+
+```cpp
+ffw::Promise<bool> p;
+std::future<int> = p.then([](bool val) -> int {
+    return val ? 123 : -1;
+}).getFuture();
+
+std::future_status status = future.wait_for(std::chrono::milliseconds(1000));
+// Waits for one second
+// Status is std::future_status::timeout because promise has not been resolved
+
+p.resolve(true);
+status = future.wait_for(std::chrono::milliseconds(1000));
+// Status is now std::future_status::ready!
+
+std::cout << "result: " << future.get() << std::endl;
+// prints result: 123
 ```
 
  

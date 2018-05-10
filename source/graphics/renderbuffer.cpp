@@ -6,40 +6,40 @@
 
 ///=============================================================================
 ffw::Renderbuffer::Renderbuffer() {
-    loaded_ = false;
-    width_ = 0;
-    height_ = 0;
-    samples_ = 0;
-    buffer_ = 0;
-    internalformat_ = 0;
+    loaded = false;
+    width = 0;
+    height = 0;
+    samples = 0;
+    buffer = 0;
+    internalformat = 0;
 }
 
 ///=============================================================================
-ffw::Renderbuffer::Renderbuffer(Renderbuffer&& other) {
-    loaded_ = false;
-    width_ = 0;
-    height_ = 0;
-    samples_ = 0;
-    buffer_ = 0;
-    internalformat_ = 0;
+ffw::Renderbuffer::Renderbuffer(Renderbuffer&& other) NOEXCEPT {
+    loaded = false;
+    width= 0;
+    height = 0;
+    samples = 0;
+    buffer = 0;
+    internalformat = 0;
     swap(other);
 }
 
 ///=============================================================================
-void ffw::Renderbuffer::swap(Renderbuffer& other) {
+void ffw::Renderbuffer::swap(Renderbuffer& other) NOEXCEPT {
     if (this != &other) {
         using std::swap;
-        swap(loaded_, other.loaded_);
-        swap(width_, other.width_);
-        swap(height_, other.height_);
-        swap(samples_, other.samples_);
-        swap(buffer_, other.buffer_);
-        swap(internalformat_, other.internalformat_);
+        swap(loaded, other.loaded);
+        swap(width, other.width);
+        swap(height, other.height);
+        swap(samples, other.samples);
+        swap(buffer, other.buffer);
+        swap(internalformat, other.internalformat);
     }
 }
 
 ///=============================================================================
-ffw::Renderbuffer& ffw::Renderbuffer::operator = (Renderbuffer&& other) {
+ffw::Renderbuffer& ffw::Renderbuffer::operator = (Renderbuffer&& other) NOEXCEPT {
     if(this != &other) {
         swap(other);
     }
@@ -53,25 +53,23 @@ ffw::Renderbuffer::~Renderbuffer(){
 
 ///=============================================================================
 void ffw::Renderbuffer::bind() const{
-    if(!loaded_)glBindRenderbuffer(GL_RENDERBUFFER, buffer_);
+    if(!loaded)glBindRenderbuffer(GL_RENDERBUFFER, buffer);
 }
 
 ///=============================================================================
 void ffw::Renderbuffer::unbind() const{
-    if(loaded_)glBindRenderbuffer(GL_RENDERBUFFER, 0);
+    if(loaded)glBindRenderbuffer(GL_RENDERBUFFER, 0);
 }
 
 ///=============================================================================
 void ffw::Renderbuffer::destroy(){
     // Delete texture
-    if(loaded_)glDeleteRenderbuffers(1, &buffer_);
+    if(loaded)glDeleteRenderbuffers(1, &buffer);
     // reset variables
-    buffer_ = 0;
-    loaded_ = false;
-    width_ = 0;
-    height_ = 0;
-    samples_ = 0;
-    internalformat_ = 0;
+    buffer = 0;
+    loaded = false;
+    width = 0;
+    height = 0;
+    samples = 0;
+    internalformat = 0;
 }
-///=============================================================================
-

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiTextInput::Line', 'str', 'height']
+search: false
 ---
 
 # struct ffw::GuiTextInput::Line

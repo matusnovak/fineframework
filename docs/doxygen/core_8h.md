@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['core.h', 'UTF8_CPP_INCREASE_AND_RETURN_ON_ERROR']
+search: false
 ---
 
 # file core.h

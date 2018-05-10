@@ -29,7 +29,6 @@ Source: `include/ffw/math.h`
     
     
     
-    
 ```cpp
 
 #ifndef FFW_MATH_MODULE

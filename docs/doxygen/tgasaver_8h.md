@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['tgasaver.h', 'ffw::TgaSaver', 'swap']
+search: false
 ---
 
 # file tgasaver.h

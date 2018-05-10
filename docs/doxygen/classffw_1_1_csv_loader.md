@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::CsvLoader', 'CsvLoader', '~CsvLoader', 'openFromData', 'openFromFile', 'isOpen', 'close', 'getRowRaw', 'getRow', 'eof', 'tokenize']
+search: false
 ---
 
 # class ffw::CsvLoader

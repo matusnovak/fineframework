@@ -4,6 +4,7 @@
 #include <regex>
 #include <fstream>
 #include <memory>
+#include <iostream>
 
 static const std::pair<ffw::GuiAlign, std::string> alignTypes[] = {
     {ffw::GuiAlign::TOP_LEFT, "TOP_LEFT"},

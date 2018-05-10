@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiprogresscircle.h', 'ffw::GuiProgressCircle', 'ffw::GuiProgressCircle::Style']
+search: false
 ---
 
 # file guiprogresscircle.h

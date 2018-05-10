@@ -1,6 +1,9 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_GUI_FONT_OPENGL
 #define FFW_GUI_FONT_OPENGL
+#ifndef FFW_GRAPHICS_TRUE_TYPE_FONT
+#error Please add #include <ffw/graphics/truetypefont.h> before including guifontopengl.h!
+#endif
 #include "guifont.h"
 namespace ffw {
     class RenderContext;

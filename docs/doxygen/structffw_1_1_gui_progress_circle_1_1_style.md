@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiProgressCircle::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiProgressCircle::Style

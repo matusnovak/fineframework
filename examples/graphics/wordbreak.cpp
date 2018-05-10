@@ -1,4 +1,5 @@
 #include <ffw/graphics.h>
+#include <iostream>
 
 static const std::string loremIpsum = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis erat sed est dictum tincidunt. Suspendisse potenti. Suspendisse consectetur ex aliquam tristique tincidunt. Etiam blandit, purus quis accumsan dapibus, nisi turpis consequat ante, in dapibus diam lorem a magna. Suspendisse molestie vulputate nisi in vehicula. Morbi risus elit, consequat quis venenatis eget, semper at risus. Etiam eu lectus quam.\n\nSuspendisse accumsan laoreet accumsan. In eu augue ac ligula lobortis imperdiet in ac lectus. Ut laoreet ullamcorper dui vel tempor. Vivamus vulputate lacinia metus nec venenatis. Nam tristique elit et elit molestie convallis. Etiam suscipit diam quis massa condimentum, ac viverra dui rhoncus. Phasellus et odio ac orci consectetur cursus a sit amet metus. Aliquam mi tortor, scelerisque consectetur ullamcorper ut, ultricies a orci. Duis at mollis sem. Donec vulputate a nisl eget interdum. Sed iaculis sit amet magna sit amet faucibus. Praesent mattis tincidunt turpis nec consequat. Pellentesque quis ex velit. Nulla ultrices ut nibh ut tempor.";
 

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['xmlwriter.h', 'ffw::XmlWriter', 'ffw::XmlWriter::Stream', 'ffw::XmlWriter::StringStream', 'ffw::XmlWriter::FileStream', 'FFW_XML_WRITER']
+search: false
 ---
 
 # file xmlwriter.h

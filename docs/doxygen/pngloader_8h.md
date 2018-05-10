@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['pngloader.h', 'ffw::PngLoader', 'swap']
+search: false
 ---
 
 # file pngloader.h

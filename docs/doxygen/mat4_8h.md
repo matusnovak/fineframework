@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['mat4.h', 'ffw::Mat4x4']
+search: false
 ---
 
 # file mat4.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Color', 'r', 'g', 'b', 'a', 'Color', 'Color', 'Color', 'Color', 'Color', 'set', 'set', 'set', 'set', 'operator-', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator!=', 'operator==', 'clamp', 'normalize', 'scale', 'length', 'lengthf', 'lengthSqrd', 'inverted']
+search: false
 ---
 
 # struct ffw::Color

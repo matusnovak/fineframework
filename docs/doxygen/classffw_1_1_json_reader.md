@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::JsonReader', 'Cache', 'Node', 'Type', 'JsonReader', 'JsonReader', '~JsonReader', 'getNext', 'stepInto', 'stepOut', 'getCurrentType', 'getCurrentPtr', 'getCurrentLen']
+search: false
 ---
 
 # class ffw::JsonReader

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ringbuffer.h', 'ffw::RingBuffer']
+search: false
 ---
 
 # file ringbuffer.h

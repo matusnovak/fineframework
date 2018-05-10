@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::PromiseException', 'PromiseException']
+search: false
 ---
 
 # class ffw::PromiseException

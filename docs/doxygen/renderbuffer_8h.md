@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['renderbuffer.h', 'ffw::Renderbuffer', 'swap']
+search: false
 ---
 
 # file renderbuffer.h

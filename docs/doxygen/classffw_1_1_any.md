@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Any', 'Content', 'Data', 'Data< T, typename std::enable_if< std::is_floating_point< T >::value >::type >', 'Data< T, typename std::enable_if< std::is_integral< T >::value >::type >', 'Any', 'Any', 'Any', 'Any', 'Any', 'Any', '~Any', 'empty', 'reset', 'getAs', 'getAs', 'set', 'is', 'toBool', 'isBool', 'toString', 'isString', 'toInt', 'isInt', 'toFloat', 'toDouble', 'isFloat', 'isNumber', 'isObject', 'isArray', 'getAsArray', 'getAsObject', 'getAsArray', 'getAsObject', 'clear', 'getTypeid', 'operator T', 'operator T &', 'operator const T &', 'swap', 'operator=', 'operator=', 'operator=', 'operator=', 'operator[]', 'operator[]', 'operator[]', 'operator[]', 'operator==', 'operator!=', 'operator==', 'operator!=']
+search: false
 ---
 
 # class ffw::Any

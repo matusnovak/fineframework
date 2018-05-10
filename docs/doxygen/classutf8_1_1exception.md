@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['utf8::exception']
+search: false
 ---
 
 # class utf8::exception

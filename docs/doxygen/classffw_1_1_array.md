@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Array', 'Vec', 'allocator_type', 'reference', 'const_reference', 'pointer', 'const_pointer', 'iterator', 'const_iterator', 'reverse_iterator', 'const_reverse_iterator', 'difference_type', 'size_type', 'value_type', 'Array', '~Array', 'Array', 'Array', 'Array', 'Array', 'swap', 'operator=', 'operator=', 'operator=', 'operator[]', 'operator[]', 'assign', 'assign', 'at', 'at', 'back', 'back', 'begin', 'begin', 'capacity', 'cbegin', 'cend', 'clear', 'crbegin', 'crend', 'data', 'data', 'empty', 'end', 'end', 'erase', 'erase', 'front', 'front', 'get_allocator', 'insert', 'insert', 'insert', 'max_size', 'pop_back', 'push_back', 'rbegin', 'rbegin', 'rend', 'rend', 'reserve', 'resize', 'size', 'shrink_to_fit', 'operator==', 'operator!=']
+search: false
 ---
 
 # class ffw::Array

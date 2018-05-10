@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['font.h', 'ffw::Font', 'ffw::Font::Char', 'FFW_FT_UNICODE_MAX']
+search: false
 ---
 
 # file font.h

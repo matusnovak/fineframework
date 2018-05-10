@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlWriter::Stream', 'write']
+search: false
 ---
 
 # class ffw::XmlWriter::Stream

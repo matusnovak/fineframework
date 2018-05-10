@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiText::Paragraph', 'font', 'color', 'str', 'size', 'Paragraph']
+search: false
 ---
 
 # struct ffw::GuiText::Paragraph

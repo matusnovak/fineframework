@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['checked.h', 'utf8::exception', 'utf8::invalid_code_point', 'utf8::invalid_utf8', 'utf8::invalid_utf16', 'utf8::not_enough_room', 'utf8::iterator']
+search: false
 ---
 
 # file checked.h

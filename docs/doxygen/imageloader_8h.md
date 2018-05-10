@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['imageloader.h', 'ffw::ImageReader']
+search: false
 ---
 
 # file imageloader.h

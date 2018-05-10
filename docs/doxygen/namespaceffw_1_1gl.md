@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::gl']
+search: false
 ---
 
 # namespace ffw::gl

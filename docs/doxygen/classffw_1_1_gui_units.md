@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiUnits', 'Type', 'value', 'GuiUnits', 'GuiUnits', 'GuiUnits', 'operator==', 'operator!=', 'operator==', 'operator!=', 'operator==', 'operator!=', 'toReal', 'setPixels', 'setPercent', 'getType', 'operator<<']
+search: false
 ---
 
 # class ffw::GuiUnits

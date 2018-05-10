@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiList::Item::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiList::Item::Style

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Mat4x4', 'ptr', 'Mat4x4', 'Mat4x4', 'Mat4x4', 'Mat4x4', 'set', 'set', 'set', 'set', 'getPtr', 'getPtr', 'operator=', 'operator*', 'operator*=', 'operator*', 'operator*', 'operator[]', 'operator[]', 'rotate', 'translate', 'scale', 'transpose', 'inverse']
+search: false
 ---
 
 # struct ffw::Mat4x4

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Shader::CompileException', 'msg', 'CompileException', 'what']
+search: false
 ---
 
 # class ffw::Shader::CompileException

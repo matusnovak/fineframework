@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Vec', 'arr', 'Vec', 'Vec', 'Vec', 'Vec', 'Vec', 'set', 'set', 'set', 'operator-', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator!=', 'operator==', 'normalize', 'scale', 'lengthf', 'length', 'lengthSqrd', 'operator[]', 'operator[]', 'operator ffw::Vec< X, S >', 'round', 'floor', 'ceil']
+search: false
 ---
 
 # class ffw::Vec

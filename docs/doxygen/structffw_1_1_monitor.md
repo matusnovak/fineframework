@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Monitor', 'Mode', 'name', 'resolution', 'bitDepth', 'refreshRate', 'position', 'physicalSize', 'ptr']
+search: false
 ---
 
 # struct ffw::Monitor

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::RenderContext', 'position', 'rgbMixer', 'color', 'proj', 'uvpos', 'tex', 'offset', 'view', 'RenderContext', '~RenderContext', 'getGlextFunc', 'isGlextExtSupported', 'initDrawing', 'beginFrame', 'endFrame', 'moveTo', 'setDrawColor', 'setFillColor', 'setStrokeColor', 'setFillPaint', 'setStrokePaint', 'createLinearGradient', 'createBoxGradient', 'createRadialGradient', 'drawQuad', 'drawRectangle', 'drawRectangleRounded', 'drawRectangleRounded', 'drawTriangle', 'drawTexture2D', 'drawTexture2DMirror', 'drawTexture2DSub', 'drawTexture2DSubMirror', 'drawArc', 'drawCircle', 'drawLine', 'drawString', 'drawString', 'drawString', 'drawString', 'drawStringBox', 'drawStringBox', 'drawStringBox', 'drawStringBox', 'drawBezier', 'setDrawMode', 'setFillMode', 'setStrokeMode', 'setFillAndStrokeMode', 'setShapeAntiAlis', 'setStrokeSize', 'setStrokeMiterLimit', 'setLineCap', 'setLineJoin', 'setScissor', 'setIntersectScissor', 'resetScissor', 'beginPath', 'drawLineTo', 'drawBezierTo', 'drawQuadTo', 'drawArcTo', 'closePath', 'fillPath', 'strokePath', 'setPathWinding', 'saveDrawState', 'restoreDrawState', 'resetDrawState', 'resetTransform', 'transformMove', 'transformRotate', 'transformSkewX', 'transformSkewY', 'transformScale', 'transform', 'getTransform', 'getOpenGLTransform']
+search: false
 ---
 
 # class ffw::RenderContext

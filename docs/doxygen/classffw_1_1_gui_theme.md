@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiTheme', 'body', 'box', 'button', 'buttonPrimary', 'checkbox', 'imageViewer', 'label', 'layout', 'list', 'progressBar', 'progressCircle', 'radio', 'richText', 'scrollable', 'scrollableLayout', 'scrollbar', 'slider', 'swtch', 'tabs', 'textArea', 'textInput']
+search: false
 ---
 
 # class ffw::GuiTheme

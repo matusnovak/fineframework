@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::JsonReader::Node', 'ptr', 'len', 'Node', 'Node', 'str', 'raw', 'getType', 'isString', 'isObject', 'isArray', 'isEmpty', 'isNumber', 'isInteger', 'isFloat', 'isBoolean', 'isNull', 'toString', 'toInteger', 'toDouble', 'toFloat', 'toBoolean']
+search: false
 ---
 
 # class ffw::JsonReader::Node

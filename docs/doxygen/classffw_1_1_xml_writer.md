@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::XmlWriter', 'FileStream', 'Stream', 'StringStream', 'XmlWriter', '~XmlWriter', 'addObject', 'stepOut', 'beginContent', 'addInteger', 'addString', 'addBoolean', 'addFloat', 'addNull']
+search: false
 ---
 
 # class ffw::XmlWriter

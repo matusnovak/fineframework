@@ -1,6 +1,7 @@
 #include <ffw/graphics.h>
 #include <ffw/media.h>
 #include <ffw/math.h>
+#include <iostream>
 
 #define EYES_DEFAULT_POS 1.0f, 1.0f, 1.0f
 #define STRINGIFY(x) #x

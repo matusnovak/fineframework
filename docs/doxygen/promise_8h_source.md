@@ -22,8 +22,6 @@ Source: `include/ffw/math/promise.h`
     
     
     
-    
-    
 ```cpp
 /* This file is part of FineFramework project */
 #ifndef FFW_PROMISE_H
@@ -34,21 +32,18 @@ Source: `include/ffw/math/promise.h`
 #include <functional>
 #include <atomic>
 #include <list>
+#include <future>
 
 namespace ffw {
-    class PromiseI {
+    class PromiseInterface {
     public:
         enum class Status {
             WAITING,
             RESOLVED,
             REJECTED
         };
-        PromiseI(){
-
-        }
-        virtual ~PromiseI() {
-
-        }
+        PromiseInterface() = default;
+        virtual ~PromiseInterface() = default;
         virtual void call() = 0;
         virtual void reject(const std::exception_ptr& e) = 0;
         template<typename E, typename... Args>
@@ -65,38 +60,6 @@ namespace ffw {
     public:
         PromiseException(const std::string& str) :std::runtime_error(str) {
 
-        }
-    };
-
-    template<class T>
-    class PromiseResult;
-
-    template<class T>
-    class PromiseResult {
-    public:
-        PromiseResult() {
-        }
-        PromiseResult(const T& result):result(result) {
-        }
-        PromiseResult(T&& result):result(result) {
-        }
-        operator T() const {
-            return result;
-        }
-        const T& get() const {
-            return result;
-        }
-        T& get() {
-            return result;
-        }
-    private:
-        T result;
-    };
-
-    template<>
-    class PromiseResult<void> {
-    public:
-        PromiseResult() {
         }
     };
 
@@ -119,32 +82,44 @@ namespace ffw {
     struct PromiseLambdaHelper<F, void> {
         typedef typename std::result_of<F&()>::type returnType;
     };
+
+    template<class V>
+    class PromiseValue;
+
+    template<class T>
+    class PromiseValue {
+    public:
+        PromiseValue():v() {
+        }
+        PromiseValue(T&& value) :v(std::move(value)) {
+        }
+        T v;
+    };
+
+    template<>
+    class PromiseValue<void> {
+    public:
+        PromiseValue() {
+        }
+    };
 #endif
 
     template<class T>
-    class Promise : public PromiseI {
+    class Promise : public PromiseInterface {
     public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
         struct Data {
             std::function<void(Promise<T>&)> func;
-            std::list<PromiseI*> next;
+            std::list<PromiseInterface*> next;
+            std::promise<T> rawPromise;
+            PromiseValue<T> result;
             std::exception_ptr eptr;
-            PromiseResult<T> result;
             std::atomic<Status> status;
 
-            const PromiseResult<T> &getResult() const {
-                switch(status.load()) {
-                    case Status::RESOLVED:
-                        return result;
-                    case Status::REJECTED:
-                        std::rethrow_exception(eptr);
-                    default:
-                        throw PromiseException("Promise is not resolved");
-                }
-            }
-
-            const std::exception_ptr& getException() const {
-                return eptr;
+            void checkStatus() {
+                const auto s = status.load();
+                if (s == Status::REJECTED) std::rethrow_exception(eptr);
+                if (s == Status::WAITING) std::future_error(std::make_error_code(std::future_errc::no_state));
             }
         };
 
@@ -170,6 +145,31 @@ namespace ffw {
         template<typename TT>
         static typename arg1_traits_impl<TT>::arg1_type arg1_type_helper(TT);
 #endif
+        template<class Q = T>
+        static typename std::enable_if<std::is_same<Q, void>::value, Promise<Q>>::type makeResolved() {
+            Promise<T> ret;
+            ret.resolve();
+            return ret;
+        }
+
+        template<class Q = T>
+        static typename std::enable_if<!std::is_same<Q, void>::value, Promise<Q>>::type makeResolved(PromiseValue<T>&& value) {
+            Promise<T> ret;
+            ret.resolve(std::move(value));
+            return ret;
+        }
+
+        template<typename E, typename... Args>
+        static Promise<T> makeRejected(Args&&... args) {
+            Promise<T> ret;
+            try {
+                throw E(std::forward<Args>(args)...);
+            }
+            catch (...) {
+                ret.reject(std::current_exception());
+            }
+            return ret;
+        }
 
         Promise():data(new Data()) {
             data->func = nullptr;
@@ -186,8 +186,7 @@ namespace ffw {
         }
         Promise(const Promise<T>& other):data(other.data) {
         }
-        ~Promise() {
-        }
+        ~Promise() = default;
         Promise<T>& operator = (const Promise<T>& other) {
             data = other.data;
         }
@@ -201,20 +200,28 @@ namespace ffw {
             }
         }
         const std::exception_ptr& getException() const {
-            return data->getException();
+            return data->eptr;
         }
-        void resolve() {
-            resolve(PromiseResult<T>());
+        template<class Q = T>
+        typename std::enable_if<std::is_void<Q>::value, void>::type resolve() {
+            data->rawPromise.set_value();
+            data->status.store(Status::RESOLVED);
+            for (auto& p : data->next) {
+                p->call();
+            }
         }
-        void resolve(const PromiseResult<T>& value) {
-            data->result = value;
+        template<class Q = T>
+        typename std::enable_if<!std::is_void<Q>::value, void>::type resolve(PromiseValue<T>&& value) {
+            data->rawPromise.set_value(value.v);
+            std::swap(data->result, value);
             data->status.store(Status::RESOLVED);
             for(auto& p : data->next) {
                 p->call();
             }
         }
         void reject(const std::exception_ptr& eptr) override {
-            this->data->eptr = eptr;
+            data->rawPromise.set_exception(eptr);
+            data->eptr = eptr;
             data->status.store(Status::REJECTED);
             for(auto& p : data->next) {
                 p->call();
@@ -229,8 +236,17 @@ namespace ffw {
                 }
             }
         }
-        const PromiseResult<T> &getResult() const {
-            return data->getResult();
+        template<class Q = T>
+        typename std::enable_if<!std::is_void<Q>::value, Q>::type getResult() const {
+            data->checkStatus();
+            return data->result.v;
+        }
+        template<class Q = T>
+        typename std::enable_if<std::is_void<Q>::value, void>::type getResult() const {
+            data->checkStatus();
+        }
+        std::future<T> getFuture() const {
+            return data->rawPromise.get_future();
         }
         template<typename Then, typename R = typename PromiseLambdaHelper<Then, T>::returnType>
         Promise<R>& then(Then const& lambda) {
@@ -284,12 +300,13 @@ namespace ffw {
     struct PromiseLambdaResolver {
         template<typename Then, typename S, typename std::enable_if<!std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<R>& self, const Then& lambda) {
-            self.resolve(lambda(parent->getResult()));
+            parent->checkStatus();
+            self.resolve(lambda(parent->result.v));
         }
 
         template<typename Then, typename S, typename std::enable_if<std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<R>& self, const Then& lambda) {
-            parent->getResult();
+            parent->checkStatus();
             self.resolve(lambda());
         }
     };
@@ -298,13 +315,14 @@ namespace ffw {
     struct PromiseLambdaResolver<void> {
         template<typename Then, typename S, typename std::enable_if<!std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<void>& self, const Then& lambda) {
-            lambda(parent->getResult());
+            parent->checkStatus();
+            lambda(parent->result.v);
             self.resolve();
         }
 
         template<typename Then, typename S, typename std::enable_if<std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<void>& self, const Then& lambda) {
-            parent->getResult();
+            parent->checkStatus();
             lambda();
             self.resolve();
         }
@@ -315,10 +333,12 @@ namespace ffw {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
             try {
-                std::rethrow_exception(parent->getException());
-            } catch (E& e) {
+                std::rethrow_exception(parent->eptr);
+            }
+            catch (E& e) {
                 lambda(e);
-            } catch (...) {
+            }
+            catch (...) {
                 // Do nothing
             }
             self.reject(std::current_exception());
@@ -329,8 +349,8 @@ namespace ffw {
     struct PromiseExceptionResolver<const std::exception_ptr&> {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
-            lambda(parent->getException());
-            self.reject(parent->getException());
+            lambda(parent->eptr);
+            self.reject(parent->eptr);
         }
     };
 
@@ -338,8 +358,8 @@ namespace ffw {
     struct PromiseExceptionResolver<std::exception_ptr> {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
-            lambda(parent->getException());
-            self.reject(parent->getException());
+            lambda(parent->eptr);
+            self.reject(parent->eptr);
         }
     };
 
@@ -348,7 +368,7 @@ namespace ffw {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
             lambda();
-            self.reject(parent->getException());
+            self.reject(parent->eptr);
         }
     };
 

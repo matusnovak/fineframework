@@ -1,6 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_TEXTURE_CUBEMAP
 #define FFW_TEXTURE_CUBEMAP
+
 #include "texture.h"
 
 namespace ffw {
@@ -8,14 +9,50 @@ namespace ffw {
 
     /**
      * @ingroup graphics
+     * @brief OpenGL texture of type GL_TEXTURE_CUBE_MAP
      */
     class FFW_API TextureCubemap: public Texture {
     public:
         TextureCubemap();
-        TextureCubemap(const TextureCubemap& second) = delete;
-        TextureCubemap(TextureCubemap&& second);
-        ~TextureCubemap();
-        bool create(GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels = NULL);
+        TextureCubemap(const TextureCubemap& other) = delete;
+        TextureCubemap(TextureCubemap&& other) NOEXCEPT;
+        virtual ~TextureCubemap() = default;
+        /**
+         * @brief Allocates the texture
+         * @param width Specifies the width of the texture image.
+         * @param height Specifies the height of the texture image.
+         * @param internalformat Specifies the number of color components in the texture.
+         * @param format Specifies the format of the pixel data. The following symbolic values are 
+         * accepted: GL_RED, GL_RG, GL_RGB, GL_BGR, GL_RGBA, GL_BGRA, GL_RED_INTEGER, GL_RG_INTEGER,
+         * GL_RGB_INTEGER, GL_BGR_INTEGER, GL_RGBA_INTEGER, GL_BGRA_INTEGER, GL_STENCIL_INDEX, 
+         * GL_DEPTH_COMPONENT, GL_DEPTH_STENCIL. 
+         * @param pixelformat Specifies the data type of the pixel data. The following symbolic 
+         * values are accepted: GL_UNSIGNED_BYTE, GL_BYTE, GL_UNSIGNED_SHORT, GL_SHORT, 
+         * GL_UNSIGNED_INT, GL_INT, GL_FLOAT, GL_UNSIGNED_BYTE_3_3_2, GL_UNSIGNED_BYTE_2_3_3_REV, 
+         * GL_UNSIGNED_SHORT_5_6_5, GL_UNSIGNED_SHORT_5_6_5_REV, GL_UNSIGNED_SHORT_4_4_4_4, 
+         * GL_UNSIGNED_SHORT_4_4_4_4_REV, GL_UNSIGNED_SHORT_5_5_5_1, GL_UNSIGNED_SHORT_1_5_5_5_REV, 
+         * GL_UNSIGNED_INT_8_8_8_8, GL_UNSIGNED_INT_8_8_8_8_REV, GL_UNSIGNED_INT_10_10_10_2, and 
+         * GL_UNSIGNED_INT_2_10_10_10_REV. 
+         * @param pixels Optional array to the pixels buffer that will be used to initialise the 
+         * texture storage. The pixel array must be correct size, otherwise a segmentation fault
+         * will occur. If null, the texture storage is not set and initialised with random data.
+         * @details The following compressed internalformats are allowed: 
+         * GL_COMPRESSED_RGB_S3TC_DXT1_EXT, GL_COMPRESSED_RGBA_S3TC_DXT1_EXT, 
+         * GL_COMPRESSED_RGBA_S3TC_DXT3_EXT, GL_COMPRESSED_RGBA_S3TC_DXT5_EXT, 
+         * GL_COMPRESSED_RED_RGTC1, GL_COMPRESSED_RG_RGTC2, GL_COMPRESSED_SIGNED_RED_RGTC1,
+         * GL_COMPRESSED_SIGNED_RG_RGTC2
+         * @note The texture is automatically destroyed once destroy() is called, or the instance 
+         * of this texture class is freed.
+         */
+        bool create(GLsizei width, GLsizei height, GLenum internalformat, GLenum format, 
+            GLenum pixelformat, const GLvoid* pixels = nullptr);
+        /**
+         * @brief Resizes the texture
+         * @param width The new width of the texture
+         * @param height The new height of the texture
+         * @note The format, internalformat, and pixelformat are unchanged. The pixels are 
+         * not set and allocated with random data.
+         */
         bool resize(GLsizei width, GLsizei height);
         /**
          * @brief Sets the pixels
@@ -28,12 +65,40 @@ namespace ffw {
          * * 4: GL_TEXTURE_CUBE_MAP_POSITIVE_Z (Back)
          * * 5: GL_TEXTURE_CUBE_MAP_NEGATIVE_Z (Front)
          */
-        bool setPixels(GLint level, GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLint side, const GLvoid* pixels);
-        bool setPixels(GLint level, GLint side, const GLvoid* pixels = NULL);
-        bool setFromBuffer(const ImageBuffer& buffer, GLint side, bool inverse = false);
-        bool getPixels(void* pixels);
-        TextureCubemap& operator = (const TextureCubemap& second) = delete;
-        TextureCubemap& operator = (TextureCubemap&& second);
+        bool setPixels(GLint level, GLint xoffset, GLint yoffset, GLsizei width, 
+            GLsizei height, GLint side, const GLvoid* pixels);
+        /**
+         * @brief Sets the pixels of the entire texture
+         * @param level The mipmap level to set. Zero by default.
+         * @param side Which side to set. Starting from zero (e.g. GL_TEXTURE_CUBE_MAP_POSITIVE_X) 
+         * up to 5 (e.g. GL_TEXTURE_CUBE_MAP_NEGATIVE_Z). See setPixels function.
+         * @param pixels Non null pointer to the array of the pixels to upload.
+         */
+        bool setPixels(GLint level, GLint side, const GLvoid* pixels);
+        /**
+         * @brief Sets the pixels of the entire texture
+         * @param image The instance of the image buffer
+         * @param side Which side to set. Starting from zero (e.g. GL_TEXTURE_CUBE_MAP_POSITIVE_X) 
+         * up to 5 (e.g. GL_TEXTURE_CUBE_MAP_NEGATIVE_Z). See setPixels function.
+         * @param inverse Specifies if the pixels should be mirrored vertically.
+         */
+        bool setFromBuffer(const ImageBuffer& image, GLint side, bool inverse = false);
+        /**
+         * @brief Returns the pixels of the entire texture
+         * @param pixels Non null pointer to an allocated array that will hold the entire
+         * texture data. 
+         */
+        bool getPixels(GLvoid* pixels);
+        TextureCubemap& operator = (const TextureCubemap& other) = delete;
+        TextureCubemap& operator = (TextureCubemap&& other) NOEXCEPT;
+    private:
+        void setPixelsInternal(GLint level, GLint xoffset, GLint yoffset, 
+            GLsizei width, GLsizei height, GLint side, const GLvoid* pixels);
+        void setPixelsInternal(GLint level, GLint side, const GLvoid* pixels);
     };
 };
+
+inline void swap(ffw::TextureCubemap& first, ffw::TextureCubemap& second) NOEXCEPT {
+    first.swap(second);
+}
 #endif

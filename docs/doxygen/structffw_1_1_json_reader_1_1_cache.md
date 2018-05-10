@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::JsonReader::Cache', 'current', 'str', 'len']
+search: false
 ---
 
 # struct ffw::JsonReader::Cache

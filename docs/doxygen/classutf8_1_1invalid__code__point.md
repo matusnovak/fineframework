@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['utf8::invalid_code_point', 'invalid_code_point', 'what', 'code_point']
+search: false
 ---
 
 # class utf8::invalid\_code\_point

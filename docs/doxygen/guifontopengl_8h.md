@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guifontopengl.h', 'ffw::GuiFontOpenGL']
+search: false
 ---
 
 # file guifontopengl.h

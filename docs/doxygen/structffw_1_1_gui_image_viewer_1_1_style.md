@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiImageViewer::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiImageViewer::Style

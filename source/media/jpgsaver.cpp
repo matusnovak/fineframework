@@ -109,7 +109,6 @@ bool ffw::JpgSaver::open(const std::string& path, int w, int h, ffw::ImageType t
     if(setjmp(jpg_struct->jerr.setjmp_buffer)) {
         // If we get here, the JPEG code has signaled an error.
         // We need to clean up the JPEG object, close the input file, and return.
-        std::cerr << "set jump failed" << std::endl;
         close();
         return false;
     }

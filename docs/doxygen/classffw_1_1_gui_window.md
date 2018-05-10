@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiWindow', 'GuiWindow', '~GuiWindow', 'setSize', 'setPos', 'getSize', 'getPos', 'setDefaultFont', 'getDefaultFont', 'injectMousePos', 'injectScroll', 'injectMouseButton', 'injectText', 'injectKey', 'update', 'poolEvents', 'render', 'redraw', 'invalidate', 'getLayout', 'getLayout', 'pushEvent', 'setTheme', 'getTheme', 'findByID', 'resize', 'startRender', 'endRender', 'setScissors', 'clearWithColor', 'drawRectangle', 'drawRectangleRounded', 'drawLine', 'drawCircle', 'drawArc', 'drawQuad', 'drawString', 'drawTriangle', 'drawImage', 'drawBackground', 'drawBorder', 'drawStringAligned']
+search: false
 ---
 
 # class ffw::GuiWindow

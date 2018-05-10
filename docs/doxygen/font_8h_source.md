@@ -20,6 +20,7 @@ Source: `include/ffw/graphics/font.h`
     
     
     
+    
       
     
     
@@ -30,6 +31,7 @@ Source: `include/ffw/graphics/font.h`
 #define FFW_GRAPHICS_FONT
 #define FFW_FT_UNICODE_MAX 65535
 
+#include <string>
 #include "../config.h"
 #include "../math/vec2.h"
 #include "texture2d.h"
@@ -50,14 +52,19 @@ namespace ffw {
         };
 
         Font();
-        virtual ~Font();
+        Font(const Font& other) = delete;
+        Font(Font&& other) = default;
+        Font& operator = (const Font& other) = delete;
+        Font& operator = (Font&& other) = default;
+        virtual ~Font() = default;
 
-        virtual void destroy() = 0;
-        virtual const Char& getChar(wchar_t chr) const = 0;
-        virtual int getCharIndex(wchar_t chr) const = 0;
-        virtual ffw::Vec2f getStringSize(const std::string& str, float maxWidth = -1.0f, float lineHeight = 1.25f) const;
-        virtual ffw::Vec2f getStringSize(const std::wstring& str, float maxWidth = -1.0f, float lineHeight = 1.25f) const;
-        inline float getCharAdvance(wchar_t chr) const {
+        virtual const Char& getChar(unsigned int chr) const = 0;
+        virtual int getCharIndex(unsigned int chr) const = 0;
+        virtual ffw::Vec2f getStringSize(const std::string& str, 
+            float maxWidth = -1.0f, float lineHeight = 1.25f) const;
+        virtual ffw::Vec2f getStringSize(const std::wstring& str, 
+            float maxWidth = -1.0f, float lineHeight = 1.25f) const;
+        inline float getCharAdvance(const unsigned int chr) const {
             return getChar(chr).advance;
         }
         inline int getSizePt() const {
@@ -86,7 +93,8 @@ namespace ffw {
         }
     protected:
         template<class T>
-        ffw::Vec2f getStringSizeFunc(const std::basic_string<T>& str, float maxWidth = -1.0f, float lineHeight = 1.25f) const;
+        ffw::Vec2f getStringSizeFunc(const std::basic_string<T>& str, 
+            float maxWidth = -1.0f, float lineHeight = 1.25f) const;
         ffw::Texture2D texture;
         ffw::Vbo vbo;
         int sizePoints;

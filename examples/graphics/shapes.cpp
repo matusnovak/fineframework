@@ -1,5 +1,6 @@
 #include <ffw/graphics.h>
-#include <math.h>
+#include <iostream>
+#include <iostream>
 
 inline int RandomRange(int min, int max) {
     return (std::rand() % (max - min)) + min;

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['math.h']
+search: false
 ---
 
 # file math.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['gui.h']
+search: false
 ---
 
 # file gui.h

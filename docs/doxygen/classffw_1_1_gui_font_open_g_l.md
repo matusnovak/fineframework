@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiFontOpenGL', 'isCreated', 'destroy', 'getStringSize', 'getCharAdvance', 'getSizeInPixels', 'isCreated', 'destroy', 'getStringSize', 'getCharAdvance', 'getSizeInPixels', 'TrueTypeFont', 'TrueTypeFont', 'TrueTypeFont', '~TrueTypeFont', 'createFromData', 'createFromFile', 'destroy', 'getChar', 'getCharIndex', 'operator=', 'operator=', 'swap', 'Font', '~Font', 'destroy', 'getChar', 'getCharIndex', 'getStringSize', 'getStringSize', 'getCharAdvance', 'getSizePt', 'getSizePixels', 'getDpi', 'getTexture', 'getVbo', 'isCreated', 'getCharVerticalOffset', 'isAlphaOnly']
+search: false
 ---
 
 # class ffw::GuiFontOpenGL
@@ -20,13 +19,6 @@ Inherits the following classes: **[ffw::GuiFont](classffw_1_1_gui_font.md)**, **
 |virtual int|[**getSizeInPixels**](classffw_1_1_gui_font_open_g_l.md#1acb253cd4bc64858adfb0aaf28c39d904) () override const |
 
 
-#### Public Functions inherited from [ffw::GuiFont](classffw_1_1_gui_font.md)
-
-|Type|Name|
-|-----|-----|
-|virtual void|[**destroy**](classffw_1_1_gui_font.md#1a369b27c53668d94f73e99e6d528ef9a4) () = 0|
-
-
 #### Public Functions inherited from [ffw::TrueTypeFont](classffw_1_1_true_type_font.md)
 
 |Type|Name|
@@ -37,8 +29,9 @@ Inherits the following classes: **[ffw::GuiFont](classffw_1_1_gui_font.md)**, **
 |virtual |[**~TrueTypeFont**](classffw_1_1_true_type_font.md#1a8ead1e22271b4c2f5f3d4a6f6c3e905f) () |
 |bool|[**createFromData**](classffw_1_1_true_type_font.md#1ab8c1de804c19c76659c7feb343ec3dcb) (const unsigned char \* buffer, size\_t length, int points, int dpi, int start = 0x00, int end = 0x7F) |
 |bool|[**createFromFile**](classffw_1_1_true_type_font.md#1a730593a7fc8c49f24b4569b5bdaf537d) (const std::string & path, int points, int dpi, int start = 0x00, int end = 0x7F) |
-|virtual const Char &|[**getChar**](classffw_1_1_true_type_font.md#1a83c90393e8755f11cfbf83e60b6ecfc6) (wchar\_t chr) override const |
-|virtual int|[**getCharIndex**](classffw_1_1_true_type_font.md#1a006e8f8c1e58edc7c664d44cfe4941a4) (wchar\_t chr) override const |
+|void|[**destroy**](classffw_1_1_true_type_font.md#1a11d8c26d7b1a363a2a19bffc333bfb96) () |
+|virtual const Char &|[**getChar**](classffw_1_1_true_type_font.md#1a8abb44942dbaa86a6f335892e5e8b131) (unsigned int chr) override const |
+|virtual int|[**getCharIndex**](classffw_1_1_true_type_font.md#1a27409a8751badfe444a58bf1fd98d6b6) (unsigned int chr) override const |
 |**[TrueTypeFont](classffw_1_1_true_type_font.md)** &|[**operator=**](classffw_1_1_true_type_font.md#1ab70f5f87c8361a556e63b6add22f6242) (const **[TrueTypeFont](classffw_1_1_true_type_font.md)** & other) = delete |
 |**[TrueTypeFont](classffw_1_1_true_type_font.md)** &|[**operator=**](classffw_1_1_true_type_font.md#1a9416bb2b0185110752b030f12f8d4f51) (**[TrueTypeFont](classffw_1_1_true_type_font.md)** && other) |
 |void|[**swap**](classffw_1_1_true_type_font.md#1a59cd6a95a18ed791e95a7e601fb9d79a) (**[TrueTypeFont](classffw_1_1_true_type_font.md)** & other) |
@@ -49,11 +42,14 @@ Inherits the following classes: **[ffw::GuiFont](classffw_1_1_gui_font.md)**, **
 |Type|Name|
 |-----|-----|
 ||[**Font**](classffw_1_1_font.md#1a61607295e4f95fba5cf189f0bf46e972) () |
-|virtual |[**~Font**](classffw_1_1_font.md#1a232e75baded001562f4aa1ba3c270490) () |
-|virtual void|[**destroy**](classffw_1_1_font.md#1a7c097bfaf58c965bdd49727bcca734c5) () = 0|
+||[**Font**](classffw_1_1_font.md#1a625968999be1f55607ba2c241e99c2bb) (const **[Font](classffw_1_1_font.md)** & other) = delete |
+||[**Font**](classffw_1_1_font.md#1a7b07abd846095b2b3211e1d1e41775c5) (**[Font](classffw_1_1_font.md)** && other) = default |
+|**[Font](classffw_1_1_font.md)** &|[**operator=**](classffw_1_1_font.md#1a1506af1c9de421dac45dad7a9d1b0e26) (const **[Font](classffw_1_1_font.md)** & other) = delete |
+|**[Font](classffw_1_1_font.md)** &|[**operator=**](classffw_1_1_font.md#1adc829453376092c01873ccf869e3b905) (**[Font](classffw_1_1_font.md)** && other) = default |
+|virtual |[**~Font**](classffw_1_1_font.md#1af64aa991e6e53e3b55105a2eb0239ea4) () = default |
 |virtual **[ffw::Vec2f](group__math_.md#ga44573357c25b7969b4391ca0ae427636)**|[**getStringSize**](classffw_1_1_font.md#1a954e31facabcb58c18608283156390ee) (const std::string & str, float maxWidth = -1.0f, float lineHeight = 1.25f) const |
 |virtual **[ffw::Vec2f](group__math_.md#ga44573357c25b7969b4391ca0ae427636)**|[**getStringSize**](classffw_1_1_font.md#1a447d1fb84909315000d1d568e2561b86) (const std::wstring & str, float maxWidth = -1.0f, float lineHeight = 1.25f) const |
-|float|[**getCharAdvance**](classffw_1_1_font.md#1a2ce2045030c495ace3edaab3c6ea6852) (wchar\_t chr) const |
+|float|[**getCharAdvance**](classffw_1_1_font.md#1ab41de9dad062dd9c58ddc360c8acc32b) (const unsigned int chr) const |
 |int|[**getSizePt**](classffw_1_1_font.md#1a1444b58cd884fcfb51258bebfe44a66c) () const |
 |int|[**getSizePixels**](classffw_1_1_font.md#1a546770fa3a6e1f7283aac00b517663bb) () const |
 |int|[**getDpi**](classffw_1_1_font.md#1a1a54d225c828f3002d968be8029fe4e7) () const |
@@ -103,7 +99,7 @@ Overrides **[GuiFont::isCreated](classffw_1_1_gui_font.md#1af55e6480532d46355a0d
 virtual void ffw::GuiFontOpenGL::destroy ()
 ```
 
-Overrides **[TrueTypeFont::destroy](classffw_1_1_true_type_font.md#1a156a2ad330d1724d1ab2366097d8b8af)**
+Overrides **[GuiFont::destroy](classffw_1_1_gui_font.md#1a369b27c53668d94f73e99e6d528ef9a4)**
 
 
 ### function <a id="1af080b882f313368580d4ccdaddd5eda2" href="#1af080b882f313368580d4ccdaddd5eda2">getStringSize</a>

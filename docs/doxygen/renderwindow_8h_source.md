@@ -26,6 +26,7 @@ Source: `include/ffw/graphics/renderwindow.h`
 namespace ffw {
     class FFW_API RenderWindow {
     public:
+        virtual ~RenderWindow() = default;
         virtual void setPos(int posx, int posy) = 0;
         virtual void setSize(int width, int height) = 0;
         virtual ffw::Vec2i getPos() const = 0;

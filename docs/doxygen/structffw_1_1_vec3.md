@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Vec3', 'x', 'y', 'z', 'Vec3', 'Vec3', 'Vec3', 'Vec3', 'Vec3', 'set', 'set', 'set', 'set', 'operator-', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator!=', 'operator==', 'rotateByAxis', 'rotateByAxisRad', 'rotateX', 'rotateY', 'rotateZ', 'rotateXRad', 'rotateYRad', 'rotateZRad', 'rotateByQuaternion', 'normalize', 'scale', 'length', 'lengthf', 'lengthSqrd', 'operator[]', 'operator[]', 'operator ffw::Vec3< S >', 'round', 'floor', 'ceil', 'operator==', 'operator==']
+search: false
 ---
 
 # struct ffw::Vec3

@@ -51,7 +51,9 @@ bool ffw::Framebuffer::create(){
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addTexture(GLenum attachment, GLuint textype, GLuint texture, GLint level) const {
+bool ffw::Framebuffer::addTexture(const GLenum attachment, const GLuint textype, 
+    const GLuint texture, const GLint level) const {
+
     if (!created || texture == NULL)return false;
 
     bind();
@@ -61,7 +63,7 @@ bool ffw::Framebuffer::addTexture(GLenum attachment, GLuint textype, GLuint text
 }
 
 ///=============================================================================
-bool ffw::Framebuffer::addRenderbuffer(GLenum attachment, GLuint texture) const {
+bool ffw::Framebuffer::addRenderbuffer(const GLenum attachment, const GLuint texture) const {
     if (!created || texture == NULL)return false;
 
     bind();
@@ -76,7 +78,7 @@ bool ffw::Framebuffer::checkStatus(){
     
     bind();
 
-    GLenum status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
+    const auto status = glCheckFramebufferStatus(GL_FRAMEBUFFER);
     if (status != GL_FRAMEBUFFER_COMPLETE) {
         destroy();
         return false;

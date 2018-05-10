@@ -1,5 +1,6 @@
 #include <ffw/graphics.h>
 #include <ffw/media.h>
+#include <iostream>
 
 #define STRING_TO_SHOW "Drop image file here"
 

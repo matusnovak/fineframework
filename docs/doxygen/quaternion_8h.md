@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['quaternion.h', 'ffw::Quat']
+search: false
 ---
 
 # file quaternion.h

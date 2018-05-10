@@ -33,7 +33,6 @@ ffw::Shader::Shader(){
     vertshader = 0;
     geomshader = 0;
     fragshader = 0;
-    gl_ = NULL;
 }
 
 ///=============================================================================
@@ -47,7 +46,6 @@ ffw::Shader::Shader(Shader&& other) {
     vertshader = 0;
     geomshader = 0;
     fragshader = 0;
-    gl_ = NULL;
     swap(other);
 }
 
@@ -64,7 +62,6 @@ void ffw::Shader::swap(Shader& other) {
         swap(vertshader, other.vertshader);
         swap(geomshader, other.geomshader);
         swap(fragshader, other.fragshader);
-        swap(gl_, other.gl_);
     }
 }
 

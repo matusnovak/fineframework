@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiSlider::Style', 'button', 'bar', 'self']
+search: false
 ---
 
 # struct ffw::GuiSlider::Style

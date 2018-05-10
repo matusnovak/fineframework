@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['constants.h', 'M_E', 'M_LOG2E', 'M_LOG10E', 'M_LN2', 'M_LN10', 'M_PI', 'M_PI_2', 'M_PI_4', 'M_1_PI', 'M_2_PI', 'M_2_SQRTPI', 'M_SQRT2', 'M_SQRT3', 'M_SQRT4', 'M_SQRT1_2', 'PI_OVER_180', 'PI_OVER_360', 'RAD_TO_DEG', 'DEG_TO_RAD']
+search: false
 ---
 
 # file constants.h

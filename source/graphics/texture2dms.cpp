@@ -4,17 +4,17 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-ffw::Texture2DMS::Texture2DMS():Texture(){
-    textureformat_ = GL_TEXTURE_2D_MULTISAMPLE;
+ffw::Texture2DMS::Texture2DMS(){
+    textureformat = GL_TEXTURE_2D_MULTISAMPLE;
 }
 
 ///=============================================================================
-ffw::Texture2DMS::Texture2DMS(Texture2DMS&& second) : Texture2DMS() {
-    Texture::swap(second);
+ffw::Texture2DMS::Texture2DMS(Texture2DMS&& other) NOEXCEPT : Texture2DMS() {
+    Texture::swap(other);
 }
 
 ///=============================================================================
-ffw::Texture2DMS& ffw::Texture2DMS::operator = (ffw::Texture2DMS&& other) {
+ffw::Texture2DMS& ffw::Texture2DMS::operator = (ffw::Texture2DMS&& other) NOEXCEPT {
     if (this != &other) {
         Texture::swap(other);
     }
@@ -22,32 +22,33 @@ ffw::Texture2DMS& ffw::Texture2DMS::operator = (ffw::Texture2DMS&& other) {
 }
 
 ///=============================================================================
-ffw::Texture2DMS::~Texture2DMS(){
-}
+bool ffw::Texture2DMS::create(const GLsizei width, const GLsizei height,
+    const GLenum internalformat, const GLint samples){
 
-///=============================================================================
-bool ffw::Texture2DMS::create(GLsizei width, GLsizei height, GLenum internalformat, GLenum format, GLenum pixelformat, GLint samples){
-    if(loaded_)return false;
-    loaded_ = true;
+    if(loaded)return false;
+    loaded = true;
 
-    width_           = width;
-    height_          = height;
-    layers_          = 0;
-    depth_           = 0;
-    internalformat_  = internalformat;
-    format_          = format;
-    pixelformat_     = pixelformat;
-    samples_         = samples;
+    this->width           = width;
+    this->height          = height;
+    this->layers          = 0;
+    this->depth           = 0;
+    this->internalformat  = internalformat;
+    this->format          = 0;
+    this->pixelformat     = 0;
+    this->samples         = samples;
 
     if(isCompressed()) {
         destroy();
         return false;
     }
 
-    glGenTextures(1, &buffer_);
-    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, buffer_);
+    glGenTextures(1, &buffer);
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, buffer);
 
-    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples_, internalformat_, width_, height_, GL_FALSE);
+    glTexImage2DMultisample(
+        GL_TEXTURE_2D_MULTISAMPLE, samples, internalformat,
+        width, height, GL_FALSE
+    );
 
     int test;
     glGetTexLevelParameteriv(GL_TEXTURE_2D_MULTISAMPLE, 0, GL_TEXTURE_WIDTH, &test);
@@ -65,12 +66,15 @@ bool ffw::Texture2DMS::create(GLsizei width, GLsizei height, GLenum internalform
 }
 
 ///=============================================================================
-bool ffw::Texture2DMS::resize(GLsizei width, GLsizei height, GLint samples){
-    if(!loaded_)return false;
-    width_ = width;
-    height_ = height;
-    samples_ = samples;
-    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, buffer_);
-    glTexImage2DMultisample(GL_TEXTURE_2D_MULTISAMPLE, samples_, internalformat_, width_, height_, GL_FALSE);
+bool ffw::Texture2DMS::resize(const GLsizei width, const GLsizei height, const GLint samples){
+    if(!loaded)return false;
+    this->width = width;
+    this->height = height;
+    this->samples = samples;
+    glBindTexture(GL_TEXTURE_2D_MULTISAMPLE, buffer);
+    glTexImage2DMultisample(
+        GL_TEXTURE_2D_MULTISAMPLE, samples, internalformat, 
+        width, height, GL_FALSE
+    );
     return true;
 }

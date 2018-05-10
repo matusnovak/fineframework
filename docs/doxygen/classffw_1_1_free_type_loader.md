@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::FreeTypeLoader', 'CharData', 'FreeTypeLoader', 'FreeTypeLoader', 'FreeTypeLoader', '~FreeTypeLoader', 'createFromData', 'createFromFile', 'setSize', 'findGlyph', 'findErrorGlyph', 'getGlyphData', 'getSizePixels', 'isCreated', 'destroy', 'swap', 'operator=', 'operator=']
+search: false
 ---
 
 # class ffw::FreeTypeLoader
@@ -23,7 +22,7 @@ search:
 |bool|[**createFromData**](classffw_1_1_free_type_loader.md#1a774613675e3439649cc0d544b6255e66) (const unsigned char \* buffer, size\_t length) |
 |bool|[**createFromFile**](classffw_1_1_free_type_loader.md#1aec08f4d3792c16e87ab7f285d8e1fb14) (const std::string & path) |
 |bool|[**setSize**](classffw_1_1_free_type_loader.md#1a44b2dab370e95107125c40220940947e) (int points, int dpi) |
-|bool|[**findGlyph**](classffw_1_1_free_type_loader.md#1a08647648110af9e69ab5cd2a6b14242c) (int unicode) |
+|bool|[**findGlyph**](classffw_1_1_free_type_loader.md#1ac70480c341a0a8b0b860faf23c355191) (unsigned int unicode) |
 |bool|[**findErrorGlyph**](classffw_1_1_free_type_loader.md#1a0b7e56504393e08cb104f00f5f984bd8) () |
 |bool|[**getGlyphData**](classffw_1_1_free_type_loader.md#1a2b5b2d7cdaf6608983b99aca0bcd2cec) (**[CharData](classffw_1_1_free_type_loader_1_1_char_data.md)** \* data) |
 |int|[**getSizePixels**](classffw_1_1_free_type_loader.md#1a807f480e49a4b0651773c8d32acd59d2) () const |
@@ -104,11 +103,11 @@ bool ffw::FreeTypeLoader::setSize (
 
 
 
-### function <a id="1a08647648110af9e69ab5cd2a6b14242c" href="#1a08647648110af9e69ab5cd2a6b14242c">findGlyph</a>
+### function <a id="1ac70480c341a0a8b0b860faf23c355191" href="#1ac70480c341a0a8b0b860faf23c355191">findGlyph</a>
 
 ```cpp
 bool ffw::FreeTypeLoader::findGlyph (
-    int unicode
+    unsigned int unicode
 )
 ```
 

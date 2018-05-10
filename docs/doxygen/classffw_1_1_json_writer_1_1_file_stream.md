@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::JsonWriter::FileStream', 'FileStream', '~FileStream', 'isOpen', 'close', 'write', 'write']
+search: false
 ---
 
 # class ffw::JsonWriter::FileStream

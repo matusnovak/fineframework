@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiStyle::Function', 'color', 'secondary', 'Function', 'Function', 'Function']
+search: false
 ---
 
 # class ffw::GuiStyle::Function

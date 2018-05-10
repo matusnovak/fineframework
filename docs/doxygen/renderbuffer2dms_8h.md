@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['renderbuffer2dms.h', 'ffw::Renderbuffer2DMS']
+search: false
 ---
 
 # file renderbuffer2dms.h

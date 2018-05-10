@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['vec4.h', 'ffw::Vec4']
+search: false
 ---
 
 # file vec4.h

@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['graphics', 'ffw::BitmapFont', 'ffw::BufferObject', 'ffw::Vbo', 'ffw::Ibo', 'ffw::Font', 'ffw::Framebuffer', 'ffw::FreeTypeLoader', 'ffw::GLFWRenderWindow', 'ffw::OpenGLImageType', 'ffw::Monitor', 'ffw::Renderbuffer', 'ffw::Renderbuffer2D', 'ffw::Renderbuffer2DMS', 'ffw::DrawPaint', 'ffw::RenderContext', 'ffw::RenderWindow', 'ffw::Shader', 'ffw::Texture', 'ffw::Texture1D', 'ffw::Texture1DArray', 'ffw::Texture2D', 'ffw::Texture2DArray', 'ffw::Texture2DArrayMS', 'ffw::Texture2DMS', 'ffw::Texture3D', 'ffw::TextureCubemap', 'ffw::TrueTypeFont', 'DrawMode', 'DrawPathWinding', 'LineCap', 'getOpenGLImageType', 'loadGlCoreArb']
+search: false
 ---
 
 # group graphics

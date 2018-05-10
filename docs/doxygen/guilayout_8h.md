@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guilayout.h', 'ffw::GuiLayout', 'ffw::GuiLayout::Style', 'ffw::GuiVerticalLayout', 'ffw::GuiHorizontalLayout', 'ffw::GuiFixedLayout']
+search: false
 ---
 
 # file guilayout.h

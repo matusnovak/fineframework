@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiScrollableLayout::Style', 'self', 'inner']
+search: false
 ---
 
 # struct ffw::GuiScrollableLayout::Style

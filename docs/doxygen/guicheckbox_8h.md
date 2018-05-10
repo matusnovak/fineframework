@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guicheckbox.h', 'ffw::GuiCheckbox', 'ffw::GuiCheckbox::Button', 'ffw::GuiCheckbox::Button::Style', 'ffw::GuiCheckbox::Style']
+search: false
 ---
 
 # file guicheckbox.h

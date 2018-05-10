@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiList::Value', 'Value', '~Value', 'setValue', 'getValue', 'assign', 'remove', 'clearAllExcept', 'reset', 'getNumOfassigned']
+search: false
 ---
 
 # class ffw::GuiList::Value

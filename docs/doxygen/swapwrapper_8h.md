@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['swapwrapper.h', 'ffw::SwapWrapper', 'swap']
+search: false
 ---
 
 # file swapwrapper.h

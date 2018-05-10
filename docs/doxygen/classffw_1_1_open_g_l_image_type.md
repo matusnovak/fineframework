@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::OpenGLImageType', 'internalFormat', 'format', 'type', 'OpenGLImageType', 'OpenGLImageType', 'operator bool']
+search: false
 ---
 
 # class ffw::OpenGLImageType
@@ -19,7 +18,7 @@ search:
 |Type|Name|
 |-----|-----|
 ||[**OpenGLImageType**](classffw_1_1_open_g_l_image_type.md#1a67876963b77f79ca004e42c076f027cf) () |
-||[**OpenGLImageType**](classffw_1_1_open_g_l_image_type.md#1a266c0b4da7313d921ed54d484db452ff) (**[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** inter, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** form, **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** typ) |
+||[**OpenGLImageType**](classffw_1_1_open_g_l_image_type.md#1ae27b2a7ee68af1c0867c2b9915ec10ba) (const **[GLint](glcorearb_8h.md#1a5ac0f3c4d7fafd42b284b5487a791017)** inter, const **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** form, const **[GLenum](glcorearb_8h.md#1a7efd7809e1632cdae75603fd1fee61c0)** typ) |
 ||[**operator bool**](classffw_1_1_open_g_l_image_type.md#1a4111ca12a33e3beaf6c55130dcdbf7c8) () const |
 
 
@@ -59,13 +58,13 @@ ffw::OpenGLImageType::OpenGLImageType ()
 
 
 
-### function <a id="1a266c0b4da7313d921ed54d484db452ff" href="#1a266c0b4da7313d921ed54d484db452ff">OpenGLImageType</a>
+### function <a id="1ae27b2a7ee68af1c0867c2b9915ec10ba" href="#1ae27b2a7ee68af1c0867c2b9915ec10ba">OpenGLImageType</a>
 
 ```cpp
 ffw::OpenGLImageType::OpenGLImageType (
-    GLint inter
-    GLenum form
-    GLenum typ
+    const GLint inter
+    const GLenum form
+    const GLenum typ
 )
 ```
 

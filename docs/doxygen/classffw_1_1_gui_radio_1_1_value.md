@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiRadio::Value', 'Value', '~Value', 'setValue', 'getValue', 'assign', 'remove', 'clearAllExcept', 'getNumOfAssigned']
+search: false
 ---
 
 # class ffw::GuiRadio::Value

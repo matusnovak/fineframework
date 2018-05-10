@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::Vec2', 'x', 'y', 'Vec2', 'Vec2', 'Vec2', 'Vec2', 'Vec2', 'set', 'set', 'set', 'set', 'operator-', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator=', 'operator+', 'operator+=', 'operator-', 'operator-=', 'operator/', 'operator/=', 'operator*', 'operator*=', 'operator!=', 'operator==', 'rotate', 'rotateRad', 'normalize', 'scale', 'length', 'lengthf', 'lengthSqrd', 'operator[]', 'operator[]', 'operator ffw::Vec2< S >', 'round', 'floor', 'ceil', 'operator==', 'operator==']
+search: false
 ---
 
 # struct ffw::Vec2

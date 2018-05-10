@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiradio.h', 'ffw::GuiRadio', 'ffw::GuiRadio::Value', 'ffw::GuiRadio::Button', 'ffw::GuiRadio::Button::Style', 'ffw::GuiRadio::Style']
+search: false
 ---
 
 # file guiradio.h

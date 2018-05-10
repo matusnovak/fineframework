@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::RingBuffer', 'RingBuffer', 'RingBuffer', '~RingBuffer', 'create', 'back', 'push', 'pop', 'getRange', 'range', 'getTail', 'getHead', 'getSize', 'isFull', 'isEmpty', 'clear', 'reset']
+search: false
 ---
 
 # class ffw::RingBuffer

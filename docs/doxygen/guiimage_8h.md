@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guiimage.h', 'ffw::GuiImage']
+search: false
 ---
 
 # file guiimage.h

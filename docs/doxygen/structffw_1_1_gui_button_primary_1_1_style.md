@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiButtonPrimary::Style', 'self']
+search: false
 ---
 
 # struct ffw::GuiButtonPrimary::Style

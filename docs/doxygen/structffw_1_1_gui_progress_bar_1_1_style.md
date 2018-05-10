@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GuiProgressBar::Style', 'inner', 'self']
+search: false
 ---
 
 # struct ffw::GuiProgressBar::Style

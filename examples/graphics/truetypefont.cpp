@@ -1,4 +1,5 @@
 #include <ffw/graphics.h>
+#include <iostream>
 #define NUM_OF_FONTS (8)
 
 ///=============================================================================

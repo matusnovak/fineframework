@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::SwapWrapper', 'ptr', 'SwapWrapper', 'SwapWrapper', 'operator=', 'swap', 'operator*', 'operator*', 'operator->', 'operator->']
+search: false
 ---
 
 # class ffw::SwapWrapper

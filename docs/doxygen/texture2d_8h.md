@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['texture2d.h', 'ffw::Texture2D']
+search: false
 ---
 
 # file texture2d.h
@@ -11,6 +10,26 @@ search:
 |Type|Name|
 |-----|-----|
 |class|[**ffw::Texture2D**](classffw_1_1_texture2_d.md)|
+
+
+## Functions
+
+|Type|Name|
+|-----|-----|
+|void|[**swap**](texture2d_8h.md#1a583e398c86a23e10a1b10efa5d0e0364) (**[ffw::Texture2D](classffw_1_1_texture2_d.md)** & first, **[ffw::Texture2D](classffw_1_1_texture2_d.md)** & second) |
+
+
+## Functions Documentation
+
+### function <a id="1a583e398c86a23e10a1b10efa5d0e0364" href="#1a583e398c86a23e10a1b10efa5d0e0364">swap</a>
+
+```cpp
+void texture2d.h::swap (
+    ffw::Texture2D & first
+    ffw::Texture2D & second
+)
+```
+
 
 
 

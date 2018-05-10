@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['guibackend.h', 'ffw::GuiBackend']
+search: false
 ---
 
 # file guibackend.h

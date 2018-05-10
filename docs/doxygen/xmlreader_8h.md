@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['xmlreader.h', 'ffw::XmlReader', 'ffw::XmlReader::Value', 'ffw::XmlReader::Attribute', 'ffw::XmlReader::Node', 'ffw::XmlReader::Cache', 'FFW_XML_READER']
+search: false
 ---
 
 # file xmlreader.h

@@ -7,13 +7,14 @@
 #include <functional>
 #include <atomic>
 #include <list>
+#include <future>
 
 namespace ffw {
     /**
      * @brief Promise interface class
      * @ingroup math
      */
-    class PromiseI {
+    class PromiseInterface {
     public:
         /**
          * @brief The status of the promise
@@ -23,12 +24,8 @@ namespace ffw {
             RESOLVED,
             REJECTED
         };
-        PromiseI(){
-
-        }
-        virtual ~PromiseI() {
-
-        }
+        PromiseInterface() = default;
+        virtual ~PromiseInterface() = default;
         /**
          * @brief Calls the function associated within the promise
          */
@@ -74,48 +71,6 @@ namespace ffw {
         }
     };
 
-    /**
-      * @ingroup math
-    */
-    template<class T>
-    class PromiseResult;
-
-    /**
-     * @ingroup math
-     */
-    template<class T>
-    class PromiseResult {
-    public:
-        PromiseResult() {
-        }
-        template<typename E>
-        PromiseResult(const E& result):result(result) {
-        }
-        PromiseResult(T&& result):result(result) {
-        }
-        operator T() const {
-            return result;
-        }
-        const T& get() const {
-            return result;
-        }
-        T& get() {
-            return result;
-        }
-    private:
-        T result;
-    };
-
-    /**
-     * @ingroup math
-     */
-    template<>
-    class PromiseResult<void> {
-    public:
-        PromiseResult() {
-        }
-    };
-
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
     template<typename R>
     struct PromiseLambdaResolver;
@@ -134,6 +89,26 @@ namespace ffw {
     template<typename F>
     struct PromiseLambdaHelper<F, void> {
         typedef typename std::result_of<F&()>::type returnType;
+    };
+
+    template<class V>
+    class PromiseValue;
+
+    template<class T>
+    class PromiseValue {
+    public:
+        PromiseValue():v() {
+        }
+        PromiseValue(T&& value) :v(std::move(value)) {
+        }
+        T v;
+    };
+
+    template<>
+    class PromiseValue<void> {
+    public:
+        PromiseValue() {
+        }
     };
 #endif
 
@@ -185,29 +160,21 @@ namespace ffw {
      * @endcode
      */
     template<class T>
-    class Promise : public PromiseI {
+    class Promise : public PromiseInterface {
     public:
 #ifndef DOXYGEN_SHOULD_SKIP_THIS
         struct Data {
             std::function<void(Promise<T>&)> func;
-            std::list<PromiseI*> next;
+            std::list<PromiseInterface*> next;
+            std::promise<T> rawPromise;
+            PromiseValue<T> result;
             std::exception_ptr eptr;
-            PromiseResult<T> result;
             std::atomic<Status> status;
 
-            const PromiseResult<T> &getResult() const {
-                switch(status.load()) {
-                    case Status::RESOLVED:
-                        return result;
-                    case Status::REJECTED:
-                        std::rethrow_exception(eptr);
-                    default:
-                        throw PromiseException("Promise is not resolved");
-                }
-            }
-
-            const std::exception_ptr& getException() const {
-                return eptr;
+            void checkStatus() {
+                const auto s = status.load();
+                if (s == Status::REJECTED) std::rethrow_exception(eptr);
+                if (s == Status::WAITING) std::future_error(std::make_error_code(std::future_errc::no_state));
             }
         };
 
@@ -233,15 +200,17 @@ namespace ffw {
         template<typename TT>
         static typename arg1_traits_impl<TT>::arg1_type arg1_type_helper(TT);
 #endif
-        static Promise<T> makeResolved(PromiseResult<T>&& value) {
+        template<class Q = T>
+        static typename std::enable_if<std::is_same<Q, void>::value, Promise<Q>>::type makeResolved() {
             Promise<T> ret;
-            ret.resolve(std::forward<T>(value));
+            ret.resolve();
             return ret;
         }
 
-        static Promise<T> makeResolved() {
+        template<class Q = T>
+        static typename std::enable_if<!std::is_same<Q, void>::value, Promise<Q>>::type makeResolved(PromiseValue<T>&& value) {
             Promise<T> ret;
-            ret.resolve(PromiseResult<T>());
+            ret.resolve(std::move(value));
             return ret;
         }
 
@@ -293,8 +262,7 @@ namespace ffw {
          */
         Promise(const Promise<T>& other):data(other.data) {
         }
-        ~Promise() {
-        }
+        ~Promise() = default;
         Promise<T>& operator = (const Promise<T>& other) {
             data = other.data;
         }
@@ -312,23 +280,62 @@ namespace ffw {
         }
         /**
          * @brief Returns the exception associated with this promise
+         * @note This function does not throw! If the promise has not been rejected, the returned
+         * value is an empty/invalid std::exception_ptr.
          */
         const std::exception_ptr& getException() const {
-            return data->getException();
+            return data->eptr;
         }
         /**
          * @brief Resolves the promise with a default value of type T
-         * @details Use this parameter-less resolve function if the template argument
+         * @note This function is only enabled on void types
+         * @details You can resolve the promis only once! Otherwise an exception
+         * std::future_error is thrown with error category of promise_already_satisfied
          * is void
+         * @throws std::future_error if the promise has already been resolved
+         * @code
+         * ffw::Promise<void> p;
+         * std::cout << "Is resolved? " << p.isResolved() << std::endl;
+         * // prints: Is resolved? 0
+         * 
+         * p.resolve();
+         * 
+         * std::cout << "Is resolved? " << p.isResolved() << std::endl;
+         * // prints: Is resolved? 1
+         * @endcode
          */
-        void resolve() {
-            resolve(PromiseResult<T>());
+        template<class Q = T>
+        typename std::enable_if<std::is_void<Q>::value, void>::type resolve() {
+            data->rawPromise.set_value();
+            data->status.store(Status::RESOLVED);
+            for (auto& p : data->next) {
+                p->call();
+            }
         }
         /**
          * @brief Resolves the promise with a value of type T
+         * @details You can resolve the promis only once! Otherwise an exception
+         * std::future_error is thrown with error category of promise_already_satisfied
+         * @note This function is only enabled on non-void types
+         * @throws std::future_error if the promise has already been resolved
+         * @code
+         * ffw::Promise<int> p;
+         * std::cout << "Is resolved? " << p.isResolved() << std::endl;
+         * // prints: Is resolved? 0
+         * 
+         * p.resolve(123);
+         * 
+         * std::cout << "Is resolved? " << p.isResolved() << std::endl;
+         * // prints: Is resolved? 1
+         * 
+         * std::cout << "result: " << p.getResult() << std::endl;
+         * // prints: result: 123
+         * @endcode
          */
-        void resolve(const PromiseResult<T>& value) {
-            data->result = value;
+        template<class Q = T>
+        typename std::enable_if<!std::is_void<Q>::value, void>::type resolve(PromiseValue<T>&& value) {
+            data->rawPromise.set_value(value.v);
+            std::swap(data->result, value);
             data->status.store(Status::RESOLVED);
             for(auto& p : data->next) {
                 p->call();
@@ -336,6 +343,9 @@ namespace ffw {
         }
         /**
          * @brief Rejects the promise with an exception
+         * @details You can reject the promis only once! Otherwise an exception
+         * std::future_error is thrown with error category of promise_already_satisfied
+         * @throws std::future_error if the promise has already been rejected
          * @code{.cpp}
          * Promise<int> p;
          * try {
@@ -346,7 +356,8 @@ namespace ffw {
          * @endcode
          */
         void reject(const std::exception_ptr& eptr) override {
-            this->data->eptr = eptr;
+            data->rawPromise.set_exception(eptr);
+            data->eptr = eptr;
             data->status.store(Status::REJECTED);
             for(auto& p : data->next) {
                 p->call();
@@ -372,28 +383,61 @@ namespace ffw {
         }
         /**
          * @biref Returns the resul of this promise
+         * @note This function is only enabled on non-void types
+         * @throws std::future_error if the promise has not yet been resolved or rejected
+         * @throws E if the promise has been rejected with exception of type E
          * @code{.cpp}
          * ffw::Promise<int> p;
          * p.resolve(42);
          * 
          * std::cout << "Result: " << p.getResult() << std::endl;
          * // Prints "Result: 42"
-         * 
-         * p.rejectWith<std::runtime_error>("Something went wrong");
-         * 
-         * std::cout << "Result: " << p.getResult() << std::endl;
-         * // Will not print!
-         * // Throws std::runtime_error
-         * 
-         * ffw::Promise<int> unresolved;
-         * 
-         * std::cout << "Result: " << p.getResult() << std::endl;
-         * // Will not print!
-         * // Throws PromiseException: Promise is not resolved
          * @endcode
          */
-        const PromiseResult<T> &getResult() const {
-            return data->getResult();
+        template<class Q = T>
+        typename std::enable_if<!std::is_void<Q>::value, Q>::type getResult() const {
+            data->checkStatus();
+            return data->result.v;
+        }
+        /**
+        * @biref Returns the resul of this promise
+        * @note This function is only enabled on void types
+        * @throws std::future_error if the promise has not yet been resolved or rejected
+        * @throws E if the promise has been rejected with exception of type E
+        * @code{.cpp}
+        * ffw::Promise<void> p;
+        * p.resolve();
+        *
+        * std::cout << "Resolved? " << p.isResolved() << std::endl;
+        * // Prints "Resolved? 1"
+        * @endcode
+        */
+        template<class Q = T>
+        typename std::enable_if<std::is_void<Q>::value, void>::type getResult() const {
+            data->checkStatus();
+        }
+        /**
+         * @brief Returns std::future<T>
+         * @code{.cpp}
+         * ffw::Promise<bool> p;
+         * std::future<int> = p.then([](bool val) -> int {
+         *     return val ? 123 : -1;
+         * }).getFuture();
+         * 
+         * std::future_status status = future.wait_for(std::chrono::milliseconds(1000));
+         * // Waits for one second
+         * // Status is std::future_status::timeout because promise has not been resolved
+         * 
+         * p.resolve(true);
+         * status = future.wait_for(std::chrono::milliseconds(1000));
+         * // Status is now std::future_status::ready!
+         * 
+         * std::cout << "result: " << future.get() << std::endl;
+         * // prints result: 123
+         * @endcode
+         */
+        std::future<T> getFuture() const {
+            return data->rawPromise.get_future();
         }
         /**
          * @biref Creates a new then chain link with lambda
@@ -534,12 +578,13 @@ namespace ffw {
     struct PromiseLambdaResolver {
         template<typename Then, typename S, typename std::enable_if<!std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<R>& self, const Then& lambda) {
-            self.resolve(lambda(parent->getResult()));
+            parent->checkStatus();
+            self.resolve(lambda(parent->result.v));
         }
 
         template<typename Then, typename S, typename std::enable_if<std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<R>& self, const Then& lambda) {
-            parent->getResult();
+            parent->checkStatus();
             self.resolve(lambda());
         }
     };
@@ -548,13 +593,14 @@ namespace ffw {
     struct PromiseLambdaResolver<void> {
         template<typename Then, typename S, typename std::enable_if<!std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<void>& self, const Then& lambda) {
-            lambda(parent->getResult());
+            parent->checkStatus();
+            lambda(parent->result.v);
             self.resolve();
         }
 
         template<typename Then, typename S, typename std::enable_if<std::is_void<S>::value>::type* = nullptr>
         static void func(typename Promise<S>::Data* parent, Promise<void>& self, const Then& lambda) {
-            parent->getResult();
+            parent->checkStatus();
             lambda();
             self.resolve();
         }
@@ -565,10 +611,12 @@ namespace ffw {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
             try {
-                std::rethrow_exception(parent->getException());
-            } catch (E& e) {
+                std::rethrow_exception(parent->eptr);
+            }
+            catch (E& e) {
                 lambda(e);
-            } catch (...) {
+            }
+            catch (...) {
                 // Do nothing
             }
             self.reject(std::current_exception());
@@ -579,8 +627,8 @@ namespace ffw {
     struct PromiseExceptionResolver<const std::exception_ptr&> {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
-            lambda(parent->getException());
-            self.reject(parent->getException());
+            lambda(parent->eptr);
+            self.reject(parent->eptr);
         }
     };
 
@@ -588,8 +636,8 @@ namespace ffw {
     struct PromiseExceptionResolver<std::exception_ptr> {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
-            lambda(parent->getException());
-            self.reject(parent->getException());
+            lambda(parent->eptr);
+            self.reject(parent->eptr);
         }
     };
 
@@ -598,7 +646,7 @@ namespace ffw {
         template<typename Fail, typename T, typename R>
         static void func(typename Promise<T>::Data* parent, Promise<R>& self, const Fail& lambda) {
             lambda();
-            self.reject(parent->getException());
+            self.reject(parent->eptr);
         }
     };
 

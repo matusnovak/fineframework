@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['ffw::GLFWRenderWindowArgs', 'pos', 'size', 'title', 'icon', 'resizable', 'border', 'maximize', 'floating', 'focused', 'visible', 'samples', 'initDrawing']
+search: false
 ---
 
 # struct ffw::GLFWRenderWindowArgs

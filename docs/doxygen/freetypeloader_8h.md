@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['freetypeloader.h', 'ffw::FreeTypeLoader', 'ffw::FreeTypeLoader::CharData', 'swap']
+search: false
 ---
 
 # file freetypeloader.h

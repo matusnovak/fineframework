@@ -4,17 +4,17 @@
 #include "ffw/graphics/rendercontext.h"
 
 ///=============================================================================
-ffw::Texture3D::Texture3D():Texture(){
-    textureformat_ = GL_TEXTURE_3D;
+ffw::Texture3D::Texture3D(){
+    textureformat = GL_TEXTURE_3D;
 }
 
 ///=============================================================================
-ffw::Texture3D::Texture3D(Texture3D&& second) : Texture3D() {
-    Texture::swap(second);
+ffw::Texture3D::Texture3D(Texture3D&& other) NOEXCEPT : Texture3D() {
+    Texture::swap(other);
 }
 
 ///=============================================================================
-ffw::Texture3D& ffw::Texture3D::operator = (ffw::Texture3D&& other) {
+ffw::Texture3D& ffw::Texture3D::operator = (ffw::Texture3D&& other) NOEXCEPT {
     if (this != &other) {
         Texture::swap(other);
     }
@@ -22,33 +22,38 @@ ffw::Texture3D& ffw::Texture3D::operator = (ffw::Texture3D&& other) {
 }
 
 ///=============================================================================
-ffw::Texture3D::~Texture3D(){
-}
+bool ffw::Texture3D::create(const GLsizei width, const GLsizei height, const GLsizei depth, 
+    const GLenum internalformat, const GLenum format, const GLenum pixelformat, 
+    const GLvoid* pixels){
 
-///=============================================================================
-bool ffw::Texture3D::create(GLsizei width, GLsizei height, GLsizei depth, GLenum internalformat, GLenum format, GLenum pixelformat, const GLvoid* pixels){
-    if(loaded_)return false;
-    loaded_ = true;
+    if(loaded)return false;
+    loaded = true;
 
-    glGenTextures(1, &buffer_);
-    glBindTexture(GL_TEXTURE_3D, buffer_);
+    glGenTextures(1, &buffer);
+    glBindTexture(GL_TEXTURE_3D, buffer);
 
-    width_           = width;
-    height_          = height;
-    layers_          = 0;
-    depth_           = depth;
-    internalformat_  = internalformat;
-    format_          = format;
-    pixelformat_     = pixelformat;
+    this->width           = width;
+    this->height          = height;
+    this->layers          = 0;
+    this->depth           = depth;
+    this->internalformat  = internalformat;
+    this->format          = format;
+    this->pixelformat     = pixelformat;
 
     if(isCompressed()) {
-        if(glCompressedTexImage3D == NULL) {
+        if(glCompressedTexImage3D == nullptr) {
             destroy();
             return false;
         }
-        glCompressedTexImage3D(GL_TEXTURE_3D, 0, internalformat_, width_, height_, depth_, 0, getBlockSize(width, height, depth), pixels);
+        glCompressedTexImage3D(
+            GL_TEXTURE_3D, 0, internalformat, width, height, depth, 
+            0, getBlockSize(width, height, depth), pixels
+        );
     } else {
-        glTexImage3D(GL_TEXTURE_3D, 0, internalformat_, width_, height_, depth_, 0, format_, pixelformat_, pixels);
+        glTexImage3D(
+            GL_TEXTURE_3D, 0, internalformat, width, height, depth, 
+            0, format, pixelformat, pixels
+        );
     }
 
     int test;
@@ -68,56 +73,79 @@ bool ffw::Texture3D::create(GLsizei width, GLsizei height, GLsizei depth, GLenum
 }
 
 ///=============================================================================
-bool ffw::Texture3D::resize(GLsizei width, GLsizei height, GLsizei depth){
-    if(!loaded_)return false;
-    width_ = width;
-    height_ = height;
-    depth_ = depth;
-    glBindTexture(GL_TEXTURE_3D, buffer_);
+bool ffw::Texture3D::resize(const GLsizei width, const GLsizei height, const GLsizei depth,
+    const GLvoid* pixels){
+
+    if(!loaded)return false;
+    this->width = width;
+    this->height = height;
+    this->depth = depth;
+    glBindTexture(GL_TEXTURE_3D, buffer);
 
     if(isCompressed()) {
-        glCompressedTexImage3D(GL_TEXTURE_3D, 0, internalformat_, width_, height_, depth_, 0, getBlockSize(width, height, depth), NULL);
+        glCompressedTexImage3D(
+            GL_TEXTURE_3D, 0, internalformat, width, height, depth, 
+            0, getBlockSize(width, height, depth), pixels
+        );
     } else {
-        glTexImage3D(GL_TEXTURE_3D, 0, internalformat_, width_, height_, depth_, 0, format_, pixelformat_, NULL);
+        glTexImage3D(
+            GL_TEXTURE_3D, 0, internalformat, width, height, depth, 
+            0, format, pixelformat, pixels
+        );
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture3D::setPixels(GLint level, GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth, const void* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_3D, buffer_);
+bool ffw::Texture3D::setPixels(const GLint level, const GLint xoffset, const GLint yoffset,
+    const GLint zoffset, const GLsizei width, const GLsizei height, const GLsizei depth, 
+    const GLvoid* pixels){
+
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_3D, buffer);
 
     if(isCompressed()) {
-        glCompressedTexSubImage3D(GL_TEXTURE_3D, level, xoffset, yoffset, zoffset, width, height, depth, internalformat_, getBlockSize(width, height, depth), pixels);
+        glCompressedTexSubImage3D(
+            GL_TEXTURE_3D, level, xoffset, yoffset, zoffset, width, height, depth, 
+            internalformat, getBlockSize(width, height, depth), pixels
+        );
     } else {
-        glTexSubImage3D(GL_TEXTURE_3D, level, xoffset, yoffset, zoffset, width, height, depth, format_, pixelformat_, pixels);
+        glTexSubImage3D(
+            GL_TEXTURE_3D, level, xoffset, yoffset, zoffset, width, height, depth, 
+            format, pixelformat, pixels
+        );
     }
 
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture3D::setPixels(GLint level, const GLvoid* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_3D, buffer_);
+bool ffw::Texture3D::setPixels(const GLint level, const GLvoid* pixels){
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_3D, buffer);
 
-    auto w = width_ >> level;
-    auto h = height_ >> level;
-    auto d = depth_ >> level;
+    const auto w = width >> level;
+    const auto h = height >> level;
+    const auto d = depth >> level;
     
     if(isCompressed()) {
-        glCompressedTexImage3D(GL_TEXTURE_3D, level, internalformat_, w, h, d, 0, getBlockSize(w, h, d), pixels);
+        glCompressedTexImage3D(
+            GL_TEXTURE_3D, level, internalformat, w, h, d, 
+            0, getBlockSize(w, h, d), pixels
+        );
     } else {
-        glTexImage3D(GL_TEXTURE_3D, level, internalformat_, w, h, d, 0, format_, pixelformat_, pixels);
+        glTexImage3D(
+            GL_TEXTURE_3D, level, internalformat, w, h, d, 
+            0, format, pixelformat, pixels
+        );
     }
     return true;
 }
 
 ///=============================================================================
-bool ffw::Texture3D::getPixels(void* pixels){
-    if(!loaded_)return false;
-    glBindTexture(GL_TEXTURE_3D, buffer_);
-    glGetTexImage(GL_TEXTURE_3D, 0, format_, pixelformat_, pixels);
+bool ffw::Texture3D::getPixels(GLvoid* pixels){
+    if(!loaded)return false;
+    glBindTexture(GL_TEXTURE_3D, buffer);
+    glGetTexImage(GL_TEXTURE_3D, 0, format, pixelformat, pixels);
     return true;
 }

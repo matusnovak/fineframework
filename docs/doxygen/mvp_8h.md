@@ -1,6 +1,5 @@
 ---
-search:
-    keywords: ['mvp.h']
+search: false
 ---
 
 # file mvp.h
