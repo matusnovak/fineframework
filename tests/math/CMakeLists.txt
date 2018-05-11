@@ -15,9 +15,10 @@ add_executable(TestsMathUnicode math_unicode.cpp)
 add_executable(TestsMathVar math_var.cpp)
 add_executable(TestsMathVectors math_vectors.cpp)
 add_executable(TestsMathPromise math_promise.cpp)
+add_executable(TestsMathPromiseExtra math_promise_extra.cpp)
 add_executable(TestsMathTextWrapper math_textwrapper.cpp)
 
-set(MATH_TESTS TestsMathFileInfo TestsMathFunctions TestsMathRingBuffer TestsMathUnicode TestsMathVar TestsMathVectors TestsMathPromise TestsMathTextWrapper)
+set(MATH_TESTS TestsMathFileInfo TestsMathFunctions TestsMathRingBuffer TestsMathUnicode TestsMathVar TestsMathVectors TestsMathPromise TestsMathTextWrapper TestsMathPromiseExtra)
 
 # Dependencies
 foreach(exmpl ${MATH_TESTS})
