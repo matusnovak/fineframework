@@ -1,10 +1,9 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_VEC3
 #define FFW_VEC3
-#include "../config.h"
+
 #include "quaternion.h"
 #include <limits>
-#include <cmath>
 
 namespace ffw {
     /**

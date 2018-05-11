@@ -1,8 +1,10 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_Quat
 #define FFW_Quat
+
+#include <ostream>
 #include <sstream>
-#include "../config.h"
+#include <cmath>
 
 namespace ffw {
     /**
