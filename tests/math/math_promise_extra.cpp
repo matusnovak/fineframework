@@ -1,5 +1,4 @@
 #include <ffw/math/promise.h>
-#define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 #include <thread>
 
@@ -31,7 +30,7 @@ TEST_CASE("Resolve promise second time must fail") {
 
     p.resolve(123);
 
-    REQUIRE_THROWS_AS(p.resolve(456), std::future_error);
+    REQUIRE_THROWS_AS(p.resolve(456), ffw::PromiseException);
 }
 
 TEST_CASE("Resolve promise chain and get std::future") {

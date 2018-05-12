@@ -27,10 +27,6 @@ namespace ffw {
         };
 
         Font();
-        Font(const Font& other) = delete;
-        Font(Font&& other) = default;
-        Font& operator = (const Font& other) = delete;
-        Font& operator = (Font&& other) = default;
         virtual ~Font() = default;
 
         virtual const Char& getChar(unsigned int chr) const = 0;

@@ -1,5 +1,8 @@
-#include <ffw/math.h>
-#define CATCH_CONFIG_MAIN
+#include <ffw/math/vec2.h>
+#include <ffw/math/vec3.h>
+#include <ffw/math/vec4.h>
+#include <ffw/math/vecx.h>
+#include <ffw/math/color.h>
 #include "../catch.hpp"
 
 TEST_CASE("Testing Vec2", "[Vec2]") {

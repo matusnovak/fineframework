@@ -1,5 +1,4 @@
 #include <ffw/math/promise.h>
-#define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 #include <thread>
 

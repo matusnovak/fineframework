@@ -11,26 +11,21 @@ file(COPY sample.csv MOCK_DATA.json DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY sample.csv MOCK_DATA.json DESTINATION ${CMAKE_BINARY_DIR}/tests/data)
 
 # All examples
-add_executable(TestsDataCsv data_csv.cpp)
-add_executable(TestsDataJson data_json.cpp)
-add_executable(TestsDataXml data_xml.cpp)
-
-set(DATA_TESTS TestsDataCsv TestsDataJson TestsDataXml)
+FILE(GLOB SOURCES *.cpp *.c)
+add_executable(TestsData ${SOURCES})
 
 # Dependencies
-foreach(exmpl ${DATA_TESTS})
-  target_link_libraries(${exmpl} optimized finedata )
-  target_link_libraries(${exmpl} debug finedata${CMAKE_DEBUG_POSTFIX})
+target_link_libraries(TestsData optimized finedata )
+target_link_libraries(TestsData debug finedata${CMAKE_DEBUG_POSTFIX})
 
-  if(MSVC)
-    set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
-  endif(MSVC)
-  
-  # Compile with static stdlib ?
-  if(STATIC_STDLIB)
-    target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
-  endif(STATIC_STDLIB)
-  
-  add_test(NAME ${exmpl} COMMAND ${exmpl})
-  set_property(TARGET ${exmpl} PROPERTY FOLDER "fineframework/tests") 
-endforeach(exmpl)
+if(MSVC)
+  set_target_properties(TestsData PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+endif(MSVC)
+
+# Compile with static stdlib ?
+if(STATIC_STDLIB)
+  target_link_libraries(TestsData -static-libgcc -static-libstdc++)
+endif(STATIC_STDLIB)
+
+add_test(NAME TestsData COMMAND TestsData)
+set_property(TARGET TestsData PROPERTY FOLDER "fineframework/tests") 

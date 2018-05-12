@@ -1,5 +1,4 @@
-#include <ffw/math.h>
-#define CATCH_CONFIG_MAIN
+#include <ffw/math/textwrapper.h>
 #include "../catch.hpp"
 
 class DummyFont {

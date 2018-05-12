@@ -66,7 +66,7 @@ namespace ffw {
      */
     class PromiseException : public std::runtime_error {
     public:
-        PromiseException(const std::string& str) :std::runtime_error(str) {
+        explicit PromiseException(const char* str) :std::runtime_error(str) {
 
         }
     };
@@ -174,7 +174,7 @@ namespace ffw {
             void checkStatus() {
                 const auto s = status.load();
                 if (s == Status::REJECTED) std::rethrow_exception(eptr);
-                if (s == Status::WAITING) std::future_error(std::make_error_code(std::future_errc::no_state));
+                if (s == Status::WAITING) throw PromiseException("not resolved");
             }
         };
 
@@ -290,9 +290,9 @@ namespace ffw {
          * @brief Resolves the promise with a default value of type T
          * @note This function is only enabled on void types
          * @details You can resolve the promis only once! Otherwise an exception
-         * std::future_error is thrown with error category of promise_already_satisfied
+         * PromiseException is thrown with error category of promise_already_satisfied
          * is void
-         * @throws std::future_error if the promise has already been resolved
+         * @throws PromiseException if the promise has already been resolved
          * @code
          * ffw::Promise<void> p;
          * std::cout << "Is resolved? " << p.isResolved() << std::endl;
@@ -306,6 +306,7 @@ namespace ffw {
          */
         template<class Q = T>
         typename std::enable_if<std::is_void<Q>::value, void>::type resolve() {
+            if (data->status.load() != Status::WAITING) throw PromiseException("promise already resolved");
             data->rawPromise.set_value();
             data->status.store(Status::RESOLVED);
             for (auto& p : data->next) {
@@ -315,9 +316,9 @@ namespace ffw {
         /**
          * @brief Resolves the promise with a value of type T
          * @details You can resolve the promis only once! Otherwise an exception
-         * std::future_error is thrown with error category of promise_already_satisfied
+         * PromiseException is thrown with error category of promise_already_satisfied
          * @note This function is only enabled on non-void types
-         * @throws std::future_error if the promise has already been resolved
+         * @throws PromiseException if the promise has already been resolved
          * @code
          * ffw::Promise<int> p;
          * std::cout << "Is resolved? " << p.isResolved() << std::endl;
@@ -334,6 +335,7 @@ namespace ffw {
          */
         template<class Q = T>
         typename std::enable_if<!std::is_void<Q>::value, void>::type resolve(PromiseValue<T>&& value) {
+            if (data->status.load() != Status::WAITING) throw PromiseException("promise already resolved");
             data->rawPromise.set_value(value.v);
             std::swap(data->result, value);
             data->status.store(Status::RESOLVED);
@@ -344,8 +346,8 @@ namespace ffw {
         /**
          * @brief Rejects the promise with an exception
          * @details You can reject the promis only once! Otherwise an exception
-         * std::future_error is thrown with error category of promise_already_satisfied
-         * @throws std::future_error if the promise has already been rejected
+         * PromiseException is thrown with error category of promise_already_satisfied
+         * @throws PromiseException if the promise has already been rejected
          * @code{.cpp}
          * Promise<int> p;
          * try {
@@ -356,6 +358,7 @@ namespace ffw {
          * @endcode
          */
         void reject(const std::exception_ptr& eptr) override {
+            if (data->status.load() != Status::WAITING) throw PromiseException("promise already resolved");
             data->rawPromise.set_exception(eptr);
             data->eptr = eptr;
             data->status.store(Status::REJECTED);
@@ -384,7 +387,7 @@ namespace ffw {
         /**
          * @biref Returns the resul of this promise
          * @note This function is only enabled on non-void types
-         * @throws std::future_error if the promise has not yet been resolved or rejected
+         * @throws PromiseException if the promise has not yet been resolved or rejected
          * @throws E if the promise has been rejected with exception of type E
          * @code{.cpp}
          * ffw::Promise<int> p;
@@ -402,7 +405,7 @@ namespace ffw {
         /**
         * @biref Returns the resul of this promise
         * @note This function is only enabled on void types
-        * @throws std::future_error if the promise has not yet been resolved or rejected
+        * @throws PromiseException if the promise has not yet been resolved or rejected
         * @throws E if the promise has been rejected with exception of type E
         * @code{.cpp}
         * ffw::Promise<void> p;

@@ -4,7 +4,6 @@
 #define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 
-
 static size_t getFileSize(std::fstream& stream){
     stream.seekg(0, std::ios::end);   
     size_t size = (size_t)stream.tellg();

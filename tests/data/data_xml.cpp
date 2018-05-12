@@ -1,6 +1,6 @@
 #include <ffw/data.h>
-#define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
+#include <iostream>
 
 static bool compare(const ffw::Any& a, const ffw::Any& b, bool verbose) {
     if (a.empty() && b.empty())return true;

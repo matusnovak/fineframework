@@ -1,5 +1,4 @@
-#include <ffw/math.h>
-#define CATCH_CONFIG_MAIN
+#include <ffw/math/stringmath.h>
 #include "../catch.hpp"
 
 

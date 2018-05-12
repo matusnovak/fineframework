@@ -8,35 +8,21 @@ endif()
 link_directories(${CMAKE_BINARY_DIR})
 
 # All examples
-add_executable(TestsMathFileInfo math_fileinfo.cpp)
-add_executable(TestsMathFunctions math_functions.cpp)
-add_executable(TestsMathRingBuffer math_ringbuffer.cpp)
-add_executable(TestsMathUnicode math_unicode.cpp)
-add_executable(TestsMathVar math_var.cpp)
-add_executable(TestsMathVectors math_vectors.cpp)
-add_executable(TestsMathPromise math_promise.cpp)
-add_executable(TestsMathPromiseExtra math_promise_extra.cpp)
-add_executable(TestsMathTextWrapper math_textwrapper.cpp)
+FILE(GLOB SOURCES *.cpp *.c)
+add_executable(TestsMath ${SOURCES})
 
-set(MATH_TESTS TestsMathFileInfo TestsMathFunctions TestsMathRingBuffer TestsMathUnicode TestsMathVar TestsMathVectors TestsMathPromise TestsMathTextWrapper TestsMathPromiseExtra)
+if(MSVC)
+  set_target_properties(TestsMath PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+endif(MSVC)
 
-# Dependencies
-foreach(exmpl ${MATH_TESTS})
-  # target_link_libraries(${exmpl} )
+if(NOT MSVC AND NOT APPLE)
+  target_link_libraries(TestsMath Threads::Threads)
+endif()
 
-  if(MSVC)
-    set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
-  endif(MSVC)
-  
-  if(NOT MSVC AND NOT APPLE)
-    target_link_libraries(${exmpl} Threads::Threads)
-  endif()
-  
-  # Compile with static stdlib ?
-  if(STATIC_STDLIB)
-    target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
-  endif(STATIC_STDLIB)
-  
-  add_test(NAME ${exmpl} COMMAND ${exmpl})
-  set_property(TARGET ${exmpl} PROPERTY FOLDER "fineframework/tests") 
-endforeach(exmpl)
+# Compile with static stdlib ?
+if(STATIC_STDLIB)
+  target_link_libraries(TestsMath -static-libgcc -static-libstdc++)
+endif(STATIC_STDLIB)
+
+add_test(NAME TestsMath COMMAND TestsMath)
+set_property(TARGET TestsMath PROPERTY FOLDER "fineframework/tests") 

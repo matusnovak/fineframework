@@ -1,5 +1,4 @@
 #include <ffw/media.h>
-#define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 
 static std::string mtl;

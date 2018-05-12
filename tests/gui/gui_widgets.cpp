@@ -1,5 +1,4 @@
 #include <ffw/gui.h>
-#define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 #include "nullrenderer.h"
 #include <list>

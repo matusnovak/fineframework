@@ -43,32 +43,5 @@ namespace ffw {
         float lastCalculatedWidth;
         std::list<Paragraph> paragraphs;
     };
-    /**
-    * @ingroup gui
-    */
-    /*class FFW_API GuiRichText : public GuiWidget {
-    public:
-        struct Style {
-            GuiWidget::Style self;
-        };
-
-        GuiRichText(GuiWindow* context);
-        virtual ~GuiRichText() = default;
-        void setText(const std::wstring& str);
-        const std::wstring getText() const;
-        ffw::Vec2f getMinimumWrapSize() override;
-        void addParagraph();
-        void addSection(const ffw::Color& color, ffw::GuiFont* font = nullptr);
-        void addSection(ffw::GuiFont* font);
-        void addSectionDefault();
-        void addText(const std::wstring& str);
-        void setStyle(const GuiRichText::Style* style, bool defaults = false);
-    private:
-        void eventRender(const ffw::Vec2f& contentoffset, const ffw::Vec2f& contentsize) override;
-        void eventSize(const ffw::Vec2f& size) override;
-        virtual void eventThemeChanged(const GuiTheme* theme, bool defaults) override;
-        GuiTextWrapper text;
-        float lastCalculatedWidth;
-    };*/
 }
 #endif

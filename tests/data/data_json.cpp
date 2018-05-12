@@ -1,8 +1,8 @@
 #include <ffw/data.h>
-#define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 #include <cstdio>
 #include <ctime>
+#include <iostream>
 
 static std::clock_t startTime, endTime;
 

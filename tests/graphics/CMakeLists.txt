@@ -7,26 +7,22 @@ if(MSVC)
 endif()
 link_directories(${CMAKE_BINARY_DIR})
 
-# All tests
-add_executable(TestsGraphics graphics.cpp)
-
-set(GRAPHICS_TESTS TestsGraphics)
+# All examples
+FILE(GLOB SOURCES *.cpp *.c)
+add_executable(TestsGraphics ${SOURCES})
 
 # Dependencies
-foreach(exmpl ${GRAPHICS_TESTS})
-  target_link_libraries(${exmpl} debug finegraphics${CMAKE_DEBUG_POSTFIX})
-  target_link_libraries(${exmpl} optimized finegraphics)
-  
-  if(MSVC)
-    set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
-  endif()
-  
-  # Compile with static stdlib ?
-  if(STATIC_STDLIB)
-    target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
-  endif(STATIC_STDLIB)
+target_link_libraries(TestsGraphics debug finegraphics${CMAKE_DEBUG_POSTFIX})
+target_link_libraries(TestsGraphics optimized finegraphics)
 
-  set_property(TARGET ${exmpl} PROPERTY FOLDER "fineframework/tests") 
-endforeach(exmpl)
+if(MSVC)
+  set_target_properties(TestsGraphics PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+endif()
+
+# Compile with static stdlib ?
+if(STATIC_STDLIB)
+  target_link_libraries(TestsGraphics -static-libgcc -static-libstdc++)
+endif(STATIC_STDLIB)
 
 add_test(NAME TestsGraphics COMMAND TestsGraphics)
+set_property(TARGET TestsGraphics PROPERTY FOLDER "fineframework/tests")

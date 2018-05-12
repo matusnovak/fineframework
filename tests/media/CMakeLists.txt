@@ -11,26 +11,21 @@ file(COPY imgs cube.mtl cube.obj cylinder.mtl cylinder.obj plane.mtl plane.obj p
 file(COPY imgs cube.mtl cube.obj cylinder.mtl cylinder.obj plane.mtl plane.obj planes.mtl planes.obj DESTINATION ${CMAKE_BINARY_DIR}/tests/media)
 
 # All examples
-add_executable(TestsMediaImages media_images.cpp)
-add_executable(TestsMediaObj media_obj.cpp)
-add_executable(TestsMediaAudio media_audio.cpp)
-
-set(MEDIA_TESTS TestsMediaImages TestsMediaObj TestsMediaAudio)
+FILE(GLOB SOURCES *.cpp *.c)
+add_executable(TestsMedia ${SOURCES})
 
 # Dependencies
-foreach(exmpl ${MEDIA_TESTS})
-  target_link_libraries(${exmpl} optimized finemedia )
-  target_link_libraries(${exmpl} debug finemedia${CMAKE_DEBUG_POSTFIX})
+target_link_libraries(TestsMedia optimized finemedia )
+target_link_libraries(TestsMedia debug finemedia${CMAKE_DEBUG_POSTFIX})
 
-  if(MSVC)
-    set_target_properties(${exmpl} PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
-  endif(MSVC)
-  
-  # Compile with static stdlib ?
-  if(STATIC_STDLIB)
-    target_link_libraries(${exmpl} -static-libgcc -static-libstdc++)
-  endif(STATIC_STDLIB)
-  
-  add_test(NAME ${exmpl} COMMAND ${exmpl})
-  set_property(TARGET ${exmpl} PROPERTY FOLDER "fineframework/tests") 
-endforeach(exmpl)
+if(MSVC)
+  set_target_properties(TestsMedia PROPERTIES LINK_FLAGS "/SUBSYSTEM:CONSOLE")
+endif(MSVC)
+
+# Compile with static stdlib ?
+if(STATIC_STDLIB)
+  target_link_libraries(TestsMedia -static-libgcc -static-libstdc++)
+endif(STATIC_STDLIB)
+
+add_test(NAME TestsMedia COMMAND TestsMedia)
+set_property(TARGET TestsMedia PROPERTY FOLDER "fineframework/tests") 

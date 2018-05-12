@@ -1,8 +1,6 @@
 #include <ffw/gui.h>
-#define CATCH_CONFIG_MAIN
 #include "../catch.hpp"
 #include "nullrenderer.h"
-
 
 ///=============================================================================
 TEST_CASE("Mouse position #1") {

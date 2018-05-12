@@ -1,7 +1,5 @@
-#include <ffw/math.h>
-#define CATCH_CONFIG_MAIN
+#include <ffw/math/stringmath.h>
 #include "../catch.hpp"
-
 
 TEST_CASE("Testing UTF8 To WSTR and back #1", "[Unicode]") {
     // Samples taken from:
@@ -184,4 +182,81 @@ TEST_CASE("Testing UTF8 To WSTR and back #18", "[Unicode]") {
     REQUIRE(ffw::utf8ToWstr(str) == wstr);
     REQUIRE(ffw::wstrToUtf8(wstr) == str);
     REQUIRE(ffw::wstrToUtf8(ffw::utf8ToWstr(str)) == str);
+}
+
+TEST_CASE("Testing string tokenizer #1", "[Math]") {
+    std::string str = "  Hello  World! This    is a  sentence...   ";
+    const auto tokens = ffw::getTokens(str, " ");
+    REQUIRE(tokens.size() == 6);
+    REQUIRE(tokens.size() == ffw::getTokensNum(str, " "));
+    REQUIRE(tokens[0] == "Hello");
+    REQUIRE(tokens[1] == "World!");
+    REQUIRE(tokens[2] == "This");
+    REQUIRE(tokens[3] == "is");
+    REQUIRE(tokens[4] == "a");
+    REQUIRE(tokens[5] == "sentence...");
+}
+
+TEST_CASE("Testing string tokenizer #2", "[Math]") {
+    std::string str = "  Hello  World! This    is a  sentence...   ";
+    const auto tokens = ffw::getTokens(str, ' ');
+    REQUIRE(tokens.size() == 6);
+    REQUIRE(tokens.size() == ffw::getTokensNum(str, ' '));
+    REQUIRE(tokens[0] == "Hello");
+    REQUIRE(tokens[1] == "World!");
+    REQUIRE(tokens[2] == "This");
+    REQUIRE(tokens[3] == "is");
+    REQUIRE(tokens[4] == "a");
+    REQUIRE(tokens[5] == "sentence...");
+}
+
+TEST_CASE("Testing string tokenizer #3", "[Math]") {
+    std::string str = " Hello  World! This is a  sentence...   ";
+    const auto tokens = ffw::getTokens(str, "  ");
+    REQUIRE(tokens.size() == 4);
+    REQUIRE(tokens.size() == ffw::getTokensNum(str, "  "));
+    REQUIRE(tokens[0] == " Hello");
+    REQUIRE(tokens[1] == "World! This is a");
+    REQUIRE(tokens[2] == "sentence...");
+    REQUIRE(tokens[3] == " ");
+}
+
+TEST_CASE("Testing string tokenizer #4", "[Math]") {
+    std::string str = " Hello  World! This is a  sentence...  ";
+    const auto tokens = ffw::getTokens(str, "  ");
+    REQUIRE(tokens.size() == 3);
+    REQUIRE(tokens.size() == ffw::getTokensNum(str, "  "));
+    REQUIRE(tokens[0] == " Hello");
+    REQUIRE(tokens[1] == "World! This is a");
+    REQUIRE(tokens[2] == "sentence...");
+}
+
+TEST_CASE("Testing string tokenizer #5", "[Math]") {
+    std::string str = "        ";
+    const auto tokens = ffw::getTokens(str, "  ");
+    REQUIRE(tokens.size() == 0);
+    REQUIRE(tokens.size() == ffw::getTokensNum(str, "  "));
+}
+
+TEST_CASE("Testing string tokenizer #6", "[Math]") {
+    std::string str = "         ";
+    const auto tokens = ffw::getTokens(str, "  ");
+    REQUIRE(tokens.size() == 1);
+    REQUIRE(tokens.size() == ffw::getTokensNum(str, "  "));
+    REQUIRE(tokens[0] == " ");
+}
+
+TEST_CASE("Testing string tokenizer #7", "[Math]") {
+    std::string str = "DELIMHelloDELIMWorldDELIMDELIMWhat";
+    const auto tokens = ffw::getTokens(str, "DELIM");
+    REQUIRE(tokens.size() == 3);
+    REQUIRE(tokens[0] == "Hello");
+    REQUIRE(tokens[1] == "World");
+    REQUIRE(tokens[2] == "What");
+}
+
+TEST_CASE("Testing string tokenizer #8", "[Math]") {
+    std::string str = "DELIMDELIMDELIMDELIMDELIMDELIMDELIM";
+    const auto tokens = ffw::getTokens(str, "DELIM");
+    REQUIRE(tokens.size() == 0);
 }

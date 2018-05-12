@@ -3,6 +3,7 @@
 #define FFW_BUFFER_OBJECT
 
 #include <vector>
+#include <cstdint>
 #include "renderextensionsgl.h"
 
 namespace ffw {

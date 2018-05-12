@@ -3,6 +3,7 @@
 #define FFW_RING_BUFFER
 #include "../config.h"
 #include <atomic>
+#include <vector>
 namespace ffw{
     /**
      * @ingroup math

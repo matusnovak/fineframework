@@ -1,5 +1,4 @@
-#include <ffw/math.h>
-#define CATCH_CONFIG_MAIN
+#include <ffw/math/ringbuffer.h>
 #include "../catch.hpp"
 
 TEST_CASE("Testing RingBuffer", "[RingBuffer]") {
