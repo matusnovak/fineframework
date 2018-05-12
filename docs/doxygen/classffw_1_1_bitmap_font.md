@@ -115,13 +115,13 @@ virtual ffw::BitmapFont::~BitmapFont ()
 
 ```cpp
 bool ffw::BitmapFont::createFromData (
-    const void * pixels
-    int width
-    int height
-    ffw::ImageType format
-    int points
-    int dpi
-    int start = 0x00
+    const void * pixels,
+    int width,
+    int height,
+    ffw::ImageType format,
+    int points,
+    int dpi,
+    int start = 0x00,
     int end = 0x7F
 )
 ```
@@ -133,10 +133,10 @@ Creates a bitmap font from raw pixels of data.
 
 ```cpp
 bool ffw::BitmapFont::createFromBuffer (
-    const ImageBuffer & buffer
-    int points
-    int dpi
-    int start = 0x00
+    const ImageBuffer & buffer,
+    int points,
+    int dpi,
+    int start = 0x00,
     int end = 0x7F
 )
 ```
@@ -179,7 +179,7 @@ Overrides **[Font::getCharIndex](classffw_1_1_font.md#1ac41292d33971a660fe9bed10
 
 ```cpp
 void ffw::BitmapFont::setCharData (
-    unsigned int chr
+    unsigned int chr,
     const Font::Char & data
 )
 ```

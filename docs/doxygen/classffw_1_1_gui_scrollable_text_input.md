@@ -203,7 +203,7 @@ Inherits the following classes: **[ffw::GuiScrollable](classffw_1_1_gui_scrollab
 
 ```cpp
 ffw::GuiScrollableTextInput::GuiScrollableTextInput (
-    GuiWindow * context
+    GuiWindow * context,
     bool editable = true
 )
 ```
@@ -282,7 +282,7 @@ bool ffw::GuiScrollableTextInput::isEmpty () const
 
 ```cpp
 void ffw::GuiScrollableTextInput::setStyle (
-    const GuiScrollableTextInput::Style * style
+    const GuiScrollableTextInput::Style * style,
     bool defaults = false
 )
 ```

@@ -59,8 +59,8 @@ Data ffw::GuiEvent::data;
 
 ```cpp
 ffw::GuiEvent::GuiEvent (
-    GuiWidget * widget
-    GuiEventType type
+    GuiWidget * widget,
+    GuiEventType type,
     Data data
 )
 ```

@@ -109,9 +109,9 @@ Generate framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addTexture (
-    GLenum attachment
-    GLuint textype
-    GLuint texture
+    GLenum attachment,
+    GLuint textype,
+    GLuint texture,
     GLint level = 0
 ) const
 ```
@@ -141,7 +141,7 @@ Attach a texture image to the framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addRenderbuffer (
-    GLenum attachment
+    GLenum attachment,
     GLuint texture
 ) const
 ```
@@ -169,7 +169,7 @@ Attach a renderbuffer object to a framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addStencilTexture (
-    const ffw::Texture2D * texture
+    const ffw::Texture2D * texture,
     const GLint level = 0
 )
 ```
@@ -210,7 +210,7 @@ Attach a stencil renderbuffer to the framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addColorTexture (
-    const ffw::Texture2D * texture
+    const ffw::Texture2D * texture,
     const GLint level = 0
 )
 ```
@@ -231,8 +231,8 @@ Attach a color texture to the framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addCubemapTexture (
-    const ffw::TextureCubemap * texture
-    const GLint side
+    const ffw::TextureCubemap * texture,
+    const GLint side,
     const GLint level = 0
 )
 ```
@@ -254,7 +254,7 @@ Attach a color cubemap texture to the framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addDepthTexture (
-    const ffw::Texture2D * texture
+    const ffw::Texture2D * texture,
     const GLint level = 0
 )
 ```
@@ -275,7 +275,7 @@ Attach a depth texture to the framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addColorTextureMS (
-    const ffw::Texture2DMS * texture
+    const ffw::Texture2DMS * texture,
     const GLint level = 0
 )
 ```
@@ -296,7 +296,7 @@ Attach a color multisample texture to the framebuffer object.
 
 ```cpp
 bool ffw::Framebuffer::addDepthTextureMS (
-    const ffw::Texture2DMS * texture
+    const ffw::Texture2DMS * texture,
     const GLint level = 0
 )
 ```

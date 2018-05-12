@@ -91,7 +91,7 @@ virtual ffw::JsonReader::~JsonReader ()
 
 ```cpp
 bool ffw::JsonReader::getNext (
-    Node * value
+    Node * value,
     Node * key
 )
 ```

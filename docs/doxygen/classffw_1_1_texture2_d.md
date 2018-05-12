@@ -147,11 +147,11 @@ virtual ffw::Texture2D::~Texture2D () = default
 
 ```cpp
 bool ffw::Texture2D::create (
-    GLsizei width
-    GLsizei height
-    GLenum internalformat
-    GLenum format
-    GLenum pixelformat
+    GLsizei width,
+    GLsizei height,
+    GLenum internalformat,
+    GLenum format,
+    GLenum pixelformat,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -183,7 +183,7 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::Texture2D::setPixels (
-    GLint level
+    GLint level,
     const GLvoid * pixels
 )
 ```
@@ -204,7 +204,7 @@ Sets the pixels of the entire texture.
 
 ```cpp
 bool ffw::Texture2D::createFromBuffer (
-    const ImageBuffer & image
+    const ImageBuffer & image,
     bool inverse = false
 )
 ```
@@ -225,8 +225,8 @@ Creates the texture using **[ImageBuffer](classffw_1_1_image_buffer.md)**.
 
 ```cpp
 bool ffw::Texture2D::resize (
-    GLsizei width
-    GLsizei height
+    GLsizei width,
+    GLsizei height,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -255,11 +255,11 @@ The format, internalformat, and pixelformat are unchanged.
 
 ```cpp
 bool ffw::Texture2D::setPixels (
-    GLint level
-    GLint xoffset
-    GLint yoffset
-    GLsizei width
-    GLsizei height
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLsizei width,
+    GLsizei height,
     const GLvoid * pixels
 )
 ```

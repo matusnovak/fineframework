@@ -197,7 +197,7 @@ virtual ffw::GuiScrollBar::ButtonTop::~ButtonTop () = default
 
 ```cpp
 void ffw::GuiScrollBar::ButtonTop::setStyle (
-    const ButtonTop::Style * style
+    const ButtonTop::Style * style,
     bool defaults = false
 )
 ```

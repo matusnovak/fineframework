@@ -111,8 +111,8 @@ ffw::Vec3::Vec3 ()
 
 ```cpp
 ffw::Vec3::Vec3 (
-    T compx
-    T compy
+    T compx,
+    T compy,
     T compz
 )
 ```
@@ -153,8 +153,8 @@ ffw::Vec3::Vec3 (
 
 ```cpp
 void ffw::Vec3::set (
-    T compx
-    T compy
+    T compx,
+    T compy,
     T compz
 )
 ```
@@ -403,7 +403,7 @@ bool ffw::Vec3::operator== (
 
 ```cpp
 ffw::Vec3< T > & ffw::Vec3::rotateByAxis (
-    double deg
+    double deg,
     Vec3< T > axis
 )
 ```
@@ -414,7 +414,7 @@ ffw::Vec3< T > & ffw::Vec3::rotateByAxis (
 
 ```cpp
 ffw::Vec3< T > & ffw::Vec3::rotateByAxisRad (
-    double rad
+    double rad,
     Vec3< T > axis
 )
 ```

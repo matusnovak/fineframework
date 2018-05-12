@@ -117,11 +117,11 @@ virtual ffw::TrueTypeFont::~TrueTypeFont ()
 
 ```cpp
 bool ffw::TrueTypeFont::createFromData (
-    const unsigned char * buffer
-    size_t length
-    int points
-    int dpi
-    int start = 0x00
+    const unsigned char * buffer,
+    size_t length,
+    int points,
+    int dpi,
+    int start = 0x00,
     int end = 0x7F
 )
 ```
@@ -132,10 +132,10 @@ bool ffw::TrueTypeFont::createFromData (
 
 ```cpp
 bool ffw::TrueTypeFont::createFromFile (
-    const std::string & path
-    int points
-    int dpi
-    int start = 0x00
+    const std::string & path,
+    int points,
+    int dpi,
+    int start = 0x00,
     int end = 0x7F
 )
 ```

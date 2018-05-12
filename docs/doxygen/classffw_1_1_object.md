@@ -255,7 +255,7 @@ virtual ffw::Object::~Object ()
 
 ```cpp
 ffw::Object::Object (
-    const std::string & key
+    const std::string & key,
     const Any & value
 )
 ```
@@ -366,7 +366,7 @@ Object & ffw::Object::operator= (
 
 ```cpp
 std::pair< iterator, bool > ffw::Object::insert (
-    const std::string & key
+    const std::string & key,
     const Any & value
 )
 ```
@@ -619,7 +619,7 @@ size_type ffw::Object::erase (
 
 ```cpp
 iterator ffw::Object::erase (
-    const_iterator first
+    const_iterator first,
     const_iterator last
 )
 ```
@@ -686,7 +686,7 @@ std::pair< iterator, bool > ffw::Object::insert (
 
 ```cpp
 iterator ffw::Object::insert (
-    const_iterator hint
+    const_iterator hint,
     const value_type & val
 )
 ```
@@ -697,7 +697,7 @@ iterator ffw::Object::insert (
 
 ```cpp
 iterator ffw::Object::insert (
-    const_iterator hint
+    const_iterator hint,
     P && val
 )
 ```
@@ -708,7 +708,7 @@ iterator ffw::Object::insert (
 
 ```cpp
 void ffw::Object::insert (
-    InputIterator first
+    InputIterator first,
     InputIterator last
 )
 ```

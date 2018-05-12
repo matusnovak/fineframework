@@ -177,7 +177,7 @@ Inherited by the following classes: **[ffw::GuiTabs::Button](classffw_1_1_gui_ta
 
 ```cpp
 ffw::GuiButtonToggle::GuiButtonToggle (
-    GuiWindow * context
+    GuiWindow * context,
     const std::string & label
 )
 ```

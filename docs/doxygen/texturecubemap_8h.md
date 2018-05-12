@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void texturecubemap.h::swap (
-    ffw::TextureCubemap & first
+    ffw::TextureCubemap & first,
     ffw::TextureCubemap & second
 )
 ```

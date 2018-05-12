@@ -259,7 +259,7 @@ virtual ffw::GLFWRenderWindow::~GLFWRenderWindow ()
 
 ```cpp
 virtual void ffw::GLFWRenderWindow::setPos (
-    int posx
+    int posx,
     int posy
 )
 ```
@@ -280,7 +280,7 @@ This function must only be called from the main thread.
 
 ```cpp
 virtual void ffw::GLFWRenderWindow::setSize (
-    int width
+    int width,
     int height
 )
 ```
@@ -321,8 +321,8 @@ Returns the size of the window's framebuffer (does not include the OS specific b
 
 ```cpp
 bool ffw::GLFWRenderWindow::create (
-    const GLFWRenderWindowArgs & args
-    GLFWRenderWindow * other
+    const GLFWRenderWindowArgs & args,
+    GLFWRenderWindow * other,
     Monitor * monitor = nullptr
 )
 ```
@@ -384,9 +384,9 @@ This function sets the window in windowed mode. This function does not update th
 
 ```cpp
 void ffw::GLFWRenderWindow::setWindowedMode (
-    int posx
-    int posy
-    int width
+    int posx,
+    int posy,
+    int width,
     int height
 ) const
 ```
@@ -746,7 +746,7 @@ Called when the user presses a key to type text (unicode only)
 
 ```cpp
 virtual void ffw::GLFWRenderWindow::keyPressedEvent (
-    ffw::Key key
+    ffw::Key key,
     ffw::Mode mode
 )
 ```
@@ -758,7 +758,7 @@ Called when the user presses a physical key.
 
 ```cpp
 virtual void ffw::GLFWRenderWindow::mouseMovedEvent (
-    int mousex
+    int mousex,
     int mousey
 )
 ```
@@ -781,7 +781,7 @@ Called when the user scrolls down or up.
 
 ```cpp
 virtual void ffw::GLFWRenderWindow::mouseButtonEvent (
-    ffw::MouseButton button
+    ffw::MouseButton button,
     ffw::Mode mode
 )
 ```
@@ -793,7 +793,7 @@ Called when the user presses a mouse button.
 
 ```cpp
 virtual void ffw::GLFWRenderWindow::windowResizedEvent (
-    int width
+    int width,
     int height
 )
 ```
@@ -805,7 +805,7 @@ Called when the window is resized to a new size.
 
 ```cpp
 virtual void ffw::GLFWRenderWindow::windowMovedEvent (
-    int posx
+    int posx,
     int posy
 )
 ```

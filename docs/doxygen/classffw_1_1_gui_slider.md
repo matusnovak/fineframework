@@ -231,7 +231,7 @@ ffw::Vec2<GuiUnits> ffw::GuiSlider::barSize;
 
 ```cpp
 ffw::GuiSlider::GuiSlider (
-    GuiWindow * context
+    GuiWindow * context,
     bool vertical
 )
 ```
@@ -302,7 +302,7 @@ const ffw::Vec2f & ffw::GuiSlider::getRange () const
 
 ```cpp
 void ffw::GuiSlider::setRange (
-    float min
+    float min,
     float max
 )
 ```
@@ -394,7 +394,7 @@ const GuiWidget::Style * ffw::GuiSlider::getButtonStyleGroup () const
 
 ```cpp
 void ffw::GuiSlider::setStyle (
-    const GuiSlider::Style * style
+    const GuiSlider::Style * style,
     bool defaults = false
 )
 ```

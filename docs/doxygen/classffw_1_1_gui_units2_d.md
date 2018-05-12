@@ -92,7 +92,7 @@ ffw::GuiUnits2D::GuiUnits2D ()
 
 ```cpp
 ffw::GuiUnits2D::GuiUnits2D (
-    const GuiUnits x
+    const GuiUnits x,
     const GuiUnits y
 )
 ```

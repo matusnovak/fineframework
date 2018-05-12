@@ -68,9 +68,9 @@ ffw::GuiStyle::Attribute::Attribute (
 
 ```cpp
 ffw::GuiStyle::Attribute::Attribute (
-    T top
-    T right
-    T bottom
+    T top,
+    T right,
+    T bottom,
     T left
 )
 ```
@@ -153,7 +153,7 @@ bool ffw::GuiStyle::Attribute::operator!= (
 
 ```cpp
 friend std::ostream & operator<< (
-    std::ostream & os
+    std::ostream & os,
     const Attribute & a
 )
 ```

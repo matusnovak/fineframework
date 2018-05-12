@@ -325,8 +325,8 @@ Make sure to use 0xRRGGBB formula. For example, using 0xFF00 in this function wo
 
 ```cpp
 Color math::rgb (
-    unsigned char Red
-    unsigned char Green
+    unsigned char Red,
+    unsigned char Green,
     unsigned char Blue
 )
 ```
@@ -358,9 +358,9 @@ Make sure to use 0xRRGGBBAA formula. For example, using 0xFF0080 in this functio
 
 ```cpp
 Color math::rgba (
-    unsigned char Red
-    unsigned char Green
-    unsigned char Blue
+    unsigned char Red,
+    unsigned char Green,
+    unsigned char Blue,
     unsigned char Alpha
 )
 ```
@@ -395,7 +395,7 @@ Clamps a color between 0.0 and 1.0 values returning a copy (won't modify the ori
 
 ```cpp
 std::ostream & math::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Color & color
 )
 ```
@@ -406,8 +406,8 @@ std::ostream & math::operator<< (
 
 ```cpp
 T math::clamp (
-    T Val
-    T Min
+    T Val,
+    T Min,
     T Max
 )
 ```
@@ -418,8 +418,8 @@ T math::clamp (
 
 ```cpp
 T math::lerp (
-    const T & a
-    const T & b
+    const T & a,
+    const T & b,
     float w
 )
 ```
@@ -450,10 +450,10 @@ T math::degrees (
 
 ```cpp
 T math::remap (
-    T value
-    T InMin
-    T InMax
-    T OutMin
+    T value,
+    T InMin,
+    T InMax,
+    T OutMin,
     T OutMax
 )
 ```
@@ -504,9 +504,9 @@ unsigned long long math::byteSwap64 (
 
 ```cpp
 ffw::Vec4< T > math::containImage (
-    T imgwidth
-    T imgheight
-    T maxwidth
+    T imgwidth,
+    T imgheight,
+    T maxwidth,
     T maxheight
 )
 ```
@@ -517,9 +517,9 @@ ffw::Vec4< T > math::containImage (
 
 ```cpp
 ffw::Vec4< T > math::coverImage (
-    T imgwidth
-    T imgheight
-    T maxwidth
+    T imgwidth,
+    T imgheight,
+    T maxwidth,
     T maxheight
 )
 ```
@@ -550,9 +550,9 @@ ffw::Mat4x4< T > math::getRotationMatrix (
 
 ```cpp
 Mat4x4< T > math::makeProjectionMatrix (
-    T FieldOfView
-    T Aspect
-    T Near
+    T FieldOfView,
+    T Aspect,
+    T Near,
     T Far
 )
 ```
@@ -563,8 +563,8 @@ Mat4x4< T > math::makeProjectionMatrix (
 
 ```cpp
 Mat4x4< T > math::makeLookAtMatrix (
-    const Vec3< T > & Eyes
-    const Vec3< T > & Target
+    const Vec3< T > & Eyes,
+    const Vec3< T > & Target,
     const Vec3< T > & UpVector
 )
 ```
@@ -575,8 +575,8 @@ Mat4x4< T > math::makeLookAtMatrix (
 
 ```cpp
 Mat4x4< T > math::makeFpsCameraMatrix (
-    const Vec3< T > & Eyes
-    float Pitch
+    const Vec3< T > & Eyes,
+    float Pitch,
     float Yaw
 )
 ```
@@ -587,11 +587,11 @@ Mat4x4< T > math::makeFpsCameraMatrix (
 
 ```cpp
 Mat4x4< T > math::makeOrthoMatrix (
-    T left
-    T right
-    T bottom
-    T top
-    T znear
+    T left,
+    T right,
+    T bottom,
+    T top,
+    T znear,
     T zfar
 )
 ```
@@ -612,7 +612,7 @@ ffw::Quat< T > math::normalize (
 
 ```cpp
 std::ostream & math::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Quat< T > & quat
 )
 ```
@@ -761,7 +761,7 @@ std::string math::valToString (
 
 ```cpp
 std::string math::valToString (
-    T Value
+    T Value,
     unsigned int Dec
 )
 ```
@@ -792,8 +792,8 @@ std::string math::valToHex (
 
 ```cpp
 size_t math::getTokensFunc (
-    std::vector< std::basic_string< T, CharTrait, Allocator >> * vec
-    const std::basic_string< T, CharTrait, Allocator > & str
+    std::vector< std::basic_string< T, CharTrait, Allocator >> * vec,
+    const std::basic_string< T, CharTrait, Allocator > & str,
     const std::basic_string< T, CharTrait, Allocator > & delim
 )
 ```
@@ -804,7 +804,7 @@ size_t math::getTokensFunc (
 
 ```cpp
 std::vector< std::string > math::getTokens (
-    const std::string & str
+    const std::string & str,
     const std::string & delim
 )
 ```
@@ -815,7 +815,7 @@ std::vector< std::string > math::getTokens (
 
 ```cpp
 std::vector< std::string > math::getTokens (
-    const std::string & str
+    const std::string & str,
     char delim
 )
 ```
@@ -826,7 +826,7 @@ std::vector< std::string > math::getTokens (
 
 ```cpp
 std::vector< std::wstring > math::getTokens (
-    const std::wstring & str
+    const std::wstring & str,
     const std::wstring & delim
 )
 ```
@@ -837,7 +837,7 @@ std::vector< std::wstring > math::getTokens (
 
 ```cpp
 std::vector< std::wstring > math::getTokens (
-    const std::wstring & str
+    const std::wstring & str,
     wchar_t delim
 )
 ```
@@ -848,7 +848,7 @@ std::vector< std::wstring > math::getTokens (
 
 ```cpp
 size_t math::getTokensNum (
-    const std::string & str
+    const std::string & str,
     const std::string & delim
 )
 ```
@@ -859,7 +859,7 @@ size_t math::getTokensNum (
 
 ```cpp
 size_t math::getTokensNum (
-    const std::string & str
+    const std::string & str,
     char delim
 )
 ```
@@ -870,7 +870,7 @@ size_t math::getTokensNum (
 
 ```cpp
 size_t math::getTokensNum (
-    const std::wstring & str
+    const std::wstring & str,
     const std::wstring & delim
 )
 ```
@@ -881,7 +881,7 @@ size_t math::getTokensNum (
 
 ```cpp
 size_t math::getTokensNum (
-    const std::wstring & str
+    const std::wstring & str,
     wchar_t delim
 )
 ```
@@ -1012,7 +1012,7 @@ std::wstring math::valToWstring (
 
 ```cpp
 std::wstring math::valToWstring (
-    T Value
+    T Value,
     unsigned int Dec
 )
 ```
@@ -1023,7 +1023,7 @@ std::wstring math::valToWstring (
 
 ```cpp
 uint32_t math::getNextChar (
-    const T *& it
+    const T *& it,
     const T * end
 )
 ```
@@ -1034,7 +1034,7 @@ uint32_t math::getNextChar (
 
 ```cpp
 uint32_t math::getNextChar (
-    const char *& it
+    const char *& it,
     const char * end
 )
 ```
@@ -1045,7 +1045,7 @@ uint32_t math::getNextChar (
 
 ```cpp
 uint32_t math::getNextChar (
-    const wchar_t *& it
+    const wchar_t *& it,
     const wchar_t * end
 )
 ```
@@ -1056,7 +1056,7 @@ uint32_t math::getNextChar (
 
 ```cpp
 T math::dot (
-    const ffw::Vec2< T > & V1
+    const ffw::Vec2< T > & V1,
     const ffw::Vec2< T > & V2
 )
 ```
@@ -1067,7 +1067,7 @@ T math::dot (
 
 ```cpp
 T math::distance (
-    const Vec2< T > & v1
+    const Vec2< T > & v1,
     const Vec2< T > & v2
 )
 ```
@@ -1078,7 +1078,7 @@ T math::distance (
 
 ```cpp
 Vec2< T > math::middle (
-    const Vec2< T > & v1
+    const Vec2< T > & v1,
     const Vec2< T > & v2
 )
 ```
@@ -1099,7 +1099,7 @@ ffw::Vec2< T > math::normalize (
 
 ```cpp
 double math::angle (
-    const ffw::Vec2< T > & V1
+    const ffw::Vec2< T > & V1,
     const ffw::Vec2< T > & V2
 )
 ```
@@ -1110,7 +1110,7 @@ double math::angle (
 
 ```cpp
 double math::angleRad (
-    const ffw::Vec2< T > & V1
+    const ffw::Vec2< T > & V1,
     const ffw::Vec2< T > & V2
 )
 ```
@@ -1121,7 +1121,7 @@ double math::angleRad (
 
 ```cpp
 std::ostream & math::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec2< T > & vec
 )
 ```
@@ -1132,7 +1132,7 @@ std::ostream & math::operator<< (
 
 ```cpp
 T math::dot (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1143,7 +1143,7 @@ T math::dot (
 
 ```cpp
 ffw::Vec3< T > math::cross (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1154,7 +1154,7 @@ ffw::Vec3< T > math::cross (
 
 ```cpp
 T math::distance (
-    const Vec3< T > & v1
+    const Vec3< T > & v1,
     const Vec3< T > & v2
 )
 ```
@@ -1165,7 +1165,7 @@ T math::distance (
 
 ```cpp
 Vec3< T > math::middle (
-    const Vec3< T > & v1
+    const Vec3< T > & v1,
     const Vec3< T > & v2
 )
 ```
@@ -1186,7 +1186,7 @@ ffw::Vec3< T > math::normalize (
 
 ```cpp
 double math::angle (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1197,7 +1197,7 @@ double math::angle (
 
 ```cpp
 double math::angleRad (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1208,7 +1208,7 @@ double math::angleRad (
 
 ```cpp
 std::ostream & math::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec3< T > & vec
 )
 ```
@@ -1219,7 +1219,7 @@ std::ostream & math::operator<< (
 
 ```cpp
 T math::dot (
-    const ffw::Vec4< T > & V1
+    const ffw::Vec4< T > & V1,
     const ffw::Vec4< T > & V2
 )
 ```
@@ -1230,7 +1230,7 @@ T math::dot (
 
 ```cpp
 T math::distance (
-    const Vec4< T > & v1
+    const Vec4< T > & v1,
     const Vec4< T > & v2
 )
 ```
@@ -1241,7 +1241,7 @@ T math::distance (
 
 ```cpp
 Vec4< T > math::middle (
-    const Vec4< T > & v1
+    const Vec4< T > & v1,
     const Vec4< T > & v2
 )
 ```
@@ -1262,7 +1262,7 @@ ffw::Vec4< T > math::normalize (
 
 ```cpp
 std::ostream & math::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec4< T > & vec
 )
 ```
@@ -1273,7 +1273,7 @@ std::ostream & math::operator<< (
 
 ```cpp
 T math::dot (
-    const ffw::Vec< T, S > & V1
+    const ffw::Vec< T, S > & V1,
     const ffw::Vec< T, S > & V2
 )
 ```
@@ -1284,7 +1284,7 @@ T math::dot (
 
 ```cpp
 T math::distance (
-    const Vec< T, S > & v1
+    const Vec< T, S > & v1,
     const Vec< T, S > & v2
 )
 ```
@@ -1295,7 +1295,7 @@ T math::distance (
 
 ```cpp
 Vec< T, S > math::middle (
-    const Vec< T, S > & v1
+    const Vec< T, S > & v1,
     const Vec< T, S > & v2
 )
 ```
@@ -1316,7 +1316,7 @@ ffw::Vec< T, S > math::normalize (
 
 ```cpp
 std::ostream & math::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec< T, S > & vec
 )
 ```

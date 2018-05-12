@@ -60,10 +60,10 @@ ImageReader * media::openImageReader (
 
 ```cpp
 ImageWriter * media::openImageWriter (
-    const std::string & path
-    int width
-    int height
-    ffw::ImageType type
+    const std::string & path,
+    int width,
+    int height,
+    ffw::ImageType type,
     int quality = 100
 )
 ```
@@ -74,11 +74,11 @@ ImageWriter * media::openImageWriter (
 
 ```cpp
 bool media::readImage (
-    const std::string & path
-    void ** dest
-    int * width
-    int * height
-    ffw::ImageType * format
+    const std::string & path,
+    void ** dest,
+    int * width,
+    int * height,
+    ffw::ImageType * format,
     int * mips = NULL
 )
 ```
@@ -89,12 +89,12 @@ bool media::readImage (
 
 ```cpp
 bool media::writeImage (
-    const std::string & path
-    const void * src
-    int width
-    int height
-    ffw::ImageType format
-    int quality = 100
+    const std::string & path,
+    const void * src,
+    int width,
+    int height,
+    ffw::ImageType format,
+    int quality = 100,
     int mips = 1
 )
 ```
@@ -105,7 +105,7 @@ bool media::writeImage (
 
 ```cpp
 bool media::readImage (
-    const std::string & path
+    const std::string & path,
     ffw::ImageBuffer & image
 )
 ```
@@ -116,8 +116,8 @@ bool media::readImage (
 
 ```cpp
 bool media::writeImage (
-    const std::string & path
-    const ffw::ImageBuffer & image
+    const std::string & path,
+    const ffw::ImageBuffer & image,
     int quality = 100
 )
 ```
@@ -128,8 +128,8 @@ bool media::writeImage (
 
 ```cpp
 bool media::readObj (
-    const std::string & path
-    float ** vertices
+    const std::string & path,
+    float ** vertices,
     unsigned int * numVertices
 )
 ```

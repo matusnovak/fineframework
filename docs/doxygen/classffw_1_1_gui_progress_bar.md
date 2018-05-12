@@ -252,7 +252,7 @@ const GuiWidget::Style * ffw::GuiProgressBar::getInnerStyleGroup () const
 
 ```cpp
 void ffw::GuiProgressBar::setStyle (
-    const GuiProgressBar::Style * style
+    const GuiProgressBar::Style * style,
     bool defaults = false
 )
 ```

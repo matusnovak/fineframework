@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void bmpsaver.h::swap (
-    ffw::BmpSaver & first
+    ffw::BmpSaver & first,
     ffw::BmpSaver & second
 )
 ```

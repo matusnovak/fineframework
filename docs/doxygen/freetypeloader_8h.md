@@ -26,7 +26,7 @@ search: false
 
 ```cpp
 void freetypeloader.h::swap (
-    ffw::FreeTypeLoader & first
+    ffw::FreeTypeLoader & first,
     ffw::FreeTypeLoader & second
 )
 ```

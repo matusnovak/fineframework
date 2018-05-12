@@ -143,11 +143,11 @@ virtual ffw::TextureCubemap::~TextureCubemap () = default
 
 ```cpp
 bool ffw::TextureCubemap::create (
-    GLsizei width
-    GLsizei height
-    GLenum internalformat
-    GLenum format
-    GLenum pixelformat
+    GLsizei width,
+    GLsizei height,
+    GLenum internalformat,
+    GLenum format,
+    GLenum pixelformat,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -179,7 +179,7 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::TextureCubemap::resize (
-    GLsizei width
+    GLsizei width,
     GLsizei height
 )
 ```
@@ -207,12 +207,12 @@ The format, internalformat, and pixelformat are unchanged. The pixels are not se
 
 ```cpp
 bool ffw::TextureCubemap::setPixels (
-    GLint level
-    GLint xoffset
-    GLint yoffset
-    GLsizei width
-    GLsizei height
-    GLint side
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLsizei width,
+    GLsizei height,
+    GLint side,
     const GLvoid * pixels
 )
 ```
@@ -233,8 +233,8 @@ The side parameter corresponds to which side should be set. The accepted values 
 
 ```cpp
 bool ffw::TextureCubemap::setPixels (
-    GLint level
-    GLint side
+    GLint level,
+    GLint side,
     const GLvoid * pixels
 )
 ```
@@ -256,8 +256,8 @@ Sets the pixels of the entire texture.
 
 ```cpp
 bool ffw::TextureCubemap::setFromBuffer (
-    const ImageBuffer & image
-    GLint side
+    const ImageBuffer & image,
+    GLint side,
     bool inverse = false
 )
 ```

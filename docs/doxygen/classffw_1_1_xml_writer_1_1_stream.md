@@ -21,7 +21,7 @@ Inherited by the following classes: **[ffw::XmlWriter::FileStream](classffw_1_1_
 
 ```cpp
 virtual bool ffw::XmlWriter::Stream::write (
-    const char * str
+    const char * str,
     size_t len
 ) = 0
 ```

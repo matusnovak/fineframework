@@ -160,11 +160,11 @@ virtual ffw::DdsSaver::~DdsSaver ()
 
 ```cpp
 virtual bool ffw::DdsSaver::open (
-    const std::string & path
-    int width
-    int height
-    ffw::ImageType type
-    int quality = 100
+    const std::string & path,
+    int width,
+    int height,
+    ffw::ImageType type,
+    int quality = 100,
     int mips = 1
 )
 ```

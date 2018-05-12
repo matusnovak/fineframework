@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void texture2dms.h::swap (
-    ffw::Texture2DMS & first
+    ffw::Texture2DMS & first,
     ffw::Texture2DMS & second
 )
 ```

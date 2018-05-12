@@ -309,7 +309,7 @@ const Any & ffw::Array::operator[] (
 
 ```cpp
 void ffw::Array::assign (
-    It first
+    It first,
     It last
 )
 ```
@@ -320,7 +320,7 @@ void ffw::Array::assign (
 
 ```cpp
 void ffw::Array::assign (
-    size_type n
+    size_type n,
     const Any & value
 )
 ```
@@ -481,7 +481,7 @@ iterator ffw::Array::erase (
 
 ```cpp
 iterator ffw::Array::erase (
-    iterator first
+    iterator first,
     iterator last
 )
 ```
@@ -516,7 +516,7 @@ allocator_type ffw::Array::get_allocator () const
 
 ```cpp
 iterator ffw::Array::insert (
-    iterator position
+    iterator position,
     const value_type & val
 )
 ```
@@ -527,8 +527,8 @@ iterator ffw::Array::insert (
 
 ```cpp
 void ffw::Array::insert (
-    iterator position
-    size_type n
+    iterator position,
+    size_type n,
     const value_type & val
 )
 ```
@@ -539,8 +539,8 @@ void ffw::Array::insert (
 
 ```cpp
 void ffw::Array::insert (
-    iterator position
-    InputIterator first
+    iterator position,
+    InputIterator first,
     InputIterator last
 )
 ```
@@ -619,7 +619,7 @@ void ffw::Array::reserve (
 
 ```cpp
 void ffw::Array::resize (
-    size_type n
+    size_type n,
     value_type val = value_type()
 )
 ```

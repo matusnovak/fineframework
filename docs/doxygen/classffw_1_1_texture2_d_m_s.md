@@ -139,9 +139,9 @@ virtual ffw::Texture2DMS::~Texture2DMS () = default
 
 ```cpp
 bool ffw::Texture2DMS::create (
-    GLsizei width
-    GLsizei height
-    GLenum internalformat
+    GLsizei width,
+    GLsizei height,
+    GLenum internalformat,
     GLint samples
 )
 ```
@@ -171,8 +171,8 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::Texture2DMS::resize (
-    GLsizei width
-    GLsizei height
+    GLsizei width,
+    GLsizei height,
     GLint samples
 )
 ```

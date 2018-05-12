@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void framebuffer.h::swap (
-    ffw::Framebuffer & first
+    ffw::Framebuffer & first,
     ffw::Framebuffer & second
 )
 ```

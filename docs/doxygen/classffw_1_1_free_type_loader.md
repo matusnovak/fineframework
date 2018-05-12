@@ -75,7 +75,7 @@ virtual ffw::FreeTypeLoader::~FreeTypeLoader ()
 
 ```cpp
 bool ffw::FreeTypeLoader::createFromData (
-    const unsigned char * buffer
+    const unsigned char * buffer,
     size_t length
 )
 ```
@@ -96,7 +96,7 @@ bool ffw::FreeTypeLoader::createFromFile (
 
 ```cpp
 bool ffw::FreeTypeLoader::setSize (
-    int points
+    int points,
     int dpi
 )
 ```

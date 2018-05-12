@@ -51,8 +51,8 @@ ffw::CsvLoader::~CsvLoader ()
 
 ```cpp
 bool ffw::CsvLoader::openFromData (
-    const std::string & input
-    char delim = ','
+    const std::string & input,
+    char delim = ',',
     char quote = '\"'
 )
 ```
@@ -72,8 +72,8 @@ Returns true on success
 
 ```cpp
 bool ffw::CsvLoader::openFromFile (
-    const std::string & path
-    char delim = ','
+    const std::string & path,
+    char delim = ',',
     char quote = '\"'
 )
 ```
@@ -129,11 +129,11 @@ bool ffw::CsvLoader::eof () const
 
 ```cpp
 static ffw::Array ffw::CsvLoader::tokenize (
-    const std::string & str
-    size_t begin
-    size_t end
-    bool convert = true
-    char delim = ','
+    const std::string & str,
+    size_t begin,
+    size_t end,
+    bool convert = true,
+    char delim = ',',
     char quote = '\"'
 )
 ```

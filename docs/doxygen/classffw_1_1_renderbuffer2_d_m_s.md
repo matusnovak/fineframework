@@ -76,9 +76,9 @@ virtual ffw::Renderbuffer2DMS::~Renderbuffer2DMS () = default
 
 ```cpp
 bool ffw::Renderbuffer2DMS::create (
-    GLsizei width
-    GLsizei height
-    GLenum internalformat
+    GLsizei width,
+    GLsizei height,
+    GLenum internalformat,
     GLint samples
 )
 ```
@@ -89,8 +89,8 @@ bool ffw::Renderbuffer2DMS::create (
 
 ```cpp
 bool ffw::Renderbuffer2DMS::resize (
-    GLsizei width
-    GLsizei height
+    GLsizei width,
+    GLsizei height,
     GLint samples
 )
 ```

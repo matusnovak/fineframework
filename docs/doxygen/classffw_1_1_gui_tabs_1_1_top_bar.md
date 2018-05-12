@@ -201,7 +201,7 @@ virtual ffw::GuiTabs::TopBar::~TopBar () = default
 
 ```cpp
 void ffw::GuiTabs::TopBar::setStyle (
-    const TopBar::Style * style
+    const TopBar::Style * style,
     bool defaults = false
 )
 ```

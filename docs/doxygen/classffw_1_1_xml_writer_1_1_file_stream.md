@@ -25,7 +25,7 @@ Inherits the following classes: **[ffw::XmlWriter::Stream](classffw_1_1_xml_writ
 
 ```cpp
 ffw::XmlWriter::FileStream::FileStream (
-    const std::string & path
+    const std::string & path,
     std::ios_base::openmode mode
 )
 ```
@@ -60,7 +60,7 @@ void ffw::XmlWriter::FileStream::close ()
 
 ```cpp
 virtual bool ffw::XmlWriter::FileStream::write (
-    const char * in
+    const char * in,
     size_t len
 )
 ```

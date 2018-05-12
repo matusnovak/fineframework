@@ -54,9 +54,9 @@ GuiEventType ffw::GuiCallback::type;
 
 ```cpp
 static GuiCallback ffw::GuiCallback::make (
-    void(T::*)(GuiEvent) memfuncptr
-    T * instance
-    GuiEventType type = GuiEventType::ALL
+    void(T::*)(GuiEvent) memfuncptr,
+    T * instance,
+    GuiEventType type = GuiEventType::ALL,
     bool instant = false
 )
 ```
@@ -67,8 +67,8 @@ static GuiCallback ffw::GuiCallback::make (
 
 ```cpp
 static GuiCallback ffw::GuiCallback::make (
-    const std::function< void(GuiEvent)> & function
-    GuiEventType type = GuiEventType::ALL
+    const std::function< void(GuiEvent)> & function,
+    GuiEventType type = GuiEventType::ALL,
     bool instant = false
 )
 ```
@@ -79,8 +79,8 @@ static GuiCallback ffw::GuiCallback::make (
 
 ```cpp
 static GuiCallback ffw::GuiCallback::make (
-    const F & lambda
-    GuiEventType type = GuiEventType::ALL
+    const F & lambda,
+    GuiEventType type = GuiEventType::ALL,
     bool instant = false
 )
 ```

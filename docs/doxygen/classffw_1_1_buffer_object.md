@@ -164,8 +164,8 @@ Returns true if the object has been allocated.
 
 ```cpp
 bool ffw::BufferObject::create (
-    const GLvoid * data
-    GLsizei size
+    const GLvoid * data,
+    GLsizei size,
     GLenum type
 )
 ```
@@ -187,7 +187,7 @@ Allocates the buffer and copies the data.
 
 ```cpp
 bool ffw::BufferObject::resize (
-    const GLvoid * data
+    const GLvoid * data,
     GLsizei size
 )
 ```
@@ -208,8 +208,8 @@ Resizes the buffer and copies the data.
 
 ```cpp
 bool ffw::BufferObject::setData (
-    const GLvoid * data
-    GLsizei offset
+    const GLvoid * data,
+    GLsizei offset,
     GLsizei size
 )
 ```
@@ -231,7 +231,7 @@ Updates a subset of the buffer with data.
 
 ```cpp
 bool ffw::BufferObject::mapBuffer (
-    GLvoid ** pointer
+    GLvoid ** pointer,
     GLenum access
 ) const
 ```
@@ -252,9 +252,9 @@ Map all of a buffer object's data store into the client's address space.
 
 ```cpp
 bool ffw::BufferObject::mapBufferRange (
-    GLvoid ** pointer
-    GLsizei offset
-    GLsizei size
+    GLvoid ** pointer,
+    GLsizei offset,
+    GLsizei size,
     GLenum access
 ) const
 ```
@@ -277,7 +277,7 @@ Map all or part of a buffer object's data store into the client's address space.
 
 ```cpp
 bool ffw::BufferObject::flushMappedBufferRange (
-    GLsizei offset
+    GLsizei offset,
     GLsizei size
 ) const
 ```
@@ -370,9 +370,9 @@ Returns the object type of the buffer specified during the constructor.
 
 ```cpp
 bool ffw::BufferObject::copyFrom (
-    const BufferObject * other
-    GLintptr readoffset
-    GLintptr writeoffset
+    const BufferObject * other,
+    GLintptr readoffset,
+    GLintptr writeoffset,
     GLsizeiptr size
 )
 ```
@@ -395,8 +395,8 @@ Copy all or part of the data store of a buffer object to the data store of anoth
 
 ```cpp
 bool ffw::BufferObject::getData (
-    GLvoid * data
-    GLsizei offset
+    GLvoid * data,
+    GLsizei offset,
     GLsizei size
 )
 ```
@@ -418,7 +418,7 @@ Reads a subset of a buffer object's data store.
 
 ```cpp
 std::vector< uint8_t > ffw::BufferObject::getData (
-    GLsizei offset
+    GLsizei offset,
     GLsizei size
 )
 ```

@@ -235,7 +235,7 @@ float ffw::GuiProgressCircle::getThickness () const
 
 ```cpp
 void ffw::GuiProgressCircle::setStyle (
-    const GuiProgressCircle::Style * style
+    const GuiProgressCircle::Style * style,
     bool defaults = false
 )
 ```

@@ -27,7 +27,7 @@ search: false
 
 ```cpp
 void shader.h::swap (
-    ffw::Shader & first
+    ffw::Shader & first,
     ffw::Shader & second
 )
 ```

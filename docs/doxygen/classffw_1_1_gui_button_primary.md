@@ -183,7 +183,7 @@ Inherited by the following classes: **[ffw::GuiButtonTogglePrimary](classffw_1_1
 
 ```cpp
 ffw::GuiButtonPrimary::GuiButtonPrimary (
-    GuiWindow * context
+    GuiWindow * context,
     const std::string & label
 )
 ```
@@ -202,7 +202,7 @@ virtual ffw::GuiButtonPrimary::~GuiButtonPrimary () = default
 
 ```cpp
 void ffw::GuiButtonPrimary::setStyle (
-    const GuiButtonPrimary::Style * style
+    const GuiButtonPrimary::Style * style,
     bool defaults = false
 )
 ```

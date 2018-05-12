@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void tgaloader.h::swap (
-    ffw::TgaLoader & first
+    ffw::TgaLoader & first,
     ffw::TgaLoader & second
 )
 ```

@@ -26,7 +26,7 @@ search: false
 
 ```cpp
 void imagebuffer.h::swap (
-    ffw::ImageBuffer & first
+    ffw::ImageBuffer & first,
     ffw::ImageBuffer & second
 )
 ```

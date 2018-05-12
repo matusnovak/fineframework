@@ -141,7 +141,7 @@ virtual void ffw::GuiWindowOpenGL::destroy ()
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::resize (
-    int width
+    int width,
     int height
 )
 ```
@@ -153,9 +153,9 @@ Overrides **[GuiBackend::resize](classffw_1_1_gui_backend.md#1af2497bddcba3d8ff9
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawBackground (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
-    const ffw::GuiStyle::Background & background
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
+    const ffw::GuiStyle::Background & background,
     bool ignore
 ) const
 ```
@@ -167,8 +167,8 @@ Overrides **[GuiBackend::drawBackground](classffw_1_1_gui_backend.md#1a2263692d0
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawBorder (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
     const ffw::GuiStyle::Border & border
 ) const
 ```
@@ -180,8 +180,8 @@ Overrides **[GuiBackend::drawBorder](classffw_1_1_gui_backend.md#1ac27fbd05605bf
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawRectangle (
-    const ffw::Vec2f & p
-    const ffw::Vec2f & s
+    const ffw::Vec2f & p,
+    const ffw::Vec2f & s,
     const ffw::Color & color
 ) const
 ```
@@ -193,12 +193,12 @@ Overrides **[GuiBackend::drawRectangle](classffw_1_1_gui_backend.md#1ac0e6c85a64
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawRectangleRounded (
-    const ffw::Vec2f & p
-    const ffw::Vec2f & s
-    const ffw::Color & color
-    float tl
-    float tr
-    float br
+    const ffw::Vec2f & p,
+    const ffw::Vec2f & s,
+    const ffw::Color & color,
+    float tl,
+    float tr,
+    float br,
     float bl
 ) const
 ```
@@ -210,9 +210,9 @@ Overrides **[GuiBackend::drawRectangleRounded](classffw_1_1_gui_backend.md#1aa38
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawLine (
-    const ffw::Vec2f & start
-    const ffw::Vec2f & end
-    const ffw::Color & color
+    const ffw::Vec2f & start,
+    const ffw::Vec2f & end,
+    const ffw::Color & color,
     float width
 ) const
 ```
@@ -224,8 +224,8 @@ Overrides **[GuiBackend::drawLine](classffw_1_1_gui_backend.md#1a35a502ee6bfc87c
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawCircle (
-    const ffw::Vec2f & p
-    float radius
+    const ffw::Vec2f & p,
+    float radius,
     const ffw::Color & color
 ) const
 ```
@@ -237,11 +237,11 @@ Overrides **[GuiBackend::drawCircle](classffw_1_1_gui_backend.md#1a5f9716be2ca6c
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawArc (
-    const ffw::Vec2f & p
-    float inner
-    float outer
-    float start
-    float end
+    const ffw::Vec2f & p,
+    float inner,
+    float outer,
+    float start,
+    float end,
     const ffw::Color & color
 ) const
 ```
@@ -253,10 +253,10 @@ Overrides **[GuiBackend::drawArc](classffw_1_1_gui_backend.md#1a0972ad84af1761a9
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawQuad (
-    const ffw::Vec2f & p0
-    const ffw::Vec2f & p1
-    const ffw::Vec2f & p2
-    const ffw::Vec2f & p3
+    const ffw::Vec2f & p0,
+    const ffw::Vec2f & p1,
+    const ffw::Vec2f & p2,
+    const ffw::Vec2f & p3,
     const ffw::Color & color
 ) const
 ```
@@ -268,11 +268,11 @@ Overrides **[GuiBackend::drawQuad](classffw_1_1_gui_backend.md#1a085e50da7e2417c
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawString (
-    const ffw::Vec2f & p
-    const ffw::GuiFont * font
-    const std::string::value_type * str
-    size_t length
-    const ffw::Color & color
+    const ffw::Vec2f & p,
+    const ffw::GuiFont * font,
+    const std::string::value_type * str,
+    size_t length,
+    const ffw::Color & color,
     float lineHeight = 1.25f
 ) const
 ```
@@ -284,9 +284,9 @@ Overrides **[GuiBackend::drawString](classffw_1_1_gui_backend.md#1a4131f21a340d0
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawTriangle (
-    const ffw::Vec2f & p0
-    const ffw::Vec2f & p1
-    const ffw::Vec2f & p2
+    const ffw::Vec2f & p0,
+    const ffw::Vec2f & p1,
+    const ffw::Vec2f & p2,
     const ffw::Color & color
 ) const
 ```
@@ -298,12 +298,12 @@ Overrides **[GuiBackend::drawTriangle](classffw_1_1_gui_backend.md#1a8c4e05f163c
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::drawImage (
-    const ffw::Vec2f & p
-    const ffw::Vec2f & s
-    const GuiImage * image
-    const ffw::Vec4i & sub
-    bool mirrorX
-    bool mirrorY
+    const ffw::Vec2f & p,
+    const ffw::Vec2f & s,
+    const GuiImage * image,
+    const ffw::Vec4i & sub,
+    bool mirrorX,
+    bool mirrorY,
     const ffw::Color & color
 ) const
 ```
@@ -333,7 +333,7 @@ Overrides **[GuiBackend::endRender](classffw_1_1_gui_backend.md#1a26d844c1babfea
 
 ```cpp
 virtual void ffw::GuiWindowOpenGL::setScissors (
-    const ffw::Vec2f & p
+    const ffw::Vec2f & p,
     const ffw::Vec2f & s
 ) const
 ```

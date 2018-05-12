@@ -139,10 +139,10 @@ virtual ffw::Texture2DArrayMS::~Texture2DArrayMS () = default
 
 ```cpp
 bool ffw::Texture2DArrayMS::create (
-    GLsizei width
-    GLsizei height
-    GLsizei layers
-    GLenum internalformat
+    GLsizei width,
+    GLsizei height,
+    GLsizei layers,
+    GLenum internalformat,
     GLint samples
 )
 ```
@@ -173,9 +173,9 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::Texture2DArrayMS::resize (
-    GLsizei width
-    GLsizei height
-    GLsizei layers
+    GLsizei width,
+    GLsizei height,
+    GLsizei layers,
     GLint samples
 )
 ```

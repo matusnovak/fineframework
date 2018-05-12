@@ -176,7 +176,7 @@ Inherits the following classes: **[ffw::GuiWidget](classffw_1_1_gui_widget.md)**
 
 ```cpp
 ffw::GuiImageViewer::GuiImageViewer (
-    GuiWindow * context
+    GuiWindow * context,
     const GuiImage * image
 )
 ```
@@ -205,9 +205,9 @@ void ffw::GuiImageViewer::setImage (
 
 ```cpp
 void ffw::GuiImageViewer::setSubsection (
-    int posx
-    int posy
-    int width
+    int posx,
+    int posy,
+    int width,
     int height
 )
 ```
@@ -218,7 +218,7 @@ void ffw::GuiImageViewer::setSubsection (
 
 ```cpp
 void ffw::GuiImageViewer::setMirror (
-    bool mirrorX
+    bool mirrorX,
     bool mirrorY
 )
 ```
@@ -280,7 +280,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 void ffw::GuiImageViewer::setStyle (
-    const GuiImageViewer::Style * style
+    const GuiImageViewer::Style * style,
     bool defaults = false
 )
 ```

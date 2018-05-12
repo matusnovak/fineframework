@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void tifloader.h::swap (
-    ffw::TifLoader & first
+    ffw::TifLoader & first,
     ffw::TifLoader & second
 )
 ```

@@ -200,8 +200,8 @@ Paragraph * ffw::GuiText::addParagraph (
 
 ```cpp
 Paragraph * ffw::GuiText::addParagraph (
-    const std::string & text
-    const Color & color
+    const std::string & text,
+    const Color & color,
     const GuiFont * font
 )
 ```
@@ -220,7 +220,7 @@ const std::list< Paragraph > & ffw::GuiText::getParagraphs () const
 
 ```cpp
 void ffw::GuiText::setStyle (
-    const GuiText::Style * style
+    const GuiText::Style * style,
     bool defaults = false
 )
 ```

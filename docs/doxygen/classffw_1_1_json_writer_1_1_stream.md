@@ -21,7 +21,7 @@ Inherited by the following classes: **[ffw::JsonWriter::FileStream](classffw_1_1
 
 ```cpp
 virtual bool ffw::JsonWriter::Stream::write (
-    const char * str
+    const char * str,
     size_t len
 ) = 0
 ```

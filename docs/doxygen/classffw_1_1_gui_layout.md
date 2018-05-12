@@ -178,7 +178,7 @@ Inherited by the following classes: **[ffw::GuiBody](classffw_1_1_gui_body.md)**
 
 ```cpp
 ffw::GuiLayout::GuiLayout (
-    GuiWindow * context
+    GuiWindow * context,
     GuiOrientation orientation
 )
 ```
@@ -207,7 +207,7 @@ GuiWidget * ffw::GuiLayout::addWidget (
 
 ```cpp
 GuiWidget * ffw::GuiLayout::addWidgetAfter (
-    const GuiWidget * previous
+    const GuiWidget * previous,
     GuiWidget * widget
 )
 ```
@@ -218,7 +218,7 @@ GuiWidget * ffw::GuiLayout::addWidgetAfter (
 
 ```cpp
 GuiWidget * ffw::GuiLayout::addWidgetBefore (
-    const GuiWidget * next
+    const GuiWidget * next,
     GuiWidget * widget
 )
 ```
@@ -266,7 +266,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 void ffw::GuiLayout::setStyle (
-    const GuiLayout::Style * style
+    const GuiLayout::Style * style,
     bool defaults = false
 )
 ```

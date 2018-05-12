@@ -202,9 +202,9 @@ Inherited by the following classes: **[ffw::GuiList](classffw_1_1_gui_list.md)**
 
 ```cpp
 ffw::GuiScrollableLayout::GuiScrollableLayout (
-    GuiWindow * context
-    GuiOrientation orientation
-    bool hori
+    GuiWindow * context,
+    GuiOrientation orientation,
+    bool hori,
     bool vert
 )
 ```
@@ -239,7 +239,7 @@ const GuiLayout * ffw::GuiScrollableLayout::getInner () const
 
 ```cpp
 virtual void ffw::GuiScrollableLayout::eventThemeChanged (
-    const GuiTheme * theme
+    const GuiTheme * theme,
     bool defaults
 )
 ```
@@ -251,7 +251,7 @@ Overrides **[GuiScrollable::eventThemeChanged](classffw_1_1_gui_scrollable.md#1a
 
 ```cpp
 void ffw::GuiScrollableLayout::setStyle (
-    const GuiScrollableLayout::Style * style
+    const GuiScrollableLayout::Style * style,
     bool defaults = false
 )
 ```

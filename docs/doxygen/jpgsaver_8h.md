@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void jpgsaver.h::swap (
-    ffw::JpgSaver & first
+    ffw::JpgSaver & first,
     ffw::JpgSaver & second
 )
 ```

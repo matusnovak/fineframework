@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void bitmapfont.h::swap (
-    ffw::BitmapFont & first
+    ffw::BitmapFont & first,
     ffw::BitmapFont & second
 )
 ```

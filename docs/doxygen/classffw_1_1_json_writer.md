@@ -38,8 +38,8 @@ doc/markdown/tutorial-json.md
 
 ```cpp
 ffw::JsonWriter::JsonWriter (
-    Stream * stream
-    const char * indent = NULL
+    Stream * stream,
+    const char * indent = NULL,
     bool escape = true
 )
 ```
@@ -86,7 +86,7 @@ void ffw::JsonWriter::stepOut ()
 
 ```cpp
 void ffw::JsonWriter::addInteger (
-    int val
+    int val,
     const char * key = NULL
 )
 ```
@@ -97,7 +97,7 @@ void ffw::JsonWriter::addInteger (
 
 ```cpp
 void ffw::JsonWriter::addString (
-    const char * val
+    const char * val,
     const char * key = NULL
 )
 ```
@@ -108,7 +108,7 @@ void ffw::JsonWriter::addString (
 
 ```cpp
 void ffw::JsonWriter::addBoolean (
-    bool val
+    bool val,
     const char * key = NULL
 )
 ```
@@ -119,7 +119,7 @@ void ffw::JsonWriter::addBoolean (
 
 ```cpp
 void ffw::JsonWriter::addFloat (
-    float val
+    float val,
     const char * key = NULL
 )
 ```

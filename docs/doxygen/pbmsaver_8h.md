@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void pbmsaver.h::swap (
-    ffw::PbmSaver & first
+    ffw::PbmSaver & first,
     ffw::PbmSaver & second
 )
 ```

@@ -40,7 +40,7 @@ virtual ffw::JsonWriter::StringStream::~StringStream ()
 
 ```cpp
 virtual bool ffw::JsonWriter::StringStream::write (
-    const char * in
+    const char * in,
     size_t len
 )
 ```

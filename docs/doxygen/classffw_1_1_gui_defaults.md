@@ -71,9 +71,9 @@ ffw::GuiDefaults::GuiDefaults ()
 
 ```cpp
 ffw::GuiDefaults::GuiDefaults (
-    const GuiStyle::Margin & m
-    const GuiStyle::Padding & p
-    GuiAlign a
+    const GuiStyle::Margin & m,
+    const GuiStyle::Padding & p,
+    GuiAlign a,
     const GuiUnits2D & s
 )
 ```
@@ -84,9 +84,9 @@ ffw::GuiDefaults::GuiDefaults (
 
 ```cpp
 ffw::GuiDefaults::GuiDefaults (
-    float m
-    float p
-    GuiAlign a
+    float m,
+    float p,
+    GuiAlign a,
     const GuiUnits2D & s
 )
 ```

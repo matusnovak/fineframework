@@ -174,8 +174,8 @@ Inherits the following classes: **[ffw::GuiWidget](classffw_1_1_gui_widget.md)**
 
 ```cpp
 ffw::GuiBox::GuiBox (
-    GuiWindow * context
-    const std::string & label
+    GuiWindow * context,
+    const std::string & label,
     GuiOrientation orient
 )
 ```
@@ -194,7 +194,7 @@ virtual ffw::GuiBox::~GuiBox () = default
 
 ```cpp
 virtual void ffw::GuiBox::eventRender (
-    const ffw::Vec2f & contentoffset
+    const ffw::Vec2f & contentoffset,
     const ffw::Vec2f & contentsize
 )
 ```
@@ -276,7 +276,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 void ffw::GuiBox::setStyle (
-    const GuiBox::Style * style
+    const GuiBox::Style * style,
     bool defaults = false
 )
 ```

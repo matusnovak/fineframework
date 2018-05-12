@@ -190,8 +190,8 @@ Inherits the following classes: **[ffw::GuiButtonToggle](classffw_1_1_gui_button
 
 ```cpp
 ffw::GuiTabs::Button::Button (
-    GuiWindow * context
-    const std::string & label
+    GuiWindow * context,
+    const std::string & label,
     GuiWidget * targetWidget
 )
 ```
@@ -210,7 +210,7 @@ virtual ffw::GuiTabs::Button::~Button () = default
 
 ```cpp
 void ffw::GuiTabs::Button::setStyle (
-    const Button::Style * style
+    const Button::Style * style,
     bool defaults = false
 )
 ```

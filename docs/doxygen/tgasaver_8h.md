@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void tgasaver.h::swap (
-    ffw::TgaSaver & first
+    ffw::TgaSaver & first,
     ffw::TgaSaver & second
 )
 ```

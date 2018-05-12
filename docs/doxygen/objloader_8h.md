@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void objloader.h::swap (
-    ffw::ObjLoader & first
+    ffw::ObjLoader & first,
     ffw::ObjLoader & second
 )
 ```

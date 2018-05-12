@@ -183,7 +183,7 @@ Inherits the following classes: **[ffw::GuiLayout](classffw_1_1_gui_layout.md)**
 
 ```cpp
 ffw::GuiBody::GuiBody (
-    GuiWindow * context
+    GuiWindow * context,
     GuiOrientation orient
 )
 ```
@@ -202,7 +202,7 @@ virtual ffw::GuiBody::~GuiBody () = default
 
 ```cpp
 void ffw::GuiBody::setStyle (
-    const GuiBody::Style * style
+    const GuiBody::Style * style,
     bool defaults = false
 )
 ```

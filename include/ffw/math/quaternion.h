@@ -2,6 +2,7 @@
 #ifndef FFW_Quat
 #define FFW_Quat
 
+#include "../config.h"
 #include <ostream>
 #include <sstream>
 #include <cmath>

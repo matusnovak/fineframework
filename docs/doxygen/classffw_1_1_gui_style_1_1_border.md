@@ -97,8 +97,8 @@ ffw::GuiStyle::Border::Border ()
 
 ```cpp
 ffw::GuiStyle::Border::Border (
-    const Attribute< float > & s
-    const Attribute< float > & r
+    const Attribute< float > & s,
+    const Attribute< float > & r,
     const Attribute< ffw::Color > & c
 )
 ```

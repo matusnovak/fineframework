@@ -73,7 +73,7 @@ ffw::Array data::decodeCsv (
 
 ```cpp
 bool data::stringContainsWhitespace (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -84,7 +84,7 @@ bool data::stringContainsWhitespace (
 
 ```cpp
 bool data::stringisInteger (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -95,7 +95,7 @@ bool data::stringisInteger (
 
 ```cpp
 bool data::stringisFloat (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -106,7 +106,7 @@ bool data::stringisFloat (
 
 ```cpp
 bool data::stringisBool (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -147,8 +147,8 @@ ffw::Any data::decodeJsonFile (
 
 ```cpp
 std::string data::encodeJson (
-    const ffw::Any & input
-    const char * indent = NULL
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```
@@ -159,9 +159,9 @@ std::string data::encodeJson (
 
 ```cpp
 bool data::encodeJsonFile (
-    const std::string & path
-    const ffw::Any & input
-    const char * indent = NULL
+    const std::string & path,
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```
@@ -202,8 +202,8 @@ ffw::Any data::decodeXmlFile (
 
 ```cpp
 std::string data::encodeXml (
-    const ffw::Any & input
-    const char * indent = NULL
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```
@@ -214,9 +214,9 @@ std::string data::encodeXml (
 
 ```cpp
 bool data::encodeXmlFile (
-    const std::string & path
-    const ffw::Any & input
-    const char * indent = NULL
+    const std::string & path,
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```

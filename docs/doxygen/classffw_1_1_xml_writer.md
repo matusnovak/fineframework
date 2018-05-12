@@ -38,8 +38,8 @@ doc/markdown/tutorial-xml.md
 
 ```cpp
 ffw::XmlWriter::XmlWriter (
-    Stream * stream
-    const char * indent = NULL
+    Stream * stream,
+    const char * indent = NULL,
     bool escape = true
 )
 ```
@@ -84,7 +84,7 @@ void ffw::XmlWriter::beginContent ()
 
 ```cpp
 void ffw::XmlWriter::addInteger (
-    int val
+    int val,
     const char * key
 )
 ```
@@ -95,7 +95,7 @@ void ffw::XmlWriter::addInteger (
 
 ```cpp
 void ffw::XmlWriter::addString (
-    const char * val
+    const char * val,
     const char * key
 )
 ```
@@ -106,7 +106,7 @@ void ffw::XmlWriter::addString (
 
 ```cpp
 void ffw::XmlWriter::addBoolean (
-    bool val
+    bool val,
     const char * key
 )
 ```
@@ -117,7 +117,7 @@ void ffw::XmlWriter::addBoolean (
 
 ```cpp
 void ffw::XmlWriter::addFloat (
-    float val
+    float val,
     const char * key
 )
 ```

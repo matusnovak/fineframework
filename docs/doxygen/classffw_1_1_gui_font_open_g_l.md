@@ -106,8 +106,8 @@ Overrides **[GuiFont::destroy](classffw_1_1_gui_font.md#1a369b27c53668d94f73e99e
 
 ```cpp
 virtual ffw::Vec2f ffw::GuiFontOpenGL::getStringSize (
-    const std::string & str
-    float maxWidth
+    const std::string & str,
+    float maxWidth,
     float lineHeight = 1.25
 ) const
 ```

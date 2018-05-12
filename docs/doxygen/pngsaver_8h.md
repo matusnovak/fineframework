@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void pngsaver.h::swap (
-    ffw::PngSaver & first
+    ffw::PngSaver & first,
     ffw::PngSaver & second
 )
 ```

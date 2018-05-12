@@ -54,7 +54,7 @@ bool ffw::Framebuffer::create(){
 bool ffw::Framebuffer::addTexture(const GLenum attachment, const GLuint textype, 
     const GLuint texture, const GLint level) const {
 
-    if (!created || texture == NULL)return false;
+    if (!created || texture == 0)return false;
 
     bind();
     glFramebufferTexture2D(GL_FRAMEBUFFER, attachment, textype, texture, level);
@@ -64,7 +64,7 @@ bool ffw::Framebuffer::addTexture(const GLenum attachment, const GLuint textype,
 
 ///=============================================================================
 bool ffw::Framebuffer::addRenderbuffer(const GLenum attachment, const GLuint texture) const {
-    if (!created || texture == NULL)return false;
+    if (!created || texture == 0)return false;
 
     bind();
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, attachment, GL_RENDERBUFFER, texture);

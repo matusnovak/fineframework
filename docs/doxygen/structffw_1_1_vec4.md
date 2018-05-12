@@ -111,9 +111,9 @@ ffw::Vec4::Vec4 ()
 
 ```cpp
 ffw::Vec4::Vec4 (
-    T compx
-    T compy
-    T compz
+    T compx,
+    T compy,
+    T compz,
     T compw
 )
 ```
@@ -154,9 +154,9 @@ ffw::Vec4::Vec4 (
 
 ```cpp
 void ffw::Vec4::set (
-    T compx
-    T compy
-    T compz
+    T compx,
+    T compy,
+    T compz,
     T compw
 )
 ```

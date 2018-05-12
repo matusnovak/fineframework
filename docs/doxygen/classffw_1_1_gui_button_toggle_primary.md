@@ -182,7 +182,7 @@ Inherits the following classes: **[ffw::GuiButtonPrimary](classffw_1_1_gui_butto
 
 ```cpp
 ffw::GuiButtonTogglePrimary::GuiButtonTogglePrimary (
-    GuiWindow * context
+    GuiWindow * context,
     const std::string & label
 )
 ```

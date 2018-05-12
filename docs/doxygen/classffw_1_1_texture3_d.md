@@ -142,12 +142,12 @@ virtual ffw::Texture3D::~Texture3D () = default
 
 ```cpp
 bool ffw::Texture3D::create (
-    GLsizei width
-    GLsizei height
-    GLsizei depth
-    GLenum internalformat
-    GLenum format
-    GLenum pixelformat
+    GLsizei width,
+    GLsizei height,
+    GLsizei depth,
+    GLenum internalformat,
+    GLenum format,
+    GLenum pixelformat,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -180,9 +180,9 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::Texture3D::resize (
-    GLsizei width
-    GLsizei height
-    GLsizei depth
+    GLsizei width,
+    GLsizei height,
+    GLsizei depth,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -212,13 +212,13 @@ The format, internalformat, and pixelformat are unchanged.
 
 ```cpp
 bool ffw::Texture3D::setPixels (
-    GLint level
-    GLint xoffset
-    GLint yoffset
-    GLint zoffset
-    GLsizei width
-    GLsizei height
-    GLsizei depth
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLint zoffset,
+    GLsizei width,
+    GLsizei height,
+    GLsizei depth,
     const GLvoid * pixels
 )
 ```
@@ -245,7 +245,7 @@ Sets the pixels of the texture section.
 
 ```cpp
 bool ffw::Texture3D::setPixels (
-    GLint level
+    GLint level,
     const GLvoid * pixels
 )
 ```

@@ -22,7 +22,7 @@ search: false
 
 ```cpp
 ffw::Tokenizer::Tokenizer (
-    const std::basic_string< T, CharTrait, Allocator > & str
+    const std::basic_string< T, CharTrait, Allocator > & str,
     const std::basic_string< T, CharTrait, Allocator > & delim
 )
 ```

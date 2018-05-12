@@ -62,8 +62,8 @@ ffw::OpenGLImageType::OpenGLImageType ()
 
 ```cpp
 ffw::OpenGLImageType::OpenGLImageType (
-    const GLint inter
-    const GLenum form
+    const GLint inter,
+    const GLenum form,
     const GLenum typ
 )
 ```

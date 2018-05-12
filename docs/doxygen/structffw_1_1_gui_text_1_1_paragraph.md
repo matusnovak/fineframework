@@ -61,9 +61,9 @@ ffw::Vec2f ffw::GuiText::Paragraph::size;
 
 ```cpp
 ffw::GuiText::Paragraph::Paragraph (
-    const GuiFont * font
-    const Color & color
-    const std::string & str
+    const GuiFont * font,
+    const Color & color,
+    const std::string & str,
     const ffw::Vec2f & size
 )
 ```

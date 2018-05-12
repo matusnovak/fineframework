@@ -40,7 +40,7 @@ virtual ffw::XmlWriter::StringStream::~StringStream ()
 
 ```cpp
 virtual bool ffw::XmlWriter::StringStream::write (
-    const char * in
+    const char * in,
     size_t len
 )
 ```

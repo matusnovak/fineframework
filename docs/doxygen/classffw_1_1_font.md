@@ -200,8 +200,8 @@ virtual int ffw::Font::getCharIndex (
 
 ```cpp
 virtual ffw::Vec2f ffw::Font::getStringSize (
-    const std::string & str
-    float maxWidth = -1.0f
+    const std::string & str,
+    float maxWidth = -1.0f,
     float lineHeight = 1.25f
 ) const
 ```
@@ -212,8 +212,8 @@ virtual ffw::Vec2f ffw::Font::getStringSize (
 
 ```cpp
 virtual ffw::Vec2f ffw::Font::getStringSize (
-    const std::wstring & str
-    float maxWidth = -1.0f
+    const std::wstring & str,
+    float maxWidth = -1.0f,
     float lineHeight = 1.25f
 ) const
 ```
@@ -302,8 +302,8 @@ bool ffw::Font::isAlphaOnly () const
 
 ```cpp
 ffw::Vec2f ffw::Font::getStringSizeFunc (
-    const std::basic_string< T > & str
-    float maxWidth = -1.0f
+    const std::basic_string< T > & str,
+    float maxWidth = -1.0f,
     float lineHeight = 1.25f
 ) const
 ```

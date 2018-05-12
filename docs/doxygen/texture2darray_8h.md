@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void texture2darray.h::swap (
-    ffw::Texture2DArray & first
+    ffw::Texture2DArray & first,
     ffw::Texture2DArray & second
 )
 ```

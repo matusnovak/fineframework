@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 ffw::TextWrapper::TextWrapper (
-    const T * start
+    const T * start,
     const T * end
 )
 ```
@@ -36,7 +36,7 @@ ffw::TextWrapper::TextWrapper (
 
 ```cpp
 Token ffw::TextWrapper::next (
-    FONT * font
+    FONT * font,
     float maxWidth
 )
 ```

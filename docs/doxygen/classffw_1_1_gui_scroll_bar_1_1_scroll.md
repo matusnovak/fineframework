@@ -202,7 +202,7 @@ Inherits the following classes: **[ffw::GuiSlider](classffw_1_1_gui_slider.md)**
 
 ```cpp
 ffw::GuiScrollBar::Scroll::Scroll (
-    GuiWindow * context
+    GuiWindow * context,
     bool vertical
 )
 ```
@@ -221,7 +221,7 @@ virtual ffw::GuiScrollBar::Scroll::~Scroll () = default
 
 ```cpp
 void ffw::GuiScrollBar::Scroll::setStyle (
-    const Scroll::Style * style
+    const Scroll::Style * style,
     bool defaults = false
 )
 ```

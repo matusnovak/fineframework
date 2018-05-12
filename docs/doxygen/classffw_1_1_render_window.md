@@ -46,7 +46,7 @@ virtual ffw::RenderWindow::~RenderWindow () = default
 
 ```cpp
 virtual void ffw::RenderWindow::setPos (
-    int posx
+    int posx,
     int posy
 ) = 0
 ```
@@ -58,7 +58,7 @@ Sets the position of the window.
 
 ```cpp
 virtual void ffw::RenderWindow::setSize (
-    int width
+    int width,
     int height
 ) = 0
 ```

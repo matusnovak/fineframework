@@ -307,7 +307,7 @@ int ffw::GuiList::getSelectedIndex () const
 
 ```cpp
 void ffw::GuiList::setStyle (
-    const GuiList::Style * style
+    const GuiList::Style * style,
     bool defaults = false
 )
 ```

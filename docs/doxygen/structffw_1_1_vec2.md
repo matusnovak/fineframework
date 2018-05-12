@@ -95,7 +95,7 @@ ffw::Vec2::Vec2 ()
 
 ```cpp
 ffw::Vec2::Vec2 (
-    T compx
+    T compx,
     T compy
 )
 ```
@@ -136,7 +136,7 @@ ffw::Vec2::Vec2 (
 
 ```cpp
 void ffw::Vec2::set (
-    T compx
+    T compx,
     T compy
 )
 ```

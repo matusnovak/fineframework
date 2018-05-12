@@ -195,7 +195,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 void ffw::GuiCheckbox::Button::setStyle (
-    const Button::Style * style
+    const Button::Style * style,
     bool defaults = false
 )
 ```

@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void renderbuffer2d.h::swap (
-    ffw::Renderbuffer2D & first
+    ffw::Renderbuffer2D & first,
     ffw::Renderbuffer2D & second
 )
 ```

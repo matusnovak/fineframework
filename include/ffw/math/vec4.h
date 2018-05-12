@@ -2,6 +2,7 @@
 #ifndef FFW_VEC4
 #define FFW_VEC4
 
+#include "../config.h"
 #include <ostream>
 #include <limits>
 #include <cmath>

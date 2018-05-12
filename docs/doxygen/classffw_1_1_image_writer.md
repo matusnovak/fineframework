@@ -133,11 +133,11 @@ virtual ffw::ImageWriter::~ImageWriter ()
 
 ```cpp
 virtual bool ffw::ImageWriter::open (
-    const std::string & path
-    int width
-    int height
-    ffw::ImageType type
-    int quality = 100
+    const std::string & path,
+    int width,
+    int height,
+    ffw::ImageType type,
+    int quality = 100,
     int mips = 1
 ) = 0
 ```

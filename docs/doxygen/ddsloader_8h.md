@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void ddsloader.h::swap (
-    ffw::DdsLoader & first
+    ffw::DdsLoader & first,
     ffw::DdsLoader & second
 )
 ```

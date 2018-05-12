@@ -37,7 +37,7 @@ Inherited by the following classes: **[ffw::GuiWindow](classffw_1_1_gui_window.m
 
 ```cpp
 virtual void ffw::GuiBackend::resize (
-    int width
+    int width,
     int height
 ) = 0
 ```
@@ -64,7 +64,7 @@ virtual void ffw::GuiBackend::endRender () = 0
 
 ```cpp
 virtual void ffw::GuiBackend::setScissors (
-    const ffw::Vec2f & pos
+    const ffw::Vec2f & pos,
     const ffw::Vec2f & size
 ) const = 0
 ```
@@ -85,8 +85,8 @@ virtual void ffw::GuiBackend::clearWithColor (
 
 ```cpp
 virtual void ffw::GuiBackend::drawRectangle (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
     const ffw::Color & color
 ) const = 0
 ```
@@ -97,12 +97,12 @@ virtual void ffw::GuiBackend::drawRectangle (
 
 ```cpp
 virtual void ffw::GuiBackend::drawRectangleRounded (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
-    const ffw::Color & color
-    float tl
-    float tr
-    float br
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
+    const ffw::Color & color,
+    float tl,
+    float tr,
+    float br,
     float bl
 ) const = 0
 ```
@@ -113,9 +113,9 @@ virtual void ffw::GuiBackend::drawRectangleRounded (
 
 ```cpp
 virtual void ffw::GuiBackend::drawLine (
-    const ffw::Vec2f & start
-    const ffw::Vec2f & end
-    const ffw::Color & color
+    const ffw::Vec2f & start,
+    const ffw::Vec2f & end,
+    const ffw::Color & color,
     float width = 1.0f
 ) const = 0
 ```
@@ -126,8 +126,8 @@ virtual void ffw::GuiBackend::drawLine (
 
 ```cpp
 virtual void ffw::GuiBackend::drawCircle (
-    const ffw::Vec2f & pos
-    float radius
+    const ffw::Vec2f & pos,
+    float radius,
     const ffw::Color & color
 ) const = 0
 ```
@@ -138,11 +138,11 @@ virtual void ffw::GuiBackend::drawCircle (
 
 ```cpp
 virtual void ffw::GuiBackend::drawArc (
-    const ffw::Vec2f & pos
-    float inner
-    float outer
-    float start
-    float end
+    const ffw::Vec2f & pos,
+    float inner,
+    float outer,
+    float start,
+    float end,
     const ffw::Color & color
 ) const = 0
 ```
@@ -153,10 +153,10 @@ virtual void ffw::GuiBackend::drawArc (
 
 ```cpp
 virtual void ffw::GuiBackend::drawQuad (
-    const ffw::Vec2f & p0
-    const ffw::Vec2f & p1
-    const ffw::Vec2f & p2
-    const ffw::Vec2f & p3
+    const ffw::Vec2f & p0,
+    const ffw::Vec2f & p1,
+    const ffw::Vec2f & p2,
+    const ffw::Vec2f & p3,
     const ffw::Color & color
 ) const = 0
 ```
@@ -167,11 +167,11 @@ virtual void ffw::GuiBackend::drawQuad (
 
 ```cpp
 virtual void ffw::GuiBackend::drawString (
-    const ffw::Vec2f & pos
-    const ffw::GuiFont * font
-    const std::string::value_type * str
-    size_t length
-    const ffw::Color & color
+    const ffw::Vec2f & pos,
+    const ffw::GuiFont * font,
+    const std::string::value_type * str,
+    size_t length,
+    const ffw::Color & color,
     float lineHeight = 1.25f
 ) const = 0
 ```
@@ -182,9 +182,9 @@ virtual void ffw::GuiBackend::drawString (
 
 ```cpp
 virtual void ffw::GuiBackend::drawTriangle (
-    const ffw::Vec2f & p0
-    const ffw::Vec2f & p1
-    const ffw::Vec2f & p2
+    const ffw::Vec2f & p0,
+    const ffw::Vec2f & p1,
+    const ffw::Vec2f & p2,
     const ffw::Color & color
 ) const = 0
 ```
@@ -195,12 +195,12 @@ virtual void ffw::GuiBackend::drawTriangle (
 
 ```cpp
 virtual void ffw::GuiBackend::drawImage (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
-    const GuiImage * image
-    const ffw::Vec4i & sub
-    bool mirrorX
-    bool mirrorY
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
+    const GuiImage * image,
+    const ffw::Vec4i & sub,
+    bool mirrorX,
+    bool mirrorY,
     const ffw::Color & color
 ) const = 0
 ```
@@ -211,9 +211,9 @@ virtual void ffw::GuiBackend::drawImage (
 
 ```cpp
 virtual void ffw::GuiBackend::drawBackground (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
-    const ffw::GuiStyle::Background & background
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
+    const ffw::GuiStyle::Background & background,
     bool ignore = false
 ) const = 0
 ```
@@ -224,8 +224,8 @@ virtual void ffw::GuiBackend::drawBackground (
 
 ```cpp
 virtual void ffw::GuiBackend::drawBorder (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
     const ffw::GuiStyle::Border & border
 ) const = 0
 ```
@@ -236,12 +236,12 @@ virtual void ffw::GuiBackend::drawBorder (
 
 ```cpp
 virtual void ffw::GuiBackend::drawStringAligned (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
-    const ffw::GuiFont * font
-    ffw::GuiAlign align
-    const std::string & str
-    const ffw::GuiStyle::Text & text
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
+    const ffw::GuiFont * font,
+    ffw::GuiAlign align,
+    const std::string & str,
+    const ffw::GuiStyle::Text & text,
     float lineHeight = 1.25f
 ) const
 ```

@@ -197,7 +197,7 @@ virtual ffw::GuiScrollBar::ButtonLeft::~ButtonLeft () = default
 
 ```cpp
 void ffw::GuiScrollBar::ButtonLeft::setStyle (
-    const ButtonLeft::Style * style
+    const ButtonLeft::Style * style,
     bool defaults = false
 )
 ```

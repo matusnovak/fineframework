@@ -548,7 +548,7 @@ p.rejectWith<std::runtime_exception>("Hello!");
 
 ```cpp
 Promise< R > & ffw::Promise::thenOrFail (
-    Then const & lambdaThen
+    Then const & lambdaThen,
     Fail const & lambdaFail
 )
 ```

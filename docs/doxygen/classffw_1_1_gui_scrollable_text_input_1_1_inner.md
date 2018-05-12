@@ -197,7 +197,7 @@ Inherits the following classes: **[ffw::GuiTextInput](classffw_1_1_gui_text_inpu
 
 ```cpp
 ffw::GuiScrollableTextInput::Inner::Inner (
-    GuiWindow * context
+    GuiWindow * context,
     bool editable
 )
 ```
@@ -216,7 +216,7 @@ virtual ffw::GuiScrollableTextInput::Inner::~Inner () = default
 
 ```cpp
 void ffw::GuiScrollableTextInput::Inner::setStyle (
-    const Inner::Style * style
+    const Inner::Style * style,
     bool defaults = false
 )
 ```

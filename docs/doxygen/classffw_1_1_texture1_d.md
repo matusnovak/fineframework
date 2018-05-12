@@ -143,10 +143,10 @@ virtual ffw::Texture1D::~Texture1D () = default
 
 ```cpp
 bool ffw::Texture1D::create (
-    GLsizei width
-    GLenum internalformat
-    GLenum format
-    GLenum pixelformat
+    GLsizei width,
+    GLenum internalformat,
+    GLenum format,
+    GLenum pixelformat,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -177,7 +177,7 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::Texture1D::resize (
-    GLsizei width
+    GLsizei width,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -224,7 +224,7 @@ The width of the buffer will be used to resize the texture. The buffer must be a
 
 ```cpp
 bool ffw::Texture1D::setPixels (
-    GLint level
+    GLint level,
     const GLvoid * pixels
 )
 ```
@@ -245,9 +245,9 @@ Sets the pixels of the entire texture.
 
 ```cpp
 bool ffw::Texture1D::setPixels (
-    GLint level
-    GLint xoffset
-    GLsizei width
+    GLint level,
+    GLint xoffset,
+    GLsizei width,
     const GLvoid * pixels
 )
 ```

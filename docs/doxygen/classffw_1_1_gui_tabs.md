@@ -202,7 +202,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 GuiTabs::Button * ffw::GuiTabs::addTab (
-    GuiTabs::Button * button
+    GuiTabs::Button * button,
     GuiWidget * widget
 )
 ```
@@ -213,7 +213,7 @@ GuiTabs::Button * ffw::GuiTabs::addTab (
 
 ```cpp
 GuiTabs::Button * ffw::GuiTabs::addTab (
-    const std::string & label
+    const std::string & label,
     GuiWidget * widget
 )
 ```
@@ -244,7 +244,7 @@ void ffw::GuiTabs::showTabByWidget (
 
 ```cpp
 void ffw::GuiTabs::setStyle (
-    const GuiTabs::Style * style
+    const GuiTabs::Style * style,
     bool defaults = false
 )
 ```

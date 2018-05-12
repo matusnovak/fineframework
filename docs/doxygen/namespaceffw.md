@@ -842,7 +842,7 @@ ffw::Array ffw::decodeCsv (
 
 ```cpp
 bool ffw::stringContainsWhitespace (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -853,7 +853,7 @@ bool ffw::stringContainsWhitespace (
 
 ```cpp
 bool ffw::stringisInteger (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -864,7 +864,7 @@ bool ffw::stringisInteger (
 
 ```cpp
 bool ffw::stringisFloat (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -875,7 +875,7 @@ bool ffw::stringisFloat (
 
 ```cpp
 bool ffw::stringisBool (
-    std::string::const_iterator begin
+    std::string::const_iterator begin,
     std::string::const_iterator end
 )
 ```
@@ -916,8 +916,8 @@ ffw::Any ffw::decodeJsonFile (
 
 ```cpp
 std::string ffw::encodeJson (
-    const ffw::Any & input
-    const char * indent = NULL
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```
@@ -928,9 +928,9 @@ std::string ffw::encodeJson (
 
 ```cpp
 bool ffw::encodeJsonFile (
-    const std::string & path
-    const ffw::Any & input
-    const char * indent = NULL
+    const std::string & path,
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```
@@ -971,8 +971,8 @@ ffw::Any ffw::decodeXmlFile (
 
 ```cpp
 std::string ffw::encodeXml (
-    const ffw::Any & input
-    const char * indent = NULL
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```
@@ -983,9 +983,9 @@ std::string ffw::encodeXml (
 
 ```cpp
 bool ffw::encodeXmlFile (
-    const std::string & path
-    const ffw::Any & input
-    const char * indent = NULL
+    const std::string & path,
+    const ffw::Any & input,
+    const char * indent = NULL,
     bool escape = false
 )
 ```
@@ -1016,7 +1016,7 @@ void ffw::loadGlCoreArb (
 
 ```cpp
 bool ffw::operator== (
-    float left
+    float left,
     const GuiUnits & right
 )
 ```
@@ -1027,7 +1027,7 @@ bool ffw::operator== (
 
 ```cpp
 bool ffw::operator!= (
-    float left
+    float left,
     const GuiUnits & right
 )
 ```
@@ -1085,8 +1085,8 @@ Make sure to use 0xRRGGBB formula. For example, using 0xFF00 in this function wo
 
 ```cpp
 Color ffw::rgb (
-    unsigned char Red
-    unsigned char Green
+    unsigned char Red,
+    unsigned char Green,
     unsigned char Blue
 )
 ```
@@ -1118,9 +1118,9 @@ Make sure to use 0xRRGGBBAA formula. For example, using 0xFF0080 in this functio
 
 ```cpp
 Color ffw::rgba (
-    unsigned char Red
-    unsigned char Green
-    unsigned char Blue
+    unsigned char Red,
+    unsigned char Green,
+    unsigned char Blue,
     unsigned char Alpha
 )
 ```
@@ -1155,7 +1155,7 @@ Clamps a color between 0.0 and 1.0 values returning a copy (won't modify the ori
 
 ```cpp
 std::ostream & ffw::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Color & color
 )
 ```
@@ -1166,8 +1166,8 @@ std::ostream & ffw::operator<< (
 
 ```cpp
 T ffw::clamp (
-    T Val
-    T Min
+    T Val,
+    T Min,
     T Max
 )
 ```
@@ -1178,8 +1178,8 @@ T ffw::clamp (
 
 ```cpp
 T ffw::lerp (
-    const T & a
-    const T & b
+    const T & a,
+    const T & b,
     float w
 )
 ```
@@ -1210,10 +1210,10 @@ T ffw::degrees (
 
 ```cpp
 T ffw::remap (
-    T value
-    T InMin
-    T InMax
-    T OutMin
+    T value,
+    T InMin,
+    T InMax,
+    T OutMin,
     T OutMax
 )
 ```
@@ -1264,9 +1264,9 @@ unsigned long long ffw::byteSwap64 (
 
 ```cpp
 ffw::Vec4< T > ffw::containImage (
-    T imgwidth
-    T imgheight
-    T maxwidth
+    T imgwidth,
+    T imgheight,
+    T maxwidth,
     T maxheight
 )
 ```
@@ -1277,9 +1277,9 @@ ffw::Vec4< T > ffw::containImage (
 
 ```cpp
 ffw::Vec4< T > ffw::coverImage (
-    T imgwidth
-    T imgheight
-    T maxwidth
+    T imgwidth,
+    T imgheight,
+    T maxwidth,
     T maxheight
 )
 ```
@@ -1310,9 +1310,9 @@ ffw::Mat4x4< T > ffw::getRotationMatrix (
 
 ```cpp
 Mat4x4< T > ffw::makeProjectionMatrix (
-    T FieldOfView
-    T Aspect
-    T Near
+    T FieldOfView,
+    T Aspect,
+    T Near,
     T Far
 )
 ```
@@ -1323,8 +1323,8 @@ Mat4x4< T > ffw::makeProjectionMatrix (
 
 ```cpp
 Mat4x4< T > ffw::makeLookAtMatrix (
-    const Vec3< T > & Eyes
-    const Vec3< T > & Target
+    const Vec3< T > & Eyes,
+    const Vec3< T > & Target,
     const Vec3< T > & UpVector
 )
 ```
@@ -1335,8 +1335,8 @@ Mat4x4< T > ffw::makeLookAtMatrix (
 
 ```cpp
 Mat4x4< T > ffw::makeFpsCameraMatrix (
-    const Vec3< T > & Eyes
-    float Pitch
+    const Vec3< T > & Eyes,
+    float Pitch,
     float Yaw
 )
 ```
@@ -1347,11 +1347,11 @@ Mat4x4< T > ffw::makeFpsCameraMatrix (
 
 ```cpp
 Mat4x4< T > ffw::makeOrthoMatrix (
-    T left
-    T right
-    T bottom
-    T top
-    T znear
+    T left,
+    T right,
+    T bottom,
+    T top,
+    T znear,
     T zfar
 )
 ```
@@ -1372,7 +1372,7 @@ ffw::Quat< T > ffw::normalize (
 
 ```cpp
 std::ostream & ffw::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Quat< T > & quat
 )
 ```
@@ -1521,7 +1521,7 @@ std::string ffw::valToString (
 
 ```cpp
 std::string ffw::valToString (
-    T Value
+    T Value,
     unsigned int Dec
 )
 ```
@@ -1552,8 +1552,8 @@ std::string ffw::valToHex (
 
 ```cpp
 size_t ffw::getTokensFunc (
-    std::vector< std::basic_string< T, CharTrait, Allocator >> * vec
-    const std::basic_string< T, CharTrait, Allocator > & str
+    std::vector< std::basic_string< T, CharTrait, Allocator >> * vec,
+    const std::basic_string< T, CharTrait, Allocator > & str,
     const std::basic_string< T, CharTrait, Allocator > & delim
 )
 ```
@@ -1564,7 +1564,7 @@ size_t ffw::getTokensFunc (
 
 ```cpp
 std::vector< std::string > ffw::getTokens (
-    const std::string & str
+    const std::string & str,
     const std::string & delim
 )
 ```
@@ -1575,7 +1575,7 @@ std::vector< std::string > ffw::getTokens (
 
 ```cpp
 std::vector< std::string > ffw::getTokens (
-    const std::string & str
+    const std::string & str,
     char delim
 )
 ```
@@ -1586,7 +1586,7 @@ std::vector< std::string > ffw::getTokens (
 
 ```cpp
 std::vector< std::wstring > ffw::getTokens (
-    const std::wstring & str
+    const std::wstring & str,
     const std::wstring & delim
 )
 ```
@@ -1597,7 +1597,7 @@ std::vector< std::wstring > ffw::getTokens (
 
 ```cpp
 std::vector< std::wstring > ffw::getTokens (
-    const std::wstring & str
+    const std::wstring & str,
     wchar_t delim
 )
 ```
@@ -1608,7 +1608,7 @@ std::vector< std::wstring > ffw::getTokens (
 
 ```cpp
 size_t ffw::getTokensNum (
-    const std::string & str
+    const std::string & str,
     const std::string & delim
 )
 ```
@@ -1619,7 +1619,7 @@ size_t ffw::getTokensNum (
 
 ```cpp
 size_t ffw::getTokensNum (
-    const std::string & str
+    const std::string & str,
     char delim
 )
 ```
@@ -1630,7 +1630,7 @@ size_t ffw::getTokensNum (
 
 ```cpp
 size_t ffw::getTokensNum (
-    const std::wstring & str
+    const std::wstring & str,
     const std::wstring & delim
 )
 ```
@@ -1641,7 +1641,7 @@ size_t ffw::getTokensNum (
 
 ```cpp
 size_t ffw::getTokensNum (
-    const std::wstring & str
+    const std::wstring & str,
     wchar_t delim
 )
 ```
@@ -1772,7 +1772,7 @@ std::wstring ffw::valToWstring (
 
 ```cpp
 std::wstring ffw::valToWstring (
-    T Value
+    T Value,
     unsigned int Dec
 )
 ```
@@ -1783,7 +1783,7 @@ std::wstring ffw::valToWstring (
 
 ```cpp
 uint32_t ffw::getNextChar (
-    const T *& it
+    const T *& it,
     const T * end
 )
 ```
@@ -1794,7 +1794,7 @@ uint32_t ffw::getNextChar (
 
 ```cpp
 uint32_t ffw::getNextChar (
-    const char *& it
+    const char *& it,
     const char * end
 )
 ```
@@ -1805,7 +1805,7 @@ uint32_t ffw::getNextChar (
 
 ```cpp
 uint32_t ffw::getNextChar (
-    const wchar_t *& it
+    const wchar_t *& it,
     const wchar_t * end
 )
 ```
@@ -1816,7 +1816,7 @@ uint32_t ffw::getNextChar (
 
 ```cpp
 T ffw::dot (
-    const ffw::Vec2< T > & V1
+    const ffw::Vec2< T > & V1,
     const ffw::Vec2< T > & V2
 )
 ```
@@ -1827,7 +1827,7 @@ T ffw::dot (
 
 ```cpp
 T ffw::distance (
-    const Vec2< T > & v1
+    const Vec2< T > & v1,
     const Vec2< T > & v2
 )
 ```
@@ -1838,7 +1838,7 @@ T ffw::distance (
 
 ```cpp
 Vec2< T > ffw::middle (
-    const Vec2< T > & v1
+    const Vec2< T > & v1,
     const Vec2< T > & v2
 )
 ```
@@ -1859,7 +1859,7 @@ ffw::Vec2< T > ffw::normalize (
 
 ```cpp
 double ffw::angle (
-    const ffw::Vec2< T > & V1
+    const ffw::Vec2< T > & V1,
     const ffw::Vec2< T > & V2
 )
 ```
@@ -1870,7 +1870,7 @@ double ffw::angle (
 
 ```cpp
 double ffw::angleRad (
-    const ffw::Vec2< T > & V1
+    const ffw::Vec2< T > & V1,
     const ffw::Vec2< T > & V2
 )
 ```
@@ -1881,7 +1881,7 @@ double ffw::angleRad (
 
 ```cpp
 std::ostream & ffw::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec2< T > & vec
 )
 ```
@@ -1892,7 +1892,7 @@ std::ostream & ffw::operator<< (
 
 ```cpp
 T ffw::dot (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1903,7 +1903,7 @@ T ffw::dot (
 
 ```cpp
 ffw::Vec3< T > ffw::cross (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1914,7 +1914,7 @@ ffw::Vec3< T > ffw::cross (
 
 ```cpp
 T ffw::distance (
-    const Vec3< T > & v1
+    const Vec3< T > & v1,
     const Vec3< T > & v2
 )
 ```
@@ -1925,7 +1925,7 @@ T ffw::distance (
 
 ```cpp
 Vec3< T > ffw::middle (
-    const Vec3< T > & v1
+    const Vec3< T > & v1,
     const Vec3< T > & v2
 )
 ```
@@ -1946,7 +1946,7 @@ ffw::Vec3< T > ffw::normalize (
 
 ```cpp
 double ffw::angle (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1957,7 +1957,7 @@ double ffw::angle (
 
 ```cpp
 double ffw::angleRad (
-    const ffw::Vec3< T > & V1
+    const ffw::Vec3< T > & V1,
     const ffw::Vec3< T > & V2
 )
 ```
@@ -1968,7 +1968,7 @@ double ffw::angleRad (
 
 ```cpp
 std::ostream & ffw::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec3< T > & vec
 )
 ```
@@ -1979,7 +1979,7 @@ std::ostream & ffw::operator<< (
 
 ```cpp
 T ffw::dot (
-    const ffw::Vec4< T > & V1
+    const ffw::Vec4< T > & V1,
     const ffw::Vec4< T > & V2
 )
 ```
@@ -1990,7 +1990,7 @@ T ffw::dot (
 
 ```cpp
 T ffw::distance (
-    const Vec4< T > & v1
+    const Vec4< T > & v1,
     const Vec4< T > & v2
 )
 ```
@@ -2001,7 +2001,7 @@ T ffw::distance (
 
 ```cpp
 Vec4< T > ffw::middle (
-    const Vec4< T > & v1
+    const Vec4< T > & v1,
     const Vec4< T > & v2
 )
 ```
@@ -2022,7 +2022,7 @@ ffw::Vec4< T > ffw::normalize (
 
 ```cpp
 std::ostream & ffw::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec4< T > & vec
 )
 ```
@@ -2033,7 +2033,7 @@ std::ostream & ffw::operator<< (
 
 ```cpp
 T ffw::dot (
-    const ffw::Vec< T, S > & V1
+    const ffw::Vec< T, S > & V1,
     const ffw::Vec< T, S > & V2
 )
 ```
@@ -2044,7 +2044,7 @@ T ffw::dot (
 
 ```cpp
 T ffw::distance (
-    const Vec< T, S > & v1
+    const Vec< T, S > & v1,
     const Vec< T, S > & v2
 )
 ```
@@ -2055,7 +2055,7 @@ T ffw::distance (
 
 ```cpp
 Vec< T, S > ffw::middle (
-    const Vec< T, S > & v1
+    const Vec< T, S > & v1,
     const Vec< T, S > & v2
 )
 ```
@@ -2076,7 +2076,7 @@ ffw::Vec< T, S > ffw::normalize (
 
 ```cpp
 std::ostream & ffw::operator<< (
-    std::ostream & os
+    std::ostream & os,
     const ffw::Vec< T, S > & vec
 )
 ```
@@ -2097,10 +2097,10 @@ ImageReader * ffw::openImageReader (
 
 ```cpp
 ImageWriter * ffw::openImageWriter (
-    const std::string & path
-    int width
-    int height
-    ffw::ImageType type
+    const std::string & path,
+    int width,
+    int height,
+    ffw::ImageType type,
     int quality = 100
 )
 ```
@@ -2111,11 +2111,11 @@ ImageWriter * ffw::openImageWriter (
 
 ```cpp
 bool ffw::readImage (
-    const std::string & path
-    void ** dest
-    int * width
-    int * height
-    ffw::ImageType * format
+    const std::string & path,
+    void ** dest,
+    int * width,
+    int * height,
+    ffw::ImageType * format,
     int * mips = NULL
 )
 ```
@@ -2126,12 +2126,12 @@ bool ffw::readImage (
 
 ```cpp
 bool ffw::writeImage (
-    const std::string & path
-    const void * src
-    int width
-    int height
-    ffw::ImageType format
-    int quality = 100
+    const std::string & path,
+    const void * src,
+    int width,
+    int height,
+    ffw::ImageType format,
+    int quality = 100,
     int mips = 1
 )
 ```
@@ -2142,7 +2142,7 @@ bool ffw::writeImage (
 
 ```cpp
 bool ffw::readImage (
-    const std::string & path
+    const std::string & path,
     ffw::ImageBuffer & image
 )
 ```
@@ -2153,8 +2153,8 @@ bool ffw::readImage (
 
 ```cpp
 bool ffw::writeImage (
-    const std::string & path
-    const ffw::ImageBuffer & image
+    const std::string & path,
+    const ffw::ImageBuffer & image,
     int quality = 100
 )
 ```
@@ -2165,8 +2165,8 @@ bool ffw::writeImage (
 
 ```cpp
 bool ffw::readObj (
-    const std::string & path
-    float ** vertices
+    const std::string & path,
+    float ** vertices,
     unsigned int * numVertices
 )
 ```

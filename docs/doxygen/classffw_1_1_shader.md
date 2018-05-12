@@ -222,8 +222,8 @@ void ffw::Shader::compileVertFromData (
 
 ```cpp
 void ffw::Shader::createFromFile (
-    const std::string & geomfile
-    const std::string & vertfile
+    const std::string & geomfile,
+    const std::string & vertfile,
     const std::string & fragfile
 )
 ```
@@ -234,8 +234,8 @@ void ffw::Shader::createFromFile (
 
 ```cpp
 void ffw::Shader::createFromData (
-    const std::string & geomdata
-    const std::string & vertdata
+    const std::string & geomdata,
+    const std::string & vertdata,
     const std::string & fragdata
 )
 ```
@@ -262,9 +262,9 @@ unsigned int ffw::Shader::getHandle () const
 
 ```cpp
 void ffw::Shader::setAttributePointerf (
-    int location
-    int size
-    int stride
+    int location,
+    int size,
+    int stride,
     const GLvoid * offset
 ) const
 ```
@@ -275,7 +275,7 @@ void ffw::Shader::setAttributePointerf (
 
 ```cpp
 void ffw::Shader::setAttributeDivisor (
-    unsigned int index
+    unsigned int index,
     unsigned int divisor
 ) const
 ```
@@ -286,8 +286,8 @@ void ffw::Shader::setAttributeDivisor (
 
 ```cpp
 void ffw::Shader::drawArrays (
-    unsigned int mode
-    int first
+    unsigned int mode,
+    int first,
     int cnt
 ) const
 ```
@@ -298,9 +298,9 @@ void ffw::Shader::drawArrays (
 
 ```cpp
 void ffw::Shader::drawArraysInstanced (
-    unsigned int mode
-    int First
-    int count
+    unsigned int mode,
+    int First,
+    int count,
     int instancecount
 ) const
 ```
@@ -311,9 +311,9 @@ void ffw::Shader::drawArraysInstanced (
 
 ```cpp
 void ffw::Shader::drawElements (
-    unsigned int mode
-    int cnt
-    unsigned int type
+    unsigned int mode,
+    int cnt,
+    unsigned int type,
     const void * indices
 ) const
 ```
@@ -324,11 +324,11 @@ void ffw::Shader::drawElements (
 
 ```cpp
 void ffw::Shader::drawElementsRange (
-    unsigned int mode
-    unsigned int start
-    unsigned int end
-    int cnt
-    unsigned int type
+    unsigned int mode,
+    unsigned int start,
+    unsigned int end,
+    int cnt,
+    unsigned int type,
     const void * indices
 ) const
 ```
@@ -339,10 +339,10 @@ void ffw::Shader::drawElementsRange (
 
 ```cpp
 void ffw::Shader::drawElementsInstanced (
-    unsigned int mode
-    int cnt
-    unsigned int type
-    const void * indices
+    unsigned int mode,
+    int cnt,
+    unsigned int type,
+    const void * indices,
     int instancecount
 ) const
 ```
@@ -389,7 +389,7 @@ int ffw::Shader::getAttributeLocation (
 
 ```cpp
 void ffw::Shader::setUniform1f (
-    int location
+    int location,
     float value
 ) const
 ```
@@ -400,8 +400,8 @@ void ffw::Shader::setUniform1f (
 
 ```cpp
 void ffw::Shader::setUniform1fv (
-    int location
-    const float * array
+    int location,
+    const float * array,
     int length
 ) const
 ```
@@ -412,7 +412,7 @@ void ffw::Shader::setUniform1fv (
 
 ```cpp
 void ffw::Shader::setUniform1i (
-    int location
+    int location,
     int value
 ) const
 ```
@@ -423,8 +423,8 @@ void ffw::Shader::setUniform1i (
 
 ```cpp
 void ffw::Shader::setUniform1iv (
-    int location
-    const int * array
+    int location,
+    const int * array,
     int length
 ) const
 ```
@@ -435,8 +435,8 @@ void ffw::Shader::setUniform1iv (
 
 ```cpp
 void ffw::Shader::setUniform2f (
-    int location
-    float x
+    int location,
+    float x,
     float y
 ) const
 ```
@@ -447,8 +447,8 @@ void ffw::Shader::setUniform2f (
 
 ```cpp
 void ffw::Shader::setUniform2fv (
-    int location
-    const float * array
+    int location,
+    const float * array,
     int length
 ) const
 ```
@@ -459,8 +459,8 @@ void ffw::Shader::setUniform2fv (
 
 ```cpp
 void ffw::Shader::setUniform2i (
-    int location
-    int x
+    int location,
+    int x,
     int y
 ) const
 ```
@@ -471,8 +471,8 @@ void ffw::Shader::setUniform2i (
 
 ```cpp
 void ffw::Shader::setUniform2iv (
-    int location
-    const int * array
+    int location,
+    const int * array,
     int length
 ) const
 ```
@@ -483,9 +483,9 @@ void ffw::Shader::setUniform2iv (
 
 ```cpp
 void ffw::Shader::setUniform3f (
-    int location
-    float x
-    float y
+    int location,
+    float x,
+    float y,
     float z
 ) const
 ```
@@ -496,8 +496,8 @@ void ffw::Shader::setUniform3f (
 
 ```cpp
 void ffw::Shader::setUniform3fv (
-    int location
-    const float * array
+    int location,
+    const float * array,
     int length
 ) const
 ```
@@ -508,9 +508,9 @@ void ffw::Shader::setUniform3fv (
 
 ```cpp
 void ffw::Shader::setUniform3i (
-    int location
-    int x
-    int y
+    int location,
+    int x,
+    int y,
     int z
 ) const
 ```
@@ -521,8 +521,8 @@ void ffw::Shader::setUniform3i (
 
 ```cpp
 void ffw::Shader::setUniform3iv (
-    int location
-    const int * array
+    int location,
+    const int * array,
     int length
 ) const
 ```
@@ -533,10 +533,10 @@ void ffw::Shader::setUniform3iv (
 
 ```cpp
 void ffw::Shader::setUniform4f (
-    int location
-    float x
-    float y
-    float z
+    int location,
+    float x,
+    float y,
+    float z,
     float w
 ) const
 ```
@@ -547,8 +547,8 @@ void ffw::Shader::setUniform4f (
 
 ```cpp
 void ffw::Shader::setUniform4fv (
-    int location
-    const float * array
+    int location,
+    const float * array,
     int length
 ) const
 ```
@@ -559,10 +559,10 @@ void ffw::Shader::setUniform4fv (
 
 ```cpp
 void ffw::Shader::setUniform4i (
-    int location
-    int x
-    int y
-    int z
+    int location,
+    int x,
+    int y,
+    int z,
     int w
 ) const
 ```
@@ -573,8 +573,8 @@ void ffw::Shader::setUniform4i (
 
 ```cpp
 void ffw::Shader::setUniform4iv (
-    int location
-    const int * array
+    int location,
+    const int * array,
     int length
 ) const
 ```
@@ -585,7 +585,7 @@ void ffw::Shader::setUniform4iv (
 
 ```cpp
 void ffw::Shader::setUniform2f (
-    int location
+    int location,
     const ffw::Vec2f & vec
 ) const
 ```
@@ -596,8 +596,8 @@ void ffw::Shader::setUniform2f (
 
 ```cpp
 void ffw::Shader::setUniform2fv (
-    int location
-    const ffw::Vec2f * array
+    int location,
+    const ffw::Vec2f * array,
     int length
 ) const
 ```
@@ -608,7 +608,7 @@ void ffw::Shader::setUniform2fv (
 
 ```cpp
 void ffw::Shader::setUniform2i (
-    int location
+    int location,
     const ffw::Vec2i & vec
 ) const
 ```
@@ -619,8 +619,8 @@ void ffw::Shader::setUniform2i (
 
 ```cpp
 void ffw::Shader::setUniform2iv (
-    int location
-    const ffw::Vec2i * array
+    int location,
+    const ffw::Vec2i * array,
     int length
 ) const
 ```
@@ -631,7 +631,7 @@ void ffw::Shader::setUniform2iv (
 
 ```cpp
 void ffw::Shader::setUniform3f (
-    int location
+    int location,
     const ffw::Vec3f & vec
 ) const
 ```
@@ -642,8 +642,8 @@ void ffw::Shader::setUniform3f (
 
 ```cpp
 void ffw::Shader::setUniform3fv (
-    int location
-    const ffw::Vec3f * array
+    int location,
+    const ffw::Vec3f * array,
     int length
 ) const
 ```
@@ -654,7 +654,7 @@ void ffw::Shader::setUniform3fv (
 
 ```cpp
 void ffw::Shader::setUniform3i (
-    int location
+    int location,
     const ffw::Vec3i & vec
 ) const
 ```
@@ -665,8 +665,8 @@ void ffw::Shader::setUniform3i (
 
 ```cpp
 void ffw::Shader::setUniform3iv (
-    int location
-    const ffw::Vec3i * array
+    int location,
+    const ffw::Vec3i * array,
     int length
 ) const
 ```
@@ -677,7 +677,7 @@ void ffw::Shader::setUniform3iv (
 
 ```cpp
 void ffw::Shader::setUniform4f (
-    int location
+    int location,
     const ffw::Vec4f & vec
 ) const
 ```
@@ -688,8 +688,8 @@ void ffw::Shader::setUniform4f (
 
 ```cpp
 void ffw::Shader::setUniform4fv (
-    int location
-    const ffw::Vec4f * array
+    int location,
+    const ffw::Vec4f * array,
     int length
 ) const
 ```
@@ -700,7 +700,7 @@ void ffw::Shader::setUniform4fv (
 
 ```cpp
 void ffw::Shader::setUniform4i (
-    int location
+    int location,
     const ffw::Vec4i & vec
 ) const
 ```
@@ -711,8 +711,8 @@ void ffw::Shader::setUniform4i (
 
 ```cpp
 void ffw::Shader::setUniform4iv (
-    int location
-    const ffw::Vec4i * array
+    int location,
+    const ffw::Vec4i * array,
     int length
 ) const
 ```
@@ -723,7 +723,7 @@ void ffw::Shader::setUniform4iv (
 
 ```cpp
 void ffw::Shader::setUniform4f (
-    int location
+    int location,
     const ffw::Color & vec
 ) const
 ```
@@ -734,8 +734,8 @@ void ffw::Shader::setUniform4f (
 
 ```cpp
 void ffw::Shader::setUniform4fv (
-    int location
-    const ffw::Color * array
+    int location,
+    const ffw::Color * array,
     int length
 ) const
 ```
@@ -746,8 +746,8 @@ void ffw::Shader::setUniform4fv (
 
 ```cpp
 void ffw::Shader::setUniformMatrix2fv (
-    int location
-    const float * mat
+    int location,
+    const float * mat,
     int length
 ) const
 ```
@@ -758,8 +758,8 @@ void ffw::Shader::setUniformMatrix2fv (
 
 ```cpp
 void ffw::Shader::setUniformMatrix3fv (
-    int location
-    const float * mat
+    int location,
+    const float * mat,
     int length
 ) const
 ```
@@ -770,8 +770,8 @@ void ffw::Shader::setUniformMatrix3fv (
 
 ```cpp
 void ffw::Shader::setUniformMatrix4fv (
-    int location
-    const float * mat
+    int location,
+    const float * mat,
     int length
 ) const
 ```
@@ -782,8 +782,8 @@ void ffw::Shader::setUniformMatrix4fv (
 
 ```cpp
 void ffw::Shader::setUniformMatrix4fv (
-    int location
-    const Mat4x4f * mat
+    int location,
+    const Mat4x4f * mat,
     int length
 ) const
 ```

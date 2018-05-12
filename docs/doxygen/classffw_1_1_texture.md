@@ -422,8 +422,8 @@ bool ffw::Texture::isCompressed () const
 
 ```cpp
 void ffw::Texture::setEnvParami (
-    GLenum target
-    GLenum name
+    GLenum target,
+    GLenum name,
     GLint value
 ) const
 ```
@@ -434,8 +434,8 @@ void ffw::Texture::setEnvParami (
 
 ```cpp
 void ffw::Texture::setEnvParamf (
-    GLenum target
-    GLenum name
+    GLenum target,
+    GLenum name,
     GLfloat value
 ) const
 ```
@@ -446,7 +446,7 @@ void ffw::Texture::setEnvParamf (
 
 ```cpp
 void ffw::Texture::setTexParami (
-    GLenum name
+    GLenum name,
     GLint value
 ) const
 ```
@@ -457,7 +457,7 @@ void ffw::Texture::setTexParami (
 
 ```cpp
 void ffw::Texture::setTexParamiv (
-    GLenum name
+    GLenum name,
     const GLint * value
 ) const
 ```
@@ -468,7 +468,7 @@ void ffw::Texture::setTexParamiv (
 
 ```cpp
 void ffw::Texture::setTexParamf (
-    GLenum name
+    GLenum name,
     GLfloat value
 ) const
 ```
@@ -479,7 +479,7 @@ void ffw::Texture::setTexParamf (
 
 ```cpp
 void ffw::Texture::setTexParamfv (
-    GLenum name
+    GLenum name,
     const GLfloat * value
 ) const
 ```
@@ -541,8 +541,8 @@ Texture & ffw::Texture::operator= (
 
 ```cpp
 GLsizei ffw::Texture::getBlockSize (
-    const GLsizei width
-    const GLsizei height = 1
+    const GLsizei width,
+    const GLsizei height = 1,
     const GLsizei depth = 1
 ) const
 ```

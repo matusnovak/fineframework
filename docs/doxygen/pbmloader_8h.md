@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void pbmloader.h::swap (
-    ffw::PbmLoader & first
+    ffw::PbmLoader & first,
     ffw::PbmLoader & second
 )
 ```

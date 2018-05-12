@@ -63,21 +63,21 @@ ffw::Mat4x4::Mat4x4 ()
 
 ```cpp
 ffw::Mat4x4::Mat4x4 (
-    T xx
-    T yx
-    T zx
-    T wx
-    T xy
-    T yy
-    T zy
-    T wy
-    T xz
-    T yz
-    T zz
-    T wz
-    T xw
-    T yw
-    T zw
+    T xx,
+    T yx,
+    T zx,
+    T wx,
+    T xy,
+    T yy,
+    T zy,
+    T wy,
+    T xz,
+    T yz,
+    T zz,
+    T wz,
+    T xw,
+    T yw,
+    T zw,
     T ww
 )
 ```
@@ -108,21 +108,21 @@ ffw::Mat4x4::Mat4x4 (
 
 ```cpp
 void ffw::Mat4x4::set (
-    T xx
-    T yx
-    T zx
-    T wx
-    T xy
-    T yy
-    T zy
-    T wy
-    T xz
-    T yz
-    T zz
-    T wz
-    T xw
-    T yw
-    T zw
+    T xx,
+    T yx,
+    T zx,
+    T wx,
+    T xy,
+    T yy,
+    T zy,
+    T wy,
+    T xz,
+    T yz,
+    T zz,
+    T wz,
+    T xw,
+    T yw,
+    T zw,
     T ww
 )
 ```
@@ -259,8 +259,8 @@ ffw::Mat4x4< T > & ffw::Mat4x4::rotate (
 
 ```cpp
 ffw::Mat4x4< T > & ffw::Mat4x4::translate (
-    T X
-    T Y
+    T X,
+    T Y,
     T Z
 )
 ```
@@ -271,8 +271,8 @@ ffw::Mat4x4< T > & ffw::Mat4x4::translate (
 
 ```cpp
 ffw::Mat4x4< T > & ffw::Mat4x4::scale (
-    T X
-    T Y
+    T X,
+    T Y,
     T Z
 )
 ```

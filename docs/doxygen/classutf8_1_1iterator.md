@@ -38,8 +38,8 @@ utf8::iterator::iterator ()
 
 ```cpp
 explicit utf8::iterator::iterator (
-    const octet_iterator & octet_it
-    const octet_iterator & rangestart
+    const octet_iterator & octet_it,
+    const octet_iterator & rangestart,
     const octet_iterator & rangeend
 )
 ```

@@ -143,12 +143,12 @@ virtual ffw::Texture2DArray::~Texture2DArray () = default
 
 ```cpp
 bool ffw::Texture2DArray::create (
-    GLsizei width
-    GLsizei height
-    GLsizei layers
-    GLenum internalformat
-    GLenum format
-    GLenum pixelformat
+    GLsizei width,
+    GLsizei height,
+    GLsizei layers,
+    GLenum internalformat,
+    GLenum format,
+    GLenum pixelformat,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -181,9 +181,9 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::Texture2DArray::resize (
-    GLsizei width
-    GLsizei height
-    GLsizei layers
+    GLsizei width,
+    GLsizei height,
+    GLsizei layers,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -213,8 +213,8 @@ The format, internalformat, and pixelformat are unchanged.
 
 ```cpp
 bool ffw::Texture2DArray::setFromBuffer (
-    const ImageBuffer & image
-    GLint layer
+    const ImageBuffer & image,
+    GLint layer,
     bool inverse = false
 )
 ```
@@ -236,7 +236,7 @@ Creates the texture using **[ImageBuffer](classffw_1_1_image_buffer.md)**.
 
 ```cpp
 bool ffw::Texture2DArray::setPixels (
-    GLint level
+    GLint level,
     const GLvoid * pixels
 )
 ```
@@ -257,12 +257,12 @@ Sets the pixels of the entire texture.
 
 ```cpp
 bool ffw::Texture2DArray::setPixels (
-    GLint level
-    GLint xoffset
-    GLint yoffset
-    GLint loffset
-    GLsizei width
-    GLsizei height
+    GLint level,
+    GLint xoffset,
+    GLint yoffset,
+    GLint loffset,
+    GLsizei width,
+    GLsizei height,
     const GLvoid * pixels
 )
 ```

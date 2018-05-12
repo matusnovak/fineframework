@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void pngloader.h::swap (
-    ffw::PngLoader & first
+    ffw::PngLoader & first,
     ffw::PngLoader & second
 )
 ```

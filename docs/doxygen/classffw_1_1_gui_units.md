@@ -82,7 +82,7 @@ ffw::GuiUnits::GuiUnits ()
 
 ```cpp
 ffw::GuiUnits::GuiUnits (
-    float val
+    float val,
     bool percentage
 )
 ```
@@ -203,7 +203,7 @@ Type ffw::GuiUnits::getType () const
 
 ```cpp
 friend std::ostream & operator<< (
-    std::ostream & os
+    std::ostream & os,
     const GuiUnits & V
 )
 ```

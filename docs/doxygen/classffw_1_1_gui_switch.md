@@ -232,7 +232,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 void ffw::GuiSwitch::setStyle (
-    const GuiSwitch::Style * style
+    const GuiSwitch::Style * style,
     bool defaults = false
 )
 ```

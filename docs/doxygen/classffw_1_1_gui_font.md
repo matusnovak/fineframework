@@ -41,8 +41,8 @@ virtual void ffw::GuiFont::destroy () = 0
 
 ```cpp
 virtual ffw::Vec2f ffw::GuiFont::getStringSize (
-    const std::string & str
-    float maxWidth
+    const std::string & str,
+    float maxWidth,
     float lineHeight = 1.25
 ) const = 0
 ```

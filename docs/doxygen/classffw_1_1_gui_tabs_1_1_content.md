@@ -201,7 +201,7 @@ virtual ffw::GuiTabs::Content::~Content () = default
 
 ```cpp
 void ffw::GuiTabs::Content::setStyle (
-    const Content::Style * style
+    const Content::Style * style,
     bool defaults = false
 )
 ```

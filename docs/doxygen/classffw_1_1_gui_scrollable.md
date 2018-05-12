@@ -190,9 +190,9 @@ Inherited by the following classes: **[ffw::GuiScrollableLayout](classffw_1_1_gu
 
 ```cpp
 ffw::GuiScrollable::GuiScrollable (
-    GuiWindow * context
-    GuiWidget * widget
-    bool hori
+    GuiWindow * context,
+    GuiWidget * widget,
+    bool hori,
     bool vert
 )
 ```
@@ -230,7 +230,7 @@ void ffw::GuiScrollable::setScrollbarThickness (
 
 ```cpp
 void ffw::GuiScrollable::setScrollValues (
-    float hori
+    float hori,
     float vert
 )
 ```
@@ -307,7 +307,7 @@ float ffw::GuiScrollable::getScrollIncrements () const
 
 ```cpp
 void ffw::GuiScrollable::setStyle (
-    const GuiScrollable::Style * style
+    const GuiScrollable::Style * style,
     bool defaults = false
 )
 ```

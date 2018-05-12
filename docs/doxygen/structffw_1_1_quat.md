@@ -93,9 +93,9 @@ ffw::Quat::Quat ()
 
 ```cpp
 ffw::Quat::Quat (
-    T X
-    T Y
-    T Z
+    T X,
+    T Y,
+    T Z,
     T W
 )
 ```
@@ -116,9 +116,9 @@ ffw::Quat::Quat (
 
 ```cpp
 void ffw::Quat::set (
-    T X
-    T Y
-    T Z
+    T X,
+    T Y,
+    T Z,
     T W
 )
 ```
@@ -139,9 +139,9 @@ void ffw::Quat::set (
 
 ```cpp
 ffw::Quat< T > & ffw::Quat::rotate (
-    T Deg
-    T X
-    T Y
+    T Deg,
+    T X,
+    T Y,
     T Z
 )
 ```
@@ -152,9 +152,9 @@ ffw::Quat< T > & ffw::Quat::rotate (
 
 ```cpp
 ffw::Quat< T > & ffw::Quat::rotateRad (
-    T Rad
-    T X
-    T Y
+    T Rad,
+    T X,
+    T Y,
     T Z
 )
 ```
@@ -281,8 +281,8 @@ void ffw::Quat::normalize ()
 
 ```cpp
 void ffw::Quat::getEuler (
-    T * Roll
-    T * Pitch
+    T * Roll,
+    T * Pitch,
     T * Yaw
 ) const
 ```

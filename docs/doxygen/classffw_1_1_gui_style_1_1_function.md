@@ -63,7 +63,7 @@ ffw::GuiStyle::Function::Function (
 
 ```cpp
 ffw::GuiStyle::Function::Function (
-    const ffw::Color & c
+    const ffw::Color & c,
     const ffw::Color & s
 )
 ```

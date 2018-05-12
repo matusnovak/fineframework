@@ -142,11 +142,11 @@ virtual ffw::Texture1DArray::~Texture1DArray () = default
 
 ```cpp
 bool ffw::Texture1DArray::create (
-    GLsizei width
-    GLsizei layers
-    GLenum internalformat
-    GLenum format
-    GLenum pixelformat
+    GLsizei width,
+    GLsizei layers,
+    GLenum internalformat,
+    GLenum format,
+    GLenum pixelformat,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -178,8 +178,8 @@ The texture is automatically destroyed once **[destroy()](classffw_1_1_texture.m
 
 ```cpp
 bool ffw::Texture1DArray::resize (
-    GLsizei width
-    GLsizei layers
+    GLsizei width,
+    GLsizei layers,
     const GLvoid * pixels = nullptr
 )
 ```
@@ -208,10 +208,10 @@ The format, internalformat, and pixelformat are unchanged.
 
 ```cpp
 bool ffw::Texture1DArray::setPixels (
-    GLint level
-    GLint xoffset
-    GLint loffset
-    GLsizei width
+    GLint level,
+    GLint xoffset,
+    GLint loffset,
+    GLsizei width,
     const GLvoid * pixels
 )
 ```
@@ -235,7 +235,7 @@ Sets the pixels of the texture section.
 
 ```cpp
 bool ffw::Texture1DArray::setPixels (
-    GLint level
+    GLint level,
     const GLvoid * pixels
 )
 ```

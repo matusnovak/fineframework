@@ -276,7 +276,7 @@ void MyRenderWindow::render(){
 
 ```cpp
 void ffw::RenderContext::moveTo (
-    float x
+    float x,
     float y
 ) const
 ```
@@ -342,11 +342,11 @@ Sets current stroke style to a paint, which can be a one of the gradients.
 
 ```cpp
 DrawPaint ffw::RenderContext::createLinearGradient (
-    float sx
-    float sy
-    float ex
-    float ey
-    const ffw::Color & icol
+    float sx,
+    float sy,
+    float ex,
+    float ey,
+    const ffw::Color & icol,
     const ffw::Color & ocol
 ) const
 ```
@@ -359,13 +359,13 @@ Parameters (sx,sy)-(ex,ey) specify the start and end coordinates of the linear g
 
 ```cpp
 DrawPaint ffw::RenderContext::createBoxGradient (
-    float x
-    float y
-    float w
-    float h
-    float r
-    float f
-    const ffw::Color & icol
+    float x,
+    float y,
+    float w,
+    float h,
+    float r,
+    float f,
+    const ffw::Color & icol,
     const ffw::Color & ocol
 ) const
 ```
@@ -378,11 +378,11 @@ Box gradient is a feathered rounded rectangle, it is useful for rendering drop s
 
 ```cpp
 DrawPaint ffw::RenderContext::createRadialGradient (
-    float cx
-    float cy
-    float inr
-    float outr
-    const ffw::Color & icol
+    float cx,
+    float cy,
+    float inr,
+    float outr,
+    const ffw::Color & icol,
     const ffw::Color & ocol
 ) const
 ```
@@ -395,13 +395,13 @@ Parameters (cx,cy) specify the center, inr and outr specify the inner and outer 
 
 ```cpp
 void ffw::RenderContext::drawQuad (
-    float p0x
-    float p0y
-    float p1x
-    float p1y
-    float p2x
-    float p2y
-    float p3x
+    float p0x,
+    float p0y,
+    float p1x,
+    float p1y,
+    float p2x,
+    float p2y,
+    float p3x,
     float p3y
 ) const
 ```
@@ -413,9 +413,9 @@ Draws a quad composing of 4 points.
 
 ```cpp
 void ffw::RenderContext::drawRectangle (
-    float posx
-    float posy
-    float width
+    float posx,
+    float posy,
+    float width,
     float height
 ) const
 ```
@@ -427,10 +427,10 @@ Draws a simple rectangle.
 
 ```cpp
 void ffw::RenderContext::drawRectangleRounded (
-    float posx
-    float posy
-    float width
-    float height
+    float posx,
+    float posy,
+    float width,
+    float height,
     float corners
 ) const
 ```
@@ -442,13 +442,13 @@ Draws a rectangle with rounded corners.
 
 ```cpp
 void ffw::RenderContext::drawRectangleRounded (
-    float posx
-    float posy
-    float width
-    float height
-    float leftTop
-    float rightTop
-    float bottomRight
+    float posx,
+    float posy,
+    float width,
+    float height,
+    float leftTop,
+    float rightTop,
+    float bottomRight,
     float bottomLeft
 ) const
 ```
@@ -460,11 +460,11 @@ Draws a rectangle with rounded corners.
 
 ```cpp
 void ffw::RenderContext::drawTriangle (
-    float p0x
-    float p0y
-    float p1x
-    float p1y
-    float p2x
+    float p0x,
+    float p0y,
+    float p1x,
+    float p1y,
+    float p2x,
     float p2y
 ) const
 ```
@@ -476,10 +476,10 @@ Draws a simple triangle.
 
 ```cpp
 void ffw::RenderContext::drawTexture2D (
-    float posx
-    float posy
-    float width
-    float height
+    float posx,
+    float posy,
+    float width,
+    float height,
     const ffw::Texture2D * texture
 ) const
 ```
@@ -491,12 +491,12 @@ Draws a 2D texture.
 
 ```cpp
 void ffw::RenderContext::drawTexture2DMirror (
-    float posx
-    float posy
-    float width
-    float height
-    const ffw::Texture2D * texture
-    bool mirrorx
+    float posx,
+    float posy,
+    float width,
+    float height,
+    const ffw::Texture2D * texture,
+    bool mirrorx,
     bool mirrory
 ) const
 ```
@@ -508,14 +508,14 @@ Draws a 2D texture that can be mirrored.
 
 ```cpp
 void ffw::RenderContext::drawTexture2DSub (
-    float posx
-    float posy
-    float width
-    float height
-    const ffw::Texture2D * texture
-    int subx
-    int suby
-    int subw
+    float posx,
+    float posy,
+    float width,
+    float height,
+    const ffw::Texture2D * texture,
+    int subx,
+    int suby,
+    int subw,
     int subh
 ) const
 ```
@@ -528,16 +528,16 @@ The subsection coordinates are in pixels.
 
 ```cpp
 void ffw::RenderContext::drawTexture2DSubMirror (
-    float posx
-    float posy
-    float width
-    float height
-    const ffw::Texture2D * texture
-    int subx
-    int suby
-    int subw
-    int subh
-    bool mirrorx
+    float posx,
+    float posy,
+    float width,
+    float height,
+    const ffw::Texture2D * texture,
+    int subx,
+    int suby,
+    int subw,
+    int subh,
+    bool mirrorx,
     bool mirrory
 ) const
 ```
@@ -550,11 +550,11 @@ The subsection coordinates are in pixels and the mirroring affects the result su
 
 ```cpp
 void ffw::RenderContext::drawArc (
-    float posx
-    float posy
-    float innerradius
-    float outerradius
-    double startangle
+    float posx,
+    float posy,
+    float innerradius,
+    float outerradius,
+    double startangle,
     double endangle
 ) const
 ```
@@ -566,8 +566,8 @@ Draws an arc using starting and ending angle.
 
 ```cpp
 void ffw::RenderContext::drawCircle (
-    float posx
-    float posy
+    float posx,
+    float posy,
     float radius
 ) const
 ```
@@ -579,9 +579,9 @@ Draws a simple circle.
 
 ```cpp
 void ffw::RenderContext::drawLine (
-    float startx
-    float starty
-    float endx
+    float startx,
+    float starty,
+    float endx,
     float edny
 ) const
 ```
@@ -593,10 +593,10 @@ Draws a line from point A to point B.
 
 ```cpp
 void ffw::RenderContext::drawString (
-    float posx
-    float posy
-    const Font * font
-    const std::string & str
+    float posx,
+    float posy,
+    const Font * font,
+    const std::string & str,
     float lineHeight = 1.25f
 ) const
 ```
@@ -608,10 +608,10 @@ Draws a UTF-8 string.
 
 ```cpp
 void ffw::RenderContext::drawString (
-    float posx
-    float posy
-    const Font * font
-    const std::wstring & str
+    float posx,
+    float posy,
+    const Font * font,
+    const std::wstring & str,
     float lineHeight = 1.25f
 ) const
 ```
@@ -623,11 +623,11 @@ Draws a multi-byte string.
 
 ```cpp
 void ffw::RenderContext::drawString (
-    float posx
-    float posy
-    const Font * font
-    const char * str
-    size_t length
+    float posx,
+    float posy,
+    const Font * font,
+    const char * str,
+    size_t length,
     float lineHeight = 1.25f
 ) const
 ```
@@ -639,11 +639,11 @@ Draws a UTF-8 string.
 
 ```cpp
 void ffw::RenderContext::drawString (
-    float posx
-    float posy
-    const Font * font
-    const wchar_t * str
-    size_t length
+    float posx,
+    float posy,
+    const Font * font,
+    const wchar_t * str,
+    size_t length,
     float lineHeight = 1.25f
 ) const
 ```
@@ -655,11 +655,11 @@ Draws a wide string.
 
 ```cpp
 void ffw::RenderContext::drawStringBox (
-    float posx
-    float posy
-    const Font * font
-    const std::string & str
-    float maxWidth
+    float posx,
+    float posy,
+    const Font * font,
+    const std::string & str,
+    float maxWidth,
     float lineHeight = 1.25f
 ) const
 ```
@@ -671,11 +671,11 @@ Draws a UTF-8 string wrapped inside a box with specified width.
 
 ```cpp
 void ffw::RenderContext::drawStringBox (
-    float posx
-    float posy
-    const Font * font
-    const std::wstring & str
-    float maxWidth
+    float posx,
+    float posy,
+    const Font * font,
+    const std::wstring & str,
+    float maxWidth,
     float lineHeight = 1.25f
 ) const
 ```
@@ -687,12 +687,12 @@ Draws a UTF-8 string wrapped inside a box with specified width.
 
 ```cpp
 void ffw::RenderContext::drawStringBox (
-    float posx
-    float posy
-    const Font * font
-    const char * str
-    size_t length
-    float maxWidth
+    float posx,
+    float posy,
+    const Font * font,
+    const char * str,
+    size_t length,
+    float maxWidth,
     float lineHeight = 1.25f
 ) const
 ```
@@ -704,12 +704,12 @@ Draws a multi-byte string wrapped inside a box with specified width.
 
 ```cpp
 void ffw::RenderContext::drawStringBox (
-    float posx
-    float posy
-    const Font * font
-    const wchar_t * str
-    size_t length
-    float maxWidth
+    float posx,
+    float posy,
+    const Font * font,
+    const wchar_t * str,
+    size_t length,
+    float maxWidth,
     float lineHeight = 1.25f
 ) const
 ```
@@ -721,13 +721,13 @@ Draws a multi-byte string wrapped inside a box with specified width.
 
 ```cpp
 void ffw::RenderContext::drawBezier (
-    float startx
-    float starty
-    float cp0x
-    float cp0y
-    float cp1x
-    float cp1y
-    float endx
+    float startx,
+    float starty,
+    float cp0x,
+    float cp0y,
+    float cp1x,
+    float cp1y,
+    float endx,
     float endy
 ) const
 ```
@@ -841,9 +841,9 @@ Sets how sharp path corners are drawn.
 
 ```cpp
 void ffw::RenderContext::setScissor (
-    float posx
-    float posy
-    float width
+    float posx,
+    float posy,
+    float width,
     float height
 ) const
 ```
@@ -863,9 +863,9 @@ Acts same as nvgScissor from nanovg
 
 ```cpp
 void ffw::RenderContext::setIntersectScissor (
-    float posx
-    float posy
-    float width
+    float posx,
+    float posy,
+    float width,
     float height
 ) const
 ```
@@ -902,7 +902,7 @@ Acts same as nvgResetScissor from nanovg
 
 ```cpp
 void ffw::RenderContext::beginPath (
-    float x
+    float x,
     float y
 ) const
 ```
@@ -922,7 +922,7 @@ Performs nvgBeginPath and nvgMoveTo from nanovg
 
 ```cpp
 void ffw::RenderContext::drawLineTo (
-    float x
+    float x,
     float y
 ) const
 ```
@@ -942,11 +942,11 @@ Performs nvgLineTo from nanovg
 
 ```cpp
 void ffw::RenderContext::drawBezierTo (
-    float cp0x
-    float cp0y
-    float cp1x
-    float cp1y
-    float endx
+    float cp0x,
+    float cp0y,
+    float cp1x,
+    float cp1y,
+    float endx,
     float endy
 ) const
 ```
@@ -966,9 +966,9 @@ Performs nvgBezierTo from nanovg
 
 ```cpp
 void ffw::RenderContext::drawQuadTo (
-    float cpx
-    float cpy
-    float endx
+    float cpx,
+    float cpy,
+    float endx,
     float endy
 ) const
 ```
@@ -988,10 +988,10 @@ Performs nvgQuadTo from nanovg
 
 ```cpp
 void ffw::RenderContext::drawArcTo (
-    float startx
-    float starty
-    float endx
-    float endy
+    float startx,
+    float starty,
+    float endx,
+    float endy,
     float radius
 ) const
 ```
@@ -1149,7 +1149,7 @@ Performs nvgStroke from nanovg
 
 ```cpp
 void ffw::RenderContext::transformMove (
-    float x
+    float x,
     float y
 ) const
 ```
@@ -1226,7 +1226,7 @@ Performs nvgSkewY from nanovg
 
 ```cpp
 void ffw::RenderContext::transformScale (
-    float x
+    float x,
     float y
 ) const
 ```
@@ -1246,11 +1246,11 @@ Performs nvgScale from nanovg
 
 ```cpp
 void ffw::RenderContext::transform (
-    float a
-    float b
-    float c
-    float d
-    float e
+    float a,
+    float b,
+    float c,
+    float d,
+    float e,
     float f
 ) const
 ```

@@ -135,7 +135,7 @@ Overrides **[GuiWindowOpenGL::destroy](classffw_1_1_gui_window_open_g_l.md#1a3d0
 
 ```cpp
 virtual void ffw::GuiWindowOpenGLFBO::resize (
-    int width
+    int width,
     int height
 )
 ```

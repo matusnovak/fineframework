@@ -117,9 +117,9 @@ Default constructor, sets color to black with 0% alpha.
 
 ```cpp
 ffw::Color::Color (
-    float red
-    float green
-    float blue
+    float red,
+    float green,
+    float blue,
     float alpha
 )
 ```
@@ -131,7 +131,7 @@ Construcor, sets the color based on the parameters.
 
 ```cpp
 ffw::Color::Color (
-    float val
+    float val,
     float alpha
 )
 ```
@@ -165,9 +165,9 @@ Construcor, sets the color from braced list of 4 floating point values.
 
 ```cpp
 void ffw::Color::set (
-    float red
-    float green
-    float blue
+    float red,
+    float green,
+    float blue,
     float alpha
 )
 ```
@@ -179,7 +179,7 @@ Sets the color.
 
 ```cpp
 void ffw::Color::set (
-    float val
+    float val,
     float alpha
 )
 ```

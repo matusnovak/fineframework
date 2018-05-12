@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void truetypefont.h::swap (
-    ffw::TrueTypeFont & first
+    ffw::TrueTypeFont & first,
     ffw::TrueTypeFont & second
 )
 ```

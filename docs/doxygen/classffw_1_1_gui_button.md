@@ -174,7 +174,7 @@ Inherited by the following classes: **[ffw::GuiButtonPrimary](classffw_1_1_gui_b
 
 ```cpp
 ffw::GuiButton::GuiButton (
-    GuiWindow * context
+    GuiWindow * context,
     const std::string & label
 )
 ```
@@ -220,7 +220,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 void ffw::GuiButton::setStyle (
-    const GuiButton::Style * style
+    const GuiButton::Style * style,
     bool defaults = false
 )
 ```

@@ -224,7 +224,7 @@ virtual ffw::GuiWidget::~GuiWidget ()
 
 ```cpp
 void ffw::GuiWidget::setSize (
-    GuiUnits width
+    GuiUnits width,
     GuiUnits height
 )
 ```
@@ -245,7 +245,7 @@ void ffw::GuiWidget::setSize (
 
 ```cpp
 void ffw::GuiWidget::setPos (
-    GuiUnits posx
+    GuiUnits posx,
     GuiUnits posy
 )
 ```
@@ -330,9 +330,9 @@ const ffw::Vec2f & ffw::GuiWidget::getOffset () const
 
 ```cpp
 void ffw::GuiWidget::setPadding (
-    GuiUnits top
-    GuiUnits right
-    GuiUnits bottom
+    GuiUnits top,
+    GuiUnits right,
+    GuiUnits bottom,
     GuiUnits left
 )
 ```
@@ -363,9 +363,9 @@ void ffw::GuiWidget::setPadding (
 
 ```cpp
 void ffw::GuiWidget::setMargin (
-    GuiUnits top
-    GuiUnits right
-    GuiUnits bottom
+    GuiUnits top,
+    GuiUnits right,
+    GuiUnits bottom,
     GuiUnits left
 )
 ```
@@ -586,10 +586,10 @@ unsigned long ffw::GuiWidget::getID () const
 
 ```cpp
 void ffw::GuiWidget::update (
-    const ffw::Vec2f & parentpos
-    const ffw::Vec2f & parentsize
-    const GuiUserInput & input
-    ffw::Vec2f mousepos
+    const ffw::Vec2f & parentpos,
+    const ffw::Vec2f & parentsize,
+    const GuiUserInput & input,
+    ffw::Vec2f mousepos,
     bool mouseout
 )
 ```
@@ -600,9 +600,9 @@ void ffw::GuiWidget::update (
 
 ```cpp
 void ffw::GuiWidget::render (
-    const ffw::Vec2f & clippos
-    const ffw::Vec2f & clipsize
-    const ffw::Vec2f & off
+    const ffw::Vec2f & clippos,
+    const ffw::Vec2f & clipsize,
+    const ffw::Vec2f & off,
     bool clear
 )
 ```
@@ -813,9 +813,9 @@ T * ffw::GuiWidget::findByID (
 
 ```cpp
 void ffw::GuiWidget::addEventCallback (
-    void(T::*)(GuiEvent) memfuncptr
-    T * instance
-    GuiEventType type = GuiEventType::ALL
+    void(T::*)(GuiEvent) memfuncptr,
+    T * instance,
+    GuiEventType type = GuiEventType::ALL,
     bool now = false
 )
 ```
@@ -826,8 +826,8 @@ void ffw::GuiWidget::addEventCallback (
 
 ```cpp
 void ffw::GuiWidget::addEventCallback (
-    const std::function< void(GuiEvent)> & function
-    GuiEventType type = GuiEventType::ALL
+    const std::function< void(GuiEvent)> & function,
+    GuiEventType type = GuiEventType::ALL,
     bool now = false
 )
 ```
@@ -838,8 +838,8 @@ void ffw::GuiWidget::addEventCallback (
 
 ```cpp
 void ffw::GuiWidget::addEventCallback (
-    const F & lambda
-    GuiEventType type = GuiEventType::ALL
+    const F & lambda,
+    GuiEventType type = GuiEventType::ALL,
     bool now = false
 )
 ```
@@ -850,7 +850,7 @@ void ffw::GuiWidget::addEventCallback (
 
 ```cpp
 void ffw::GuiWidget::setTheme (
-    const GuiTheme * theme
+    const GuiTheme * theme,
     bool defaults = false
 )
 ```
@@ -1013,7 +1013,7 @@ const std::vector< GuiWidget * > & ffw::GuiWidget::getAllWidgets () const
 
 ```cpp
 void ffw::GuiWidget::pushEvent (
-    GuiEventType type
+    GuiEventType type,
     GuiEvent::Data data
 )
 ```
@@ -1046,7 +1046,7 @@ GuiWidget & ffw::GuiWidget::operator= (
 
 ```cpp
 void ffw::GuiWidget::traverseBackground (
-    const ffw::Vec2f & pos
+    const ffw::Vec2f & pos,
     const ffw::Vec2f & size
 )
 ```
@@ -1067,7 +1067,7 @@ GuiWidget * ffw::GuiWidget::addWidgetInternal (
 
 ```cpp
 GuiWidget * ffw::GuiWidget::addWidgetAfterInternal (
-    const GuiWidget * previous
+    const GuiWidget * previous,
     GuiWidget * widget
 )
 ```
@@ -1078,7 +1078,7 @@ GuiWidget * ffw::GuiWidget::addWidgetAfterInternal (
 
 ```cpp
 GuiWidget * ffw::GuiWidget::addWidgetBeforeInternal (
-    const GuiWidget * next
+    const GuiWidget * next,
     GuiWidget * widget
 )
 ```
@@ -1135,8 +1135,8 @@ void ffw::GuiWidget::recalculateSize (
 
 ```cpp
 void ffw::GuiWidget::renderComponent (
-    const ffw::Vec2f & pos
-    const ffw::Vec2f & size
+    const ffw::Vec2f & pos,
+    const ffw::Vec2f & size,
     const ffw::GuiStyle * group
 )
 ```
@@ -1147,7 +1147,7 @@ void ffw::GuiWidget::renderComponent (
 
 ```cpp
 virtual void ffw::GuiWidget::eventRender (
-    const ffw::Vec2f & contentoffset
+    const ffw::Vec2f & contentoffset,
     const ffw::Vec2f & contentsize
 ) = 0
 ```
@@ -1218,7 +1218,7 @@ virtual bool ffw::GuiWidget::eventScroll (
 
 ```cpp
 virtual void ffw::GuiWidget::eventMouseButton (
-    ffw::MouseButton button
+    ffw::MouseButton button,
     ffw::Mode mode
 )
 ```
@@ -1239,7 +1239,7 @@ virtual void ffw::GuiWidget::eventText (
 
 ```cpp
 virtual void ffw::GuiWidget::eventKey (
-    ffw::Key key
+    ffw::Key key,
     ffw::Mode mode
 )
 ```
@@ -1260,7 +1260,7 @@ virtual void ffw::GuiWidget::eventDisabled (
 
 ```cpp
 virtual void ffw::GuiWidget::eventThemeChanged (
-    const GuiTheme * theme
+    const GuiTheme * theme,
     bool defaults = false
 ) = 0
 ```

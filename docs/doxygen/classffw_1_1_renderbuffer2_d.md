@@ -120,8 +120,8 @@ Renderbuffer2D & ffw::Renderbuffer2D::operator= (
 
 ```cpp
 bool ffw::Renderbuffer2D::create (
-    GLsizei width
-    GLsizei height
+    GLsizei width,
+    GLsizei height,
     GLenum internalformat
 )
 ```
@@ -132,7 +132,7 @@ bool ffw::Renderbuffer2D::create (
 
 ```cpp
 bool ffw::Renderbuffer2D::resize (
-    GLsizei width
+    GLsizei width,
     GLsizei height
 )
 ```

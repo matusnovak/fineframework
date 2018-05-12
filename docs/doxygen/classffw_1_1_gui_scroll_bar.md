@@ -190,7 +190,7 @@ Inherits the following classes: **[ffw::GuiWidget](classffw_1_1_gui_widget.md)**
 
 ```cpp
 ffw::GuiScrollBar::GuiScrollBar (
-    GuiWindow * context
+    GuiWindow * context,
     bool vertical
 )
 ```
@@ -291,7 +291,7 @@ const ffw::Vec2f & ffw::GuiScrollBar::getRange () const
 
 ```cpp
 void ffw::GuiScrollBar::setRange (
-    const float min
+    const float min,
     const float max
 )
 ```
@@ -365,7 +365,7 @@ Overrides **[GuiWidget::getMinimumWrapSize](classffw_1_1_gui_widget.md#1a9ab138b
 
 ```cpp
 void ffw::GuiScrollBar::setStyle (
-    const GuiScrollBar::Style * style
+    const GuiScrollBar::Style * style,
     bool defaults = false
 )
 ```

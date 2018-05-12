@@ -29,7 +29,7 @@ search: false
 
 ```cpp
 void bufferobject.h::swap (
-    ffw::BufferObject & first
+    ffw::BufferObject & first,
     ffw::BufferObject & second
 )
 ```
@@ -40,7 +40,7 @@ void bufferobject.h::swap (
 
 ```cpp
 void bufferobject.h::swap (
-    ffw::Vbo & first
+    ffw::Vbo & first,
     ffw::Vbo & second
 )
 ```
@@ -51,7 +51,7 @@ void bufferobject.h::swap (
 
 ```cpp
 void bufferobject.h::swap (
-    ffw::Ibo & first
+    ffw::Ibo & first,
     ffw::Ibo & second
 )
 ```

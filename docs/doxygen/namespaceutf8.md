@@ -98,7 +98,7 @@ The library API - functions intended to be called by the users.
 
 ```cpp
 octet_iterator utf8::append (
-    uint32_t cp
+    uint32_t cp,
     octet_iterator result
 )
 ```
@@ -110,9 +110,9 @@ The library API - functions intended to be called by the users.
 
 ```cpp
 output_iterator utf8::replace_invalid (
-    octet_iterator start
-    octet_iterator end
-    output_iterator out
+    octet_iterator start,
+    octet_iterator end,
+    output_iterator out,
     uint32_t replacement
 )
 ```
@@ -123,8 +123,8 @@ output_iterator utf8::replace_invalid (
 
 ```cpp
 output_iterator utf8::replace_invalid (
-    octet_iterator start
-    octet_iterator end
+    octet_iterator start,
+    octet_iterator end,
     output_iterator out
 )
 ```
@@ -135,7 +135,7 @@ output_iterator utf8::replace_invalid (
 
 ```cpp
 uint32_t utf8::next (
-    octet_iterator & it
+    octet_iterator & it,
     octet_iterator end
 )
 ```
@@ -146,7 +146,7 @@ uint32_t utf8::next (
 
 ```cpp
 uint32_t utf8::peek_next (
-    octet_iterator it
+    octet_iterator it,
     octet_iterator end
 )
 ```
@@ -157,7 +157,7 @@ uint32_t utf8::peek_next (
 
 ```cpp
 uint32_t utf8::prior (
-    octet_iterator & it
+    octet_iterator & it,
     octet_iterator start
 )
 ```
@@ -168,7 +168,7 @@ uint32_t utf8::prior (
 
 ```cpp
 uint32_t utf8::previous (
-    octet_iterator & it
+    octet_iterator & it,
     octet_iterator pass_start
 )
 ```
@@ -180,8 +180,8 @@ Deprecated in versions that include "prior".
 
 ```cpp
 void utf8::advance (
-    octet_iterator & it
-    distance_type n
+    octet_iterator & it,
+    distance_type n,
     octet_iterator end
 )
 ```
@@ -192,7 +192,7 @@ void utf8::advance (
 
 ```cpp
 std::iterator_traits< octet_iterator >::difference_type utf8::distance (
-    octet_iterator first
+    octet_iterator first,
     octet_iterator last
 )
 ```
@@ -203,8 +203,8 @@ std::iterator_traits< octet_iterator >::difference_type utf8::distance (
 
 ```cpp
 octet_iterator utf8::utf16to8 (
-    u16bit_iterator start
-    u16bit_iterator end
+    u16bit_iterator start,
+    u16bit_iterator end,
     octet_iterator result
 )
 ```
@@ -215,8 +215,8 @@ octet_iterator utf8::utf16to8 (
 
 ```cpp
 u16bit_iterator utf8::utf8to16 (
-    octet_iterator start
-    octet_iterator end
+    octet_iterator start,
+    octet_iterator end,
     u16bit_iterator result
 )
 ```
@@ -227,8 +227,8 @@ u16bit_iterator utf8::utf8to16 (
 
 ```cpp
 octet_iterator utf8::utf32to8 (
-    u32bit_iterator start
-    u32bit_iterator end
+    u32bit_iterator start,
+    u32bit_iterator end,
     octet_iterator result
 )
 ```
@@ -239,8 +239,8 @@ octet_iterator utf8::utf32to8 (
 
 ```cpp
 u32bit_iterator utf8::utf8to32 (
-    octet_iterator start
-    octet_iterator end
+    octet_iterator start,
+    octet_iterator end,
     u32bit_iterator result
 )
 ```
@@ -251,7 +251,7 @@ u32bit_iterator utf8::utf8to32 (
 
 ```cpp
 octet_iterator utf8::find_invalid (
-    octet_iterator start
+    octet_iterator start,
     octet_iterator end
 )
 ```
@@ -262,7 +262,7 @@ octet_iterator utf8::find_invalid (
 
 ```cpp
 bool utf8::is_valid (
-    octet_iterator start
+    octet_iterator start,
     octet_iterator end
 )
 ```
@@ -273,7 +273,7 @@ bool utf8::is_valid (
 
 ```cpp
 bool utf8::starts_with_bom (
-    octet_iterator it
+    octet_iterator it,
     octet_iterator end
 )
 ```

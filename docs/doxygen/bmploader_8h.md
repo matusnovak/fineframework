@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void bmploader.h::swap (
-    ffw::BmpLoader & first
+    ffw::BmpLoader & first,
     ffw::BmpLoader & second
 )
 ```

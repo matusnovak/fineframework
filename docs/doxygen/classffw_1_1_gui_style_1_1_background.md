@@ -102,7 +102,7 @@ ffw::GuiStyle::Background::Background (
 
 ```cpp
 ffw::GuiStyle::Background::Background (
-    const Attribute< float > & r
+    const Attribute< float > & r,
     const ffw::Color & c
 )
 ```

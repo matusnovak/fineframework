@@ -54,8 +54,8 @@ float ffw::TextWrapper< T >::Token::width;
 
 ```cpp
 ffw::TextWrapper::Token::Token (
-    const T * str
-    size_t len
+    const T * str,
+    size_t len,
     float width
 )
 ```

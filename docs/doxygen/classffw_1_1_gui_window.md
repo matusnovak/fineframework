@@ -87,7 +87,7 @@ virtual ffw::GuiWindow::~GuiWindow ()
 
 ```cpp
 void ffw::GuiWindow::setSize (
-    float width
+    float width,
     float height
 )
 ```
@@ -98,7 +98,7 @@ void ffw::GuiWindow::setSize (
 
 ```cpp
 void ffw::GuiWindow::setPos (
-    float posx
+    float posx,
     float posy
 )
 ```
@@ -143,7 +143,7 @@ const GuiFont * ffw::GuiWindow::getDefaultFont () const
 
 ```cpp
 void ffw::GuiWindow::injectMousePos (
-    float posx
+    float posx,
     float posy
 )
 ```
@@ -154,7 +154,7 @@ void ffw::GuiWindow::injectMousePos (
 
 ```cpp
 void ffw::GuiWindow::injectScroll (
-    float posx
+    float posx,
     float posy
 )
 ```
@@ -165,7 +165,7 @@ void ffw::GuiWindow::injectScroll (
 
 ```cpp
 void ffw::GuiWindow::injectMouseButton (
-    ffw::MouseButton button
+    ffw::MouseButton button,
     ffw::Mode mode
 )
 ```
@@ -186,7 +186,7 @@ void ffw::GuiWindow::injectText (
 
 ```cpp
 void ffw::GuiWindow::injectKey (
-    ffw::Key key
+    ffw::Key key,
     ffw::Mode mode
 )
 ```
@@ -253,7 +253,7 @@ const GuiBody * ffw::GuiWindow::getLayout () const
 
 ```cpp
 void ffw::GuiWindow::pushEvent (
-    std::vector< GuiCallback > & callbacks
+    std::vector< GuiCallback > & callbacks,
     GuiEvent e
 )
 ```
@@ -264,7 +264,7 @@ void ffw::GuiWindow::pushEvent (
 
 ```cpp
 void ffw::GuiWindow::setTheme (
-    const GuiTheme * thm
+    const GuiTheme * thm,
     bool defaults = false
 )
 ```

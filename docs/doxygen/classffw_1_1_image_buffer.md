@@ -152,10 +152,10 @@ void ffw::ImageBuffer::destroy ()
 
 ```cpp
 bool ffw::ImageBuffer::allocate (
-    int w
-    int h
-    ffw::ImageType type
-    const void * pixels = NULL
+    int w,
+    int h,
+    ffw::ImageType type,
+    const void * pixels = NULL,
     int mips = 0
 )
 ```

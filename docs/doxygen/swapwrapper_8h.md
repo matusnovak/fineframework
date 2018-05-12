@@ -25,7 +25,7 @@ search: false
 
 ```cpp
 void swapwrapper.h::swap (
-    ffw::SwapWrapper< T > & first
+    ffw::SwapWrapper< T > & first,
     ffw::SwapWrapper< T > & second
 )
 ```

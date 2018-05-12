@@ -25,7 +25,7 @@ Inherits the following classes: **[ffw::JsonWriter::Stream](classffw_1_1_json_wr
 
 ```cpp
 ffw::JsonWriter::FileStream::FileStream (
-    const std::string & path
+    const std::string & path,
     std::ios_base::openmode mode
 )
 ```
@@ -60,7 +60,7 @@ void ffw::JsonWriter::FileStream::close ()
 
 ```cpp
 virtual bool ffw::JsonWriter::FileStream::write (
-    const char * in
+    const char * in,
     size_t len
 )
 ```

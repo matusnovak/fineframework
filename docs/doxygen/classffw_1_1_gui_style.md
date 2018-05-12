@@ -125,10 +125,10 @@ ffw::GuiStyle::GuiStyle ()
 
 ```cpp
 ffw::GuiStyle::GuiStyle (
-    const Background & b
-    const Border & br
-    const Outline & ou
-    const Text & t
+    const Background & b,
+    const Border & br,
+    const Outline & ou,
+    const Text & t,
     const Function & f
 )
 ```

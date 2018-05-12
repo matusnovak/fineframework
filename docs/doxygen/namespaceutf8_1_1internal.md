@@ -207,7 +207,7 @@ std::iterator_traits< octet_iterator >::difference_type utf8::internal::sequence
 
 ```cpp
 bool utf8::internal::is_overlong_sequence (
-    uint32_t cp
+    uint32_t cp,
     octet_difference_type length
 )
 ```
@@ -218,7 +218,7 @@ bool utf8::internal::is_overlong_sequence (
 
 ```cpp
 utf_error utf8::internal::increase_safely (
-    octet_iterator & it
+    octet_iterator & it,
     octet_iterator end
 )
 ```
@@ -230,8 +230,8 @@ Helper for get\_sequence\_x.
 
 ```cpp
 utf_error utf8::internal::get_sequence_1 (
-    octet_iterator & it
-    octet_iterator end
+    octet_iterator & it,
+    octet_iterator end,
     uint32_t & code_point
 )
 ```
@@ -243,8 +243,8 @@ get\_sequence\_x functions decode utf-8 sequences of the length x
 
 ```cpp
 utf_error utf8::internal::get_sequence_2 (
-    octet_iterator & it
-    octet_iterator end
+    octet_iterator & it,
+    octet_iterator end,
     uint32_t & code_point
 )
 ```
@@ -255,8 +255,8 @@ utf_error utf8::internal::get_sequence_2 (
 
 ```cpp
 utf_error utf8::internal::get_sequence_3 (
-    octet_iterator & it
-    octet_iterator end
+    octet_iterator & it,
+    octet_iterator end,
     uint32_t & code_point
 )
 ```
@@ -267,8 +267,8 @@ utf_error utf8::internal::get_sequence_3 (
 
 ```cpp
 utf_error utf8::internal::get_sequence_4 (
-    octet_iterator & it
-    octet_iterator end
+    octet_iterator & it,
+    octet_iterator end,
     uint32_t & code_point
 )
 ```
@@ -279,8 +279,8 @@ utf_error utf8::internal::get_sequence_4 (
 
 ```cpp
 utf_error utf8::internal::validate_next (
-    octet_iterator & it
-    octet_iterator end
+    octet_iterator & it,
+    octet_iterator end,
     uint32_t & code_point
 )
 ```
@@ -291,7 +291,7 @@ utf_error utf8::internal::validate_next (
 
 ```cpp
 utf_error utf8::internal::validate_next (
-    octet_iterator & it
+    octet_iterator & it,
     octet_iterator end
 )
 ```

@@ -61,8 +61,8 @@ ffw::FileInfo::FileInfo ()
 
 ```cpp
 ffw::FileInfo::FileInfo (
-    const T & name
-    const T & dir
+    const T & name,
+    const T & dir,
     const T & ext
 )
 ```

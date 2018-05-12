@@ -193,8 +193,8 @@ Inherited by the following classes: **[ffw::GuiScrollableTextInput::Inner](class
 
 ```cpp
 ffw::GuiTextInput::GuiTextInput (
-    GuiWindow * context
-    bool multiline = true
+    GuiWindow * context,
+    bool multiline = true,
     bool editable = true
 )
 ```
@@ -241,7 +241,7 @@ void ffw::GuiTextInput::appendValue (
 
 ```cpp
 bool ffw::GuiTextInput::setCursorIndex (
-    size_t strOffset
+    size_t strOffset,
     size_t lineNum
 )
 ```
@@ -305,7 +305,7 @@ bool ffw::GuiTextInput::isEmpty () const
 
 ```cpp
 void ffw::GuiTextInput::setStyle (
-    const GuiTextInput::Style * style
+    const GuiTextInput::Style * style,
     bool defaults = false
 )
 ```

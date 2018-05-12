@@ -90,9 +90,9 @@ ffw::ImageFormat::ImageFormat ()
 
 ```cpp
 ffw::ImageFormat::ImageFormat (
-    int width
-    int height
-    int depth
+    int width,
+    int height,
+    int depth,
     ffw::ImageType format
 )
 ```

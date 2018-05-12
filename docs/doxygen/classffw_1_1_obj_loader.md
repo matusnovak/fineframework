@@ -272,11 +272,11 @@ bool ffw::ObjLoader::gotObject () const
 
 ```cpp
 void ffw::ObjLoader::fillData (
-    float * ptr
-    size_t vo = 0
-    size_t no = 3
-    size_t to = 6
-    bool ts = false
+    float * ptr,
+    size_t vo = 0,
+    size_t no = 3,
+    size_t to = 6,
+    bool ts = false,
     size_t stride = 8
 )
 ```
