@@ -26,7 +26,7 @@ TEST_CASE("Resolve void promise and get status") {
     REQUIRE(p.isRejected() == false);
     REQUIRE(p.isResolved() == false);
     REQUIRE(p.getStatus() == ffw::Promise<int>::Status::WAITING);
-    p.getResult();
+    REQUIRE_THROWS(p.getResult());
 
     p.resolve();
 
