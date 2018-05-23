@@ -1,6 +1,7 @@
 /* This file is part of FineFramework project */
 #ifndef FFW_RING_BUFFER
 #define FFW_RING_BUFFER
+#include <stdlib.h>
 #include "../config.h"
 #include <atomic>
 #include <vector>
